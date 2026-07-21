@@ -10,7 +10,7 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 |---|---|---|
 | Islands | 2 | Emberfoot Isle (training, Lv 1–8, 16 maps) → ferry → Harthmoor Isle (Lv 8–40, 184 maps) |
 | Regions | 8 | Level-banded Lv 1 → 42 (authored arc); see WORLD_PLAN.md |
-| Maps | 200 | 4 towns, 16 interiors (incl. ferry), 105 fields, 53 dungeons (incl. 6 PQ maps), 14 secrets, 8 boss arenas |
+| Maps | 200 | 6 towns, 20 interiors (incl. ferry), 99 fields, 53 dungeons (incl. 6 PQ maps), 14 secrets, 8 boss arenas |
 | Monsters | 150 | 118 normal + 24 elite + 8 boss |
 | Party quests | 2 | `pq_undervault` (Lv 15–22), `pq_mainspring` (Lv 32–40); social/PARTY_QUEST.md |
 | Drop tables | 150 + 8 pools | One per monster, plus one equip pool per region |
