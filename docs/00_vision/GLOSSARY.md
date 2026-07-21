@@ -58,6 +58,8 @@ anywhere else in the tree is a validation failure.
 Debuffs: `burn` · `poison` · `chill` · `freeze` · `stun` · `root` · `silence` · `blind` ·
 `sunder` · `weaken`
 Buffs: `empower` · `fortify` · `swiftness` · `regen` · `clarity` · `veil`
+Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` ·
+`control_type` · `sense_type` · `curse_type`
 
 ## AI profiles (owner: 10_systems/AI_BEHAVIOR.md)
 `passive_wanderer` · `timid_grazer` · `aggressive_charger` · `territorial_guard` ·
@@ -88,6 +90,21 @@ Buffs: `empower` · `fortify` · `swiftness` · `regen` · `clarity` · `veil`
 ## Size classes (locked by 40_assets/ART_BIBLE.yaml `sizing.size_classes`)
 `tiny` · `small` · `medium` · `large` · `boss`
 
+## Job lines (owner: 10_systems/JOBS.md; promoted at B gate)
+
+| Stat | Line token | 1st job (Lv 8) | 2nd job (Lv 30) | 3rd job (Lv 60) |
+|---|---|---|---|---|
+| `might` | `bulwark` | Bulwark | Ironbrand | Aegis |
+| `finesse` | `keeneye` | Keeneye | Pathstalker | Skypiercer |
+| `focus` | `weaver` | Weaver | Runeweaver | Highweaver |
+| `fortune` | `flicker` | Flicker | Duskstep | Nightdancer |
+
+`novice` is the shared pre-advancement class (Lv 1–7). Skill IDs: `skill_<line>_NNN` plus
+`skill_novice_NNN`.
+
+## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in social/GUILD.md)
+`heater` · `round` · `banner` · `diamond` · `crest_ornate`
+
 ## ID prefixes (ranges owned by docs/ID_REGISTRY.md)
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
 `skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN`
@@ -97,12 +114,8 @@ Buffs: `empower` · `fortify` · `swiftness` · `regen` · `clarity` · `veil`
 `gloomwood` · `clockwork` · `arcane_reach` · `voidshore` · `rift` (shorthand `r01`–`r12`)
 
 ## Provisional (pending promotion at a phase gate)
-- **Job line tokens** (4, one per primary stat) and the 12 advancement job names: proposed by
-  10_systems/JOBS.md at Phase B, promoted here at the B gate. Skill IDs use the line token:
-  `skill_<line>_NNN`.
-- **Novice** starting class token: `novice` (pre-advancement, all players) — provisional until
-  JOBS.md confirms.
+- None currently. (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)
 
 ## Open Questions
-- Does `haste` need splitting into separate move-speed and attack-speed tokens for balance?
-  Owner: STATS.md at Phase B; default is one combined rating with two derived percentages.
+- ~~Split `haste` into move/attack tokens?~~ **Resolved at B gate:** kept combined; conversion
+  percentages owned by 10_systems/STATS.md §5. Reopen only if animation breakpoints demand it.

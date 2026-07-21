@@ -95,9 +95,10 @@ before item files exist (names final; stats authored in Phase D):
 Enhancement materials: `item_etc_0193`–`0197` = Emberstone I–V; `0198`–`0200` reserved.
 
 ## Skills — `skill_<line>_001`–`030` per job line
-Four line tokens (defined by 10_systems/JOBS.md at Phase B, promoted into GLOSSARY at the B
-gate). Budget per line: 21 authored skills (001–021 in tier order: 6 first-job, 7 second-job,
-8 third-job); 022–030 reserved. `skill_novice_001`–`010` reserved for the novice kit.
+Line tokens (promoted at B gate; owner 10_systems/JOBS.md): `bulwark` (might), `keeneye`
+(finesse), `weaver` (focus), `flicker` (fortune). Budget per line: 21 authored skills
+(001–021 in tier order: 6 first-job, 7 second-job, 8 third-job); 022–030 reserved.
+`skill_novice_001`–`010` reserved for the novice kit (up to 4 authored).
 
 ## NPCs — `npc_001`–`npc_120`
 
