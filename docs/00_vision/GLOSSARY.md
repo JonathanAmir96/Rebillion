@@ -1,0 +1,108 @@
+# GLOSSARY.md — Canonical Vocabulary (Tokens Are Law)
+
+The only legal tokens for stats, resources, currency, and shared enums. Every doc, schema, and
+content file uses these spellings exactly (snake_case, US spelling). Semantics live in each
+family's **owner doc** — this file defines the token and one-line gloss only; never restate
+rules here, and never restate this list elsewhere. Legacy genre terms are **banned**; the
+canonical banned-token list lives in `docs/VALIDATION.md` §1 (the only file allowed to spell
+them out).
+
+New term needed? Add it under **Provisional** with an Open Question. Silent invention of tokens
+anywhere else in the tree is a validation failure.
+
+## Primary stats (owner: 10_systems/STATS.md)
+
+| Token | Abbrev | Gloss |
+|---|---|---|
+| `might` | MGT | Melee/physical power stat |
+| `finesse` | FIN | Ranged/precision stat |
+| `focus` | FOC | Spell/essence stat |
+| `fortune` | FOR | Crit, evasion, and drop-luck stat |
+
+## Derived stats (owner: 10_systems/STATS.md)
+
+| Token | Gloss |
+|---|---|
+| `life` | Survival resource pool; 0 = defeat |
+| `essence` | Skill resource pool |
+| `power` | Weapon attack rating |
+| `spellpower` | Magic attack rating |
+| `armor` | Physical defense rating |
+| `warding` | Magic defense rating |
+| `precision` | Accuracy rating (hit chance input) |
+| `evasion` | Avoidance rating |
+| `crit_rate` | Critical hit chance |
+| `crit_power` | Critical hit damage multiplier |
+| `haste` | Movement + attack speed rating |
+
+## Meta tokens
+
+| Token | Gloss |
+|---|---|
+| `shard` / `shards` | Currency (singular / plural) |
+| `exp` | Experience points token |
+| `level` | Character/monster level |
+| `emberstone` | Enhancement material (10_systems/ENHANCEMENT.md); visual flavor may be reskinned by ART_BIBLE amendment |
+
+## Entity tiers (owner: 20_schemas/monster.schema.md)
+`normal` · `elite` · `boss`
+
+## Rarity (owner: 10_systems/ITEMS.md; colors locked in 40_assets/ART_BIBLE.yaml `rarity_code`)
+`common` · `uncommon` · `rare` · `epic` · `legendary`
+
+## Elements (owner: 10_systems/ELEMENTS.md)
+`neutral` · `fire` · `frost` · `nature` · `arcane` · `shadow`
+(`frost` covers water/ice/cold; `neutral` is un-attuned physical.)
+
+## Status effects (owner: 10_systems/STATUS_EFFECTS.md)
+Debuffs: `burn` · `poison` · `chill` · `freeze` · `stun` · `root` · `silence` · `blind` ·
+`sunder` · `weaken`
+Buffs: `empower` · `fortify` · `swiftness` · `regen` · `clarity` · `veil`
+
+## AI profiles (owner: 10_systems/AI_BEHAVIOR.md)
+`passive_wanderer` · `timid_grazer` · `aggressive_charger` · `territorial_guard` ·
+`ambush_lurker` · `ranged_skirmisher` · `aerial_swooper` · `pack_hunter` · `support_caller` ·
+`kamikaze_burster` · `stationary_turret` · `boss_scripted`
+
+## Skill effect ops (owner: 10_systems/SKILL_EFFECTS.md)
+`deal_damage` · `apply_status` · `cleanse_status` · `heal` · `restore_essence` ·
+`grant_shield` · `knockback` · `pull` · `dash` · `leap` · `taunt` · `summon_entity` ·
+`passive_stat_bonus` · `on_hit_proc`
+
+## Skill targeting (owner: 10_systems/SKILL_SYSTEM.md)
+`melee_arc` · `line` · `projectile` · `aoe_circle` · `self` · `party`
+
+## Animation states (owner: 40_assets/ANIMATION_STATES.md)
+`idle` · `walk` · `jump` · `fall` · `climb` · `attack` · `cast` · `hit` · `die` ·
+`telegraph` · `phase_shift` · `spawn`
+
+## Map types (owner: 15_maps_system/MAPS_SYSTEM.md)
+`field` · `dungeon` · `town` · `interior` · `arena` · `secret`
+
+## Equipment slots (owner: 10_systems/ITEMS.md)
+`weapon` · `head` · `body` · `legs` · `boots` · `gloves` · `cape` · `ring` · `amulet`
+
+## Weapon types (owner: 10_systems/ITEMS.md; one per job line)
+`blade` (might) · `bow` (finesse) · `staff` (focus) · `dirk` (fortune)
+
+## Size classes (locked by 40_assets/ART_BIBLE.yaml `sizing.size_classes`)
+`tiny` · `small` · `medium` · `large` · `boss`
+
+## ID prefixes (ranges owned by docs/ID_REGISTRY.md)
+`map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
+`skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN`
+
+## Region slugs (owner: docs/WORLD_PLAN.md)
+`emberfoot` · `verdant` · `millbrook` · `tidewatch` · `sunken` · `ashfall` · `frostpeak` ·
+`gloomwood` · `clockwork` · `arcane_reach` · `voidshore` · `rift` (shorthand `r01`–`r12`)
+
+## Provisional (pending promotion at a phase gate)
+- **Job line tokens** (4, one per primary stat) and the 12 advancement job names: proposed by
+  10_systems/JOBS.md at Phase B, promoted here at the B gate. Skill IDs use the line token:
+  `skill_<line>_NNN`.
+- **Novice** starting class token: `novice` (pre-advancement, all players) — provisional until
+  JOBS.md confirms.
+
+## Open Questions
+- Does `haste` need splitting into separate move-speed and attack-speed tokens for balance?
+  Owner: STATS.md at Phase B; default is one combined rating with two derived percentages.
