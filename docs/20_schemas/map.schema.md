@@ -6,19 +6,17 @@ docs/VALIDATION.md, 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_CONNECTION
 10_systems/SPAWN.md, 10_systems/AI_BEHAVIOR.md, 10_systems/QUESTS.md, 40_assets/ART_BIBLE.yaml,
 20_schemas/npc.schema.md, 20_schemas/monster.schema.md
 
-Formalizes the exact YAML typing for the map anatomy `15_maps_system/MAPS_SYSTEM.md` §1 describes
-conceptually, plus the portal/spawn shapes `15_maps_system/MAP_CONNECTIONS.md` and
-`15_maps_system/MAP_INTERACTABLES.md` leave to "the future map schema." This doc never restates
-those docs' rules (size guidance, portal semantics, waygate unlock, spawn-density budgets,
-traversal physics) — it only fixes field names, types, and the schema-local checks a validator
-runs on top of them.
-
 ## Purpose
 
-The content schema for one map in the 200-map world (`docs/WORLD_PLAN.md`). Read by: Phase D
-region-batch authors writing `map_NNN.yaml` files; the Phase D world-graph reconciler
-(`docs/VALIDATION.md` §5); `20_schemas/npc.schema.md` (bidirectional `map`/`npcs` check); and the
-Phase E coding pass loading map data into Godot scenes (`60_agents/`, not yet authored).
+The content schema for one map in the 200-map world (`docs/WORLD_PLAN.md`) — formalizing the exact
+YAML typing for the map anatomy `15_maps_system/MAPS_SYSTEM.md` §1 describes conceptually, plus the
+portal/spawn shapes `15_maps_system/MAP_CONNECTIONS.md` and `15_maps_system/MAP_INTERACTABLES.md`
+leave to "the future map schema." This doc never restates those docs' rules (size guidance, portal
+semantics, waygate unlock, spawn-density budgets, traversal physics) — it only fixes field names,
+types, and the schema-local checks a validator runs on top of them. Read by: Phase D region-batch
+authors writing `map_NNN.yaml` files; the Phase D world-graph reconciler (`docs/VALIDATION.md` §5);
+`20_schemas/npc.schema.md` (bidirectional `map`/`npcs` check); and the Phase E coding pass loading
+map data into Godot scenes (`60_agents/`, not yet authored).
 
 ## File conventions
 

@@ -9,12 +9,12 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Category | Count | Notes |
 |---|---|---|
 | Islands | 2 | Emberfoot Isle (training, Lv 1–8, 16 maps) → ferry → Harthmoor Isle (Lv 8–40, 184 maps) |
-| Regions | 8 | Level-banded Lv 1 → 40; see WORLD_PLAN.md |
+| Regions | 8 | Level-banded Lv 1 → 42 (authored arc); see WORLD_PLAN.md |
 | Maps | 200 | 4 towns, 16 interiors (incl. ferry), 105 fields, 53 dungeons (incl. 6 PQ maps), 14 secrets, 8 boss arenas |
 | Monsters | 150 | 118 normal + 24 elite + 8 boss |
 | Party quests | 2 | `pq_undervault` (Lv 15–22), `pq_mainspring` (Lv 32–40); social/PARTY_QUEST.md |
 | Drop tables | 150 + 8 pools | One per monster, plus one equip pool per region |
-| Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 30); 3rd tier deferred post-40 |
+| Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40); 3rd+ tiers deferred to future arcs |
 | Skills | 56 | 13 per job line (6 first / 7 second, passives included) + 4 novice |
 | Items — equip | ~86 | 24 weapons, 30 armor, 16 accessories, 16 boss uniques (batched tables) |
 | Items — use | ~30 | Tonics, cleanses, scrolls, foods (batched table) |
@@ -27,8 +27,10 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Skill effect ops | 14 | Owner: 10_systems/SKILL_EFFECTS.md |
 | Animation states | 12 | Owner: 40_assets/ANIMATION_STATES.md |
 
-Level cap is **40**. Clockwork elites may reach level 42; post-cap character progression is
-gear + party quests until a future cap raise (see Deliberate scope limits).
+The game's level cap is **300 (initial design, owner revision)**. This run authors the
+**first arc**: maps and monsters span Lv 1–42, and leveling past the arc is a slow grind on
+endgame maps and party quests until future arcs land. 10_systems/LEVELING.md designs the
+full curve to 300 (formula-first) with detail tables for the authored range.
 
 ## In scope (this run)
 - All docs and content listed in GENERATE.md §2, including locked Appendices A–C verbatim.
@@ -45,8 +47,8 @@ gear + party quests until a future cap raise (see Deliberate scope limits).
 ## Deliberate scope limits
 - One weapon type per job line (4 total). Armor is class-agnostic with stat leans.
 - Job advancement is linear (no branching); **3rd jobs are designed in name only**
-  (JOBS.md future-expansion section) — their skills, quests, and regions ship with a future
-  cap raise, and their skill IDs stay reserved in ID_REGISTRY.md.
+  (JOBS.md future-expansion section) — their skills, quests, and regions ship with future
+  arcs on the road to cap 300, and their skill IDs stay reserved in ID_REGISTRY.md.
 - Four ART_BIBLE biomes (frostpeak, arcane_reach, voidshore, rift) are reserved for future
   islands/expansions and unused in this run's content.
 - Palette-swap monster variants are permitted later but are **not** authored here and do not

@@ -25,11 +25,12 @@ code, no generated art. Read `README.md` for the tree map and
 
 ## Current design state (v2, owner revision 2026-07-21)
 
-- Two islands, level cap 40: Emberfoot Isle (training, maps 001–016) → Harborwind Ferry →
-  Harthmoor Isle (Millbrook hub + 6 regions + Clockwork endgame). 200 maps, 150 monsters
-  (118/24/8), 8 bosses, 2 party quests (`pq_undervault`, `pq_mainspring`).
-- Jobs: novice → 1st at Lv 8 → 2nd at Lv 30 (lines `bulwark`/`keeneye`/`weaver`/`flicker`);
-  3rd jobs named-and-reserved for a future cap raise.
+- Two islands: Emberfoot Isle (training, maps 001–016) → Harborwind Ferry → Harthmoor Isle
+  (Millbrook hub + 6 regions + Clockwork endgame). 200 maps, 150 monsters (118/24/8),
+  8 bosses, 2 party quests (`pq_undervault`, `pq_mainspring`). Game cap is Lv 300 (initial
+  design); this run authors the first arc, Lv 1–42.
+- Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 (lines `bulwark`/`keeneye`/`weaver`/`flicker`);
+  3rd jobs named-and-reserved for future arcs.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
 

@@ -3,7 +3,7 @@
 IDs are semantic + zero-padded, immutable once assigned, and must fall inside their reserved
 block. Collisions or out-of-range IDs fail VALIDATION.md §4. Region composition detail lives
 in WORLD_PLAN.md; this file owns **who may mint which IDs**. **v2 note:** re-blocked for the
-two-island / Lv 1–40 / 8-boss world before any content IDs were minted (Phase D had not
+two-island / first-arc (Lv 1–42) / 8-boss world before any content IDs were minted (Phase D had not
 started); this is the only permitted kind of re-blocking — never renumber minted IDs.
 
 ## Maps — `map_001`–`map_200` (8 region blocks)
@@ -74,7 +74,8 @@ reference them before item files exist (stats authored in Phase D):
 | 0007 | Essence Tonic | 0015 | Sharpening Oil |
 | 0008 | Greater Essence Tonic | 0016 | Ironhide Draught |
 
-Tonic tiers bind to level bands per 10_systems/ITEMS.md (v2: five tiers across Lv 1–40).
+Tonic tiers bind to level bands per 10_systems/ITEMS.md (v2: five tiers across the
+authored Lv 1–42 arc).
 `0017`–`0060` reserved for Phase D (region specialties, PQ consumables, quest consumables).
 
 ## Items — `item_etc_0001`–`0200` (16 per region, monster materials)

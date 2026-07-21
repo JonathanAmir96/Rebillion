@@ -5,25 +5,23 @@ References: 00_vision/GLOSSARY.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md, docs
 10_systems/ENHANCEMENT.md, 10_systems/INVENTORY.md, 10_systems/PERSISTENCE.md,
 10_systems/DEATH_PENALTY.md, 10_systems/QUESTS.md, 20_schemas/map.schema.md
 
-Formalizes the YAML typing for one of the 84 authored NPCs (`docs/ID_REGISTRY.md`). Town casts and
-per-region NPC counts are `docs/WORLD_PLAN.md`'s; which interactable a service ultimately opens
-(inn bed, storage chest, waygate console) is `15_maps_system/MAP_INTERACTABLES.md`'s; prices are
-`10_systems/ECONOMY.md`'s. This doc never restates those — it fixes field names, types, the `role`
-enum, and the schema-local checks a validator runs on top of them.
+## Purpose
+
+The content schema for one NPC in the 84-NPC cast (`docs/ID_REGISTRY.md`) — formalizing the YAML
+typing for a town cast entry (`docs/WORLD_PLAN.md`) whose service ultimately opens an interactable
+(inn bed, storage chest, waygate console; `15_maps_system/MAP_INTERACTABLES.md`) priced by
+`10_systems/ECONOMY.md`. This doc never restates those — it fixes field names, types, the `role`
+enum, and the schema-local checks a validator runs on top of them. Read by: Phase D region-batch
+authors writing `npc_NNN.yaml` files; `10_systems/QUESTS.md` content authors wiring
+`giver_npc`/`turn_in_npc` references; `20_schemas/map.schema.md` (bidirectional `map`/`npcs`
+check); and the Phase E coding pass loading NPC/dialogue/shop data (`60_agents/`, not yet
+authored).
 
 **Single-source rule.** Quest linkage lives in quest files only — a quest's `giver_npc` and
 `turn_in_npc` fields (`10_systems/QUESTS.md` §1) are the sole place an NPC↔quest relationship is
 recorded. This schema has **no** `quests`/`quest_ids`/`gives_quest` field of any kind, and none may
 be added without revising this doc; an NPC file that lists a quest fails schema conformance
 (`docs/VALIDATION.md` §3).
-
-## Purpose
-
-The content schema for one NPC in the 84-NPC cast (`docs/ID_REGISTRY.md`). Read by: Phase D
-region-batch authors writing `npc_NNN.yaml` files; `10_systems/QUESTS.md` content authors wiring
-`giver_npc`/`turn_in_npc` references; `20_schemas/map.schema.md` (bidirectional `map`/`npcs`
-check); and the Phase E coding pass loading NPC/dialogue/shop data (`60_agents/`, not yet
-authored).
 
 ## File conventions
 
@@ -33,26 +31,27 @@ authored). No batch tables. The file's `id` field and its filename's `NNN` must 
 
 ## Fields
 
-**Authority tags:** like `20_schemas/map.schema.md`, this schema's fields are static, design-time
-content (a shop's stock list, a greeting line) — `10_systems/PERSISTENCE.md`'s `server`/`client`/
-`shared` taxonomy governs *save state*, not this authored content, so most rows carry no tag.
-Where a `services` entry ties to genuine server-authoritative runtime state elsewhere (a bank's
-contents, a bind point), the tag is noted on `services`, not invented per sub-field here.
+Static content-definition files, loaded identically by client and server; per
+`10_systems/PERSISTENCE.md` §1 every field carries exactly one `authority` tag in its Notes —
+`server` (the value drives a server-adjudicated mechanic), `client` (pure local presentation,
+never reconciled), or `shared` (none of this schema's fields need it; see
+`20_schemas/map.schema.md`'s `moving_platforms` for the tree's example). Front-matter obeys
+`docs/VALIDATION.md` check 3.
 
-| Field | Type | Required | Notes |
-|---|---|---|---|
-| `id` | string `npc_NNN` | yes | Front-matter; immutable; `NNN` must fall inside this NPC's region block (`docs/ID_REGISTRY.md`) |
-| `schema` | string | yes | Front-matter; literal `20_schemas/npc.schema.md` |
-| `references` | list of string | yes | Front-matter; bare system-doc names (no path/extension) — baseline set in Validation rules |
-| `name` | string | yes | Display name; no fixed pattern owned by any doc — a Phase D authoring choice |
-| `region` | enum, region slug | yes | Owner: `docs/WORLD_PLAN.md`; must equal the home `map`'s `region` (Validation) |
-| `map` | string `map_NNN` | yes | Home map. That map's `npcs` list must include this NPC's `id`, and vice versa (`20_schemas/map.schema.md`) |
-| `role` | enum, ≤12 tokens (this doc) | yes | Owner: this schema (see Enums); proposed for `00_vision/GLOSSARY.md` Provisional promotion at the C gate, mirroring `10_systems/JOBS.md` §0's pattern for job-line tokens |
-| `shop` | `{items: [item id]}` | no | `item_equip_*`/`item_use_*`/`item_etc_*` ids only — **no price field anywhere in this file**; price is always read from the item's own `10_systems/ECONOMY.md` §4 band |
-| `services` | list of enum (this doc) | no | See Enums; role-service consistency in Validation. `inn_rest`/`storage`/`waygate` tie to `server`-authoritative state elsewhere (bind point — `10_systems/DEATH_PENALTY.md` §4; bank contents — `10_systems/INVENTORY.md` §7/`10_systems/PERSISTENCE.md`; waygate unlock set — `15_maps_system/MAP_CONNECTIONS.md` §3) that this file does not itself store |
-| `dialog` | `{greeting, idle?, farewell?}` | `greeting` required; `idle`/`farewell` optional | Each ≤2 sentences |
-| `portrait` | string, token | no | Asset resolved at Phase C/D; no file path. Proposed convention `portrait_<npc_id>` (this schema's own first-pass — no `40_assets/` doc owns portrait tokens yet, see Open Questions) |
-| `flavor` | string, ≤2 sentences | yes | General descriptive blurb about the NPC, distinct from what they *say* (`dialog`) |
+| Field | Type | Required | References | Notes |
+|---|---|---|---|---|
+| `id` | string `npc_NNN` | yes | `docs/ID_REGISTRY.md` | Immutable; `NNN` must fall inside this NPC's region block. `server` (identity). |
+| `schema` | string | yes | this file | Literal `20_schemas/npc.schema.md` (`docs/VALIDATION.md` §3). |
+| `references` | list of string | yes | `docs/VALIDATION.md` §3 | Bare system-doc names (no path/extension) — baseline set in Validation rules. |
+| `name` | string | yes | — | Display name; no fixed pattern owned by any doc — a Phase D authoring choice. `client`. |
+| `region` | enum | yes | `docs/WORLD_PLAN.md` | Must equal the home `map`'s `region` (Validation). `server`. |
+| `map` | string `map_NNN` | yes | `20_schemas/map.schema.md` | That map's `npcs` list must include this NPC's `id`, and vice versa. `server` (world-placement fact). |
+| `role` | enum, ≤12 tokens | yes | this schema (see Enums) | Proposed for `00_vision/GLOSSARY.md` Provisional promotion at the C gate, mirroring `10_systems/JOBS.md` §0's pattern for job-line tokens. `server` (gates which services/UI the NPC may serve). |
+| `shop` | `{items: [item id]}` | no | `10_systems/ITEMS.md`; `10_systems/ECONOMY.md` §4 | `item_equip_*`/`item_use_*`/`item_etc_*` ids only — **no price field anywhere in this file**; price is always read from the item's own ECONOMY.md band. `server` (transactions are server-authoritative economy state). |
+| `services` | list of enum | no | `15_maps_system/MAP_INTERACTABLES.md`; `10_systems/ENHANCEMENT.md`; `10_systems/PERSISTENCE.md` | See Enums; role-service consistency in Validation. `server` — `inn_rest`/`storage`/`waygate` trigger server-authoritative state elsewhere (bind point, bank contents, waygate unlock set) that this file does not itself store. |
+| `dialog` | `{greeting, idle?, farewell?}` | `greeting` required; `idle`/`farewell` optional | — | Each ≤2 sentences. `client`. |
+| `portrait` | string, token | no | `40_assets/` (not yet authored) | Asset resolved at Phase C/D; no file path. Proposed convention `portrait_<npc_id>` (this schema's own first-pass, see Open Questions). `client`. |
+| `flavor` | string, ≤2 sentences | yes | `docs/VALIDATION.md` §7 | General descriptive blurb about the NPC, distinct from what they *say* (`dialog`). `client`. |
 
 ## Enums
 

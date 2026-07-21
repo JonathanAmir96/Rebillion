@@ -92,7 +92,7 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 
 ## Job lines (owner: 10_systems/JOBS.md; promoted at B gate, revised v2)
 
-| Stat | Line token | 1st job (Lv 8) | 2nd job (Lv 30) | 3rd job (future expansion) |
+| Stat | Line token | 1st job (Lv 8) | 2nd job (Lv 40) | 3rd job (future arc) |
 |---|---|---|---|---|
 | `might` | `bulwark` | Bulwark | Ironbrand | Aegis |
 | `finesse` | `keeneye` | Keeneye | Pathstalker | Skypiercer |
@@ -100,7 +100,8 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 | `fortune` | `flicker` | Flicker | Duskstep | Nightdancer |
 
 `novice` is the shared pre-advancement class (Lv 1–7). Skill IDs: `skill_<line>_NNN` plus
-`skill_novice_NNN`. 3rd jobs are named-and-reserved only (cap 40 this run; see SCOPE.md).
+`skill_novice_NNN`. 3rd jobs are named-and-reserved only — this run authors the Lv 1–42
+arc; the game cap is 300 (initial design; see SCOPE.md).
 
 ## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in social/GUILD.md)
 `heater` · `round` · `banner` · `diamond` · `crest_ornate`

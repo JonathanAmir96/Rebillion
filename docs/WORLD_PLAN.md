@@ -1,7 +1,8 @@
 # WORLD_PLAN.md — Authoritative Region / Map / Monster Allocation (v2)
 
 Source of truth for world structure. **v2 (owner revision):** the world is **two islands,
-level cap 40, 8 bosses, 2 party quests.** Every map and monster inherits its region's biome
+8 bosses, 2 party quests**; the game's level cap is **300 (initial design)** and this run
+authors the **first arc — Lv 1–42 content**. Every map and monster inherits its region's biome
 identity (palette ramp + motif per `40_assets/ART_BIBLE.yaml` `environment.biome_identity`)
 and level band. ID blocks are owned by `ID_REGISTRY.md`; this file allocates **what each ID
 is**. Phase D region batches treat their region section here as their biome brief.
@@ -33,9 +34,11 @@ end. Transit is instant at launch (scheduled sailings are flavor, see Open Quest
 | — | **TOTAL** | | | | **200** | **118** | **24** | **8** |
 
 Map-type totals: 4 towns · 16 interiors (incl. ferry) · 105 fields · 53 dungeons (incl. 6
-party-quest maps) · 14 secrets · 8 arenas. Level cap is 40; Clockwork elites may reach 42.
-ART_BIBLE biome keys frostpeak / arcane_reach / voidshore / rift are **reserved for future
-expansions** (as are the four 3rd jobs); do not use them in this run's content.
+party-quest maps) · 14 secrets · 8 arenas. Authored content spans Lv 1–42 (Clockwork elites
+top out at 42); the game cap is 300 (initial design), so leveling past the arc is a slow
+grind on endgame maps/PQs until future arcs land. ART_BIBLE biome keys frostpeak /
+arcane_reach / voidshore / rift are **reserved for those future arcs** (as are the four 3rd
+jobs); do not use them in this run's content.
 
 ## World-graph spine
 
