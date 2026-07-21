@@ -4,29 +4,31 @@ This run produces the **design-documentation tree only**: prose system docs, sch
 machine-loadable YAML content. No game code, no generated art, no backend. A later coding pass
 (briefed in `60_agents/`) implements against these docs in Godot 4.3+.
 
-## Content totals (authoritative counts)
+## Content totals (authoritative counts — v2, owner revision 2026-07-21)
 
 | Category | Count | Notes |
 |---|---|---|
-| Regions | 12 | Level-banded Lv 1 → 100+; see WORLD_PLAN.md |
-| Maps | 200 | 4 towns, 17 interiors, 94 fields, 54 dungeons, 16 secrets, 15 boss arenas |
-| Monsters | 150 | 112 normal + 23 elite + 15 boss (11 region bosses + 4 Rift raid bosses) |
-| Drop tables | 150 + 12 pools | One per monster, plus one equip pool per region |
-| Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 30) → 3rd (Lv 60) |
-| Skills | 84 | 21 per job line (6 first / 7 second / 8 third, passives included) |
-| Items — equip | ~144 | 40 weapons, ~80 armor, ~24 accessories, 30 boss uniques (batched tables) |
-| Items — use | ~36 | Tonics, cleanses, scrolls, foods (batched table) |
-| Items — etc | ~197 | 16 materials per region + 5 emberstone tiers (batched tables) |
+| Islands | 2 | Emberfoot Isle (training, Lv 1–8, 16 maps) → ferry → Harthmoor Isle (Lv 8–40, 184 maps) |
+| Regions | 8 | Level-banded Lv 1 → 40; see WORLD_PLAN.md |
+| Maps | 200 | 4 towns, 16 interiors (incl. ferry), 105 fields, 53 dungeons (incl. 6 PQ maps), 14 secrets, 8 boss arenas |
+| Monsters | 150 | 118 normal + 24 elite + 8 boss |
+| Party quests | 2 | `pq_undervault` (Lv 15–22), `pq_mainspring` (Lv 32–40); social/PARTY_QUEST.md |
+| Drop tables | 150 + 8 pools | One per monster, plus one equip pool per region |
+| Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 30); 3rd tier deferred post-40 |
+| Skills | 56 | 13 per job line (6 first / 7 second, passives included) + 4 novice |
+| Items — equip | ~86 | 24 weapons, 30 armor, 16 accessories, 16 boss uniques (batched tables) |
+| Items — use | ~30 | Tonics, cleanses, scrolls, foods (batched table) |
+| Items — etc | ~133 | 16 materials per region + 5 emberstone tiers (batched tables) |
 | NPCs | 84 | Town-weighted; see ID_REGISTRY.md |
-| Quests | 90 | Region-banded kill/collect/talk/reach chains |
-| Elements | 6 | Owner: 10_systems/ELEMENTS.md |
+| Quests | 90 | Region-banded kill/collect/talk/reach chains, incl. 4 PQ handler quests |
+| Elements | 6 | Owner: 10_systems/ELEMENTS.md (`arcane` mobs appear only in Clockwork) |
 | Status effects | 16 | Owner: 10_systems/STATUS_EFFECTS.md |
 | AI profiles | 12 | Owner: 10_systems/AI_BEHAVIOR.md |
 | Skill effect ops | 14 | Owner: 10_systems/SKILL_EFFECTS.md |
 | Animation states | 12 | Owner: 40_assets/ANIMATION_STATES.md |
 
-Level cap is **100**. Rift monsters may reach level 105; post-cap character progression is an
-Open Question (below), not a promise.
+Level cap is **40**. Clockwork elites may reach level 42; post-cap character progression is
+gear + party quests until a future cap raise (see Deliberate scope limits).
 
 ## In scope (this run)
 - All docs and content listed in GENERATE.md §2, including locked Appendices A–C verbatim.
@@ -42,7 +44,11 @@ Open Question (below), not a promise.
 
 ## Deliberate scope limits
 - One weapon type per job line (4 total). Armor is class-agnostic with stat leans.
-- Job advancement is linear (no branching) to keep 84 skills coherent.
+- Job advancement is linear (no branching); **3rd jobs are designed in name only**
+  (JOBS.md future-expansion section) — their skills, quests, and regions ship with a future
+  cap raise, and their skill IDs stay reserved in ID_REGISTRY.md.
+- Four ART_BIBLE biomes (frostpeak, arcane_reach, voidshore, rift) are reserved for future
+  islands/expansions and unused in this run's content.
 - Palette-swap monster variants are permitted later but are **not** authored here and do not
   count toward the 150 designs.
 - Map YAMLs describe structure (zones, spawns, portals, interactables) at design granularity,
@@ -56,6 +62,6 @@ Open Question (below), not a promise.
 - **E** Coding-pass briefs: 60_agents/*, VALIDATION.md finalized with Open Questions rollup.
 
 ## Open Questions
-- Post-cap (Lv 100) progression: paragon-style trickle, gear-only, or nothing at launch?
-  Owner: LEVELING.md at Phase B; default assumption for now is gear-only.
 - Should secret maps count toward region completion metrics used by quests? Default: no.
+- v2 revision arrived after Phase B: system docs written for the Lv 100 world are patched by
+  the B-revision wave (tracked in docs/phase_reports/); flag any straggler references.

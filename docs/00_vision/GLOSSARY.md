@@ -90,9 +90,9 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 ## Size classes (locked by 40_assets/ART_BIBLE.yaml `sizing.size_classes`)
 `tiny` · `small` · `medium` · `large` · `boss`
 
-## Job lines (owner: 10_systems/JOBS.md; promoted at B gate)
+## Job lines (owner: 10_systems/JOBS.md; promoted at B gate, revised v2)
 
-| Stat | Line token | 1st job (Lv 8) | 2nd job (Lv 30) | 3rd job (Lv 60) |
+| Stat | Line token | 1st job (Lv 8) | 2nd job (Lv 30) | 3rd job (future expansion) |
 |---|---|---|---|---|
 | `might` | `bulwark` | Bulwark | Ironbrand | Aegis |
 | `finesse` | `keeneye` | Keeneye | Pathstalker | Skypiercer |
@@ -100,7 +100,7 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 | `fortune` | `flicker` | Flicker | Duskstep | Nightdancer |
 
 `novice` is the shared pre-advancement class (Lv 1–7). Skill IDs: `skill_<line>_NNN` plus
-`skill_novice_NNN`.
+`skill_novice_NNN`. 3rd jobs are named-and-reserved only (cap 40 this run; see SCOPE.md).
 
 ## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in social/GUILD.md)
 `heater` · `round` · `banner` · `diamond` · `crest_ornate`
@@ -109,9 +109,14 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
 `skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN`
 
-## Region slugs (owner: docs/WORLD_PLAN.md)
-`emberfoot` · `verdant` · `millbrook` · `tidewatch` · `sunken` · `ashfall` · `frostpeak` ·
-`gloomwood` · `clockwork` · `arcane_reach` · `voidshore` · `rift` (shorthand `r01`–`r12`)
+## Region slugs (owner: docs/WORLD_PLAN.md; v2 two-island world)
+`emberfoot` · `millbrook` · `verdant` · `tidewatch` · `gloomwood` · `ashfall` · `sunken` ·
+`clockwork` (shorthand `r01`–`r08`, in that order). Islands: **Emberfoot Isle** (r01) and
+**Harthmoor Isle** (r02–r08). Slugs `frostpeak` / `arcane_reach` / `voidshore` / `rift` are
+reserved for future expansions — invalid in this run's content.
+
+## Party quests (owner: 10_systems/social/PARTY_QUEST.md)
+`pq_undervault` · `pq_mainspring`
 
 ## Provisional (pending promotion at a phase gate)
 - None currently. (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)

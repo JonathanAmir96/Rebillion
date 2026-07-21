@@ -19,9 +19,10 @@ about, no trap builds. Sessions of 20 minutes must feel rewarding. Death stings 
 deletes an evening (DEATH_PENALTY.md). Idle moments in towns are part of the game, not waste.
 
 ## P3 — One world, hub-and-spoke
-A single connected overworld with Millbrook as its social heart. Regions have strong biome
-identity (one palette ramp, one motif), maps connect like real geography, and travel is a
-low-friction loop: hunt outward, warp home. The world map should be drawable from memory.
+Two islands, one world: a sheltered training isle, then a ferry to the great island where
+Millbrook is the social heart. Regions have strong biome identity (one palette ramp, one
+motif), maps connect like real geography, and travel is a low-friction loop: hunt outward,
+warp home. The world map should be drawable from memory.
 
 ## P4 — Compose, don't enumerate
 Skills are compositions of effect primitives. Monsters are stats plus a named behavior profile.

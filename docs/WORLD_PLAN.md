@@ -1,197 +1,196 @@
-# WORLD_PLAN.md — Authoritative Region / Map / Monster Allocation
+# WORLD_PLAN.md — Authoritative Region / Map / Monster Allocation (v2)
 
-Source of truth for world structure. Every map and monster inherits its region's biome identity
-(palette ramp + motif per `40_assets/ART_BIBLE.yaml` `environment.biome_identity`) and level
-band. ID blocks are owned by `ID_REGISTRY.md`; this file allocates **what each ID is**.
-Phase D region batches treat their region section here as their biome brief.
+Source of truth for world structure. **v2 (owner revision):** the world is **two islands,
+level cap 40, 8 bosses, 2 party quests.** Every map and monster inherits its region's biome
+identity (palette ramp + motif per `40_assets/ART_BIBLE.yaml` `environment.biome_identity`)
+and level band. ID blocks are owned by `ID_REGISTRY.md`; this file allocates **what each ID
+is**. Phase D region batches treat their region section here as their biome brief.
+
+## The two islands
+
+- **Emberfoot Isle** — the training island: one sheltered village, warm cinder fields, a
+  first taste of every mechanic, one graduation boss. Lv 1–8. 16 maps.
+- **Harthmoor Isle** — the main island (Victoria-style): the boat from Emberfoot lands at
+  Rosen Harbor; Millbrook is the social hub city; six hunting regions ring it, ending in the
+  Clockwork Ruins endgame. Lv 8–40. 184 maps.
+
+Crossing: the **Harborwind Ferry** (`map_015`, combat-free `interior` map) connects
+Emberfoot Village's dock (`map_001`) to Rosen Harbor (`map_017`) via `door` portals at each
+end. Transit is instant at launch (scheduled sailings are flavor, see Open Questions).
 
 ## Region overview
 
 | # | Region | Slug | Level | Biome key (ramp) | Maps | N | E | B |
 |---|--------|------|-------|------------------|------|---|---|---|
-| 1 | Emberfoot Grounds | `emberfoot` | 1–10 | emberfoot (ember) | 12 | 9 | 1 | 1 |
-| 2 | Verdant Hollow | `verdant` | 10–20 | verdant_hollow (verdant) | 16 | 9 | 2 | 1 |
-| 3 | Millbrook Township (hub) | `millbrook` | ~15 | old_town (earth) | 12 | 7 | 1 | 1 |
-| 4 | Tidewatch Coast | `tidewatch` | 20–30 | tidewatch (tide) | 16 | 9 | 2 | 1 |
-| 5 | Sunken Depths | `sunken` | 30–40 | tidewatch_dark (tide) | 16 | 10 | 2 | 1 |
-| 6 | Ashfall Wastes | `ashfall` | 40–50 | ashfall (ember/ash) | 18 | 10 | 2 | 1 |
-| 7 | Frostpeak Ascent | `frostpeak` | 50–60 | frostpeak (tide/frost) | 18 | 10 | 2 | 1 |
-| 8 | Gloomwood | `gloomwood` | 60–70 | gloomwood (verdant dark) | 18 | 10 | 2 | 1 |
-| 9 | Clockwork Ruins | `clockwork` | 70–80 | clockwork (earth/stone) | 18 | 10 | 2 | 1 |
-| 10 | Arcane Reach | `arcane_reach` | 80–90 | arcane_reach (arcane) | 18 | 10 | 2 | 1 |
-| 11 | Voidshore | `voidshore` | 90–100 | voidshore (arcane void) | 20 | 10 | 3 | 1 |
-| 12 | The Rift (endgame) | `rift` | 100+ | rift (arcane+mixed) | 18 | 8 | 2 | 4 |
-| — | **TOTAL** | | | | **200** | **112** | **23** | **15** |
+| 1 | Emberfoot Isle | `emberfoot` | 1–8 | emberfoot (ember) | 16 | 10 | 1 | 1 |
+| 2 | Millbrook & Rosen Harbor (hub) | `millbrook` | 8–14 | old_town (earth) | 26 | 12 | 2 | 1 |
+| 3 | Verdant Hollow | `verdant` | 8–16 | verdant_hollow (verdant) | 28 | 16 | 3 | 1 |
+| 4 | Tidewatch Coast | `tidewatch` | 14–22 | tidewatch (tide) | 27 | 16 | 3 | 1 |
+| 5 | Gloomwood | `gloomwood` | 20–28 | gloomwood (verdant dark) | 27 | 16 | 3 | 1 |
+| 6 | Ashfall Barrens | `ashfall` | 26–34 | ashfall (ember/ash) | 27 | 16 | 3 | 1 |
+| 7 | Sunken Depths | `sunken` | 30–38 | tidewatch_dark (tide) | 25 | 16 | 4 | 1 |
+| 8 | Clockwork Ruins (endgame) | `clockwork` | 34–40(+2) | clockwork (earth/stone) | 24 | 16 | 5 | 1 |
+| — | **TOTAL** | | | | **200** | **118** | **24** | **8** |
 
-Map-type totals: 4 towns · 17 interiors · 94 fields · 54 dungeons · 16 secrets · 15 arenas.
+Map-type totals: 4 towns · 16 interiors (incl. ferry) · 105 fields · 53 dungeons (incl. 6
+party-quest maps) · 14 secrets · 8 arenas. Level cap is 40; Clockwork elites may reach 42.
+ART_BIBLE biome keys frostpeak / arcane_reach / voidshore / rift are **reserved for future
+expansions** (as are the four 3rd jobs); do not use them in this run's content.
 
 ## World-graph spine
 
 ```
-Emberfoot → Verdant → MILLBROOK HUB → Tidewatch → Sunken
-                        ├──────────→ Ashfall  → Frostpeak
-                        ├──────────→ Gloomwood → Clockwork
-                        └──────────→ Arcane Reach → Voidshore → The Rift
+EMBERFOOT ISLE (1–8)                HARTHMOOR ISLE (8–40)
+Emberfoot Village ──ferry──> Rosen Harbor ─ Millbrook Central (hub)
+                                              ├─ west ─> Verdant Hollow (8–16) ─> Gloomwood (20–28) ─> Ashfall (26–34) ─> Clockwork (34–40)
+                                              └─ east ─> Tidewatch Coast (14–22) ─> Sunken Depths (30–38, terminus)
 ```
 
 ### Cross-region walk edges (both endpoint maps carry the portal; listed once)
 
 | Edge | From map | To map |
 |---|---|---|
-| Emberfoot → Verdant | `map_009` | `map_013` |
-| Verdant → Millbrook | `map_021` | `map_036` |
-| Millbrook → Tidewatch | `map_037` | `map_046` |
-| Tidewatch → Sunken | `map_054` | `map_057` |
-| Ashfall → Frostpeak | `map_082` | `map_091` |
-| Gloomwood → Clockwork | `map_119` | `map_127` |
-| Arcane Reach → Voidshore | `map_156` | `map_163` |
-| Voidshore → Rift | `map_173` | `map_183` |
+| Emberfoot Village → Ferry | `map_001` (door) | `map_015` |
+| Ferry → Rosen Harbor | `map_015` (door) | `map_017` |
+| Rosen Harbor → Millbrook Central | `map_017` | `map_018` |
+| Millbrook (west outskirts) → Verdant | `map_027` | `map_043` |
+| Millbrook (east road) → Tidewatch | `map_028` | `map_076` |
+| Verdant (deep hollow) → Gloomwood | `map_060` | `map_098` |
+| Gloomwood (north fen) → Ashfall | `map_114` | `map_125` |
+| Tidewatch (sea cave) → Sunken | `map_094` | `map_152` |
+| Ashfall (char ridge) → Clockwork | `map_141` | `map_177` |
 
-### Waygate network (Millbrook Central `map_029` is the hub)
-Bidirectional warp pairs: `map_029` ↔ `map_001` (Emberfoot Village), `map_041` (Tidewatch
-Port), `map_145` (Arcane Sanctum), `map_073` (Ashfall entrance), `map_109` (Gloomwood
-entrance). Waygates unlock per 15_maps_system/MAP_CONNECTIONS.md rules.
+Sunken Depths and Clockwork Ruins are deliberate termini (their bosses are the payoff).
+
+### Waygate network (Millbrook Central `map_018` is the hub)
+Bidirectional warp pairs: `map_018` ↔ `map_001` (Emberfoot Village — unlocks after the first
+ferry crossing), `map_071` (Tidewatch Port), `map_098` (Gloomwood entrance), `map_125`
+(Ashfall entrance). Rules per 15_maps_system/MAP_CONNECTIONS.md.
 
 **Spawn-point convention:** every map defines spawn `main`. Cross-region walk portals target
-spawn `from_<origin_slug>` on the destination map. Waygate arrivals target spawn `waygate`.
-Frostpeak and Clockwork are deliberate branch termini (their arenas are the payoff).
+spawn `from_<origin_slug>` on the destination map; ferry doors target `from_ferry`; waygate
+arrivals target `waygate`.
+
+## Party quests (concept owner: 10_systems/social/PARTY_QUEST.md)
+Two instanced co-op runs; each ends at an existing boss (no extra boss slots):
+- **`pq_undervault` — Undervault Heist** (Lv 15–22, party 3–6): stages `map_038`–`map_040`
+  → finale arena `map_042` (The Cellar King, party-instanced).
+- **`pq_mainspring` — Mainspring Trial** (Lv 32–40, party 3–6): stages `map_195`–`map_197`
+  → finale arena `map_200` (The Custodian, party-instanced).
+Solo players still fight both bosses via the arena's open (non-PQ) entry at reduced reward.
 
 ---
 
 ## Region sections
-Each lists: map allocation (types in ID order), monster slots, element mix, theme brief, boss
-seed, and content blocks (NPC/quest/etc-material IDs per ID_REGISTRY.md). Role coverage rule
-for monster batches: each region's normals must span ≥6 distinct role archetypes (melee,
-ranged/caster, aerial, lurker/ambush, pack/swarm, tank/guard, support, burster) — no
-stat-recolor rosters. Elites are flourished variants with stronger AI and silhouettes.
+Role coverage rule for monster batches: each region's normals must span ≥6 distinct role
+archetypes (melee, ranged/caster, aerial, lurker/ambush, pack/swarm, tank/guard, support,
+burster) — no stat-recolor rosters. Elites are flourished variants with stronger AI and
+silhouettes. Boss uniques: boss #n owns `item_equip_{0199+2n}`/`{0200+2n}` (Cindermaw
+0201–0202 … Custodian 0215–0216) per ID_REGISTRY.md.
 
-### R1 · Emberfoot Grounds (Lv 1–10) — `emberfoot`
-Cinder-warmed training grounds around the starter town. Tone: warm, safe-feeling, first-steps.
-- Maps: `001` town **Emberfoot Village** (start town, waygate) · `002`–`004` interiors
-  (inn, outfitter, elder's hall) · `005`–`009` fields (ascending 1→10; `009` exits to Verdant)
-  · `010` dungeon (Old Kiln Tunnels) · `011` secret · `012` arena (Kiln Heart).
-- Mobs: `001`–`009` normal · `010` elite · `011` boss. Element mix: 6 `neutral`, 3 `fire`.
-- Boss seed (`mob_011`, arena `map_012`): **Cindermaw** — an overgrown furnace-hound
-  slumbering in the village's old kiln. Fire, `large`, single phase, generous telegraphs.
-- Blocks: NPC `001`–`010` · quests `001`–`008` · etc `0001`–`0016`.
+### R1 · Emberfoot Isle (Lv 1–8) — `emberfoot`
+Cinder-warmed training island around the starter village. Tone: warm, safe, first-steps.
+- Maps `001`–`016`: `001` town **Emberfoot Village** (dock, waygate) · `002`–`004` interiors
+  (inn, outfitter, elder's hall) · `005`–`011` fields (ascending 1→8) · `012`–`013` dungeons
+  (Old Kiln Tunnels) · `014` secret · `015` interior **Harborwind Ferry** · `016` arena
+  (Kiln Heart).
+- Mobs `001`–`012`: normals `001`–`010` (7 `neutral`, 3 `fire`) · elite `011` · boss `012`.
+- Boss #1 (`mob_012`, Lv 8, arena `map_016`): **Cindermaw** — an overgrown furnace-hound
+  slumbering in the village kiln. Fire, `large`, single phase, generous telegraphs; the
+  island's graduation fight before the ferry.
+- Blocks: NPC `001`–`010` · quests `001`–`010` · etc `0001`–`0016`.
 
-### R2 · Verdant Hollow (Lv 10–20) — `verdant`
-Mossy sunken forest between Emberfoot and Millbrook. Tone: lush, dappled, first real danger.
-- Maps: `013`–`021` fields (`013` entrance; `021` exits to Millbrook) · `022`–`025` dungeons
-  (root warrens) · `026`–`027` secrets · `028` arena (Thornheart Grove).
-- Mobs: `012`–`020` normal · `021`–`022` elite · `023` boss. Mix: 5 `nature`, 4 `neutral`.
-- Boss seed (`mob_023`): **Thornback Sovereign** — a moss-armored beetle-stag older than the
-  hollow. Nature, `large`, 2 phases (shell intact / shell cracked).
-- Blocks: NPC `011`–`015` · quests `009`–`016` · etc `0017`–`0032`.
+### R2 · Millbrook & Rosen Harbor (Lv 8–14, hub) — `millbrook`
+Harbor district + timber-and-cobble market city; the social heart. Tone: cozy, lantern-lit.
+- Maps `017`–`042`: `017` town **Rosen Harbor** (ferry dock) · `018` town **Millbrook
+  Central** (hub, waygates) · `019`–`026` interiors (inn, smithy, market hall, guild hall,
+  tavern, mayor's house, harbor office, bank) · `027`–`035` fields (west outskirts `027`,
+  east road `028`, farmland, mill lanes) · `036`–`037` dungeons (Millbrook Catacombs) ·
+  `038`–`040` dungeons (**PQ `pq_undervault` stages**, party-instanced) · `041` secret ·
+  `042` arena (The Cellar Deep — also the PQ finale instance).
+- Mobs `013`–`027`: normals `013`–`024` (8 `neutral`, 4 `shadow`; levels 8–14) · elites
+  `025`–`026` · boss `027`.
+- Boss #2 (`mob_027`, Lv 14, arena `map_042`): **The Cellar King** — a bloated rat-king
+  throned on Millbrook's drowned grain stores. Shadow, `large`, summons vermin waves.
+- Blocks: NPC `011`–`032` · quests `011`–`024` · etc `0017`–`0032`.
 
-### R3 · Millbrook Township (hub, ~Lv 15) — `millbrook`
-Timber-and-cobble market town; the social heart. Tone: cozy, lantern-lit, busy.
-- Maps: `029` town **Millbrook Central** (hub, all waygates) · `030`–`035` interiors (inn,
-  smithy, market hall, guild hall, tavern, mayor's house) · `036`–`037` fields (west/east
-  outskirts; `036` from Verdant, `037` to Tidewatch) · `038`–`039` dungeons (Millbrook
-  Catacombs) · `040` arena (The Cellar Deep).
-- Mobs: `024`–`030` normal · `031` elite · `032` boss. Mix: 5 `neutral`, 2 `shadow`
-  (catacomb vermin, outskirt pests; levels 12–17).
-- Boss seed (`mob_032`): **The Cellar King** — a bloated rat-king throned on Millbrook's
-  drowned grain stores. Shadow, `large`, summons vermin waves.
-- Blocks: NPC `016`–`031` · quests `017`–`026` · etc `0033`–`0048`.
+### R3 · Verdant Hollow (Lv 8–16) — `verdant`
+Mossy sunken forest west of Millbrook. Tone: lush, dappled, first real danger.
+- Maps `043`–`070`: `043`–`060` fields (`043` entrance from `027`; `060` deep hollow exits
+  to Gloomwood) · `061`–`067` dungeons (root warrens) · `068`–`069` secrets · `070` arena
+  (Thornheart Grove).
+- Mobs `028`–`047`: normals `028`–`043` (10 `nature`, 6 `neutral`) · elites `044`–`046` ·
+  boss `047`.
+- Boss #3 (`mob_047`, Lv 16, arena `map_070`): **Thornback Sovereign** — a moss-armored
+  beetle-stag older than the hollow. Nature, `large`, 2 phases (shell intact / cracked).
+- Blocks: NPC `033`–`040` · quests `025`–`036` · etc `0033`–`0048`.
 
-### R4 · Tidewatch Coast (Lv 20–30) — `tidewatch`
-Wet cliffs, kelp shallows, a working port. Tone: bright brine, gulls, undertow menace.
-- Maps: `041` town **Tidewatch Port** (waygate) · `042`–`045` interiors (harbormaster, inn,
-  fishmonger, chandlery) · `046`–`051` fields (`046` from Millbrook) · `052`–`054` dungeons
-  (sea caves; `054` descends to Sunken) · `055` secret · `056` arena (Siren Shoal).
-- Mobs: `033`–`041` normal · `042`–`043` elite · `044` boss. Mix: 6 `frost`, 3 `neutral`.
-- Boss seed (`mob_044`): **Tidecaller Morva** — a siren-priestess who sings ships onto the
-  rocks. Frost, `large`, 2 phases (song / storm).
-- Blocks: NPC `032`–`043` · quests `027`–`034` · etc `0049`–`0064`.
+### R4 · Tidewatch Coast (Lv 14–22) — `tidewatch`
+Wet cliffs, kelp shallows, a working port east of Millbrook. Tone: bright brine, undertow.
+- Maps `071`–`097`: `071` town **Tidewatch Port** (waygate) · `072`–`075` interiors
+  (harbormaster, inn, fishmonger, chandlery) · `076`–`088` fields (`076` entrance from
+  `028`) · `089`–`094` dungeons (sea caves; `094` descends to Sunken) · `095`–`096` secrets
+  · `097` arena (Siren Shoal).
+- Mobs `048`–`067`: normals `048`–`063` (10 `frost`, 6 `neutral`) · elites `064`–`066` ·
+  boss `067`.
+- Boss #4 (`mob_067`, Lv 22, arena `map_097`): **Tidecaller Morva** — a siren-priestess who
+  sings ships onto the rocks. Frost, `large`, 2 phases (song / storm).
+- Blocks: NPC `041`–`054` · quests `037`–`048` · etc `0049`–`0064`.
 
-### R5 · Sunken Depths (Lv 30–40) — `sunken`
-Drowned ruins below the coast; bioluminescent gloom. Tone: pressure, wonder, dread.
-- Maps: `057`–`064` fields (`057` from Tidewatch) · `065`–`070` dungeons (ruin halls) ·
-  `071` secret · `072` arena (The Warden's Vault).
-- Mobs: `045`–`054` normal · `055`–`056` elite · `057` boss. Mix: 6 `frost`, 2 `shadow`,
-  2 `neutral`.
-- Boss seed (`mob_057`): **The Drowned Warden** — an armored husk still keeping a dead
-  kingdom's last door. Frost/shadow theme (primary `frost`), `boss` size, 2 phases.
-- Blocks: NPC `044`–`047` · quests `035`–`041` · etc `0065`–`0080`.
+### R5 · Gloomwood (Lv 20–28) — `gloomwood`
+Lightless canopy and fog beyond the hollow. Tone: hush, being watched.
+- Maps `098`–`124`: `098`–`114` fields (`098` entrance + waygate) · `115`–`121` dungeons
+  (hollow trunks, web vaults) · `122`–`123` secrets · `124` arena (The Broodloom).
+- Mobs `068`–`087`: normals `068`–`083` (8 `shadow`, 6 `nature`, 2 `neutral`) · elites
+  `084`–`086` · boss `087`.
+- Boss #5 (`mob_087`, Lv 28, arena `map_124`): **Mother Gloam** — the spider-matron whose
+  web *is* the wood's dark. Shadow, `boss` size, 2 phases (loom / frenzy).
+- Blocks: NPC `055`–`061` · quests `049`–`058` · etc `0065`–`0080`.
 
-### R6 · Ashfall Wastes (Lv 40–50) — `ashfall`
-Ash dunes and charred spires under a smoldering sky. Tone: oppressive heat, endurance.
-- Maps: `073`–`082` fields (`073` waygate entrance; `082` climbs to Frostpeak) ·
-  `083`–`087` dungeons (cinder vents) · `088`–`089` secrets · `090` arena (The Stoked Core).
-- Mobs: `058`–`067` normal · `068`–`069` elite · `070` boss. Mix: 7 `fire`, 3 `neutral`.
-- Boss seed (`mob_070`): **Karnothal, the Stoker** — a charred colossus feeding the wastes'
-  eternal cinders. Fire, `boss` size, 2 phases (stoked / overburn).
-- Blocks: NPC `048`–`051` · quests `042`–`048` · etc `0081`–`0096`.
+### R6 · Ashfall Barrens (Lv 26–34) — `ashfall`
+Ash dunes and charred spires on the island's burnt north. Tone: oppressive heat, endurance.
+- Maps `125`–`151`: `125`–`141` fields (`125` entrance + waygate; `141` char ridge exits to
+  Clockwork) · `142`–`148` dungeons (cinder vents) · `149`–`150` secrets · `151` arena
+  (The Stoked Core).
+- Mobs `088`–`107`: normals `088`–`103` (10 `fire`, 6 `neutral`) · elites `104`–`106` ·
+  boss `107`.
+- Boss #6 (`mob_107`, Lv 34, arena `map_151`): **Karnothal, the Stoker** — a charred
+  colossus feeding the barrens' eternal cinders. Fire, `boss` size, 2 phases.
+- Blocks: NPC `062`–`068` · quests `059`–`068` · etc `0081`–`0096`.
 
-### R7 · Frostpeak Ascent (Lv 50–60) — `frostpeak`
-Vertical ice climbs above the ash line. Tone: thin air, silence, brittle light. Branch terminus.
-- Maps: `091`–`100` fields (`091` from Ashfall; strongly vertical) · `101`–`105` dungeons
-  (glacial caves) · `106`–`107` secrets · `108` arena (The Hornfall Summit).
-- Mobs: `071`–`080` normal · `081`–`082` elite · `083` boss. Mix: 7 `frost`, 3 `neutral`.
-- Boss seed (`mob_083`): **Rimehorn** — an avalanche-elk avatar of the summit. Frost,
-  `boss` size, 2 phases (stampede / whiteout).
-- Blocks: NPC `052`–`055` · quests `049`–`055` · etc `0097`–`0112`.
+### R7 · Sunken Depths (Lv 30–38) — `sunken`
+Drowned ruins below the coast; bioluminescent gloom; `water_physics` fields. Terminus.
+- Maps `152`–`176`: `152`–`163` fields (`152` entrance from `094`) · `164`–`173` dungeons
+  (ruin halls) · `174`–`175` secrets · `176` arena (The Warden's Vault).
+- Mobs `108`–`128`: normals `108`–`123` (10 `frost`, 4 `shadow`, 2 `neutral`) · elites
+  `124`–`127` · boss `128`.
+- Boss #7 (`mob_128`, Lv 38, arena `map_176`): **The Drowned Warden** — an armored husk
+  still keeping a dead kingdom's last door. Frost, `boss` size, 2 phases.
+- Blocks: NPC `069`–`075` · quests `069`–`078` · etc `0097`–`0112`.
 
-### R8 · Gloomwood (Lv 60–70) — `gloomwood`
-Lightless canopy, fog, gnarled roots. Tone: hush, being watched.
-- Maps: `109`–`119` fields (`109` waygate entrance; `119` to Clockwork) · `120`–`124`
-  dungeons (hollow trunks, web vaults) · `125` secret · `126` arena (The Broodloom).
-- Mobs: `084`–`093` normal · `094`–`095` elite · `096` boss. Mix: 4 `shadow`, 4 `nature`,
-  2 `neutral`.
-- Boss seed (`mob_096`): **Mother Gloam** — the spider-matron whose web *is* the wood's dark.
-  Shadow, `boss` size, 2 phases (loom / frenzy).
-- Blocks: NPC `056`–`059` · quests `056`–`062` · etc `0113`–`0128`.
-
-### R9 · Clockwork Ruins (Lv 70–80) — `clockwork`
-A dead brass city still ticking. Tone: awe, trespass, precision. Branch terminus.
-- Maps: `127`–`135` fields (`127` from Gloomwood) · `136`–`142` dungeons (gearworks,
-  vault lines) · `143` secret · `144` arena (The Mainspring).
-- Mobs: `097`–`106` normal · `107`–`108` elite · `109` boss. Mix: 6 `neutral`, 4 `arcane`
-  (constructs; sparks of the old power).
-- Boss seed (`mob_109`): **The Custodian** — a haywire warden-engine guarding citizens who
-  left centuries ago. Neutral/arcane (primary `arcane`), `boss` size, 3 phases.
-- Blocks: NPC `060`–`063` · quests `063`–`069` · etc `0129`–`0144`.
-
-### R10 · Arcane Reach (Lv 80–90) — `arcane_reach`
-Floating shards and rune-lit sanctum of the magi. Tone: sublime, unstable footing.
-- Maps: `145` town **Arcane Sanctum** (waygate) · `146`–`149` interiors (athenaeum, enchanter,
-  inn, observatory) · `150`–`156` fields (`156` to Voidshore) · `157`–`160` dungeons
-  (collapsed spires) · `161` secret · `162` arena (The Unbound Stacks).
-- Mobs: `110`–`119` normal · `120`–`121` elite · `122` boss. Mix: 7 `arcane`, 3 `neutral`.
-- Boss seed (`mob_122`): **The Unbound Archive** — a living spell-library that reads its
-  visitors. Arcane, `boss` size, 3 phases (index / errata / burn the books).
-- Blocks: NPC `064`–`075` · quests `070`–`077` · etc `0145`–`0160`.
-
-### R11 · Voidshore (Lv 90–100) — `voidshore`
-Where the sky tore and a black tide came in. Tone: last-lighthouse defiance.
-- Maps: `163`–`173` fields (`163` from Arcane Reach; `173` to the Rift) · `174`–`179`
-  dungeons (void-eaten cliffs) · `180`–`181` secrets · `182` arena (The Last Jetty).
-- Mobs: `123`–`132` normal · `133`–`135` elite · `136` boss. Mix: 6 `shadow`, 4 `arcane`.
-- Boss seed (`mob_136`): **Voidmaw Herald** — the hunger that walks ahead of the tide.
-  Shadow, `boss` size, 3 phases.
-- Blocks: NPC `076`–`079` · quests `078`–`084` · etc `0161`–`0176`.
-
-### R12 · The Rift (Lv 100+) — `rift`
-Reality fractured into mixed-motif shardscapes. Endgame; party content. Designed **last**.
-- Maps: `183`–`188` fields (`183` from Voidshore; staging shards) · `189`–`194` dungeons
-  (raid approaches) · `195`–`196` secrets · `197`–`200` raid arenas (one per raid boss).
-- Mobs: `137`–`144` normal (Lv 100–104) · `145`–`146` elite (Lv 103–105) · `147`–`150`
-  **raid bosses** (multi-phase, party-scaled; see PARTY.md + COMBAT_FORMULA.md).
-- Raid boss seeds (aspects of the tear): `147` **The First Fracture** (arcane, arena
-  `map_197`) · `148` **The Echo of Everything** (shadow, `map_198`) · `149` **The Borrowed
-  Furnace** (fire, `map_199`) · `150` **The Still Abyss** (frost, `map_200`).
-- Mix (normals/elites): 5 `arcane`, 4 `shadow`, 1 `neutral`.
-- Blocks: NPC `080`–`084` (rift-camp vendors/handlers) · quests `085`–`090` · etc
-  `0177`–`0192`.
+### R8 · Clockwork Ruins (Lv 34–40, endgame) — `clockwork`
+A dead brass city still ticking, past the char ridge. Tone: awe, trespass, precision.
+- Maps `177`–`200`: `177`–`188` fields (`177` entrance from `141`) · `189`–`194` dungeons
+  (gearworks) · `195`–`197` dungeons (**PQ `pq_mainspring` stages**, party-instanced) ·
+  `198`–`199` secrets · `200` arena (The Mainspring — also the PQ finale instance).
+- Mobs `129`–`150`: normals `129`–`144` (8 `neutral`, 8 `arcane`; Lv 34–40) · elites
+  `145`–`149` (Lv 40–42) · boss `150`.
+- Boss #8 (`mob_150`, Lv 40, arena `map_200`): **The Custodian** — a haywire warden-engine
+  guarding citizens who left centuries ago. Arcane, `boss` size, 3 phases;
+  party-recommended (PQ finale), soloable via open arena entry at reduced reward.
+- Blocks: NPC `076`–`084` · quests `079`–`086` (+ PQ quests `087`–`090`) · etc
+  `0113`–`0128`.
 
 ## Element affinity summary
-Region dominant elements for tuning and drops: R1 fire · R2 nature · R3 neutral/shadow ·
-R4–R5 frost · R6 fire · R7 frost · R8 shadow/nature · R9 neutral/arcane · R10 arcane ·
-R11 shadow/arcane · R12 arcane/mixed. Monsters use the matching palette ramp per ART_BIBLE.
+R1 fire · R2 neutral/shadow · R3 nature · R4 frost · R5 shadow/nature · R6 fire ·
+R7 frost/shadow · R8 neutral/arcane. `arcane` monsters appear only in Clockwork — arcane
+stays special per ART_BIBLE usage rules. Monsters use the matching palette ramp.
 
 ## Open Questions
-- Should Frostpeak/Clockwork termini get a late-game shortcut back to Millbrook besides the
-  return scroll (e.g., a one-way drop chute)? Owner: MAP_CONNECTIONS.md, Phase B.
-- Interior maps and combat: interiors are combat-free by default — confirm in MAPS_SYSTEM.md.
+- Ferry: instant transit at launch; add scheduled sailings + an on-deck ambush event later?
+  Owner: MAP_CONNECTIONS.md (flavor-only until then).
+- Verdant (ends Lv 16) feeds Gloomwood (starts Lv 20); the intended path detours through
+  Tidewatch first. Acceptable nonlinearity or add a Lv 16–20 bridge field to Verdant's deep
+  end? Default: keep, signpost via quests.
+- Future-expansion islands (frostpeak / arcane_reach / voidshore / rift biomes + 3rd jobs):
+  out of scope this run; revisit after cap raise.
