@@ -1,0 +1,80 @@
+meta: { version: 1.0.0, status: locked, owner: Agent-3,
+        applies_to: [characters, monsters, npcs, tilesets, props, projectiles, fx, ui],
+        engine_target: "Godot 4.3+", spelling: US }
+identity:
+  genre: "2D side-scrolling fantasy MMORPG platformer"
+  mood: ["adventurous","cozy-heroic","readable","slightly whimsical"]
+  anti_goals: ["no photoreal shading","no HD-2D / normal-mapped lighting",
+               "no gradient-heavy vector look","must NOT clone any existing IP"]
+pixel:
+  art_style: "clean pixel art with selective outlines"
+  pixel_density: "1 art pixel = 1 game pixel (no mixed resolutions)"
+  base_unit_px: 16
+  resolution_policy: { render_base: [640,360], scaling: "integer only (2x/3x/4x); nearest filter" }
+  no_sub_pixel: true
+sizing:
+  pivot: "feet-center"   # HARD RULE — prevents float/sink between maps
+  size_classes: { tiny:[24,24], small:[32,32], medium:[48,48], large:[64,64], boss:[96,96] }
+  player_frame: small
+palette:
+  outline: { mode: selective, color: "#241726", internal_lines: "darker shade of local color" }
+  neutrals: { ink:"#241726", shadow:"#3a2b40", stone:"#6b6270", ash:"#9a92a0", bone:"#e8e2d8", white:"#fbf7ef" }
+  ramps:
+    ember:  ["#5a1e14","#8f2d1b","#c8461f","#eb7a2c","#f6c34b"]
+    verdant:["#173a24","#256b34","#3f9a45","#7ac04b","#c6e37a"]
+    tide:   ["#122a4a","#1e4c78","#2f7aa0","#54b0c6","#a7e0e3"]
+    arcane: ["#2a1a4a","#4b2a78","#7a3f9a","#b064c6","#e0a7e3"]
+    earth:  ["#3a2b1e","#6b4a2d","#9a6f3f","#c09a54","#e3c67a"]
+  usage_rules: ["1 dominant ramp + neutrals + <=1 accent per sprite",
+                "reserve arcane accents for magic/rare/elite","elemental mobs use matching ramp"]
+shading: { model: "cel/stepped ramp (no gradients)", light_source: "top-left (consistent)",
+           ramp_steps: 4, dithering: "sparse, large props only", banding: "intentional steps ok, no blur" }
+readability:
+  silhouette_first: true
+  rules: ["recognizable in solid-black silhouette","player vs mobs distinct in a crowd",
+          "elite/boss get a silhouette flourish","interactables read differently from decor"]
+  contrast: { foreground_vs_background: "chars higher saturation/contrast than tiles",
+              background_desaturation: "parallax desaturates+darkens with depth" }
+animation:
+  principle: "snappy, readable, few frames done well"
+  frame_budgets: { idle:[2,4], walk:[6,8], jump:[1,2], fall:[1,2], climb:[2,4],
+                   attack:[4,6], cast:[4,6], hit:[2,3], die:[4,6] }
+  telegraphs: "boss/elite attacks need a distinct wind-up pose frame"
+environment:
+  tile_grid_px: 16
+  seamless: "terrain tiles tile seamlessly on 16px grid"
+  biome_identity:
+    emberfoot:      { ramp: ember,   motif: "cinders, cracked basalt, warm haze" }
+    verdant_hollow: { ramp: verdant, motif: "mossy stone, roots, dappled light" }
+    old_town:       { ramp: earth,   motif: "timber, thatch, cobble, lantern glow" }
+    tidewatch:      { ramp: tide,    motif: "wet stone, kelp, bioluminescence" }
+    tidewatch_dark: { ramp: tide,    motif: "sunken ruins, deep gloom" }
+    ashfall:        { ramp: ember,   motif: "ash dunes, charred spires" }
+    frostpeak:      { ramp: tide,    motif: "ice, snow, frozen cliffs" }
+    gloomwood:      { ramp: verdant, motif: "dark canopy, fog, gnarled roots" }
+    clockwork:      { ramp: earth,   motif: "gears, brass, crumbling stone" }
+    arcane_reach:   { ramp: arcane,  motif: "floating shards, runes, void mist" }
+    voidshore:      { ramp: arcane,  motif: "torn sky, void tides" }
+    rift:           { ramp: arcane,  motif: "reality fractures, mixed motifs" }
+  depth_layers: ["sky/far-parallax (most desaturated)","mid-parallax","playfield (full contrast)","foreground occluders (darkened)"]
+interactables: { portal: "glowing arch, biome accent, shimmer", rope: "braided 2-3px, sway",
+                 ladder: "rung-based, clearly climbable", reactor: "chipped/highlighted tell",
+                 loot_drop: "bounce-settle, rarity tint" }
+ui: { style: "pixel UI matching world palette, chunky readable frames",
+      font: "bitmap pixel font, integer-scaled only",
+      hud_colors: { life: ember, essence: tide, exp: arcane },
+      iconography: "16x16 or 24x24 icons, 1px outline" }
+rarity_code: { common:"#9a92a0", uncommon:"#3f9a45", rare:"#2f7aa0", epic:"#7a3f9a", legendary:"#eb7a2c" }
+export_contract:
+  format: "PNG 32-bit RGBA, transparent bg"
+  atlas: "power-of-two per entity, 1px padding, extrude edges"
+  frame_naming: "{entity_id}_{state}_{NN}  (NN=2-digit zero-based)"
+  godot_import: { texture_filter: Nearest, mipmaps: false, fix_alpha_border: true }
+  pivot_export: "feet-center; document exact pixel per asset"
+  forbidden: ["mixed pixel densities in one atlas","AA downsampling on export","off-palette colors without amendment"]
+pixellab_defaults:
+  style_prompt_core: "limited-palette pixel art, selective dark plum outline, top-left cel shading in 4 stepped ramps, clean readable silhouette, no gradients, no AA blur, feet-center framing"
+  negatives: "photorealistic, HD-2D, normal-mapped, smooth gradients, blurry, modern vector, mixed resolution, extra limbs, off-palette neon"
+  per_asset_injects_only: [silhouette, palette_accent, motif, size_class, state_list]
+amendments: []
+open_questions: ["confirm bitmap font choice+license","confirm boss size policy when >96px"]
