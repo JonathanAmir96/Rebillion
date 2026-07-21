@@ -17,7 +17,8 @@ is**. Phase D region batches treat their region section here as their biome brie
 
 Crossing: the **Harborwind Ferry** (`map_015`, combat-free `interior` map) connects
 Emberfoot Village's dock (`map_001`) to Rosen Harbor (`map_017`) via `door` portals at each
-end. Transit is instant at launch (scheduled sailings are flavor, see Open Questions).
+end, for a small shard fare (10_systems/ECONOMY.md). Transit is instant at launch
+(scheduled sailings are flavor, see Open Questions).
 
 ## Region overview
 
@@ -40,14 +41,29 @@ grind on endgame maps/PQs until future arcs land. ART_BIBLE biome keys frostpeak
 arcane_reach / voidshore / rift are **reserved for those future arcs** (as are the four 3rd
 jobs); do not use them in this run's content.
 
-## World-graph spine
+## World graph — the Harthmoor Ring (v2.2, Victoria-circle layout)
 
 ```
-EMBERFOOT ISLE (1–8)                HARTHMOOR ISLE (8–40)
-Emberfoot Village ──ferry──> Rosen Harbor ─ Millbrook Central (hub)
-                                              ├─ west ─> Verdant Hollow (8–16) ─> Gloomwood (20–28) ─> Ashfall (26–34) ─> Clockwork (34–40)
-                                              └─ east ─> Tidewatch Coast (14–22) ─> Sunken Depths (30–38, terminus)
+EMBERFOOT ISLE (1–8)
+Emberfoot Village ──ferry (paid)──> Rosen Harbor (south coast)
+
+HARTHMOOR ISLE — walk the ring either way; the center is the endgame:
+
+               Ashfall Barrens (26–34, north)
+              /                        \
+   Gloomwood (20–28, NW)        Tidewatch Coast (14–22, east)
+        |          \\  CLOCKWORK  //         |
+        |           \\ RUINS (34–40,        (down) Sunken Depths (30–38, spur)
+        |            \\ center)  //          |
+   Verdant Hollow (8–16, west)   Rosen Harbor ─ Millbrook Central (8–14, south hub)
+              \                        /
+               └── Millbrook ring road ┘
 ```
+
+Ring order: **Millbrook ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔ Millbrook** (closed
+loop, walkable both directions). **Clockwork Ruins is the island's dead brass heart** —
+Sleepywood-style center with two gates (from Ashfall's char ridge and Gloomwood's web
+vaults). Sunken Depths is a depth spur under the coast and a deliberate terminus.
 
 ### Cross-region walk edges (both endpoint maps carry the portal; listed once)
 
@@ -60,19 +76,23 @@ Emberfoot Village ──ferry──> Rosen Harbor ─ Millbrook Central (hub)
 | Millbrook (east road) → Tidewatch | `map_028` | `map_076` |
 | Verdant (deep hollow) → Gloomwood | `map_060` | `map_098` |
 | Gloomwood (north fen) → Ashfall | `map_114` | `map_125` |
+| **Tidewatch (north strand) → Ashfall (east dunes)** — ring closure | `map_088` | `map_140` |
 | Tidewatch (sea cave) → Sunken | `map_094` | `map_152` |
 | Ashfall (char ridge) → Clockwork | `map_141` | `map_177` |
+| **Gloomwood (web vaults) → Clockwork (west gate)** | `map_121` | `map_188` |
 
-Sunken Depths and Clockwork Ruins are deliberate termini (their bosses are the payoff).
-
-### Waygate network (Millbrook Central `map_018` is the hub)
-Bidirectional warp pairs: `map_018` ↔ `map_001` (Emberfoot Village — unlocks after the first
-ferry crossing), `map_071` (Tidewatch Port), `map_098` (Gloomwood entrance), `map_125`
-(Ashfall entrance). Rules per 15_maps_system/MAP_CONNECTIONS.md.
+### Harthmoor Coachworks (paid town transport — v2.2 replaces the free warp network)
+Coach stations sit in the three Harthmoor towns: **Rosen Harbor** (`map_017`), **Millbrook
+Central** (`map_018`), **Tidewatch Port** (`map_071`). A ride between any two stations costs
+**shards** (fares owned by 10_systems/ECONOMY.md, scaling with distance); the Harborwind
+Ferry likewise charges a small shard fare per crossing. There are **no free warps**: the
+ring is walked, coaches are the paid shortcut, and the Millbrook Return Scroll
+(`item_use_0013`) remains the magic escape home. Rules + fares hook per
+15_maps_system/MAP_CONNECTIONS.md.
 
 **Spawn-point convention:** every map defines spawn `main`. Cross-region walk portals target
-spawn `from_<origin_slug>` on the destination map; ferry doors target `from_ferry`; waygate
-arrivals target `waygate`.
+spawn `from_<origin_slug>` on the destination map; ferry doors target `from_ferry`; coach
+arrivals target `coach_stop`.
 
 ## Party quests (concept owner: 10_systems/social/PARTY_QUEST.md)
 Two instanced co-op runs; each ends at an existing boss (no extra boss slots):
@@ -93,7 +113,7 @@ silhouettes. Boss uniques: boss #n owns `item_equip_{0199+2n}`/`{0200+2n}` (Cind
 
 ### R1 · Emberfoot Isle (Lv 1–8) — `emberfoot`
 Cinder-warmed training island around the starter village. Tone: warm, safe, first-steps.
-- Maps `001`–`016`: `001` town **Emberfoot Village** (dock, waygate) · `002`–`004` interiors
+- Maps `001`–`016`: `001` town **Emberfoot Village** (ferry dock) · `002`–`004` interiors
   (inn, outfitter, elder's hall) · `005`–`011` fields (ascending 1→8) · `012`–`013` dungeons
   (Old Kiln Tunnels) · `014` secret · `015` interior **Harborwind Ferry** · `016` arena
   (Kiln Heart).
@@ -105,8 +125,8 @@ Cinder-warmed training island around the starter village. Tone: warm, safe, firs
 
 ### R2 · Millbrook & Rosen Harbor (Lv 8–14, hub) — `millbrook`
 Harbor district + timber-and-cobble market city; the social heart. Tone: cozy, lantern-lit.
-- Maps `017`–`042`: `017` town **Rosen Harbor** (ferry dock) · `018` town **Millbrook
-  Central** (hub, waygates) · `019`–`026` interiors (inn, smithy, market hall, guild hall,
+- Maps `017`–`042`: `017` town **Rosen Harbor** (ferry dock, coach station) · `018` town
+  **Millbrook Central** (hub, coach station) · `019`–`026` interiors (inn, smithy, market hall, guild hall,
   tavern, mayor's house, harbor office, bank) · `027`–`035` fields (west outskirts `027`,
   east road `028`, farmland, mill lanes) · `036`–`037` dungeons (Millbrook Catacombs) ·
   `038`–`040` dungeons (**PQ `pq_undervault` stages**, party-instanced) · `041` secret ·
@@ -130,10 +150,10 @@ Mossy sunken forest west of Millbrook. Tone: lush, dappled, first real danger.
 
 ### R4 · Tidewatch Coast (Lv 14–22) — `tidewatch`
 Wet cliffs, kelp shallows, a working port east of Millbrook. Tone: bright brine, undertow.
-- Maps `071`–`097`: `071` town **Tidewatch Port** (waygate) · `072`–`075` interiors
+- Maps `071`–`097`: `071` town **Tidewatch Port** (coach station) · `072`–`075` interiors
   (harbormaster, inn, fishmonger, chandlery) · `076`–`088` fields (`076` entrance from
-  `028`) · `089`–`094` dungeons (sea caves; `094` descends to Sunken) · `095`–`096` secrets
-  · `097` arena (Siren Shoal).
+  `028`; `088` north strand closes the ring to Ashfall) · `089`–`094` dungeons (sea caves;
+  `094` descends to Sunken) · `095`–`096` secrets · `097` arena (Siren Shoal).
 - Mobs `048`–`067`: normals `048`–`063` (10 `frost`, 6 `neutral`) · elites `064`–`066` ·
   boss `067`.
 - Boss #4 (`mob_067`, Lv 22, arena `map_097`): **Tidecaller Morva** — a siren-priestess who
@@ -142,8 +162,9 @@ Wet cliffs, kelp shallows, a working port east of Millbrook. Tone: bright brine,
 
 ### R5 · Gloomwood (Lv 20–28) — `gloomwood`
 Lightless canopy and fog beyond the hollow. Tone: hush, being watched.
-- Maps `098`–`124`: `098`–`114` fields (`098` entrance + waygate) · `115`–`121` dungeons
-  (hollow trunks, web vaults) · `122`–`123` secrets · `124` arena (The Broodloom).
+- Maps `098`–`124`: `098`–`114` fields (`098` entrance from Verdant's deep hollow) ·
+  `115`–`121` dungeons (hollow trunks, web vaults; `121` opens the deep way to Clockwork's
+  west gate) · `122`–`123` secrets · `124` arena (The Broodloom).
 - Mobs `068`–`087`: normals `068`–`083` (8 `shadow`, 6 `nature`, 2 `neutral`) · elites
   `084`–`086` · boss `087`.
 - Boss #5 (`mob_087`, Lv 28, arena `map_124`): **Mother Gloam** — the spider-matron whose
@@ -152,9 +173,9 @@ Lightless canopy and fog beyond the hollow. Tone: hush, being watched.
 
 ### R6 · Ashfall Barrens (Lv 26–34) — `ashfall`
 Ash dunes and charred spires on the island's burnt north. Tone: oppressive heat, endurance.
-- Maps `125`–`151`: `125`–`141` fields (`125` entrance + waygate; `141` char ridge exits to
-  Clockwork) · `142`–`148` dungeons (cinder vents) · `149`–`150` secrets · `151` arena
-  (The Stoked Core).
+- Maps `125`–`151`: `125`–`141` fields (`125` west entrance from Gloomwood; `140` east
+  dunes close the ring to Tidewatch; `141` char ridge climbs to Clockwork) · `142`–`148`
+  dungeons (cinder vents) · `149`–`150` secrets · `151` arena (The Stoked Core).
 - Mobs `088`–`107`: normals `088`–`103` (10 `fire`, 6 `neutral`) · elites `104`–`106` ·
   boss `107`.
 - Boss #6 (`mob_107`, Lv 34, arena `map_151`): **Karnothal, the Stoker** — a charred
@@ -172,10 +193,12 @@ Drowned ruins below the coast; bioluminescent gloom; `water_physics` fields. Ter
 - Blocks: NPC `069`–`075` · quests `069`–`078` · etc `0097`–`0112`.
 
 ### R8 · Clockwork Ruins (Lv 34–40, endgame) — `clockwork`
-A dead brass city still ticking, past the char ridge. Tone: awe, trespass, precision.
-- Maps `177`–`200`: `177`–`188` fields (`177` entrance from `141`) · `189`–`194` dungeons
-  (gearworks) · `195`–`197` dungeons (**PQ `pq_mainspring` stages**, party-instanced) ·
-  `198`–`199` secrets · `200` arena (The Mainspring — also the PQ finale instance).
+A dead brass city still ticking at the island's center — its Sleepywood-style deep heart.
+Tone: awe, trespass, precision.
+- Maps `177`–`200`: `177`–`188` fields (`177` east gate from Ashfall's char ridge; `188`
+  west gate from Gloomwood's web vaults) · `189`–`194` dungeons (gearworks) · `195`–`197`
+  dungeons (**PQ `pq_mainspring` stages**, party-instanced) · `198`–`199` secrets · `200`
+  arena (The Mainspring — also the PQ finale instance).
 - Mobs `129`–`150`: normals `129`–`144` (8 `neutral`, 8 `arcane`; Lv 34–40) · elites
   `145`–`149` (Lv 40–42) · boss `150`.
 - Boss #8 (`mob_150`, Lv 40, arena `map_200`): **The Custodian** — a haywire warden-engine

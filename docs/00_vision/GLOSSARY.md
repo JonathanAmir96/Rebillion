@@ -119,6 +119,11 @@ reserved for future expansions — invalid in this run's content.
 ## Party quests (owner: 10_systems/social/PARTY_QUEST.md)
 `pq_undervault` · `pq_mainspring`
 
+## Transport (owner: 15_maps_system/MAP_CONNECTIONS.md; v2.2)
+`coach` (paid town-to-town portal kind, fares in shards per ECONOMY.md) · `coach_stop`
+(arrival spawn id) · the Harborwind Ferry (paid island crossing). The earlier free-warp
+"waygate" mechanism is retired — that token is invalid in content.
+
 ## Provisional (pending promotion at a phase gate)
 - None currently. (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)
 

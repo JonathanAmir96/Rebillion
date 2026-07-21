@@ -25,9 +25,11 @@ code, no generated art. Read `README.md` for the tree map and
 
 ## Current design state (v2, owner revision 2026-07-21)
 
-- Two islands: Emberfoot Isle (training, maps 001–016) → Harborwind Ferry → Harthmoor Isle
-  (Millbrook hub + 6 regions + Clockwork endgame). 200 maps, 150 monsters (118/24/8),
-  8 bosses, 2 party quests (`pq_undervault`, `pq_mainspring`). Game cap is Lv 300 (initial
+- Two islands: Emberfoot Isle (training, maps 001–016) → Harborwind Ferry (paid) →
+  Harthmoor Isle, a Victoria-style **ring** (Millbrook south hub ↔ Verdant ↔ Gloomwood ↔
+  Ashfall ↔ Tidewatch ↔ Millbrook) around the Clockwork Ruins center, with Sunken Depths as
+  a coastal spur. 200 maps, 150 monsters (118/24/8), 8 bosses, 2 party quests. Town travel
+  is the paid Harthmoor Coachworks (shards) — no free warps. Game cap is Lv 300 (initial
   design); this run authors the first arc, Lv 1–42.
 - Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 (lines `bulwark`/`keeneye`/`weaver`/`flicker`);
   3rd jobs named-and-reserved for future arcs.
