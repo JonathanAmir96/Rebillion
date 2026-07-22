@@ -52,13 +52,20 @@ Exactly one per monster, number matching its `mob_NNN`. Region equip pools:
 | Reserved (growth) | `0181`–`0200` | — |
 | Boss uniques (2 per boss, boss order #1–#8) | `0201`–`0216` | 16 |
 | Reserved (uniques growth / future bosses) | `0217`–`0230` | — |
-| Reserved (growth) | `0231`–`0300` | — |
+| Shield (`shield` slot, T1–T10 grid; equipment-v2 wave) | `0231`–`0240` | 6 |
+| Overall (`overall` slot, T1–T10 grid; equipment-v2 wave) | `0241`–`0250` | 6 |
+| Reserved (growth) | `0251`–`0300` | — |
+
+**Equipment-v2 extension note:** the `shield`/`overall` sub-blocks were carved from the former
+`0231`–`0300` reserved-growth block (permitted: extending into reserved space in a new commit; no
+minted ID moved). Slot semantics: 10_systems/ITEMS.md §2. As with weapons/armor, the v2 first-arc
+plan authors the 6 in-arc tiers of each 10-slot grid.
 
 Boss unique mapping: boss #n (region order) owns `item_equip_{0199+2n}` and `{0200+2n}`
 (Cindermaw 0201–0202, Cellar King 0203–0204, Thornback 0205–0206, Morva 0207–0208, Gloam
 0209–0210, Karnothal 0211–0212, Drowned Warden 0213–0214, Custodian 0215–0216).
 
-## Items — `item_use_0001`–`0060`
+## Items — `item_use_0001`–`0100`
 
 Well-known IDs `0001`–`0016` are reserved with final names so drop tables and shops can
 reference them before item files exist (stats authored in Phase D):
@@ -77,6 +84,13 @@ reference them before item files exist (stats authored in Phase D):
 Tonic tiers bind to level bands per 10_systems/ITEMS.md (v2: five tiers across the
 authored Lv 1–42 arc).
 `0017`–`0060` reserved for Phase D (region specialties, PQ consumables, quest consumables).
+
+**Gear-modification scrolls (equipment-v2 wave; semantics 10_systems/SCROLLS.md):**
+`0061`–`0078` = 18 SKUs, 3 slot families × 2 kinds × 3 tiers, laid out `0061`–`0066`
+weapon_family, `0067`–`0072` armor_family, `0073`–`0078` accessory_family (each family in order
+aspect steady/bold/perilous, then temper steady/bold/perilous). `0079`–`0090` reserved scroll
+growth; `0091`–`0100` reserved. The range extension `0061`–`0100` was appended past the former
+`0060` cap in a new commit; the 16 well-known IDs and `0017`–`0060` are unmoved.
 
 ## Items — `item_etc_0001`–`0200` (16 per region, monster materials)
 
