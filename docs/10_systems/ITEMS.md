@@ -6,8 +6,9 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/INVENTORY.md, 10_systems/STATUS_EFFECTS.md, 10_systems/SKILL_EFFECTS.md,
 20_schemas/item.schema.md, 40_assets/ART_BIBLE.yaml, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md
 
-Owner doc for **items**: the three categories, the nine equipment slots and four weapon types
-(semantics for the GLOSSARY tokens whose owner is this doc), the `rarity` ladder, and — the
+Owner doc for **items**: the three categories, the eleven equipment slot tokens (across ten worn
+positions) and four weapon types (semantics for the GLOSSARY tokens whose owner is this doc), the
+`rarity` ladder, and — the
 load-bearing part — the **equip stat-line budget** every equip is built from and that Phase D
 copies verbatim. Stat *definitions* and the formulas that sum gear into derived values are
 `10_systems/STATS.md` (this doc supplies the `W` and `Σ*_gear` numbers STATS §2 consumes, never
@@ -27,26 +28,69 @@ carry/stack rules `10_systems/INVENTORY.md`. This doc never restates those.
 values (restore amounts, buff magnitudes, material vendor price) are authored in Phase D against
 `20_schemas/item.schema.md` and priced by `10_systems/ECONOMY.md`.
 
-## 2. Equipment slots (nine)
+## 2. Equipment slots (eleven slot tokens, ten worn positions)
 
-Nine worn slots; one item each. Each slot carries a fixed **base line** set (§6). Ordering used
-for the armor budget is `body > legs > head > boots = gloves` (torso protects most).
+**Eleven slot tokens across ten worn positions** — an `overall` occupies **two** positions
+(`body`+`legs`), so a maximum of ten items is worn but eleven distinct slot tokens exist. One item
+per worn position. Each slot carries a fixed **base line** set (§6). Ordering used for the armor
+budget is `body > legs > head > shield > boots = gloves` (torso protects most; §8).
+
+(The three new tokens this wave — `shield`, `overall`, and the optional `req_line` field of §3.1 —
+are **proposed-provisional**: the producer files them under `00_vision/GLOSSARY.md` "## Provisional"
+at this gate; this doc uses them as the owner of their slot/field semantics but does **not** edit
+GLOSSARY.)
 
 | Slot | Worn | Base line(s) | Equip restriction |
 |---|---|---|---|
 | `weapon` | main hand | `power` or `spellpower` = `W` (§7) | weapon **type** gates by job line (§3) + `req_level` |
+| `shield` | off hand | `armor` + `warding` | `req_level` only (class-agnostic, `00_vision/SCOPE.md`; two-handed tension = Open Question, default any line may equip) |
 | `head` | head | `armor` + `warding` | `req_level` only (class-agnostic, `00_vision/SCOPE.md`) |
 | `body` | torso | `armor` + `warding` | `req_level` |
 | `legs` | legs | `armor` + `warding` | `req_level` |
+| `overall` | torso + legs (fills the `body` **and** `legs` positions) | `armor` + `warding` (two-slot base, §8) | `req_level`; auto-swaps `body`/`legs` (§2.1) |
 | `boots` | feet | `armor` + `warding` | `req_level` |
 | `gloves` | hands | `armor` + `warding` | `req_level` |
 | `cape` | back | `warding` + `evasion` | `req_level` |
 | `ring` | finger (×1) | one primary + `crit_rate` | `req_level` |
 | `amulet` | neck | one primary + `crit_power` | `req_level` |
 
-Armor and accessory slots are **class-agnostic** (`00_vision/SCOPE.md`): any line may wear any
-piece that meets `req_level`. Build identity on armor comes from **which primary** its affixes
-roll (the "stat lean," §10), not from a class lock.
+Armor, `shield`, `overall`, and accessory slots are **class-agnostic** (`00_vision/SCOPE.md`): any
+line may wear any piece that meets `req_level` (the standing law; §3.1 restates and bounds it).
+Build identity on shared gear comes from **which primary** its affixes roll (the "stat lean," §10),
+not from a class lock.
+
+### 2.1 The `overall` dual-position rule
+
+An `overall` is a single equip that fills **both** the `body` and `legs` worn positions — it is the
+eleventh slot **token** but adds **no** eleventh worn position. Swaps are automatic and reciprocal:
+
+- Equipping an `overall` auto-unequips any worn `body` **and** `legs` to inventory, space permitting
+  per `10_systems/INVENTORY.md`'s full-tab rules (if the tab cannot hold the returned pieces the
+  swap is refused by that doc's rule — carry mechanics are not restated here).
+- Equipping a `body` **or** a `legs` piece auto-unequips the worn `overall` back to inventory under
+  the same full-tab rule.
+
+An `overall` therefore competes with a **two-item** `body`+`legs` loadout. Its **balance identity**:
+a single strong two-slot base (`w=0.44`, §8) paired with **one** item's worth of affix lines — it
+does **not** get double affix budget. That is the deliberate trade — one large base vs two separate
+items' affix rolls — and it is stated again in §8 and §10.
+
+### 2.2 Slot roster expansion (equipment v2) — mapping and rejected slots
+
+The v2 wave maps MapleStory's worn roster onto Rebillion's tokens. **Name-only** mappings reuse
+existing slots; two **new** tokens are added. Rejected roster entries are **future-arc candidates,
+not permanent bans**:
+
+| MapleStory slot | Disposition | Rationale |
+|---|---|---|
+| cap / topwear / bottomwear / shoes / gloves / cape | map to `head` / `body` / `legs` / `boots` / `gloves` / `cape` | existing tokens, semantics unchanged |
+| pendant | map to `amulet` | name mapping only, no new slot |
+| ring | map to the single `ring` (×1) | one ring slot retained |
+| shield | **ADD** `shield` (off-hand) | silhouette-bearing worn piece; class-agnostic; folded into the §8 armor budget |
+| overall | **ADD** `overall` (dual-position token) | one piece over `body`+`legs` (§2.1) |
+| earrings | **reject** (future-arc) | pure stat-budget dilution of the `10_systems/COMBAT_FORMULA.md` §15 `power_ref` surface; **zero** silhouette contribution (`40_assets/ART_BIBLE.yaml` `readability.silhouette_first`); accessory ID-block pressure |
+| face accessory / eye accessory | **reject** (future-arc) | invisible at the **32px** small player frame (`40_assets/ART_BIBLE.yaml` `sizing.player_frame` = `small` `[32,32]`) — no silhouette read; consumes the UI slot/icon budget (`40_assets/UI_ART_SPEC.md` "Slots & icons"); pure stat dilution |
+| 2nd / 3rd / 4th ring slots | **reject** (future-arc) | stat dilution + UI slot budget; `ring` stays ×1 |
 
 ## 3. Weapon types (four)
 
@@ -65,6 +109,35 @@ How a weapon's `W` and its governing primary combine into `power`/`spellpower` �
 `dirk`/`fortune` double-dip — is owned by `10_systems/STATS.md` §2.1 (not restated here). The
 type→line pairing is fixed by GLOSSARY/`10_systems/JOBS.md`; this doc owns its **enforcement**
 (equip restriction). `W` is the weapon's authored attack value (§7).
+
+### 3.1 General vs class-based gear
+
+The standing law (this wave does **not** overturn it, restated by reference):
+
+- **Weapons are class-locked** by job line (§3, `10_systems/JOBS.md`): a weapon **type** is
+  equippable only by its line.
+- **Armor, accessories, `shield`, and `overall` are class-agnostic** (`00_vision/SCOPE.md`): any
+  line may wear any such piece meeting `req_level`.
+
+**Line-themed gear = flavor + stat lean only.** A piece named or themed for a job line (a
+"bulwark" set, a "weaver" robe, etc.) is **cosmetic identity plus the §10 affix stat lean** (which
+primary its affixes roll) — it carries **no** equip lock. Build identity on shared gear comes from
+the stat lean (§2), never a class gate.
+
+**Optional `req_line` restriction.** A single **optional** field `req_line` (values = the four
+GLOSSARY job-line tokens `bulwark` / `keeneye` / `weaver` / `flicker`) may impose a **hard** equip
+lock on an armor / accessory / `shield` / `overall` piece. It is permitted **only** on two narrow
+categories, used **sparingly**:
+
+- **(a) job-advancement reward gear** — pieces granted by the `10_systems/JOBS.md` trainer
+  advancement quests;
+- **(b) boss uniques** (§11).
+
+Standard drops and vendor stock **never** carry `req_line`. The field's schema shape (type,
+optionality, allowed values) is owned by `20_schemas/item.schema.md` (companion edit of this wave —
+cited, not specified here). Whether hard class-locking should ever widen beyond (a)/(b) contradicts
+`00_vision/SCOPE.md`'s class-agnostic law and is an **owner** decision — filed in Open Questions,
+not decided here.
 
 ## 4. Tier bands and level requirements
 
@@ -94,7 +167,11 @@ intra-block convention): weapons `0001`–`0040` = 10 tiers × 4 types in line o
 (`blade 0001`–`0010`, `bow 0011`–`0020`, `staff 0021`–`0030`, `dirk 0031`–`0040`); armor
 `0041`–`0140` = 5 slots × tiers (`head 0041`–, `body`, `legs`, `boots`, `gloves`, then reserved
 growth for intermediate/region-variant pieces); accessories `0141`–`0180` = `cape`/`ring`/`amulet`
-× tiers; boss uniques `0201`–`0230` (§11).
+× tiers; boss uniques `0201`–`0230` (§11). **New this wave:** `shield` gear `item_equip_0231`–`0240`
+(T1–T10) and `overall` `item_equip_0241`–`0250` (T1–T10), drawn from the `docs/ID_REGISTRY.md`
+`item_equip` reserved-growth range (`0231`–`0300`) whose extension lands in a companion commit of
+this same wave (that file **owns** the ranges — not restated or edited here). The boss-unique
+mapping (boss #n → `0199+2n` / `0200+2n`) and every existing sub-block above are **untouched**.
 
 ## 5. Rarity ladder
 
@@ -154,30 +231,49 @@ at-level geared character reaches the `power_ref` offense of `10_systems/COMBAT_
 ## 8. Armor / warding base by slot × tier
 
 Formula is authoritative; the checksum table samples it. `K(L)` is the mitigation denominator
-owned by `10_systems/COMBAT_FORMULA.md` §5 (defined there, not restated) — a full at-level 5-piece
-set targets `Σarmor ≈ K(L)/3` (≈ 25% physical reduction in that doc's band). Pieces lean physical
-(`warding` = 70% of `armor`); a caster tops up `warding` via `focus` and `cape` (§9).
+owned by `10_systems/COMBAT_FORMULA.md` §5 (defined there, not restated) — a full at-level
+**6-piece** armor set (`body`+`legs`+`head`+`shield`+`boots`+`gloves`) targets `Σarmor ≈ K(L)/3`
+(≈ 25% physical reduction in that doc's band). The **set target is unchanged** by this wave; the
+same `K(L)/3` budget is now simply split **six** ways instead of five, so **each individual v1
+piece shrinks** versus the old five-slot table — no total-mitigation change, only redistribution
+(the `shield` share and the finer split are absorbed within the same ceiling). Ordering is
+`body > legs > head > shield > boots = gloves`. An `overall` (`w=0.44`) fills the `body`+`legs`
+share as one piece, so an `overall`+`head`+`shield`+`boots`+`gloves` loadout hits the same 6-piece
+`Σarmor` target. Pieces lean physical (`warding` = 70% of `armor`); a caster tops up `warding` via
+`focus` and `cape` (§9).
 
 ```
 armor_base(slot, L)   = round( w[slot] · K(L) / 3 )        # K(L) per COMBAT_FORMULA §5
 warding_base(slot, L) = round( 0.70 · armor_base(slot, L) )
-w[slot]: body 0.28 · legs 0.24 · head 0.18 · boots 0.15 · gloves 0.15   (Σ = 1.0)
+w[slot]: body 0.24 · legs 0.20 · head 0.16 · shield 0.14 · boots 0.13 · gloves 0.13   (Σ = 1.0)
+w[overall] = w[body] + w[legs] = 0.44   # fed once through the same formula; rounded once, NOT the sum of the two rounded slot rows
 ```
 
 | Slot | Lv 1 | Lv 10 | Lv 30 | Lv 50 | Lv 70 | Lv 90 |
 |---|---|---|---|---|---|---|
-| body `armor`/`warding` | 7 / 5 | 23 / 16 | 61 / 43 | 98 / 69 | 135 / 95 | 173 / 121 |
-| legs | 6 / 4 | 20 / 14 | 52 / 36 | 84 / 59 | 116 / 81 | 148 / 104 |
-| head | 4 / 3 | 15 / 11 | 39 / 27 | 63 / 44 | 87 / 61 | 111 / 78 |
-| boots | 4 / 3 | 13 / 9 | 33 / 23 | 53 / 37 | 73 / 51 | 93 / 65 |
-| gloves | 4 / 3 | 13 / 9 | 33 / 23 | 53 / 37 | 73 / 51 | 93 / 65 |
-| **5-set `armor`** | **25** | **84** | **218** | **351** | **484** | **618** |
+| body `armor`/`warding` | 6 / 4 | 20 / 14 | 52 / 36 | 84 / 59 | 116 / 81 | 148 / 104 |
+| legs | 5 / 4 | 17 / 12 | 43 / 30 | 70 / 49 | 97 / 68 | 123 / 86 |
+| head | 4 / 3 | 13 / 9 | 35 / 25 | 56 / 39 | 77 / 54 | 99 / 69 |
+| shield | 3 / 2 | 12 / 8 | 30 / 21 | 49 / 34 | 68 / 48 | 86 / 60 |
+| boots | 3 / 2 | 11 / 8 | 28 / 20 | 46 / 32 | 63 / 44 | 80 / 56 |
+| gloves | 3 / 2 | 11 / 8 | 28 / 20 | 46 / 32 | 63 / 44 | 80 / 56 |
+| **6-set `armor`** | **24** | **84** | **216** | **351** | **484** | **616** |
+| `overall` (`w 0.44`) | 10 / 7 | 37 / 26 | 95 / 67 | 154 / 108 | 213 / 149 | 271 / 190 |
+
+The `overall` row is `w[body]+w[legs]` fed **once** through the formula (not the sum of the two
+rounded rows): a two-slot base carried on **one** item, yet it rolls only **one** item's affix
+lines (§10) — one strong base vs two items' affix budget is the `overall`'s balance identity (§2.1).
+The 6-set `armor` totals here match the §14/§15 mitigation band's `K(L)/3` target
+(`10_systems/COMBAT_FORMULA.md` §5) exactly as the old five-set did.
 
 ## 9. Accessory base by tier
 
 Accessories give primaries and crit (`cape` is the defensive outlier: `warding` + `evasion`).
 `ring`/`amulet` each roll **one** primary of the wearer's choosing at author time (any of the four
-— the accessory stat lean).
+— the accessory stat lean). The accessory roster deliberately **stays at `cape`/`ring`/`amulet`**
+this wave: the equipment-v2 expansion added `shield` and `overall` (armor-budget slots, §8) and
+**rejected** earrings, face/eye accessories, and additional ring slots (§2.2) — those remain
+future-arc candidates, not permanent bans, so no accessory base value here changes.
 
 ```
 primary_base(L) = round( 2 + 0.35·L )     # ring & amulet primary
@@ -235,10 +331,12 @@ pe cap; total = count × cap):
 | `legendary` | 4 | 12 | 44 | 68 | 96 | 116 |
 
 **Affix eligibility by slot** (keeps base identity intact): `weapon` rolls
-`power`/`spellpower`/primary/`crit_rate`/`crit_power`/`haste`; armor rolls
-primary/`life`/`armor`/`warding`/`haste`; `gloves` may also roll `crit_rate`/`precision`;
-`cape` rolls `evasion`/`warding`/`haste`; `ring`/`amulet` roll primary/`crit_rate`/`crit_power`/
-`power`/`spellpower`. Armor rolling a primary is the "stat lean" (§2).
+`power`/`spellpower`/primary/`crit_rate`/`crit_power`/`haste`; armor (`head`/`body`/`legs`/`boots`/
+`gloves`) plus `shield` and `overall` roll the **armor menu** primary/`life`/`armor`/`warding`/`haste`;
+`gloves` may also roll `crit_rate`/`precision`; `cape` rolls `evasion`/`warding`/`haste`;
+`ring`/`amulet` roll primary/`crit_rate`/`crit_power`/`power`/`spellpower`. Armor (and
+`shield`/`overall`) rolling a primary is the "stat lean" (§2). An `overall` rolls **one** item's set
+of affix lines despite covering two positions — not double (§2.1 balance identity).
 
 **Worked example** — `rare` T6 (Lv 50) `body` armor: base 98 `armor` / 69 `warding`
 (16.7 pe); affixes = 2 lines, budget 34 pe: e.g. +12 `might` (12 pe) + +132 `life` (3.96 pe) =
@@ -316,3 +414,24 @@ and required/optional flags; this doc owns only the table wrapper and the meanin
 - Set bonuses (wearing N pieces of a themed group) are **not** in this pass; if wanted they attach
   to boss-unique groups (§11) via `passive_stat_bonus` and need a `set_id` field in
   `20_schemas/item.schema.md`. Flagged, not designed.
+- **(equipment v2)** Adding `shield` gives a fully-geared character **one more armor item's** worth
+  of affix lines than before: `power_ref` in `10_systems/COMBAT_FORMULA.md` §15 assumed nine worn
+  items, and a tenth affix-bearing slot lifts total affix `pe` by ~+11% (≈ 1/9). Flag for that
+  doc's `mult m` retune Open Question — the offense band is retuned there, **never** by touching
+  `W` or the §10 affix budgets here. Joint ITEMS/COMBAT_FORMULA call at the C/D gates.
+- **(equipment v2)** Two-handed-weapon fantasy vs `shield`: `bow` (`keeneye`) and `staff`
+  (`weaver`) read as two-handed, so an off-hand `shield` is thematically odd for those lines.
+  **Default: all lines may equip `shield`** (the `00_vision/SCOPE.md` class-agnostic law is
+  preserved). If a two-handed-lockout is later wanted it would use the §3.1 `req_line` mechanism in
+  reverse (a slot-level line exclusion) and is an owner decision — filed, not decided.
+- **(equipment v2)** Whether hard class-locking (`req_line`, §3.1) should ever expand beyond
+  job-advancement rewards and boss uniques contradicts `00_vision/SCOPE.md`'s class-agnostic armor
+  law and is an **owner** decision. Filed, not decided here.
+- **(equipment v2)** `00_vision/SCOPE.md`'s authoritative equip count (~86) predates `shield`/
+  `overall`: this wave plans **+12 authored SKUs** (10 `shield` T1–T10 + up to 10 `overall`, minus
+  Phase-D thinning). Flag for an **owner count bump** in SCOPE.md — do **not** edit SCOPE.md from
+  here.
+- **(equipment v2)** Whether `overall` pieces should exist at **every** tier or only select tiers.
+  **Default: full T1–T10 grid** (`item_equip_0241`–`0250`); Phase D may author fewer per the same
+  §4-count discretion the armor-SKU Open Question above already allows. Bounded by
+  `docs/ID_REGISTRY.md`.
