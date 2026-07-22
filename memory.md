@@ -20,7 +20,13 @@ decisions*; rules live in their owner docs — never restate them here.
   WIKI_EXPORT.
 - **Locked files** (unchanged, amendment channels only): `docs/40_assets/ART_BIBLE.yaml`,
   `docs/40_assets/UI_ART_SPEC.md`, `docs/30_engineering/ENGINEERING_STANDARDS.md`.
-- **GLOSSARY Provisional:** `title` (from COLLECTIONS §7), pending promotion.
+- **G (equipment v2) ✅** — see `docs/phase_reports/PHASE_G_EQUIPMENT_REPORT.md`. Slot roster
+  is now eleven tokens / ten worn positions (`shield`, `overall` added); `10_systems/SCROLLS.md`
+  (new) owns affix-line gear modification; ITEMS §8 weights rebalanced to six armor slots;
+  ID_REGISTRY extended (equip `0231`–`0250`, use → `0100`).
+- **GLOSSARY Provisional:** `title` (from COLLECTIONS §7); `shield` / `overall` / `req_line`
+  and the scroll vocabulary (`aspect`/`temper`, `steady`/`bold`/`perilous`,
+  `scroll_kind`/`scroll_tier`/`slot_family`) from the G wave — all pending promotion.
 
 ## Decisions log
 
@@ -45,6 +51,20 @@ decisions*; rules live in their owner docs — never restate them here.
     Clockwork until an owner rules otherwise; five mysteries deliberately unanswered.
   - PixelLab pass: exemplar-first per region in WORLD_PLAN order; `PIXELLAB_SECRET`
     env-only — value never committed, logged, or pasted.
+- **G wave (2026-07-22, equipment v2):**
+  - Slot roster: added `shield` (class-agnostic off-hand, in the §8 armor budget) and
+    `overall` (one piece filling `body`+`legs`, w=0.44, single affix budget); rejected
+    earrings/face/eye/extra rings (silhouette, UI budget, stat dilution) as future-arc
+    candidates. Full-set armor target `K(L)/3` unchanged — budget split six ways.
+  - Class law preserved: weapons line-locked, everything else class-agnostic; `req_line` is
+    an *optional* hard lock allowed only on advancement rewards + boss uniques; any wider
+    class-locking filed as an owner question against SCOPE.md, not decided.
+  - Scrolls (SCROLLS.md) never touch base lines or budgets — `aspect` rerolls / `temper`
+    raises affix lines inside ITEMS §10's caps; fails consume the scroll only (no item
+    destruction/downgrade anywhere in the tree, P2); `steady`-only vendor shelf keeps the
+    system sink-dominant; no pity (item never at risk).
+  - IDs: scroll SKUs `item_use_0061`–`0078` (3 families × 2 kinds × 3 tiers, layout in
+    SCROLLS §5); shield/overall `item_equip_0231`–`0250`; boss-unique `0199+2n` untouched.
 
 ## Next session pointers
 
@@ -57,6 +77,9 @@ decisions*; rules live in their owner docs — never restate them here.
   confirmation (AI_BEHAVIOR).
 - Owner-priced questions (hosting, storefronts, SSO, retention, signing) are collected in
   PHASE_F_INTEGRATIONS_REPORT.md's rollup — none block Phase D.
+- G-wave cross-doc items to resolve at/before the D gate: COMBAT_FORMULA §15 `mult m` retune
+  check (tenth affix slot, ~+11% affix pe); ECONOMY §4.1 scroll price rows; SCOPE count bumps
+  (equip ~86 → ~98, use ~30 → ~48) — owner edits, flagged in PHASE_G_EQUIPMENT_REPORT.md.
 
 ## Open Questions
 - Should this file also index per-doc Open Questions between phase gates, or stay a
