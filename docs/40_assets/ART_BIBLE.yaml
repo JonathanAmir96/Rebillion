@@ -18,10 +18,10 @@ sizing:
   player_frame: small
 palette:
   outline: { mode: selective, color: "#241726", internal_lines: "darker shade of local color" }
-  neutrals: { ink:"#241726", shadow:"#3a2b40", stone:"#6b6270", ash:"#9a92a0", bone:"#e8e2d8", white:"#fbf7ef" }
+  neutrals: { ink: "#241726", shadow: "#3a2b40", stone: "#6b6270", ash: "#9a92a0", bone: "#e8e2d8", white: "#fbf7ef" }
   ramps:
     ember:  ["#5a1e14","#8f2d1b","#c8461f","#eb7a2c","#f6c34b"]
-    verdant:["#173a24","#256b34","#3f9a45","#7ac04b","#c6e37a"]
+    verdant: ["#173a24","#256b34","#3f9a45","#7ac04b","#c6e37a"]
     tide:   ["#122a4a","#1e4c78","#2f7aa0","#54b0c6","#a7e0e3"]
     arcane: ["#2a1a4a","#4b2a78","#7a3f9a","#b064c6","#e0a7e3"]
     earth:  ["#3a2b1e","#6b4a2d","#9a6f3f","#c09a54","#e3c67a"]
@@ -64,7 +64,7 @@ ui: { style: "pixel UI matching world palette, chunky readable frames",
       font: "bitmap pixel font, integer-scaled only",
       hud_colors: { life: ember, essence: tide, exp: arcane },
       iconography: "16x16 or 24x24 icons, 1px outline" }
-rarity_code: { common:"#9a92a0", uncommon:"#3f9a45", rare:"#2f7aa0", epic:"#7a3f9a", legendary:"#eb7a2c" }
+rarity_code: { common: "#9a92a0", uncommon: "#3f9a45", rare: "#2f7aa0", epic: "#7a3f9a", legendary: "#eb7a2c" }
 export_contract:
   format: "PNG 32-bit RGBA, transparent bg"
   atlas: "power-of-two per entity, 1px padding, extrude edges"
@@ -76,5 +76,20 @@ pixellab_defaults:
   style_prompt_core: "limited-palette pixel art, selective dark plum outline, top-left cel shading in 4 stepped ramps, clean readable silhouette, no gradients, no AA blur, feet-center framing"
   negatives: "photorealistic, HD-2D, normal-mapped, smooth gradients, blurry, modern vector, mixed resolution, extra limbs, off-palette neon"
   per_asset_injects_only: [silhouette, palette_accent, motif, size_class, state_list]
-amendments: []
+amendments:
+  - id: AB-001
+    date: 2026-07-22
+    authorized_by: "owner (chat directive: terrain-model decision)"
+    summary: "Maple-style foothold terrain with hand-painted terrain chunks"
+    changes:
+      - "environment.seamless is narrowed: organic ground is no longer built from seamless
+         terrain tiles; it is hand-painted terrain chunks snapped to foothold segments
+         (arbitrary angles), per 15_maps_system/MAP_TRAVERSAL.md foothold model."
+      - "the 16px grid remains the layout and measurement unit (map sizes, jump metrics)
+         and still governs built structures: towns, interiors, dungeon brickwork, platform
+         props, and all non-terrain tilesets."
+      - "every pixel/palette/shading/readability/export rule in this bible applies
+         unchanged to terrain chunks."
+    followup: "40_assets tileset briefs split into structure tilesets + terrain chunk
+         briefs; SPRITE_PIPELINE covers chunk QA."
 open_questions: ["confirm bitmap font choice+license","confirm boss size policy when >96px"]

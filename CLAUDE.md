@@ -31,8 +31,10 @@ code, no generated art. Read `README.md` for the tree map and
   a coastal spur. 200 maps, 150 monsters (118/24/8), 8 bosses, 2 party quests. Town travel
   is the paid Harthmoor Coachworks (shards) — no free warps. Each job line has a home ring
   town with its instructor (Bulwark→Cindershelf, Keeneye→Tidewatch Port, Weaver→Mossmere,
-  Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law. Game cap is Lv 300
-  (initial design); this run authors the first arc, Lv 1–42.
+  Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law. Terrain is
+  Maple-style footholds + painted terrain chunks (ART_BIBLE amendment AB-001; movement
+  rules in MAP_TRAVERSAL.md). Game cap is Lv 300 (initial design); this run authors the
+  first arc, Lv 1–42.
 - Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 (lines `bulwark`/`keeneye`/`weaver`/`flicker`);
   3rd jobs named-and-reserved for future arcs.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a

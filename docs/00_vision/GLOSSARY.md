@@ -119,6 +119,10 @@ reserved for future expansions — invalid in this run's content.
 ## Party quests (owner: 10_systems/social/PARTY_QUEST.md)
 `pq_undervault` · `pq_mainspring`
 
+## Terrain (owner: 15_maps_system/MAP_TRAVERSAL.md; v2.4 foothold model)
+`foothold` (walkable segment, arbitrary angle; the ground truth of platforming) ·
+`terrain_chunk` (hand-painted ground art snapped to footholds; ART_BIBLE amendment AB-001)
+
 ## Transport (owner: 15_maps_system/MAP_CONNECTIONS.md; v2.2)
 `coach` (paid town-to-town portal kind, fares in shards per ECONOMY.md) · `coach_stop`
 (arrival spawn id) · the Harborwind Ferry (paid island crossing). The earlier free-warp

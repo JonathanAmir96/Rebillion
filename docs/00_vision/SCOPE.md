@@ -54,7 +54,9 @@ full curve to 300 (formula-first) with detail tables for the authored range.
 - Palette-swap monster variants are permitted later but are **not** authored here and do not
   count toward the 150 designs.
 - Map YAMLs describe structure (zones, spawns, portals, interactables) at design granularity,
-  not tile-exact geometry; tile work happens in the engine pass.
+  not geometry; exact foothold segments and terrain-chunk placement happen in the engine
+  pass (v2.4: terrain is Maple-style footholds + painted chunks per ART_BIBLE amendment
+  AB-001 — a deliberate art-scope increase over reusable tilesets, owner-approved).
 
 ## Phase deliverables (gates per GENERATE.md §5)
 - **A** Vision & vocabulary: 00_vision/*, ID_REGISTRY.md, WORLD_PLAN.md, VALIDATION.md seed.
