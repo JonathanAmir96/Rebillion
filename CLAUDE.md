@@ -57,3 +57,8 @@ Start by reading: `README.md` → `docs/00_vision/GLOSSARY.md` → `docs/WORLD_P
 `memory.md` (state + decisions log, written at the end of the generation run). When
 continuing content generation, follow the batch pattern in the phase reports: region-scoped
 sub-agents, exemplar-first, validator-gated.
+
+**Staffing sub-agents:** use the virtual-studio role charter in `docs/60_agents/roles/`
+(`ORG.md` = org chart + model routing: easy→Haiku, medium→Sonnet, hard→Opus, route by
+blast radius). Invoke as: "Act as ROLE_X per docs/60_agents/roles/ROLE_X.md" — the role
+file fixes mission, owned files, reading list, deliverable contract, and tier.
