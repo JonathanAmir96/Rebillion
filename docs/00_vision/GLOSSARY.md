@@ -129,7 +129,9 @@ reserved for future expansions — invalid in this run's content.
 "waygate" mechanism is retired — that token is invalid in content.
 
 ## Provisional (pending promotion at a phase gate)
-- None currently. (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)
+- `title` — cosmetic display string a character earns from collection milestones and may equip
+  for others to see; concept and milestone slots owned by 10_systems/COLLECTIONS.md §7.
+  (Proposed at the F gate; promote when a character-sheet or social-display doc consumes it.)
 
 ## Open Questions
 - ~~Split `haste` into move/attack tokens?~~ **Resolved at B gate:** kept combined; conversion
