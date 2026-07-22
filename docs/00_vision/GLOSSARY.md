@@ -83,6 +83,8 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 
 ## Equipment slots (owner: 10_systems/ITEMS.md)
 `weapon` · `head` · `body` · `legs` · `boots` · `gloves` · `cape` · `ring` · `amulet`
+(Roster revised by the equipment-v2 wave — 10_systems/ITEMS.md §2 is the authoritative slot
+roster; the wave's new slot tokens are listed under Provisional below pending gate promotion.)
 
 ## Weapon types (owner: 10_systems/ITEMS.md; one per job line)
 `blade` (might) · `bow` (finesse) · `staff` (focus) · `dirk` (fortune)
@@ -132,6 +134,17 @@ reserved for future expansions — invalid in this run's content.
 - `title` — cosmetic display string a character earns from collection milestones and may equip
   for others to see; concept and milestone slots owned by 10_systems/COLLECTIONS.md §7.
   (Proposed at the F gate; promote when a character-sheet or social-display doc consumes it.)
+- `shield` — equipment slot token: class-agnostic off-hand defensive piece; semantics owned by
+  10_systems/ITEMS.md §2/§8. (Proposed at the equipment-v2 gate.)
+- `overall` — equipment slot token: one piece occupying the `body`+`legs` worn positions;
+  semantics owned by 10_systems/ITEMS.md §2/§8. (Proposed at the equipment-v2 gate.)
+- `req_line` — optional equip-restriction field (values = the four job-line tokens), permitted
+  only where 10_systems/ITEMS.md's general-vs-class rules allow; owned there. (Proposed at the
+  equipment-v2 gate.)
+- Scroll vocabulary — `scroll_kind` (`aspect` · `temper`), `scroll_tier` (`steady` · `bold` ·
+  `perilous`), `slot_family` (`weapon_family` · `armor_family` · `accessory_family`); semantics
+  owned by 10_systems/SCROLLS.md. (Proposed at the equipment-v2 gate; promote when Phase D
+  scroll content lands.)
 
 ## Open Questions
 - ~~Split `haste` into move/attack tokens?~~ **Resolved at B gate:** kept combined; conversion
