@@ -1,7 +1,7 @@
 # ENHANCEMENT.md — Emberstone Gear Enhancement (+1..+9)
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
-10_systems/STATS.md, 10_systems/ITEMS.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
+10_systems/STATS.md, 10_systems/ITEMS.md, 10_systems/SCROLLS.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
 10_systems/COMBAT_FORMULA.md, 10_systems/LEVELING.md, 10_systems/PERSISTENCE.md,
 20_schemas/item.schema.md, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md
 
@@ -11,7 +11,8 @@ stat *values* an item starts with are `10_systems/ITEMS.md` (§7–§9 base line
 the **multiplier** enhancement layers on top, which STATS §2 then sums as part of `Σ*_gear`. The
 `shards` fee schedule is `10_systems/ECONOMY.md`; emberstone drop rates are `10_systems/DROPS.md`.
 Enhancement is cozy by design (`00_vision/PILLARS.md` P2): **no item is ever destroyed or
-downgraded**, and worst-case cost is bounded by pity.
+downgraded**, and worst-case cost is bounded by pity. **Affix-line modification is owned by
+`10_systems/SCROLLS.md`; this doc's track scales base lines only (§4).**
 
 ## 1. Emberstone tiers → gear-band mapping
 
@@ -33,7 +34,7 @@ fixed here.
 
 ## 2. The enhancement track
 
-Any single equip (`10_systems/ITEMS.md` §2, all nine slots) carries an `enhance_level` from `0`
+Any single equip (every equip slot, `10_systems/ITEMS.md` §2) carries an `enhance_level` from `0`
 (base) to `9`, stored per item (`20_schemas/item.schema.md` `enhance_level` field, server-
 authoritative §6). Each attempt targets the next `+`:
 
@@ -91,6 +92,8 @@ gamble):
 |---|---|
 | `weapon` | `W` (`power` or `spellpower`) |
 | `head`/`body`/`legs`/`boots`/`gloves` | `armor` **and** `warding` |
+| `shield` | `armor` **and** `warding` |
+| `overall` | `armor` **and** `warding` |
 | `cape` | `warding` and `evasion` |
 | `ring` | primary and `crit_rate` |
 | `amulet` | primary and `crit_power` |
