@@ -1,0 +1,24 @@
+id: mob_169
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Stonejaw Gnawer
+tier: normal
+element: neutral
+level: 54
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 54
+  life: 12996                     # 4*(54+3)^2
+  power: 168                     # 6+3*54 (touch = round(0.5*power), §13.1)
+  armor: 324                     # 6*54  (armor+warding sum = 648 = 12*54)
+  warding: 324                   # 6*54
+  precision: 216                 # 4*54
+  evasion: 4.6                   # 3 + 0.03*54 (%)
+  exp: 715                     # exp_per_kill_normal(54)=round(4*54^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only territorial_guard-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_169
+flavor: "A squat, boulder-jawed beast that has chewed its burrow into the living rock and will die in its mouth before yielding it. Its bite folds iron."

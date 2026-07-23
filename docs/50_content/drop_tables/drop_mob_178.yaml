@@ -1,0 +1,20 @@
+id: drop_mob_178
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN, PARTY]   # boss: emberstone + region-boss mapping; raid finale -> PARTY
+owner: mob_178
+rows:
+  # shards guaranteed, boss x15. mean=round(1.5*55+3)=86; x15=1290 (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 1032, qty_max: 1548 }
+  # region materials guaranteed (DROPS §5.3 crafting/quest mats)
+  - { ref: item_etc_0129, chance: guaranteed, qty_min: 2, qty_max: 3 }
+  - { ref: item_etc_0140, chance: guaranteed, qty_min: 1, qty_max: 2 }
+  # emberstone: 1 guaranteed + 1 uncommon (DROPS §5.3). R9 gear = T7-T8 -> Emberstone IV
+  - { ref: item_etc_0196, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0196, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5). A raid-entry kill rolls
+  # the 'raid' weight row at runtime (§5.4); the static table is the region-boss/open-arena shape.
+  - { ref: pool_equip_r09, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss uniques: Skoldir owns item_equip_0217/0218 (ID_REGISTRY boss #9 = 0199+2n).
+  # first-ever clear guarantees one of the two (DROPS §5.3 bad-luck protection).
+  - { ref: item_equip_0217, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0218, chance: legendary, qty_min: 1, qty_max: 1 }

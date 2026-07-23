@@ -1,0 +1,33 @@
+id: mob_173
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Cragstorm Charger
+tier: elite
+element: neutral
+level: 53
+size_class: large
+stats:                           # §13 normal Lv 53 x §13.2 elite multipliers
+  life: 75264                    # 12544 x6
+  power: 248                     # 165 x1.5
+  armor: 413                     # 318 x1.3  (armor+warding sum ~= 12*53 x1.3)
+  warding: 413                   # 318 x1.3
+  precision: 233                 # 212 x1.1
+  evasion: 6.6                   # 4.6 + 2% (§13.2 elite)
+  exp: 3490                    # exp_per_kill_normal(53)=698 x5 (LEVELING §3 elite)
+ai_profile: aggressive_charger
+ai_params:
+  aggro_radius: 8
+  charge_speed_mult: 3.0
+  charge_recover_s: 2.6
+abilities:
+  - id: avalanche_charge
+    name: Avalanche Charge
+    targeting: line
+    cooldown: 9.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.8 }
+      - { op: knockback }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_173
+flavor: "A craghorn bull the size of a coach, its horns fused into a single ram of horn and ice. When it commits there is one safe place to be, and it is not in front of it."
