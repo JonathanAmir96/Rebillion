@@ -132,5 +132,6 @@ reserved for future expansions — invalid in this run's content.
 - None currently. (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)
 
 ## Open Questions
-- ~~Split `haste` into move/attack tokens?~~ **Resolved at B gate:** kept combined; conversion
-  percentages owned by 10_systems/STATS.md §5. Reopen only if animation breakpoints demand it.
+- None currently. (The `haste` move/attack split was resolved at the B gate: kept combined;
+  conversion percentages owned by 10_systems/STATS.md §5. Reopen only if animation breakpoints
+  demand it.)
