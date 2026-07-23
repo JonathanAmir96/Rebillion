@@ -150,6 +150,48 @@ Party-quest intro/handler quests: `quest_087`–`090` (2 per PQ; owner region R2
 ## Party quests — `pq_undervault` · `pq_mainspring`
 Owner: 10_systems/social/PARTY_QUEST.md. Future PQs mint `pq_<name>` tokens here first.
 
+## Packet opcodes — `op_0001`–`op_9999` (13 domain blocks)
+
+Engineering-side wire IDs for the client↔gateway protocol (the backend wave, not player content).
+This block reserves the **domain ranges**; the individual opcodes are minted **only** in
+`70_integrations/NETWORK_PROTOCOL.md`'s packet catalog, one per wire message, and are immutable once
+minted (same law as every other ID here).
+
+**Convention — unified `op_NNNN`, direction carried in the catalog + the wire envelope, not the ID.**
+Chosen over a directional `op_c2s_NNN` / `op_s2c_NNN` split so the envelope's opcode field stays one
+small unsigned integer over a single flat namespace and a request and its paired authoritative delta
+sit adjacent inside the same domain block, rather than across two parallel namespaces. Each opcode is
+**unidirectional** (one opcode = one message type = one direction); the direction (`c2s`/`s2c`) and
+payload shape are declared per opcode in the catalog, not encoded in the number.
+
+| # | Domain block | Range | Owner / semantics |
+|---|---|---|---|
+| 1 | System, keep-alive & transport control | `op_0001`–`op_0099` | NETWORK_PROTOCOL.md §9.1 (heartbeat, ack, error, disconnect, resume) |
+| 2 | Auth, handshake & session | `op_0100`–`op_0199` | NETWORK_PROTOCOL.md §9.2 (protocol negotiation, session bind — ACCOUNTS_AUTH.md §3/§4) |
+| 3 | Channel & instance management | `op_0200`–`op_0299` | NETWORK_PROTOCOL.md §9.3 (WORLD_CHANNELS.md §3/§6) |
+| 4 | Movement & reconciliation | `op_0300`–`op_0399` | NETWORK_PROTOCOL.md §9.4 (GAMEPLAY_SIMULATION.md §2) |
+| 5 | World snapshot & entity lifecycle | `op_0400`–`op_0499` | NETWORK_PROTOCOL.md §9.5 (GAMEPLAY_SIMULATION.md §1.1/§13) |
+| 6 | Combat | `op_0500`–`op_0599` | NETWORK_PROTOCOL.md §9.6 (GAMEPLAY_SIMULATION.md §5) |
+| 7 | Skill | `op_0600`–`op_0699` | NETWORK_PROTOCOL.md §9.7 (GAMEPLAY_SIMULATION.md §6/§9) |
+| 8 | Loot & drop pickup | `op_0700`–`op_0799` | NETWORK_PROTOCOL.md §9.8 (GAMEPLAY_SIMULATION.md §11) |
+| 9 | Inventory & equipment | `op_0800`–`op_0899` | NETWORK_PROTOCOL.md §9.9 (GAMEPLAY_SIMULATION.md §7) |
+| 10 | Shards, acquisition & enhancement | `op_0900`–`op_0999` | NETWORK_PROTOCOL.md §9.10 (GAMEPLAY_SIMULATION.md §7/§10) |
+| 11 | Quest | `op_1000`–`op_1099` | NETWORK_PROTOCOL.md §9.11 (GAMEPLAY_SIMULATION.md §8/§14) |
+| 12 | Chat | `op_1100`–`op_1199` | NETWORK_PROTOCOL.md §9.12 (CHAT_SOCIAL_BACKEND.md) |
+| 13 | Party & social | `op_1200`–`op_1299` | NETWORK_PROTOCOL.md §9.13 (CHAT_SOCIAL_BACKEND.md; GAMEPLAY_SIMULATION.md §8/§11) |
+
+`op_1300`–`op_9999` are **reserved (future domains)** — a new domain claims the next free 100-wide
+block in a new commit; existing blocks never move. **Within** a block the catalog conventionally lays
+request (`c2s`) opcodes low and response/delta/event (`s2c`) opcodes high, leaving generous in-domain
+growth (each domain expects roughly 5–20 opcodes against its 99-slot block); the registry owns the
+block, the catalog owns the mint. Opcode IDs are minted only in NETWORK_PROTOCOL.md and are immutable
+once minted — a retired packet's opcode is never re-used for a different message.
+
 ## Open Questions
 - Reserved-growth blocks assume no category outgrows its range before the coding pass; if
   one does, extend the range here in a new commit — never renumber existing IDs.
+- The `op_NNNN` opcode family is an **engineering-side** ID (wire protocol), deliberately registry-owned
+  but not enumerated in `docs/00_vision/GLOSSARY.md`'s `## ID prefixes` list, which tracks player-content
+  prefixes only. Confirm at reconciliation whether GLOSSARY should note the opcode family for completeness,
+  or whether engineering IDs stay out of the content-token glossary by design (this file remains their owner
+  either way).
