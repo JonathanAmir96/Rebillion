@@ -1,0 +1,48 @@
+id: map_057
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Creeping Thicket
+region: verdant
+map_type: field
+level_band: { min: 13, max: 14 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 155, h: 30 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_stagnant_mire
+    kind: edge
+    at: { edge: left }
+    target_map: map_056
+    target_spawn: main
+    dead_end: false
+  - id: to_elderbark_reach
+    kind: edge
+    at: { edge: right }
+    target_map: map_058
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: creeping_thicket_grove
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_039, count: 3 }        # shares mob_039 with stagnant mire
+      - { mob: mob_040, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_creeping_thicket
+    at_tile: [24, 21]
+    params:
+      text: "The undergrowth here creeps a little further onto the path every season. It hasn't taken the whole road yet."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A thickly overgrown grove over two low terraces (~2-tile rises), well within the 5-tile/
+  3.5-tile jump caps (MAP_TRAVERSAL §1.1). Foothold segments dressed in dense undergrowth
+  terrain_chunks (ART_BIBLE AB-001); no rope/ladder needed.
+flavor: "The hollow presses closer here, undergrowth thick enough that the old road is more suggestion than path."

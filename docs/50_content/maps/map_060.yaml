@@ -1,0 +1,50 @@
+id: map_060
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Deep Hollow
+region: verdant
+map_type: field
+level_band: { min: 15, max: 16 }          # last field; deep hollow exits to Gloomwood (WORLD_PLAN edge table)
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 150, h: 34 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 24] }
+  - { id: from_gloomwood, tile: [130, 24] }   # arrival from Gloomwood's reverse edge (WORLD_PLAN edge table)
+portals:
+  - id: to_hollowvale_descent
+    kind: edge
+    at: { edge: left }
+    target_map: map_059
+    target_spawn: main
+    dead_end: false
+  - id: to_gloomwood_fen                       # ring-road edge, both endpoints authored (WORLD_PLAN edge table)
+    kind: edge
+    at: { edge: right }
+    target_map: map_098                         # sibling map, Gloomwood batch not yet authored -- dangling by design
+    target_spawn: from_verdant
+    dead_end: false
+spawn_zones:
+  - id: deep_hollow_thicket
+    rect_tiles: { x: 28, y: 22, w: 60, h: 10 }
+    mobs:
+      - { mob: mob_042, count: 3 }        # shares mob_042 with hollowvale descent
+      - { mob: mob_043, count: 2 }        # last normal species before the boss slot
+    max_concurrent: 6
+interactables:
+  - type: lore_marker
+    id: marker_deep_hollow_edge
+    at_tile: [124, 23]
+    params:
+      text: "The moss thins out past here, and the light goes the wrong color for Verdant Hollow. Gloomwood starts somewhere in that fog."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  The hollow's deepest, oldest stretch: root-terraces give way to bare dark earth in
+  ~2-tile drops, still within the standard 5-tile/3.5-tile caps (MAP_TRAVERSAL §1.1).
+  Foothold segments dressed in dark-root terrain_chunks (ART_BIBLE AB-001); the fog line
+  toward Gloomwood is visual only, no mechanical change.
+flavor: "This is as far as the hollow's green reaches -- past the last root-arch, the light and the sound both change."

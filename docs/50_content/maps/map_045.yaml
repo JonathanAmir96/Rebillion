@@ -1,0 +1,31 @@
+id: map_045
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, DEATH_PENALTY]
+name: Mossmere Inn
+region: verdant
+map_type: interior
+level_band: { min: 8, max: 8 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 30, h: 16 }
+bgm: bgm_town_verdant
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [6, 12] }
+portals:
+  - id: to_mossmere_square
+    kind: door
+    at: { tile: [3, 12] }
+    target_map: map_043
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: inn_bed
+    id: bed_mossmere_inn
+    at_tile: [22, 12]
+    params: {}
+npcs: [npc_035]
+platform_brief: |
+  A single low common room, no verticality, ferns hanging from the rafters. A hearth,
+  a bar, and the inn bed sit along the back wall -- a flat walk-in with no combat.
+flavor: "Ferns hang from every rafter and the fire never quite drives out the hollow's damp, cozy chill."

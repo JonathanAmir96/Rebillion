@@ -1,0 +1,25 @@
+# side band 5-10% of exp_to_next(14)=7,316 (LEVELING §1); pct=0.08. shards = mean_shards_normal(14)*4
+# = 24*4 (QUESTS §5 / DROPS §3).
+id: quest_032
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Grub Hollows' Warden
+region: verdant
+quest_type: side
+giver_npc: npc_039
+prereqs: [quest_031]
+level_requirement: 14
+recommended_level: 14
+steps:
+  - type: kill
+    target: mob_044                # elite; first elite den in the Root Warrens chain
+    count: 3
+  - type: collect
+    target: item_etc_0044          # sourced from the region's drop pipeline (parallel monster batch)
+    count: 4
+rewards:
+  exp: 585                        # round(0.08 * 7,316)
+  shards: 96                      # mean_shards_normal(14)*4 = 24*4
+flavor: "Whatever hollowed that grub-den out is bigger and meaner than anything else down there so far."
+offer_text: "There's a den past the grub-tunnels that isn't grub-sized. Clear it, and bring back proof it won't be denning there again soon."
+complete_text: "Good -- that den was getting bolder by the week. The warren's a little safer for it."

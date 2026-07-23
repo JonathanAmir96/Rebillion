@@ -1,0 +1,15 @@
+id: npc_035
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Marta Fenwick
+region: verdant
+map: map_045
+role: innkeeper
+shop:
+  items: [item_use_0001, item_use_0006]   # a Lesser Life Tonic and Lesser Essence Tonic, reserved-name items (ID_REGISTRY)
+services: [inn_rest]
+dialog:
+  greeting: "Bed's warm, stew's hot. Sit before the hollow's damp gets in your bones."
+  farewell: "Mind the ferns on your way out -- they grab at ankles after dark."
+portrait: portrait_npc_035
+flavor: "Marta has kept Mossmere's inn since before the coach line reached this far west, and still bakes enough bread for travelers who never show."

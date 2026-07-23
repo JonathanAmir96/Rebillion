@@ -1,0 +1,41 @@
+id: map_069
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Whispering Hollow
+region: verdant
+map_type: secret
+level_band: { min: 14, max: 16 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 46, h: 28 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [6, 20] }
+portals:
+  - id: to_heartwood_vault
+    kind: door
+    at: { tile: [4, 20] }
+    target_map: map_066
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: whispering_hollow_pocket
+    rect_tiles: { x: 16, y: 16, w: 26, h: 8 }
+    mobs:
+      - { mob: mob_046, count: 1 }        # elevated elite weight, secret-map bonus content (SPAWN §2)
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_whispering_hollow
+    at_tile: [12, 19]
+    params:
+      text: "Voices carry here that shouldn't -- half the hollow's old rumors say this knot remembers every Weaver who ever passed through."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A small hushed side-pocket carved into the heartwood, one flat floor, no verticality
+  gimmick. Foothold segments dressed in heartwood terrain_chunks (ART_BIBLE AB-001); a
+  dead end off Heartwood Vault, small and atmosphere-dense rather than a through-route.
+flavor: "Sound behaves strangely in this knot -- footsteps echo back a beat too late, like something is repeating them."

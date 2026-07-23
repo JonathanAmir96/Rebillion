@@ -1,0 +1,24 @@
+# main band 15-30% of exp_to_next(16)=10,437 (LEVELING §1); pct=0.20. shards = mean_shards_normal(16)*15
+# = 27*15 (QUESTS §5 / DROPS §3).
+id: quest_035
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Thornback Sovereign
+region: verdant
+quest_type: main
+giver_npc: npc_040
+prereqs: [quest_034]
+level_requirement: 16
+recommended_level: 16
+steps:
+  - type: kill
+    target: mob_047                # the region boss, Thornheart Grove arena (map_070)
+    count: 1
+rewards:
+  exp: 2087                       # round(0.20 * 10,437)
+  shards: 405                     # mean_shards_normal(16)*15 = 27*15
+  items:
+    - { id: item_use_0007, qty: 2 }   # Essence Tonic
+flavor: "The Sovereign has slept, half-armored in moss, at the hollow's heart for longer than anyone in Mossmere can say."
+offer_text: "You've seen the threshold. Now go wake what's past it -- the hollow won't rest easy while the Sovereign still claims the grove."
+complete_text: "Moss-armor cracked, at last. The hollow's a little more its own again, and so, I think, are you."
