@@ -5,21 +5,23 @@ docs/ID_REGISTRY.md, 10_systems/DEATH_PENALTY.md, 10_systems/COMBAT_FORMULA.md,
 10_systems/LEVELING.md, 10_systems/PERSISTENCE.md, 10_systems/ECONOMY.md,
 10_systems/HUD.md, 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_INTERACTABLES.md
 
-Owner doc for the **rules** portals, spawns, and waygates follow between maps.
-`docs/WORLD_PLAN.md`'s "Cross-region walk edges" and "Waygate network" tables are the sole
-authoritative source for *which* `map_NNN` pairs connect — they are cited, never reproduced, here.
-This doc formalizes the spawn-naming convention `docs/WORLD_PLAN.md` previews, the waygate unlock
-rule, death-return routing, `dead_end` marking, the region-progression gate policy, and resolves
-`docs/WORLD_PLAN.md`'s terminus open question. Portal object params are
-`15_maps_system/MAP_INTERACTABLES.md` §2's; this doc owns only the rules governing them.
+Owner doc for the **rules** portals, spawns, and paid transport follow between maps (v2.2 — the
+free waygate network is retired; `coach`/ferry are the paid transports, `00_vision/GLOSSARY.md`
+"Transport"). `docs/WORLD_PLAN.md`'s "Cross-region walk edges" table and "Harthmoor Coachworks"
+paragraph are the sole authoritative source for *which* `map_NNN` pairs and stations connect —
+they are cited, never reproduced, here. This doc formalizes the spawn-naming convention
+`docs/WORLD_PLAN.md` previews, the coach/ferry ride rules, death-return routing, `dead_end`
+marking, the region-progression gate policy, and the terminus shortcut decision. Portal object
+params are `15_maps_system/MAP_INTERACTABLES.md` §2's; fares are `10_systems/ECONOMY.md` §4.3's;
+this doc owns only the rules governing them.
 
 ## 1. Portal kind semantics between regions
 
 | Kind | Typical use | Region span |
 |---|---|---|
-| `edge` | Most field/dungeon chain links; the 8 cross-region walk edges (`docs/WORLD_PLAN.md`) | Usually intra-region; cross-region for the 8 listed edges (+ §7's two additions) |
-| `door` | Town↔interior; every arena's entry gate (`15_maps_system/MAPS_SYSTEM.md` §8) | Always same-region |
-| `waygate` | The Millbrook-hub long-distance network (`docs/WORLD_PLAN.md` "Waygate network") | Cross-region by design — that is its purpose |
+| `edge` | Most field/dungeon chain links; the cross-region walk edges (`docs/WORLD_PLAN.md`) | Usually intra-region; cross-region for the listed edges (+ §7's addition) |
+| `door` | Town↔interior; the ferry's two docks; every arena's entry gate (`15_maps_system/MAPS_SYSTEM.md` §8) | Same-region, except the ferry crossing |
+| `coach` | The Harthmoor Coachworks paid station-to-station network (`docs/WORLD_PLAN.md` v2.2) | Cross-region by design — that is its purpose |
 
 ## 2. Spawn-point naming law
 
@@ -31,38 +33,40 @@ multi-entrance dungeon's `upper_west`) as long as they never collide with the re
 |---|---|---|
 | `main` | Every map, exactly one | Default arrival point — direct teleport, quest-start, and the fallback target for any portal that doesn't name another spawn |
 | `from_<origin_slug>` | Every map that is the destination of an `edge` portal crossing a region boundary | `<origin_slug>` is the origin **region**'s GLOSSARY slug (not a per-map slug — maps have none). An intra-region `edge` targets plain `main` unless the destination map has multiple distinct entrances needing disambiguation |
-| `waygate` | Every map with a `waygate_console` (`15_maps_system/MAP_INTERACTABLES.md` §9) | The fixed arrival point for all waygate-network transits; exactly one per waygate-bearing map |
+| `coach_stop` | Every map with a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9) | The fixed arrival point for all coach transits; exactly one per station map (`docs/WORLD_PLAN.md` "Spawn-point convention"; `from_ferry` covers the ferry docks the same way) |
 
-Each of `docs/WORLD_PLAN.md`'s 8 bidirectional cross-region edges produces exactly two
+Each of `docs/WORLD_PLAN.md`'s bidirectional cross-region edges produces exactly two
 `from_<origin_slug>` spawns (one per endpoint, each named for the *other* side's region) — e.g.
 the Emberfoot↔Verdant edge gives Verdant's endpoint a `from_emberfoot` spawn and Emberfoot's
 endpoint a `from_verdant` spawn.
 
-## 3. Waygate unlock rule
+## 3. Coach & ferry ride rules (v2.2 — paid transport, no free warps)
 
-**Touch the console once, then free travel forever — no cost, no cooldown** (P3: travel is a
-low-friction loop, hunt outward, warp home).
+**Every ride costs `shards`; the ring is walked for free.** (P3 survives as hunt-outward,
+ride-home-for-a-fee; the retired waygate network's touch-to-unlock state is gone entirely.)
 
-- Unlock state is a per-character, server-authoritative, persistent set of unlocked waygate
-  `map_id`s (`10_systems/PERSISTENCE.md`).
-- **Millbrook Central's waygate is pre-unlocked for every character from creation** — it is already
-  in a new character's unlocked set before the console is ever touched (touching it anyway is
-  harmless/idempotent).
-- Interacting with any `waygate_console` (`15_maps_system/MAP_INTERACTABLES.md` §9): if this
-  waygate is not yet in the character's unlocked set, it is added (permanent, no re-lock); either
-  way, a destination menu (`10_systems/HUD.md`) then opens listing every currently-unlocked
-  waygate, and choosing one triggers the co-located `portal(kind: waygate)`
-  (`15_maps_system/MAP_INTERACTABLES.md` §2) to that destination's `waygate` spawn.
-- No `shards` cost, no cooldown, on any waygate transit.
+- No unlock state exists: every station is usable by every character from the first visit; there
+  is nothing persistent to track except the one-time free-pilgrimage flag
+  (`10_systems/ECONOMY.md` §4.3, `10_systems/PERSISTENCE.md`).
+- Interacting with a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9) opens a
+  destination menu (`10_systems/HUD.md`) listing the other four stations with their fares
+  (`10_systems/ECONOMY.md` §4.3); paying triggers the co-located `portal(kind: coach)`
+  (`15_maps_system/MAP_INTERACTABLES.md` §2) to the destination's `coach_stop` spawn. A character
+  who cannot pay simply cannot ride — no debt, no partial trips.
+- The **Harborwind Ferry** is the same pattern with `door` portals at the two docks
+  (`map_001` ↔ `map_015` ↔ `map_017`) and a flat per-crossing fare; transit is instant at launch
+  (`docs/WORLD_PLAN.md` Open Questions keeps scheduled sailings as future flavor).
+- No cooldown on any paid ride; the **Millbrook Return Scroll** (`item_use_0013`) remains the
+  only magic escape home.
 
 ## 4. Death-return routing
 
 `10_systems/DEATH_PENALTY.md` §4 owns the bind mechanic and respawn destination (a bound town's
-`main` spawn) — not restated here. This doc owns only *getting back out*: every valid bind town
-(`docs/WORLD_PLAN.md`'s 4 towns) is also a waygate-network endpoint, so a respawned character
-always has immediate access to its own town's `waygate_console`, already unlocked (it must have
-rested there to be bound there), and can warp back to the frontier as ordinary travel (§3) — never
-a special death-only routing path.
+`main` spawn) — not restated here. This doc owns only *getting back out*: a respawned character
+returns to the frontier as **ordinary travel** — walking the ring, or a paid coach/ferry ride
+where its bind town has a station (`10_systems/DEATH_PENALTY.md` §4's five bind towns all have
+one, except Emberfoot Village, whose ferry dock serves the same role) — never a special
+death-only routing path or discount.
 
 ## 5. `dead_end` marking
 
@@ -71,45 +75,43 @@ must carry `dead_end: true`, authored on the portal that *leads into* the one-wa
 on the destination side). This is a validator-exemption flag only — it tells the world-graph
 checker "do not require a reverse portal here" — not a required visible UI marker, though a map UI
 may optionally surface it (`10_systems/HUD.md`'s call, not specified here). Ordinary `edge`/`door`/
-`waygate` portals, which always pair with a reverse, are never marked `dead_end`.
+`coach` portals, which always pair with a reverse, are never marked `dead_end`.
 
 ## 6. Region-progression gate policy: none
 
-**Decision: no authored region-to-region progression gate exists anywhere in the portal/waygate
+**Decision: no authored region-to-region progression gate exists anywhere in the portal/coach
 system** — no level lock, quest-flag lock, or item-key lock on any region boundary (contrast with
 an optional *per-arena* quest-flag gate, `15_maps_system/MAPS_SYSTEM.md` §8, a narrower, different
-concern). A Lv 1 character can walk into a Lv 90 region; nothing here stops them. The only gate is
-the emergent difficulty curve: `10_systems/COMBAT_FORMULA.md` §9's level-difference dampener makes
-a badly under-level fight genuinely hard well before it's mechanically blocked, reinforced by
-`10_systems/LEVELING.md`'s exp curve (which consumes that same §9 table) cratering reward for
-over-level kills, and `docs/WORLD_PLAN.md`'s world-graph spine naturally lands a region-by-region
-player roughly in-band anyway. This is deliberate (P2 — no trap walls, only a hard-but-not-
-impossible curve) and matches §3's waygate unlock, which also never checks level.
+concern). A Lv 8 character can walk into the Lv 34+ Clockwork gates; nothing here stops them. The
+only gate is the emergent difficulty curve: `10_systems/COMBAT_FORMULA.md` §9's level-difference
+dampener makes a badly under-level fight genuinely hard well before it's mechanically blocked,
+reinforced by `10_systems/LEVELING.md`'s exp curve (which consumes that same §9 table) cratering
+reward for over-level kills, and `docs/WORLD_PLAN.md`'s world-graph spine naturally lands a
+region-by-region player roughly in-band anyway. This is deliberate (P2 — no trap walls, only a
+hard-but-not-impossible curve) and matches §3's coach rules, which also never check level (only
+the fare).
 
-## 7. Terminus decision — Frostpeak & Clockwork drop chutes
+## 7. Terminus decision — the Sunken Depths drop chute (v2)
 
-`docs/WORLD_PLAN.md` flags an open question, explicitly delegated to this doc: should Frostpeak
-and Clockwork — both deliberate branch termini — get a late-game shortcut back toward Millbrook
-besides the return scroll? **Decision: yes.** Both termini get a one-way drop chute from their
-region's arena back down to the neighboring region's waygate-entrance field, so a player who has
-just finished the terminus content isn't forced to walk the whole chain back or spend a return
-scroll.
+`docs/WORLD_PLAN.md` v2 makes **Sunken Depths** the world's one deliberate terminus spur (the v1
+Frostpeak/Clockwork chutes died with the v1 world graph — Clockwork is now the ring's center with
+two walk gates). The same player-respect question recurs: should a player who has just cleared
+The Warden's Vault walk the whole 25-map spur back, or spend a return scroll? **Decision: one
+one-way drop chute**, from the arena's approach back to the spur's mouth:
 
 | Terminus | New portal on | Kind | `target_map` | `target_spawn` (new) | `dead_end` |
 |---|---|---|---|---|---|
-| Frostpeak (The Hornfall Summit) | `map_108` | `edge` | `map_073` (Ashfall's waygate-entrance field) | `from_frostpeak` | `true` |
-| Clockwork (The Mainspring) | `map_144` | `edge` | `map_109` (Gloomwood's waygate-entrance field) | `from_clockwork` | `true` |
+| Sunken Depths (The Warden's Vault) | `map_176` | `edge` | `map_094` (Tidewatch's sea-cave descent) | `from_sunken` | `true` |
 
-All four IDs already fall inside their region's reserved block (`docs/ID_REGISTRY.md`) — this
+Both IDs already fall inside their region's reserved block (`docs/ID_REGISTRY.md`) — this
 decision adds a portal between existing maps, it mints no new `map_NNN`.
 
-Both new spawns follow this doc's own §2 naming law (`from_<origin_region_slug>`) and land on maps
-that currently carry no `from_*` spawn (their existing cross-region edges use different map IDs
-per `docs/WORLD_PLAN.md`'s edge table), so neither collides with an existing spawn. **No reverse
-portal is authored** on either destination map back up to the arena — one-way is the point of a
-terminus shortcut. `docs/WORLD_PLAN.md`'s edge table plus these two additions together form the
-complete authorized cross-region walk-edge set (see Open Questions re: `docs/VALIDATION.md` §5's
-wording). Phase D authors these two portals directly from this table.
+The new spawn follows this doc's own §2 naming law (`from_<origin_region_slug>`); `map_094`'s
+existing cross-region edge (to `map_152`) is a different portal, so nothing collides. **No
+reverse portal is authored** back up to the arena — one-way is the point of a terminus shortcut.
+`docs/WORLD_PLAN.md`'s edge table plus this §7 addition together form the complete authorized
+cross-region walk-edge set (`docs/VALIDATION.md` §5). Phase D authors this portal directly from
+this table.
 
 ## Map-level edge table
 
@@ -117,20 +119,17 @@ Authored by the Phase D world-graph reconciler after all 200 maps exist.
 
 ## Open Questions
 
-- `docs/VALIDATION.md` §5 states cross-region edges "must match `docs/WORLD_PLAN.md`'s edge table
-  exactly." `docs/WORLD_PLAN.md` itself delegates the §7 terminus decision to this doc, so that
-  phrase should be read (or amended at a future pass) to include this doc's §7 additions as part of
-  the authorized edge set. Flagged for `docs/VALIDATION.md`'s owner to confirm/reword — not
-  resolved by editing that file here (out of scope for this doc).
-- Whether waygate travel (§3) should ever carry a nominal `shards` sink is
-  `10_systems/ECONOMY.md`'s call; default here is free, matching P3.
+- ~~`docs/VALIDATION.md` §5's "must match WORLD_PLAN's edge table exactly" vs this doc's §7
+  additions~~ **Resolved at the v2 straggler wave:** `docs/VALIDATION.md` §5 now names the
+  authorized set as WORLD_PLAN's table **plus this doc's §7 row** (amended there, its owner's
+  channel).
 - Freely-authored extra spawn names on multi-entrance maps (§2) have no stricter naming
   convention yet; flag if Phase D authoring shows collisions or ambiguity in practice.
 - Whether a map UI visually flags a `dead_end` portal before the player commits to it (§5) is
   `10_systems/HUD.md`'s design call, not decided here.
-- The 1:1 mapping from each Rift raid arena to its staging-shard field
-  (`10_systems/DEATH_PENALTY.md` §5.3's flagged open item) is still unresolved and is not settled
-  by this doc either — it awaits Rift authoring.
-- Whether the two new §7 drop-chutes need their own `docs/WORLD_PLAN.md` mention (beyond this
-  doc) for discoverability is a light documentation question, not a design one; default is that
-  this doc is the sole source for them.
+- Whether the §7 drop-chute needs its own `docs/WORLD_PLAN.md` mention (beyond this doc) for
+  discoverability is a light documentation question, not a design one; default is that this doc
+  is the sole source for it.
+- Coach fares (`10_systems/ECONOMY.md` §4.3) assume five stations and ring-path hop counting; if
+  Phase D map authoring shifts a station's map, only WORLD_PLAN/ECONOMY rows move — this doc's
+  rules are station-agnostic.

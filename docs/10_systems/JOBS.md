@@ -21,7 +21,7 @@ promotion into `00_vision/GLOSSARY.md` (`00_vision/GLOSSARY.md` Provisional; `do
 reserves `skill_<line>_001`–`030` per line). Line tokens are `snake_case`, one word, and used
 verbatim in skill IDs.
 
-| Line token | Primary (`10_systems/STATS.md`) | Weapon (GLOSSARY) | Playstyle | `novice` | 1st job (Lv 8) | 2nd job (Lv 30) | 3rd job (Lv 60) |
+| Line token | Primary (`10_systems/STATS.md`) | Weapon (GLOSSARY) | Playstyle | `novice` | 1st job (Lv 8) | 2nd job (Lv 40) | 3rd job (future arcs, name reserved) |
 |---|---|---|---|---|---|---|---|
 | `bulwark` | `might` | `blade` | frontline brawler | Novice | Bulwark | Ironbrand | Aegis |
 | `keeneye` | `finesse` | `bow` | ranged precision | Novice | Keeneye | Pathstalker | Skypiercer |
@@ -34,8 +34,9 @@ verbatim in skill IDs.
 
 ## 1. Shared advancement rules
 
-- **Bands.** `novice` Lv 1–7 (shared kit, §6) → **1st** advancement at **Lv 8** → **2nd** at
-  **Lv 30** → **3rd** at **Lv 60**. Level cap 100 (`00_vision/SCOPE.md`); no 4th job.
+- **Bands (v2).** `novice` Lv 1–7 (shared kit, §6) → **1st** advancement at **Lv 8** → **2nd** at
+  **Lv 40**. The game cap is 300 (initial design, `00_vision/SCOPE.md`); **3rd jobs are
+  named-and-reserved only** — their skills, quests, and level gate ship with future arcs.
 - **Line is chosen at the 1st advancement (Lv 8)** and is permanent — a character is one line for
   life (linear model, `00_vision/SCOPE.md`). Stat identity is undifferentiated during `novice`
   (`10_systems/STATS.md` §4.1–4.2: 5/5/5/5, +1 to all on each novice level), so no build is locked
@@ -46,22 +47,23 @@ verbatim in skill IDs.
   (`docs/ID_REGISTRY.md`; concrete `npc_NNN`/`quest_NNN` IDs are authored in Phase D —
   `10_systems/QUESTS.md`). Pattern only, not concrete IDs:
 
-  | Advancement | Level | Trainer location (pattern) | Quest (pattern) |
+  | Advancement | Level | Trainer location (v2.3 pattern) | Quest (pattern) |
   |---|---|---|---|
-  | 1st | 8 | starter-town trainer (Emberfoot NPC block) | a Lv 8 Emberfoot trainer quest |
-  | 2nd | 30 | Millbrook-hub trainer (Millbrook NPC block) | a Millbrook trainer quest, Lv 30 gate |
-  | 3rd | 60 | Millbrook-hub trainer | a Millbrook trainer quest, Lv 60 gate |
+  | 1st | 8 | the line's **home-town instructor** (`docs/WORLD_PLAN.md` "Job instructors": Bulwark→Cindershelf, Keeneye→Tidewatch Port, Weaver→Mossmere, Flicker→Millbrook Central), reached via the advancement pilgrimage (one free coach ride from Rosen Harbor) | a Lv 8 trainer quest in the instructor's town |
+  | 2nd | 40 | the **same instructor**, routing the candidate through a trial in the Clockwork Ruins | a Lv 40 trainer quest, Clockwork trial |
 
-  Centralizing the 2nd/3rd trainers in the Millbrook hub matches `00_vision/PILLARS.md` P3
-  (hub-and-spoke). Trainer-quest `exp` counts toward the region quest budget
-  (`10_systems/LEVELING.md` §4 / `10_systems/QUESTS.md`).
+  Per-line home towns (v2.3, classic-style) replace v1's centralized Millbrook trainers; the
+  pilgrimage is the deliberate first journey (`00_vision/PILLARS.md` P3). Trainer-quest `exp`
+  counts toward the region quest budget (`10_systems/LEVELING.md` §4 / `10_systems/QUESTS.md`).
 - **What an advancement unlocks:** the next skill tier (`10_systems/SKILL_SYSTEM.md` gates skill
   tiers on job tier) and the auto-growth switch to +3 main primary (`10_systems/STATS.md` §4.2,
   already at Lv 9). It does **not** grant a stat swap — the line's main primary was implicit from
   Lv 8.
-- **Skill budget per line: exactly 21** authored skills, `skill_<line>_001`–`021` in tier order —
-  **6** first-job (`001`–`006`), **7** second-job (`007`–`013`), **8** third-job (`014`–`021`) —
-  including the line's passives (`docs/ID_REGISTRY.md`; `022`–`030` reserved). Counts checked in §7.
+- **Skill budget per line (v2): 13 authored this arc**, `skill_<line>_001`–`013` in tier order —
+  **6** first-job (`001`–`006`), **7** second-job (`007`–`013`) — including the line's passives
+  (`docs/ID_REGISTRY.md`). The third-job tier (`014`–`021`) is **named-and-reserved**: its skill
+  concepts below are future-arc plans, not Phase D content; `022`–`030` stays reserved growth.
+  Counts checked in §7.
 
 ## 2. Bulwark line (`bulwark` · `might` · `blade`)
 
@@ -260,27 +262,28 @@ op rules as line skills (`10_systems/SKILL_SYSTEM.md`, `10_systems/SKILL_EFFECTS
 
 ## 7. Roster budget check (per `docs/ID_REGISTRY.md`)
 
-| Line | 1st (`001`–`006`) | 2nd (`007`–`013`) | 3rd (`014`–`021`) | Passives | Actives | Total |
-|---|---|---|---|---|---|---|
-| `bulwark` | 4A / 2P | 5A / 2P | 6A / 2P | 6 | 15 | 21 |
-| `keeneye` | 4A / 2P | 5A / 2P | 7A / 1P | 5 | 16 | 21 |
-| `weaver` | 4A / 2P | 5A / 2P | 7A / 1P | 5 | 16 | 21 |
-| `flicker` | 4A / 2P | 5A / 2P | 7A / 1P | 5 | 16 | 21 |
+| Line | 1st (`001`–`006`) | 2nd (`007`–`013`) | Authored total (this arc) | 3rd (`014`–`021`, reserved) |
+|---|---|---|---|---|
+| `bulwark` | 4A / 2P | 5A / 2P | 13 | 6A / 2P (future) |
+| `keeneye` | 4A / 2P | 5A / 2P | 13 | 7A / 1P (future) |
+| `weaver` | 4A / 2P | 5A / 2P | 13 | 7A / 1P (future) |
+| `flicker` | 4A / 2P | 5A / 2P | 13 | 7A / 1P (future) |
 
-Every line hits **6 / 7 / 8** by tier and **21** total; passive counts are within the 4–6 band
-(`bulwark` 6, others 5). Across all 84 line skills + 4 novice, all 14 effect ops
-(`10_systems/SKILL_EFFECTS.md`) and all 6 targeting shapes (`10_systems/SKILL_SYSTEM.md`) appear at
-least once, so the roster exercises the full primitive set (`00_vision/PILLARS.md` P4).
+Every line hits **6 / 7** by authored tier — **52 line skills + 4 novice = 56 authored**
+(`00_vision/SCOPE.md` v2). The reserved 3rd-tier plans keep each line's eventual 21-skill shape.
+Across the 56 authored skills, all 14 effect ops (`10_systems/SKILL_EFFECTS.md`) and all 6
+targeting shapes (`10_systems/SKILL_SYSTEM.md`) must appear at least once, so the roster
+exercises the full primitive set (`00_vision/PILLARS.md` P4) without the 3rd tier.
 
 ## Open Questions
 
 - The four line tokens (`bulwark`/`keeneye`/`weaver`/`flicker`), `novice`, and the twelve job
   names are proposed for `00_vision/GLOSSARY.md` promotion at the B gate (§0); until promoted they
   live here as their sole definition. Flag if any collides with a later-authored token.
-- Job-trainer NPC IDs and the three advancement quest IDs per line are **Phase D** content
-  (`10_systems/QUESTS.md`, `docs/ID_REGISTRY.md`); §1 fixes only the level gates (8/30/60) and the
-  town pattern. Confirm the Millbrook trainer NPC allocation fits the Millbrook `npc` block when
-  quests are authored.
+- Job-trainer NPC IDs and the two advancement quest IDs per line are **Phase D** content
+  (`10_systems/QUESTS.md`, `docs/ID_REGISTRY.md`); §1 fixes only the level gates (8/40) and the
+  home-town pattern. Confirm each instructor NPC fits its home town's `npc` block when quests are
+  authored.
 - Whether a small `shards` cost or item gate should accompany the trainer quests (beyond the quest
   itself) is an `10_systems/ECONOMY.md`/`10_systems/QUESTS.md` call; default is quest-only.
 - Prerequisite chains among a line's skills (e.g., an ultimate feeding off an earlier skill's rank)

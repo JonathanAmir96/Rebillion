@@ -188,7 +188,7 @@ scaled by the target's size class (`40_assets/ART_BIBLE.yaml sizing.size_classes
 | knockback × | 1.5 | 1.2 | 1.0 | 0.5 | 0.0 (immune) |
 
 A heavy hit **interrupts** a `normal`/`elite` monster mid-`cast` unless it is flagged super-armored;
-`boss`/raid entities have super-armor except in scripted-vulnerable windows owned by
+`boss` entities have super-armor except in scripted-vulnerable windows owned by
 `10_systems/AI_BEHAVIOR.md`. `boss`-size knockback ×0 aligns with their CC immunity
 (`10_systems/STATUS_EFFECTS.md` §3). Player casts are interrupted by heavy hits unless the player is
 in i-frames (§12) or a stability effect applies.
@@ -265,36 +265,39 @@ their script marks contact-hot.
 |---|---|---|---|---|---|---|
 | `elite` | ×6 | ×1.5 | ×1.3 | ×1.1 | +2% | STATUS_EFFECTS §3 elite row |
 | `boss` | ×35 | ×2.0 | ×1.6 | ×1.2 | +0 (bosses don't dodge) | boss row; knockback-immune (§11) |
-| raid boss | §13.3 | ×2.5 (fixed) | ×1.8 | ×1.2 | +0 | CC-immune (STATUS_EFFECTS §3) |
 
-Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 150; boss Lv 60 `life` = 15 875×35 ≈ 555 700; boss
-Lv 100 `power` = 306×2 = 612. Region/Rift bosses (`docs/WORLD_PLAN.md`) copy the row for their level
-and phase-tune within it.
+Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 130; boss Lv 40 `life` = 7395×35 ≈ 258 800; boss
+Lv 40 `power` = 126×2 = 252. Region bosses (`docs/WORLD_PLAN.md`) copy the row for their level
+and phase-tune within it. A **PQ-instanced finale boss** (`10_systems/social/PARTY_QUEST.md` §4)
+is the same monster on this same row, with `life` alone replaced by §13.3's party scaling.
 
-### 13.3 Raid-boss party scaling (owner)
+### 13.3 PQ-finale party scaling (owner)
 
-Rift raid bosses (`mob_147`–`mob_150`, `docs/WORLD_PLAN.md` R12) scale `life` with party size `N`
-(`10_systems/social/PARTY.md` owns the legal party range and how `N` is counted). This doc owns the
-math:
+A party-quest finale boss (the Cellar King `mob_027` / the Custodian `mob_150`, fought through PQ
+entry — `10_systems/social/PARTY_QUEST.md` §4) scales `life` with party size `N`
+(`10_systems/social/PARTY.md` §6 owns how `N` is counted; `PARTY_QUEST.md` §2 owns the legal
+range, 3–6). This doc owns the math:
 
 ```
-raid_life(N, L) = normal_life(L) · 90 · N          # per-member linear
-raid_damage      = normal_power(L) · 2.5           # FIXED — never scaled by N
-enrage_timer     = 12 min                           # boss wipes the party on expiry
+pq_life(N, L) = normal_life(L) · 70 · N            # per-member linear, replaces the solo ×35
+pq_damage     = normal_power(L) · 2.0              # the §13.2 boss row — FIXED, never N-scaled
+enrage_timer  = 10 min                             # boss wipes the party on expiry
 ```
 
-Because both `raid_life` and total party DPS scale ≈ linearly in `N`, time-to-kill stays inside the
+Because both `pq_life` and total party DPS scale ≈ linearly in `N`, time-to-kill stays inside the
 §14 band across the whole legal party range (worked below); larger parties drift toward the slow end
-as coordination efficiency falls. Raid boss `damage` is **not** `N`-scaled — more players means more
-bodies to cover mechanics, not a bigger tank check. The party requirement is enforced by the
-`10_systems/social/PARTY.md` minimum-size gate, boss mechanics, and the enrage timer — **not** by
-`life` alone (a lone player would still hit enrage first). Reference table at Lv 105:
+as coordination efficiency falls. Finale boss `damage` is **not** `N`-scaled — more players means
+more bodies to cover mechanics, not a bigger tank check. The party requirement is enforced by the
+`10_systems/social/PARTY_QUEST.md` minimum-size gate, boss mechanics, and the enrage timer — **not**
+by `life` alone. A future-arc raid tier reuses this shape with its own coefficients. Reference
+table at Lv 40 (the Custodian; `normal_life(40)` = 7395):
 
-| `N` | `raid_life` | party effective DPS (§15 × `N` × 0.85) | TTK |
+| `N` | `pq_life` | party effective DPS (§15 × `N` × 0.85) | TTK |
 |---|---|---|---|
-| 4 | 16.8 M | ≈ 39 200 | ≈ 7.9 min |
-| 5 | 21.0 M | ≈ 49 000 | ≈ 7.9 min |
-| 6 | 25.2 M | ≈ 58 800 | ≈ 7.9 min |
+| 3 | 1.55 M | ≈ 4 190 | ≈ 6.2 min |
+| 4 | 2.07 M | ≈ 5 590 | ≈ 6.2 min |
+| 5 | 2.59 M | ≈ 6 980 | ≈ 6.2 min |
+| 6 | 3.11 M | ≈ 8 380 | ≈ 6.2 min |
 
 ## 14. Time-to-kill targets (design contract)
 
@@ -306,7 +309,7 @@ and the §15 DPS curve; balance retunes toward the **midpoint**, never outside t
 | normal mob | 3–6 s | 4.5 s (`life` / effective DPS) | §13, §15 |
 | `elite` | 20–40 s | ≈ 30 s (×6 `life`, +mitigation/dodging) | §13.2 |
 | region `boss` | 2–4 min | ≈ 2.5 min base + phase/mechanic downtime | §13.2 |
-| Rift raid boss | 6–10 min | ≈ 8 min, mid party | §13.3 |
+| PQ finale boss (party entry) | 4–8 min | ≈ 6 min, mid party | §13.3 |
 
 ## 15. Player DPS assumption table (backs §14)
 
@@ -343,9 +346,9 @@ intended tutorial pacing (P2) and stays inside the "snappy" spirit of the band.
 - `base_move_speed` (200 px/s) and `base_attack_interval` (0.90 s) are placeholders until the tile
   scale is locked in `40_assets/ART_BIBLE.yaml`; the `haste` percentages (STATS §5) are scale-free,
   but the px value is not. Owner: COMBAT_FORMULA at the C gate.
-- Mid-party size for the §14 raid target is assumed `N ≈ 4–6` (mid 5) pending
-  `10_systems/social/PARTY.md`; the §13.3 formula is `N`-agnostic, but the legal party range and
-  `N` counting must be confirmed there. Flagged.
+- ~~Mid-party size for the §14 party target pending `10_systems/social/PARTY.md`~~ **Resolved at
+  the v2 straggler wave:** the legal range is 3–6 (`10_systems/social/PARTY_QUEST.md` §2) and `N`
+  counting is `10_systems/social/PARTY.md` §6's; the §13.3 reference table spans the full range.
 - `power_ref`/`mult m` (§15) assume typical gear budgets from `10_systems/ITEMS.md` and skill
   coefficients from `10_systems/SKILL_SYSTEM.md` that are not yet authored; if those land far from
   the reference, retune `mult m` (never `normal_life`). Owner: balance pass, C/D gates.

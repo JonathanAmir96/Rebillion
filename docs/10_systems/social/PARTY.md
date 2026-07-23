@@ -1,24 +1,24 @@
-# PARTY.md — Party System, Exp Share & Rift Raids
+# PARTY.md — Party System, Exp Share & Party Instances
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md, 10_systems/JOBS.md,
 10_systems/LEVELING.md, 10_systems/COMBAT_FORMULA.md, 10_systems/DROPS.md, 10_systems/INVENTORY.md,
 10_systems/ECONOMY.md, 10_systems/QUESTS.md, 10_systems/DEATH_PENALTY.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/SPAWN.md, 10_systems/HUD.md, 10_systems/CONTROLS.md,
-10_systems/social/CHAT.md, 15_maps_system/MAPS_SYSTEM.md, 10_systems/PERSISTENCE.md,
-docs/WORLD_PLAN.md
+10_systems/social/CHAT.md, 10_systems/social/PARTY_QUEST.md, 15_maps_system/MAPS_SYSTEM.md,
+10_systems/PERSISTENCE.md, docs/WORLD_PLAN.md
 
 Owner doc for the **party**: membership and roster, invite/kick/leave and leader powers, the
-exp-share split, loot-share modes, the HUD data contract, and the Rift raid party rules. Kill/`exp`
+exp-share split, loot-share modes, the HUD data contract, and the party bookkeeping for
+party-instanced content (`10_systems/social/PARTY_QUEST.md` finales). Kill/`exp`
 math is `10_systems/LEVELING.md`/`10_systems/COMBAT_FORMULA.md`; drop tagging and table shape are
-`10_systems/DROPS.md`; death/release-and-reenter is `10_systems/DEATH_PENALTY.md`; raid boss
-scaling math is `10_systems/COMBAT_FORMULA.md` §13.3. This doc consumes all of those and never
-restates them — it owns only who is in a party, how shared rewards split among them, and the raid
-party gate.
+`10_systems/DROPS.md`; death/release-and-reenter is `10_systems/DEATH_PENALTY.md`; party-scaled
+boss math is `10_systems/COMBAT_FORMULA.md` §13.3. This doc consumes all of those and never
+restates them — it owns only who is in a party and how shared rewards split among them.
 
 ## 1. Membership & roster
 
-- **Size cap: 6.** Flat cap, no tiers — every party (field, dungeon, or raid) shares the same
-  ceiling.
+- **Size cap: 6.** Flat cap, no tiers — every party (field, dungeon, or party quest) shares the
+  same ceiling.
 - One party per character. A pending invite (§2) does not count as membership.
 - Roster fields: member list in join order, each member's `level`, job line
   (`10_systems/JOBS.md`), and current `map_NNN` (drives §4/§5's same-map gate).
@@ -93,8 +93,8 @@ item, not to presence.
 
 ## 5. Loot share modes
 
-Applies to the single discrete equip drop from an elite/boss/raid-boss kill — a
-`10_systems/DROPS.md` §5.2–§5.4 **pool roll** or **boss/raid unique**. Materials, use items, and
+Applies to the single discrete equip drop from an elite/boss kill — a
+`10_systems/DROPS.md` §5.2–§5.3 **pool roll** or **boss unique**. Materials, use items, and
 `shards` are not mode-gated: every `10_systems/DROPS.md` §7-eligible same-map member receives their
 own copy through the normal `10_systems/INVENTORY.md` §4 auto-loot flow regardless of mode (Open
 Questions — whether this duplicates the material/`shards` faucet per member is
@@ -105,25 +105,26 @@ Questions — whether this duplicates the material/`shards` faucet per member is
 | `free_for_all` | Ownership is shared across every eligible member; first to reach it in the exclusive window (`10_systems/DROPS.md` §7) claims it. |
 | `round_robin` | The party holds one rotation counter. A pool/unique roll assigns ownership to the eligible member at the front, which then advances by one; ineligible members are skipped without consuming a turn. |
 
-**Default: `round_robin`** for pool rolls and boss/raid uniques. The leader may toggle the mode
+**Default: `round_robin`** for pool rolls and boss uniques. The leader may toggle the mode
 (§2) at any time; a change applies to the next roll, never retroactively.
 
-## 6. Rift raids
+## 6. Party instances (PQ finales)
 
-Raid arenas (`map_197`–`map_200`, `docs/WORLD_PLAN.md` R12) are **party-required and
-party-instanced** (`10_systems/SPAWN.md` §7): entering allocates the encounter to the entering
-party alone.
+The two party-quest finales (`10_systems/social/PARTY_QUEST.md` §4 — the Cellar King and the
+Custodian fought through PQ entry) are **party-instanced** (`10_systems/SPAWN.md` §7): entering
+allocates the encounter to the entering party alone. A future raid tier reuses this same
+machinery when future arcs land (`00_vision/SCOPE.md`).
 
-- **Legal party size: 4–6.** Below 4, arena entry is refused (`15_maps_system/MAPS_SYSTEM.md` §8);
-  the cap is the same flat 6 as §1. This fixes `10_systems/COMBAT_FORMULA.md` §13.3's assumed
-  `N ≈ 4–6` range.
+- **Legal party size: 3–6** (`10_systems/social/PARTY_QUEST.md` §2 owns the floor; the cap is the
+  same flat 6 as §1). This fixes `10_systems/COMBAT_FORMULA.md` §13.3's legal `N` range.
 - **`N` is fixed at instance creation** (`10_systems/SPAWN.md` §7) and never re-scales mid-fight —
   not on a fall, a Release, a disconnect, or a late arrival (late arrivals fight but do not add to
   `N`). No hidden re-scaling (`00_vision/PILLARS.md` P1).
-- **Boss scaling** (`raid_life(N, L)`, fixed `raid_damage`, the 12-minute enrage timer) is entirely
+- **Boss scaling** (`pq_life(N, L)`, fixed damage, the enrage timer) is entirely
   `10_systems/COMBAT_FORMULA.md` §13.3's; not restated here.
-- **CC-immunity** for raid bosses stands at `10_systems/STATUS_EFFECTS.md` §3's existing default
-  (full hard+soft immunity) — confirmed, no party-side override.
+- **CC tier** for a PQ-instanced finale boss is the ordinary `boss` row of
+  `10_systems/STATUS_EFFECTS.md` §3 — the same monster, the same tier, regardless of entry path.
+  Full CC-immunity is reserved for a future-arc raid tier.
 - **Death, release, and re-entry** follow `10_systems/DEATH_PENALTY.md` §5.3 exactly (fallen state,
   self-service Release, walk-back re-entry while the attempt is live, full-wipe reset); not
   restated here. This doc fixes only the party bookkeeping:
@@ -131,25 +132,23 @@ party alone.
     state — resolves `10_systems/DEATH_PENALTY.md` §5.3's flagged open question.
   - While fallen but not yet Released, they are still physically on the arena map, so they remain
     exp/loot-eligible (§4/§5) for kills that land before they Release.
-  - Once Released to the staging-shard field (`docs/WORLD_PLAN.md` R12), they fail the same-map
-    gate (§4) until they walk back through the entrance.
+  - Once Released to the PQ entry map (`10_systems/DEATH_PENALTY.md` §5.3), they fail the
+    same-map gate (§4) until they walk back into the instance.
 
 ## Server Dependency
 
-Roster membership, HUD plate data, exp/loot arbitration, and raid instance allocation are all
+Roster membership, HUD plate data, exp/loot arbitration, and party-instance allocation are all
 `authority: server` (`10_systems/PERSISTENCE.md` §1–§2; `00_vision/PILLARS.md` P6) — a client
 cannot self-certify who is in range or award itself a kill's exp/loot. **The interim solo build
 ships the entire party system present but dormant**: the invite/roster UI exists but has no other
-character to reach, so no party ever forms, and Rift raids stay unreachable
-(`10_systems/SPAWN.md` §7 requires an entering party).
+character to reach, so no party ever forms, and party quests stay dormant
+(`10_systems/social/PARTY_QUEST.md` Server Dependency; both finale bosses remain soloable via
+open arena entry).
 
 ## Open Questions
 
 - The 70/30 contribution/presence split and the range_mult bands (§4) are first-pass balance;
   retune once real damage-share telemetry exists. Owner: this doc with `10_systems/ECONOMY.md`.
-- This doc's split refines `10_systems/LEVELING.md` §3's "assumes an even split among a mid party"
-  note for the raid 150× total; the two should reconcile at the next gate — the actual split is
-  not strictly even, only approximately so for a balanced-damage party.
 - Whether "same-map" (§4/§5) should tighten to a same-screen/zone radius on very large field maps
   is flagged, not resolved; default keeps the literal same-map gate.
 - Whether material/use-item/`shards` rows duplicate per eligible member or are split (§5) is

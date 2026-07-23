@@ -77,7 +77,7 @@ partial credit.
 
 A `logged` entry's drop-row list starts with every row **masked** except the `guaranteed`
 `shards` row (every kill drops it, so there is nothing to discover there). Each other row —
-material, use item, emberstone, pool roll, boss/raid unique — flips from masked to **revealed**
+material, use item, emberstone, pool roll, boss unique — flips from masked to **revealed**
 the first time the character personally receives that exact `ref` from that specific
 `mob_NNN`'s table (an ordinary loot grant already recorded by `10_systems/DROPS.md` §7/§9 and
 `10_systems/INVENTORY.md`; this doc adds no new grant, only a per-row "have I ever gotten this"

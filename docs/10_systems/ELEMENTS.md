@@ -126,6 +126,6 @@ guideline to a **stated intent** is anti-stealth: `arcane` is the element that c
   pick `armor` vs `warding` (so that `fire` blade hit → `warding`). Confirm with
   `10_systems/SKILL_SYSTEM.md` / `10_systems/COMBAT_FORMULA.md`.
 - "True"/unmitigated damage that bypasses both `armor` and `warding` is **not** in scope; flag if
-  a Rift raid boss (`docs/WORLD_PLAN.md` R12) needs it. Default: no such damage type.
+  a future-arc raid tier ever needs it. Default: no such damage type.
 - The element→status pairing (§5) is a guideline; if content authoring needs it mechanically
   enforced, promote it to a rule. Owner call: keep as guideline for now.

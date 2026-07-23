@@ -63,10 +63,10 @@ summed across its `target_count`s, should land near `width_screens × per-screen
 |---|---|---|
 | `normal` | 10 s baseline | Zone spawner (§1); per-mob override via `respawn_timer_s` |
 | `elite` | 90 s baseline | Zone spawner; same override field |
-| `boss` (regional arena) | No real-time timer — **arena-entry instanced** | Resets when the arena is unoccupied and re-triggered |
-| `boss` (Rift raid) | No real-time timer — **party-instanced** | Scoped per party; §7 |
+| `boss` (regional arena, open entry) | No real-time timer — **arena-entry instanced** | Resets when the arena is unoccupied and re-triggered |
+| `boss` (PQ finale entry) | No real-time timer — **party-instanced** | Scoped per party; §7 |
 
-**Boss respawn decision.** Both regional and Rift raid bosses use arena-entry instancing rather
+**Boss respawn decision.** Both open-entry and PQ-instanced boss fights use arena-entry instancing rather
 than a long real-world timer: the boss is always available and resets to full life the next time
 a player/party properly enters and triggers the arena, consistent with
 `10_systems/DEATH_PENALTY.md` §5.2/§5.3's "walk back in, fresh attempt" model. This was chosen
@@ -115,20 +115,21 @@ untargetable for the duration of its `spawn` state**, so its entrance can't be p
 player has even seen it. Any accompanying screen or audio cue is `40_assets/UI_ART_SPEC.md`'s to
 define, not this doc's.
 
-## 7. Rift raid arena spawn rules
+## 7. Party-instance spawn rules (PQ stages & finales)
 
-Rift raid arenas (`map_197`–`map_200`, `docs/WORLD_PLAN.md` R12) do not use the zone spawner
-(§1–§4) at all — they are single-boss scripted encounters, exempt exactly like regular arenas
-(§2). Spawning here is **party-instanced**: entering a raid arena allocates that encounter to the
-entering party alone (party size/membership rules owned by `10_systems/PARTY.md`), and the raid
-boss (`mob_147`–`mob_150`) spawns fresh for that instance at full life. Mid-fight adds/waves are
-not a `SPAWN.md` concept — they are the boss's own `phases[].added_abilities`
-(`10_systems/AI_BEHAVIOR.md` §15) executed through the `summon_entity` effect op
-(`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
+A party-quest run (`10_systems/social/PARTY_QUEST.md`) is **party-instanced**: entering at the PQ
+gate allocates its stage maps and finale arena to the entering party alone (party size/membership
+rules owned by `10_systems/social/PARTY.md` / `PARTY_QUEST.md` §2). Stage maps run the ordinary
+zone spawner (§1–§4) scoped to the instance; the finale arena is a single-boss scripted
+encounter, exempt exactly like regular arenas (§2), where the finale boss (`mob_027` /
+`mob_150`) spawns fresh for that instance at full life. Mid-fight adds/waves are not a `SPAWN.md`
+concept — they are the boss's own `phases[].added_abilities` (`10_systems/AI_BEHAVIOR.md` §15)
+executed through the `summon_entity` effect op (`10_systems/SKILL_EFFECTS.md`), scoped to the
+same party instance.
 
-A party's raid instance persists across individual member deaths/releases
-(`10_systems/DEATH_PENALTY.md` §5.3) — it resets only on a full-party wipe or the party leaving
-the arena, per the boss respawn decision in §3.
+A party's instance persists across individual member deaths/releases
+(`10_systems/DEATH_PENALTY.md` §5.3) — it resets only on a full-party wipe in the finale or the
+run dissolving (`10_systems/social/PARTY_QUEST.md` §5), per the boss respawn decision in §3.
 
 ## Open Questions
 - The `1 screen-width ≈ 20 tiles` assumption (§2) is provisional pending the real camera/viewport
@@ -143,5 +144,5 @@ the arena, per the boss respawn decision in §3.
 - Whether the regional-boss "arena-entry instanced" mechanism (§3) is a true per-player instance
   or a shared arena that resets on empty is left to `15_maps_system/MAPS_SYSTEM.md`; both satisfy
   this doc's "no long timer" intent.
-- Rift add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
+- Boss add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
   data, not a SPAWN.md rule.

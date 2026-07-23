@@ -54,9 +54,9 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `weak_to` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×1.5 elements. Mutually exclusive with `resists`/`immune_to`. Keep lists short/thematic (`10_systems/ELEMENTS.md` §2). `server`. |
 | `resists` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×0.5 elements. `server`. |
 | `immune_to` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×0 elements (short-circuits at pipeline step 2). Rare. `server`. |
-| `level` | int | yes | `10_systems/COMBAT_FORMULA.md` §13; `docs/WORLD_PLAN.md` | 1–105 (Rift ≤105 only, `00_vision/SCOPE.md`). Keys the stat budget, `exp`, level dampener, and CC tier scaling. `server`. |
+| `level` | int | yes | `10_systems/COMBAT_FORMULA.md` §13; `docs/WORLD_PLAN.md` | 1–42 (the authored arc tops at 42, `00_vision/SCOPE.md` v2; higher levels are future-arc content). Keys the stat budget, `exp`, level dampener, and CC tier scaling. `server`. |
 | `size_class` | enum | yes | `40_assets/ART_BIBLE.yaml` `sizing.size_classes` | `tiny`\|`small`\|`medium`\|`large`\|`boss`. Drives sprite size **and** the knockback/CC size multiplier (`10_systems/COMBAT_FORMULA.md` §11 — `boss` size = knockback-immune). `shared`. |
-| `stats` | map | yes | `10_systems/COMBAT_FORMULA.md` §13/§13.2, §13.3; `10_systems/LEVELING.md` §3 | Sub-fields below. **All values are copied from the §13 monster budget** (formulas authoritative, §13.2 tier multipliers, §13.3 raid scaling) — this schema never restates them. `server`. |
+| `stats` | map | yes | `10_systems/COMBAT_FORMULA.md` §13/§13.2, §13.3; `10_systems/LEVELING.md` §3 | Sub-fields below. **All values are copied from the §13 monster budget** (formulas authoritative, §13.2 tier multipliers; §13.3 party scaling is runtime-applied for PQ finales, never baked into the file) — this schema never restates them. `server`. |
 | `stats.life` | int | yes | `COMBAT_FORMULA` §13 | Survival pool. Within ±15% of budget (Validation). |
 | `stats.power` | int | yes | `COMBAT_FORMULA` §13 | Weapon rating; drives touch damage (§13.1) and ability scaling (`10_systems/SKILL_EFFECTS.md` §1). |
 | `stats.spellpower` | int | **no** (casters) | `COMBAT_FORMULA` §13 | Present only when the mob's abilities/touch scale on magic (parity with `power`, §13). Budget-checked if present. |
@@ -64,7 +64,7 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `stats.warding` | int | yes | `COMBAT_FORMULA` §13 | Magic defense. |
 | `stats.precision` | int | yes | `COMBAT_FORMULA` §13 | At-level hit baseline (`4·level`). |
 | `stats.evasion` | float (%) | yes | `COMBAT_FORMULA` §13 | Kept low by budget; monsters barely dodge. |
-| `stats.exp` | int | yes | `10_systems/LEVELING.md` §3 | Per-kill `exp` reward = `exp_per_kill_normal(level) × tier_mult` (raid boss = 150× base **total**, §3). The level-difference dampener is applied at award time (`10_systems/COMBAT_FORMULA.md` §9), **not** stored here. |
+| `stats.exp` | int | yes | `10_systems/LEVELING.md` §3 | Per-kill `exp` reward = `exp_per_kill_normal(level) × tier_mult` (`normal` ×1 · `elite` ×5 · `boss` ×25, §3). The level-difference dampener is applied at award time (`10_systems/COMBAT_FORMULA.md` §9), **not** stored here. |
 | `ai_profile` | enum | yes | `10_systems/AI_BEHAVIOR.md` | Exactly one of the 12 profiles. `server`. |
 | `ai_params` | map | no | `10_systems/AI_BEHAVIOR.md` §2–§13 | Overrides **only** tunables the chosen profile declares (plus shared §2 tunables it has, e.g. `leash_radius`, `aggro_vertical_band`). Values are `snake_case` → number/bool. `server`. |
 | `abilities` | list | **elite/boss only** | `10_systems/SKILL_EFFECTS.md` §17; `10_systems/SKILL_SYSTEM.md` §6 | Named ability rows composed from the op registry. **Forbidden on `normal`** (Validation); required (≥1) on `elite`/`boss`. `server`. Sub-fields below. |
@@ -159,7 +159,7 @@ contract).
    Monsters table for its region (normals / elites / boss). A boss ID slot may not hold a `normal`,
    etc. (`docs/VALIDATION.md` §4).
 2. **Stat budget ±15% (hard).** Compute the `10_systems/COMBAT_FORMULA.md` §13 budget for this
-   `level`, apply the §13.2 tier multipliers (and §13.3 for raid bosses `mob_147`–`mob_150`):
+   `level`, apply the §13.2 tier multipliers (§13.3 party scaling for PQ finales is runtime-only, never stored):
    `life`, `power`, `spellpower` (if present), `precision`, and `evasion` must each land within
    ±15% of their budgeted value; `armor` + `warding` are checked as a **sum** against the defense
    budget (±15%), since §13 permits reallocation between them (neither may be negative or zero).

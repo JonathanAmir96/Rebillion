@@ -67,5 +67,7 @@ full curve to 300 (formula-first) with detail tables for the authored range.
 
 ## Open Questions
 - Should secret maps count toward region completion metrics used by quests? Default: no.
-- v2 revision arrived after Phase B: system docs written for the Lv 100 world are patched by
-  the B-revision wave (tracked in docs/phase_reports/); flag any straggler references.
+- ~~v2 straggler references in Phase B system docs~~ **Resolved by the v2 straggler wave
+  (2026-07-23, docs/phase_reports/PHASE_H_CONSISTENCY_REPORT.md):** all Lv-100-world remnants
+  (Rift/raid tiers, waygate network, old town/quest/map IDs, job gates) re-anchored to v2; the
+  v1 raid-tier machinery is explicitly reserved for future arcs.

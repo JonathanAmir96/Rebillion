@@ -97,18 +97,15 @@ quest_exp = round( pct · exp_to_next(quest_level) )     # exp_to_next per 10_sy
 | 10 | 3,200 | 480–960 | 160–320 |
 | 20 | 19,700 | 2,955–5,910 | 985–1,970 |
 | 30 | 66,600 | 9,990–19,980 | 3,330–6,660 |
-| 50 | 336,440 | 50,466–100,932 | 16,822–33,644 |
-| 70 | 1,002,000 | 150,300–300,600 | 50,100–100,200 |
-| 90 | 2,277,960 | 341,694–683,388 | 113,898–227,796 |
-| 99 | 3,112,560 | 466,884–933,768 | 155,628–311,256 |
+| 40 | 164,560 | 24,684–49,368 | 8,228–16,456 |
+| 42 | 192,468 | 28,870–57,740 | 9,623–19,247 |
 
 A region's total quest `exp` should land near **≈25%** of the `exp` needed to clear that region's
 level band (`10_systems/LEVELING.md` §4 — cited, not restated); Phase D sums each region's
 authored quests against that target and tunes individual `pct` within the bands above, per
-`10_systems/LEVELING.md`'s own Open Question on this reconciliation. **Rift-band quests
-(`quest_085`–`090`, region 12, Lv 100+) pay no `exp`** — they inherit the post-cap policy
-(`10_systems/LEVELING.md` §6) exactly as monster kills do at cap; their reward is `shards`/items
-only (§5).
+`10_systems/LEVELING.md`'s own Open Question on this reconciliation. The PQ handler quests
+(`quest_087`–`090`, `10_systems/social/PARTY_QUEST.md` §6) pay ordinary in-band `exp` — they
+have no special exemption.
 
 ## 5. Reward budget — `shards`
 

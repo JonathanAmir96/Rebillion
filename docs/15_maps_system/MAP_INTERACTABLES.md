@@ -8,7 +8,7 @@ docs/WORLD_PLAN.md, 10_systems/DEATH_PENALTY.md, 10_systems/HUD.md, 10_systems/P
 40_assets/ART_BIBLE.yaml, 20_schemas/map.schema.md
 
 Owner doc for the 10 interactable object **types** a map YAML may place, and each type's param
-shape. Portal *rules* (which kinds connect which maps, spawn-point targeting, waygate unlock) are
+shape. Portal *rules* (which kinds connect which maps, spawn-point targeting, coach rides) are
 `15_maps_system/MAP_CONNECTIONS.md`'s; the climbing mechanic ropes/ladders invoke is
 `15_maps_system/MAP_TRAVERSAL.md` §4; drop-table math and loot ownership windows are the future
 `10_systems/DROPS.md`. This doc owns only the object shapes themselves.
@@ -31,22 +31,24 @@ deliberate "use" action (a prompt + input) while layer 7 objects auto-collect on
 
 ## 2. `portal`
 
-Kinds: `edge`, `door`, `waygate`. Full connection semantics, spawn-point law, and the waygate
-unlock rule are `15_maps_system/MAP_CONNECTIONS.md`'s; this doc owns only the object's params.
+Kinds: `edge`, `door`, `coach` (v2.2 — the retired `waygate` kind is invalid in content,
+`00_vision/GLOSSARY.md` "Transport"). Full connection semantics, spawn-point law, and the
+coach/ferry ride rules are `15_maps_system/MAP_CONNECTIONS.md`'s; this doc owns only the object's
+params.
 
 | Param | Type | Notes |
 |---|---|---|
-| `kind` | enum | `edge` \| `door` \| `waygate` |
-| `target_map` | `map_NNN` | Fixed for `edge`/`door`; for `waygate`, resolved dynamically at use-time from the player's unlocked set (§9) rather than a single fixed value |
+| `kind` | enum | `edge` \| `door` \| `coach` |
+| `target_map` | `map_NNN` | Fixed for `edge`/`door`; for `coach`, resolved at use-time from the destination the rider picks and pays for (§9) rather than a single fixed value |
 | `target_spawn` | spawn name | Naming law in `15_maps_system/MAP_CONNECTIONS.md` §2 |
 | `dead_end` | bool | `docs/VALIDATION.md` §5 — true if no reverse portal exists on the destination |
 
-- `edge` — a screen-edge walk-off transition (most field/dungeon chain links and all 8 cross-
+- `edge` — a screen-edge walk-off transition (most field/dungeon chain links and the cross-
   region walk edges, `docs/WORLD_PLAN.md`); visually seamless, no prompt.
-- `door` — an explicit approach-and-interact threshold (town↔interior, every arena's entry gate,
-  `15_maps_system/MAPS_SYSTEM.md` §8).
-- `waygate` — the long-distance transit itself, always paired with a `waygate_console` (§9) on the
-  same map; visual identity for all three kinds is `40_assets/ART_BIBLE.yaml`'s.
+- `door` — an explicit approach-and-interact threshold (town↔interior, the ferry's docks, every
+  arena's entry gate, `15_maps_system/MAPS_SYSTEM.md` §8).
+- `coach` — the paid station-to-station transit itself, always paired with a `coach_station` (§9)
+  on the same map; visual identity for all three kinds is `40_assets/ART_BIBLE.yaml`'s.
 
 ## 3. `rope` / `ladder`
 
@@ -125,17 +127,18 @@ the solo client may cache a local advisory copy — the client only opens the UI
 |---|---|---|
 | `scope` | enum | `character` \| `account` — which storage pool it opens; owner call is `10_systems/ECONOMY.md`/`10_systems/PERSISTENCE.md`, not fixed here |
 
-## 9. `waygate_console`
+## 9. `coach_station`
 
-The physical object a player interacts with to unlock and use the waygate network. Full unlock
-rule and network semantics are `15_maps_system/MAP_CONNECTIONS.md` §3; this doc defines only the
-object. A `waygate_console` is always co-located with exactly one `portal(kind: waygate)` (§2) on
-the same map — interacting with the console is what triggers that portal, dynamically targeting
-whichever destination the player picks from their unlocked set.
+The physical object a player interacts with to ride the Harthmoor Coachworks (v2.2). Full ride
+rules, fares, and network semantics are `15_maps_system/MAP_CONNECTIONS.md` §3 /
+`10_systems/ECONOMY.md` §4.3; this doc defines only the object. A `coach_station` is always
+co-located with exactly one `portal(kind: coach)` (§2) on the same map — interacting with the
+station opens the destination/fare menu, and paying triggers that portal toward the chosen
+station's `coach_stop` spawn.
 
 | Param | Type | Notes |
 |---|---|---|
-| `id` | — | One per waygate-network map |
+| `id` | — | One per station map (the five towns, `docs/WORLD_PLAN.md`) |
 
 ## 10. `quest_object`
 
