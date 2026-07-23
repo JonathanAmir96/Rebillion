@@ -1,9 +1,14 @@
 # PHASE_REPORT — Phase D, Arc-2 batch (R9–R11), 2026-07-23
 
-Status: **complete** for the Arc-2 regions. 437 content YAMLs under `docs/50_content/`
-(124 maps · 84 monsters · 85 drop tables · 8 item tables · 36 NPCs · 30 quests · 70
-skills), validated by `tools/validate.py` (landed this run). Arc-1 content (R1–R8, novice/
-first-job skills, arc-1 item rows, enhancement.yaml) is **not yet authored** — see below.
+Status: **complete** — and superseded the same day by the full Phase D completion: the
+arc-1 batch (R1–R8, 18 more agents on the same pattern) landed after this report, closing
+every dangling reference. **Final state: all 324 maps, 234 monsters + drop tables, 120
+NPCs, 120 quests, 98 skills, and all item tables are authored, and the STRICT full-tree
+validator run (no allow-missing, entry `map_001`, global reachability) passes with
+0 failures, 0 warnings.** Flagged residue from the arc-1 wave: `raid_undervault`'s Lv
+15–22 band vs Millbrook's Lv 8–14 region ceiling (RAID.md/WORLD_PLAN reconciliation),
+and quest_012's provisional `spec_trial_gate` zone token (quest.schema OQ). The original
+arc-2 report follows.
 
 ## How it ran
 

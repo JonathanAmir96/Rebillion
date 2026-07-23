@@ -4,10 +4,16 @@ Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries fir
 
 ## 2026-07-23 — v3 owner revision + Arc-2 Phase D (session: maps-levels-40-80)
 
-**State now:** design tree is at **v3** (five islands, two authored arcs Lv 1–82, cap
-300). `docs/50_content/` exists with the **Arc-2 (R9–R11) content batch complete and
-validated** (437 YAMLs); `tools/validate.py` implements VALIDATION.md §1–§6 (staged mode:
-`--allow-missing`). Arc-1 (R1–R8) content is NOT yet authored.
+**State now:** design tree is at **v3.1** (five islands, two authored arcs Lv 1–82, cap
+300, backtracking law + reserved cross-arc boss-connectivity hook). **Phase D is COMPLETE
+for the whole world:** `docs/50_content/` holds every content file — 324 maps, 234
+monsters, 234 drop tables + 11 pools, 120 NPCs, 120 quests, 98 skills, all item tables
+(T1–T12, uniques 0201–0222, consumables 0001–0020, Emberstone I–V) — and the **strict**
+`tools/validate.py` run (no allow-missing, entry map_001, global reachability) passes
+with 0 failures, 0 warnings. Remaining known reconciliations: raid_undervault band 15–22
+vs Millbrook ceiling 14; `spec_trial_gate` zone token; the Open Questions rollups in the
+phase reports. Next phases: art pass (PixelLab briefs), Phase E coding-pass briefs
+review, arc-1/arc-2 balance pass.
 
 **v3 decisions (owner + producer):**
 - Arc 2 = Frostpeak Isle (40–55) / Arcane Reach (53–68) / Voidshore (66–80); `rift`
