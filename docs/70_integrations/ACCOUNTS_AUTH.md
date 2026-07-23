@@ -17,9 +17,9 @@ analytics/PII processing seam lives in `70_integrations/TELEMETRY_ANALYTICS.md` 
 restates neither — it fixes the account-layer contract and hands the wiring to those siblings.
 
 **Decision posture (this revision).** `70_integrations/BACKEND_ARCHITECTURE.md` §9 assigns
-reconnect-grace, session lifetimes, rate-limit/lockout posture, and the credential-hashing choice to
-this doc; the Phase F version wrongly deferred them *back* to that doc, a ping-pong the architecture
-review flagged. This revision **sets those engineering values here**, from best practice, each with a
+reconnect-grace, session-lifetime numbers, and the credential/session lifecycle to this doc — which
+this doc reads as covering the hashing choice and the rate-limit/lockout posture; the Phase F
+version wrongly deferred them *back* to that doc, a ping-pong the architecture review flagged. This revision **sets those engineering values here**, from best practice, each with a
 one-line rationale and rejected alternatives (§3–§4). Only real price-tag items — SSO/storefront
 vendors and the email-provider contract — remain owner-priced Open Questions. Secrets (hash pepper,
 token-signing keys) stay environment-managed and uncommitted (`70_integrations/BACKEND_ARCHITECTURE.md`
@@ -109,11 +109,11 @@ live namespace, in this order — any stage's failure **rejects the whole save w
    `00_vision/SCOPE.md`) → reject.
 4. **Bounds re-check (option b — legal against system-doc ceilings).** Against the **derived** level:
    - Primary-stat allocation total ≤ the free-point budget that level legally grants
-     (`10_systems/STATS.md` §7–§8); excess → reject.
+     (`10_systems/STATS.md` §4.2–§4.3; compute order and server authority §7–§8); excess → reject.
    - Per item, `enhance_level` ≤ its cap (`10_systems/ENHANCEMENT.md`) and `rarity` ∈ the
      `00_vision/GLOSSARY.md` rarity enum and legal for that item (`10_systems/ITEMS.md`).
    - `shards` wallet, item stack sizes, and inventory/bank tab occupancy ≤
-     `10_systems/INVENTORY.md`/`10_systems/ECONOMY.md` ceilings.
+     `10_systems/INVENTORY.md`'s ceilings (§1–§3, §7).
    - Skill ranks ≤ the max rank the character's job line and derived level allow
      (`10_systems/SKILL_SYSTEM.md`); the job line ∈ `10_systems/JOBS.md`'s legal set and legal for the
      derived level (e.g. a 2nd-job line requires Lv 40). Illegal line/level → reject.
@@ -207,7 +207,9 @@ token).
   the session/presence cache (Redis + BEAM ETS/Presence, `70_integrations/BACKEND_ARCHITECTURE.md`
   §3); the server-side lookup *is* the validation. Where a self-contained artifact is genuinely needed
   — the reconnect **resume ticket** (§4) — it is an HMAC-signed short-TTL token using an
-  environment-managed signing key (§10 of the topology contract).
+  environment-managed signing key (§10 of the topology contract); its TTL is pinned to the §4.3
+  reconnect-grace window (90 s) plus a small clock-skew margin, so a late-window reconnect never
+  fails on an expired ticket.
   - Rationale: **revocation is first-class** (§3.6); an opaque token backed by a server record is
     revoked *instantly* by deleting the record.
   - Rejected: **self-contained JWTs** — cannot be revoked before expiry without a denylist that
