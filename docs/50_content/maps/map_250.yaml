@@ -1,0 +1,49 @@
+id: map_250
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Mistbridge
+region: arcane_reach
+map_type: field
+level_band: { min: 54, max: 55 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 175, h: 30 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_glass_causeway
+    kind: edge
+    at: { edge: left }
+    target_map: map_249
+    target_spawn: main
+    dead_end: false
+  - id: to_rune_lit_span
+    kind: edge
+    at: { edge: right }
+    target_map: map_251
+    target_spawn: main
+    dead_end: false
+moving_platforms:
+  - id: drift_shard_mistbridge
+    path: [[60, 22], [88, 14], [110, 22]]
+    speed: 3.5
+    pause_s: 1.0
+    loop_mode: ping_pong
+    one_way: false
+spawn_zones:
+  - id: mistbridge_stretch
+    rect_tiles: { x: 32, y: 20, w: 70, h: 8 }
+    mobs:
+      - { mob: mob_180, count: 2 }
+      - { mob: mob_181, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  Two anchored shard-terraces separated by a gap wider than a standing jump, bridged instead
+  by a single drifting rune-shard moving platform (MAP_TRAVERSAL §5) -- the region's first
+  verticality gimmick. Void mist below hides the drop; the platform is the only safe crossing.
+flavor: "The mist here never clears enough to see what's below the bridge, only the pale drift-shard that carries you across."

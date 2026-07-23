@@ -1,0 +1,48 @@
+id: map_265
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, the Far Moor
+region: arcane_reach
+map_type: field
+level_band: { min: 68, max: 68 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 170, h: 28 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_sanctum_approach
+    kind: edge
+    at: { edge: left }
+    target_map: map_264
+    target_spawn: main
+    dead_end: false
+  - id: to_highrune_sanctum
+    kind: edge
+    at: { edge: right }
+    target_map: map_266
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: far_moor_stretch
+    rect_tiles: { x: 34, y: 18, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_195, count: 2 }
+      - { mob: mob_196, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: lore_marker
+    id: marker_sanctum_gate
+    at_tile: [148, 21]
+    params:
+      text: "Highrune Sanctum's spires rise ahead, still moored -- for now -- to whatever holds this shard aloft."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  The last open drift before Highrune Sanctum's mass fills the horizon. Two low terraces
+  stepped by ~2-tile rises, all within the standing-jump cap (MAP_TRAVERSAL §1.1). No
+  verticality gimmick -- a calm approach before the scholar-hold's gates.
+flavor: "The last open sky before Highrune Sanctum swallows the horizon -- the shard here has stopped drifting entirely."

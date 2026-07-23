@@ -1,0 +1,42 @@
+id: map_251
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Rune-Lit Span
+region: arcane_reach
+map_type: field
+level_band: { min: 55, max: 56 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 170, h: 28 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_mistbridge
+    kind: edge
+    at: { edge: left }
+    target_map: map_250
+    target_spawn: main
+    dead_end: false
+  - id: to_long_drift
+    kind: edge
+    at: { edge: right }
+    target_map: map_252
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: rune_lit_span_stretch
+    rect_tiles: { x: 34, y: 18, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_181, count: 2 }
+      - { mob: mob_182, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  Runework laid into the shard-plates themselves lights this span pale blue underfoot. Two
+  terraces stepped by a 3-tile rise, still within the standing-jump cap (MAP_TRAVERSAL §1.1).
+  No verticality gimmick beyond the rise -- the light is decoration, not mechanic.
+flavor: "Whatever hand carved these glyphs into the stone meant them to be read from above -- they still glow for no one."

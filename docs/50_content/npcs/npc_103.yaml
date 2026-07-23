@@ -1,0 +1,12 @@
+id: npc_103
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Deckhand Willow
+region: arcane_reach
+map: map_247
+role: flavor
+dialog:
+  greeting: "Runewake's steady tonight -- steadier than most, anyway. Sit, enjoy the view before it gets strange."
+  farewell: "Next crossing's the same view, different mist. Never gets old."
+portrait: portrait_npc_103
+flavor: "Willow plays a battered lute on every Runewake crossing, claiming the tune keeps the vessel's old runes calm."

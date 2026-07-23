@@ -1,0 +1,12 @@
+id: npc_102
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Wayfinder Orin
+region: arcane_reach
+map: map_245
+role: guide
+dialog:
+  greeting: "First time on the drift? Keep to the anchored stone until your legs learn the tilt."
+  farewell: "The shards hold weight better than they look like they should. Trust your feet, not your eyes."
+portrait: portrait_npc_102
+flavor: "Orin meets every longship at the dock, ready with the same speech he's given a thousand times and still means every word of."

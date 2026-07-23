@@ -1,0 +1,47 @@
+id: map_268
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rune Vaults, Outer Threshold
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 66, max: 67 }        # dungeon continues the gradient from field 265 (Lv68)
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 60, h: 60 }             # dungeon: 1-2 screens wide, 2-5 tall (MAPS_SYSTEM §2)
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 52] }
+portals:
+  - id: to_highrune_sanctum
+    kind: edge
+    at: { edge: left }
+    target_map: map_266
+    target_spawn: main
+    dead_end: false
+  - id: to_second_chamber
+    kind: edge
+    at: { edge: top }
+    target_map: map_269
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: outer_threshold_chamber
+    rect_tiles: { x: 20, y: 20, w: 24, h: 30 }
+    mobs:
+      - { mob: mob_195, count: 4 }
+    max_concurrent: 8
+interactables:
+  - type: sign
+    id: sign_vault_threshold
+    at_tile: [16, 50]
+    params:
+      text: "Iskrel's wards still hold past this door. Whatever broke through them once won't again -- probably."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A stacked vertical entry chamber, three landings connected by short climbs each within the
+  3.5-tile rise cap (MAP_TRAVERSAL §1.1). Compact-vertical corridor gauntlet, denser combat
+  budget than the fields outside (SPAWN §2).
+flavor: "The outer wardstones still glow, faint and steady, over a door that hasn't held everything back."

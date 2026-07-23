@@ -1,0 +1,47 @@
+id: map_271
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rune Vaults, the Warden's Landing
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 68, max: 69 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 65, h: 65 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 58] }
+portals:
+  - id: to_sunken_archive
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_270
+    target_spawn: main
+    dead_end: false
+  - id: to_fifth_chamber
+    kind: edge
+    at: { edge: top }
+    target_map: map_272
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: wardens_landing_chamber
+    rect_tiles: { x: 18, y: 24, w: 30, h: 28 }
+    mobs:
+      - { mob: mob_196, count: 2 }
+      - { mob: mob_197, count: 2 }
+    max_concurrent: 8
+  - id: wardens_landing_flourish
+    rect_tiles: { x: 20, y: 8, w: 20, h: 10 }
+    mobs:
+      - { mob: mob_199, count: 1 }              # common elite zone, ~1 per 2 screens (SPAWN §2)
+    max_concurrent: 2
+interactables: []
+npcs: []
+platform_brief: |
+  A wide landing where the old vault-wardens once stood watch, now empty. Two chamber tiers
+  connected by a short climb within the standing-jump cap (MAP_TRAVERSAL §1.1); an elevated
+  perch hosts the floor's elite flourish. Dense corridor-loop combat (SPAWN §2).
+flavor: "The warden-plinths here still stand empty, waiting on guardians that stopped answering the call generations back."
