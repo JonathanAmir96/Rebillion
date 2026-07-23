@@ -19,9 +19,9 @@ numbers themselves (`40_assets/ART_BIBLE.yaml`, cited in §2, never re-derived);
 `ai_profile` enters `windup`/`chase`/`flee`/etc., or which profile does what
 (`10_systems/AI_BEHAVIOR.md`, cited throughout); jump/fall/climb kinematics and platforming physics
 (`15_maps_system/MAP_TRAVERSAL.md`, cited in §1/§3); exact per-frame hit-frame indices and
-clip-length timing (owned by `ANIMATION_TIMING`, §4 — not yet authored in this tree); and per-skill
+clip-length timing (owned by `40_assets/ANIMATION_TIMING.md`, §4); and per-skill
 animation clip **IDs** (owned by `40_assets/SKILL_ANIMATION.md`, cited by
-`20_schemas/skill.schema.md`, also not yet authored — a different namespace than the state tokens
+`20_schemas/skill.schema.md`, not yet authored — a different namespace than the state tokens
 this doc owns).
 
 ## 1. The 12-state registry
@@ -105,7 +105,7 @@ playing:
    ≥8% of target max `life`; exact thresholds `10_systems/COMBAT_FORMULA.md` §11, not restated)
    interrupts a `normal`/`elite` monster mid-`cast` unless it is flagged super-armored, and
    interrupts a player mid-`cast` unless the player is in i-frames or under a stability effect
-   (`10_systems/COMBAT_FORMULA.md` §11–12). `boss`/raid entities carry super-armor outside
+   (`10_systems/COMBAT_FORMULA.md` §11–12). `boss` entities carry super-armor outside
    scripted-vulnerable windows, so `hit` typically layers as a flinch on a boss without canceling
    its `attack`/`cast`/`telegraph`. A **light** hit's shorter hitstun (0.12 s,
    `10_systems/COMBAT_FORMULA.md` §11) is not stated by that doc to force a full clip interrupt —
@@ -138,15 +138,15 @@ playing:
 ## 4. The hit-frame boundary (`attack`/`cast`)
 
 This doc fixes only that `attack`/`cast` are one-shot clips inside the §2 frame budget. **Exactly
-which frame** inside that clip fires the damage signal — the "hit-frame" — is `ANIMATION_TIMING`'s
-contract, not this doc's: `30_engineering/ENGINEERING_STANDARDS.md` already anchors the coding-pass
+which frame** inside that clip fires the damage signal — the "hit-frame" — is
+`40_assets/ANIMATION_TIMING.md`'s contract, not this doc's:
+`30_engineering/ENGINEERING_STANDARDS.md` already anchors the coding-pass
 convention that "the animation's hit-frame (ANIMATION_TIMING) emits the signal combat listens for —
 damage never on a duplicate timer." This doc does not assign a frame index, does not derive one
 from `haste` (attack-speed conversion is `10_systems/STATS.md` §5's, and it scales the whole clip's
 *playback rate*, not this doc's frame *count* — no reason found here to reopen
 `00_vision/GLOSSARY.md`'s closed haste-split question on that basis), and does not restate
-`10_systems/SKILL_EFFECTS.md`'s damage-scaling math. See Open Questions for `ANIMATION_TIMING`'s
-status.
+`10_systems/SKILL_EFFECTS.md`'s damage-scaling math.
 
 ## 5. Required-set matrix (per entity class)
 
@@ -285,12 +285,10 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   `10_systems/COMBAT_FORMULA.md` §11–12 states whether a landed hit forcibly dismounts a climbing
   player into `hit`/`fall`, or whether damage is simply absorbed without interrupting `climb`. Not
   assumed either way here.
-- **`ANIMATION_TIMING` does not exist in the tree yet.** This doc's hit-frame boundary (§4) defers
-  exact per-frame damage timing to `ANIMATION_TIMING`, per
-  `30_engineering/ENGINEERING_STANDARDS.md`'s existing citation of it — but no
-  `40_assets/ANIMATION_TIMING.md` (or equivalent) file exists today, the same forward-reference
-  situation as `40_assets/SKILL_ANIMATION.md` (cited by `20_schemas/skill.schema.md`, also
-  unauthored). Both need to land before hit-frame-accurate combat can be implemented.
+- **`40_assets/SKILL_ANIMATION.md` remains unauthored.** This doc's hit-frame boundary (§4)
+  resolves to `40_assets/ANIMATION_TIMING.md`, which has now landed; but
+  `40_assets/SKILL_ANIMATION.md` (per-skill clip IDs, cited by `20_schemas/skill.schema.md`)
+  still does not exist and needs to land before skill clips can be named.
 - **Monster tier-count discrepancy (not this doc's to fix, but touches the boss/elite rows
   above).** `docs/ID_REGISTRY.md` and `00_vision/SCOPE.md` both total the 150 monsters as 118
   `normal`/24 `elite`/8 `boss`; `20_schemas/monster.schema.md`'s own Purpose section states

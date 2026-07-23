@@ -37,11 +37,15 @@ Every portal targets an existing map **and** an existing spawn point on that map
 reachable from `map_001`; no dead-end portals. One-way or intentionally terminal exits must be
 marked `dead_end: true` in the map file. Cross-region edges must match WORLD_PLAN.md's edge
 table exactly.
+**Warn-only (v2.3 gradient):** spawn-zone monster levels must rise monotonically along
+ascending field-map ID order within each region's main path (WORLD_PLAN.md §"Map order &
+monster gradient law"; authoring rules in 10_systems/SPAWN.md) — non-monotonic = warn, not fail.
 
 ## 6. Asset contract
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
 every state required for their entity class (e.g., elites/bosses must include `telegraph`).
-Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming.
+Skill `animation` naming follows 40_assets/ANIMATION_STATES.md (the 12-state registry) +
+40_assets/ANIMATION_TIMING.md.
 
 ## 7. Open Questions rollup
 Every doc ends with `## Open Questions`. Phase E collects every entry into the index at the

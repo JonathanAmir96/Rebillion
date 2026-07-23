@@ -23,7 +23,7 @@ source_hint matches an actual dropper; giver linkage only in quest files (single
 rule).
 
 **Definition of done:** VALIDATION passes; prereq graphs acyclic; every giver NPC stands
-on a map that lists them; no lore contradicting WORLD_PLAN/WORLD_LORE.
+on a map that lists them; no lore contradicting WORLD_PLAN (or WORLD_LORE.md once it exists).
 
 **Never:** invent world facts (flag for WORLD_LORE); write legacy-genre vocabulary; exceed
 flavor limits; hand out rewards above budget.

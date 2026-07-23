@@ -113,6 +113,15 @@ other files that are unfulfilled (§4).
    monotonic warning, fix VALIDATION §6's `SKILL_ANIMATION.md` ref, `PARTY.md` path fixes,
    Phase C report, README future-dir phrasing, minor line fixes from §2.
 
+## Remediation status (2026-07-23)
+
+Batches R1–R5 applied on branch `claude/markdown-sync-check-tq9i0g` in this same pass:
+transport/waygate→coach sweep (R1), cap/job-gate/skill-roster sync (R2), de-raid sweep (R3,
+incl. `social/PARTY_QUEST.md` authored as the PQ owner doc), MAP_TRAVERSAL foothold model
+landed (R4), VALIDATION §5 gradient warn + §6 repoint plus schema re-count (R5).
+Still open: `SPRITE_PIPELINE.md` unauthored (terrain-chunk-QA owner), Phase C report
+pending (phase still in progress), locked-file amendments untouched by design.
+
 ## Open Questions
 - Should the four schemas keep *reserved* old-world ID space (e.g. uniques `0217`–`0230`,
   skill `014`–`030`) documented as reserved-future, or strip all mention? Default: keep as
