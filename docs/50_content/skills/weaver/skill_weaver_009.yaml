@@ -1,0 +1,36 @@
+id: skill_weaver_009
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Arcane Beam
+line: weaver
+tier: second
+kind: active
+# `pierce: all` is the `line` shape's own geometry param (SKILL_SYSTEM §6, hits everyone in the beam);
+# the roster's "(pierces veil)" note is `arcane`'s inherent property (ELEMENTS.md §5) — automatic
+# whenever `element: arcane` is used below, not a separate op or field.
+targeting: { shape: line, length: 8, width: 1.5, pierce: all }   # roster target `line`
+cost: { essence: 15 }
+cooldown: 10.0
+level_data:
+  - level: 1
+    essence_cost: 15
+    cooldown: 10.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.3 }
+  - level: 4
+    essence_cost: 18
+    cooldown: 9.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.7 }
+  - level: 7
+    essence_cost: 21
+    cooldown: 8.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 2.1 }
+  - level: 10
+    essence_cost: 24
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 2.5 }
+animation: skill_weaver_009_cast
+flavor: "A lance of raw arcane force that runs the full length of the room and finds anything hiding in it, veiled or not."

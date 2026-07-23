@@ -1,0 +1,22 @@
+id: quest_112
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Hulks in the Shallows
+region: voidshore
+quest_type: side
+giver_npc: npc_113
+level_requirement: 68
+recommended_level: 68
+steps:
+  - type: kill
+    target: mob_211
+    count: 8
+  - type: collect
+    target: item_etc_0163
+    count: 5
+rewards:
+  exp: 54716  # round(0.06 * 911,925); side band 5-10% (QUESTS §4)
+  shards: 420  # mean_shards_normal(68)*4 = 105*4 (QUESTS §5 / DROPS §3)
+flavor: "The brinebound hulks have parked themselves squarely across the Ashen Dunes crossing."
+offer_text: "Can't scout past the dunes with those hulks sitting there. Crack a few shells and bring me the scale underneath."
+complete_text: "Good scale. That's a clean crossing for the next party through Eclipse Reach."

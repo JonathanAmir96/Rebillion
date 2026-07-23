@@ -1,0 +1,22 @@
+id: quest_081
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Verdigris Ledger
+region: clockwork
+quest_type: main
+giver_npc: npc_079
+level_requirement: 36
+recommended_level: 36
+steps:
+  - type: kill
+    target: mob_135
+    count: 8
+  - type: collect
+    target: item_etc_0117
+    count: 5
+rewards:
+  exp: 23548  # round(0.20*117,738) (LEVELING §1 Lv36); main band 15-30%
+  shards: 855 # main = mean_shards_normal(36)*15 = 57*15 (QUESTS §5 / DROPS §3)
+flavor: "Ione wants the plaza's statuary cleared of its guardians and its verdigris scraped for her ledger."
+offer_text: "Clear the plaza's guardians and bring me scrapings of the good verdigris -- the pale-green kind, not the black."
+complete_text: "Eleven relics logged this season, and now this. The plaza's more generous than it looks."

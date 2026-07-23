@@ -1,0 +1,48 @@
+id: map_108
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Cobweb Hollow, Spinner's Bend
+region: gloomwood
+map_type: field
+level_band: { min: 25, max: 25 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_gloomwood
+ambience: [amb_web_creak, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_107
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_109
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: cobweb_spinners_bend
+    rect_tiles: { x: 26, y: 20, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_077, count: 3 }
+      - { mob: mob_078, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: lore_marker
+    id: marker_scholar_camp
+    at_tile: [40, 21]
+    params:
+      text: "A traveling scholar's tent, papers pinned to the bark in place of a proper desk."
+      interact_prompt: Read
+npcs: [npc_057]
+platform_brief: |
+  A wide bend thick with old silk, the standing camp tucked against a hollow trunk. Gaps
+  stay within the standard jump budget (MAP_TRAVERSAL §1.1); terrain is foothold segments
+  under painted gloomwood terrain_chunks (ART_BIBLE AB-001).
+flavor: "Someone has pinned careful sketches of web-patterns to the bark here, each one a little more frightened than the last."

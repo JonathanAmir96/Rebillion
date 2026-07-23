@@ -1,0 +1,41 @@
+id: map_178
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, Rustfall Approach
+region: clockwork
+map_type: field
+level_band: { min: 34, max: 36 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_east_gate
+    kind: edge
+    at: { edge: left }
+    target_map: map_177
+    target_spawn: main
+    dead_end: false
+  - id: to_sunken_cogyard
+    kind: edge
+    at: { edge: right }
+    target_map: map_179
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: rustfall_approach_zone
+    rect_tiles: { x: 28, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_130, count: 3 }
+      - { mob: mob_131, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Terraces of rust-flaked brass plating, stepped by ~2-tile rises within the standard jump
+  budget (MAP_TRAVERSAL §1.1). A one-way ledge shortcuts down toward the lower spawn
+  cluster; no rope/ladder on this opener.
+flavor: "Rust weeps from every seam here, though the gears beneath the plating never stop turning."

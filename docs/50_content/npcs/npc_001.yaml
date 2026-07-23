@@ -1,0 +1,15 @@
+id: npc_001
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Old Perrin
+region: emberfoot
+map: map_002                      # bidirectional with map_002's npcs[] (both list each other)
+role: innkeeper
+shop:
+  items: [item_use_0001, item_use_0002]     # forward-ref: Lesser/full Life Tonic (ID_REGISTRY well-known names)
+services: [inn_rest]              # role floor: innkeeper -> services >= {inn_rest} (npc.schema rule 1)
+dialog:
+  greeting: "Warm bed, warmer stew -- sit before the fields wear you out."
+  farewell: "Mind the cinders on your way out."
+portrait: portrait_npc_001
+flavor: "Perrin has kept the Hearthglow's fire lit since before the current elder took her post, and has seen off every graduating novice."

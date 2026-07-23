@@ -1,0 +1,27 @@
+id: quest_106
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: What the Vaults Remember
+region: arcane_reach
+quest_type: main
+giver_npc: npc_104                # Archivist Meloux, Highrune Sanctum
+turn_in_npc: npc_106               # Vault Warden Iskrel -- hands the player to the dungeon's own keeper
+level_requirement: 62
+recommended_level: 62
+prereqs: [quest_103]
+steps:                            # sequenced: prove the vault's wards are failing, then report to the Warden
+  - type: kill
+    target: mob_190
+    count: 10
+  - type: talk
+    target: npc_106
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 134919                     # round(0.20 * exp_to_next(62)=674,595); main band (QUESTS §4)
+  shards: 1440                    # mean_shards_normal(62)*15 = 96*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 3 }
+flavor: "Meloux's charts show the Rune Vaults' outer wards guttering. Iskrel won't open the door for anyone who hasn't proven they can hold a line."
+offer_text: "Something is chewing through the outer wardstones faster than I can copy them down. Clear the approach, then take what you learn to Iskrel."
+complete_text: "The wards held one season longer because of you. Iskrel's waiting -- he doesn't open that door for just anyone."

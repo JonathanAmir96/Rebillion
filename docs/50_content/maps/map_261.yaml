@@ -1,0 +1,42 @@
+id: map_261
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, the Last Causeway
+region: arcane_reach
+map_type: field
+level_band: { min: 64, max: 65 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 170, h: 28 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_high_drift
+    kind: edge
+    at: { edge: left }
+    target_map: map_260
+    target_spawn: main
+    dead_end: false
+  - id: to_rimeless_height
+    kind: edge
+    at: { edge: right }
+    target_map: map_262
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: last_causeway_stretch
+    rect_tiles: { x: 34, y: 18, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_191, count: 2 }
+      - { mob: mob_192, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A narrow causeway between two larger shard masses, dead flat and unremarkable underfoot.
+  One continuous foothold band under painted terrain_chunks (ART_BIBLE AB-001), no
+  verticality gimmick -- the field is a deliberate breather before the last climb.
+flavor: "The last flat ground before the drift climbs for good -- most travelers linger here longer than the map deserves."

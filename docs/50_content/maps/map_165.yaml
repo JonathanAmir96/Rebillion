@@ -1,0 +1,54 @@
+id: map_165
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Flooded Archive
+region: sunken
+map_type: dungeon
+level_band: { min: 36, max: 36 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 70, h: 50 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_164
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_166
+    target_spawn: main
+    dead_end: false
+  - id: to_scholars_cache
+    kind: door
+    at: { tile: [50, 12] }
+    target_map: map_174
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_dungeon_165
+    rect_tiles: { x: 15, y: 32, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_120, count: 2 }
+      - { mob: mob_121, count: 2 }
+    max_concurrent: 8
+interactables:
+  - type: lore_marker
+    id: marker_flooded_archive
+    at_tile: [35, 36]
+    params:
+      text: "A single tablet has survived the flood almost whole -- someone has propped it upright, deliberately."
+      interact_prompt: "Read"
+npcs: []
+platform_brief: |
+  A side-chamber crowded with collapsed shelving, forcing a slower, corridor-tight combat
+  loop (SPAWN §2). A sealed side door leads to a scholar's cache off the main line.
+flavor: "Shelves of waterlogged tablets line this side-hall, most crumbled past reading -- but not all."

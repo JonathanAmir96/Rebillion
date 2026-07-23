@@ -1,0 +1,169 @@
+id: item_table_materials_r09
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R9 monster materials: item_etc_0129-0144 (ID_REGISTRY etc block). This exemplar authors the
+# first row; the region batch fills 0130-0144, one per R9 species, on the same shape.
+items:
+  - id: item_etc_0129
+    name: Rimefang Pelt
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 40                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 45                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1);
+                                  # etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_151          # drops from Rimefang Prowler (cross-checks drop_mob_151)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A frost-stiffened wolf hide, cold to the touch long after the kill. The far-isle tanneries pay for hides the ring never sees."
+
+  # --- R9 batch: item_etc_0130-0144 (one per R9 species; source_hint cross-checks each drop_mob) ---
+  - id: item_etc_0130
+    name: Snowpelt Tuft
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 40                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 45                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_152          # drops from this R9 species (cross-checks drop_mob_152)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A hank of coarse, grease-heavy underfur shed by the low-field browsers. Far-isle weavers card it into cord that never quite loses the cold."
+  - id: item_etc_0131
+    name: Glacial Chitin
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 41                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 47                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_153          # drops from this R9 species (cross-checks drop_mob_153)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A shard of blue crustacean shell, harder than it looks and colder than it should be. Snappers grow a new one over any wound within a season."
+  - id: item_etc_0132
+    name: Warden's Rime Shard
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 42                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 48                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_154          # drops from this R9 species (cross-checks drop_mob_154)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A splinter of the living rime that crusts a frozen sentry. It stays rigid in the palm long after body heat should have thawed it."
+  - id: item_etc_0133
+    name: Rimeshard Sliver
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 43                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 50                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_155          # drops from this R9 species (cross-checks drop_mob_155)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A sliver of the self-grown icicle a slinger hurls, needle-fine and faintly ridged. Fletchers on the ice prize them for frost-tipped bolts."
+  - id: item_etc_0134
+    name: Craghorn Horn
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 44                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 51                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_156          # drops from this R9 species (cross-checks drop_mob_156)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A curved slab of ram-horn scored by a hundred head-on collisions. It rings like struck stone and takes an edge almost as well."
+  - id: item_etc_0135
+    name: Snowveil Membrane
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 44                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 51                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_157          # drops from this R9 species (cross-checks drop_mob_157)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The pale, papery hide a lurker wears over its back to pass for fresh snow. Tanned right, it holds a chill against a flask for days."
+  - id: item_etc_0136
+    name: Frostwing Plume
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 45                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 53                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_158          # drops from this R9 species (cross-checks drop_mob_158)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A rimed flight-feather from a crag harrier, its vane stiff with frost that never melts. Light in the hand, and colder at the quill."
+  - id: item_etc_0137
+    name: Icebound Sigil
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 46                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 54                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_159          # drops from this R9 species (cross-checks drop_mob_159)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A frost-etched token an acolyte carries against its heart, still humming with a rote of cold. Scholars pay for the etching, not the ice."
+  - id: item_etc_0138
+    name: Hoarfrost Carapace
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 47                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 56                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_160          # drops from this R9 species (cross-checks drop_mob_160)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The fist-sized shell of a frost-mite, ridged and brittle and never found singly. Crushed together, a jarful yields a keen blue powder."
+  - id: item_etc_0139
+    name: Scree-Scuttler Shell
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 48                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 57                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_161          # drops from this R9 species (cross-checks drop_mob_161)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A grey carapace indistinguishable from loose talus until it twitches. Smiths grind it into a grit that bites through rust."
+  - id: item_etc_0140
+    name: Glimmerfrost Mote
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 49                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 59                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_162          # drops from this R9 species (cross-checks drop_mob_162)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A bead of supercooled air caught the instant before a wisp bursts, held stable only in a sealed vial. It fogs the glass from within."
+  - id: item_etc_0141
+    name: Wyrmcrag Quill
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 50                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 60                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_163          # drops from this R9 species (cross-checks drop_mob_163)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A stripped flight-quill from a high-pass scavenger, wind-worn to a fine grey taper. It carries the reek of the carrion it rode the thermals for."
+  - id: item_etc_0142
+    name: Icehide Fur
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 50                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 60                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_164          # drops from this R9 species (cross-checks drop_mob_164)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A pelt of frozen bear-fur, each hair sheathed in its own thread of ice. It sheds water and keeps a den warm by keeping the cold outside it."
+  - id: item_etc_0143
+    name: Frostquill Spine
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 51                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 62                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_165          # drops from this R9 species (cross-checks drop_mob_165)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A barbed spine of solid blue ice loosed by a rooted sentinel, still faintly cold to the root. Whole ones are rare; most snap on the first hit."
+  - id: item_etc_0144
+    name: Boulderback Plate
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 52                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 63                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_166          # drops from this R9 species (cross-checks drop_mob_166)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A slab of the stony crust a grazer grows along its spine, half rock and half hide. Masons on the ice set them as cheap, durable roofing."

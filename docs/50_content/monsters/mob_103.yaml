@@ -1,0 +1,26 @@
+id: mob_103
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Cinderhulk
+tier: normal                     # ID slot 103 = R6 normal (ID_REGISTRY ashfall)
+element: fire                      # R6 element mix is fire/neutral (WORLD_PLAN)
+weak_to: [frost]                  # thematic (ELEMENTS §2; lists mutually exclusive)
+resists: [fire]
+level: 34
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 34
+  life: 5476                     # 4*(34+3)^2
+  power: 108                     # 6+3*34 (touch = round(0.5*power), neutral, §13.1)
+  armor: 204                     # 6*34  (armor+warding sum = 12*34)
+  warding: 204                   # 6*34
+  precision: 136                 # 4*34
+  evasion: 4.0                   # 3 + 0.03*34 (%)
+  exp: 392                       # exp_per_kill_normal(34)=round(4*34^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only territorial_guard-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 5
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_103
+flavor: "A slab-limbed colossus of banked coals that stands watch over the deep vents nearest the ridge, glowing brighter as it wakes. Endurance is the whole of the fight; it simply does not tire."

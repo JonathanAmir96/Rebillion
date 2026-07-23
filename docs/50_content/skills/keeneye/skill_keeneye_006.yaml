@@ -1,0 +1,24 @@
+id: skill_keeneye_006
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Fleet Feet                   # exact JOBS.md §3.1 first-job roster name
+line: keeneye
+tier: first
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { haste: 1, evasion: 1 }, mode: flat }   # both flat ratings (flicker_020 Untouchable precedent); STATS.md tokens (SKILL_EFFECTS §13), first-job kit
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { haste: 2, evasion: 2 }, mode: flat }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { haste: 3, evasion: 3 }, mode: flat }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { haste: 4, evasion: 4 }, mode: flat }
+flavor: "Light boots and lighter footwork — a Keeneye stays quick enough on the ground to never need to stand and trade blows."

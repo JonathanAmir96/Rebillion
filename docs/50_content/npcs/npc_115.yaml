@@ -1,0 +1,13 @@
+id: npc_115
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, ENHANCEMENT]
+name: Warden-Smith Coric Ilm
+region: voidshore
+map: map_307
+role: enchanter
+services: [enhance]
+dialog:
+  greeting: "Bring me your steel. What survives the Deeps deserves an edge that survives it too."
+  farewell: "Mind the forge. It's the only warm thing left this far out."
+portrait: portrait_npc_115
+flavor: "Coric keeps the Redoubt's forge lit day and night, tempering gear for everyone bound for the deep dark below."

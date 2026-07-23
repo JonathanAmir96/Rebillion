@@ -1,0 +1,25 @@
+id: quest_008
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Down into the Kiln
+region: emberfoot
+quest_type: main
+giver_npc: npc_007                # Kiln Watchman Doss
+level_requirement: 6
+recommended_level: 6
+prereqs: [quest_006]
+steps:
+  - type: kill
+    target: mob_006
+    count: 10
+  - type: talk
+    target: npc_010                # Kiln Marshal Ordo -- grants passage into the tunnels
+    requires_step: 1
+rewards:
+  exp: 221                         # round(0.20 * 1,107); main band, exp_to_next(6)=1,107
+  shards: 180                      # mean_shards_normal(6)*15 = 12*15
+  items:
+    - { id: item_use_0011, qty: 2 }   # forward-ref: Antidote -- kiln fumes below
+flavor: "Doss won't wave anyone down into the tunnels without the Marshal's say-so."
+offer_text: "Clear the verge one last time, then find the Marshal at the tunnel mouth. He'll want a word before he lets you through."
+complete_text: "The Marshal's satisfied. That's rarer than you'd think."

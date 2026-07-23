@@ -23,20 +23,27 @@ code, no generated art. Read `README.md` for the tree map and
 6. **Validate before landing:** the checks in `docs/VALIDATION.md` run on every content
    batch (see `tools/` once the validator lands). US spelling everywhere.
 
-## Current design state (v2, owner revision 2026-07-21)
+## Current design state (v3, owner revision 2026-07-23)
 
-- Two islands: Emberfoot Isle (training, maps 001–016) → Harborwind Ferry (paid) →
-  Harthmoor Isle, a Victoria-style **ring** (Millbrook south hub ↔ Verdant ↔ Gloomwood ↔
-  Ashfall ↔ Tidewatch ↔ Millbrook) around the Clockwork Ruins center, with Sunken Depths as
-  a coastal spur. 200 maps, 150 monsters (118/24/8), 8 bosses, 2 party quests. Town travel
-  is the paid Harthmoor Coachworks (shards) — no free warps. Each job line has a home ring
-  town with its instructor (Bulwark→Cindershelf, Keeneye→Tidewatch Port, Weaver→Mossmere,
+- Five islands, two authored arcs (Lv 1–82; game cap 300, initial design). **Arc 1:**
+  Emberfoot Isle (training, maps 001–016) → Harborwind Ferry (paid) → Harthmoor Isle, a
+  Victoria-style **ring** (Millbrook south hub ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔
+  Millbrook) around the Clockwork Ruins center, with Sunken Depths as a coastal spur.
+  **Arc 2 (Lv 40–80):** the Deepway — a 3-map underground passage from Cindershelf,
+  level-gated Lv 40 — surfaces on Frostpeak Isle (40–55); Arcane Reach (53–68) and
+  Voidshore (66–80) complete the far isles, linked by the paid, scheduled **longship**
+  network from Tidewatch Port (2–3 min real-time sails). Totals: 324 maps, 234 monsters
+  (178/45/11), 11 bosses, 4 **raids** (`raid_undervault`/`raid_mainspring`/`raid_deepfrost`/
+  `raid_voidtide` — "raid" replaces the retired party-quest term). Town travel is the paid
+  Harthmoor Coachworks (shards) — no free warps. Each job line has a home ring town with its
+  instructor (Bulwark→Cindershelf, Keeneye→Tidewatch Port, Weaver→Mossmere,
   Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law. Terrain is
   Maple-style footholds + painted terrain chunks (ART_BIBLE amendment AB-001; movement
-  rules in MAP_TRAVERSAL.md). Game cap is Lv 300 (initial design); this run authors the
-  first arc, Lv 1–42.
-- Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 (lines `bulwark`/`keeneye`/`weaver`/`flicker`);
-  3rd jobs named-and-reserved for future arcs.
+  rules in MAP_TRAVERSAL.md).
+- Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 **branches** into a permanent specialization —
+  bulwark: Ironbrand/Stoneguard/Warcaller · keeneye: Pathstalker/Sureshot · weaver:
+  Runeweaver/Cindercall/Frostbind · flicker: Duskstep/Wildcard (rosters in
+  `docs/10_systems/JOBS.md`); 3rd-tier jobs named-and-reserved for future arcs.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
 - Monetization (owner amendment MON-001, 2026-07-23): cosmetic-only + in-world sponsor

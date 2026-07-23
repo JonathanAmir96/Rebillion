@@ -1,0 +1,14 @@
+id: npc_020
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Wenna Pross
+region: millbrook
+map: map_023
+role: merchant
+shop:
+  items: [item_use_0002, item_use_0007, item_use_0011]
+dialog:
+  greeting: "Best prices in the ring, or so every stall here will tell you -- mine's just the one that's true."
+  farewell: "Come back when your pouch is heavier."
+portrait: portrait_npc_020
+flavor: "Pross has run the same market hall stall for twenty years and knows every regular's order before they open their mouth."

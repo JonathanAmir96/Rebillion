@@ -1,0 +1,12 @@
+id: npc_060
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Weftkeep Ossian
+region: gloomwood
+map: map_115
+role: quest_giver
+dialog:
+  greeting: "Scholar Vell's notes say the deep silk answers to something. Clear a path in and we'll find out together."
+  farewell: "Keep close to the walls. The warrens don't forgive wandering."
+portrait: portrait_npc_060
+flavor: "Ossian keeps a lantern lit at the warrens' mouth for anyone foolish or brave enough to go in after him."

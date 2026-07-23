@@ -1,0 +1,42 @@
+id: mob_204
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
+name: Umbral Devourer
+tier: elite                      # ID slot 204 = R10 elite (ID_REGISTRY Monsters)
+element: shadow
+weak_to: [arcane]
+resists: [shadow]                # ELEMENTS §2
+level: 69
+size_class: large
+stats:                           # COMBAT_FORMULA §13.2 elite (normal Lv 69 x tier mults)
+  life: 124416                  # 20736 (§13 Lv69) * 6
+  power: 320                    # 213 * 1.5
+  armor: 538                   # 414 * 1.3  (armor+warding sum = 1076)
+  warding: 538                 # 414 * 1.3
+  precision: 304               # 276 * 1.1
+  evasion: 7.07                # 5.07 + 2 (§13.2 elite)
+  exp: 4915                    # exp_per_kill_normal(69)=983 * 5 (LEVELING §3 elite)
+ai_profile: ambush_lurker
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  ambush_radius: 3
+  leash_radius: 4
+  aggro_vertical_band: 2
+abilities:                       # SKILL_EFFECTS op registry (§17); scales on power/spellpower (§1)
+  - id: umbral_rend
+    name: Umbral Rend
+    targeting: melee_arc
+    cooldown: 5.0
+    telegraph_s: 0.9              # plays 'telegraph' state (VALIDATION §6)
+    effects:
+      - { op: deal_damage, element: shadow, mult: 2.2 }
+      - { op: apply_status, status: silence, chance: 0.5, dur: 3 }
+  - id: shroud
+    name: Shroud
+    targeting: self
+    cooldown: 14.0
+    telegraph_s: 1.0              # plays 'telegraph' state (VALIDATION §6)
+    effects:
+      - { op: apply_status, status: veil, chance: 1.0, dur: 6 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+drop_table: drop_mob_204
+flavor: "A maw of congealed void that shrouds itself in stealth and waits, rending anything that stumbles onto it into silence. Only arcane light pierces its shroud."

@@ -1,0 +1,38 @@
+id: skill_flicker_015
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Riposte                       # exact JOBS.md §5.3 Wildcard roster name
+line: flicker
+tier: second
+kind: active
+targeting: self
+cost: { essence: 13 }
+cooldown: 10.0
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 13
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 8 }                                                                              # brace for the counter (STATUS_EFFECTS §4.2 base)
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: deal_damage, element: neutral, mult: 1.0, can_crit: true }, icd: 2.0 }   # dodge-triggered counterstrike (SKILL_EFFECTS §16)
+  - level: 4
+    essence_cost: 16
+    cooldown: 9.0
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 9 }
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: deal_damage, element: neutral, mult: 1.4, can_crit: true }, icd: 2.0 }
+  - level: 7
+    essence_cost: 20
+    cooldown: 8.0
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: deal_damage, element: neutral, mult: 1.8, can_crit: true }, icd: 2.0 }
+  - level: 10
+    essence_cost: 23
+    cooldown: 7.0
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 12 }
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: deal_damage, element: neutral, mult: 2.2, can_crit: true }, icd: 2.0 }
+animation: skill_flicker_015_cast
+flavor: "A Wildcard braces, invites the swing, and slips it by a hair — the counter lands before the attacker even understands they missed."

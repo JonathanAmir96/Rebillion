@@ -1,0 +1,83 @@
+id: mob_178
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS, RAID]
+name: Skoldir, the Rimewyrm
+tier: boss                       # ID slot 178 = R9 boss (ID_REGISTRY Monsters)
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 55
+size_class: boss                 # knockback/CC-immune (COMBAT_FORMULA §11, STATUS_EFFECTS §3)
+stats:                           # §13 normal Lv 55 x §13.2 boss multipliers (region-boss row).
+                                 # raid_deepfrost life-scaling is runtime per §13.3 — NOT restated here.
+  life: 470925                  # 13455 x35 (open-arena/soloable region-boss value)
+  power: 342                     # 171 x2.0 (touch = round(0.5*power), §13.1; contact-hot phases only)
+  spellpower: 342                # parity (§13); frost casts scale on magic
+  armor: 528                     # 330 x1.6  (armor+warding sum ~= 12*55 x1.6)
+  warding: 528                   # 330 x1.6
+  precision: 264                 # 220 x1.2
+  evasion: 4.7                   # 4.7 + 0 (bosses don't dodge, §13.2)
+  exp: 18300                   # exp_per_kill_normal(55)=732 x25 (LEVELING §3 boss; raid 150x total is runtime)
+ai_profile: boss_scripted        # authored 2-phase fight (AI_BEHAVIOR §14-§15)
+abilities:
+  - id: rime_breath
+    name: Rime Breath
+    targeting: { shape: line, length: 8, width: 2 }
+    cooldown: 7.0
+    telegraph_s: 1.2
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.6 }
+      - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
+  - id: frost_nova
+    name: Frost Nova
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.5
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.4 }
+      - { op: apply_status, status: freeze, chance: 0.5, dur: 2 }
+  - id: rime_shell
+    name: Rime Shell
+    targeting: self
+    cooldown: 20.0
+    telegraph_s: 1.5
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.10 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+  - id: tail_sweep
+    name: Tail Sweep
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 8.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.5 }
+      - { op: knockback }
+  - id: avalanche_fury
+    name: Avalanche Fury
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.9 }
+      - { op: knockback }
+  - id: glacial_brood
+    name: Glacial Brood
+    targeting: self
+    cooldown: 25.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_160, count: 2, dur: 30 }
+phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
+  - phase_id: 1                  # rime-shell: holds ground, shells up, cold control
+    life_threshold_pct: 100
+    base_profile: territorial_guard
+    added_abilities: [rime_breath, frost_nova, rime_shell, tail_sweep]
+  - phase_id: 2                  # avalanche fury: mobile, aggressive, spawns adds
+    life_threshold_pct: 50
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 3.0, charge_recover_s: 2.0 }
+    added_abilities: [avalanche_fury, glacial_brood]
+    enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+drop_table: drop_mob_178
+flavor: "A hoarfrost drake coiled in the summit crevasse since before the isle had a name, its scales gone to blue glass and rime. It wakes slow, shell-hard and patient; when the cold finally cracks, the whole mountain seems to come down with it."

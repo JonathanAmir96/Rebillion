@@ -1,0 +1,41 @@
+id: map_101
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Hush Path, Lower Reach
+region: gloomwood
+map_type: field
+level_band: { min: 21, max: 22 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_web_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_100
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_102
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: hush_path_lower
+    rect_tiles: { x: 26, y: 20, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_070, count: 2 }
+      - { mob: mob_071, count: 4 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Damp root terraces sink 2-3 tiles between stretches, still within the standard jump
+  budget (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted gloomwood
+  terrain_chunks (ART_BIBLE AB-001). First faint webbing shows overhead, unclimbable set dressing.
+flavor: "The path narrows to a single hushed line here, and something keeps pace just out of sight."

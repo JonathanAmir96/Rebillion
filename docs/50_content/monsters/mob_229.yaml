@@ -1,0 +1,43 @@
+id: mob_229
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Eclipsewright
+tier: elite                      # ID_REGISTRY: mob_227-233 = R11 elites (Lv 77-82)
+element: shadow                     # WORLD_PLAN R11 mix: shadow/neutral
+weak_to: [arcane]
+resists: [shadow]
+level: 79
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget x §13.2 elite mults, Lv 79
+  life: 161376                  # 4*(79+3)^2 x6
+  power: 365                    # (6+3*79) x1.5
+  spellpower: 365               # parity with power (caster; §13)
+  armor: 616                   # 6*79 x1.3  (armor+warding sum = 1232)
+  warding: 616                 # 6*79 x1.3
+  precision: 348                # 4*79 x1.1
+  evasion: 7.37                  # (3+0.03*79) +2 (§13.2 elite)
+  exp: 5860                     # round(4*79^1.3) x5 (LEVELING §3 elite)
+ai_profile: ranged_skirmisher
+ai_params:
+  preferred_range_min: 6
+  preferred_range_max: 11
+  attack_cooldown_s: 1.8
+abilities:
+  - id: shadow_lance
+    name: Shadow Lance
+    targeting: { shape: projectile, speed: 16, range: 14, pierce: 2, gravity: false }
+    cooldown: 6.0
+    telegraph_s: 0.8
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.8, scaling: spellpower }
+  - id: gloom_hex
+    name: Gloom Hex
+    targeting: { shape: aoe_circle, radius: 3, origin: reticle, reticle_range: 10 }
+    cooldown: 11.0
+    telegraph_s: 1.2
+    effects:
+      - { op: apply_status, status: weaken, chance: 0.8, dur: 6 }
+      - { op: apply_status, status: blind, chance: 0.5, dur: 4 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+drop_table: drop_mob_229
+flavor: "A gaunt sorcerer-shade that scribes the torn sky into lances of dark and unravels the sight of any who close the gap."

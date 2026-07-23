@@ -1,0 +1,22 @@
+id: quest_095
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Summit Trail Bounty
+region: frostpeak
+quest_type: side
+giver_npc: npc_093
+level_requirement: 51
+recommended_level: 51
+steps:
+  - type: kill
+    target: mob_160
+    count: 8
+  - type: collect
+    target: item_etc_0136
+    count: 5
+rewards:
+  exp: 25099  # round(0.07*358,560); exp_to_next(51)=round(4*51^1.3)*round(20+0.2*51^2)=664*540
+  shards: 320  # mean_shards_normal(51)*4 = 80*4 (round(1.5*51+3)=79.5 -> 80)
+flavor: "The Summit Trail pack has taken to shadowing Wyrmcrag's own patrols."
+offer_text: "Our patrols keep losing ground to a pack working the summit trail. Cull them and bring back what they were guarding."
+complete_text: "The trail's clear again. The hold won't forget who cleared it."

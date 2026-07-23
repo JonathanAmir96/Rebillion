@@ -1,0 +1,48 @@
+id: map_011
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Emberfoot Fields, Kiln Approach
+region: emberfoot
+map_type: field
+level_band: { min: 7, max: 8 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 130, h: 26 }
+bgm: bgm_emberfoot
+ambience: [amb_wind, amb_ember_glow]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 20] }
+portals:
+  - id: to_smoking_verge
+    kind: edge
+    at: { edge: left }
+    target_map: map_010
+    target_spawn: main
+    dead_end: false
+  - id: to_old_kiln_tunnels
+    kind: edge
+    at: { edge: right }
+    target_map: map_012
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: kiln_approach_stretch
+    rect_tiles: { x: 20, y: 18, w: 60, h: 6 }
+    mobs:
+      - { mob: mob_007, count: 3 }
+      - { mob: mob_008, count: 1 }
+    max_concurrent: 6
+npcs: [npc_007]
+interactables:
+  - type: sign
+    id: sign_kiln_approach_011
+    at_tile: [96, 19]
+    params:
+      text: "The tunnel mouth ahead breathes hot air day and night. The Kiln Watchman stands ready with a warning."
+      interact_prompt: Read
+platform_brief: |
+  A level final stretch, no elevation change, ending at the dark tunnel mouth
+  (MAP_TRAVERSAL §1.1 not invoked, no gaps). Foothold segments under painted
+  terrain_chunks (ART_BIBLE AB-001). The last open-sky ground before the dungeon.
+flavor: "The last field before the fields run out. Ahead, the ground itself starts to breathe heat."

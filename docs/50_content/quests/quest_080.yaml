@@ -1,0 +1,19 @@
+id: quest_080
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Rustfall Culling
+region: clockwork
+quest_type: side
+giver_npc: npc_078
+level_requirement: 35
+recommended_level: 35
+steps:
+  - type: kill
+    target: mob_131
+    count: 8
+rewards:
+  exp: 7550   # round(0.07*107,855) (LEVELING §1 Lv35 row); side band 5-10%
+  shards: 224 # side = mean_shards_normal(35)*4 = 56*4 (QUESTS §5 / DROPS §3)
+flavor: "The Sunken Cogyard pack has grown too bold, working its way toward the terrace line proper."
+offer_text: "Thin the cogyard pack before they start climbing toward the gate. I'll pay for the trouble."
+complete_text: "Quieter cogyard, fuller ledger. Good work -- keep pushing west when you're ready."

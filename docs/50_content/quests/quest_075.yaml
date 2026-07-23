@@ -1,0 +1,24 @@
+id: quest_075
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Word to the Deep Archive
+region: sunken
+quest_type: main
+giver_npc: npc_072
+turn_in_npc: npc_074
+level_requirement: 35
+recommended_level: 35
+prereqs: [quest_072]
+steps:
+  - type: kill
+    target: mob_119
+    count: 8
+  - type: collect
+    target: item_etc_0105
+    count: 5
+rewards:
+  exp: 23728  # main pct=0.22 of exp_to_next(35)=107,855; shards=mean_shards_normal(35)*15=56*15
+  shards: 840
+flavor: "Adric's research ends at the gate; Voss has spent years further in, and needs to know what you find there."
+offer_text: "Clear what's past the gate and gather what the deep halls give up. Carry it to Voss -- she's kept the deep archive alive longer than anyone."
+complete_text: "Adric's notes and yours together -- now that's a proper record. Sit a while, if the water lets you."

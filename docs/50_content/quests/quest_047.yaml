@@ -1,0 +1,20 @@
+id: quest_047
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Thing in the Deep
+region: tidewatch
+quest_type: side
+giver_npc: npc_053
+level_requirement: 21
+recommended_level: 21
+prereqs: [quest_045]
+steps:
+  - type: kill
+    target: mob_064
+    count: 1
+rewards:
+  exp: 2257                  # round(0.10 * 22572); band per QUESTS §4 at Lv21
+  shards: 136                # mean_shards_normal(21)*4 = 34*4 (QUESTS §5 side / DROPS §3)
+flavor: "A barracuda grown to the length of a longboat's oar has been surfacing past the Saltworn Deep at night, and Mirelle wants it stopped before it reaches the port."
+offer_text: "Put it down, that reef-hunter. I've dived enough of this coast to know when something's grown too big to be left alone down there."
+complete_text: "Gone quiet down there again. I'll sleep easier tonight -- and dive a little deeper tomorrow."

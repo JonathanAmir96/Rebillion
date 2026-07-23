@@ -1,0 +1,43 @@
+id: mob_046
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Sporequeen Brood
+tier: elite                       # ID slot 046 = last R3 elite (ID_REGISTRY Monsters)
+element: nature                   # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 16
+size_class: large
+stats:                            # §13 normal Lv 16 x §13.2 elite multipliers
+  life: 8664                      # 1444 x6
+  power: 81                       # 54 x1.5
+  spellpower: 81                  # parity (§13); spore casts scale on magic
+  armor: 125                      # 96 x1.3  (armor+warding sum ~= 12*16 x1.3 = 250)
+  warding: 125                    # 96 x1.3
+  precision: 70                   # 64 x1.1
+  evasion: 5.5                    # 3.5 + 2% (§13.2 elite)
+  exp: 735                        # exp_per_kill_normal(16)=147 x5 (LEVELING §3 elite)
+ai_profile: pack_hunter           # a brood-mother who fights walled behind her own spawn (AI_BEHAVIOR §10)
+ai_params:
+  aggro_radius: 6
+  pack_call_radius: 10
+  pack_max_size: 5
+abilities:
+  - id: spawn_swarm
+    name: Spawn Swarm
+    targeting: self
+    cooldown: 22.0
+    telegraph_s: 1.4
+    effects:
+      - { op: summon_entity, entity_ref: mob_028, count: 2, dur: 25 }   # sporeling adds (cap 1-2, §12)
+  - id: spore_spray
+    name: Spore Spray
+    targeting: { shape: line, length: 6, width: 2 }
+    cooldown: 8.0
+    telegraph_s: 1.1
+    effects:
+      - { op: deal_damage, element: nature, mult: 1.4 }
+      - { op: apply_status, status: poison, chance: 0.8, dur: 10, stacks: 2 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # caster/summoner elite: +cast +telegraph +spawn
+drop_table: drop_mob_046
+flavor: "A bloated mother-cap ringed by the sporelings she buds without end, each one a fresh body to throw between you and her. Cut them down and she simply seeds two more, then hoses the gap with a spray no lungs should meet."

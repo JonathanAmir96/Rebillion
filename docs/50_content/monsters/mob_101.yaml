@@ -1,0 +1,25 @@
+id: mob_101
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Barrens Vulture
+tier: normal                     # ID slot 101 = R6 normal (ID_REGISTRY ashfall)
+element: neutral                      # R6 element mix is fire/neutral (WORLD_PLAN)
+resists: [fire]
+level: 32
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 32
+  life: 4900                     # 4*(32+3)^2
+  power: 102                     # 6+3*32 (touch = round(0.5*power), neutral, §13.1)
+  armor: 192                     # 6*32  (armor+warding sum = 12*32)
+  warding: 192                   # 6*32
+  precision: 128                 # 4*32
+  evasion: 4.0                   # 3 + 0.03*32 (%)
+  exp: 362                       # exp_per_kill_normal(32)=round(4*32^1.3) (LEVELING §3)
+ai_profile: aerial_swooper
+ai_params:                       # override only aerial_swooper-declared tunables (AI_BEHAVIOR)
+  patrol_altitude: 5
+  swoop_speed_mult: 2.3
+  climb_recover_s: 2.5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_101
+flavor: "A heavy, bald-necked scavenger that has grown fat on all the barrens kills, wings dusted the same dead grey as the ground. It comes down hard and jealous of a carcass."

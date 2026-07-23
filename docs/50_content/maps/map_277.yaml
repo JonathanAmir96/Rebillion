@@ -1,0 +1,42 @@
+id: map_277
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shattered Orrery, the Outer Gears
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 68, max: 69 }         # continues the gradient from Rune Vaults' deepest chamber
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 70, h: 65 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 58] }
+portals:
+  - id: to_deepest_chamber
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_275
+    target_spawn: main
+    dead_end: false
+  - id: to_middle_gears
+    kind: edge
+    at: { edge: top }
+    target_map: map_278
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: outer_gears_chamber
+    rect_tiles: { x: 20, y: 24, w: 32, h: 28 }
+    mobs:
+      - { mob: mob_198, count: 3 }
+      - { mob: mob_202, count: 1 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  Broken clockwork gears the size of shard-plates lie half-buried in the floor here, none
+  turning. Chamber-to-chamber climbs stay within the 3.5-tile rise cap (MAP_TRAVERSAL §1.1).
+  Dense corridor combat (SPAWN §2).
+flavor: "These gears once turned in step with the sky itself. Now they lie still, rusted through with void-damp."

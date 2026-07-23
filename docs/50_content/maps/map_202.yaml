@@ -1,0 +1,49 @@
+id: map_202
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Deepway, Frozen Vault
+region: frostpeak
+map_type: dungeon
+level_band: { min: 40, max: 40 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 70, h: 40 }
+bgm: bgm_frostpeak
+ambience: [amb_wind, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [12, 30] }
+portals:
+  - id: to_deepway_i
+    kind: door
+    at: { tile: [6, 30] }
+    target_map: map_201
+    target_spawn: main
+    dead_end: false
+  - id: to_deepway_iii
+    kind: door
+    at: { tile: [62, 12] }
+    target_map: map_203
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: frozen_vault_floor
+    rect_tiles: { x: 16, y: 22, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_151, count: 2 }
+      - { mob: mob_152, count: 3 }
+    max_concurrent: 8
+interactables:
+  - type: climbable
+    id: climb_frozen_vault
+    at_tile: [58, 12]
+    params:
+      rect_tiles: { x: 58, y: 12, w: 2, h: 18 }
+      orientation: vertical
+      visual: rope
+npcs: []
+platform_brief: |
+  A tall ice-cavern vault: the floor crossing is flat, but the exit sits on a raised ledge
+  reached by a fixed rope (climbable, MAP_TRAVERSAL §4) rather than a jump chain -- the
+  Deepway's one deliberate vertical beat. No one-way ledges; the rope is the only route up.
+flavor: "Meltwater has frozen mid-drip down the vault's ribs, a cathedral of ice holding its breath since the tunnel was cut."

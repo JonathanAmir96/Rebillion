@@ -1,0 +1,25 @@
+id: mob_135
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Dormant Automaton
+tier: normal                     # ID_REGISTRY: mob_135 in R8 normals block 129-144
+element: neutral                   # WORLD_PLAN R8 split = neutral/arcane
+weak_to: [arcane]                 # ELEMENTS §2 (mutually exclusive lists)
+level: 36
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 36
+  life: 6084                     # 4*(36+3)^2
+  power: 114                      # 6+3*36 (touch = round(0.5*power), §13.1)
+  armor: 216                      # 6*36  (armor+warding sum = 432 = 12*36)
+  warding: 216                    # 6*36
+  precision: 144                  # 4*36
+  evasion: 4.08                   # 3 + 0.03*36 (%)
+  exp: 422                      # exp_per_kill_normal(36)=round(4*36^1.3) (LEVELING §3)
+ai_profile: ambush_lurker
+ai_params:
+  ambush_radius: 2
+  leash_radius: 3
+  aggro_vertical_band: 1
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_135
+flavor: "A powered-down labor-frame slumped among the scrap, indistinguishable from wreckage until you stand on its plate. Its first blow is the wind-down spring of a century releasing at once."

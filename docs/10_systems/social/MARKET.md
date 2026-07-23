@@ -39,7 +39,7 @@ ask_price: 50000           # shards
 listing_fee_paid: 1000     # shards, rate owned by 10_systems/ECONOMY.md
 listed_ts: <server timestamp>
 expires_ts: <server timestamp>
-status: active               # active | sold | expired | cancelled
+status: active               # active | sold | expired | canceled
 ```
 
 ## Server Dependency

@@ -1,0 +1,12 @@
+id: npc_032
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES]
+name: Old Sil
+region: millbrook
+map: map_030
+role: flavor
+dialog:
+  greeting: "Scarecrows lean the way the trouble comes from. Mine have been leaning east for a week."
+  farewell: "Mind the flats after dusk."
+portrait: portrait_npc_032
+flavor: "Old Sil has tended the scarecrows of the flats for longer than anyone can remember and reads their lean like a weathervane."

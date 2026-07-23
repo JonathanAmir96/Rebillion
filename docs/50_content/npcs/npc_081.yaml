@@ -1,0 +1,12 @@
+id: npc_081
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS, JOBS]
+name: Gearworks Overseer Brannick
+region: clockwork
+map: map_191
+role: handler
+dialog:
+  greeting: "This floor has sworn in bulwarks, keeneyes, weavers, and flickers alike. It doesn't care which oath you're here for -- only that you hold it."
+  farewell: "Mind the sigils on your way out. They're not decoration."
+portrait: portrait_npc_081
+flavor: "Brannick has overseen the proving floor since before any instructor sent a Lv 40 hopeful its way, and keeps its brass sigils polished for every line alike."

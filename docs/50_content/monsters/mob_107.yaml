@@ -1,0 +1,74 @@
+id: mob_107
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Karnothal, the Stoker
+tier: boss                       # ID slot 107 = R6 boss (ID_REGISTRY ashfall)
+element: fire
+weak_to: [frost]
+resists: [fire]
+level: 34
+size_class: boss                 # knockback/CC-immune (COMBAT_FORMULA §11, STATUS_EFFECTS §3)
+stats:                           # §13 normal Lv 34 x §13.2 boss multipliers (region-boss row)
+  life: 191660                  # 5476 x35
+  power: 216                     # 108 x2.0 (touch = round(0.5*power), §13.1; contact-hot phases)
+  spellpower: 216                # parity (§13); fire casts scale on magic
+  armor: 326                     # 204 x1.6  (armor+warding sum ~= 12*34 x1.6)
+  warding: 326                   # 204 x1.6
+  precision: 163                 # 136 x1.2
+  evasion: 4.0                   # 4.0 + 0 (bosses don't dodge, §13.2)
+  exp: 9800                     # exp_per_kill_normal(34)=392 x25 (LEVELING §3 boss)
+ai_profile: boss_scripted        # authored 2-phase fight (AI_BEHAVIOR §14-§15)
+abilities:
+  - id: ember_maul
+    name: Ember Maul
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 7.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.5 }
+      - { op: apply_status, status: burn, chance: 0.8, dur: 6 }
+  - id: cinder_quake
+    name: Cinder Quake
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 10.0
+    telegraph_s: 1.4
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.6 }
+      - { op: knockback, distance: 3 }
+  - id: stoke_flames
+    name: Stoke the Coals
+    targeting: self
+    cooldown: 20.0
+    telegraph_s: 1.5
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.1, dur: 10 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+  - id: molten_eruption
+    name: Molten Eruption
+    targeting: { shape: aoe_circle, radius: 6, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.9 }
+      - { op: apply_status, status: burn, chance: 0.9, dur: 6, stacks: 3 }
+  - id: stoke_the_swarm
+    name: Stoke the Swarm
+    targeting: self
+    cooldown: 25.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_088, count: 2, dur: 30 }
+phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
+  - phase_id: 1                  # banked coals: holds the core, shells up, punishes the approach
+    life_threshold_pct: 100
+    base_profile: territorial_guard
+    added_abilities: [ember_maul, cinder_quake, stoke_flames]
+  - phase_id: 2                  # full blaze: the colossus lights off, charges, and reseeds the swarm
+    life_threshold_pct: 50
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 3.0, charge_recover_s: 2.0 }
+    added_abilities: [molten_eruption, stoke_the_swarm]
+    enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+drop_table: drop_mob_107
+flavor: "A charred colossus that has fed the barrens' eternal cinders since the first fire was lit, its body a walking kiln of banked and glowing coals. Bank it down and it only stokes hotter; the fight is a war of endurance against a thing that was made to never burn out."

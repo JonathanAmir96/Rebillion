@@ -1,0 +1,27 @@
+id: mob_117
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Hoarfrost Eel
+tier: normal                     # ID slot 117 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: frost                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 34
+size_class: small
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 34
+  life: 5476                     # 4*(34+3)^2
+  power: 108                      # 6+3*34 (touch = round(0.5*power), neutral, §13.1)
+  armor: 204                     # 6*34  (armor+warding sum = 408 = 12*34)
+  warding: 204                   # 6*34
+  precision: 136                 # 4*34
+  evasion: 4.02                   # 3 + 0.03*34 (%)
+  exp: 392                       # exp_per_kill_normal(34)=round(4*34^1.3) (LEVELING §3)
+ai_profile: pack_hunter
+ai_params:                       # override only pack_hunter-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 6
+  pack_call_radius: 10
+  pack_max_size: 4
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_117
+# hunts the corridors in braided knots (AI_BEHAVIOR §10) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "A ribbon of blue-white muscle that hunts the drowned corridors in braided knots, each eel harmless alone and lethal in the tangle. They answer one another's thrash from clear across a hall."

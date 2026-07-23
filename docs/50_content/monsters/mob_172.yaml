@@ -1,0 +1,44 @@
+id: mob_172
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Frostplate Bulwark
+tier: elite
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 53
+size_class: large
+stats:                           # §13 normal Lv 53 x §13.2 elite multipliers
+  life: 75264                    # 12544 x6
+  power: 248                     # 165 x1.5
+  armor: 413                     # 318 x1.3  (armor+warding sum ~= 12*53 x1.3)
+  warding: 413                   # 318 x1.3
+  precision: 233                 # 212 x1.1
+  evasion: 6.6                   # 4.6 + 2% (§13.2 elite)
+  exp: 3490                    # exp_per_kill_normal(53)=698 x5 (LEVELING §3 elite)
+ai_profile: territorial_guard
+ai_params:
+  aggro_radius: 5
+  leash_radius: 5
+  patrol_radius: 3
+abilities:
+  - id: rime_bulwark
+    name: Rime Bulwark
+    targeting: self
+    cooldown: 16.0
+    telegraph_s: 1.3
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.15 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+  - id: glacial_smash
+    name: Glacial Smash
+    targeting: melee_arc
+    cooldown: 8.0
+    telegraph_s: 1.1
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.6 }
+      - { op: knockback }
+      - { op: apply_status, status: chill, chance: 0.7, dur: 4 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_172
+flavor: "A warden grown into a walking rampart of blue ice, sworn to a pass it has held past all memory. It sheathes itself in rime and dares you to spend the day chipping through."

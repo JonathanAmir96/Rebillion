@@ -1,0 +1,12 @@
+id: npc_080
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES]
+name: Archivist Dorne
+region: clockwork
+map: map_186
+role: flavor
+dialog:
+  greeting: "The spools go quiet at the same hour, every day. I've stopped asking why."
+  farewell: "Don't linger past the toll. The archive keeps its own schedule."
+portrait: portrait_npc_080
+flavor: "Dorne has spent a decade trying to unspool a record that reads only as a single held note, over and over."

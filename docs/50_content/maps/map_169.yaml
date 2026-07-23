@@ -1,0 +1,49 @@
+id: map_169
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Deep Archive
+region: sunken
+map_type: dungeon
+level_band: { min: 37, max: 37 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 70, h: 50 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_168
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_170
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_dungeon_169
+    rect_tiles: { x: 15, y: 32, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_122, count: 2 }
+      - { mob: mob_123, count: 2 }
+    max_concurrent: 8
+interactables:
+  - type: lore_marker
+    id: marker_deep_archive
+    at_tile: [35, 34]
+    params:
+      text: "A neat hand has annotated every drowned page still legible -- the archivist's own work, unfinished."
+      interact_prompt: "Read"
+npcs: [npc_074]
+platform_brief: |
+  A vertical archive chamber, denser combat pacing than the fields (SPAWN §2 dungeon budget).
+  The archivist's reading nook sits on the highest ledge, reachable within the doubled
+  water-physics rise cap.
+flavor: "The last dry shelf in the ruin holds a small, careful archive -- someone has been living down here."

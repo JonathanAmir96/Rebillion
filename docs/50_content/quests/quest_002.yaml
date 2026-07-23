@@ -1,0 +1,23 @@
+id: quest_002
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Elder's Charge
+region: emberfoot
+quest_type: main
+giver_npc: npc_004                # Elder Yarrow
+level_requirement: 2
+recommended_level: 2
+prereqs: [quest_001]
+steps:
+  - type: kill
+    target: mob_002
+    count: 6
+  - type: collect
+    target: item_etc_0001          # forward-ref: monster batch's region etc materials (0001-0016 block)
+    count: 4
+rewards:
+  exp: 42                          # round(0.20 * 210); main band, exp_to_next(2)=210
+  shards: 90                       # mean_shards_normal(2)*15 = 6*15
+flavor: "The Elder wants proof a novice can both fight and carry their weight home."
+offer_text: "Thin the pests past the lower reach, and bring me back what's left of the kiln-ash on their hides."
+complete_text: "Good. You listen and you follow through. Not every novice manages both."

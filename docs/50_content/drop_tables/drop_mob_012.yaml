@@ -1,0 +1,19 @@
+id: drop_mob_012
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN]   # boss table: emberstone -> ENHANCEMENT; boss-unique region-order -> WORLD_PLAN
+owner: mob_012
+rows:
+  # shards guaranteed. mean_shards_normal(8)=15; boss x15 = 225; range=[round(0.8*225),round(1.2*225)]=[180,270] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 180, qty_max: 270 }
+  # guaranteed region-material row(s) (DROPS §5.3)
+  - { ref: item_etc_0012, chance: guaranteed, qty_min: 1, qty_max: 2 }
+  - { ref: item_etc_0013, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  # emberstone rows: 1 guaranteed + 1 uncommon (DROPS §5.3); Emberstone I (0193, R1 band) + II (0194, reach reward)
+  - { ref: item_etc_0193, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0194, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # exactly one guaranteed pool-roll row (DROPS §5.3); pool lands in the parallel items batch (dangling OK)
+  - { ref: pool_equip_r01, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # exactly the boss's two unique equips (region-order boss #1 owns item_equip_0201/0202, ID_REGISTRY / WORLD_PLAN);
+  # uniques land in the parallel items batch (dangling OK); exactly one carries first_clear_guaranteed (DROPS §5.3)
+  - { ref: item_equip_0201, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0202, chance: legendary, qty_min: 1, qty_max: 1 }

@@ -1,0 +1,40 @@
+id: map_148
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Stoker's Threshold
+region: ashfall
+map_type: dungeon
+level_band: { min: 35, max: 35 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 60, h: 45 }
+bgm: bgm_ashfall
+ambience: [amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [8, 20] }
+portals:
+  - id: to_147
+    kind: door
+    at: { tile: [4, 20] }
+    target_map: map_147
+    target_spawn: main
+    # arena entrance -- the map's only ingress into the arena (MAPS_SYSTEM §8)
+  - id: to_stoked_core
+    kind: door
+    at: { tile: [52, 20] }
+    target_map: map_151
+    target_spawn: main
+spawn_zones:
+  - id: map_148_zone
+    rect_tiles: { x: 16, y: 14, w: 32, h: 10 }
+    mobs:
+      - { mob: mob_106, count: 3 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  A tight vertical gauntlet of vent shafts and rock ledges, each rise within the
+  3.5-tile cap and each gap within the 5-tile cap (MAP_TRAVERSAL §1.1). Terrain is
+  foothold segments under painted ash terrain_chunks (ART_BIBLE AB-001); heat-haze
+  is visual only, no hazard tiles authored on this pass.
+flavor: "Cinder-heat presses close in these vents, and something down here has learned to breathe it."

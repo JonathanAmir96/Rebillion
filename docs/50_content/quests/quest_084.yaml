@@ -1,0 +1,19 @@
+id: quest_084
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Escapement's Toll
+region: clockwork
+quest_type: side
+giver_npc: npc_082
+level_requirement: 39
+recommended_level: 39
+steps:
+  - type: kill
+    target: mob_143
+    count: 8
+rewards:
+  exp: 13647  # round(0.09*151,632) (LEVELING §1 Lv39); side band 5-10%
+  shards: 248 # side = mean_shards_normal(39)*4 = 62*4 (QUESTS §5 / DROPS §3)
+flavor: "Sable wants the proving floor's approach thinned before she risks another survey pass through the deep."
+offer_text: "The escapement guardians have been swarming the approach again. Thin them before I take my next reading."
+complete_text: "Quiet enough to work by. Whatever the Custodian is, it built well -- these things don't stop for long."

@@ -1,0 +1,27 @@
+# side band 5-10% of exp_to_next(9)=2,520 (LEVELING §1); pct=0.08. shards = mean_shards_normal(9)*4
+# = 17*4 (QUESTS §5 / DROPS §3).
+id: quest_027
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: A Warm Bed for the Weary
+region: verdant
+quest_type: side
+giver_npc: npc_038
+turn_in_npc: npc_035
+prereqs: [quest_026]
+level_requirement: 9
+recommended_level: 9
+steps:
+  - type: kill
+    target: mob_030
+    count: 8
+  - type: talk
+    target: npc_035
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 202                        # round(0.08 * 2,520)
+  shards: 68                      # mean_shards_normal(9)*4 = 17*4
+flavor: "Petra's watch runs light on rest. She'd rather it went to someone who'll actually use the inn's spare room."
+offer_text: "Clear the mossy-steps brood for me, then tell Marta at the inn I sent you -- she keeps a bed open for whoever's doing the walking I can't."
+complete_text: "Petra sends her thanks, and I'll send you off with a full belly. Sit a while."

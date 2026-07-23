@@ -1,0 +1,53 @@
+id: mob_012
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
+name: Cindermaw
+tier: boss                       # ID slot 012 = R1 boss (ID_REGISTRY Monsters); Boss #1
+element: fire                    # overgrown furnace-hound (WORLD_PLAN R1, arena map_016)
+weak_to: [frost]                 # ELEMENTS §2; mutually exclusive lists
+resists: [fire]
+level: 8
+size_class: large               # WORLD_PLAN R1: large (not boss-size); knockback still lands, keeps the fight readable
+stats:                           # normal Lv 8 budget x §13.2 boss multipliers
+  life: 16975                    # 485 (§13 Lv 8) x 35
+  power: 60                      # 30 x 2.0 (fire body; touch dmg = round(0.5*power), §13.1)
+  armor: 77                      # 48 x 1.6 (round)
+  warding: 77                    # 48 x 1.6 (round); armor+warding sum = 154 ~= 96 x 1.6 = 153.6
+  precision: 38                  # 32 x 1.2 (round)
+  evasion: 3.2                   # +0 (bosses do not dodge, §13.2)
+  exp: 1500                      # exp_per_kill_normal(8)=60 x 25 (LEVELING §3 boss)
+ai_profile: boss_scripted        # authored graduation fight (AI_BEHAVIOR §14-§15)
+abilities:                       # boss requires >=1 ability; all with generous telegraphs (WORLD_PLAN R1)
+  - id: furnace_breath
+    name: Furnace Breath
+    targeting: { shape: line, length: 8, width: 3 }   # a long, slow gout of flame down the arena
+    cooldown: 9.0
+    telegraph_s: 2.2             # very generous wind-up (first boss, teach-the-tell, WORLD_PLAN)
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.6 }
+      - { op: apply_status, status: burn, chance: 0.5, dur: 6 }
+  - id: cinder_stomp
+    name: Cinder Stomp
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 8.0
+    telegraph_s: 1.8             # rears up before slamming; wide, dodgeable ring
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.3 }
+      - { op: knockback, distance: 3 }
+  - id: ember_lob
+    name: Ember Lob
+    targeting: projectile        # a single arcing coal the player can side-step
+    cooldown: 4.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.1 }
+phases:                          # single phase (WORLD_PLAN R1: single phase)
+  - phase_id: 1
+    life_threshold_pct: 100      # first phase must be 100 (AI_BEHAVIOR §15)
+    base_profile: aggressive_charger   # borrows the charger's committed, punishable movement
+    param_overrides:
+      charge_speed_mult: 2.0
+      charge_recover_s: 3.2      # long recovery windows keep the graduation fight fair
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # boss adds telegraph + spawn
+drop_table: drop_mob_012
+flavor: "The furnace-hound that slumbered in the village kiln until the coals grew a heart and teeth, now filling the Kiln Heart with its heat. Every Emberfoot graduate meets it once, at the door to the wider world."

@@ -1,0 +1,13 @@
+id: npc_015
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, INVENTORY, PERSISTENCE]
+name: Teller Rue
+region: millbrook
+map: map_021
+role: banker
+services: [storage]
+dialog:
+  greeting: "Rosen Harbor Bank, at your service -- your account's exactly as you left it."
+  farewell: "Count it twice on your way out. I always do."
+portrait: portrait_npc_015
+flavor: "Rue has never once misplaced a single shard in the vault, and reminds every customer of that fact."

@@ -1,0 +1,42 @@
+id: map_123
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Shed-Skin Hollow
+region: gloomwood
+map_type: secret
+level_band: { min: 28, max: 28 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 45, h: 22 }
+bgm: bgm_gloomwood
+ambience: [amb_web_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 16] }
+portals:
+  - id: to_silkbound_vault
+    kind: door
+    at: { tile: [4, 16] }
+    target_map: map_118
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: shedskin_hollow_zone
+    rect_tiles: { x: 14, y: 12, w: 26, h: 8 }
+    mobs:
+      - { mob: mob_085, count: 1 }
+      - { mob: mob_086, count: 2 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_shed_skins
+    at_tile: [30, 14]
+    params:
+      text: "Molted skins, each larger than the last, are piled deep enough to bury a boot."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A single molting-chamber off the Silkbound Vault's outer skein, weighted toward its elite
+  pair (SPAWN §2 secret: elevated elite mob_pool weight). No verticality gimmick, small
+  and dense.
+flavor: "Whatever sheds its skin here has been growing for a long, long time."

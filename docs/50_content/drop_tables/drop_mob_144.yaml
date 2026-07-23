@@ -1,0 +1,11 @@
+id: drop_mob_144
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone/pool row
+owner: mob_144
+rows:
+  # shards guaranteed. mean_shards_normal(40)=round(1.5*40+3)=63; range=[round(0.8*63),round(1.2*63)]=[50,76] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 50, qty_max: 76 }
+  # 1 region material, common (DROPS §5.1); item_etc_0128 is this mob's R8 material
+  - { ref: item_etc_0128, chance: common, qty_min: 1, qty_max: 2 }
+  # optional use item at rare (DROPS §5.1); Prime Tonic serves the arc-1 Lv 37-42 top band (ITEMS §1.1)
+  - { ref: item_use_0005, chance: rare, qty_min: 1, qty_max: 1 }

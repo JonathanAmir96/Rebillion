@@ -1,0 +1,19 @@
+id: quest_087
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, RAID]
+name: The Undervault Muster
+region: millbrook
+quest_type: side
+giver_npc: npc_029
+level_requirement: 14
+recommended_level: 14
+steps:
+  - type: kill
+    target: mob_026
+    count: 5
+rewards:
+  exp: 549      # round(0.075*7,316) (LEVELING §1 Lv14 exp_to_next); raid_undervault intro (RAID.md §3), side band pct=0.075
+  shards: 96     # mean_shards_normal(14)*4 = 24*4 (QUESTS §5 / DROPS §3)
+flavor: "Dusk won't muster a party into the Undervault Heist until they've proven themselves against the catacombs' own elites first."
+offer_text: "Clear a handful of the deep tunnels' elite pack before I'll vouch for you at the stage door. I won't send anyone in green."
+complete_text: "Good enough for me. Gather your party of three to six and the stage door's yours whenever you're ready."

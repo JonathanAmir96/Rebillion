@@ -1,0 +1,42 @@
+id: map_171
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Warden's Approach
+region: sunken
+map_type: dungeon
+level_band: { min: 37, max: 38 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 70, h: 50 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_170
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_172
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_dungeon_171
+    rect_tiles: { x: 15, y: 32, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_123, count: 2 }
+      - { mob: mob_124, count: 1 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  A narrowing corridor-loop, elite presence per SPAWN §2's dungeon budget (1 elite zone per
+  2 screens). Ledges stay within the doubled water-physics jump distance.
+flavor: "The halls narrow here, and the first sign of the Warden's own guard stirs in the dark ahead."

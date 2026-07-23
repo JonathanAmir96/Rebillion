@@ -1,0 +1,12 @@
+id: npc_026
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Farmer Tobb Rundle
+region: millbrook
+map: map_029
+role: quest_giver
+dialog:
+  greeting: "Something's been at my furrows again. Third season running, and I'm about done with it."
+  farewell: "Bring me their tails and I'll believe you cleared the row."
+portrait: portrait_npc_026
+flavor: "Rundle's worked Furrow Row since he could walk, and swears the burrowers get bolder every year."

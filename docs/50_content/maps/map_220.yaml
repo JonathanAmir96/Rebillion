@@ -1,0 +1,52 @@
+id: map_220
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Wyrmcrag Hold
+region: frostpeak
+map_type: town
+level_band: { min: 51, max: 51 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 120, h: 24 }
+bgm: bgm_town_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [60, 18] }
+portals:
+  - id: to_wyrmcrag_approach
+    kind: edge
+    at: { edge: left }
+    target_map: map_219
+    target_spawn: main
+    dead_end: false
+  - id: to_hold_hall
+    kind: door
+    at: { tile: [58, 16] }
+    target_map: map_221
+    target_spawn: main
+    dead_end: false
+  - id: to_glacierfront_reach
+    kind: edge
+    at: { edge: right }
+    target_map: map_222
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: storage_chest
+    id: chest_wyrmcrag
+    at_tile: [44, 18]
+    params:
+      scope: character
+  - type: sign
+    id: sign_wyrmcrag_gate
+    at_tile: [60, 17]
+    params:
+      text: "Wind-scoured stone and a long climb behind you. The hold hall keeps its hearth lit for whoever makes it this far."
+      interact_prompt: Read
+npcs: [npc_090, npc_093]
+platform_brief: |
+  A single flat band along the hold's wind-break wall, no verticality gimmick -- the second
+  safe stop on the climb. Terrain is foothold segments dressed with painted stone/snow
+  terrain_chunks (ART_BIBLE AB-001); the whole walkable span is one continuous foothold.
+flavor: "A wind-scoured mountain hold halfway up the isle's spine, its hearths kept lit for travelers who've earned the climb this far."

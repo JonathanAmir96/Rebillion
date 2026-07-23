@@ -1,0 +1,32 @@
+id: map_267
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Sanctum Hall
+region: arcane_reach
+map_type: interior
+level_band: { min: 68, max: 68 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 36, h: 20 }
+bgm: bgm_town_arcane_reach
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 14] }
+portals:
+  - id: to_highrune_sanctum
+    kind: door
+    at: { tile: [18, 18] }
+    target_map: map_266
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: storage_chest
+    id: chest_sanctum_hall
+    at_tile: [8, 13]
+    params:
+      scope: character
+npcs: [npc_107, npc_108]
+platform_brief: |
+  A single vaulted reading hall lined with shelved rune-tablets, one flat foothold floor from
+  door to dais -- the interior default (MAPS_SYSTEM §2). No verticality gimmick.
+flavor: "Every tablet on these shelves catalogues a shard that has since drifted, fallen, or gone dark."

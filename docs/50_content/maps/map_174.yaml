@@ -1,0 +1,41 @@
+id: map_174
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Drowned Scholar's Cache
+region: sunken
+map_type: secret
+level_band: { min: 36, max: 37 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 50, h: 24 }
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 18] }
+portals:
+  - id: to_map_165
+    kind: door
+    at: { tile: [4, 18] }
+    target_map: map_165
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_secret_174
+    rect_tiles: { x: 10, y: 12, w: 30, h: 8 }
+    mobs:
+      - { mob: mob_121, count: 1 }
+      - { mob: mob_124, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_scholars_cache
+    at_tile: [25, 16]
+    params:
+      text: "A scholar's private notes, still dry inside an oiled satchel -- payment for whoever finds them."
+      interact_prompt: "Read"
+npcs: []
+platform_brief: |
+  A single sealed chamber off the Flooded Archive, weighted toward its elite pair
+  (SPAWN §2 secret: elevated elite mob_pool weight). No verticality gimmick, small and dense.
+flavor: "A hidden cache off the Flooded Archive, sealed against the current by a door someone forgot to lock."

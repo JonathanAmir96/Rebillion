@@ -1,0 +1,12 @@
+id: npc_073
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Diver Fenn
+region: sunken
+map: map_155
+role: flavor
+dialog:
+  greeting: "Quiet down here, isn't it. Too quiet, some days."
+  farewell: "Watch the weighted line on your way past -- it's not mine, and I'd like to know whose it is."
+portrait: portrait_npc_073
+flavor: "Fenn keeps a lonely watch over a line that runs down into darker water than anyone else cares to dive."

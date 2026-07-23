@@ -1,0 +1,12 @@
+id: npc_067
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Scout Kessa
+region: ashfall
+map: map_128                     # bidirectional with map_128's npcs[] (both list each other)
+role: quest_giver
+dialog:
+  greeting: "Fresh off the coach and already past the gate? Barrens don't wait for anyone to catch their breath."
+  farewell: "Watch the swarmlings -- they nest quicker than you'd think."
+portrait: portrait_npc_067
+flavor: "Kessa camps just past Cindershelf's gate, tracking every brood that creeps too close to the road."

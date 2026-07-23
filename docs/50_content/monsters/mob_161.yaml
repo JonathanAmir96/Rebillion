@@ -1,0 +1,24 @@
+id: mob_161
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Scree Scuttler
+tier: normal
+element: neutral
+level: 48
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 48
+  life: 10404                     # 4*(48+3)^2
+  power: 150                     # 6+3*48 (touch = round(0.5*power), §13.1)
+  armor: 288                     # 6*48  (armor+warding sum = 576 = 12*48)
+  warding: 288                   # 6*48
+  precision: 192                 # 4*48
+  evasion: 4.4                   # 3 + 0.03*48 (%)
+  exp: 613                     # exp_per_kill_normal(48)=round(4*48^1.3) (LEVELING §3)
+ai_profile: ambush_lurker
+ai_params:                       # override only ambush_lurker-declared tunables (AI_BEHAVIOR)
+  ambush_radius: 2
+  leash_radius: 3
+  aggro_vertical_band: 1
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_161
+flavor: "A rock-crab that sits still as loose stone on the talus slopes until a boot lands beside it. Its shell is grey scree; its claws are not."

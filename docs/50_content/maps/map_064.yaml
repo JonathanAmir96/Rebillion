@@ -1,0 +1,53 @@
+id: map_064
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Root Warrens, Grub Hollows
+region: verdant
+map_type: dungeon
+level_band: { min: 13, max: 14 }           # first elite zone in the chain
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 64, h: 66 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [32, 8] }
+portals:
+  - id: to_sunken_chamber
+    kind: edge
+    at: { edge: top }
+    target_map: map_063
+    target_spawn: main
+    dead_end: false
+  - id: to_deep_roots
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_065
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: grub_hollows_hall
+    rect_tiles: { x: 16, y: 20, w: 36, h: 26 }
+    mobs:
+      - { mob: mob_038, count: 3 }
+    max_concurrent: 8
+  - id: grub_hollows_elite_den
+    rect_tiles: { x: 44, y: 46, w: 14, h: 12 }
+    mobs:
+      - { mob: mob_044, count: 1 }        # elite, own small zone (SPAWN §2 dungeon: 1 elite zone/2 screens)
+    max_concurrent: 2
+    respawn_override: 90                   # elite baseline (SPAWN §3)
+interactables:
+  - type: sign
+    id: sign_grub_hollows
+    at_tile: [22, 18]
+    params:
+      text: "Something bigger than the tunnel grubs dens further in. Its den has its own hollowed-out room."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A grub-riddled tunnel widening into a side-den, all gaps within the 5-tile/3.5-tile
+  jump caps (MAP_TRAVERSAL §1.1). Foothold segments dressed in root-tunnel terrain_chunks
+  (ART_BIBLE AB-001); the elite den sits off the main hall, its own small pocket.
+flavor: "Grub-silk lines every crevice here, and one corner has been hollowed into a den far larger than the tunnel warrants."

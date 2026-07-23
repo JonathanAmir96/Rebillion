@@ -1,0 +1,22 @@
+id: quest_048
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Silence the Siren's Song
+region: tidewatch
+quest_type: main
+giver_npc: npc_054
+level_requirement: 22
+recommended_level: 22
+prereqs: [quest_046]
+steps:
+  - type: kill
+    target: mob_067
+    count: 1
+rewards:
+  exp: 7792                  # round(0.30 * 25974); band per QUESTS §4 at Lv22
+  shards: 540                # mean_shards_normal(22)*15 = 36*15 (QUESTS §5 main / DROPS §3)
+  items:
+    - { id: item_etc_0064, qty: 5 }
+flavor: "Tidecaller Morva's song has grown loud enough to carry all the way to the North Strand watch-post, and Yarrow won't wait for it to reach the port."
+offer_text: "Go out to the shoal and silence her, once and for all. I've heard that song get louder every tide for a season now."
+complete_text: "Quiet, at last. The whole strand will sleep easier tonight, and so will I."

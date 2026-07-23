@@ -1,0 +1,26 @@
+id: mob_218
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Drowned Tiderammer
+tier: normal                     # ID_REGISTRY: mob_207-226 = R11 normals (14 shadow / 6 neutral)
+element: neutral                     # WORLD_PLAN R11 element mix: shadow/neutral
+weak_to: [nature]
+resists: [frost]
+level: 74                         # monotone gradient along R11 field path map_288-305 (66->80)
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 74
+  life: 23716                    # 4*(74+3)^2
+  power: 228                     # 6+3*74
+  armor: 444                     # 6*74  (armor+warding sum = 888 = 12*74)
+  warding: 444                   # 6*74
+  precision: 296                 # 4*74
+  evasion: 5.22                   # 3 + 0.03*74 (%)
+  exp: 1077                      # round(4*74^1.3) (LEVELING §3 normal x1)
+ai_profile: aggressive_charger
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 8
+  charge_speed_mult: 2.8
+  charge_recover_s: 2.6
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_218
+flavor: "A waterlogged bulk that builds momentum across the flats and rams straight through, heedless of ledges. The charge is unstoppable; the wind-down is not."

@@ -1,0 +1,39 @@
+id: skill_weaver_023
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Frozen Ground
+line: weaver
+tier: second
+kind: active
+targeting: { shape: aoe_circle, radius: 3, origin: reticle, reticle_range: 8, telegraph: 0.8 }   # roster target `aoe_circle`
+cost: { essence: 15 }
+cooldown: 11.0
+level_data:
+  # JOBS.md §4.4 note: the `chill` zone applies before `deal_damage` (SKILL_EFFECTS §2 ordered
+  # execution) — the persistent-field flavor is this telegraphed aoe_circle, not a new op.
+  - level: 1
+    essence_cost: 15
+    cooldown: 11.0
+    effects:
+      - { op: apply_status, status: chill, chance: 1.0 }
+      - { op: deal_damage, element: frost, mult: 1.0 }
+  - level: 4
+    essence_cost: 18
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: chill, chance: 1.0 }
+      - { op: deal_damage, element: frost, mult: 1.3 }
+  - level: 7
+    essence_cost: 21
+    cooldown: 9.0
+    effects:
+      - { op: apply_status, status: chill, chance: 1.0 }
+      - { op: deal_damage, element: frost, mult: 1.6 }
+  - level: 10
+    essence_cost: 24
+    cooldown: 8.0
+    effects:
+      - { op: apply_status, status: chill, chance: 1.0 }
+      - { op: deal_damage, element: frost, mult: 1.9 }
+animation: skill_weaver_023_cast
+flavor: "A telegraphed patch of ground that freezes over the instant it lands, slowing everyone standing on it before the cold even bites."

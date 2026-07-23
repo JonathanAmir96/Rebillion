@@ -1,0 +1,20 @@
+id: drop_mob_087
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN]   # boss: emberstone + region-order uniques (WORLD_PLAN); not a raid boss (no PARTY)
+owner: mob_087
+rows:
+  # shards guaranteed, boss x15. mean=round(1.5*28+3)=45; x15=675; range +-20% (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 540, qty_max: 810 }
+  # region materials guaranteed (DROPS §5.3 crafting/quest mats)
+  - { ref: item_etc_0065, chance: guaranteed, qty_min: 2, qty_max: 3 }   # Silkcreep Silk
+  - { ref: item_etc_0080, chance: guaranteed, qty_min: 1, qty_max: 2 }   # Dreadwidow Chelicera
+  # emberstones: 1 guaranteed + 1 uncommon (DROPS §5.3; ENHANCEMENT §1). R5 gear = T3-T4 -> Emberstone II,
+  # with a bonus next-band Emberstone III (item_etc_0195) at uncommon for the leading edge into R6.
+  - { ref: item_etc_0194, chance: guaranteed, qty_min: 1, qty_max: 1 }   # Emberstone II
+  - { ref: item_etc_0195, chance: uncommon, qty_min: 1, qty_max: 1 }     # Emberstone III
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5). pool_equip_r05 authored by the equip batch (dangling OK)
+  - { ref: pool_equip_r05, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss #5 uniques: Mother Gloam owns item_equip_0209/0210 (WORLD_PLAN/ID_REGISTRY, boss #5 = 0199+2n).
+  # first-ever clear guarantees one of the two (DROPS §5.3 bad-luck protection). Parallel items batch (dangling OK).
+  - { ref: item_equip_0209, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0210, chance: legendary, qty_min: 1, qty_max: 1 }

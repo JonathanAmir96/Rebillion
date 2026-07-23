@@ -1,0 +1,24 @@
+# side band 5-10% of exp_to_next(11)=3,960 (LEVELING §1); pct=0.07. shards = mean_shards_normal(11)*4
+# = 20*4 (QUESTS §5 / DROPS §3).
+id: quest_029
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Into the Root Hollow
+region: verdant
+quest_type: side
+giver_npc: npc_039
+level_requirement: 11
+recommended_level: 11
+steps:
+  - type: kill
+    target: mob_033
+    count: 10
+  - type: reach
+    target: map_061
+    zone: warren_mouth
+rewards:
+  exp: 277                        # round(0.07 * 3,960)
+  shards: 80                      # mean_shards_normal(11)*4 = 20*4
+flavor: "Oskar's charted the warren's mouth twice over. He's never once gone further than the first turn alone."
+offer_text: "Clear the clearing's worst first -- then step into the warren mouth so I know the way's still open. Don't go deeper than that, mind."
+complete_text: "Still standing, and the mouth's clear. That's further than most manage on the first try."

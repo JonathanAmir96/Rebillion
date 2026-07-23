@@ -1,0 +1,21 @@
+id: quest_109
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: A Room That Won't Stay Shut
+region: arcane_reach
+quest_type: side
+giver_npc: npc_098                # Hearthkeep Ossra, the Spirehaven inn
+level_requirement: 67
+recommended_level: 67
+steps:
+  - type: kill
+    target: mob_196
+    count: 8
+rewards:
+  exp: 65132                      # round(0.075 * exp_to_next(67)=868,428); side band (QUESTS §4)
+  shards: 416                     # mean_shards_normal(67)*4 = 104*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }
+flavor: "Ossra swears something out of the vault-dark keeps unlatching her cellar door at night, and she's stopped sleeping over it."
+offer_text: "Whatever's been slipping down off the ridge, it's found my cellar twice this tenday. Clear the den it's coming from and I'll finally get some sleep."
+complete_text: "Quiet cellar, quiet night. First one in weeks. My thanks, truly."

@@ -1,0 +1,12 @@
+id: npc_051
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Deputy Warden Corrin
+region: tidewatch
+map: map_071
+role: guide
+dialog:
+  greeting: "Warden Saela's trial for the second oath runs through the Clockwork Ruins now -- steady nerves, that trip."
+  idle: "I've walked the Ruins trial ground twice. Wouldn't recommend a third."
+portrait: portrait_npc_051
+flavor: "Corrin stands second to Warden Saela and has escorted more than one nervous keeneye partway to the Clockwork trial."

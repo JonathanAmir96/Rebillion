@@ -1,0 +1,48 @@
+id: map_058
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Elderbark Reach
+region: verdant
+map_type: field
+level_band: { min: 14, max: 15 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 160, h: 32 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 24] }
+portals:
+  - id: to_creeping_thicket
+    kind: edge
+    at: { edge: left }
+    target_map: map_057
+    target_spawn: main
+    dead_end: false
+  - id: to_hollowvale_descent
+    kind: edge
+    at: { edge: right }
+    target_map: map_059
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: elderbark_reach_canopy
+    rect_tiles: { x: 30, y: 18, w: 68, h: 12 }
+    mobs:
+      - { mob: mob_040, count: 3 }        # shares mob_040 with creeping thicket
+      - { mob: mob_041, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_elderbark_reach
+    at_tile: [22, 23]
+    params:
+      text: "The elderbark trees here are older than Mossmere itself. Something in their shade never quite leaves."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Three rising root-terraces beneath towering elderbark trunks, each gap within the
+  5-tile/3.5-tile jump caps (MAP_TRAVERSAL §1.1). Foothold segments dressed in elderbark
+  terrain_chunks (ART_BIBLE AB-001); a one-way ledge partway up shortcuts the descent.
+flavor: "The elderbark canopy blots out most of the sky here, and the hollow's hush gets a little heavier for it."

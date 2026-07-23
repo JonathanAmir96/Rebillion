@@ -1,0 +1,45 @@
+id: map_313
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: "Sunder Deeps, Chamber 6"
+region: voidshore
+map_type: dungeon
+level_band: { min: 79, max: 80 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 70, h: 80 }
+bgm: bgm_voidshore
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 50] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_312
+    target_spawn: main
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_314
+    target_spawn: main
+  - id: to_secret_315
+    kind: door
+    at: { tile: [10, 10] }
+    target_map: map_315
+    target_spawn: main
+spawn_zones:
+  - id: sunder_chamber_6
+    rect_tiles: { x: 14, y: 10, w: 40, h: 40 }
+    mobs:
+      - { mob: mob_227, count: 1 }
+      - { mob: mob_228, count: 1 }
+    max_concurrent: 4
+npcs: []
+platform_brief: |
+  A corridor-and-drop chamber of cracked basalt stairs, each drop within
+  MAP_TRAVERSAL §1.1's crossable range. Terrain is foothold segments under
+  painted terrain_chunks (ART_BIBLE AB-001); a compact vertical gauntlet
+  denser than the open shore above.
+flavor: "Sea-carved stairs descend past cracked reliefs no one has read aloud in an age, deeper into the Sunder Deeps."

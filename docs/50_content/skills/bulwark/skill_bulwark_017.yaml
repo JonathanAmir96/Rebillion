@@ -1,0 +1,37 @@
+id: skill_bulwark_017
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Retaliation
+line: bulwark
+tier: second
+kind: active
+targeting: self                   # roster target `self` (SKILL_SYSTEM §6)
+cost: { essence: 14 }
+cooldown: 14.0
+level_data:
+  - level: 1
+    essence_cost: 14
+    cooldown: 14.0
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0 }
+      - { op: on_hit_proc, trigger: on_take, chance: 1.0, effect: { op: deal_damage, element: neutral, mult: 0.3 } }   # thorns (SKILL_EFFECTS §16)
+  - level: 4
+    essence_cost: 17
+    cooldown: 12.0
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0 }
+      - { op: on_hit_proc, trigger: on_take, chance: 1.0, effect: { op: deal_damage, element: neutral, mult: 0.4 } }
+  - level: 7
+    essence_cost: 20
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0 }
+      - { op: on_hit_proc, trigger: on_take, chance: 1.0, effect: { op: deal_damage, element: neutral, mult: 0.5 } }
+  - level: 10
+    essence_cost: 23
+    cooldown: 8.0
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0 }
+      - { op: on_hit_proc, trigger: on_take, chance: 1.0, effect: { op: deal_damage, element: neutral, mult: 0.6 } }
+animation: skill_bulwark_017_cast
+flavor: "The Stoneguard hardens their stance and lets every incoming hit bounce back with interest. Punishment is the point."

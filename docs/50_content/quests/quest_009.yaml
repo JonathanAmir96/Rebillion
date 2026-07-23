@@ -1,0 +1,25 @@
+id: quest_009
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Old Kiln Tunnels
+region: emberfoot
+quest_type: main
+giver_npc: npc_010                # Kiln Marshal Ordo
+level_requirement: 7
+recommended_level: 7
+prereqs: [quest_008]
+steps:
+  - type: kill
+    target: mob_008
+    count: 8
+  - type: kill
+    target: mob_009
+    count: 8
+rewards:
+  exp: 300                         # round(0.20 * 1,500); main band, exp_to_next(7)=1,500
+  shards: 210                      # mean_shards_normal(7)*15 = 14*15
+  items:
+    - { id: item_use_0015, qty: 1 }   # forward-ref: Sharpening Oil -- edge your blade before the Heart
+flavor: "The tunnels run deeper and hotter with every chamber. The Marshal wants them clear before anyone faces the Heart."
+offer_text: "Push through the upper reach and the depths both. Cindermaw doesn't wake for a crowded tunnel, but it won't wake for a careless one either."
+complete_text: "Tunnels are as clear as they'll ever get. The door to the Heart is yours, if you're ready."

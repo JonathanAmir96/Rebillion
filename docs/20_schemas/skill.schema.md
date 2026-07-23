@@ -8,8 +8,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/JOBS.md,
 
 ## Purpose
 
-Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 84
-line skills + 4 novice skills in `00_vision/SCOPE.md` / `10_systems/JOBS.md`. A skill file is the
+Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 94
+line skills + 4 novice skills (98 total) in `00_vision/SCOPE.md` / `10_systems/JOBS.md` v3. A skill file is the
 data a Phase D author fills and the coding pass loads: an identity that must match a
 `10_systems/JOBS.md` roster row exactly, a targeting shape from `10_systems/SKILL_SYSTEM.md` §6, an
 `essence` cost and cooldown, and a `level_data` table of ordered effect ops drawn from the
@@ -24,10 +24,13 @@ math, the op parameter schemas, cost/cooldown bands, or status rules — it cite
 - **One entity per file.** `50_content/skills/<line>/skill_<line>_NNN.yaml`, where `<line>` ∈
   {`bulwark`, `keeneye`, `weaver`, `flicker`, `novice`} and the folder name equals the line. Novice
   skills live in `50_content/skills/novice/skill_novice_NNN.yaml`.
-- **ID ranges** (`docs/ID_REGISTRY.md` Skills; `10_systems/JOBS.md` §1): per line
-  `skill_<line>_001`–`021` authored (`022`–`030` reserved), in tier order — `001`–`006` first-job,
-  `007`–`013` second-job, `014`–`021` third-job. Novice: `skill_novice_001`–`010` reserved, `001`–
-  `004` authored. The file's `id` is its filename stem; both immutable.
+- **ID ranges** (`docs/ID_REGISTRY.md` Skills v3; `10_systems/JOBS.md` §1): per line
+  `skill_<line>_001`–`060` reserved, in tier order — `001`–`006` first-job (shared by the
+  line's specs), `007`–`013` specialization #1, `014`–`020` specialization #2, `021`–`027`
+  specialization #3 (`bulwark`/`weaver` only), `028`–`045` reserved 3rd tier (unauthored),
+  `046`–`060` reserved growth. Authored v3: `bulwark`/`weaver` 27, `keeneye`/`flicker` 20.
+  Novice: `skill_novice_001`–`010` reserved, `001`–`004` authored. The file's `id` is its
+  filename stem; both immutable.
 - **`line` field naming note.** The master-brief format anchor wrote this identity field as `job`;
   this schema names it **`line`** to match the task's explicit field list and the `00_vision/GLOSSARY.md`
   "Line token" vocabulary. See Open Questions — flagged, not silently chosen.
@@ -146,8 +149,9 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4, §6).
 
 1. **Identity ↔ roster (hard).** `line`, `tier`, `kind`, and `name` must match the
    `10_systems/JOBS.md` §2–§6 roster row for this `id` **exactly** (name string included). The tier
-   must agree with the ID sub-block (`001`–`006`→`first`, `007`–`013`→`second`, `014`–`021`→`third`,
-   `skill_novice_*`→`novice`; `10_systems/JOBS.md` §1). `id` in-range (`docs/VALIDATION.md` §4).
+   must agree with the ID sub-block (`001`–`006`→`first`, `007`–`027`→`second` — all three
+   specialization blocks are 2nd-advancement tier, `10_systems/JOBS.md` v3 §1 — `028`–`045`→`third`
+   (unauthored), `skill_novice_*`→`novice`). `id` in-range (`docs/VALIDATION.md` §4).
 2. **Ops validate (hard).** Every `effects[]` op token is one of the 14
    (`10_systems/SKILL_EFFECTS.md`) and every param validates against that op's schema (§3–§16):
    required params present, enums from their owners, values in the op's authoring bounds.

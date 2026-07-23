@@ -1,0 +1,48 @@
+id: map_012
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Old Kiln Tunnels, Upper Reach
+region: emberfoot
+map_type: dungeon
+level_band: { min: 7, max: 8 }            # continues the field gradient from map_011 (WORLD_PLAN gradient law)
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 60, h: 70 }              # dungeon: compact-vertical, 2-5 screens tall (MAPS_SYSTEM §2)
+bgm: bgm_emberfoot
+ambience: [amb_ember_glow, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [8, 62] }
+portals:
+  - id: to_kiln_approach
+    kind: edge
+    at: { edge: left }
+    target_map: map_011
+    target_spawn: main
+    dead_end: false
+  - id: to_furnace_depths
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_013
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: upper_reach_chamber
+    rect_tiles: { x: 10, y: 20, w: 40, h: 36 }
+    mobs:
+      - { mob: mob_008, count: 4 }
+      - { mob: mob_009, count: 1 }
+    max_concurrent: 8                       # dungeon default (SPAWN §4)
+interactables:
+  - type: climbable
+    id: ladder_upper_shaft
+    at_tile: [30, 24]
+    params:
+      rect_tiles: { x: 30, y: 24, w: 1, h: 34 }
+      orientation: vertical
+      visual: ladder
+platform_brief: |
+  A tight vertical shaft chain, corridor-and-room loops denser than a field
+  (MAPS_SYSTEM §2). A single long ladder (climbable) carries most of the descent;
+  side rooms branch off at three landings. No jump exceeds MAP_TRAVERSAL §1.1's caps.
+flavor: "Stone corridors radiate old kiln-heat even this far up. The ladder shaft is the only quick way down into the warren below."

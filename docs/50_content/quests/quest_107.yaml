@@ -1,0 +1,21 @@
+id: quest_107
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: A Steadier Binding
+region: arcane_reach
+quest_type: side
+giver_npc: npc_107                # Enchanter Vell, Sanctum Hall
+level_requirement: 64
+recommended_level: 64
+steps:
+  - type: collect
+    target: item_etc_0153
+    count: 6
+rewards:
+  exp: 56066                      # round(0.075 * exp_to_next(64)=747,549); side band (QUESTS §4)
+  shards: 396                     # mean_shards_normal(64)*4 = 99*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }
+flavor: "Vell needs a settled rune-core to steady a binding, and the only reliable ones are still humming in the Vaults' upper rooms."
+offer_text: "Bring me a rune-core that's stopped fighting its own shape. I'll know one when I see it -- most people wouldn't."
+complete_text: "Steady as it's going to get. That'll hold a binding twice as long as the last batch."

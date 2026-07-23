@@ -1,0 +1,25 @@
+id: mob_129
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Cog-Scuttler
+tier: normal                     # ID_REGISTRY: mob_129 in R8 normals block 129-144
+element: neutral                   # WORLD_PLAN R8 split = neutral/arcane
+weak_to: [arcane]                 # ELEMENTS §2 (mutually exclusive lists)
+level: 34
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 34
+  life: 5476                     # 4*(34+3)^2
+  power: 108                      # 6+3*34 (touch = round(0.5*power), §13.1)
+  armor: 204                      # 6*34  (armor+warding sum = 408 = 12*34)
+  warding: 204                    # 6*34
+  precision: 136                  # 4*34
+  evasion: 4.02                   # 3 + 0.03*34 (%)
+  exp: 392                      # exp_per_kill_normal(34)=round(4*34^1.3) (LEVELING §3)
+ai_profile: pack_hunter
+ai_params:
+  aggro_radius: 5
+  pack_call_radius: 9
+  pack_max_size: 5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_129
+flavor: "A skittering knot of loose brass gears that scavenges the ruin floor in chattering droves. One is underfoot; a dozen answering its clatter will strip a trespasser to the bone."

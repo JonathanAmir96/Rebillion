@@ -1,0 +1,41 @@
+id: map_150
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Ember Cache
+region: ashfall
+map_type: secret
+level_band: { min: 35, max: 35 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 40, h: 24 }
+bgm: bgm_ashfall
+ambience: [amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [8, 18] }
+portals:
+  - id: to_smoldering_depths
+    kind: edge
+    at: { edge: left }
+    target_map: map_145
+    target_spawn: main
+spawn_zones:
+  - id: ember_cache_zone
+    rect_tiles: { x: 14, y: 12, w: 20, h: 8 }
+    mobs:
+      - { mob: mob_106, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: reactor
+    id: reactor_ember_vein
+    at_tile: [24, 16]
+    params:
+      drop_table_ref: "pool_equip_r06"
+      respawn_timer_s: 60
+      harvest_prompt: "Mine"
+npcs: []
+platform_brief: |
+  A single scorched pocket off the Smoldering Depths, no verticality gimmick.
+  Terrain is foothold segments under painted ash terrain_chunks (ART_BIBLE AB-001);
+  a rich ember-vein reactor is the whole reason anyone braves the guardian here.
+flavor: "The deepest vents hide a vein of pure ember-glass, and the barrens' fiercest stragglers have made it their den."

@@ -1,0 +1,26 @@
+id: mob_063
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Deepchill Marauder
+tier: normal                     # ID slot 063 = last R4 normal (ID_REGISTRY Monsters)
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 22                        # top of the R4 normal gradient (WORLD_PLAN monotonic law)
+size_class: large
+stats:                           # all copied from COMBAT_FORMULA §13 normal budget, Lv 22
+  life: 2500                     # 4*(22+3)^2
+  power: 72                      # 6+3*22 (touch = round(0.5*power), neutral, §13.1)
+  armor: 132                     # 6*22  (armor+warding sum = 264 = 12*22)
+  warding: 132                   # 6*22
+  precision: 88                  # 4*22
+  evasion: 3.66                  # 3 + 0.03*22 (%)
+  exp: 222                       # exp_per_kill_normal(22)=round(4*22^1.3) (LEVELING §3)
+ai_profile: pack_hunter          # the coast's apex pack-beast; hunts the deep strand in ranks (AI_BEHAVIOR §10)
+ai_params:                       # override only pack_hunter-declared tunables
+  aggro_radius: 6
+  pack_call_radius: 10
+  pack_max_size: 4
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_063
+flavor: "A heavy, deep-water raider that hauls itself up onto the strand in cold-blooded packs, jaws already open. Where the nippers were a lesson, the marauders are the exam."

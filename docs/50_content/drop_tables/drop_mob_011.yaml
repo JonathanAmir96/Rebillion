@@ -1,0 +1,16 @@
+id: drop_mob_011
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT]   # elite table refs an emberstone -> add ENHANCEMENT
+owner: mob_011
+rows:
+  # shards guaranteed. mean_shards_normal(8)=15; elite x4 = 60; range=[round(0.8*60),round(1.2*60)]=[48,72] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 48, qty_max: 72 }
+  # 2 region-material rows, common/uncommon (DROPS §5.2)
+  - { ref: item_etc_0011, chance: common, qty_min: 1, qty_max: 2 }
+  - { ref: item_etc_0010, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # exactly one emberstone row, uncommon (DROPS §5.2); item_etc_0193 = Emberstone I (R1 = T1-T2 band, ENHANCEMENT §1)
+  - { ref: item_etc_0193, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # exactly one pool-roll row (DROPS §5.2); pool lands in the parallel items batch (dangling OK)
+  - { ref: pool_equip_r01, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: elite }
+  # a use-item row, uncommon (DROPS §5.2); item_use_0001 = Lesser Life Tonic
+  - { ref: item_use_0001, chance: uncommon, qty_min: 1, qty_max: 1 }

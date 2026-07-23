@@ -1,0 +1,47 @@
+id: map_186
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, The Last Archive
+region: clockwork
+map_type: field
+level_band: { min: 38, max: 40 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_deepset_colonnade
+    kind: edge
+    at: { edge: left }
+    target_map: map_185
+    target_spawn: main
+    dead_end: false
+  - id: to_ironloom_reach
+    kind: edge
+    at: { edge: right }
+    target_map: map_187
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: last_archive_zone
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_138, count: 3 }
+      - { mob: mob_139, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: lore_marker
+    id: marker_last_archive
+    at_tile: [40, 19]
+    params:
+      text: "Shelves of brass record-spools, unspooled and rusted mid-read. Whatever they held is gone now."
+      interact_prompt: Read
+npcs: [npc_080]
+platform_brief: |
+  Toppled archive shelving forms low cover across an otherwise flat span, no verticality
+  gimmick. Archivist Dorne has claimed a dry corner among the ruined spools.
+flavor: "The last archive of a city that recorded everything, right up until the moment it stopped."

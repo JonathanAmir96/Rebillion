@@ -1,0 +1,12 @@
+id: npc_048
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Dockhand Pell
+region: tidewatch
+map: map_071
+role: guide
+dialog:
+  greeting: "New to the harborwatch beat? Coach's mid-quay, pier's past the breakwater -- can't miss either."
+  idle: "Tide's turning. Good time to be off the shallows."
+portrait: portrait_npc_048
+flavor: "Pell has hauled crates on this quay since before he could grow a proper beard, and knows every plank by name."

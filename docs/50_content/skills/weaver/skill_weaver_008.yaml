@@ -1,0 +1,37 @@
+id: skill_weaver_008
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Frost Nova
+line: weaver
+tier: second
+kind: active
+targeting: { shape: aoe_circle, radius: 3, origin: self }   # roster target `aoe_circle` (SKILL_SYSTEM §6)
+cost: { essence: 14 }
+cooldown: 10.0
+level_data:
+  - level: 1
+    essence_cost: 14
+    cooldown: 10.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.1 }
+      - { op: apply_status, status: freeze, chance: 0.30, dur: 2 }   # hard CC, DR applies (STATUS_EFFECTS §1/§4.1)
+  - level: 4
+    essence_cost: 17
+    cooldown: 9.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.5 }
+      - { op: apply_status, status: freeze, chance: 0.35, dur: 2 }
+  - level: 7
+    essence_cost: 20
+    cooldown: 8.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.9 }
+      - { op: apply_status, status: freeze, chance: 0.40, dur: 2 }
+  - level: 10
+    essence_cost: 23
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 2.3 }
+      - { op: apply_status, status: freeze, chance: 0.45, dur: 2 }
+animation: skill_weaver_008_cast
+flavor: "A ring of killing cold that bursts outward from the Runeweaver and locks anything caught in it solid. A pause button with teeth."

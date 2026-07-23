@@ -1,0 +1,166 @@
+id: item_table_materials_r10
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R10 Arcane Reach monster materials: item_etc_0145-0160 (ID_REGISTRY etc block), one per
+# region species/theme; drop tables in this batch ref these (drop_table.schema batch-order rule).
+items:
+  - id: item_etc_0145
+    name: Rune Mote
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 53                 # band placement (advisory for etc)
+    price:
+      sell: 55                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_179          # cross-checks drop_mob_179
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A flake of stray rune-light, still faintly warm, that the glimmer wisps shed as they drift."
+  - id: item_etc_0146
+    name: Drifting Shard Chip
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 53                 # band placement (advisory for etc)
+    price:
+      sell: 55                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_180          # cross-checks drop_mob_180
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A knuckle of animated masonry gone inert. Scholars pay for chips that remember being part of something larger."
+  - id: item_etc_0147
+    name: Glyphdust
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 54                 # band placement (advisory for etc)
+    price:
+      sell: 58                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_181          # cross-checks drop_mob_181
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "Powdered half-spells swept from a flitter's wake. It tingles on the tongue and should not be tasted."
+  - id: item_etc_0148
+    name: Voidmist Residue
+    category: etc
+    rarity: uncommon                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 54                 # band placement (advisory for etc)
+    price:
+      sell: 62                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_182          # cross-checks drop_mob_182
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A vial of the black mist that pools between the shards, cold and heavier than it looks."
+  - id: item_etc_0149
+    name: Anchor Fragment
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 55                 # band placement (advisory for etc)
+    price:
+      sell: 60                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_183          # cross-checks drop_mob_183
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A shard of a broken mooring-stone, its old binding-runes worn to ghosts."
+  - id: item_etc_0150
+    name: Warding Glyph-plate
+    category: etc
+    rarity: uncommon                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 56                 # band placement (advisory for etc)
+    price:
+      sell: 66                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_184          # cross-checks drop_mob_184
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A palm of etched plate pried from a turret. Its ward still hums if you hold it toward the void."
+  - id: item_etc_0151
+    name: Voidmoth Wing
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 57                 # band placement (advisory for etc)
+    price:
+      sell: 64                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_185          # cross-checks drop_mob_185
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A wing cut from the torn dark; it drinks lamplight and gives nothing back."
+  - id: item_etc_0152
+    name: Overcharged Core
+    category: etc
+    rarity: uncommon                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 58                 # band placement (advisory for etc)
+    price:
+      sell: 72                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_186          # cross-checks drop_mob_186
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The unstable heart of a sparkfiend, kept in lead and never in a crowd."
+  - id: item_etc_0153
+    name: Prismscale
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 59                 # band placement (advisory for etc)
+    price:
+      sell: 68                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_187          # cross-checks drop_mob_187
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A scale of living crystal that throws a dozen small rainbows onto the wall of any dark room."
+  - id: item_etc_0154
+    name: Orbweight Ballast
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 60                 # band placement (advisory for etc)
+    price:
+      sell: 70                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_188          # cross-checks drop_mob_188
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A dense sorcery-forged weight the golems carry to hold the shards down. It sinks in air, slowly."
+  - id: item_etc_0155
+    name: Adept's Sigil
+    category: etc
+    rarity: uncommon                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 61                 # band placement (advisory for etc)
+    price:
+      sell: 78                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_189          # cross-checks drop_mob_189
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The signet an apprentice of the Reach never surrendered, its ward-mark still legible."
+  - id: item_etc_0156
+    name: Hexbinder's Chain
+    category: etc
+    rarity: uncommon                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 62                 # band placement (advisory for etc)
+    price:
+      sell: 80                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_190          # cross-checks drop_mob_190
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A length of glyph-forged chain that once bound a curse and still remembers the shape of it."
+  - id: item_etc_0157
+    name: Umbral Cinder
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 62                 # band placement (advisory for etc)
+    price:
+      sell: 74                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_191          # cross-checks drop_mob_191
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A cold coal of condensed shadow that leaves no soot, only a smudge of unlight on the fingers."
+  - id: item_etc_0158
+    name: Astral Feather
+    category: etc
+    rarity: uncommon                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 63                 # band placement (advisory for etc)
+    price:
+      sell: 82                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_192          # cross-checks drop_mob_192
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A flight-feather of drifting stone, impossibly light, that always points a little toward the void."
+  - id: item_etc_0159
+    name: Revenant Ash
+    category: etc
+    rarity: rare                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 64                 # band placement (advisory for etc)
+    price:
+      sell: 90                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_193          # cross-checks drop_mob_193
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The grey remains of a mage undone by the shards, prized for the raw magic still smoldering in it."
+  - id: item_etc_0160
+    name: Unmoored Keystone
+    category: etc
+    rarity: rare                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 66                 # band placement (advisory for etc)
+    price:
+      sell: 95                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
+    source_hint: mob_194          # cross-checks drop_mob_194
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A keystone from a warden's own frame, cut with the master-glyph that once held a whole shard in orbit."

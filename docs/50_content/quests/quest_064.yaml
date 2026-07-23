@@ -1,0 +1,21 @@
+id: quest_064
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Trophies for the Stall
+region: ashfall
+quest_type: side
+giver_npc: npc_066                # Vendor Petra, Cindershelf's general-goods stall
+level_requirement: 29
+recommended_level: 29
+steps:
+  - type: collect
+    target: item_etc_0087          # Stalker Claw, sourced from drop_mob_094 (QUESTS §3.1, warn-check satisfied)
+    count: 5
+rewards:
+  exp: 4198                      # round(0.07 * 59,972); side band 5-10% of exp_to_next(29) (LEVELING §1 / QUESTS §4)
+  shards: 184                    # side = mean_shards_normal(29)*4 = 46*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0014, qty: 3 }   # three loaves of Hearth Bread, Petra's own thanks
+flavor: "Trophy hunters pay well for a clean stalker claw, and Petra's stall never seems to have enough to sell."
+offer_text: "Barrens Stalkers claw up something fierce out past the dunes. Bring me a set and I'll make it worth your trouble, shards and stock both."
+complete_text: "These'll sell before the week's out. You've got a trader's eye for salvage, whether you meant to or not."

@@ -1,0 +1,9 @@
+id: drop_mob_059
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]
+owner: mob_059
+rows:
+  # shards guaranteed. mean_shards_normal(19)=32; range=[26,38] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 26, qty_max: 38 }
+  - { ref: item_etc_0060, chance: common, qty_min: 1, qty_max: 2 }
+  - { ref: item_use_0002, chance: rare, qty_min: 1, qty_max: 1 }

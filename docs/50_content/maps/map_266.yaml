@@ -1,0 +1,47 @@
+id: map_266
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Highrune Sanctum
+region: arcane_reach
+map_type: town
+level_band: { min: 68, max: 68 }         # town band, tight (MAPS_SYSTEM §4); within region 53-68
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 140, h: 24 }             # town: ~2-4 screens wide, ~1 tall (MAPS_SYSTEM §2)
+bgm: bgm_town_arcane_reach
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [40, 18] }
+portals:
+  - id: to_far_moor
+    kind: edge
+    at: { edge: left }
+    target_map: map_265
+    target_spawn: main
+    dead_end: false
+  - id: to_sanctum_hall
+    kind: door
+    at: { tile: [70, 18] }
+    target_map: map_267
+    target_spawn: main
+    dead_end: false
+  - id: to_rune_vaults
+    kind: edge
+    at: { edge: right }
+    target_map: map_268
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: lore_marker
+    id: marker_highrune_founding
+    at_tile: [42, 17]
+    params:
+      text: "Highrune Sanctum was raised to study the shards, then raised again atop one when the ground beneath it fell."
+      interact_prompt: Read
+npcs: [npc_104, npc_105, npc_106]
+platform_brief: |
+  A floating scholar-hold's outer courtyard, one flat band of fused stone dressed in painted
+  rune-glyph terrain_chunks (ART_BIBLE AB-001) -- a stable plaza, no verticality gimmick. The
+  field gate sits west, the hall door center, the Rune Vaults' gate east.
+flavor: "A drifting archive of a hold, still cataloguing the very sky it fell out of a century ago."

@@ -1,0 +1,42 @@
+id: map_122
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Widow's Larder
+region: gloomwood
+map_type: secret
+level_band: { min: 27, max: 28 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 45, h: 22 }
+bgm: bgm_gloomwood
+ambience: [amb_wood_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 16] }
+portals:
+  - id: to_rootcellar_coil
+    kind: door
+    at: { tile: [4, 16] }
+    target_map: map_116
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: widows_larder_zone
+    rect_tiles: { x: 14, y: 12, w: 26, h: 8 }
+    mobs:
+      - { mob: mob_084, count: 1 }
+      - { mob: mob_085, count: 2 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_larder_remains
+    at_tile: [30, 14]
+    params:
+      text: "Old kills hang wrapped and stored along the walls, some fresher than others."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A single sealed root-cellar chamber off the Rootcellar Coil, weighted toward its elite
+  pair (SPAWN §2 secret: elevated elite mob_pool weight). No verticality gimmick, small
+  and dense.
+flavor: "The cellar's owner keeps a tidy larder -- tidy, and unmistakably still in use."

@@ -1,0 +1,24 @@
+id: quest_072
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Notes From the Drift Camp
+region: sunken
+quest_type: main
+giver_npc: npc_071
+level_requirement: 32
+recommended_level: 32
+prereqs: [quest_069]
+steps:
+  - type: kill
+    target: mob_112
+    count: 8
+  - type: talk
+    target: npc_072
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 14661  # main pct=0.18 of exp_to_next(32)=81,450; shards=mean_shards_normal(32)*15=51*15
+  shards: 765
+flavor: "Perrine's notes point toward the drowned gate itself, but she wants the approach clear before she'll send word ahead."
+offer_text: "Clear the approach for me, then carry my notes to Adric at the gatefront -- he'll want to hear this before you go further."
+complete_text: "Good. Adric's expecting you, and the gate won't wait forever."

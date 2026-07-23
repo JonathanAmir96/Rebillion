@@ -1,0 +1,43 @@
+id: mob_044
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Bramblehorn Stag
+tier: elite                       # ID slot 044 = first R3 elite (ID_REGISTRY Monsters)
+element: nature                   # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 14
+size_class: large
+stats:                            # §13 normal Lv 14 x §13.2 elite multipliers
+  life: 6936                      # 1156 x6
+  power: 72                       # 48 x1.5
+  armor: 109                      # 84 x1.3  (armor+warding sum ~= 12*14 x1.3 = 218)
+  warding: 109                    # 84 x1.3
+  precision: 62                   # 56 x1.1
+  evasion: 5.4                    # 3.4 + 2% (§13.2 elite)
+  exp: 620                        # exp_per_kill_normal(14)=124 x5 (LEVELING §3 elite)
+ai_profile: aggressive_charger    # a young beetle-stag that gores in a committed run (AI_BEHAVIOR §5)
+ai_params:
+  aggro_radius: 8
+  charge_speed_mult: 2.8
+  charge_recover_s: 2.5
+abilities:
+  - id: goring_charge
+    name: Goring Charge
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 7.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.6 }
+      - { op: knockback, distance: 2, vertical: 1 }
+  - id: snaring_thorns
+    name: Snaring Thorns
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 11.0
+    telegraph_s: 1.2
+    effects:
+      - { op: deal_damage, element: nature, mult: 1.2 }
+      - { op: apply_status, status: root, chance: 0.7, dur: 3 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_044
+flavor: "A half-grown beetle-stag already crowned with the branching antlers its kind is feared for, and already too proud of them. It rakes up a wall of grasping thorn before it lowers its head and comes, a small rehearsal of the Sovereign that sired it."

@@ -1,0 +1,23 @@
+id: quest_055
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Notes from the Deep Skein
+region: gloomwood
+quest_type: side
+giver_npc: npc_057
+level_requirement: 25
+recommended_level: 25
+prereqs: [quest_054]
+steps:
+  - type: kill
+    target: mob_078
+    count: 8
+  - type: collect
+    target: item_etc_0071
+    count: 5
+rewards:
+  exp: 3051   # round(0.08 * 38,135); side band 5-10% of exp_to_next(25)=38,135 (LEVELING §1); pct=0.08
+  shards: 164  # side = mean_shards_normal(25)*4 = 41*4 (QUESTS §5 / DROPS §3)
+flavor: "Innes wants one more set of samples from the deep skein before she'll commit her theory to paper."
+offer_text: "One more set of samples and I can finish my notes. The deep skein should give me what the outer bends couldn't."
+complete_text: "Exactly what I needed. Whatever's down there, my notes will outlive me if nothing else does."
