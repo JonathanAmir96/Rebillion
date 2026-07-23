@@ -54,7 +54,7 @@ occupancy. It is proposed as an opt-in, heavily-throttled channel for exactly th
 
 | Channel | Scope | Roster/relay source | Reach |
 |---|---|---|---|
-| `normal` | Map-local broadcast | Sender's current `map_NNN` (`10_systems/social/CHAT.md`) | One map process only — never crosses population channels (`70_integrations/WORLD_CHANNELS.md`'s channel-count math) |
+| `normal` | Map-local broadcast | Sender's current `map_NNN` (`10_systems/social/CHAT.md`) | One map process only — never crosses population channels (`70_integrations/WORLD_CHANNELS.md` §5 cross-channel state) |
 | `party` | Roster-scoped | `10_systems/social/PARTY.md` §1 roster | Crosses maps — a party member off-map still receives party chat (party membership, not location, gates it) |
 | `guild` | Roster-scoped | `10_systems/social/GUILD.md` §3/§7 roster | Crosses maps — same reasoning as `party` |
 | `whisper` | 1:1 | Recipient's live session (presence, §5) | Crosses maps; requires recipient online (no offline whisper — that gap is `MAIL`'s, §3.5) |
@@ -69,9 +69,10 @@ back to that doc's owner for promotion, not silently assumed canon).
 
 Per this doc's mandate, these are **engineering calls**, not policy content — each gets a one-line
 rationale. Moderation is **hooks/seams only** (filter pipeline, report flow, GM mute); the
-wordlist, escalation policy, and staffing are live-ops decisions `10_systems/social/GUILD.md` §2 and
-`70_integrations/ACCOUNTS_AUTH.md` §5 already flag as "applied server-side, not designed here" —
-this doc does not reopen that.
+wordlist, escalation policy, and staffing are live-ops decisions — `10_systems/social/GUILD.md` §2
+flags its profanity rules as "applied server-side, not designed here," and
+`70_integrations/ACCOUNTS_AUTH.md` §5 takes the same stance for name filtering ("applied
+server-side, deliberately not authored in this tree") — this doc does not reopen that.
 
 **Rate limits (messages per interval, per sending character), enforced at the gateway/relay
 before a message reaches the social-services chat relay (`70_integrations/BACKEND_ARCHITECTURE.md`
@@ -99,14 +100,15 @@ are live-ops-tunable configuration, not fixed here — matching `70_integrations
    is config, not fixed here.
 3. **Report flow** — any player may report a chat message (message id, sender, channel, timestamp,
    and the message body as sent — captured verbatim so a GM reviews what was actually said, not a
-   paraphrase); reports land in a moderation queue on the social-services tier, backed by the
-   social/market DB (`70_integrations/BACKEND_ARCHITECTURE.md` §3). This is a seam (the queue and
-   its schema), not a triage policy.
+   paraphrase); reports land in a moderation queue on the social-services tier. The queue should be
+   durable — but `70_integrations/DATABASE_PERSISTENCE.md` §3.3's `social` schema does not yet
+   define a report/moderation table, so its schema is pending (flagged in Open Questions to that
+   doc). This is a seam (the queue and its eventual schema), not a triage policy.
 4. **GM mute** — a human moderator issues an account-scoped, cross-channel mute (all of `normal`/
    `party`/`guild`/`whisper`/`world`) for a duration and reason the GM tool sets; enforced at the
    chat relay (§4) by checking mute state before accepting a message, the same choke-point pattern
-   `70_integrations/ACCOUNTS_AUTH.md` §4 uses for "is this connection allowed to act as this
-   character." A GM mute outranks every per-channel state above.
+   `70_integrations/ACCOUNTS_AUTH.md` §4.2 uses for "may this connection act as this
+   character?" A GM mute outranks every per-channel state above.
 
 **Filter pipeline (seam only).** Every outbound chat message passes through one filter stage before
 relay fan-out: profanity/slur matching and the reserved/impersonation checks
@@ -132,8 +134,8 @@ degradation-stance table respectively.
   recipients' gateway connections.
 - **State store.** None durable by default — chat is fire-and-forget per
   `10_systems/social/CHAT.md`'s "client-side scrollback log" (client-held, not server-persisted).
-  The one exception is the report-flow queue (§2), which **is** durable and lives in the
-  social/market DB (`70_integrations/DATABASE_PERSISTENCE.md` schema owner). Whether `party`/`guild`
+  The one exception is the report-flow queue (§2), which should be durable on the social/market DB
+  — schema pending in `70_integrations/DATABASE_PERSISTENCE.md` (Open Questions). Whether `party`/`guild`
   history persists across relogin is `10_systems/social/CHAT.md`'s own open question — this doc
   does not resolve it; if resolved yes, that history's store is `70_integrations/DATABASE_PERSISTENCE.md`'s
   to schema.
@@ -160,12 +162,14 @@ degradation-stance table respectively.
   arbitration — the math itself stays `10_systems/social/PARTY.md`'s, this doc only places where
   it executes). Party-instance bookkeeping (§6 of that doc — fallen-but-not-Released members,
   N-fixed-at-creation) is tracked by the same per-party process for the instance's lifetime.
-- **State store.** Character DB / social DB split: roster membership and loot-mode state persist to
-  the social/market DB (`70_integrations/DATABASE_PERSISTENCE.md` schema); a party is ephemeral by
-  design (`10_systems/social/PARTY.md` §1 — a party of 1 auto-disbands) so its process itself is
-  cheap and does not need durability across a full outage — only the wallet/item *results* of
-  arbitration must land atomically in the character DB and wallet ledger
-  (`70_integrations/BACKEND_ARCHITECTURE.md` §5 authority mapping).
+- **State store.** Ephemeral, authoritative-but-not-durable: roster membership, loot mode, and
+  rotation counters live in the social tier's ETS/Redis state and are **never written to Postgres**
+  — `70_integrations/DATABASE_PERSISTENCE.md` §3.3 owns this classification (a party has no durable
+  table; it is ephemeral by design, `10_systems/social/PARTY.md` §1 — a party of 1 auto-disbands).
+  Only the wallet/item *results* of arbitration land durably, atomically in the character DB and
+  wallet ledger (`70_integrations/BACKEND_ARCHITECTURE.md` §5 authority mapping). PQ instance
+  lifecycle itself is `10_systems/social/PARTY_QUEST.md` §5's and lands on instance workers, not
+  this tier.
 - **Cross-channel/cross-map reach.** Party chat (§3.1) and HUD-plate data
   (`10_systems/social/PARTY.md` §3) span every member's map regardless of location; exp/loot
   eligibility itself stays same-map-gated (that doc §4/§5) — the *service* reaches across maps to
@@ -187,8 +191,9 @@ degradation-stance table respectively.
   creation (§2 of that doc, same global-namespace pattern as
   `70_integrations/ACCOUNTS_AUTH.md` §5's character names). Unlike `PARTY`, a guild is long-lived
   and its process/record persists whether members are online or not.
-- **State store.** Social/market DB (Postgres, `70_integrations/BACKEND_ARCHITECTURE.md` §3), one
-  logical database shared with `PARTY`/`TRADING`/`MARKET`/`MAIL` state per that doc's table; the
+- **State store.** Social/market DB (Postgres — the `social` schema,
+  `70_integrations/DATABASE_PERSISTENCE.md` §3.3), shared with `MARKET`/`MAIL` durable state and
+  the `TRADING` trade log (party state is ephemeral, §3.2); the
   creation fee and roster-expansion/crest-edit fees (`10_systems/social/GUILD.md` §1, §4, §5) write
   through the wallet ledger (Postgres) in the same transaction as the registry write, since a paid
   guild action must never charge `shards` without the registry change landing (or vice versa).
@@ -196,10 +201,11 @@ degradation-stance table respectively.
 - **Cross-channel/cross-map reach.** Guild chat (§3.1) and roster-derived presence (§5) reach every
   member regardless of map, matching `10_systems/social/GUILD.md` §7's "membership... grants access
   to the `guild` channel" with no location gate.
-- **Failure mode.** Same social/market DB stance as §3.2: registry reads/writes (create, invite,
-  rank change, crest edit, MOTD) degrade to unavailable; a guild's *existence* and roster are not
-  lost (durable in Postgres, unlike a party's ephemeral process) — an outage pauses guild
-  management, it does not corrupt or forget a guild.
+- **Failure mode.** Per `70_integrations/BACKEND_ARCHITECTURE.md` §8's "read-only or unavailable"
+  social stance: registry *writes* (create, invite, rank change, crest edit, MOTD) degrade to
+  unavailable, while roster *reads* may stay read-only from cache/replica where available; a
+  guild's *existence* and roster are not lost (durable in Postgres, unlike a party's ephemeral
+  process) — an outage pauses guild management, it does not corrupt or forget a guild.
 
 ### 3.4 TRADING — live two-party escrow session
 
@@ -235,7 +241,9 @@ degradation-stance table respectively.
   `10_systems/INVENTORY.md` on listing and are server-held (character DB item-ownership row
   transitions to the market escrow, not a separate inventory) until sold/delisted/expired. A buy
   transaction is the same atomic Postgres pattern as `TRADING` (§3.4) — item + `shards` (minus the
-  `10_systems/ECONOMY.md`-owned listing fee) move in one transaction.
+  listing fee, whose number's ownership is itself unsettled between `10_systems/ECONOMY.md` and
+  `10_systems/social/MARKET.md` — each currently defers to the other; flagged in Open Questions)
+  move in one transaction.
 - **Cross-channel/cross-map reach.** World-global by definition — the one social system whose
   reach is not roster- or map-scoped at all, conforming to
   `70_integrations/WORLD_CHANNELS.md`'s cross-channel state section for a truly global read surface
@@ -316,7 +324,11 @@ owns the **semantics** — staleness and fan-out scope — layered on top.
   recovers" Redis degradation stance). A dropped connection during the reconnect-grace window
   (`70_integrations/ACCOUNTS_AUTH.md` §4) shows as online-but-unreachable rather than flipping
   immediately to offline — this mirrors the grace window's own intent (a network blip is not a
-  logout) and avoids a roster flapping online/offline on a transient hiccup. Once the grace window
+  logout) and avoids a roster flapping online/offline on a transient hiccup. During that window a
+  `whisper` to the character checks **reachability** (a live gateway connection), not roster
+  presence: with no live connection to fan out to, the sender gets the same clear "recipient
+  offline" result (§1) rather than a silent drop — the message is not queued (offline delivery is
+  `MAIL`'s job, §3.6). Once the grace window
   lapses without reconnect, presence flips to offline and fan-out fires to every subscribed roster.
 - **Fan-out scope.** A presence change fans out only to rosters the character is actually a member
   of at that instant (their current party, if any; their guild, if any) — never broadcast tier-wide.
@@ -348,6 +360,12 @@ owns the **semantics** — staleness and fan-out scope — layered on top.
   supports either routing without forcing the choice.
 - **Report-queue triage/staffing** (§2's report flow) is a live-ops operational question — who
   reviews the queue, SLA, and tooling — not a backend-topology decision; flagged for an ops runbook
-  this run does not produce.
+  this run does not produce. Separately, the queue's **durable schema is pending**:
+  `70_integrations/DATABASE_PERSISTENCE.md` §3.3's `social` schema does not yet define a
+  report/moderation table — flagged to that doc to add one on its next pass.
+- **Market listing-fee ownership** (§3.5) is circular today: `10_systems/ECONOMY.md`'s sink table
+  points at `10_systems/social/MARKET.md` as the number's future owner, while MARKET remains a stub
+  deferring to the social-doc pass — the two docs must settle which one owns the fee number when
+  MARKET promotes out of stub status; this doc only routes the fee through the wallet ledger.
 - **Filter-pipeline wordlist and match rules (§2)** stay `70_integrations/ACCOUNTS_AUTH.md` §5's
   precedent: live-ops policy applied server-side, deliberately not authored in this design tree.
