@@ -4,7 +4,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/SCOPE.md, 10_systems/PERSISTENCE.md
 30_engineering/ENGINEERING_STANDARDS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/SPAWN.md,
 10_systems/ECONOMY.md, 10_systems/social/PARTY.md, 10_systems/social/CHAT.md,
 10_systems/social/GUILD.md, 10_systems/social/MAIL.md, 10_systems/social/MARKET.md,
-10_systems/social/TRADING.md, 10_systems/social/PARTY_QUEST.md, docs/WORLD_PLAN.md,
+10_systems/social/TRADING.md, 10_systems/social/PARTY_QUEST.md, 15_maps_system/MAPS_SYSTEM.md,
+docs/WORLD_PLAN.md,
 70_integrations/ACCOUNTS_AUTH.md, 70_integrations/GAMEPLAY_SIMULATION.md,
 70_integrations/NETWORK_PROTOCOL.md, 70_integrations/WORLD_CHANNELS.md,
 70_integrations/CHAT_SOCIAL_BACKEND.md, 70_integrations/DATABASE_PERSISTENCE.md,
@@ -30,13 +31,16 @@ registry) with classic side-scroller **population channels** layered only over s
 (towns, popular fields), plus **true instances** for arena and party-quest content.
 
 Justification: `MARKET`, `MAIL`, and `TRADING` are account-to-account transfers of `server`-owned
-items and `shards`; splitting the world into independent shards would fragment that ledger and
-force cross-shard reconciliation the design never asks for. A single logical world keeps one truth
+items and `shards`; splitting the world into independent parallel worlds would fragment that ledger
+and force cross-world reconciliation the design never asks for. A single logical world keeps one truth
 ledger (`10_systems/PERSISTENCE.md` §2). Population channels are a load/readability valve, not a
 separate world: a crowded town map hosts N parallel copies sharing one character DB, so no economy
-fork occurs. Boss arenas and party-quest finales are already instanced by `10_systems/SPAWN.md`
-§3/§7 and `docs/WORLD_PLAN.md` (`pq_undervault` finale `map_042`, `pq_mainspring` finale
-`map_200`), so instance workers are a requirement, not a choice. This doc fixes the channel-model
+fork occurs. Party-quest stages/finales are per-party instanced by `10_systems/SPAWN.md` §7 and
+`10_systems/social/PARTY_QUEST.md` (`pq_undervault` finale `map_042`, `pq_mainspring` finale
+`map_200`), so instance workers are a requirement, not a choice. Open-entry boss arenas are **not**
+per-party: `10_systems/SPAWN.md` §3 runs a regional arena as one shared map that resets once empty
+(`15_maps_system/MAPS_SYSTEM.md` §8 shared-arena rules), so arenas live as ordinary supervised map
+processes on world nodes — only entry through a PQ gate allocates a true instance. This doc fixes the channel-model
 **shape**; capacity targets and the per-map channel-count math are `70_integrations/WORLD_CHANNELS.md`'s (§9).
 
 ```
@@ -49,10 +53,10 @@ fork occurs. Boss arenas and party-quest finales are already instanced by `10_sy
               accounts, login        |          |
               (ACCOUNTS_AUTH.md)     v          v
                         [ World node(s) ]     [ Instance workers ]
-                        BEAM/OTP; one supervised   PQ + arena copies, one
+                        BEAM/OTP; one supervised   PQ stage/finale copies, one
                         process per live map/       ephemeral map process per
                         channel: spawner, mob set,  party, spun up on demand and
-                        status timers               torn down on exit
+                        status timers, shared arenas torn down on exit
                           |         |                       |
                           v         v                       v
                         [ Social services ]  chat relay, party, guild, mail, market, trade
@@ -79,8 +83,11 @@ fork occurs. Boss arenas and party-quest finales are already instanced by `10_sy
   mobs, and active status timers. Population channels are additional map processes inside (or
   across) world nodes.
 - **Instance workers** — ephemeral map processes allocated to one party for party-quest stages/
-  finales and boss arenas (`10_systems/SPAWN.md` §3/§7; `10_systems/social/PARTY.md` §6). `N`
-  (party size, 3–6) is fixed at instance creation and never re-scaled mid-run.
+  finales (`10_systems/SPAWN.md` §7). Open-entry boss arenas are not instance-worker content: they
+  run as single shared map processes on world nodes under `10_systems/SPAWN.md` §3's
+  reset-when-empty rule (`15_maps_system/MAPS_SYSTEM.md` §8). Party size `N` is fixed at instance
+  creation — rule owned by `10_systems/SPAWN.md` §7, party bookkeeping by
+  `10_systems/social/PARTY.md` §6.
 - **Social services** — one relay/state tier hosting the server-deferred systems (§7); internals
   are `70_integrations/CHAT_SOCIAL_BACKEND.md`'s.
 - **Persistence tier** — the durable truth ledger, separated by concern so a market outage cannot
@@ -93,7 +100,7 @@ fork occurs. Boss arenas and party-quest finales are already instanced by `10_sy
 |---|---|---|
 | **World node** (BEAM node) | Aggregate map-process CPU/memory on existing nodes crosses the node budget | Horizontal; maps route across nodes via the router. Practically unbounded at this game's scale |
 | **Population channel** (extra map process) | A shared map's occupancy crosses the readability/perf cap | Cap owned by `70_integrations/WORLD_CHANNELS.md`; a channel is cheap (an empty map process is near-free) |
-| **Instance worker** (ephemeral map process) | A party enters a PQ/arena gate (`10_systems/SPAWN.md` §7) | One per party; torn down on exit — self-scaling with demand |
+| **Instance worker** (ephemeral map process) | A party enters a PQ gate (`10_systems/SPAWN.md` §7) | One per party; torn down on exit — self-scaling with demand. Open-entry arenas are shared map processes (§1), not instances |
 | **Social-service replica** | Chat/party/guild/market throughput rises | Scales independently of world nodes — a market surge never starves combat sim |
 | **Read replica** of a Postgres store | Read load (rosters, market browse) grows | The wallet/market **write** primary is the one hard single-writer ceiling (§8), kept single by the single-world choice on purpose |
 
@@ -110,8 +117,8 @@ supervised-process-per-map model, and the failure-mode table (§8) — a map cra
 maps and re-routes players, an instance crash loses only that instance — *is* an OTP supervision
 tree rather than error-handling bolted on afterward. The single logical world's heavy load is
 account-to-account social traffic (chat, party, guild, mail, market, trade, presence for
-hundreds-to-low-thousands concurrent), which is BEAM's proven sweet spot. Combat is event-driven,
-not a heavy per-tick numeric sim (§4), and a side-scroller's position reconciliation is light, so
+hundreds-to-low-thousands concurrent), which is BEAM's proven sweet spot. Combat is
+hit-event-triggered rather than a heavy fixed-rate numeric sim (§4), and a side-scroller's position reconciliation is light, so
 the BEAM's soft-realtime profile is a fit rather than a liability. Fault isolation, per-process
 supervised restart, and live presence come from the platform instead of being hand-built.
 
@@ -164,7 +171,7 @@ by concern" invariant). Rejected: a document/NoSQL store (MongoDB/DynamoDB) for 
 character data — its eventual consistency and weak cross-row transactions are wrong for a ledger
 that must never mint or lose value; the RNG audit log's write-once stream is the only place that
 access pattern fits, and it goes to the append-only store, not Postgres. Rejected: a
-distributed/sharded SQL engine (CockroachDB/Vitess) — premature for a single-region,
+distributed/horizontally-partitioned SQL engine (CockroachDB/Vitess) — premature for a single-region,
 hundreds-to-low-thousands-concurrent world; it trades latency and operational weight for scale this
 game does not reach, and cross-region topology is an owner-priced vendor decision (Open Questions),
 not a launch requirement.
@@ -180,11 +187,13 @@ budgets, timer resolution, and reconciliation cadence are `70_integrations/GAMEP
   advance on a per-map simulation loop owned by that map's process. An empty map costs nothing; a
   busy map is isolated. Cross-map concerns (routing, presence, the scheduler) are per-node.
   Instances tick as their own maps on an instance worker.
-- **Combat is event-driven, not polled.** `CombatMath.resolve(...)` is a pure, stateless,
-  server-authoritative function (`10_systems/COMBAT_FORMULA.md` §1); it runs on the hit-frame
-  signal the animation emits (`30_engineering/ENGINEERING_STANDARDS.md`, "damage never on a
-  duplicate timer"), not on a fixed combat poll. All rolls flow through the one seeded RNG service
-  so a result is server-verifiable later against the audit log (§3).
+- **Combat resolution is triggered by the hit-frame signal** — the convention
+  `30_engineering/ENGINEERING_STANDARDS.md` already fixes ("damage never on a duplicate timer"),
+  extended here only as placement: `CombatMath.resolve(...)` is a pure, stateless,
+  server-authoritative function (`10_systems/COMBAT_FORMULA.md` §1) invoked per hit event on the
+  map's world process. Whether the server handles those events inline or via a per-tick queue is
+  `70_integrations/GAMEPLAY_SIMULATION.md`'s call (§9). All rolls flow through the one seeded RNG
+  service so a result is server-verifiable later against the audit log (§3).
 - **Client prediction / reconciliation boundary — placement only.** Only `authority: shared`
   fields cross this boundary — position/velocity (`10_systems/PERSISTENCE.md` §4): the client
   predicts locally for snappy input and the server reconciles. The reconciliation **algorithm**
@@ -250,7 +259,7 @@ where each lands.
 | System | Lands as | Notes |
 |---|---|---|
 | `CHAT` | Stateless relay off the gateway/social tier | Map-scoped `normal`, roster `party`/`guild`, `whisper` (`10_systems/social/CHAT.md`); speech bubbles are a `normal`-channel client render |
-| `PARTY` | Roster + reward-arbitration service | Owns exp/loot arbitration and instance allocation for PQs (`10_systems/social/PARTY.md` §4–§6) |
+| `PARTY` | Roster + reward-arbitration service | Owns exp/loot arbitration and party bookkeeping for PQ instances (`10_systems/social/PARTY.md` §4–§6); the allocation mechanism itself is `10_systems/SPAWN.md` §7's |
 | `GUILD` | Guild registry service | Rosters, crest data (`10_systems/social/GUILD.md`); creation fee is an `10_systems/ECONOMY.md` sink |
 | `TRADING` | Live two-party escrow session | Both online; server-held escrow swap (`10_systems/social/TRADING.md`) |
 | `MARKET` | Async listings board + escrow | Server-held listing escrow; shared board = `server` state (`10_systems/social/MARKET.md`) |
@@ -280,12 +289,12 @@ truth must refuse the action, never fabricate it.
 | Redis / cache tier | Unreachable | BEAM-native ETS/Presence covers in-node ephemeral state; cross-node coordination (presence fan-out, distributed rate-limit) degrades — sessions stay bound, but multi-node social presence may lag until it recovers |
 | Seeded RNG service | Unreachable | Block every roll it gates (same stance as the audit log above) |
 
-**Scaling.** Maps are the shard-able unit: hot maps split into more population channels (§1,
+**Scaling.** Maps are the horizontally-splittable unit: hot maps split into more population channels (§1,
 `70_integrations/WORLD_CHANNELS.md`); PQ/arena load scales by spinning up instance workers on demand
 and tearing them down on exit. Social services scale independently of world nodes (a market surge
 never starves combat sim). The one hard single-writer constraint is the wallet/market Postgres
 primary — kept as one authority on purpose (§1); its write throughput is the scaling ceiling to
-watch, mitigated by read replicas for browse/roster reads (§1 table) but never by sharding the
+watch, mitigated by read replicas for browse/roster reads (§1 table) but never by partitioning the
 `shards` namespace.
 
 ## 9. Sibling-doc boundaries (single source of truth)
@@ -298,7 +307,7 @@ this doc deliberately does not decide. Each is cited above where its boundary is
 | `70_integrations/GAMEPLAY_SIMULATION.md` | Concrete tick model: rates, per-tick vs event-driven split, timer resolution, reconciliation cadence, and the client/server `CombatMath` test-vector parity requirement flagged in §2 |
 | `70_integrations/NETWORK_PROTOCOL.md` | Transport, serialization, envelope, opcodes, the packet catalog — everything on the wire between client and gateway |
 | `70_integrations/WORLD_CHANNELS.md` | Channel-model detail and capacity targets (per-map occupancy cap, channel-count math); this doc fixes only the channel-model shape (§1) |
-| `70_integrations/ACCOUNTS_AUTH.md` | Account/character split, credential and session lifecycle, name policy, reconnect-grace and session-lifetime numbers (exists; revised in parallel) |
+| `70_integrations/ACCOUNTS_AUTH.md` | Account/character split, credential and session lifecycle, name policy, reconnect-grace and session-lifetime numbers (exists; its revision this run SETS those numbers, removing the earlier version's deferrals back to this doc) |
 | `70_integrations/CHAT_SOCIAL_BACKEND.md` | Chat/social service internals: relay topology, roster state, escrow mechanics for the §7 systems |
 | `70_integrations/DATABASE_PERSISTENCE.md` | Storage schema, transaction boundaries, and write cadence mapped onto the §3 technologies |
 
