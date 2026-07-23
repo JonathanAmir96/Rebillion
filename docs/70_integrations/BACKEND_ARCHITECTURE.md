@@ -129,7 +129,7 @@ Rejected alternatives:
   not need. Kept in reserve as a NIF/port escape hatch (below), not as the primary stack.
 
 **The pure combat formula still moves server-side "untouched" — as a spec, not a shipped file.**
-`30_engineering/ENGINEERING_STANDARDS.md` (prime directive 5) and `10_systems/PERSISTENCE.md` §5
+`30_engineering/ENGINEERING_STANDARDS.md` (prime directive 5) and `10_systems/PERSISTENCE.md` §2
 require `CombatMath`, the drop roller, and the seeded RNG service to move to the server unchanged.
 Because the server is engine-independent, "unchanged" is honored at the level of the algorithm:
 `10_systems/COMBAT_FORMULA.md` remains the single source of truth, and the server's Elixir port is
