@@ -1,129 +1,97 @@
 # memory.md — Generation State & Decisions Log
 
-State file for future sessions. Read after `README.md` → `docs/00_vision/GLOSSARY.md` →
-`docs/WORLD_PLAN.md` (per CLAUDE.md). Newest entries last. This file records *state and
-decisions*; rules live in their owner docs — never restate them here.
+Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
-## Current state (as of 2026-07-23)
+## 2026-07-23 — Phase I: backend-design suite (session: backend-kickoff-prompt) + v3 merge
 
-- **World:** v2 two-island design (Emberfoot Isle Lv 1–8, Harthmoor ring Lv 8–40+2);
-  200 maps / 150 monsters (118/24/8) / 8 bosses / 2 PQs; first arc Lv 1–42, cap 300.
-  Authority: `docs/WORLD_PLAN.md`.
-- **Phases:** A (vision) ✅ · B (systems, 32 docs) ✅ · C (schemas + asset specs) ✅
-  checkpoint landed (8 schemas, spritesheet/animation specs, ART_BIBLE AB-001 terrain
-  amendment) — no separate C report yet · D (50_content YAML) **not started** — the
-  `50_content/` tree does not exist yet · E (coding-pass briefs) not started ·
-  **F (integrations & polish) ✅** — see `docs/phase_reports/PHASE_F_INTEGRATIONS_REPORT.md`.
-- **Docs added in F:** `10_systems/` AUDIO_DESIGN, ONBOARDING_FTUE, COLLECTIONS,
-  WRITING_STYLE, WORLD_LORE · `70_integrations/` (new dir) BACKEND_ARCHITECTURE,
-  ACCOUNTS_AUTH, TELEMETRY_ANALYTICS, BUILD_DISTRIBUTION, ART_GENERATION_RUNBOOK,
-  WIKI_EXPORT.
-- **Locked files** (unchanged, amendment channels only): `docs/40_assets/ART_BIBLE.yaml`,
-  `docs/40_assets/UI_ART_SPEC.md`, `docs/30_engineering/ENGINEERING_STANDARDS.md`.
-- **G (equipment v2) ✅** — see `docs/phase_reports/PHASE_G_EQUIPMENT_REPORT.md`. Slot roster
-  is now eleven tokens / ten worn positions (`shield`, `overall` added); `10_systems/SCROLLS.md`
-  (new) owns affix-line gear modification; ITEMS §8 weights rebalanced to six armor slots;
-  ID_REGISTRY extended (equip `0231`–`0250`, use → `0100`).
-- **H (consistency wave) ✅** — see `docs/phase_reports/PHASE_H_CONSISTENCY_REPORT.md`. The
-  v2 straggler (B-revision) wave finally ran: Rift/raid → future arcs (PQ finales carry the
-  party-instance machinery), waygates → paid Coachworks end-to-end, v2 numbers propagated
-  (job gates 8/40, 56 skills, T1–T6, 5 bind towns, 8 pools). New docs:
-  `10_systems/social/PARTY_QUEST.md`, `40_assets/SKILL_ANIMATION.md`. C-gate closed:
-  `base_move_speed` 128 px/s, `mob_ability_*`/summon-template ID blocks, frozen `condition`
-  enum, VALIDATION §5 edge-set wording. **`tools/validate.py` exists and the tree validates
-  clean (80 files, 0 fails)** — run it on every batch per VALIDATION's protocol.
-- **GLOSSARY Provisional:** `title` (from COLLECTIONS §7); `shield` / `overall` / `req_line`
-  and the scroll vocabulary (`aspect`/`temper`, `steady`/`bold`/`perilous`,
-  `scroll_kind`/`scroll_tier`/`slot_family`) from the G wave — all pending promotion.
-- **I (backend-design suite) ✅** — see `docs/phase_reports/PHASE_I_BACKEND_REPORT.md`. The
-  full `70_integrations/` authoritative-server suite is authored and gated: BACKEND_ARCHITECTURE
-  (revised), ACCOUNTS_AUTH (revised), WORLD_CHANNELS, DATABASE_PERSISTENCE, NETWORK_PROTOCOL,
-  GAMEPLAY_SIMULATION, CHAT_SOCIAL_BACKEND (new). ID_REGISTRY gained the engineering-side
-  packet-opcode block (`op_0001`–`op_9999`, 13 domain ranges; 103 opcodes minted in
-  NETWORK_PROTOCOL §9). Tree validates clean (88 files, 0 fails).
+**I (backend-design suite) ✅** — see `docs/phase_reports/PHASE_I_BACKEND_REPORT.md`. Executed
+`docs/60_agents/BACKEND_KICKOFF_PROMPT.md`: the full `70_integrations/` authoritative-server
+suite authored and gated (14 architect/QA passes) — BACKEND_ARCHITECTURE + ACCOUNTS_AUTH
+(revised), WORLD_CHANNELS, DATABASE_PERSISTENCE, NETWORK_PROTOCOL, GAMEPLAY_SIMULATION,
+CHAT_SOCIAL_BACKEND (new). ID_REGISTRY gained the engineering-side packet-opcode block
+(`op_0001`–`op_9999`, 13 domain ranges; 103 opcodes minted in NETWORK_PROTOCOL §9).
 
-## Decisions log
+**Decisions (owner-delegated to the session by the kickoff — decided, not open):** server stack =
+engine-independent Elixir/OTP + Phoenix (headless Godot, Go rejected); storage = one PostgreSQL
+database with `char`/`wallet`/`social` schemas + least-privilege roles (separate databases
+rejected — value transfers must commit without 2PC), append-only off-Postgres RNG audit log,
+Redis/ETS never truth; tick model = 20 Hz sim / 10 Hz snapshot, per-map parked loops, queued
+deterministic combat drain, timestamp timers, 20 Hz accept-if-plausible reconciliation (resolves
+PERSISTENCE §4's deferred flag by delegation); wire = WSS + MessagePack, positional envelope,
+protocol_version handshake, 15 s heartbeat inside ACCOUNTS_AUTH's 90 s reconnect grace; auth =
+Argon2id, opaque 60-min tokens + 30-day rotating refresh, fail-closed re-derive+range-check
+import (answers PERSISTENCE §9); channels = demand-driven, cap 5/map, 150/60 occupancy caps,
+2,000/node; boss arenas are shared reset-when-empty maps — only raid gates allocate per-party
+instances; `intent` is a NETWORK_PROTOCOL wire-role annotation, deliberately NOT a fourth
+PERSISTENCE tag. Open-questions rollup: PHASE_I_BACKEND_REPORT.md §4.
 
-- **I wave (2026-07-23, backend-design suite):** decision authority was owner-delegated to the
-  session (kickoff prompt), so these are decided, not open: server stack = engine-independent
-  Elixir/OTP + Phoenix (headless Godot and Go rejected); storage = one PostgreSQL database with
-  `char`/`wallet`/`social` schemas + least-privilege roles (separate databases rejected — value
-  transfers must commit without 2PC; doc 1 amended to match doc 4), append-only off-Postgres RNG
-  audit log, Redis/ETS never truth; tick model = 20 Hz sim / 10 Hz snapshot, per-map parked
-  loops, queued deterministic combat drain, timestamp timers, 20 Hz accept-if-plausible
-  reconciliation (resolves PERSISTENCE §4's deferred flag by delegation); wire = WSS +
-  MessagePack, positional envelope, protocol_version handshake, 15 s heartbeat inside
-  ACCOUNTS_AUTH's 90 s reconnect grace; auth = Argon2id, opaque 60-min tokens + 30-day rotating
-  refresh, fail-closed re-derive+range-check import (answers PERSISTENCE §9); channels =
-  demand-driven, cap 5/map, 150/60 occupancy, 2,000/node; arenas are shared reset-when-empty
-  maps — only PQ gates allocate per-party instances; `intent` is a NETWORK_PROTOCOL wire-role
-  annotation, deliberately NOT a fourth PERSISTENCE tag. Open-questions rollup in
-  PHASE_I_BACKEND_REPORT.md §4; telemetry/build/PixelLab runbook deliberately untouched.
+**v3 merge at landing:** the suite was authored against the v2 world and merged into the v3.1
+line at PR time. Same policy as the prior reconciliation: v3 wins world facts; the suite is
+net-new and kept, **retargeted** — `pq_*` → `raid_*` (stage/finale map IDs unchanged for arc 1),
+`PARTY_QUEST.md` → `social/RAID.md` (party-size floor now RAID §2/§3), world-shape claims updated
+to five islands / 324 maps / four raids (the two arc-2 raids ride the same instance-worker and
+opcode machinery; no new opcodes needed). Residue: the suite's capacity targets (§ WORLD_CHANNELS
+§7) were sized against the v2 two-island world — still valid as launch targets since world nodes
+scale horizontally, but re-check at the balance pass; ACCOUNTS_AUTH's import bounds now cite the
+authored-arc cap via SCOPE/WORLD_PLAN rather than a hardcoded level.
 
-- **H wave (2026-07-23, consistency):** raid tier explicitly future-arc (PQ finales own
-  party-instancing; `pq_life = normal_life·70·N`, boss-row damage, 10-min enrage); coach fares
-  `100×hops` + 25-shard ferry (ECONOMY §4.3); Sunken drop chute `map_176`→`map_094` replaces
-  the v1 termini; `base_move_speed` 128 px/s; `mob_ability_<mob>_NN` + `mob_151`–`160` summon
-  blocks; `condition` enum frozen at 4 values; `sighted` = `max(aggro_radius, 6)` tiles;
-  tonic bands re-split across Lv 1–42; `steady` scroll shelf priced.
+## 2026-07-23 — main merge reconciliation (after Phase D completion)
 
-- **B gate:** job lines/cleanse tags/crest shapes promoted into GLOSSARY; `haste` kept
-  combined; GUILD's proposed guild.schema deferred to the backend pass.
-- **v2.2–v2.4 owner revisions:** free warps retired for paid Harthmoor Coachworks + ferry;
-  ring towns host job instructors; Maple-style foothold terrain (AB-001).
-- **F wave (2026-07-22):**
-  - Bestiary is a *derived view* — no new content files/IDs; set-completion `shards`
-    withheld pending an ECONOMY faucet-list amendment (titles-only until then).
-  - AUDIO_DESIGN is the bgm/ambience/sfx tag-catalog governor; MAPS_SYSTEM §5's open
-    governance question should be closed to point at it on its owner's next pass.
-  - Backend: single logical world + population channels + instances (no independent
-    shards) to keep one economy ledger; solo build ships first, `GameState` facade is the
-    migration seam.
-  - Accounts: 3 character slots mirroring PERSISTENCE's 3 local save slots; one-way
-    local→account import.
-  - Versioning: `client_version` / `content_version` / `save_version` decoupled; every
-    build pins the design-tree commit it packed content from.
-  - Lore canon fixed: Kiln Age (emberstone vein), the Long Unwinding (Mainspring failure,
-    orderly evacuation, Custodian never stood down), Drowned Kingdom kept *unrelated* to
-    Clockwork until an owner rules otherwise; five mysteries deliberately unanswered.
-  - PixelLab pass: exemplar-first per region in WORLD_PLAN order; `PIXELLAB_SECRET`
-    env-only — value never committed, logged, or pasted.
-- **G wave (2026-07-22, equipment v2):**
-  - Slot roster: added `shield` (class-agnostic off-hand, in the §8 armor budget) and
-    `overall` (one piece filling `body`+`legs`, w=0.44, single affix budget); rejected
-    earrings/face/eye/extra rings (silhouette, UI budget, stat dilution) as future-arc
-    candidates. Full-set armor target `K(L)/3` unchanged — budget split six ways.
-  - Class law preserved: weapons line-locked, everything else class-agnostic; `req_line` is
-    an *optional* hard lock allowed only on advancement rewards + boss uniques; any wider
-    class-locking filed as an owner question against SCOPE.md, not decided.
-  - Scrolls (SCROLLS.md) never touch base lines or budgets — `aspect` rerolls / `temper`
-    raises affix lines inside ITEMS §10's caps; fails consume the scroll only (no item
-    destruction/downgrade anywhere in the tree, P2); `steady`-only vendor shelf keeps the
-    system sink-dominant; no pity (item never at risk).
-  - IDs: scroll SKUs `item_use_0061`–`0078` (3 families × 2 kinds × 3 tiers, layout in
-    SCROLLS §5); shield/overall `item_equip_0231`–`0250`; boss-unique `0199+2n` untouched.
+Merged `origin/main` (phases F/G/H from parallel sessions: 70_integrations backend/
+accounts/telemetry docs, AUDIO_DESIGN/COLLECTIONS/ONBOARDING_FTUE/WORLD_LORE/
+WRITING_STYLE/SCROLLS/SKILL_ANIMATION, ROLE_ART_QUARTERMASTER, phase reports F/G/H) into
+the v3 line. Policy: **v3 wins co-modified design files** (it is the owner's latest
+directive, backed by the minted 50_content tree); main's net-new docs all kept. Semantic
+fixes at the merge: PARTY_QUEST.md deleted (superseded by social/RAID.md), pq_*/party-
+quest/waygate refs in the incoming docs retargeted to raid_*/coach; equipment-v2's
+shield/overall ID blocks **re-homed** from 0231–0250 (collides with minted arc-2 equips)
+to the never-minted 0181–0200 reserve; scroll block item_use_0061–0100 ported; new
+provisional tokens (title, shield, overall, req_line, scroll vocabulary) carried in
+GLOSSARY. **Open debt:** integrating shields/overalls/scrolls + COLLECTIONS/AUDIO/FTUE
+hooks with the v3 systems docs and content (they were written against the v2 world) —
+see ID_REGISTRY Open Questions; main's variant of tools/validate.py was dropped in favor
+of the v3-aware one (diff it from git history if its extra checks are wanted).
 
-## Next session pointers
+## 2026-07-23 — v3 owner revision + Arc-2 Phase D (session: maps-levels-40-80)
 
-- Phase D content generation is **unblocked**: region-scoped batches per the phase-report
-  pattern (exemplar-first, validator-gated — `python3 tools/validate.py <batch>`), staffed via
-  `docs/60_agents/roles/ORG.md`. Start with R1 Emberfoot; ONBOARDING_FTUE.md constrains R1's
-  quest/NPC shape, WRITING_STYLE.md + WORLD_LORE.md constrain all flavor text,
-  PARTY_QUEST.md constrains the R2/R8 PQ maps + handler quests.
-- Remaining pre-D owner items: COLLECTIONS set-completion `shards` faucet amendment (ECONOMY —
-  titles-only until then); COMBAT_FORMULA §15 `mult m` retune check (tenth affix slot,
-  ~+11% affix pe, flagged in PHASE_G_EQUIPMENT_REPORT.md).
-- Owner-priced questions (hosting, storefronts, SSO, retention, signing) are collected in
-  PHASE_F_INTEGRATIONS_REPORT.md's rollup, extended by PHASE_I_BACKEND_REPORT.md §4 (pooling
-  layer, audit retention, vendor picks) — none block Phase D.
-- The backend suite (`70_integrations/`, I wave) is design-complete; its cross-doc residue
-  (world-channel promotion, report-table schema, listing-fee ownership, rounding convention)
-  is indexed in PHASE_I_BACKEND_REPORT.md §4 for the owning docs' next passes. A LIVE_OPS.md
-  successor doc is proposed-but-deferred (report §5).
-- Phase E (coding-pass briefs in `60_agents/`, VALIDATION Open-Questions rollup) is still
-  unstarted; validator checks 5–6 land with the Phase D world-graph reconciler.
+**State now:** design tree is at **v3.1** (five islands, two authored arcs Lv 1–82, cap
+300, backtracking law + reserved cross-arc boss-connectivity hook). **Phase D is COMPLETE
+for the whole world:** `docs/50_content/` holds every content file — 324 maps, 234
+monsters, 234 drop tables + 11 pools, 120 NPCs, 120 quests, 98 skills, all item tables
+(T1–T12, uniques 0201–0222, consumables 0001–0020, Emberstone I–V) — and the **strict**
+`tools/validate.py` run (no allow-missing, entry map_001, global reachability) passes
+with 0 failures, 0 warnings. Remaining known reconciliations: raid_undervault band 15–22
+vs Millbrook ceiling 14; `spec_trial_gate` zone token; the Open Questions rollups in the
+phase reports. Next phases: art pass (PixelLab briefs), Phase E coding-pass briefs
+review, arc-1/arc-2 balance pass.
 
-## Open Questions
-- Should this file also index per-doc Open Questions between phase gates, or stay a
-  state/decisions digest only (rollups live in phase reports + VALIDATION §7 at the E
-  gate)? Default: digest only.
+**v3 decisions (owner + producer):**
+- Arc 2 = Frostpeak Isle (40–55) / Arcane Reach (53–68) / Voidshore (66–80); `rift`
+  still reserved. Access: the Deepway (Cindershelf `map_125` → `map_201`–`203`,
+  `level_gate: 40`) + the paid scheduled `longship` network from Tidewatch Port.
+- 2nd job (Lv 40) **branches**: bulwark Ironbrand/Stoneguard/Warcaller · keeneye
+  Pathstalker/Sureshot · weaver Runeweaver/Cindercall/Frostbind · flicker
+  Duskstep/Wildcard. Skill re-block `skill_<line>_001`–`060` (specs at 007/014/021).
+- "Raid" replaced "party quest" everywhere: `raid_undervault`/`raid_mainspring`/
+  `raid_deepfrost`(45–55)/`raid_voidtide`(70–80); owner `10_systems/social/RAID.md`;
+  party 3–6; solo open-arena fallback kept.
+- Items: 12-tier equip ladder (T7–T12 = Lv 43–78, `item_equip_0231`–`0300`), uniques
+  0201–0222 (11 bosses), Sovereign/Mythic tonics (`item_use_0017`–`0020`).
+- LEVELING: Lv 1–80 rows frozen; provisional linear softcap continuation past 80;
+  arc-2 ≈ 90 played hours. Debt cleaned: v1 Rift-raid model (PARTY/SPAWN/DROPS/
+  COMBAT_FORMULA/QUESTS) and the retired `waygate` (now `coach`/`longship` everywhere;
+  new tokens `coach_station`, `coach_clerk`, `pier_officer` in GLOSSARY Provisional).
+
+**Batch pattern that worked (reuse for arc-1):** producer fixes ID/token decisions →
+exemplar-first (one real file per schema, conventions in `50_content/README.md`) →
+per-region parallel agents (maps+npcs+quests / mobs+drops+materials) + horizontal
+item/skill batches → each batch runs `python3 tools/validate.py --allow-missing` and
+fixes its own failures → producer commits per batch, one concern each → final full-tree
+gate expecting only cross-arc boundary warnings. Route bosses/formulas to Opus-tier,
+map/quest/NPC batches to Sonnet-tier, per `docs/60_agents/roles/ORG.md`.
+
+**Known dangling (closed by the arc-1 batch):** `map_071`/`map_125` reciprocal portals,
+`item_use_0011`, `item_etc_0193`–`0197` (enhancement.yaml), arc-1 equip rows 0001–0216,
+pools r01–r08, novice/first-job/spec-#1-era skills 001–006. Open Questions live in the
+owning docs; rollups in `docs/phase_reports/ARC2_PLAN_REPORT.md` and
+`PHASE_D_ARC2_REPORT.md`.

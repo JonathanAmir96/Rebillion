@@ -30,18 +30,18 @@ Provisional (JOBS.md proposes at Phase B; promoted at the B gate).
   durable phase reports. No other structural changes.
 
 ## Open Questions (rolled up)
-- ~~Post-cap progression model (SCOPE.md → LEVELING.md at B; default gear-only).~~ **Resolved:**
+- **Post-cap progression model (SCOPE.md → LEVELING.md at B) — resolved:**
   no hard wall — the exp curve keeps applying by formula past Lv 42, but the level-difference
   dampener makes out-leveling the arc a slow grind; endgame progression is primarily the gear
   chase (T6 +9, boss uniques, scrolls). Paragon/prestige is deferred post-launch. See
   `docs/10_systems/LEVELING.md` §6.
 - Secret maps in completion metrics (SCOPE.md; default no).
-- ~~`haste` split into move/attack components? (GLOSSARY.md → STATS.md at B; default
-  combined).~~ **Resolved at B gate:** kept combined; conversion percentages owned by
+- **`haste` split into move/attack components (GLOSSARY.md → STATS.md at B) — resolved at the
+  B gate:** kept combined; conversion percentages owned by
   `docs/10_systems/STATS.md` §5. See `docs/00_vision/GLOSSARY.md` Open Questions.
 - Reserved-growth block overflow procedure (ID_REGISTRY.md; extend-never-renumber).
 - Terminus regions' return shortcut (WORLD_PLAN.md → MAP_CONNECTIONS.md at B).
-- ~~Interiors combat-free confirmation (WORLD_PLAN.md → MAPS_SYSTEM.md at B).~~ **Resolved:**
+- **Interiors combat-free confirmation (WORLD_PLAN.md → MAPS_SYSTEM.md at B) — resolved:**
   `town` and `interior` maps are combat-free (no `spawn_zones`, no hostile monster_body, no
   arena boss); see `docs/15_maps_system/MAPS_SYSTEM.md` §6.
 - Flavor-length lint mechanical? (VALIDATION.md → Phase E; default warn-only).

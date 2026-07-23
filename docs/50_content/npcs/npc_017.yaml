@@ -1,0 +1,12 @@
+id: npc_017
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS, JOBS]
+name: "\"Whisper\" Vex"
+region: millbrook
+map: map_018
+role: quest_giver
+dialog:
+  greeting: "Quiet feet, quick hands, and a little luck -- that's the whole of the Flicker line, if you've got the nerve for it."
+  farewell: "Don't be seen leaving. It's better practice than you'd think."
+portrait: portrait_npc_017
+flavor: "Vex trains every Flicker Millbrook has ever produced from a shadowed nook of the undervault quarter, and is rarely seen arriving or leaving."

@@ -2,7 +2,8 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md,
 docs/VALIDATION.md, 10_systems/AI_BEHAVIOR.md, 10_systems/DEATH_PENALTY.md,
-10_systems/SKILL_EFFECTS.md, 10_systems/social/PARTY.md, 10_systems/STATUS_EFFECTS.md,
+10_systems/SKILL_EFFECTS.md, 10_systems/social/PARTY.md, 10_systems/social/RAID.md,
+10_systems/STATUS_EFFECTS.md,
 15_maps_system/MAPS_SYSTEM.md, 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md,
 40_assets/UI_ART_SPEC.md, 30_engineering/ENGINEERING_STANDARDS.md
 
@@ -14,8 +15,8 @@ where, and how many.
 ## 1. Spawn zones (declared per map)
 
 Each map that permits combat declares zero or more named **spawn zones** in its content file.
-Exact field typing is owned by the map schema (`20_schemas/map.schema.md`); this doc specifies
-the required contents:
+Exact field typing is owned by the map schema (`20_schemas/`, filename not yet fixed — see Open
+Questions); this doc specifies the required contents:
 
 | Field | Meaning |
 |---|---|
@@ -44,17 +45,17 @@ zone may mix `normal` and `elite` entries in one `mob_pool`.
 ## 2. Density budgets by map type
 
 Budgeted as **mobs per screen-width** rather than a fixed per-map total, so a longer map is denser
-only in proportion to its length rather than needing a separate size tier. **1 screen-width ≈ 40
-tiles** — the locked render base is 640×360 px ≈ 40×22.5 tiles at the 16 px tile grid
-(`15_maps_system/MAPS_SYSTEM.md` §1). A map's total zone population, summed across its
-`target_count`s, should land near `width_screens × per-screen budget` below.
+only in proportion to its length rather than needing a separate size tier. Working assumption:
+**1 screen-width ≈ 20 tiles** at default camera zoom — provisional pending the real viewport spec
+in `30_engineering/ENGINEERING_STANDARDS.md` (Open Questions). A map's total zone population,
+summed across its `target_count`s, should land near `width_screens × per-screen budget` below.
 
 | Map type | Normal / screen-width | Elite presence | Rationale |
 |---|---|---|---|
 | `field` | 3 | Rare — 1 elite per 3–4 screens, own small zone | Open exploration; the player chooses engagements (P1) |
 | `dungeon` | 4 | Common — 1 elite zone per 2 screens | Corridor gauntlet; more committed combat |
 | `secret` | 2 | Elevated `mob_pool` weight toward elite entries | Bonus content — sparser overall, but richer per encounter |
-| `town` / `interior` | 0 | 0 | Combat-free (confirmed by `15_maps_system/MAPS_SYSTEM.md` §6) |
+| `town` / `interior` | 0 | 0 | Combat-free (`docs/WORLD_PLAN.md` open item; assumed pending `15_maps_system/MAPS_SYSTEM.md` confirmation) |
 | `arena` | n/a — exempt | n/a | Boss/wave-scripted, not zone-density-budgeted (`15_maps_system/MAPS_SYSTEM.md`) |
 
 ## 3. Respawn timers by tier
@@ -63,18 +64,17 @@ tiles** — the locked render base is 640×360 px ≈ 40×22.5 tiles at the 16 p
 |---|---|---|
 | `normal` | 10 s baseline | Zone spawner (§1); per-mob override via `respawn_timer_s` |
 | `elite` | 90 s baseline | Zone spawner; same override field |
-| `boss` (regional arena, open entry) | No real-time timer — **arena-entry instanced** | Resets when the arena is unoccupied and re-triggered |
-| `boss` (PQ finale entry) | No real-time timer — **party-instanced** | Scoped per party; §7 |
+| `boss` (regional arena) | No real-time timer — **arena-entry instanced** | Resets when the arena is unoccupied and re-triggered |
+| `boss` (raid finale) | No real-time timer — **party-instanced** | Scoped per party; §7 |
 
-**Boss respawn decision.** Both open-entry and PQ-instanced boss fights use arena-entry instancing rather
+**Boss respawn decision.** Both regional and raid finale bosses use arena-entry instancing rather
 than a long real-world timer: the boss is always available and resets to full life the next time
 a player/party properly enters and triggers the arena, consistent with
 `10_systems/DEATH_PENALTY.md` §5.2/§5.3's "walk back in, fresh attempt" model. This was chosen
 over a long fixed timer to avoid a dead, waiting boss (`00_vision/PILLARS.md` P2) and because a
-solo/small-party regional boss needs no server clock to stay fair. The literal mechanism is fixed
-by `15_maps_system/MAPS_SYSTEM.md` §8: a regional arena is a single **shared** map instance (not
-per-party) that resets to phase 1 at full life once empty of players for `arena_reset_grace_s` =
-30 s; this doc fixes only the intent (no long timer) and defers the mechanism's definition there.
+solo/small-party regional boss needs no server clock to stay fair. The literal mechanism — a true
+per-party instance vs. a shared arena that resets on empty — is `15_maps_system/MAPS_SYSTEM.md`'s
+to define; this doc fixes only the intent (no long timer).
 
 ## 4. Max concurrent per zone
 
@@ -116,36 +116,40 @@ untargetable for the duration of its `spawn` state**, so its entrance can't be p
 player has even seen it. Any accompanying screen or audio cue is `40_assets/UI_ART_SPEC.md`'s to
 define, not this doc's.
 
-## 7. Party-instance spawn rules (PQ stages & finales)
+## 7. Raid finale arena spawn rules
 
-A party-quest run (`10_systems/social/PARTY_QUEST.md`) is **party-instanced**: entering at the PQ
-gate allocates its stage maps and finale arena to the entering party alone (party size/membership
-rules owned by `10_systems/social/PARTY.md` / `PARTY_QUEST.md` §2). Stage maps run the ordinary
-zone spawner (§1–§4) scoped to the instance; the finale arena is a single-boss scripted
-encounter, exempt exactly like regular arenas (§2), where the finale boss (`mob_027` /
-`mob_150`) spawns fresh for that instance at full life. Mid-fight adds/waves are not a `SPAWN.md`
-concept — they are the boss's own `phases[].added_abilities` (`10_systems/AI_BEHAVIOR.md` §15)
-executed through the `summon_entity` effect op (`10_systems/SKILL_EFFECTS.md`), scoped to the
-same party instance.
+The four raid finale arenas (`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md`
+§2, `docs/WORLD_PLAN.md`) do not use the zone spawner (§1–§4) at all — they are single-boss scripted
+encounters, exempt exactly like regular arenas (§2). Entry is through the raid herald and stage
+chain, not an open portal (`10_systems/social/RAID.md` §3–§4). Spawning here is **party-instanced**:
+entering the finale arena allocates that encounter to the entering party alone (party
+size/membership rules owned by `10_systems/social/PARTY.md`), and the finale boss
+(`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md` §2) spawns fresh for that
+instance at full life. Mid-fight adds/waves are not a `SPAWN.md` concept — they are the boss's own
+`phases[].added_abilities` (`10_systems/AI_BEHAVIOR.md` §15) executed through the `summon_entity`
+effect op (`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
 
-A party's instance persists across individual member deaths/releases
-(`10_systems/DEATH_PENALTY.md` §5.3) — it resets only on a full-party wipe in the finale or the
-run dissolving (`10_systems/social/PARTY_QUEST.md` §5), per the boss respawn decision in §3.
+A raid's **stage maps** (`10_systems/social/RAID.md` §4) are ordinary combat dungeons and **do** run
+the zone spawner (§1–§4) — the spawner's rules are unchanged; only the map copy is party-scoped to
+the instance.
+
+A party's raid instance persists across individual member deaths/releases
+(`10_systems/DEATH_PENALTY.md` §5.3) — it resets only on a full-party wipe or the party leaving
+the instance, per the boss respawn decision in §3 and the re-entry model in
+`10_systems/social/RAID.md` §5.
 
 ## Open Questions
+- The `1 screen-width ≈ 20 tiles` assumption (§2) is provisional pending the real camera/viewport
+  spec in `30_engineering/ENGINEERING_STANDARDS.md`; every density number in §2/§4 scales directly
+  if that changes.
+- The map schema's filename (§1) is assumed but not confirmed — likely
+  `20_schemas/map.schema.md`, authored at Phase C.
 - `target_count`/`max_concurrent` defaults (§2, §4) are first-pass and tunable per region once
   Phase D populates real zones.
-- Boss add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
-  data, not a SPAWN.md rule.
-
-Resolved:
-- The `1 screen-width ≈ 20 tiles` assumption (§2) is resolved — `15_maps_system/MAPS_SYSTEM.md`
-  §1 locks 1 screen ≈ 40×22.5 tiles (640×360 px render base); density numbers in §2/§4 are
-  authored per-screen and need no renumbering.
-- The map schema's filename (§1) is resolved — `docs/20_schemas/map.schema.md` exists.
-- The town/interior combat-free assumption (§2) is resolved — `15_maps_system/MAPS_SYSTEM.md` §6
-  confirms town and interior maps are combat-free, no per-map toggle.
+- The town/interior combat-free assumption (§2) inherits `docs/WORLD_PLAN.md`'s open item; if
+  `15_maps_system/MAPS_SYSTEM.md` later allows interior combat, this table needs a row.
 - Whether the regional-boss "arena-entry instanced" mechanism (§3) is a true per-player instance
-  or a shared arena that resets on empty is resolved — `15_maps_system/MAPS_SYSTEM.md` §8: a
-  single shared arena instance that resets to phase 1 at full life after being empty of players
-  for `arena_reset_grace_s` = 30 s, satisfying this doc's "no long timer" intent.
+  or a shared arena that resets on empty is left to `15_maps_system/MAPS_SYSTEM.md`; both satisfy
+  this doc's "no long timer" intent.
+- Raid add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
+  data, not a SPAWN.md rule.

@@ -48,7 +48,7 @@ never reconciled), or `shared` (none of this schema's fields need it; see
 | `map` | string `map_NNN` | yes | `20_schemas/map.schema.md` | That map's `npcs` list must include this NPC's `id`, and vice versa. `server` (world-placement fact). |
 | `role` | enum, ≤12 tokens | yes | this schema (see Enums) | Proposed for `00_vision/GLOSSARY.md` Provisional promotion at the C gate, mirroring `10_systems/JOBS.md` §0's pattern for job-line tokens. `server` (gates which services/UI the NPC may serve). |
 | `shop` | `{items: [item id]}` | no | `10_systems/ITEMS.md`; `10_systems/ECONOMY.md` §4 | `item_equip_*`/`item_use_*`/`item_etc_*` ids only — **no price field anywhere in this file**; price is always read from the item's own ECONOMY.md band. `server` (transactions are server-authoritative economy state). |
-| `services` | list of enum | no | `15_maps_system/MAP_INTERACTABLES.md`; `10_systems/ENHANCEMENT.md`; `10_systems/PERSISTENCE.md` | See Enums; role-service consistency in Validation. `server` — `inn_rest`/`storage`/`coach` trigger server-authoritative state elsewhere (bind point, bank contents, coach fares and the free-pilgrimage flag) that this file does not itself store. |
+| `services` | list of enum | no | `15_maps_system/MAP_INTERACTABLES.md`; `10_systems/ENHANCEMENT.md`; `10_systems/PERSISTENCE.md` | See Enums; role-service consistency in Validation. `server` — `inn_rest`/`storage`/`coach`/`longship` trigger server-authoritative state elsewhere (bind point, bank contents, coach fare + free-pilgrimage flag, longship fare + scheduled transit) that this file does not itself store. |
 | `dialog` | `{greeting, idle?, farewell?}` | `greeting` required; `idle`/`farewell` optional | — | Each ≤2 sentences. `client`. |
 | `portrait` | string, token | no | `40_assets/` (not yet authored) | Asset resolved at Phase C/D; no file path. Proposed convention `portrait_<npc_id>` (this schema's own first-pass, see Open Questions). `client`. |
 | `flavor` | string, ≤2 sentences | yes | `docs/VALIDATION.md` §7 | General descriptive blurb about the NPC, distinct from what they *say* (`dialog`). `client`. |
@@ -58,19 +58,20 @@ never reconciled), or `shared` (none of this schema's fields need it; see
 ### `role` (owner: this schema — proposed for GLOSSARY promotion at the C gate)
 
 Aligned to `docs/WORLD_PLAN.md`'s town casts and `15_maps_system/MAP_INTERACTABLES.md`'s services.
-10 of the ≤12 budget used now.
+11 of the ≤12 budget used now.
 
 | `role` | Typical setting | Implied minimum (Validation) |
 |---|---|---|
 | `merchant` | General-goods town shop interior (outfitter, fishmonger, chandlery, market hall) | Typically carries `shop`; no forced `services` |
 | `innkeeper` | Inn interior, one per bind town (`10_systems/DEATH_PENALTY.md` §4) | `services` ⊇ {`inn_rest`} |
 | `blacksmith` | Smithy interior (equipment vendor) | Typically carries `shop`; may also carry `enhance` (see Open Questions) |
-| `enchanter` | Dedicated enchanter interior or a town smithy (`docs/WORLD_PLAN.md` v2 towns) | `services` ⊇ {`enhance`} |
+| `enchanter` | Dedicated enchanter interior (e.g. Arcane Sanctum) or a town's smithy | `services` ⊇ {`enhance`} |
 | `banker` | Co-located with a `storage_chest` (`15_maps_system/MAP_INTERACTABLES.md` §8) | `services` ⊇ {`storage`}; optional flavor around what is otherwise a self-service object |
 | `quest_giver` | Any interior/town/field NPC who offers or accepts a quest | No forced `services`; should be named as `giver_npc`/`turn_in_npc` by ≥1 quest file (soft cross-file check, see Open Questions) |
-| `coachman` | Co-located with a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9) | `services` ⊇ {`coach`}; optional flavor around what is otherwise a self-service object |
+| `coach_clerk` | Co-located with a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9), one per Harthmoor ring town | `services` ⊇ {`coach`}; grants the one free novice pilgrimage ride (`15_maps_system/MAP_CONNECTIONS.md` §3), otherwise optional flavor around a self-service station |
+| `pier_officer` | Stands at an arc-2 longship pier, co-located with a `portal(kind: longship)` (`15_maps_system/MAP_INTERACTABLES.md` §2) | `services` ⊇ {`longship`}; takes the route fare and admits boarders (`15_maps_system/MAP_CONNECTIONS.md` §8.1) — the boarding mechanism, not mere flavor |
 | `guide` | Tutorial/help-lean NPC, e.g. near a `main` spawn or a starter town | No forced `services` |
-| `handler` | Camp/outpost logistics (e.g. a PQ-entry handler, `10_systems/social/PARTY_QUEST.md` §6) | No forced `services`; `shop`/`services` authored per instance |
+| `handler` | Camp/outpost logistics (e.g. Rift-camp vendors/handlers, `docs/WORLD_PLAN.md` R12) | No forced `services`; `shop`/`services` authored per instance |
 | `flavor` | Pure ambiance/lore NPC | No `shop`, no `services` |
 
 A role's implied minimum is a **floor, not a ceiling** — an NPC may carry additional `services`
@@ -83,7 +84,9 @@ separate enchanter interior).
 `storage` (`15_maps_system/MAP_INTERACTABLES.md` §8, `10_systems/INVENTORY.md` §7) · `enhance`
 (`10_systems/ENHANCEMENT.md` — no matching `MAP_INTERACTABLES` object; this service is NPC-driven
 only) · `coach` (`15_maps_system/MAP_INTERACTABLES.md` §9, `15_maps_system/MAP_CONNECTIONS.md`
-§3)
+§3; the self-service coach station plus the free-pilgrimage grant) · `longship`
+(`15_maps_system/MAP_CONNECTIONS.md` §8 — no matching `MAP_INTERACTABLES` object; the pier officer
+*is* the boarding gate, fare per `10_systems/ECONOMY.md` §7.2)
 
 ## Example
 
@@ -112,8 +115,8 @@ flavor: "Mira has run Emberfoot's inn since before the kiln went quiet, and miss
 Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
 
 1. **Role-service consistency.** `innkeeper` → `services` ⊇ {`inn_rest`}; `enchanter` → ⊇
-   {`enhance`}; `banker` → ⊇ {`storage`}; `coachman` → ⊇ {`coach`}. Other roles carry no
-   forced minimum. A role never *caps* `services` (see Enums).
+   {`enhance`}; `banker` → ⊇ {`storage`}; `coach_clerk` → ⊇ {`coach`}; `pier_officer` → ⊇
+   {`longship`}. Other roles carry no forced minimum. A role never *caps* `services` (see Enums).
 2. **Shop resolution.** Every `shop.items[]` id resolves to an existing `item_equip_*`/
    `item_use_*`/`item_etc_*` content entry (`docs/VALIDATION.md` §2); no price field may appear
    anywhere in this file.
@@ -128,10 +131,11 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
 6. **No quest fields.** This schema defines no `quest`/`quests`/`giver_for`/similar field; a
    content file adding one fails schema conformance (`docs/VALIDATION.md` §3) per the
    single-source rule above.
-7. **Service/object co-location (soft).** If `services` includes `inn_rest`/`storage`/`coach`,
-   the home map's `interactables` (or, for `coach`, its `portals`) should include a matching
-   `inn_bed`/`storage_chest`/`coach_station` object (`20_schemas/map.schema.md`) — a cross-file
-   consistency expectation, not enforceable from this file alone.
+7. **Service/object co-location (soft).** If `services` includes `inn_rest`/`storage`/`coach`, the
+   home map's `interactables` should include a matching `inn_bed`/`storage_chest`/`coach_station`
+   object; if it includes `longship`, the home map's `portals` should include a matching
+   `portal(kind: longship)` boarding portal (`20_schemas/map.schema.md`) — a cross-file consistency
+   expectation, not enforceable from this file alone.
 8. **Dialog/flavor length.** `dialog.greeting`/`idle`/`farewell` and `flavor` are each ≤2 sentences
    (mechanical linting is `docs/VALIDATION.md` §7's existing warn-only proposal, not a hard fail
    here).
@@ -141,14 +145,14 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
 ```yaml
 id: npc_{NNN}
 schema: 20_schemas/npc.schema.md
-references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY] # add PERSISTENCE if services non-empty; add ENHANCEMENT if role: enchanter or services includes enhance; add DEATH_PENALTY if services includes inn_rest; add MAP_CONNECTIONS if role: coachman or services includes coach
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY] # add PERSISTENCE if services non-empty; add ENHANCEMENT if role: enchanter or services includes enhance; add DEATH_PENALTY if services includes inn_rest; add MAP_CONNECTIONS if role: coach_clerk/pier_officer or services includes coach/longship
 name: "{Display Name}"
 region: { region_slug }
 map: map_{NNN}
-role: { merchant|innkeeper|blacksmith|enchanter|banker|quest_giver|coachman|guide|handler|flavor }
+role: { merchant|innkeeper|blacksmith|enchanter|banker|quest_giver|coach_clerk|pier_officer|guide|handler|flavor }
 # shop:                          # optional
 #   items: [item_{category}_{NNNN}]
-# services: [ { inn_rest|storage|enhance|coach } ]   # optional
+# services: [ { inn_rest|storage|enhance|coach|longship } ]   # optional
 dialog:
   greeting: "{≤2 sentences}"
   # idle: "{≤2 sentences}"       # optional
@@ -161,11 +165,11 @@ flavor: "{≤2 sentences}"
 
 - `blacksmith` vs. `enchanter` role boundary: `10_systems/ENHANCEMENT.md` §5 ties the `enhance`
   service's fee to "a town smith interior," but `docs/WORLD_PLAN.md`'s per-town interior lists name
-  an explicit "smithy" only at Millbrook (v2 town list) —
+  an explicit "smithy" only at Millbrook and an explicit "enchanter" only at Arcane Sanctum —
   Emberfoot's and Tidewatch's interior lists name neither. Whether every bind town needs an
   enhance-service NPC, and which role carries it where no smithy/enchanter interior is named, is
   unresolved; flagged for `docs/WORLD_PLAN.md`/`10_systems/ENHANCEMENT.md`'s owners.
-- Millbrook's guild hall/tavern/mayor's-house and Mossmere's weaving-athenaeum interiors
+- Millbrook's guild hall/tavern/mayor's-house and Arcane Reach's athenaeum/observatory interiors
   (`docs/WORLD_PLAN.md`) don't map cleanly onto one obvious `role` from the enum above. Phase D may
   reuse `quest_giver`/`flavor`/`guide` for these, or a future revision may add 1–2 roles within the
   ≤12 cap. Not resolved here.
@@ -176,13 +180,14 @@ flavor: "{≤2 sentences}"
   owner.
 - `portrait`'s token convention (`portrait_<npc_id>`, proposed here) has no owner in `40_assets/`
   yet; flag for a future `40_assets/` doc or an `40_assets/ART_BIBLE.yaml` amendment.
-- Whether `banker`/`coachman` NPCs are ever mechanically required (vs. purely optional
-  flavor standing near a self-service interactable) is not settled by any system doc; this schema
-  treats both roles as optional — a bind town's bank/coach station can function per
-  `15_maps_system/MAP_INTERACTABLES.md` with no NPC present at all.
-- `coachman` is not itself a `00_vision/GLOSSARY.md` token — GLOSSARY's Transport section (v2.2)
-  defines `coach`/`coach_stop` as object/spawn tokens only, with no npc-role token for the coach
-  operator. `coachman` is borrowed as prose from `docs/WORLD_PLAN.md`'s "Harthmoor Coachworks"
-  section (the "Rosen Harbor coachman" free-pilgrimage rule); it rides on this schema's existing
-  `role` promotion proposal (see `role` field Notes) rather than being separately GLOSSARY-promoted
-  here. Flagged for confirmation at the C gate alongside the rest of the `role` enum.
+- `banker` and `coach_clerk` are treated as optional — a bind town's bank and a ring town's coach
+  station function per `15_maps_system/MAP_INTERACTABLES.md` as self-service objects with no NPC
+  present (though `coach_clerk` is the only place the free novice pilgrimage ride is granted, so a
+  town on the pilgrimage route effectively needs one). `pier_officer`, by contrast, *is* the
+  longship boarding gate (`15_maps_system/MAP_CONNECTIONS.md` §8.1) — whether that boarding could
+  instead be a self-service pier object (mirroring `coach_station`) is an arc-2 design call, not
+  settled here.
+- The `coach_clerk`/`pier_officer` roles and the `coach`/`longship` services are proposed for
+  `docs/00_vision/GLOSSARY.md` promotion at the C gate with the rest of this enum (see the `role`
+  note above); `coach`/`coach_stop` are already GLOSSARY Transport tokens, and the longship spawn
+  tokens are flagged in `15_maps_system/MAP_CONNECTIONS.md` §2.

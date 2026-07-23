@@ -1,0 +1,26 @@
+id: mob_102
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Slag Brute
+tier: normal                     # ID slot 102 = R6 normal (ID_REGISTRY ashfall)
+element: fire                      # R6 element mix is fire/neutral (WORLD_PLAN)
+weak_to: [frost]                  # thematic (ELEMENTS §2; lists mutually exclusive)
+resists: [fire]
+level: 33
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 33
+  life: 5184                     # 4*(33+3)^2
+  power: 105                     # 6+3*33 (touch = round(0.5*power), neutral, §13.1)
+  armor: 198                     # 6*33  (armor+warding sum = 12*33)
+  warding: 198                   # 6*33
+  precision: 132                 # 4*33
+  evasion: 4.0                   # 3 + 0.03*33 (%)
+  exp: 377                       # exp_per_kill_normal(33)=round(4*33^1.3) (LEVELING §3)
+ai_profile: aggressive_charger
+ai_params:                       # override only aggressive_charger-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  charge_speed_mult: 2.6
+  charge_recover_s: 2.4
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_102
+flavor: "A hulking thing of caked cinder and molten sinew that lowers its head and comes on like a rockslide. The ground it crosses is left smoking in its wake."

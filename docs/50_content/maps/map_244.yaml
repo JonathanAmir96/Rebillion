@@ -1,0 +1,31 @@
+id: map_244
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
+name: The Frostcrown Crevasse
+region: frostpeak
+map_type: arena
+level_band: { min: 55, max: 55 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 72, h: 24 }
+bgm: bgm_boss_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [36, 18] }
+portals:
+  - id: to_herald_landing
+    kind: door
+    at: { tile: [2, 18] }
+    target_map: map_238
+    target_spawn: main
+    dead_end: false  # ordinary open-entry pairing with map_238's to_frostcrown_crevasse door (MAPS_SYSTEM §8: arena's dedicated door entrance)
+npcs: []
+platform_brief: |
+  A single flat shelf overhanging the summit crevasse, one screen wide -- the region's
+  final stage. No verticality gimmick beyond the sheer drop framing the fight; hazards are
+  authored on arena_config, not the platform itself.
+arena_config:
+  boss_mob_id: mob_178
+  gate: { type: open }
+flavor: "The summit crevasse where Skoldir has coiled since before the isle had a name, ice-blue light rising from the depths below."

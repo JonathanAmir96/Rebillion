@@ -5,18 +5,18 @@ References: 00_vision/GLOSSARY.md, docs/VALIDATION.md, docs/WORLD_PLAN.md, docs/
 70_integrations/GAMEPLAY_SIMULATION.md, 70_integrations/CHAT_SOCIAL_BACKEND.md,
 70_integrations/DATABASE_PERSISTENCE.md, 10_systems/SPAWN.md, 10_systems/PERSISTENCE.md,
 10_systems/DROPS.md, 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_CONNECTIONS.md,
-10_systems/social/PARTY.md, 10_systems/social/PARTY_QUEST.md, 10_systems/social/CHAT.md,
+10_systems/social/PARTY.md, 10_systems/social/RAID.md, 10_systems/social/CHAT.md,
 10_systems/social/MARKET.md, docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md
 
 Owner doc for the **channel-model detail and capacity targets** that
 `70_integrations/BACKEND_ARCHITECTURE.md` §1 delegates here (its §9 sibling table). That doc fixes
 the topology **shape** — single logical world + population channels over shared social maps + true
-instances for party-quest content — and never restates it; this doc fixes *how many* channels, on
+instances for raid content — and never restates it; this doc fixes *how many* channels, on
 *which* maps, selected *how*, torn down *when*, and how party/chat/market state keeps working
 across them. It never restates a value owned elsewhere: respawn timers stay `10_systems/SPAWN.md`'s,
 exp-share math stays `10_systems/social/PARTY.md`'s, fares stay `10_systems/ECONOMY.md`'s. It
-consumes `docs/WORLD_PLAN.md`'s 200-map allocation and `docs/ID_REGISTRY.md`'s ID blocks as given
-facts, not decisions of its own.
+consumes `docs/WORLD_PLAN.md`'s map allocation (v3: 324 maps across two authored arcs) and
+`docs/ID_REGISTRY.md`'s ID blocks as given facts, not decisions of its own.
 
 ## 1. Channel-eligible maps
 
@@ -49,38 +49,41 @@ independent channel copies would fork that shared-reset design for no benefit th
 this doc adds no occupancy cap to arenas and spawns no second channel for one, full stop. `boss`-tier
 respawn is `10_systems/SPAWN.md` §3's, restated nowhere here.
 
-**Exemption 2 — party-quest stage/finale maps are true instances, not channels.** Covered in §2.
+**Exemption 2 — raid stage/finale maps are true instances, not channels.** Covered in §2.
 
 **Channel identity is ops/routing metadata, not a game-content ID.** A channel is addressed as
 `map_NNN` + a small integer index (e.g. "map_017, channel 2") for gateway routing, telemetry, and
 this doc's capacity math. It mints no `docs/ID_REGISTRY.md` block and is never player-facing content
 — the on-screen channel picker's presentation is `10_systems/HUD.md`'s call, not this doc's.
 
-## 2. Party-quest instances (not channels)
+## 2. Raid instances (not channels)
 
-The two party quests occupy their own scaling unit — **instance workers**
+The four raids occupy their own scaling unit — **instance workers**
 (`70_integrations/BACKEND_ARCHITECTURE.md` §1), ephemeral map processes allocated one per party on
-PQ-gate entry and torn down on exit (`10_systems/SPAWN.md` §7), never shared and never
+raid-gate entry and torn down on exit (`10_systems/SPAWN.md` §7), never shared and never
 occupancy-capped the way §7's channels are:
 
 | Token | Stage maps | Finale arena | Finale boss |
 |---|---|---|---|
-| `pq_undervault` | `map_038`–`map_040` | `map_042` | `mob_027` (The Cellar King) |
-| `pq_mainspring` | `map_195`–`map_197` | `map_200` | `mob_150` (The Custodian) |
+| `raid_undervault` | `map_038`–`map_040` | `map_042` | `mob_027` (The Cellar King) |
+| `raid_mainspring` | `map_195`–`map_197` | `map_200` | `mob_150` (The Custodian) |
+| `raid_deepfrost` | `map_240`–`map_242` | `map_244` | `mob_178` |
+| `raid_voidtide` | `map_320`–`map_322` | `map_324` | `mob_234` |
 
-(`docs/ID_REGISTRY.md` "Maps," `10_systems/social/PARTY_QUEST.md` §1 — cited, not restated.) Party
-size is owned split: the 3-member floor by `10_systems/social/PARTY_QUEST.md` §2, the 6-cap by
+(`docs/ID_REGISTRY.md` "Maps," `10_systems/social/RAID.md` §2 — cited, not restated.) Party
+size is owned split: the 3-member floor by `10_systems/social/RAID.md` §2/§3, the 6-cap by
 `10_systems/social/PARTY.md` §1; instance lifecycle (leaving, the 60 s
-disconnect grace, full-wipe reset, dissolution) is `10_systems/social/PARTY_QUEST.md` §5's. This doc
-adds one fact neither states: **an active PQ instance never counts against its stage/finale map's
+disconnect grace, full-wipe reset, dissolution) is `10_systems/social/RAID.md` §5's. This doc
+adds one fact neither states: **an active raid instance never counts against its stage/finale map's
 channel occupancy**, because it isn't a channel of that map at all — `map_042` and `map_200` also
-serve as ordinary open-entry arenas (§1's Exemption 1) when not hosting a PQ finale, and the two are
+serve as ordinary open-entry arenas (§1's Exemption 1) when not hosting a raid finale, and the two are
 different processes even when both are "the same `map_NNN`" from a content-authoring point of view.
-A PQ instance is bounded for free by the party cap (≤6, `10_systems/social/PARTY.md` §1) — no
+A raid instance is bounded for free by the party cap (≤6, `10_systems/social/PARTY.md` §1) — no
 occupancy math is needed for it, only headroom planning: this doc sets a soft per-world-node target
-of **40 concurrently active PQ instances of each token** (80 total) before a world node needs a
+of **40 concurrently active raid instances of each token** (160 total across the four tokens)
+before a world node needs a
 scaling look — sized at roughly 5% of the §7 per-node population target
-(2,000 × 0.05 ÷ 3-member floor ≈ 33, rounded up for headroom) engaging PQ content at once, which is
+(2,000 × 0.05 ÷ 3-member floor ≈ 33, rounded up for headroom) engaging raid content at once, which is
 a generous estimate for hundreds-to-low-thousands concurrent play. This number is explicitly
 first-pass (Open Questions).
 
@@ -238,7 +241,7 @@ hundreds-to-low-thousands concurrent (`70_integrations/BACKEND_ARCHITECTURE.md` 
 | Extra-channel teardown grace | **5 min** empty before a channel (2+) is torn down | Long enough that ordinary population drift (a quiet minute on a busy map) doesn't thrash spin-up/teardown cycles; short enough that a launch-week spike's extra channels reclaim their world-node budget promptly once the crowd moves on |
 | Target concurrent players per world node | **2,000** | A conservative per-node figure for BEAM's proven social-traffic sweet spot (`70_integrations/BACKEND_ARCHITECTURE.md` §2) given this game's light, hit-event-triggered combat and shared position/velocity sync rather than a heavy fixed-rate numeric sim — leaves headroom under typical soft-realtime BEAM node practice for this workload shape |
 | World-wide concurrent target | **~10,000**, across ≈5 world nodes | Sits at the top of "hundreds-to-low-thousands concurrent" (`70_integrations/BACKEND_ARCHITECTURE.md` §2) while keeping the per-node figure above conservative; world nodes scale horizontally with no practical ceiling (`70_integrations/BACKEND_ARCHITECTURE.md` §1's scaling-unit table), so this is a launch-sizing target, not an architectural cap |
-| PQ instance-worker headroom target (per world node) | **40** concurrently active instances per PQ token (80 total) | Sized at ~5% of the 2,000-player node target engaging PQ content at once, divided by the 3-member floor (`10_systems/social/PARTY_QUEST.md` §2) and rounded up for headroom — generous for hundreds-to-low-thousands concurrent play (§2) |
+| raid instance-worker headroom target (per world node) | **40** concurrently active instances per raid token (160 total across four tokens) | Sized at ~5% of the 2,000-player node target engaging raid content at once, divided by the 3-member floor (`10_systems/social/RAID.md` §2/§3) and rounded up for headroom — generous for hundreds-to-low-thousands concurrent play (§2) |
 
 ## 8. Failure modes
 
@@ -247,14 +250,14 @@ hundreds-to-low-thousands concurrent (`70_integrations/BACKEND_ARCHITECTURE.md` 
 | Channel router (part of world routing, `70_integrations/BACKEND_ARCHITECTURE.md` §1) | Unreachable → cannot decide/assign a channel | New arrivals to that map hold at the source map/portal (§3 point 4's hold-not-drop stance); already-resident players on live channels are unaffected |
 | Destination channel process | Crash mid-spin-up or mid-handoff | Transition aborts, character stays on the source map (§6); the channel process restarts under its world node's ordinary OTP supervision (`70_integrations/BACKEND_ARCHITECTURE.md` §1) and rejoins the channel pool once live |
 | Party/chat channel-index metadata feed (§5) | World-routing → social-services propagation lags or drops | Exp/loot eligibility and `normal`-chat delivery fail closed (a member briefly reads as ineligible/unreachable) rather than fail open (never award exp or deliver a bubble across a channel boundary on stale data) — consistent with `70_integrations/BACKEND_ARCHITECTURE.md` §8's "never fabricate a `server` truth" stance |
-| PQ instance-worker pool nearing the §7 headroom target | Sustained demand above 40 concurrent instances of one token on a node | Self-scaling by design (`70_integrations/BACKEND_ARCHITECTURE.md` §1 — one instance worker per party, torn down on exit); the target is a capacity-planning trigger for adding world-node headroom, not a hard cap that blocks entry |
+| raid instance-worker pool nearing the §7 headroom target | Sustained demand above 40 concurrent instances of one token on a node | Self-scaling by design (`70_integrations/BACKEND_ARCHITECTURE.md` §1 — one instance worker per party, torn down on exit); the target is a capacity-planning trigger for adding world-node headroom, not a hard cap that blocks entry |
 
 ## 9. Interim solo build & implemented when
 
 The channel model has no observable effect in the interim solo build: one player, one process, one
 implicit "channel_01" that is never crossed and never spun a second copy of — this doc's mechanisms
 are dormant by construction, the same stance `10_systems/social/PARTY.md`,
-`10_systems/social/PARTY_QUEST.md`, `10_systems/social/CHAT.md`, and `10_systems/social/MARKET.md`
+`10_systems/social/RAID.md`, `10_systems/social/CHAT.md`, and `10_systems/social/MARKET.md`
 already take for their own server dependency.
 
 **Implemented when:** a live authoritative server exists and world nodes run real map processes —
@@ -268,7 +271,7 @@ Only game-design/balance calls and owner-priced or first-pass-tunable items live
 capacity numbers and §1's channel-eligibility mechanism are decided in this doc.
 
 - **§7's numeric targets (occupancy caps, max channels, teardown grace, cooldown/combat-lock
-  windows in §4, PQ headroom target) are first-pass**, sized from best-practice reasoning rather than
+  windows in §4, raid headroom target) are first-pass**, sized from best-practice reasoning rather than
   live telemetry — retune once real concurrency data exists, matching the precedent
   `10_systems/SPAWN.md` §2/§4 sets for its own first-pass density defaults.
 - **Whether channel-hop kill/quest-target farming (§4) should ever be throttled beyond the 30 s

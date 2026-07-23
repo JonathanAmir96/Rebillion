@@ -1,0 +1,12 @@
+id: npc_104
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Archivist Meloux
+region: arcane_reach
+map: map_266
+role: quest_giver
+dialog:
+  greeting: "Every shard that fell here still remembers being whole. I intend to ask it why."
+  farewell: "Bring back what the vaults won't give up freely. I'll make sense of it."
+portrait: portrait_npc_104
+flavor: "Meloux has catalogued Highrune Sanctum's fallen runework for forty years and believes, quietly, that the Reach is still falling."

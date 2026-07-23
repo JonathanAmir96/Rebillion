@@ -338,7 +338,7 @@ notes.
 
 ### 9.3 Channel & instance management — `op_0200`–`op_0299`
 Validating layer: `70_integrations/WORLD_CHANNELS.md` §3 (channel select/switch) and §6 (map-transition
-handoff sequencing / what blocks); PQ-instance allocation is `10_systems/SPAWN.md` §7 as scoped by
+handoff sequencing / what blocks); raid-instance allocation is `10_systems/SPAWN.md` §7 as scoped by
 `70_integrations/GAMEPLAY_SIMULATION.md` §13.
 
 | Opcode | Name | Dir | Payload fields (`field: type` — wire annotation, §7.2) | Server validation | Response / delta packet(s) |
@@ -346,11 +346,11 @@ handoff sequencing / what blocks); PQ-instance allocation is `10_systems/SPAWN.m
 | `op_0200` | `channel_switch_request` | `c2s` | `target_channel_index: uint8 — intent` | `—` (`70_integrations/WORLD_CHANNELS.md` §3 fill-lowest-first/party-aware assignment overrides a full target; §4 30 s cooldown + 5 s combat lock) | `op_0290` |
 | `op_0201` | `portal_transition_request` | `c2s` | `portal_id: string — intent`, `claimed_destination_map_id: string — intent` (advisory only — the server re-derives the real destination from the map's authored portal graph, never trusts this field, `docs/VALIDATION.md` §5) | `—` (`70_integrations/WORLD_CHANNELS.md` §6 blocking sequence: portal-target validation, §3 channel assignment) | `op_0291` |
 | `op_0202` | `coach_travel_request` | `c2s` | `destination_town_map_id: string — intent` | `—` (`70_integrations/WORLD_CHANNELS.md` §6 handoff; the fare charge itself is `10_systems/ECONOMY.md`'s — no `70_integrations/GAMEPLAY_SIMULATION.md` section owns fare validation, flagged) | `op_0291`, `op_0990` (§9.10, `reason: coach_fare`) |
-| `op_0203` | `pq_enter_request` | `c2s` | `pq_token: string — intent` (`pq_undervault` \| `pq_mainspring`; acting party read server-side, not client-asserted) | `—` (`10_systems/SPAWN.md` §7 as scoped by `70_integrations/GAMEPLAY_SIMULATION.md` §13; party-size floor `10_systems/social/PARTY_QUEST.md` §2, cap `10_systems/social/PARTY.md` §1) | `op_0292` |
-| `op_0204` | `pq_leave_request` | `c2s` | (empty map) | `—` (`10_systems/social/PARTY_QUEST.md` §5 fallen/Release/re-enter, fed by `70_integrations/GAMEPLAY_SIMULATION.md` §12) | `op_0292` |
+| `op_0203` | `raid_enter_request` | `c2s` | `raid_token: string — intent` (any `docs/ID_REGISTRY.md` "Raids" token — `raid_undervault` \| `raid_mainspring` \| `raid_deepfrost` \| `raid_voidtide`; acting party read server-side, not client-asserted) | `—` (`10_systems/SPAWN.md` §7 as scoped by `70_integrations/GAMEPLAY_SIMULATION.md` §13; party-size floor `10_systems/social/RAID.md` §2/§3, cap `10_systems/social/PARTY.md` §1) | `op_0292` |
+| `op_0204` | `raid_leave_request` | `c2s` | (empty map) | `—` (`10_systems/social/RAID.md` §5 fallen/Release/re-enter, fed by `70_integrations/GAMEPLAY_SIMULATION.md` §12) | `op_0292` |
 | `op_0290` | `channel_switch_result` | `s2c` | `accepted: bool — server`, `channel_index: uint8 — server`, `spawn_point: string — server`, `reject_reason: enum{cooldown, combat_lock, channel_full, all_channels_full} — server` | `—` (`70_integrations/WORLD_CHANNELS.md` §3/§4) | `—` |
 | `op_0291` | `transition_result` | `s2c` | `destination_map_id: string — server`, `channel_index: uint8 — server`, `spawn_point: string — server`, `accepted: bool — server`, `reject_reason: enum{invalid_portal, spinup_failed, held_queued} — server` | `—` (`70_integrations/WORLD_CHANNELS.md` §6) | `—` |
-| `op_0292` | `pq_instance_result` | `s2c` | `accepted: bool — server`, `instance_id: string — server`, `stage_map_id: string — server`, `reject_reason: enum{party_too_small, party_too_large, headroom} — server` | `—` (`10_systems/SPAWN.md` §7, `10_systems/social/PARTY_QUEST.md` §2/§5) | `—` |
+| `op_0292` | `raid_instance_result` | `s2c` | `accepted: bool — server`, `instance_id: string — server`, `stage_map_id: string — server`, `reject_reason: enum{party_too_small, party_too_large, headroom} — server` | `—` (`10_systems/SPAWN.md` §7, `10_systems/social/RAID.md` §2/§5) | `—` |
 
 Note: `op_0291` is the single `transition_result` shape returned for both `op_0201` (portal) and `op_0202`
 (coach); a coach transition additionally emits `op_0990` for the fare debit. Manual switch (`op_0200`)
@@ -391,7 +391,7 @@ spawn/despawn, death, `phase_shift`, boss-phase events — intent only animates 
 | `op_0402` | `entity_despawn` | `s2c` | `entity_id: string — server`, `reason: enum{out_of_range, leash_return, expired} — server` | `§13` | `—` |
 | `op_0403` | `entity_death` | `s2c` | `entity_id: string — server`, `killer_character_id: string — server` | `§5.2`/`§13` (death pushed as an immediate event) | credited kill triggers `op_0792` `kill_reward_delta` (§9.8) |
 | `op_0404` | `boss_phase_shift` | `s2c` | `entity_id: string — server`, `phase_index: uint8 — server`, `invulnerable: bool — server` | `§13` (`life_threshold_pct` crossing, `boss_scripted` AI, `10_systems/AI_BEHAVIOR.md` §15) | `—` |
-| `op_0405` | `death_penalty_delta` | `s2c` | `exp_lost: uint32 — server`, `exp_into_level: uint32 — server` (post-penalty), `respawn_map_id: string — server` (the stored bind point, `10_systems/DEATH_PENALTY.md` §4), `pq_override: bool — server` (party-instance fallen/Release flow instead of respawn, `10_systems/DEATH_PENALTY.md` §5.3) | `§12` (server-computed exp cost + bind-point respawn; follows the character's own `op_0403`) | `—` |
+| `op_0405` | `death_penalty_delta` | `s2c` | `exp_lost: uint32 — server`, `exp_into_level: uint32 — server` (post-penalty), `respawn_map_id: string — server` (the stored bind point, `10_systems/DEATH_PENALTY.md` §4), `raid_override: bool — server` (party-instance fallen/Release flow instead of respawn, `10_systems/DEATH_PENALTY.md` §5.3) | `§12` (server-computed exp cost + bind-point respawn; follows the character's own `op_0403`) | `—` |
 
 Note: this domain is deliberately `s2c`-only (§9.0's direction rule still holds — every opcode is
 unidirectional) because the client requests nothing here; it only ever animates what the server pushes

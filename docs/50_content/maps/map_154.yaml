@@ -1,0 +1,41 @@
+id: map_154
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Drowned Shallows, Kelp Collapse
+region: sunken
+map_type: field
+level_band: { min: 31, max: 32 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 150, h: 30 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_153
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_155
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_field_154
+    rect_tiles: { x: 45, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_110, count: 4 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A denser terrace run through drifting kelp cover; gaps stay under the 10-tile doubled jump
+  distance (MAP_TRAVERSAL §7). One low ledge offers a one-way drop-through shortcut.
+flavor: "A collapsed kelp forest chokes the middle distance, dark fronds hiding whatever still moves in them."

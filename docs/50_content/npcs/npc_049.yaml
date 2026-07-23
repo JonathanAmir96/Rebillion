@@ -1,0 +1,12 @@
+id: npc_049
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS]
+name: Old Fisherman Addock
+region: tidewatch
+map: map_076
+role: quest_giver
+dialog:
+  greeting: "Nets keep coming up shredded past the shallows. Something's chewing through more than fish."
+  farewell: "Watch your footing on the tide line, now."
+portrait: portrait_npc_049
+flavor: "Addock has fished these shallows longer than the port has had a proper harbormaster, and trusts his nets more than any tide chart."

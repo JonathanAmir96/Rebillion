@@ -1,0 +1,36 @@
+id: mob_205
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
+name: Aether Colossus
+tier: elite                      # ID slot 205 = R10 elite (ID_REGISTRY Monsters)
+element: arcane
+weak_to: [neutral]
+resists: [arcane]                # ELEMENTS §2
+level: 70
+size_class: large
+stats:                           # COMBAT_FORMULA §13.2 elite (normal Lv 70 x tier mults)
+  life: 127896                  # 21316 (§13 Lv70) * 6
+  power: 324                    # 216 * 1.5
+  armor: 546                   # 420 * 1.3  (armor+warding sum = 1092)
+  warding: 546                 # 420 * 1.3
+  precision: 308               # 280 * 1.1
+  evasion: 7.10                # 5.10 + 2 (§13.2 elite)
+  exp: 5010                    # exp_per_kill_normal(70)=1002 * 5 (LEVELING §3 elite)
+ai_profile: aggressive_charger
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  charge_speed_mult: 2.6
+  charge_recover_s: 2.5
+abilities:                       # SKILL_EFFECTS op registry (§17); scales on power/spellpower (§1)
+  - id: rune_crush
+    name: Rune Crush
+    targeting: { shape: aoe_circle, radius: 3, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3              # plays 'telegraph' state (VALIDATION §6)
+    effects:
+      - { op: leap, distance: 6, height: 4 }
+      - { op: deal_damage, element: arcane, mult: 2.3 }
+      - { op: apply_status, status: stun, chance: 0.5, dur: 1.5 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+drop_table: drop_mob_205
+flavor: "The largest of the loosed wardens, a mountain of rune-plate that leaps the gaps between shards and comes down in a crushing bloom of arcane force. The Unmoored's shadow made flesh."

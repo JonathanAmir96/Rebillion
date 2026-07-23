@@ -1,0 +1,40 @@
+id: map_180
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, Brassvein Terraces
+region: clockwork
+map_type: field
+level_band: { min: 35, max: 37 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 155, h: 30 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_sunken_cogyard
+    kind: edge
+    at: { edge: left }
+    target_map: map_179
+    target_spawn: main
+    dead_end: false
+  - id: to_ashcog_flats
+    kind: edge
+    at: { edge: right }
+    target_map: map_181
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: brassvein_terraces_zone
+    rect_tiles: { x: 30, y: 20, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_132, count: 3 }
+      - { mob: mob_133, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Three stepped terraces veined with exposed brass piping, each rise within the standard
+  jump budget (MAP_TRAVERSAL §1.1). No verticality gimmick beyond the steps themselves.
+flavor: "Veins of brass piping snake along every terrace here, still faintly warm to the touch."

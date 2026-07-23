@@ -1,0 +1,11 @@
+id: drop_mob_210
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone/pool row
+owner: mob_210
+rows:
+  # shards guaranteed. mean_shards_normal(68)=round(1.5*68+3)=105; range=[round(0.8*m),round(1.2*m)] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 84, qty_max: 126 }
+  # 1 region material, common (DROPS §5.1)
+  - { ref: item_etc_0170, chance: common, qty_min: 1, qty_max: 2 }
+  # a use item (tonic) at rare (DROPS §5.1); arc-2 Lv 66-80 tonic band
+  - { ref: item_use_0019, chance: rare, qty_min: 1, qty_max: 1 }

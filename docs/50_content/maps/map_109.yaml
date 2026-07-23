@@ -1,0 +1,43 @@
+id: map_109
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Sunken Canopy, Root Shelf
+region: gloomwood
+map_type: field
+level_band: { min: 25, max: 26 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 32 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_web_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+  - { id: from_clockwork, tile: [140, 10] }   # MAP_CONNECTIONS §7 terminus: Clockwork's Mainspring (map_144) drop-chute lands here, dead_end authored on that side
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_108
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_110
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_canopy_root_shelf
+    rect_tiles: { x: 26, y: 22, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_078, count: 3 }
+      - { mob: mob_079, count: 3 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  The floor drops a full band lower here, roots forming a wide shelf below the canopy
+  proper; the descent stays within the doubled water_physics-free jump budget
+  (MAP_TRAVERSAL §1.1). A high, disused ledge above the shelf is where the Clockwork
+  drop-chute (MAP_CONNECTIONS §7) surfaces -- unreachable from ground level, one-way only.
+flavor: "The wood sinks into a hollow here, roots stacked like shelving in some buried library no one built."

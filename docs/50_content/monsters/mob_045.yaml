@@ -1,0 +1,44 @@
+id: mob_045
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Mirewarden Elder
+tier: elite                       # ID slot 045 = R3 elite (ID_REGISTRY Monsters)
+element: nature                   # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 15
+size_class: large
+stats:                            # §13 normal Lv 15 x §13.2 elite multipliers
+  life: 7770                      # 1295 x6
+  power: 77                       # 51 x1.5 (round)
+  spellpower: 77                  # parity (§13); nature casts scale on magic
+  armor: 100                      # reallocated toward warding (caster); sum 234 = 12*15 x1.3
+  warding: 134                    # 234 - 100 (§13 permits armor/warding reallocation)
+  precision: 66                   # 60 x1.1
+  evasion: 5.5                    # 3.5 + 2% (§13.2 elite)
+  exp: 675                        # exp_per_kill_normal(15)=135 x5 (LEVELING §3 elite)
+ai_profile: support_caller        # tends its grove-kin, buffing and warding over fighting you (AI_BEHAVIOR §11)
+ai_params:
+  support_radius: 6
+  cast_cooldown_s: 6
+  retreat_range: 6
+abilities:
+  - id: grove_ward
+    name: Grove Ward
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.3
+    effects:                      # buff ops affect allies in the shape (SKILL_EFFECTS §2 class filter)
+      - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
+      - { op: apply_status, status: regen, chance: 1.0, dur: 10 }
+  - id: venom_bloom
+    name: Venom Bloom
+    targeting: { shape: aoe_circle, radius: 3, origin: self }
+    cooldown: 8.0
+    telegraph_s: 1.1
+    effects:                      # self-defense when a player closes inside support_radius
+      - { op: deal_damage, element: nature, mult: 1.2 }
+      - { op: apply_status, status: poison, chance: 0.8, dur: 10, stacks: 2 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # caster elite: +cast +telegraph +spawn
+drop_table: drop_mob_045
+flavor: "A moss-bearded elder of the mire, more root than limb, who would rather nurse its brood than notice you at all. Cross into its grove and it wreathes its kin in green vigor, then blooms a cloud of spores in your face and shuffles out of reach."

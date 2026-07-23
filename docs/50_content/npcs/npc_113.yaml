@@ -1,0 +1,12 @@
+id: npc_113
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Scout Halven Grey
+region: voidshore
+map: map_293
+role: handler
+dialog:
+  greeting: "Eclipse Reach eats scouting parties whole. Glad to see one still standing."
+  farewell: "Watch the shallows -- the lungers don't announce themselves."
+portrait: portrait_npc_113
+flavor: "Halven runs a one-tent camp at Eclipse Reach, trading commissions for anyone willing to thin the shore ahead of him."

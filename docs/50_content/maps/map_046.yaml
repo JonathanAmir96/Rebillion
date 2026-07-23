@@ -1,0 +1,49 @@
+id: map_046
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hollow Path, Outskirts
+region: verdant
+map_type: field
+level_band: { min: 8, max: 9 }           # first field; R3 fields ascend 8->16 across 046-060
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 140, h: 28 }
+bgm: bgm_verdant_hollow                   # field/dungeon pattern bgm_<biome_key> (MAPS_SYSTEM §5)
+ambience: [amb_leaves, amb_birdsong]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 20] }
+portals:
+  - id: to_mossmere_square
+    kind: edge
+    at: { edge: left }
+    target_map: map_043
+    target_spawn: main
+    dead_end: false
+  - id: to_mossy_steps
+    kind: edge
+    at: { edge: right }
+    target_map: map_047
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: outskirts_lower
+    rect_tiles: { x: 30, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_028, count: 3 }        # normal, Lv8 (parallel monster batch)
+      - { mob: mob_029, count: 2 }        # normal, Lv8
+    max_concurrent: 6                      # field default (SPAWN §4)
+interactables:
+  - type: sign
+    id: sign_trailhead_046
+    at_tile: [22, 19]
+    params:
+      text: "Mossmere behind you, the hollow proper ahead. Ferns thicken past this marker -- keep your footing."
+      interact_prompt: Read
+npcs: [npc_038]
+platform_brief: |
+  Two low fern-terraces stepped by ~2-tile rises, each crossable in a single running jump
+  (MAP_TRAVERSAL §1.1: gaps <=5 tiles horizontal / <=3.5 tiles rise). Terrain is foothold
+  segments under painted moss terrain_chunks (ART_BIBLE AB-001). A one-way drop-ledge
+  mid-map shortcuts to the lower spawn cluster; no rope/ladder on this opener.
+flavor: "Sunlight still finds the ground here, dappled through a thin high canopy that only thickens further in."

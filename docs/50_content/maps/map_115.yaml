@@ -1,0 +1,41 @@
+id: map_115
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hollow Trunk Warrens, Outer Bole
+region: gloomwood
+map_type: dungeon
+level_band: { min: 26, max: 27 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_wood_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 42] }
+portals:
+  - id: to_dead_light
+    kind: edge
+    at: { edge: top }
+    target_map: map_111
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_116
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: trunk_warrens_outer_bole
+    rect_tiles: { x: 20, y: 32, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_080, count: 2 }
+      - { mob: mob_082, count: 3 }
+    max_concurrent: 8
+npcs: [npc_060]
+platform_brief: |
+  A hollowed-out trunk interior, ring-shaped chambers stacked in 2-3 tile rises within the
+  standard jump budget (MAP_TRAVERSAL §1.1). Denser dungeon combat pacing than the fields
+  (SPAWN §2). No rope/ladder required on the main line.
+flavor: "The trunk's dead heartwood has rotted into a warren of ring-shaped chambers, each one darker than the last."

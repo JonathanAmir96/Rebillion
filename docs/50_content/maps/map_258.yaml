@@ -1,0 +1,42 @@
+id: map_258
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Skyroad Remnant
+region: arcane_reach
+map_type: field
+level_band: { min: 61, max: 62 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 175, h: 28 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_broken_stair
+    kind: edge
+    at: { edge: left }
+    target_map: map_257
+    target_spawn: main
+    dead_end: false
+  - id: to_drowned_glyphs
+    kind: edge
+    at: { edge: right }
+    target_map: map_259
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: skyroad_remnant_stretch
+    rect_tiles: { x: 34, y: 18, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_188, count: 2 }
+      - { mob: mob_189, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A cracked span of the old sky-road, wide and level under painted terrain_chunks
+  (ART_BIBLE AB-001). Two low terraces stepped by ~2-tile rises, every gap well within the
+  standing-jump cap (MAP_TRAVERSAL §1.1). No verticality gimmick.
+flavor: "Whatever once connected this span to the rest of the sky-roads has long since fallen -- it just ends, mid-air, past the far edge."

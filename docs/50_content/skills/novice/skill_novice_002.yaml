@@ -1,0 +1,33 @@
+id: skill_novice_002
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Tumble                       # exact JOBS.md §6 novice-kit roster name
+line: novice
+tier: novice
+kind: active
+targeting: self                    # roster target `self` (SKILL_SYSTEM §6); dashes/leaps affect only the caster
+cost: { essence: 5 }
+cooldown: 4.0
+level_data:
+  - level: 1
+    essence_cost: 5
+    cooldown: 4.0
+    effects:
+      - { op: dash, distance: 3, iframes: true }   # i-frame dodge-roll (SKILL_EFFECTS §9); distance is interpolatable (SKILL_SYSTEM §4)
+  - level: 4
+    essence_cost: 7
+    cooldown: 3.5
+    effects:
+      - { op: dash, distance: 4, iframes: true }
+  - level: 7
+    essence_cost: 8
+    cooldown: 3.2
+    effects:
+      - { op: dash, distance: 4, iframes: true }
+  - level: 10
+    essence_cost: 8
+    cooldown: 3.0
+    effects:
+      - { op: dash, distance: 5, iframes: true }   # distance non-decreasing, cooldown non-increasing (§4 warn)
+animation: skill_novice_002_cast
+flavor: "A quick roll out of harm's way, learned the hard way by every trainee who ever stood in front of a training dummy's swing."

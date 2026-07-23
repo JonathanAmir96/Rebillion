@@ -1,0 +1,47 @@
+id: map_190
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Gearworks, Flywheel Hall
+region: clockwork
+map_type: dungeon
+level_band: { min: 39, max: 40 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_dust]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 40] }
+portals:
+  - id: to_threshold_vault
+    kind: edge
+    at: { edge: left }
+    target_map: map_189
+    target_spawn: main
+    dead_end: false
+  - id: to_proving_floor
+    kind: edge
+    at: { edge: right }
+    target_map: map_191
+    target_spawn: main
+    dead_end: false
+  - id: to_brass_reliquary
+    kind: door
+    at: { tile: [40, 12] }
+    target_map: map_198
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: flywheel_hall_zone
+    rect_tiles: { x: 20, y: 30, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_142, count: 2 }
+      - { mob: mob_143, count: 2 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  A tall hall of counter-rotating flywheels; a raised gantry above the main floor hides
+  the reliquary door. No rope/ladder needed — the gantry stair stays within the standard
+  jump budget (MAP_TRAVERSAL §1.1).
+flavor: "Twin flywheels still spin against each other here, close enough to shear a careless hand clean off."

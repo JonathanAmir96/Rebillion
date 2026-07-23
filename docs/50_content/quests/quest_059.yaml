@@ -1,0 +1,22 @@
+id: quest_059
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS, JOBS]
+name: The Bulwark's Vow
+region: ashfall
+quest_type: main
+giver_npc: npc_062                # Master Bram, the Bulwark line's home-town instructor (WORLD_PLAN §Job instructors)
+level_requirement: 8
+recommended_level: 8
+steps:                            # 1st advancement pilgrimage (JOBS §1) -- no combat requirement at Lv8 this deep into Ashfall
+  - type: reach
+    target: map_126
+    zone: shield_rack
+    count: 1
+rewards:
+  exp: 396                       # round(0.20 * 1,980); main band 15-30% of exp_to_next(8) (LEVELING §1 / QUESTS §4)
+  shards: 225                    # main = mean_shards_normal(8)*15 = 15*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0001, qty: 3 }   # a Bulwark's first gift: three Lesser Life Tonics for the walk back
+flavor: "Every novice who takes the coach this far is making the boldest trip of the pilgrimage, and Master Bram never lets one forget it."
+offer_text: "You came all this way on a novice's legs -- that already says something. Stand at the rack and swear the vow; I'll see you sworn a Bulwark."
+complete_text: "Said and meant. Wear that shield like it's already saved you once -- it will, soon enough."

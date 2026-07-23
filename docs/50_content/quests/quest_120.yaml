@@ -1,0 +1,21 @@
+id: quest_120
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: What the Tidesunder Leaves
+region: voidshore
+quest_type: main
+giver_npc: npc_120
+# Authored as an ordinary one-time quest per QUESTS.md §7 launch policy; RAID.md §3 frames the handler quest as a repeatable clear wrapper -- that reconciliation is QUESTS.md's own open question, not resolved here (see QUESTS.md Open Questions).
+level_requirement: 70
+recommended_level: 70
+prereqs: [quest_119]
+steps:
+  - type: kill
+    target: mob_234
+    count: 1
+rewards:
+  exp: 180360  # round(0.18 * 1,002,000); main band 15-30% (QUESTS §4)
+  shards: 1620  # mean_shards_normal(70)*15 = 108*15 (QUESTS §5 / DROPS §3)
+flavor: "Ossuin keeps a standing account with every party that walks the Voidtide chain to its end and comes back having felled Nyxaris herself."
+offer_text: "Fell Nyxaris at the end of the chain and come tell me yourself. I'll see the Redoubt hears of it too."
+complete_text: "The Tidesunder, felled. Rest a moment -- then gather your party again, if the Maw still calls to you."

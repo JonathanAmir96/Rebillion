@@ -1,0 +1,12 @@
+id: npc_084
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS, RAID, PERSISTENCE]
+name: Herald Torvane Cogsworn
+region: clockwork
+map: map_194
+role: handler
+dialog:
+  greeting: "The Mainspring doesn't open for one alone. Muster a party, prove your steel, and I'll see you through the gate."
+  farewell: "Ice and iron have no place here -- brass and patience. Come back with all of them ticking."
+portrait: portrait_npc_084
+flavor: "Torvane has called musters into the Mainspring since the muster hall first held a torch, and keeps a tally of every clear on the gate itself."

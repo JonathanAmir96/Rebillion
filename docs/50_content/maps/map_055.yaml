@@ -1,0 +1,49 @@
+id: map_055
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Toadstool Marsh
+region: verdant
+map_type: field
+level_band: { min: 12, max: 13 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 155, h: 30 }
+water_physics: false
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_bramblewood
+    kind: edge
+    at: { edge: left }
+    target_map: map_054
+    target_spawn: main
+    dead_end: false
+  - id: to_stagnant_mire
+    kind: edge
+    at: { edge: right }
+    target_map: map_056
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: toadstool_marsh_flat
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_037, count: 3 }        # shares mob_037 with bramblewood
+      - { mob: mob_038, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_toadstool_marsh
+    at_tile: [24, 21]
+    params:
+      text: "Toadstools the size of dinner plates crowd the mud here. Some glow faintly after dusk -- best not to touch."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A soft marsh flat with two low root-terraces (~2-tile rises), well within the 5-tile/
+  3.5-tile jump caps (MAP_TRAVERSAL §1.1). Foothold segments dressed in mud/toadstool
+  terrain_chunks (ART_BIBLE AB-001); ordinary gravity applies (not a Sunken Depths map).
+flavor: "Giant toadstools crowd every soft patch of ground, glowing faint blue-green once the light goes."

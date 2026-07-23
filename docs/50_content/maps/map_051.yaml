@@ -1,0 +1,48 @@
+id: map_051
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Weeping Willows
+region: verdant
+map_type: field
+level_band: { min: 10, max: 11 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 150, h: 30 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_root_hollow
+    kind: edge
+    at: { edge: left }
+    target_map: map_050
+    target_spawn: main
+    dead_end: false
+  - id: to_mosswatch_ridge
+    kind: edge
+    at: { edge: right }
+    target_map: map_052
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: weeping_willows_grove
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_033, count: 3 }        # shares mob_033 with root hollow
+      - { mob: mob_034, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_weeping_willows
+    at_tile: [22, 21]
+    params:
+      text: "The willows here bow low over the path, trailing fronds thick enough to hide anything waiting beneath."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Trailing willow-fronds hang low over two low terraces (~2-tile rises), within the
+  standard 5-tile/3.5-tile jump caps (MAP_TRAVERSAL §1.1). Foothold segments dressed in
+  root/moss terrain_chunks (ART_BIBLE AB-001); no rope/ladder needed on this stretch.
+flavor: "The willows droop so low that walking here feels like ducking through curtains, over and over."

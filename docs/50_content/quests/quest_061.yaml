@@ -1,0 +1,19 @@
+id: quest_061
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Swarm at the Gate
+region: ashfall
+quest_type: side
+giver_npc: npc_067                # Scout Kessa, camped just past Cindershelf's gate
+level_requirement: 26
+recommended_level: 26
+steps:
+  - type: kill
+    target: mob_088
+    count: 8
+rewards:
+  exp: 2995                      # round(0.07 * 42,780); side band 5-10% of exp_to_next(26) (LEVELING §1 / QUESTS §4)
+  shards: 168                    # side = mean_shards_normal(26)*4 = 42*4 (QUESTS §5 / DROPS §3)
+flavor: "Cinder swarmlings breed fast enough to choke the road if no one thins them, and Kessa's tired of doing it alone."
+offer_text: "Fresh recruit, are you? Good timing -- the swarmlings are nesting thick along the approach. Cull them and I'll make it worth the ash in your boots."
+complete_text: "Quieter already. Cindershelf owes you a round at the Kilnwarm for that, though I doubt they'll pay it."

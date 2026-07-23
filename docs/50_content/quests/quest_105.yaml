@@ -1,0 +1,24 @@
+id: quest_105
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Steel That Won't Slip
+region: arcane_reach
+quest_type: side
+giver_npc: npc_105                # Forgewright Talla, Highrune Sanctum
+level_requirement: 60
+recommended_level: 60
+steps:                            # parallel: the ore comes off the same brood you're asked to thin
+  - type: kill
+    target: mob_186
+    count: 8
+  - type: collect
+    target: item_etc_0152
+    count: 6
+rewards:
+  exp: 45510                      # round(0.075 * exp_to_next(60)=606,800); side band (QUESTS §4)
+  shards: 372                     # mean_shards_normal(60)*4 = 93*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }
+flavor: "Talla's forge wants shard-ore that hasn't gone brittle, and the brood denning near it keeps chasing off her runners."
+offer_text: "Can't forge with ore I can't reach. Clear the brood off the vein and bring me what's left uncracked."
+complete_text: "Clean ore, quiet vein. This'll temper into something worth carrying."

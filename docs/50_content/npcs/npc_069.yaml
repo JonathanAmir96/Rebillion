@@ -1,0 +1,12 @@
+id: npc_069
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Dredger Thom
+region: sunken
+map: map_152
+role: handler
+dialog:
+  greeting: "Mind the current past the camp line -- we lost enough gear to it already."
+  farewell: "Bring back what you can carry. The tide keeps the rest."
+portrait: portrait_npc_069
+flavor: "Thom has run the Sunken Depths salvage camp since the first crew found the drowned gate, and has buried more gear than he's recovered."

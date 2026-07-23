@@ -1,0 +1,26 @@
+id: quest_051
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Coss's Trap-Lines
+region: gloomwood
+quest_type: main
+giver_npc: npc_056
+level_requirement: 21
+recommended_level: 21
+steps:
+  - type: kill
+    target: mob_071
+    count: 10
+  - type: collect
+    target: item_etc_0067
+    count: 6
+  - type: talk
+    target: npc_058
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 5643    # round(0.25 * 22,572); main band 15-30% of exp_to_next(21)=22,572 (LEVELING §1); pct=0.25
+  shards: 525   # main = mean_shards_normal(21)*15 = 35*15 (QUESTS §5 / DROPS §3)
+flavor: "Coss's trap-lines are being torn apart faster than she can reset them, and she suspects it's more than one culprit."
+offer_text: "Clear what's chewing my lines and bring proof. And while you're at it -- go rattle Rowe's cage for me, see what he knows."
+complete_text: "Rowe's as tight-lipped as ever, but the lines will hold now. You've earned your keep."

@@ -55,7 +55,7 @@ contracts others consume, Sonnet where judgment fills a fixed contract):
    session tokens, character-select and the 3-slot model, reconnect, ban/lockout,
    and the offline→online one-way import (PERSISTENCE.md §9) validation pass.
 3. WORLD_CHANNELS.md — Sonnet (contract fixed by doc 1). Channel-server model: channels
-   per world, map instances and the party-quest instances (pq_undervault, pq_mainspring),
+   per world, map instances and the raid instances (raid_undervault, raid_mainspring),
    channel selection/switching, cross-channel state (party, chat, market), handoff on
    map transition, capacity targets.
 4. DATABASE_PERSISTENCE.md — Opus. Map every row of PERSISTENCE.md §2's server truth

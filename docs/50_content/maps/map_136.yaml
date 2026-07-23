@@ -1,0 +1,53 @@
+id: map_136
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Vent Mouth Flats
+region: ashfall
+map_type: field
+level_band: { min: 30, max: 30 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 150, h: 26 }
+bgm: bgm_ashfall
+ambience: [amb_wind, amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 20] }
+portals:
+  - id: to_135
+    kind: edge
+    at: { edge: left }
+    target_map: map_135
+    target_spawn: main
+  - id: to_137
+    kind: edge
+    at: { edge: right }
+    target_map: map_137
+    target_spawn: main
+    # Cinder Vent Antechamber branch (dungeon chain continues the gradient, MAPS_SYSTEM §2)
+  - id: to_cinder_vents
+    kind: edge
+    at: { tile: [80, 15] }
+    target_map: map_142
+    target_spawn: main
+spawn_zones:
+  - id: map_136_zone
+    rect_tiles: { x: 30, y: 16, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_096, count: 3 }
+      - { mob: mob_097, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_vent_mouth
+    at_tile: [78, 18]
+    params:
+      text: "Warden Tolvic's camp marks the vent mouths -- the cinder tunnels run deep and hot from here."
+      interact_prompt: "Read"
+npcs: []
+platform_brief: |
+  Two low ash terraces stepped by ~2-tile rises, each crossable in a single running jump
+  (MAP_TRAVERSAL §1.1: gaps <=5 tiles horizontal / <=3.5 tiles rise). Terrain is foothold
+  segments under painted ash terrain_chunks (ART_BIBLE AB-001). No rope/ladder needed;
+  footing holds firm despite the heat-shimmer.
+flavor: "Cracked vents hiss steam and cinder-smoke along this flat, and an old warden's camp watches over the mouths that lead down."

@@ -199,6 +199,52 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
 - **Bounded worst-case costs.** Enhancement pity (`10_systems/ENHANCEMENT.md` §3) caps the fee a
   single upgrade can demand, so no sink is an infinite `shards` pit (P2).
 
+## 7. Transport fares (v3 — coach, ferry, longship)
+
+Records the paid-transport `shards` fares that `docs/WORLD_PLAN.md` delegates to this doc (its
+Coachworks and ferry paragraphs point here; the numbers were previously unwritten — this section
+fills that standing delegation) and adds the arc-2 `longship` rows. **Rules** for each mode
+(portal semantics, scheduling, spawns, the free-ride flag) are `15_maps_system/MAP_CONNECTIONS.md`'s
+transport taxonomy + §8; this section owns only the numbers. All fares are `shards`, charged at
+boarding, server-authoritative (`10_systems/PERSISTENCE.md`). Travel is a low-friction loop
+(`00_vision/PILLARS.md` P3), so a fare is a **light convenience sink**, not a wall — every fare
+below is a small fraction of at-level income (§5), and for the scheduled `longship` the real-time
+sail (`15_maps_system/MAP_CONNECTIONS.md` §8), not the shards, is the trip's true cost.
+
+### 7.1 Ferry & coach (paid, instant)
+
+| Mode | Fare | Note |
+|---|---|---|
+| Harborwind Ferry (Emberfoot ↔ Rosen Harbor, `map_015`) | 40 | Flat; the small crossing fare `docs/WORLD_PLAN.md` previews (Lv ~8 band — ≈ 30 s of Lv 10 income, §5). |
+| Coach — 1 ring segment | 120 | Adjacent Harthmoor Coachworks stations. |
+| Coach — 2 ring segments | 220 | |
+| Coach — 3+ ring segments | 320 | Longest ring hop (e.g. Cindershelf ↔ Tidewatch Port). |
+
+Coach ring-distance = number of ring-road segments between the two stations (station adjacency per
+`docs/WORLD_PLAN.md`). The one free Rosen Harbor→instructor-town ride (the advancement pilgrimage)
+is `docs/WORLD_PLAN.md`'s rule; this table charges every other ride. First-pass, anchored so even
+the longest coach hop is well under a minute of in-band income (§5) — coaches are a convenience
+shortcut, a minor sink by design (P3), never a gate.
+
+### 7.2 Longship (paid, scheduled — arc-2 island network)
+
+Fare scales with **route length**; the concrete `route_id`→length-class assignment and endpoint
+maps live in `docs/WORLD_PLAN.md`'s arc-2 edge table (cited, never restated here). Anchored to the
+arc-2 band (Lv 40–80) income (§5) and `mean_shards_normal` back-solved from §3's enhancement
+`base_fee` (`mean_shards_normal(40) ≈ 63`, `(70) ≈ 108`): each fare is well under a minute of
+at-level income, keeping the scheduled ride — not the shards — the trip's real cost.
+
+| Route length class | Fare | ≈ anchor |
+|---|---|---|
+| Short (1 hop — Harthmoor pier ↔ nearest new-island port) | 300 | ≈ 5 × `mean_shards_normal(40)` |
+| Medium (2 hops) | 500 | ≈ 8 × |
+| Long (inter-island, 3+ hops) | 800 | ≈ 13 × (≈ 45 s of Lv 50 income, §5) |
+
+**Free first crossing (adopted):** each character's **first** longship crossing after completing
+the Lv 40 2nd advancement is waived by the pier officer — the arc-2 counterpart to
+`docs/WORLD_PLAN.md`'s free advancement-pilgrimage coach ride. One-time, per-character,
+server-authoritative flag (`10_systems/PERSISTENCE.md`); every later crossing pays the table fare.
+
 ## Open Questions
 
 - Every number here (starting `shards`, fee coefficients, tonic prices, `base_buy`, the 18
@@ -216,3 +262,14 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
   balanced against §2.
 - Whether stat reallocation should be cheaper/free below some level (to lower the early
   experimentation barrier) is open; default is the flat `50·L` curve (§3.1).
+- §7 fares (ferry 40; coach 120/220/320 by ring distance; longship 300/500/800 by route length)
+  are first-pass, anchored to §5 income and §3's `mean_shards_normal`. §7.1 also *fills*
+  `docs/WORLD_PLAN.md`'s previously-unwritten ferry/coach fare delegation; if that owner intended a
+  different band, retune here (never the `10_systems/DROPS.md` faucet). Route→length-class mapping
+  for §7.2 is `docs/WORLD_PLAN.md`'s arc-2 edge table's; confirm the class count matches the fare
+  tiers when that table lands.
+- §7.2 free-first-crossing is adopted (mirrors the free pilgrimage coach ride). The exact trigger
+  is "Lv 40 2nd-advancement completed" flag; if `10_systems/JOBS.md` keys the advancement
+  differently, align the flag. Whether the waiver should instead attach to the Deepway
+  (`15_maps_system/MAP_CONNECTIONS.md` §9, the free walking route) rather than the paid longship is
+  a minor call — default keeps it on the longship (the paid mode, where a waiver is meaningful).

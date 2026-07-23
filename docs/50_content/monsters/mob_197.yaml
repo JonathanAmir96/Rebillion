@@ -1,0 +1,27 @@
+id: mob_197
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Astral Sentinel
+tier: normal                     # ID slot 197 = R10 normal (ID_REGISTRY Monsters)
+element: arcane                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [shadow]
+resists: [arcane]                # ELEMENTS §2 (mutually exclusive lists)
+level: 67
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 67
+  life: 19600                    # 4*(67+3)^2
+  power: 207                     # 6+3*67
+  spellpower: 207                # 6+3*67 (parity; magic attacker, §13)
+  armor: 402                    # 6*67  (armor+warding sum = 804 = 12*67)
+  warding: 402                  # 6*67
+  precision: 268                # 4*67
+  evasion: 5.01                 # 3+0.03*67 (%)
+  exp: 946                     # round(4*67^1.3) normal (LEVELING §3)
+ai_profile: stationary_turret
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 9
+  attack_cooldown_s: 2.0
+  windup_s: 0.6
+animation_states: [idle, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_197
+flavor: "A watcher-eye of fused starlight anchored to a high shard, sweeping the void with a beam that has kept the same patient arc for a thousand years."

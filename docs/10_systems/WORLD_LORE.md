@@ -37,7 +37,7 @@ As the tick slowed, district by district lost power, light, and warmth, and the 
 for Harthmoor's open coast rather than freeze in the dark gearworks. The evacuation was
 orderly enough that the wardens were never given a stand-down order. The Custodian and its
 kin are still ticking through duties for citizens who left centuries ago, waiting on an
-order that will not come. `pq_mainspring`'s trial threads the last chambers around the
+order that will not come. `raid_mainspring`'s trial threads the last chambers around the
 spring itself.
 
 ## 5. The Drowned Kingdom (Sunken Depths)
@@ -45,7 +45,7 @@ Long before Harthmoor's ring towns, a seafaring kingdom held the coast where Tid
 stands. Its capital sank when the shelf beneath it gave way — whether storm, subsidence, or
 something else is lost with it. The Drowned Warden was that kingdom's last gatekeeper, posted
 at its final door and never relieved; it keeps that post still, in the bioluminescent gloom
-below the coast, guarding a threshold whose far side no living soul has seen. `pq_undervault`
+below the coast, guarding a threshold whose far side no living soul has seen. `raid_undervault`
 and the Cellar King's flooded grain-stores are a smaller, later echo of the same coastline
 giving way beneath Millbrook.
 
@@ -70,6 +70,6 @@ cinders that keep the dunes hot and the spires charred.
 - Whether the Drowned Kingdom and the Clockwork civilization are the same people at two
   different eras (coastal capital vs. inland engine-city) or entirely unrelated is not fixed
   here; flavor text should treat them as unrelated until an owner resolves it.
-- Whether `pq_undervault`'s flooded stores are literally connected to Sunken Depths' water
+- Whether `raid_undervault`'s flooded stores are literally connected to Sunken Depths' water
   table (one drowning, one system) or merely a thematic echo is unresolved; content should
   not assert a literal tunnel between them without this being settled.

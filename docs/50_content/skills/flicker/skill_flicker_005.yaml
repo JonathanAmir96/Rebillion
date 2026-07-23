@@ -1,0 +1,31 @@
+id: skill_flicker_005
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Sleight                      # exact JOBS.md §5.1 first-job roster name
+line: flicker
+tier: first
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  # two passive_stat_bonus effects (§2 "multiple same-op effects are allowed"): `crit_rate` is
+  # pct-valued (weaver_020 Combustion precedent) while `evasion` is a flat rating (flicker_020
+  # Untouchable precedent) — split so each carries its correct `mode`.
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_rate: 0.01 }, mode: pct }   # STATS.md token (SKILL_EFFECTS §13); first-job kit, smaller than spec-tier bands
+      - { op: passive_stat_bonus, stats: { evasion: 1 }, mode: flat }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_rate: 0.02 }, mode: pct }
+      - { op: passive_stat_bonus, stats: { evasion: 2 }, mode: flat }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_rate: 0.03 }, mode: pct }
+      - { op: passive_stat_bonus, stats: { evasion: 3 }, mode: flat }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_rate: 0.04 }, mode: pct }
+      - { op: passive_stat_bonus, stats: { evasion: 4 }, mode: flat }
+flavor: "A pickpocket's light hands and lighter feet — a Flicker who's just a bit harder to pin down and a bit luckier in the clinch."

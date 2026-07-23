@@ -1,0 +1,16 @@
+id: npc_098
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Hearthkeep Ossra
+region: arcane_reach
+map: map_246
+role: innkeeper
+shop:
+  items: [item_use_0017, item_use_0011]
+services: [inn_rest]
+dialog:
+  greeting: "Bed's warm, tea's warmer -- the shard-wind doesn't reach past my door."
+  idle: "Half my guests swear the floor tilted in the night. It didn't. Probably."
+  farewell: "Sleep light if you must, but sleep."
+portrait: portrait_npc_098
+flavor: "Ossra keeps the only inn built low and heavy against the drift, out of stubborn distrust of anything that floats."

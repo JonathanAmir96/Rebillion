@@ -1,0 +1,16 @@
+id: drop_mob_228
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT]   # elite table has an emberstone row
+owner: mob_228
+rows:
+  # shards guaranteed, elite x4. mean_shards_normal(78)=120; x4 mean=480; +-20% (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 384, qty_max: 576 }
+  # 2 region materials, elites are the material-density farm (DROPS §5.2)
+  - { ref: item_etc_0163, chance: common, qty_min: 1, qty_max: 3 }
+  - { ref: item_etc_0175, chance: uncommon, qty_min: 1, qty_max: 2 }
+  # one emberstone of the region tier, uncommon (DROPS §5.2, ENHANCEMENT §1)
+  - { ref: item_etc_0197, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one pool roll, rarity_source elite (DROPS §5.2/§5.5, §6)
+  - { ref: pool_equip_r11, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: elite }
+  # a use item, uncommon (DROPS §5.2)
+  - { ref: item_use_0019, chance: uncommon, qty_min: 1, qty_max: 1 }

@@ -1,0 +1,20 @@
+id: quest_040
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Clear the Causeway
+region: tidewatch
+quest_type: side
+giver_npc: npc_044
+level_requirement: 15
+recommended_level: 15
+prereqs: [quest_039]
+steps:
+  - type: kill
+    target: mob_050
+    count: 8
+rewards:
+  exp: 614                  # round(0.07 * 8775); band per QUESTS §4 at Lv15
+  shards: 104                # mean_shards_normal(15)*4 = 26*4 (QUESTS §5 side / DROPS §3)
+flavor: "Brinemaw gars have taken to lying motionless in the causeway shallows and striking at anything that wades past."
+offer_text: "Thin the gars back from the causeway crossing so the cart teams can wade it without losing a horse to the bite."
+complete_text: "Manifests moving on schedule again, and no more torn fetlocks. The harbormaster's office thanks you, quietly."

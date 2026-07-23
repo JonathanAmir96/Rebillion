@@ -1,0 +1,28 @@
+id: skill_bulwark_020
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Sentinel's Aura
+line: bulwark
+tier: second
+kind: passive
+# NOTE: skill.schema.md §Fields cites `skill_bulwark_019` as its party_aura example, but the
+# JOBS.md §2.3 roster puts the `party_aura` passive_stat_bonus at `020` ("Sentinel's Aura") and
+# `019` ("Unyielding") is a self-target `on_hit_proc` passive. Authored per the roster (this doc's
+# ground truth); flagged as a cross-doc numbering mismatch for the schema owner to reconcile.
+targeting: party                  # party targeting requires passive_stat_bonus scope party_aura (skill.schema rule 5)
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.05, warding: 0.05 }, mode: pct, scope: party_aura }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.07, warding: 0.07 }, mode: pct, scope: party_aura }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.09, warding: 0.09 }, mode: pct, scope: party_aura }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.12, warding: 0.12 }, mode: pct, scope: party_aura }
+flavor: "The Stoneguard's stance radiates outward, lending its hardness to everyone nearby. The wall grows to fit the party."

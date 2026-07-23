@@ -1,0 +1,34 @@
+id: skill_flicker_014
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Whirlblade                    # exact JOBS.md §5.3 Wildcard roster name (skill.schema rule 1)
+line: flicker
+tier: second                        # Wildcard is a 2nd-advancement (Lv 40) spec (JOBS §1, SKILL_SYSTEM §2)
+kind: active
+targeting: { shape: melee_arc, arc_degrees: 180, radius: 2.0 }   # a full-circle whirl compressed into the widest melee_arc (SKILL_SYSTEM §6, 60-270 range)
+cost: { essence: 15 }
+cooldown: 7.0
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 15
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 0.50, hits: 3 }   # multi-hit pack clear; scales on power (dirk default, §1)
+  - level: 4
+    essence_cost: 18
+    cooldown: 6.5
+    effects:
+      - { op: deal_damage, element: neutral, mult: 0.65, hits: 3 }
+  - level: 7
+    essence_cost: 22
+    cooldown: 6.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 0.80, hits: 3 }
+  - level: 10
+    essence_cost: 26
+    cooldown: 5.5
+    effects:
+      - { op: deal_damage, element: neutral, mult: 0.95, hits: 3 }
+animation: skill_flicker_014_cast
+flavor: "A Wildcard spins through a whole pack at once, steel flashing in every direction — no shadows needed when you can just outfight the crowd."

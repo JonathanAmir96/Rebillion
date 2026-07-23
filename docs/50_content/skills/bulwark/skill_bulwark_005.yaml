@@ -1,0 +1,24 @@
+id: skill_bulwark_005
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Toughened                    # exact JOBS.md §2.1 first-job roster name
+line: bulwark
+tier: first
+kind: passive                      # passive shape: cost 0, cooldown 0, targeting self (skill.schema rule 5)
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { life: 0.02 }, mode: pct }   # STATS.md stat token (SKILL_EFFECTS §13); smaller than spec-tier bands, first-job kit
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { life: 0.03 }, mode: pct }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { life: 0.04 }, mode: pct }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { life: 0.05 }, mode: pct }
+flavor: "A Bulwark's hide thickens with every fight they walk away from. Nothing dramatic — just a little more room to make a mistake."

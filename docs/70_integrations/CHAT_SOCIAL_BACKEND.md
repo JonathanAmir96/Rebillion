@@ -3,7 +3,7 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, docs/VALIDATION.md §1,
 10_systems/PERSISTENCE.md, 10_systems/ECONOMY.md, 10_systems/social/CHAT.md,
 10_systems/social/PARTY.md, 10_systems/social/GUILD.md, 10_systems/social/MARKET.md,
-10_systems/social/MAIL.md, 10_systems/social/TRADING.md, 10_systems/social/PARTY_QUEST.md,
+10_systems/social/MAIL.md, 10_systems/social/TRADING.md, 10_systems/social/RAID.md,
 70_integrations/BACKEND_ARCHITECTURE.md, 70_integrations/DATABASE_PERSISTENCE.md,
 70_integrations/WORLD_CHANNELS.md, 70_integrations/NETWORK_PROTOCOL.md,
 70_integrations/ACCOUNTS_AUTH.md, docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md
@@ -167,8 +167,8 @@ degradation-stance table respectively.
   — `70_integrations/DATABASE_PERSISTENCE.md` §3.3 owns this classification (a party has no durable
   table; it is ephemeral by design, `10_systems/social/PARTY.md` §1 — a party of 1 auto-disbands).
   Only the wallet/item *results* of arbitration land durably, atomically in the character DB and
-  wallet ledger (`70_integrations/BACKEND_ARCHITECTURE.md` §5 authority mapping). PQ instance
-  lifecycle itself is `10_systems/social/PARTY_QUEST.md` §5's and lands on instance workers, not
+  wallet ledger (`70_integrations/BACKEND_ARCHITECTURE.md` §5 authority mapping). raid instance
+  lifecycle itself is `10_systems/social/RAID.md` §5's and lands on instance workers, not
   this tier.
 - **Cross-channel/cross-map reach.** Party chat (§3.1) and HUD-plate data
   (`10_systems/social/PARTY.md` §3) span every member's map regardless of location; exp/loot

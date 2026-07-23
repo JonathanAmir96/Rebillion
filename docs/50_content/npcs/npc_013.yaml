@@ -1,0 +1,15 @@
+id: npc_013
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Ma Thistledown
+region: millbrook
+map: map_019
+role: innkeeper
+shop:
+  items: [item_use_0001, item_use_0014]
+services: [inn_rest]
+dialog:
+  greeting: "Bed's warm and the stew's on -- sit before the road finds your knees."
+  farewell: "Mind the step, the ember's low but the floor's uneven."
+portrait: portrait_npc_013
+flavor: "Ma Thistledown has kept the Anchor & Ember's hearth lit through every hard winter Rosen Harbor's had."

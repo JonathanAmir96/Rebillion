@@ -1,0 +1,23 @@
+id: quest_085
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Mainspring's Shadow
+region: clockwork
+quest_type: main
+giver_npc: npc_082
+level_requirement: 39
+recommended_level: 39
+prereqs: [quest_084]
+steps:
+  - type: kill
+    target: mob_146
+    count: 10
+  - type: collect
+    target: item_etc_0125
+    count: 5
+rewards:
+  exp: 37908  # round(0.25*151,632) (LEVELING §1 Lv39); main band 15-30%
+  shards: 930 # main = mean_shards_normal(39)*15 = 62*15 (QUESTS §5 / DROPS §3)
+flavor: "Sable is certain the Custodian's own shadow falls across the mainspring approach, longer than the light should allow."
+offer_text: "Push into the mainspring approach proper. Bring back its guardians' cores and whatever component still ticks."
+complete_text: "It's counting down, not up. Whatever the Custodian is waiting for, I don't think it's much longer now."

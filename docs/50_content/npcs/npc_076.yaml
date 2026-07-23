@@ -1,0 +1,14 @@
+id: npc_076
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Camp Quartermaster Rell
+region: clockwork
+map: map_177
+role: merchant
+shop:
+  items: [item_use_0017, item_use_0018]
+dialog:
+  greeting: "Sovereign tonics, fresh from the last coach out of Cindershelf. You'll want them before the gate, not after."
+  farewell: "Mind the brass. It bites colder than it looks."
+portrait: portrait_npc_076
+flavor: "Rell has run the east gate's supply cache since the first survey party pushed past the hinge, and has buried three of them since."

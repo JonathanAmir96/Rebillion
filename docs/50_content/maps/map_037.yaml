@@ -1,0 +1,48 @@
+id: map_037
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
+name: Millbrook Catacombs, the Herald's Hall
+region: millbrook
+map_type: dungeon
+level_band: { min: 14, max: 14 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 65, h: 45 }
+bgm: bgm_old_town
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 36] }
+portals:
+  - id: to_refuse_tunnels
+    kind: edge
+    at: { edge: left }
+    target_map: map_036
+    target_spawn: main
+    dead_end: false
+  - id: to_undervault_stage
+    kind: door
+    at: { tile: [50, 30] }
+    target_map: map_038
+    target_spawn: main
+    dead_end: false      # raid_undervault stage entrance; the door only opens through raid herald npc_029's dialog (RAID.md §3) -- authored as an ordinary portal, no schema field models the herald gate
+  - id: to_cellar_deep
+    kind: door
+    at: { tile: [55, 40] }
+    target_map: map_042
+    target_spawn: main
+    dead_end: false      # ordinary open-entry door to the boss arena (RAID.md §7 solo fallback), separate from the raid stage chain
+spawn_zones:
+  - id: herald_hall_zone
+    rect_tiles: { x: 20, y: 28, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_023, count: 1 }
+      - { mob: mob_024, count: 1 }
+      - { mob: mob_025, count: 1 }
+    max_concurrent: 8
+npcs: [npc_029]
+platform_brief: |
+  A broad vaulted chamber where the tunnels widen into a muster ground, denser
+  combat pacing than the fields (SPAWN §2). No rope/ladder on the main line;
+  ledges stay within the standard jump budget (MAP_TRAVERSAL §1.1).
+flavor: "The Herald's Hall, where Millbrook's undervault musters gather before the sealed way down to the Cellar King's throne."

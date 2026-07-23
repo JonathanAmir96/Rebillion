@@ -1,0 +1,26 @@
+id: mob_030
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Thornvine Lasher
+tier: normal                     # ID slot 030 = R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 9
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 9
+  life: 575                      # §13 table Lv 9
+  power: 33                      # 6+3*9 (touch = round(0.5*power), neutral, §13.1)
+  armor: 66                      # reallocated toward armor (rooted, woody); sum 108 = 12*9
+  warding: 42                    # 108 - 66 (§13 permits armor/warding reallocation)
+  precision: 36                  # 4*9
+  evasion: 3.3                   # 3 + 0.03*9 (%)
+  exp: 70                        # exp_per_kill_normal(9) (LEVELING §3)
+ai_profile: territorial_guard    # anchors to its thicket and lashes what comes close (AI_BEHAVIOR §6)
+ai_params:                       # override only territorial_guard-declared tunables
+  aggro_radius: 5
+  leash_radius: 3
+  patrol_radius: 2
+animation_states: [idle, walk, attack, hit, die]   # rooted lasher: no jump/fall; normal set
+drop_table: drop_mob_030
+flavor: "A snarl of animate thorn-vine anchored to one waterlogged stump, patient as the rot it feeds on. It cannot chase, but its lash reaches a body-length further than you think, and it aims to tangle before it tears."

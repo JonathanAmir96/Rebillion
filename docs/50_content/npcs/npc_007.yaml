@@ -1,0 +1,13 @@
+id: npc_007
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Kiln Watchman Doss
+region: emberfoot
+map: map_011
+role: quest_giver
+dialog:
+  greeting: "This is as far as the open sky goes. Past me, it's tunnels and old heat."
+  idle: "The Marshal down below doesn't let anyone through who hasn't earned it."
+  farewell: "Watch the walls -- they're hotter than they look."
+portrait: portrait_npc_007
+flavor: "Doss has stood this post long enough to know the tunnel's every groan and creak, and never lets a novice through unwarned."

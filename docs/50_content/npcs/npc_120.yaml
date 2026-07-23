@@ -1,0 +1,12 @@
+id: npc_120
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Herald Ossuin Vane
+region: voidshore
+map: map_318
+role: handler
+dialog:
+  greeting: "The Voidtide chain waits beyond this door for a full party, not a lone soul. Gather one, then we'll speak of Nyxaris."
+  farewell: "Return with your party. The Maw isn't going anywhere."
+portrait: portrait_npc_120
+flavor: "Ossuin has stood watch at the sealed door into the Voidtide stage chain since the Redoubt first raised its torches, waiting on parties brave enough to ask."

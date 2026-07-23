@@ -1,0 +1,24 @@
+id: mob_020
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Plague Rat
+tier: normal                     # ID slot 020 = R2 normal (ID_REGISTRY Monsters)
+element: neutral                   # R2 mix is neutral/shadow (WORLD_PLAN R2)
+level: 11
+size_class: small
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 11
+  life: 784                     # 4*(11+3)^2
+  power: 39                     # 6+3*11 (touch = round(0.5*power), §13.1)
+  armor: 66                     # 6*11  (armor+warding sum = 132 = 12*11)
+  warding: 66                     # 6*11
+  precision: 44                 # 4*11
+  evasion: 3.33                   # 3+0.03*11 (%)
+  exp: 90                      # exp_per_kill_normal(11)=round(4*11^1.3) (LEVELING §3)
+ai_profile: pack_hunter
+ai_params:                       # override only pack_hunter-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  pack_call_radius: 9
+  pack_max_size: 5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_020
+flavor: "A rat gone sick and mean, fur matted and gums black, that runs with a larger and hungrier pack than its cellar cousins. Where these gather, the grain stores are already lost."

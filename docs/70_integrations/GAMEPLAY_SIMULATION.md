@@ -466,7 +466,7 @@ impossible), and apply **no durability loss and no `shards`
 loss** (`10_systems/DEATH_PENALTY.md` §3 — there is no durability field to touch). Respawn is at the
 character's stored **bind point** (`10_systems/DEATH_PENALTY.md` §4), set only by deliberately resting at
 a valid bind-town inn — never automatically on death. **Bind changes are validated server-side**: a rest
-request is honored only from one of the five bind towns' inn interiors; the client cannot self-assign a
+request is honored only from a valid bind town's inn interior (roster `10_systems/DEATH_PENALTY.md` §4's); the client cannot self-assign a
 bind. Party-instance deaths use the `10_systems/DEATH_PENALTY.md` §5.3 fallen/Release/re-enter override
 (the instance persists across member deaths, `10_systems/SPAWN.md` §7) rather than §4; a full-party wipe
 resets the instance (§13-here spawn ownership). Revive is reserved (`10_systems/DEATH_PENALTY.md` §6) —
@@ -487,7 +487,7 @@ worker; a vacant map parks its tick (§1.3).
   (`10_systems/SPAWN.md` §5: a respawn whose point is on-screen is *held*, not lost or re-timed, and
   resolves on the next tick the point is clear). The server owns which points are "off-screen" per each
   present player's viewport. Shared open-entry arena reset-when-empty (grace value
-  `10_systems/SPAWN.md` §3's) and PQ-instance spawn scoping (`10_systems/SPAWN.md` §7) are the same
+  `10_systems/SPAWN.md` §3's) and raid-instance spawn scoping (`10_systems/SPAWN.md` §7) are the same
   process's timers.
 - **AI advancement** — every mob's profile state machine (`10_systems/AI_BEHAVIOR.md` §1: `idle`/
   `patrol`/`chase`/`windup`/`attack`/`recover`/`flee`/`return`), aggro scans (`sight`/`proximity`/

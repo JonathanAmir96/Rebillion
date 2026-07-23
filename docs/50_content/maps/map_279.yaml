@@ -1,0 +1,48 @@
+id: map_279
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shattered Orrery, the Inner Gears
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 70, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 70, h: 68 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 60] }
+portals:
+  - id: to_middle_gears
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_278
+    target_spawn: main
+    dead_end: false
+  - id: to_unmoored_stair
+    kind: edge
+    at: { edge: top }
+    target_map: map_281
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: inner_gears_chamber
+    rect_tiles: { x: 20, y: 24, w: 32, h: 30 }
+    mobs:
+      - { mob: mob_202, count: 1 }
+      - { mob: mob_203, count: 2 }
+    max_concurrent: 8
+interactables:
+  - type: lore_marker
+    id: marker_inner_gears
+    at_tile: [18, 58]
+    params:
+      text: "At the mechanism's core, the gears turn in perfect sync with nothing at all -- whatever they once drove is long gone."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  The Orrery's innermost chamber, gears turning slow and purposeless around a dark central
+  well. One climb within the 3.5-tile rise cap (MAP_TRAVERSAL §1.1) reaches the ascent toward
+  the Unmoored Stair. Dense corridor combat (SPAWN §2).
+flavor: "Whatever the Orrery once modeled -- a sky, a season, a fall -- it has been turning through the same empty cycle for an age."

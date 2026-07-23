@@ -1,0 +1,44 @@
+id: mob_176
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Hoarfrost Matron
+tier: elite
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 56
+size_class: large
+stats:                           # §13 normal Lv 56 x §13.2 elite multipliers
+  life: 83544                    # 13924 x6
+  power: 261                     # 174 x1.5
+  spellpower: 261                # parity with power (§13); abilities scale on magic
+  armor: 437                     # 336 x1.3  (armor+warding sum ~= 12*56 x1.3)
+  warding: 437                   # 336 x1.3
+  precision: 246                 # 224 x1.1
+  evasion: 6.7                   # 4.7 + 2% (§13.2 elite)
+  exp: 3745                    # exp_per_kill_normal(56)=749 x5 (LEVELING §3 elite)
+ai_profile: support_caller
+ai_params:
+  support_radius: 7
+  cast_cooldown_s: 6
+  retreat_range: 6
+abilities:
+  - id: frost_ward
+    name: Frost Ward
+    targeting: party
+    cooldown: 11.0
+    telegraph_s: 1.3
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+      - { op: grant_shield, scaling: max_life, mult: 0.10 }
+  - id: chilling_rebuke
+    name: Chilling Rebuke
+    targeting: { shape: aoe_circle, radius: 3, origin: self }
+    cooldown: 7.0
+    telegraph_s: 1.1
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.0 }
+      - { op: apply_status, status: chill, chance: 0.7, dur: 4 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_176
+flavor: "A stooped crone of the ice-cult who wards her brood behind sheets of hoarfrost faster than you can break them down. Kill her first, or kill nothing."

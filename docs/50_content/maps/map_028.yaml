@@ -1,0 +1,49 @@
+id: map_028
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Millbrook East Road
+region: millbrook
+map_type: field
+level_band: { min: 8, max: 8 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_old_town
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 22] }
+  - { id: from_tidewatch, tile: [138, 22] }   # cross-region edge destination spawn (MAP_CONNECTIONS §2)
+portals:
+  - id: to_millbrook_central
+    kind: edge
+    at: { edge: left }
+    target_map: map_018
+    target_spawn: main
+    dead_end: false
+  - id: to_tidewatch                          # WORLD_PLAN edge table: Millbrook (east road) -> Tidewatch
+    kind: edge
+    at: { edge: right }
+    target_map: map_076
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: east_road_zone
+    rect_tiles: { x: 40, y: 16, w: 70, h: 10 }
+    mobs:
+      - { mob: mob_013, count: 3 }
+      - { mob: mob_015, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_east_road_trailhead
+    at_tile: [24, 21]
+    params:
+      text: "The coast road runs east to Tidewatch -- a long walk, or a shorter one if the coach will have you."
+      interact_prompt: Read
+npcs: [npc_025]
+platform_brief: |
+  A packed-earth coast road running through open scrub, one flat band, no
+  verticality gimmick. Terrain is foothold segments under painted terrain_chunks
+  (ART_BIBLE AB-001); gaps stay well within the standard jump budget.
+flavor: "The east road runs long and flat toward Tidewatch, salt air creeping in before the coast ever comes into view."

@@ -1,0 +1,48 @@
+id: map_005
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Emberfoot Fields, Trailhead
+region: emberfoot
+map_type: field
+level_band: { min: 1, max: 2 }           # first field of the ascending 1->8 chain (WORLD_PLAN R1)
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 130, h: 26 }             # field: ~3 screens wide (MAPS_SYSTEM §2)
+bgm: bgm_emberfoot                        # field pattern bgm_<biome_key> (MAPS_SYSTEM §5)
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 20] }
+portals:
+  - id: to_village
+    kind: edge
+    at: { edge: left }
+    target_map: map_001
+    target_spawn: main
+    dead_end: false
+  - id: to_lower_reach
+    kind: edge
+    at: { edge: right }
+    target_map: map_006
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: trailhead_stretch
+    rect_tiles: { x: 22, y: 18, w: 60, h: 6 }
+    mobs:
+      - { mob: mob_001, count: 3 }         # forward-ref, monster batch mints mob_001-012
+      - { mob: mob_002, count: 1 }
+    max_concurrent: 6                       # field default (SPAWN §4)
+npcs: [npc_006]
+interactables:
+  - type: sign
+    id: sign_trailhead_005
+    at_tile: [16, 19]
+    params:
+      text: "The Trailwarden keeps watch here. Past her, the fields warm up fast."
+      interact_prompt: Read
+platform_brief: |
+  A single gentle terrace, walkable end to end with no jumps required
+  (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted terrain_chunks
+  (ART_BIBLE AB-001). No verticality gimmick -- the deliberately easy opener.
+flavor: "The ash here is still warm underfoot, barely a season cooled since the kiln's last flare. A gentle first taste of the wider island."

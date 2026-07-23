@@ -3,7 +3,8 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/STATS.md, 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md,
 10_systems/LEVELING.md, 10_systems/SKILL_SYSTEM.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/AI_BEHAVIOR.md, 10_systems/social/PARTY.md, 10_systems/PERSISTENCE.md,
+10_systems/AI_BEHAVIOR.md, 10_systems/social/PARTY.md, 10_systems/social/RAID.md,
+10_systems/PERSISTENCE.md,
 20_schemas/monster.schema.md, 40_assets/ART_BIBLE.yaml, docs/WORLD_PLAN.md
 
 Owner doc for the combat **math**: how the stat values from `10_systems/STATS.md` and a monster's
@@ -165,13 +166,11 @@ to are owned here:
 | Base | Value | Applied |
 |---|---|---|
 | `base_attack_interval` | 0.90 s (≈1.11 basic attacks/s) | `effective = 0.90 / (1 + attack_speed%)` |
-| `base_move_speed` | **128 px/s** (= 8 tiles/s at the locked 16 px grid) | `effective = 128 · (1 + move_speed%)` |
+| `base_move_speed` | 200 px/s (reference) | `effective = 200 · (1 + move_speed%)` |
 
 Skill cast/recovery times override `base_attack_interval` per skill (`10_systems/SKILL_SYSTEM.md`).
-`base_move_speed` is **locked at the C gate**: `40_assets/ART_BIBLE.yaml` (AB-001) fixes the
-16 px grid, and `15_maps_system/MAP_TRAVERSAL.md` §1's `run_speed` (8 tiles/s — the figure every
-authored jump/gap derives from) is adopted as the one ground-speed number; the old 200 px/s
-placeholder is retired.
+`base_move_speed` in px/s is a placeholder pending the tile scale locked by `40_assets/ART_BIBLE.yaml`
+(Open Question).
 
 ## 11. Knockback & hitstun
 
@@ -190,7 +189,7 @@ scaled by the target's size class (`40_assets/ART_BIBLE.yaml sizing.size_classes
 | knockback × | 1.5 | 1.2 | 1.0 | 0.5 | 0.0 (immune) |
 
 A heavy hit **interrupts** a `normal`/`elite` monster mid-`cast` unless it is flagged super-armored;
-`boss` entities have super-armor except in scripted-vulnerable windows owned by
+`boss`/raid entities have super-armor except in scripted-vulnerable windows owned by
 `10_systems/AI_BEHAVIOR.md`. `boss`-size knockback ×0 aligns with their CC immunity
 (`10_systems/STATUS_EFFECTS.md` §3). Player casts are interrupted by heavy hits unless the player is
 in i-frames (§12) or a stability effect applies.
@@ -267,39 +266,47 @@ their script marks contact-hot.
 |---|---|---|---|---|---|---|
 | `elite` | ×6 | ×1.5 | ×1.3 | ×1.1 | +2% | STATUS_EFFECTS §3 elite row |
 | `boss` | ×35 | ×2.0 | ×1.6 | ×1.2 | +0 (bosses don't dodge) | boss row; knockback-immune (§11) |
+| raid boss | §13.3 | ×2.5 (fixed) | ×1.8 | ×1.2 | +0 | CC-immune (STATUS_EFFECTS §3) |
 
-Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 130; boss Lv 40 `life` = 7395×35 ≈ 258 800; boss
-Lv 40 `power` = 126×2 = 252. Region bosses (`docs/WORLD_PLAN.md`) copy the row for their level
-and phase-tune within it. A **PQ-instanced finale boss** (`10_systems/social/PARTY_QUEST.md` §4)
-is the same monster on this same row, with `life` alone replaced by §13.3's party scaling.
+Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 150; boss Lv 60 `life` = 15 875×35 ≈ 555 700; boss
+Lv 80 `power` = 246×2 = 492. Region and raid finale bosses (`docs/WORLD_PLAN.md`,
+`10_systems/social/RAID.md`) copy the row for their level and phase-tune within it.
 
-### 13.3 PQ-finale party scaling (owner)
+### 13.3 Raid-boss party scaling (owner)
 
-A party-quest finale boss (the Cellar King `mob_027` / the Custodian `mob_150`, fought through PQ
-entry — `10_systems/social/PARTY_QUEST.md` §4) scales `life` with party size `N`
-(`10_systems/social/PARTY.md` §6 owns how `N` is counted; `PARTY_QUEST.md` §2 owns the legal
-range, 3–6). This doc owns the math:
+The four raid finale bosses (`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md`
+§2, `docs/WORLD_PLAN.md`) scale `life` with party size `N` **when fought via raid entry**
+(`10_systems/social/RAID.md` §3). The same boss soloed through the arena's open (non-raid) entry is
+an ordinary region `boss` (§13.2, no `N`-scaling). `10_systems/social/PARTY.md` §6 owns the legal
+party range (`3–6`) and how `N` is counted; this doc owns the math:
 
 ```
-pq_life(N, L) = normal_life(L) · 70 · N            # per-member linear, replaces the solo ×35
-pq_damage     = normal_power(L) · 2.0              # the §13.2 boss row — FIXED, never N-scaled
-enrage_timer  = 10 min                             # boss wipes the party on expiry
+raid_life(N, L) = normal_life(L) · 90 · N          # per-member linear
+raid_damage      = normal_power(L) · 2.5           # FIXED — never scaled by N
+enrage_timer     = 12 min                           # boss wipes the party on expiry
 ```
 
-Because both `pq_life` and total party DPS scale ≈ linearly in `N`, time-to-kill stays inside the
-§14 band across the whole legal party range (worked below); larger parties drift toward the slow end
-as coordination efficiency falls. Finale boss `damage` is **not** `N`-scaled — more players means
-more bodies to cover mechanics, not a bigger tank check. The party requirement is enforced by the
-`10_systems/social/PARTY_QUEST.md` minimum-size gate, boss mechanics, and the enrage timer — **not**
-by `life` alone. A future-arc raid tier reuses this shape with its own coefficients. Reference
-table at Lv 40 (the Custodian; `normal_life(40)` = 7395):
+Because both `raid_life` and total party DPS scale linearly in `N`, time-to-kill is essentially
+`N`-independent and holds at the §14 midpoint across the whole legal `3–6` range (worked below).
+Raid boss `damage` is **not** `N`-scaled — more players means more bodies to cover mechanics, not a
+bigger tank check. `N` is **fixed at instance creation** (`10_systems/SPAWN.md` §7,
+`10_systems/social/PARTY.md` §6) and never re-scales: if members fall or leave, the survivors face
+the full `N`-scaled `life` with reduced live DPS and hit enrage first — which, together with the
+3-member entry gate (`10_systems/social/PARTY.md` §6) and boss mechanics, is what enforces the party
+requirement, **not** `life` alone. Reference table at Lv 80 (`raid_voidtide` boss `mob_234`, the
+highest authored raid boss):
 
-| `N` | `pq_life` | party effective DPS (§15 × `N` × 0.85) | TTK |
+| `N` | `raid_life` | party effective DPS (§15 × `N` × 0.85) | TTK |
 |---|---|---|---|
-| 3 | 1.55 M | ≈ 4 190 | ≈ 6.2 min |
-| 4 | 2.07 M | ≈ 5 590 | ≈ 6.2 min |
-| 5 | 2.59 M | ≈ 6 980 | ≈ 6.2 min |
-| 6 | 3.11 M | ≈ 8 380 | ≈ 6.2 min |
+| 3 | 7.44 M | ≈ 15 600 | ≈ 7.9 min |
+| 4 | 9.92 M | ≈ 20 800 | ≈ 7.9 min |
+| 5 | 12.40 M | ≈ 26 000 | ≈ 7.9 min |
+| 6 | 14.88 M | ≈ 31 200 | ≈ 7.9 min |
+
+`N` = 3 (the entry floor) clears in ≈ 7.9 min — inside the §14 6–10 min band with margin under the
+12-minute enrage — so the floor needs no retune. Because TTK is `N`-independent at the fixed 0.85
+coordination factor, larger parties do **not** clear faster; any real large-party coordination
+falloff (Open Questions) only pushes `N` = 6 toward the slow end of the band, never outside it.
 
 ## 14. Time-to-kill targets (design contract)
 
@@ -311,7 +318,7 @@ and the §15 DPS curve; balance retunes toward the **midpoint**, never outside t
 | normal mob | 3–6 s | 4.5 s (`life` / effective DPS) | §13, §15 |
 | `elite` | 20–40 s | ≈ 30 s (×6 `life`, +mitigation/dodging) | §13.2 |
 | region `boss` | 2–4 min | ≈ 2.5 min base + phase/mechanic downtime | §13.2 |
-| PQ finale boss (party entry) | 4–8 min | ≈ 6 min, mid party | §13.3 |
+| raid finale boss | 6–10 min | ≈ 8 min, any legal party (3–6) | §13.3 |
 
 ## 15. Player DPS assumption table (backs §14)
 
@@ -345,12 +352,15 @@ intended tutorial pacing (P2) and stays inside the "snappy" spirit of the band.
 
 ## Open Questions
 
-- ~~`base_move_speed` placeholder pending the tile-scale lock~~ **Resolved at the C gate:**
-  128 px/s (§10), reconciled with `15_maps_system/MAP_TRAVERSAL.md` §1. `base_attack_interval`
-  (0.90 s) stays first-pass feel, retunable after playtesting.
-- ~~Mid-party size for the §14 party target pending `10_systems/social/PARTY.md`~~ **Resolved at
-  the v2 straggler wave:** the legal range is 3–6 (`10_systems/social/PARTY_QUEST.md` §2) and `N`
-  counting is `10_systems/social/PARTY.md` §6's; the §13.3 reference table spans the full range.
+- `base_move_speed` (200 px/s) and `base_attack_interval` (0.90 s) are placeholders until the tile
+  scale is locked in `40_assets/ART_BIBLE.yaml`; the `haste` percentages (STATS §5) are scale-free,
+  but the px value is not. Owner: COMBAT_FORMULA at the C gate.
+- The legal raid party range is confirmed `3–6` (`10_systems/social/PARTY.md` §6,
+  `10_systems/social/RAID.md` §3); the §13.3 `raid_life`/DPS model is linear in `N`, so TTK is
+  ≈`N`-independent and holds at the §14 midpoint (≈8 min) across the whole 3–6 range (worked in
+  §13.3, incl. the `N` = 3 floor). Remaining flag: the fixed **0.85 coordination-efficiency** factor
+  is a first-pass assumption; if real large-party coordination falls faster than that, `N` = 6
+  drifts toward the slow end of the §14 band. Owner: balance pass with `10_systems/social/PARTY.md`.
 - `power_ref`/`mult m` (§15) assume typical gear budgets from `10_systems/ITEMS.md` and skill
   coefficients from `10_systems/SKILL_SYSTEM.md` that are not yet authored; if those land far from
   the reference, retune `mult m` (never `normal_life`). Owner: balance pass, C/D gates.

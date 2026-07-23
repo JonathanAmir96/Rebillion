@@ -1,0 +1,24 @@
+id: mob_006
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Emberfoot Prowler
+tier: normal                     # ID slot 006 = R1 normal (ID_REGISTRY Monsters)
+element: neutral                 # neutral critter (WORLD_PLAN R1 mix)
+level: 5
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 5
+  life: 255                      # 4*(5+3)^2
+  power: 21                      # 6+3*5 (touch dmg = round(0.5*power), neutral, §13.1)
+  armor: 30                      # 6*5  (armor+warding sum = 60 = 12*5)
+  warding: 30                    # 6*5
+  precision: 20                  # 4*5
+  evasion: 3.2                   # 3 + 0.03*5 (%)
+  exp: 32                        # exp_per_kill_normal(5)=round(4*5^1.3) (LEVELING §3)
+ai_profile: aggressive_charger   # commits to a telegraphed rush; teaches the sidestep (AI_BEHAVIOR §5)
+ai_params:                       # override only aggressive_charger-declared tunables
+  aggro_radius: 6
+  charge_speed_mult: 2.2
+  charge_recover_s: 2.8
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+drop_table: drop_mob_006
+flavor: "A lean, soot-pawed lynx that stalks the warm scree and breaks into a headlong rush. Its charge is easy to read and easy to punish, once a novice trusts their feet."

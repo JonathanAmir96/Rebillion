@@ -1,0 +1,13 @@
+id: npc_043
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, MAP_CONNECTIONS, PERSISTENCE]
+name: Coach Clerk Yenna
+region: tidewatch
+map: map_071
+role: coach_clerk
+services: [coach]
+dialog:
+  greeting: "Ring stations, all open, all paid the same fare rules -- where to, then?"
+  farewell: "Safe road. Mind the fare next time, same as this one."
+portrait: portrait_npc_043
+flavor: "Yenna keeps the Coachworks ledger balanced to the shard and still finds time to wave off every departing coach."

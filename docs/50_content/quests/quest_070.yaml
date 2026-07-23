@@ -1,0 +1,20 @@
+id: quest_070
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Whatever the Tide Gives Up
+region: sunken
+quest_type: side
+giver_npc: npc_070
+level_requirement: 30
+recommended_level: 30
+prereqs: [quest_069]
+steps:
+  - type: collect
+    target: item_etc_0097
+    count: 6
+rewards:
+  exp: 4662  # side pct=0.07 of exp_to_next(30)=66,600 (LEVELING §1); shards=mean_shards_normal(30)*4=48*4 (QUESTS §5/DROPS §3)
+  shards: 192
+flavor: "Wick has a buyer for anything intact enough to sell, and the drowned shallows keep giving it up."
+offer_text: "Whatever those things are carrying when you drop them, bring it here before it rots. I don't ask where it's from."
+complete_text: "Not bad. Not dry, but not bad. Thom's right to trust you with the perimeter."

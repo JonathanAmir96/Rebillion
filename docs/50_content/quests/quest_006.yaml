@@ -1,0 +1,25 @@
+id: quest_006
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Ashfields Deep
+region: emberfoot
+quest_type: main
+giver_npc: npc_007                # Kiln Watchman Doss
+level_requirement: 5
+recommended_level: 5
+prereqs: [quest_004]
+steps:
+  - type: kill
+    target: mob_005
+    count: 10
+  - type: collect
+    target: item_etc_0003
+    count: 5
+rewards:
+  exp: 160                         # round(0.20 * 800); main band, exp_to_next(5)=800
+  shards: 165                      # mean_shards_normal(5)*15 = 11*15
+  items:
+    - { id: item_use_0007, qty: 2 }   # forward-ref: Essence Tonic
+flavor: "Doss doesn't let anyone past his post without proof they've handled the hollow's worst."
+offer_text: "Cinder Hollow runs deeper trouble than the flats. Clear it out and bring me proof you didn't flinch."
+complete_text: "Deeper than most novices manage. You're closer to the tunnels than you think."

@@ -1,0 +1,53 @@
+id: map_238
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Rimevaults, Herald's Landing
+region: frostpeak
+map_type: dungeon
+level_band: { min: 57, max: 57 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_frostpeak
+ambience: [amb_wind, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_237
+    target_spawn: main
+    dead_end: false
+  - id: to_frozen_cache_ii
+    kind: door
+    at: { tile: [30, 8] }
+    target_map: map_239
+    target_spawn: main
+    dead_end: false
+  - id: to_deepfrost_stage
+    kind: door
+    at: { tile: [50, 30] }
+    target_map: map_240
+    target_spawn: main
+    dead_end: false  # raid_deepfrost stage entrance; the door only opens through raid herald npc_095's dialog (RAID.md §3) -- authored as an ordinary portal, no schema field models the herald gate
+  - id: to_frostcrown_crevasse
+    kind: door
+    at: { tile: [55, 40] }
+    target_map: map_244
+    target_spawn: main
+    dead_end: false  # ordinary open-entry door to the boss arena (RAID.md §7 solo fallback), separate from the raid stage chain
+spawn_zones:
+  - id: map_238_zone
+    rect_tiles: { x: 20, y: 30, w: 30, h: 12 }
+    mobs:
+      - { mob: mob_176, count: 1 }
+      - { mob: mob_177, count: 1 }
+    max_concurrent: 8
+npcs: [npc_095]
+platform_brief: |
+  Denser ice-vault corridors than the Glacier Caverns proper, the elite pair now the norm
+  rather than the exception (SPAWN §2). No rope/ladder on the main line; ledges stay within
+  the standard jump budget (MAP_TRAVERSAL §1.1).
+flavor: "The Rimevaults, where the isle's oldest ice keeps its oldest secrets -- and where the Deepfrost muster gathers."

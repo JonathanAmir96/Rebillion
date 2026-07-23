@@ -4,7 +4,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/SCOPE.md, 10_systems/PERSISTENCE.md
 30_engineering/ENGINEERING_STANDARDS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/SPAWN.md,
 10_systems/ECONOMY.md, 10_systems/social/PARTY.md, 10_systems/social/CHAT.md,
 10_systems/social/GUILD.md, 10_systems/social/MAIL.md, 10_systems/social/MARKET.md,
-10_systems/social/TRADING.md, 10_systems/social/PARTY_QUEST.md, 15_maps_system/MAPS_SYSTEM.md,
+10_systems/social/TRADING.md, 10_systems/social/RAID.md, 15_maps_system/MAPS_SYSTEM.md,
 docs/WORLD_PLAN.md,
 70_integrations/ACCOUNTS_AUTH.md, 70_integrations/GAMEPLAY_SIMULATION.md,
 70_integrations/NETWORK_PROTOCOL.md, 70_integrations/WORLD_CHANNELS.md,
@@ -28,7 +28,7 @@ solo build (`00_vision/SCOPE.md` puts networking/backend out of this run's scope
 **Channel model — chosen: single logical world + population channels + true instances.** One
 authoritative economy/identity namespace (one `shards` wallet space, one `MARKET`/`MAIL`/`GUILD`
 registry) with classic side-scroller **population channels** layered only over shared social maps
-(towns, popular fields), plus **true instances** for arena and party-quest content.
+(towns, popular fields), plus **true instances** for arena and raid content.
 
 Justification: `MARKET`, `MAIL`, and `TRADING` are account-to-account transfers of `server`-owned
 items and `shards`; splitting the world into independent parallel worlds would fragment that ledger
@@ -38,11 +38,11 @@ separate world: a crowded town map hosts N parallel copies sharing one character
 fork occurs. ("Towns, popular fields" is illustrative, not a type restriction — channel eligibility
 is demand-driven across the shared map graph; `70_integrations/WORLD_CHANNELS.md` §1 owns the
 eligibility rules and its two exemptions.) Party-quest stages/finales are per-party instanced by `10_systems/SPAWN.md` §7 and
-`10_systems/social/PARTY_QUEST.md` (`pq_undervault` finale `map_042`, `pq_mainspring` finale
+`10_systems/social/RAID.md` (`raid_undervault` finale `map_042`, `raid_mainspring` finale
 `map_200`), so instance workers are a requirement, not a choice. Open-entry boss arenas are **not**
 per-party: `10_systems/SPAWN.md` §3 runs a regional arena as one shared map that resets once empty
 (`15_maps_system/MAPS_SYSTEM.md` §8 shared-arena rules), so arenas live as ordinary supervised map
-processes on world nodes — only entry through a PQ gate allocates a true instance. This doc fixes the channel-model
+processes on world nodes — only entry through a raid gate allocates a true instance. This doc fixes the channel-model
 **shape**; capacity targets and the per-map channel-count math are `70_integrations/WORLD_CHANNELS.md`'s (§9).
 
 ```
@@ -55,7 +55,7 @@ processes on world nodes — only entry through a PQ gate allocates a true insta
               accounts, login        |          |
               (ACCOUNTS_AUTH.md)     v          v
                         [ World node(s) ]     [ Instance workers ]
-                        BEAM/OTP; one supervised   PQ stage/finale copies, one
+                        BEAM/OTP; one supervised   raid stage/finale copies, one
                         process per live map/       ephemeral map process per
                         channel: spawner, mob set,  party, spun up on demand and
                         status timers, shared arenas torn down on exit
@@ -84,7 +84,7 @@ processes on world nodes — only entry through a PQ gate allocates a true insta
   hosts a set of maps, each map an independently-supervised process holding its spawn zones, live
   mobs, and active status timers. Population channels are additional map processes inside (or
   across) world nodes.
-- **Instance workers** — ephemeral map processes allocated to one party for party-quest stages/
+- **Instance workers** — ephemeral map processes allocated to one party for raid stages/
   finales (`10_systems/SPAWN.md` §7). Open-entry boss arenas are not instance-worker content: they
   run as single shared map processes on world nodes under `10_systems/SPAWN.md` §3's
   reset-when-empty rule (`15_maps_system/MAPS_SYSTEM.md` §8). Party size `N` is fixed at instance
@@ -104,7 +104,7 @@ processes on world nodes — only entry through a PQ gate allocates a true insta
 |---|---|---|
 | **World node** (BEAM node) | Aggregate map-process CPU/memory on existing nodes crosses the node budget | Horizontal; maps route across nodes via the router. Practically unbounded at this game's scale |
 | **Population channel** (extra map process) | A shared map's occupancy crosses the readability/perf cap | Cap owned by `70_integrations/WORLD_CHANNELS.md`; a channel is cheap (an empty map process is near-free) |
-| **Instance worker** (ephemeral map process) | A party enters a PQ gate (`10_systems/SPAWN.md` §7) | One per party; torn down on exit — self-scaling with demand. Open-entry arenas are shared map processes (§1), not instances |
+| **Instance worker** (ephemeral map process) | A party enters a raid gate (`10_systems/SPAWN.md` §7) | One per party; torn down on exit — self-scaling with demand. Open-entry arenas are shared map processes (§1), not instances |
 | **Social-service replica** | Chat/party/guild/market throughput rises | Scales independently of world nodes — a market surge never starves combat sim |
 | **Read replica** of a Postgres store | Read load (rosters, market browse) grows | The wallet/market **write** primary is the one hard single-writer ceiling (§8), kept single by the single-world choice on purpose |
 
@@ -269,7 +269,7 @@ where each lands.
 | System | Lands as | Notes |
 |---|---|---|
 | `CHAT` | Stateless relay off the gateway/social tier | Map-scoped `normal`, roster `party`/`guild`, `whisper` (`10_systems/social/CHAT.md`); speech bubbles are a `normal`-channel client render |
-| `PARTY` | Roster + reward-arbitration service | Owns exp/loot arbitration and party bookkeeping for PQ instances (`10_systems/social/PARTY.md` §4–§6); the allocation mechanism itself is `10_systems/SPAWN.md` §7's |
+| `PARTY` | Roster + reward-arbitration service | Owns exp/loot arbitration and party bookkeeping for raid instances (`10_systems/social/PARTY.md` §4–§6); the allocation mechanism itself is `10_systems/SPAWN.md` §7's |
 | `GUILD` | Guild registry service | Rosters, crest data (`10_systems/social/GUILD.md`); creation fee is an `10_systems/ECONOMY.md` sink |
 | `TRADING` | Live two-party escrow session | Both online; server-held escrow swap (`10_systems/social/TRADING.md`) |
 | `MARKET` | Async listings board + escrow | Server-held listing escrow; shared board = `server` state (`10_systems/social/MARKET.md`) |
@@ -291,7 +291,7 @@ truth must refuse the action, never fabricate it.
 | Auth service | Down → no new logins | Existing sessions run on cached tokens until expiry; new logins queue, never bypass auth (`70_integrations/ACCOUNTS_AUTH.md` §3) |
 | Edge / gateway | Down → total outage (single entry point) | Horizontal replicas behind a balancer; a dropped connection reconnects to the same character within the reconnect-grace window (`70_integrations/ACCOUNTS_AUTH.md` §4), no state minted client-side |
 | World node / map process | Crash → its maps drop | OTP supervisor restarts the map fresh; players re-routed to a fresh copy at their last **persisted** point (autosave cadence, `10_systems/PERSISTENCE.md` §6); unsaved position (`shared`, §5) is disposable by design |
-| Instance worker | Crash mid-PQ/arena | Instance is lost; party returns to the staging map and re-enters fresh (matches `10_systems/SPAWN.md` §3 "walk back in" reset) — no partial-credit fabrication |
+| Instance worker | Crash mid-raid/arena | Instance is lost; party returns to the staging map and re-enters fresh (matches `10_systems/SPAWN.md` §3 "walk back in" reset) — no partial-credit fabrication |
 | PostgreSQL — character DB | Unreachable → saves fail | Block state-mutating actions (level-up, turn-in, loot commit) rather than accept unsaved progress; read-only play may continue briefly |
 | PostgreSQL — wallet / economy ledger | Unreachable | Freeze all `shards` faucets/sinks and `MARKET`/`MAIL`/`TRADING` value transfer; combat/movement continue |
 | PostgreSQL — social/market DB | Unreachable | Social systems degrade to read-only or unavailable; core solo-style play (combat, quests, movement) is unaffected |
@@ -300,7 +300,7 @@ truth must refuse the action, never fabricate it.
 | Seeded RNG service | Unreachable | Block every roll it gates (same stance as the audit log above) |
 
 **Scaling.** Maps are the horizontally-splittable unit: hot maps split into more population channels (§1,
-`70_integrations/WORLD_CHANNELS.md`); PQ/arena load scales by spinning up instance workers on demand
+`70_integrations/WORLD_CHANNELS.md`); raid/arena load scales by spinning up instance workers on demand
 and tearing them down on exit. Social services scale independently of world nodes (a market surge
 never starves combat sim). The one hard single-writer constraint is the wallet/market Postgres
 primary — kept as one authority on purpose (§1); its write throughput is the scaling ceiling to

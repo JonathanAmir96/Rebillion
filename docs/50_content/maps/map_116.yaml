@@ -1,0 +1,47 @@
+id: map_116
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hollow Trunk Warrens, Rootcellar Coil
+region: gloomwood
+map_type: dungeon
+level_band: { min: 27, max: 27 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_wood_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 42] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_115
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_117
+    target_spawn: main
+    dead_end: false
+  - id: to_widows_larder
+    kind: door
+    at: { tile: [50, 30] }
+    target_map: map_122
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: trunk_warrens_rootcellar_coil
+    rect_tiles: { x: 20, y: 32, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_082, count: 3 }
+      - { mob: mob_083, count: 3 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  A coiled root-cellar chamber, ledges stacked in 2-3 tile rises within the standard jump
+  budget (MAP_TRAVERSAL §1.1). A half-hidden side door low on the east wall opens onto a
+  sealed larder chamber (secret). Denser dungeon combat pacing (SPAWN §2).
+flavor: "Roots coil floor to ceiling here like ribs, and something has clearly been storing food behind them."

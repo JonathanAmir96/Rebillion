@@ -1,0 +1,49 @@
+id: map_281
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Unmoored Stair, Lower Flight
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 69, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 55, h: 75 }             # tallest dungeon on the chain (MAPS_SYSTEM §2 up to 5 screens)
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 68] }
+portals:
+  - id: to_inner_gears
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_279
+    target_spawn: main
+    dead_end: false
+  - id: to_upper_flight
+    kind: edge
+    at: { edge: top }
+    target_map: map_282
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: lower_flight_chamber
+    rect_tiles: { x: 16, y: 24, w: 28, h: 40 }
+    mobs:
+      - { mob: mob_203, count: 2 }
+      - { mob: mob_204, count: 1 }
+    max_concurrent: 8
+interactables:
+  - type: climbable
+    id: rope_unmoored_stair_lower
+    at_tile: [40, 20]
+    params:
+      rect_tiles: { x: 40, y: 20, w: 1, h: 44 }
+      orientation: vertical
+      visual: ladder
+npcs: []
+platform_brief: |
+  A true stair of shard-plates unmoored entirely from the sky-road below, climbing a single
+  long ladder shaft (MAP_TRAVERSAL §4) past the standing-jump cap. Dense corridor combat holds
+  the full ascent (SPAWN §2).
+flavor: "This stair no longer connects to anything below it -- only the climb upward, into thinner and thinner air, is left."

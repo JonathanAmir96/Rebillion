@@ -1,0 +1,49 @@
+id: map_048
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Fernbrake
+region: verdant
+map_type: field
+level_band: { min: 9, max: 10 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 150, h: 30 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_mossy_steps
+    kind: edge
+    at: { edge: left }
+    target_map: map_047
+    target_spawn: main
+    dead_end: false
+  - id: to_sunken_glade
+    kind: edge
+    at: { edge: right }
+    target_map: map_049
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: fernbrake_thicket
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_030, count: 3 }        # shares mob_030 with mossy steps
+      - { mob: mob_031, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_fernbrake
+    at_tile: [24, 21]
+    params:
+      text: "Fronds taller than a person, here. Something in this brake likes it that way."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Thick fern-cover over two low terraces (~2-tile rises), gaps within the standard 5-tile/
+  3.5-tile jump caps (MAP_TRAVERSAL §1.1). Foothold segments under dense fern terrain_chunks
+  (ART_BIBLE AB-001); visibility is the gimmick here, not verticality -- foliage occludes
+  sightlines more than the terrain challenges footing.
+flavor: "The ferns close overhead here, and the light goes the deep green of a place that rarely sees noon."

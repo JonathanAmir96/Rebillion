@@ -1,0 +1,24 @@
+id: quest_091
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]   # ITEMS for rewards.items
+name: Wolves at the Waterline
+region: frostpeak                 # id 091 in R9 Quests block (ID_REGISTRY)
+quest_type: side
+giver_npc: npc_085                # lives in region's NPC block (085-096); turn_in defaults to giver
+level_requirement: 40
+recommended_level: 40
+steps:                            # parallel (default): the pelts drop from the wolves you cull
+  - type: kill
+    target: mob_151
+    count: 8
+  - type: collect
+    target: item_etc_0129          # sourced from drop_mob_151 (QUESTS §3.1, warn-check satisfied)
+    count: 5
+rewards:
+  exp: 12342                      # side band 5-10% of exp_to_next(40)=164,560 (LEVELING §1); pct=0.075
+  shards: 252                     # side = mean_shards_normal(40)*4 = 63*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }   # a pair of Sovereign Life Tonics for the climb ahead
+flavor: "The prowler pack has grown bold enough to hunt the quay itself. Thin them out before someone loses a boarding party."
+offer_text: "Those frost-wolves are working the waterline now, and I've cargo to load. Cull the pack and bring me their pelts -- I'll see you paid."
+complete_text: "Pelts and a quieter quay. That'll do. The peaks are yours to climb now, ice-walker."

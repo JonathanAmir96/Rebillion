@@ -18,7 +18,7 @@ to the owner. **Outcome: all seven docs authored, architect-reviewed, QA-gated, 
 
 | # | Doc | State | Headline decisions |
 |---|---|---|---|
-| 1 | BACKEND_ARCHITECTURE.md | Revised (Phase F base) + gated first | Engine-independent Elixir/OTP + Phoenix; PostgreSQL (one DB, three schemas + roles) + append-only RNG audit log + Redis/ETS cache; single logical world + population channels + PQ-only instances; scaling-units table; per-store failure modes |
+| 1 | BACKEND_ARCHITECTURE.md | Revised (Phase F base) + gated first | Engine-independent Elixir/OTP + Phoenix; PostgreSQL (one DB, three schemas + roles) + append-only RNG audit log + Redis/ETS cache; single logical world + population channels + raid-only instances; scaling-units table; per-store failure modes |
 | 2 | ACCOUNTS_AUTH.md | Revised + gated | Argon2id; opaque 60-min session tokens, 30-day rotating refresh; lockout ladder; 90 s reconnect grace; fail-closed offline→online import (re-derive exp + range-check) answering PERSISTENCE §9's open question |
 | 3 | WORLD_CHANNELS.md | New + gated | Demand-driven channels (cap 5/map, channel_01 resident, 5-min teardown); occupancy caps 150 town / 60 field; 2,000/node, ~10,000-world targets; 30 s switch cooldown + 5 s combat lock |
 | 4 | DATABASE_PERSISTENCE.md | New + gated | One Postgres database, `char`/`wallet`/`social` schemas + least-privilege roles (no 2PC); materialized wallet balance over append-only signed-delta ledger; two-class write cadence; audit-before-commit; save_version two-layer migration |
@@ -51,7 +51,7 @@ before the doc was considered landed (fix-or-flag, never "fix later").
 
 - **Doc 1** — QA: one wrong-section citation. Architect: boss arenas were wrongly modeled as
   per-party instances (fixed suite-wide: open-entry arenas are shared map processes with
-  SPAWN §3 reset-when-empty; instances are PQ-only); `shard` banned as a partitioning word
+  SPAWN §3 reset-when-empty; instances are raid-only (v2 wording: PQ)); `shard` banned as a partitioning word
   (currency-token collision); reconnect-number ownership pinned to doc 2.
 - **Doc 2** — both passes: citation-precision fixes only; resume-ticket TTL explicitly bound to
   the 90 s grace window.
@@ -107,6 +107,19 @@ Telemetry, build/distribution, and the PixelLab runbook were **out of this kicko
 doc (deploys/hotfix/rollback/GM tooling) was the kickoff's own open question: this run folded
 GM tooling seams into CHAT_SOCIAL_BACKEND §2 and left deploy/rollback to a later, cheaper
 session — a dedicated LIVE_OPS.md remains a sensible successor doc for ROLE_INTEGRATION_ENGINEER.
+
+## 6. v3 merge reconciliation (at landing)
+
+The suite was authored against the v2 world and merged into the v3.1 line (five islands, two
+authored arcs, Phase D complete) when landing on main. Per the tree's standing merge policy, v3
+wins world facts and the suite was retargeted in the merge commit: `pq_*` → `raid_*`
+(arc-1 stage/finale map IDs unchanged), `PARTY_QUEST.md` → `social/RAID.md` (floor now RAID
+§2/§3, lifecycle §5), the WORLD_CHANNELS raid table extended to all four raids, the
+NETWORK_PROTOCOL raid-token enum widened (opcode numbers untouched; packet names renamed
+pre-release), ACCOUNTS_AUTH's import cap re-cited to the v3 authored-arc cap, and the
+packet-opcode registry block re-appended into the v3 ID_REGISTRY. Strict v3 `tools/validate.py`:
+0 failures, 0 warnings after reconciliation. Residue flagged in memory.md: capacity targets were
+sized against the v2 world — still valid as launch targets, re-check at the balance pass.
 
 ## Open Questions
 

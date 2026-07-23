@@ -1,0 +1,42 @@
+id: map_272
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rune Vaults, the Fractured Stacks
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 68, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 65, h: 68 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 60] }
+portals:
+  - id: to_wardens_landing
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_271
+    target_spawn: main
+    dead_end: false
+  - id: to_sixth_chamber
+    kind: edge
+    at: { edge: top }
+    target_map: map_273
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: fractured_stacks_chamber
+    rect_tiles: { x: 18, y: 22, w: 30, h: 32 }
+    mobs:
+      - { mob: mob_197, count: 3 }
+      - { mob: mob_198, count: 2 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  Toppled rune-stacks form a broken vertical maze, climbs staying within the 3.5-tile rise
+  cap (MAP_TRAVERSAL §1.1). Dense corridor-loop combat (SPAWN §2); no gimmick beyond the
+  cramped, fractured layout.
+flavor: "Whatever cracked these stacks apart did it from the inside -- every fracture radiates outward, not in."

@@ -152,10 +152,10 @@ enforcement shape as GLOSSARY tokens even though `bgm`/`amb`/`sfx` tags are not 
 - Footstep/movement SFX (material-dependent, tied to `terrain_chunk`/foothold surface) is not
   scoped in this pass — flag for a future revision once `15_maps_system/MAP_TRAVERSAL.md`'s
   foothold-material vocabulary is finalized; no family name is assumed here.
-- Do the two party quests (`pq_undervault`, `pq_mainspring`) need bespoke instance `bgm` distinct
+- Do the two raids (`raid_undervault`, `raid_mainspring`) need bespoke instance `bgm` distinct
   from their host region's dungeon/arena tags, or do they simply reuse the host region's identity
   per §3/§8? Default assumed here: reuse host-region tags; flag for
-  `10_systems/social/PARTY_QUEST.md` to confirm or override.
+  `10_systems/social/RAID.md` to confirm or override.
 - Per-status SFX granularity (§5's `sfx_status_apply`/`cleanse` pair vs. a richer set split by
   `10_systems/STATUS_EFFECTS.md`'s cleanse-tag families) is deferred to the 40_assets catalog pass;
   default here is the generic two-family policy unless that pass finds it insufficient.

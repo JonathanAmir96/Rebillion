@@ -1,0 +1,12 @@
+id: npc_079
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Relic-Warden Ione
+region: clockwork
+map: map_183
+role: quest_giver
+dialog:
+  greeting: "Verdigris plaza has given up eleven intact relics this season. It'll give up a twelfth, with the right hands on it."
+  farewell: "Log every find before you pocket it. The plaza forgets nothing."
+portrait: portrait_npc_079
+flavor: "Ione catalogs every relic the plaza yields, certain the statues are watching her do it."

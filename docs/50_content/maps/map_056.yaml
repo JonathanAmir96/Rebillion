@@ -1,0 +1,48 @@
+id: map_056
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Stagnant Mire
+region: verdant
+map_type: field
+level_band: { min: 13, max: 14 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 155, h: 30 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_toadstool_marsh
+    kind: edge
+    at: { edge: left }
+    target_map: map_055
+    target_spawn: main
+    dead_end: false
+  - id: to_creeping_thicket
+    kind: edge
+    at: { edge: right }
+    target_map: map_057
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: stagnant_mire_flat
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_038, count: 3 }        # shares mob_038 with toadstool marsh
+      - { mob: mob_039, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_stagnant_mire
+    at_tile: [24, 21]
+    params:
+      text: "The water doesn't move here, and neither does the smell. Something in the mire likes it that way."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A stagnant flat with two low reed-terraces, gaps within the 5-tile/3.5-tile jump caps
+  (MAP_TRAVERSAL §1.1). Foothold segments dressed in murky reed terrain_chunks (ART_BIBLE
+  AB-001); ordinary gravity, no water_physics flag on this stretch.
+flavor: "The mire sits flat and dark under the canopy, still enough that every ripple looks deliberate."

@@ -78,7 +78,7 @@ Question to resolve, not this one's to guess.
 | Event | Trigger | Key fields | Emits from |
 |---|---|---|---|
 | `evt_death` | `life` reaches 0 (`10_systems/DEATH_PENALTY.md` §1) | `cause` (`mob_NNN` or `environmental`), `mob_tier` (`normal`/`elite`/`boss`), `context` (`field`/`dungeon`/`arena`/`party_instance`, §5.1–5.3), `level`, `exp_lost` | server |
-| `evt_release` | Party-instance fallen character releases (`DEATH_PENALTY.md` §5.3) | `pq_id`, `release_map_id` | server |
+| `evt_release` | Party-instance fallen character releases (`DEATH_PENALTY.md` §5.3) | `raid_id`, `release_map_id` | server |
 
 `exp_lost` and `pct` are already computed per `10_systems/DEATH_PENALTY.md` §2 by the time this
 event fires; this doc never restates that formula.

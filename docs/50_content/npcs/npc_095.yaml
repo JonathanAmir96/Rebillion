@@ -1,0 +1,12 @@
+id: npc_095
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS, RAID, PERSISTENCE]
+name: Herald Skarn Ironvow
+region: frostpeak
+map: map_238
+role: handler
+dialog:
+  greeting: "The Deepfrost doesn't open for one alone. Muster a party, prove your steel, and I'll see you through the gate."
+  farewell: "Ice and iron. Come back with all of them breathing."
+portrait: portrait_npc_095
+flavor: "Skarn has called musters into the Deepfrost Vault for three seasons running, and lost count of how many came back."

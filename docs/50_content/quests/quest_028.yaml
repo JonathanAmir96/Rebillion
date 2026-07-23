@@ -1,0 +1,25 @@
+# side band 5-10% of exp_to_next(10)=3,200 (LEVELING §1); pct=0.06. shards = mean_shards_normal(10)*4
+# = 18*4 (QUESTS §5 / DROPS §3).
+id: quest_028
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Fernbrake Stock
+region: verdant
+quest_type: side
+giver_npc: npc_036
+prereqs: [quest_027]
+level_requirement: 10
+recommended_level: 10
+steps:
+  - type: collect
+    target: item_etc_0034          # sourced from mob_029's drop table (parallel monster batch)
+    count: 6
+  - type: collect
+    target: item_etc_0035          # sourced from mob_030's drop table (parallel monster batch)
+    count: 4
+rewards:
+  exp: 192                        # round(0.06 * 3,200)
+  shards: 72                      # mean_shards_normal(10)*4 = 18*4
+flavor: "Bram's stall runs thin on hollow-grown stock more often than the coach cart can fix."
+offer_text: "The fernbrake's thick with the makings of half my stock. Bring me a proper haul and I'll make it worth the walk."
+complete_text: "Now that's a stall worth restocking. Come back when the shelves run bare again."

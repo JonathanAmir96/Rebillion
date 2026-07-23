@@ -1,0 +1,14 @@
+id: npc_047
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Chandler Wick Tallow
+region: tidewatch
+map: map_075
+role: merchant
+shop:
+  items: [item_use_0015, item_use_0016]
+dialog:
+  greeting: "Rope, tar, oil, candles -- whatever's chafed, cracked, or burnt out on your last crossing."
+  farewell: "Keep your edge oiled. The sea rusts everything."
+portrait: portrait_npc_047
+flavor: "Wick has outfitted every longship crew and harborwatch patrol out of Tidewatch for longer than anyone can remember."

@@ -1,0 +1,24 @@
+id: mob_024
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Cellar Warden
+tier: normal                     # ID slot 024 = R2 normal (ID_REGISTRY Monsters)
+element: neutral                   # R2 mix is neutral/shadow (WORLD_PLAN R2)
+level: 14
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 14
+  life: 1156                     # 4*(14+3)^2
+  power: 48                     # 6+3*14 (touch = round(0.5*power), §13.1)
+  armor: 84                     # 6*14  (armor+warding sum = 168 = 12*14)
+  warding: 84                     # 6*14
+  precision: 56                 # 4*14
+  evasion: 3.42                   # 3+0.03*14 (%)
+  exp: 124                      # exp_per_kill_normal(14)=round(4*14^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only territorial_guard-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_024
+flavor: "The biggest rat-thing the undervault has yet grown, dog-sized and scarred, that keeps the drowned grain vault as if it owned the stores. It is the last lesson before the throne room, and it knows it."

@@ -1,0 +1,33 @@
+id: skill_bulwark_021
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: War Cry
+line: bulwark
+tier: second
+kind: active
+targeting: party                  # roster target `party`; solo resolves to self only (SKILL_SYSTEM §6)
+cost: { essence: 14 }
+cooldown: 12.0
+level_data:
+  - level: 1
+    essence_cost: 14
+    cooldown: 12.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0 }
+  - level: 4
+    essence_cost: 17
+    cooldown: 11.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0 }
+  - level: 7
+    essence_cost: 20
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0 }
+  - level: 10
+    essence_cost: 23
+    cooldown: 9.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0 }
+animation: skill_bulwark_021_cast
+flavor: "A roar that lands on every ally's ears at once and puts extra weight behind the next swing. The Warcaller opens every fight loud."

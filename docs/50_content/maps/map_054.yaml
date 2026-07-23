@@ -1,0 +1,48 @@
+id: map_054
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Bramblewood
+region: verdant
+map_type: field
+level_band: { min: 12, max: 13 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 155, h: 30 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_tanglevine_draw
+    kind: edge
+    at: { edge: left }
+    target_map: map_053
+    target_spawn: main
+    dead_end: false
+  - id: to_toadstool_marsh
+    kind: edge
+    at: { edge: right }
+    target_map: map_055
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: bramblewood_thicket
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_036, count: 3 }        # shares mob_036 with tanglevine draw
+      - { mob: mob_037, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_bramblewood
+    at_tile: [24, 21]
+    params:
+      text: "Thorns as long as fingers here. Loose sleeves are for people who haven't walked this path twice."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Dense bramble-cover over two low terraces (~2-tile rises), gaps within the standard
+  5-tile/3.5-tile jump caps (MAP_TRAVERSAL §1.1). Foothold segments dressed in thorned
+  terrain_chunks (ART_BIBLE AB-001); no rope/ladder needed.
+flavor: "The brambles thicken here into a proper wood, thorn-crowded enough that the path itself feels grudgingly cut."

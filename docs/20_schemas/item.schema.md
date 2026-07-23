@@ -1,15 +1,15 @@
 # item.schema.md — Batch-table content shape for equip/use/etc items
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
-10_systems/ITEMS.md, 10_systems/ENHANCEMENT.md, 10_systems/SCROLLS.md, 10_systems/DROPS.md,
-10_systems/ECONOMY.md, 10_systems/INVENTORY.md, 10_systems/STATS.md, 10_systems/SKILL_EFFECTS.md,
+10_systems/ITEMS.md, 10_systems/ENHANCEMENT.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
+10_systems/INVENTORY.md, 10_systems/STATS.md, 10_systems/SKILL_EFFECTS.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/PERSISTENCE.md, 20_schemas/monster.schema.md,
 20_schemas/drop_table.schema.md, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md, docs/VALIDATION.md
 
 ## Purpose
 
-Defines the content shape of the **item batch tables** — the `equip` (~98), `use` (~48), and
-`etc` (~133) items in `00_vision/SCOPE.md` / `10_systems/ITEMS.md` §1. Unlike monsters/skills,
+Defines the content shape of the **item batch tables** — the `equip` (~144), `use` (~36), and
+`etc` (~197) items in `00_vision/SCOPE.md` / `10_systems/ITEMS.md` §1. Unlike monsters/skills,
 items are authored many-rows-per-file (`10_systems/ITEMS.md` §12's batch-table convention): a
 table file carries front-matter plus an `items:` list, each row one `item_equip_NNNN` /
 `item_use_NNNN` / `item_etc_NNNN`. A row is the base/affix stat-line budget copied from
@@ -36,23 +36,18 @@ table wrapper" — binding the names here is this schema's job, not a restatemen
 
 | Path | `id` | Row IDs (`docs/ID_REGISTRY.md`) | Authored |
 |---|---|---|---|
-| `equip/weapons.yaml` | `item_table_weapons` | `item_equip_0001`–`0040` | one batch |
-| `equip/armor.yaml` | `item_table_armor` | `item_equip_0041`–`0140` (+ its share of reserved-growth `0181`–`0200`, ITEMS.md §4 OQ) and `item_equip_0231`–`0250` (`shield`+`overall`, equipment-v2 wave) | one batch |
-| `equip/accessories.yaml` | `item_table_accessories` | `item_equip_0141`–`0180` (+ its share of reserved growth, same OQ) | one batch |
-| `equip/uniques.yaml` | `item_table_uniques` | `item_equip_0201`–`0230` | one batch |
-| `use/consumables.yaml` | `item_table_consumables` | `item_use_0001`–`0100` | one batch (`0001`–`0016` well-known, `docs/ID_REGISTRY.md`; `0061`–`0078` are the `10_systems/SCROLLS.md` gear-mod scroll SKUs, names Phase D) |
-| `etc/materials_r01.yaml` … `materials_r08.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
+| `equip/weapons.yaml` | `item_table_weapons` | `item_equip_0001`–`0040` (arc 1, T1–T6) + `0231`–`0254` (arc 2, T7–T12; ID_REGISTRY v3) | arc batches share the file |
+| `equip/armor.yaml` | `item_table_armor` | `item_equip_0041`–`0140` (arc 1) + `0255`–`0284` (arc 2) (+ reserved-growth `0181`–`0200`, ITEMS.md §4 OQ) | arc batches share the file |
+| `equip/accessories.yaml` | `item_table_accessories` | `item_equip_0141`–`0180` (arc 1) + `0285`–`0300` (arc 2) | arc batches share the file |
+| `equip/uniques.yaml` | `item_table_uniques` | `item_equip_0201`–`0222` (bosses #1–#11; `0223`–`0230` reserved) | one batch |
+| `use/consumables.yaml` | `item_table_consumables` | `item_use_0001`–`0060` | one batch (`0001`–`0016` well-known, `docs/ID_REGISTRY.md`) |
+| `etc/materials_r01.yaml` … `materials_r11.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
 | `etc/enhancement.yaml` | `item_table_enhancement` | `item_etc_0193`–`0197` (Emberstone I–V; `0198`–`0200` reserved, unauthored) | one batch |
 
-- The **armor/accessories reserved-growth split** (`0181`–`0200`) is not fixed by this schema —
-  `10_systems/ITEMS.md` §4's own Open Question leaves the per-slot SKU count to Phase D bounded
-  only by `docs/ID_REGISTRY.md`'s ranges; both files may draw from that reserved block as Phase D
-  fills toward `00_vision/SCOPE.md`'s counts.
-- **`shield`/`overall` share `equip/armor.yaml`.** Their `item_equip_0231`–`0250` block
-  (`docs/ID_REGISTRY.md` Items — `item_equip_0001`–`0300`) is carved from the former
-  `0231`–`0300` reserved-growth range; both slots are authored on the armor value-curve/table
-  (`10_systems/ITEMS.md` §8), so their rows land in `equip/armor.yaml` alongside the other armor
-  slots rather than a separate file.
+- The **reserved-growth split** (`0181`–`0200`) is not fixed by this schema —
+  `10_systems/ITEMS.md` §4's own Open Question leaves the per-slot SKU count to Phase D
+  bounded only by `docs/ID_REGISTRY.md`'s ranges. (`0231`–`0300` was re-blocked at the v3
+  gate as the arc-2 weapons/armor/accessories ranges above and is no longer free growth.)
 - Field values use only GLOSSARY tokens (`docs/VALIDATION.md` §1); no unknown fields
   (`docs/VALIDATION.md` §3).
 
@@ -69,7 +64,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 |---|---|---|---|---|
 | `id` | string `item_table_<name>` | yes | File conventions table above | Must equal `item_table_<this file's stem>`. `server` (identity). |
 | `schema` | string | yes | this file | Literal `20_schemas/item.schema.md` (`docs/VALIDATION.md` §3). |
-| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[ITEMS, ECONOMY]`; equip tables add `ENHANCEMENT`; `uniques.yaml` additionally adds `DROPS, WORLD_PLAN` (unique sourcing + boss region-order, §11); `use/consumables.yaml` adds `SKILL_EFFECTS, INVENTORY, SCROLLS` (the last for its `0061`–`0078` gear-mod scroll SKUs); `etc/*` add `INVENTORY, DROPS, WORLD_PLAN` (region theming/materials); `etc/enhancement.yaml` adds `ENHANCEMENT` (no `WORLD_PLAN` — emberstones aren't region-themed). |
+| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[ITEMS, ECONOMY]`; equip tables add `ENHANCEMENT`; `uniques.yaml` additionally adds `DROPS, WORLD_PLAN` (unique sourcing + boss region-order, §11); `use/consumables.yaml` adds `SKILL_EFFECTS, INVENTORY`; `etc/*` add `INVENTORY, DROPS, WORLD_PLAN` (region theming/materials); `etc/enhancement.yaml` adds `ENHANCEMENT` (no `WORLD_PLAN` — emberstones aren't region-themed). |
 | `items` | list[row] | yes | — | One or more rows (below). `server`. |
 
 ### Row — common (all categories)
@@ -90,10 +85,9 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 
 | Field | Type | Required | References | Notes |
 |---|---|---|---|---|
-| `items[].slot` | enum | yes | `10_systems/ITEMS.md` §2 (GLOSSARY Equipment slots) | One of the eleven tokens, ITEMS §2 (`weapon`·`shield`·`head`·`body`·`legs`·`overall`·`boots`·`gloves`·`cape`·`ring`·`amulet`; `overall` fills the `body`+`legs` worn positions, §2.1). `server`. |
+| `items[].slot` | enum | yes | `10_systems/ITEMS.md` §2 (GLOSSARY Equipment slots) | One of the 9 tokens. `server`. |
 | `items[].weapon_type` | enum | `slot: weapon` only | `10_systems/ITEMS.md` §3 (GLOSSARY Weapon types) | `blade`\|`bow`\|`staff`\|`dirk`. Forbidden on non-weapon slots (Validation). `server`. |
 | `items[].line_hint` | enum | `slot: weapon` only | `10_systems/JOBS.md` / GLOSSARY Job lines | The job line this weapon equips (fixed 1:1 by `weapon_type`, `10_systems/ITEMS.md` §3). Redundant with `weapon_type` by design — authored explicitly so tooling/UI never re-derives the mapping (see Open Questions). Must equal the fixed mapping (Validation, hard). `server`/`client`. |
-| `items[].req_line` | enum | no (equip-only) | GLOSSARY Job lines (`bulwark`\|`keeneye`\|`weaver`\|`flicker`); rule owner `10_systems/ITEMS.md` §3.1 | A **hard** equip lock, used sparingly on armor/accessory/`shield`/`overall` rows only — `10_systems/ITEMS.md` §3.1(a) job-advancement reward gear or (b) boss uniques. Forbidden on `use`/`etc` rows and forbidden together with `slot: weapon` (a weapon row is already type-locked by `weapon_type`/`line_hint`, ITEMS §3 — it never carries `req_line`; Validation, hard). Usage outside `equip/uniques.yaml` should correspond to a `10_systems/JOBS.md` advancement-reward grant (Validation, warn — fully checkable only once Phase D quest content lands). `server`. |
 | `items[].tier` | int 1–10 | yes | `10_systems/ITEMS.md` §4 | The `T1`–`T10` gear tier; keys the §7–§9 base-line lookup. Must correspond to `req_level` per the §4 table (Validation). `server`. |
 | `items[].stats` | map `{base, affixes}` | yes | `10_systems/ITEMS.md` §6–§10 | The base+affix stat-line budget (§6: "base lines + affix lines"). Sub-fields below. `server`. |
 | `items[].stats.base` | map `{<stat token>: value}` | yes | `ITEMS` §7 (weapon `W`) / §8 (armor+warding by slot×tier) / §9 (accessory by tier) | Rarity-independent; one entry per this slot's fixed base-line set (§2 table, e.g. `body` → `armor`+`warding`). Values copied exactly from the formula for this row's `slot`×`tier` (Validation, hard). |
@@ -102,8 +96,8 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].stats.affixes[].value` | number | ordinary lines: yes | `ITEMS` §10 affix menu | Per-line pe (`ITEMS` §6 weights) ≤ the §10 per-line cap; unique exception below. |
 | `items[].stats.affixes[].op` | enum | flourish lines only | `ITEMS` §11; `10_systems/SKILL_EFFECTS.md` §13 (`passive_stat_bonus`)/§16 (`on_hit_proc`) | A flourish may be a small effect instead of a stat line ("expressed only through existing ops," §11) — params per that op's own schema (`SKILL_EFFECTS`). |
 | `items[].stats.affixes[].flourish` | bool | flourish lines only | `ITEMS` §11 | `true` marks this line eligible for the §11 **×1.5 per-line pe-cap exception**; absent/false = ordinary §10 rules apply. Uniques only (Validation). |
-| `items[].enhance_max` | int | yes | `10_systems/ENHANCEMENT.md` §2 | The top of this item's `+` track. Every equip slot uses the same uniform `0`–`9` track (`ENHANCEMENT` §2, "any single equip \[...] every equip slot") — this field must equal `9` (Validation, hard). Authored explicitly for forward-compatibility/tooling rather than assumed; see Open Questions. `server`. |
-| `items[].unique_of` | string `mob_NNN` | `uniques.yaml` only | `docs/ID_REGISTRY.md` Monsters + Items (boss-unique mapping); `10_systems/ITEMS.md` §11 | The boss this unique belongs to. Must resolve to a `tier: boss` mob (`20_schemas/monster.schema.md`) whose region-order boss number `n` (region order = `docs/WORLD_PLAN.md` Region overview R1–R8) makes this row's own `id` one of `item_equip_{0199+2n}` / `{0200+2n}` (`docs/ID_REGISTRY.md`). Forbidden outside `uniques.yaml` (Validation). `server`. |
+| `items[].enhance_max` | int | yes | `10_systems/ENHANCEMENT.md` §2 | The top of this item's `+` track. Every equip today uses the same uniform `0`–`9` track (`ENHANCEMENT` §2, "any single equip, all nine slots") — this field must equal `9` (Validation, hard). Authored explicitly for forward-compatibility/tooling rather than assumed; see Open Questions. `server`. |
+| `items[].unique_of` | string `mob_NNN` | `uniques.yaml` only | `docs/ID_REGISTRY.md` Monsters + Items (boss-unique mapping); `10_systems/ITEMS.md` §11 | The boss this unique belongs to. Must resolve to a `tier: boss` mob (`20_schemas/monster.schema.md`) whose region-order boss number `n` (region order = `docs/WORLD_PLAN.md` Region overview R1–R11, then the four Rift raid bosses as `n`=12–15) makes this row's own `id` one of `item_equip_{0199+2n}` / `{0200+2n}` (`docs/ID_REGISTRY.md`). Forbidden outside `uniques.yaml` (Validation). `server`. |
 
 ### Row — `use` only
 
@@ -112,9 +106,6 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].effects` | list[op] | yes | `10_systems/SKILL_EFFECTS.md` §4/§5/§14/§15 | Ordered effect list, **restricted to `heal`, `restore_essence`, `cleanse_status`, `apply_status`** (this schema's restriction — the task scope names only these four of the 14 ops for consumables). Params validate against each op's own schema; this schema never restates them. May be `[]` only for a utility item with no representable mechanic (e.g., a return scroll — see Open Questions). `server`. |
 | `items[].use_cooldown` | float s | yes | this schema (first-pass; no owning system doc fixes item-use pacing today) | Seconds before this item can be used again. `0` = no cooldown. See Open Questions — `10_systems/SKILL_SYSTEM.md` §5 fixes "no GCD" for **skills** only; whether consumables share an analogous rule is unresolved. `server`. |
 | `items[].stack` | int | yes | `10_systems/INVENTORY.md` §2 | Must equal **100** (the `use` tab's fixed stack size, `INVENTORY` §1–§2). Redundant with the category constant; authored explicitly (Validation, hard — see Open Questions). `server`. |
-| `items[].scroll_kind` | enum | gear-mod scroll rows only | `10_systems/SCROLLS.md` §1.1/§1.2 | `aspect`\|`temper`. Present if and only if `items[].id` falls in the gear-mod scroll block `item_use_0061`–`0090` (Validation, hard). `server`. |
-| `items[].scroll_tier` | enum | gear-mod scroll rows only | `10_systems/SCROLLS.md` §2 | `steady`\|`bold`\|`perilous`. Present iff `scroll_kind` is present (Validation, hard). `server`. |
-| `items[].slot_family` | enum | gear-mod scroll rows only | `10_systems/SCROLLS.md` §3 | `weapon_family`\|`armor_family`\|`accessory_family`. Present iff `scroll_kind` is present (Validation, hard). On these rows `items[].effects` must be `[]` — the gear-mod mechanic is owned by `10_systems/SCROLLS.md`, not the four-op `effects` list (Validation, hard) — and `items[].id` must match the `10_systems/SCROLLS.md` §5 intra-block layout convention for the `slot_family`/`scroll_kind`/`scroll_tier` it encodes (Validation, hard). `server`. |
 
 ### Row — `etc` only
 
@@ -131,10 +122,9 @@ Every enum value comes from its owning registry; this schema points, never redef
 |---|---|
 | `items[].category` | **This schema** (`10_systems/ITEMS.md` §1 token set): `equip`·`use`·`etc`. |
 | `items[].rarity` | `10_systems/ITEMS.md` §5 (GLOSSARY Rarity): `common`·`uncommon`·`rare`·`epic`·`legendary`. |
-| `items[].slot` | `10_systems/ITEMS.md` §2 (GLOSSARY Equipment slots), eleven tokens: `weapon`·`shield`·`head`·`body`·`legs`·`overall`·`boots`·`gloves`·`cape`·`ring`·`amulet`. |
+| `items[].slot` | `10_systems/ITEMS.md` §2 (GLOSSARY Equipment slots), 9 tokens. |
 | `items[].weapon_type` | `10_systems/ITEMS.md` §3 (GLOSSARY Weapon types): `blade`·`bow`·`staff`·`dirk`. |
 | `items[].line_hint` | `10_systems/JOBS.md` / GLOSSARY Job lines: `bulwark`·`keeneye`·`weaver`·`flicker` (fixed to `weapon_type`, no `novice`). |
-| `items[].req_line` | GLOSSARY Job lines / `10_systems/ITEMS.md` §3.1: `bulwark`·`keeneye`·`weaver`·`flicker`. |
 | `items[].stats.base`/`affixes[].stat` keys | `10_systems/STATS.md` (GLOSSARY primary/derived stat tokens); slot eligibility `10_systems/ITEMS.md` §10. |
 | `items[].stats.affixes[].op` (flourish) | `10_systems/SKILL_EFFECTS.md` §13/§16 only: `passive_stat_bonus`·`on_hit_proc` (not the full 14-op set — flourishes are stat-adjacent, `ITEMS` §11). |
 | `items[].unique_of` | `docs/ID_REGISTRY.md` Monsters (must resolve to a `tier: boss` entry, `20_schemas/monster.schema.md`). |
@@ -142,9 +132,6 @@ Every enum value comes from its owning registry; this schema points, never redef
 | `items[].effects[].status` (on `apply_status`) | `10_systems/STATUS_EFFECTS.md` (GLOSSARY Status effects). |
 | `items[].effects[].tag` (on `cleanse_status`) | `10_systems/STATUS_EFFECTS.md` §2 cleanse tags. |
 | `items[].source_hint` | `docs/ID_REGISTRY.md` Monsters (`mob_NNN`) or `docs/WORLD_PLAN.md` / GLOSSARY Region slugs. |
-| `items[].scroll_kind` | `10_systems/SCROLLS.md` §1.1/§1.2: `aspect`·`temper`. |
-| `items[].scroll_tier` | `10_systems/SCROLLS.md` §2: `steady`·`bold`·`perilous`. |
-| `items[].slot_family` | `10_systems/SCROLLS.md` §3: `weapon_family`·`armor_family`·`accessory_family`. |
 
 ## Example
 
@@ -207,27 +194,6 @@ restore `amount` is Phase D's):
     flavor: "A blunt fang still warm from the kiln-hound's jaw."
 ```
 
-**Scroll-row pattern** (illustrative fragment, `use/consumables.yaml`, gear-mod scroll
-`item_use_0067` — first ID of the `0067`–`0072` `armor_family` range, which per
-`10_systems/SCROLLS.md` §5's layout convention is `aspect`/`steady`; name is Phase D content):
-
-```yaml
-  - id: item_use_0067
-    name: "{Display Name}"               # Phase D
-    category: use
-    rarity: common
-    req_level: 1
-    price: { buy: 0, sell: 0 }            # ECONOMY.md §4.1 has no scroll row yet — SCROLLS.md OQ,
-                                           # owner-pending; not a real value (see Open Questions)
-    effects: []                           # gear-mod mechanic owned by SCROLLS.md, not effects ops
-    scroll_kind: aspect
-    scroll_tier: steady
-    slot_family: armor_family
-    use_cooldown: 0
-    stack: 100
-    flavor: "A brittle page that redraws a line of another blade's fortune onto yours."
-```
-
 ## Validation rules
 
 Schema-specific checks, run in addition to `docs/VALIDATION.md` globals (§1 banned tokens, §2
@@ -238,14 +204,11 @@ referential integrity, §3 schema conformance/front-matter/unknown-fields, §4 I
    file's own `id` equals `item_table_<its stem>`.
 2. **Category ↔ field gating (hard).** `items[].category` matches the table's category (`equip`
    rows only in `equip/*.yaml`, etc.). `equip`-only fields (`slot`, `weapon_type`, `line_hint`,
-   `req_line`, `tier`, `stats`, `enhance_max`, `unique_of`) are forbidden on `use`/`etc` rows;
-   `use`-only (`effects`, `use_cooldown`, `scroll_kind`, `scroll_tier`, `slot_family`) and
-   `etc`-only (`source_hint`) fields are forbidden outside their category; `unique_of` is
-   additionally forbidden outside `equip/uniques.yaml`.
+   `tier`, `stats`, `enhance_max`, `unique_of`) are forbidden on `use`/`etc` rows; `use`-only
+   (`effects`, `use_cooldown`) and `etc`-only (`source_hint`) fields are forbidden outside their
+   category; `unique_of` is additionally forbidden outside `equip/uniques.yaml`.
 3. **Stat budget — base (hard).** `items[].stats.base` values equal the `10_systems/ITEMS.md`
-   §7 (weapon)/§8 (armor — now also covering `shield` at its `w=0.14` row and `overall` at its
-   `w=0.44` two-slot formula, fed once through the formula per §8, not the sum of the two rounded
-   `body`+`legs` rows)/§9 (accessory) formula/table for this row's `slot`×`tier` exactly (§8's
+   §7 (weapon)/§8 (armor)/§9 (accessory) formula/table for this row's `slot`×`tier` exactly (§8's
    `armor`/`warding` may be reallocated between the two only if `10_systems/ITEMS.md` itself
    permits it — it does not; use the table value).
 4. **Stat budget — affixes (hard).** Line count equals the `10_systems/ITEMS.md` §5 rarity→count
@@ -285,27 +248,6 @@ referential integrity, §3 schema conformance/front-matter/unknown-fields, §4 I
     order rule, File conventions).
 15. **Rarity mechanical scope (warn).** `rarity` on `use`/`etc` rows has no budget consequence
     (rule 4 applies to `equip` only) — see Open Questions.
-16. **`req_line` gating (hard/warn).** Hard: when present, `items[].req_line` is one of the four
-    GLOSSARY job-line tokens (`bulwark`·`keeneye`·`weaver`·`flicker`); forbidden on `use`/`etc`
-    rows (rule 2); forbidden together with `slot: weapon` (a weapon row is already type-locked by
-    `weapon_type`/`line_hint`, `10_systems/ITEMS.md` §3 — it never carries `req_line`). Warn: a
-    `req_line` row authored outside `equip/uniques.yaml` should correspond to a
-    `10_systems/JOBS.md` advancement-reward grant (`10_systems/ITEMS.md` §3.1(a)) — fully
-    checkable only once Phase D quest/reward content lands, so warn-only today.
-17. **Scroll-field iff-block gating (hard, `use` rows).** `items[].scroll_kind`,
-    `items[].scroll_tier`, and `items[].slot_family` are present **all three together, and only**,
-    on rows whose `id` falls in the gear-mod scroll block `item_use_0061`–`0090`
-    (`10_systems/SCROLLS.md` §5, `docs/ID_REGISTRY.md`); absent on every other `use` row. Enum
-    values are owned by `10_systems/SCROLLS.md`: `scroll_kind` §1.1/§1.2, `scroll_tier` §2,
-    `slot_family` §3.
-18. **Scroll rows — `effects` empty + layout-convention match (hard, `item_use_0061`–`0090`).**
-    Any row carrying the three scroll fields (rule 17) has `items[].effects == []` — the gear-mod
-    mechanic is owned by `10_systems/SCROLLS.md`, not the four-op `effects` list (rule 13 does not
-    apply to these rows). The row's `id` must match the `10_systems/SCROLLS.md` §5 intra-block
-    layout convention for the `slot_family`/`scroll_kind`/`scroll_tier` it encodes: `0061`–`0066`
-    = `weapon_family`, `0067`–`0072` = `armor_family`, `0073`–`0078` = `accessory_family`, each
-    six-ID range ordered `aspect` steady/bold/perilous then `temper` steady/bold/perilous;
-    `0079`–`0090` reserved growth, unauthored this wave.
 
 ## Template
 
@@ -315,8 +257,7 @@ id: item_table_{name}                    # e.g. weapons, armor, accessories, uni
 schema: 20_schemas/item.schema.md
 references: [ITEMS, ECONOMY]             # add ENHANCEMENT (equip tables + etc/enhancement.yaml);
                                           # DROPS + WORLD_PLAN (uniques.yaml); INVENTORY + DROPS +
-                                          # WORLD_PLAN (etc/*); SKILL_EFFECTS + INVENTORY + SCROLLS
-                                          # (use/consumables.yaml, SCROLLS for its 0061-0078 rows)
+                                          # WORLD_PLAN (etc/*); SKILL_EFFECTS + INVENTORY (use/consumables.yaml)
 items:
   - id: item_{equip|use|etc}_{NNNN}
     name: "{Display Name}"
@@ -329,11 +270,9 @@ items:
     # flavor: "{<=2 sentences}"          # optional
 
     # --- equip only (forbidden on use/etc): ---
-    # slot: {weapon|shield|head|body|legs|overall|boots|gloves|cape|ring|amulet}
+    # slot: {weapon|head|body|legs|boots|gloves|cape|ring|amulet}
     # weapon_type: {blade|bow|staff|dirk}      # weapon slot only
     # line_hint: {bulwark|keeneye|weaver|flicker}   # weapon slot only; = fixed weapon_type mapping
-    # req_line: {bulwark|keeneye|weaver|flicker}    # optional hard equip lock; sparing use only
-    #   # (ITEMS §3.1(a) advancement reward / (b) boss unique); forbidden with slot: weapon
     # tier: {1..10}
     # stats:
     #   base: { {stat_token}: {value} }        # ITEMS §7-§9, exact per slot x tier
@@ -349,10 +288,6 @@ items:
     #   - { op: {heal|restore_essence|cleanse_status|apply_status}, {params per that op} }
     # use_cooldown: {float_s}
     # stack: 100
-    # scroll_kind: {aspect|temper}                        # gear-mod scrolls only, item_use_0061-0090
-    # scroll_tier: {steady|bold|perilous}                  # present iff scroll_kind present
-    # slot_family: {weapon_family|armor_family|accessory_family}  # present iff scroll_kind present;
-    #   # id must match SCROLLS.md §5 layout convention; effects: [] required on these rows
 
     # --- etc only (forbidden on equip/use): ---
     # source_hint: {mob_NNN | region_slug}
@@ -382,17 +317,12 @@ items:
   *skills*; no doc says whether consumables share an analogous per-item or shared cooldown, or
   what the number should be. First-pass field only; flagged for `10_systems/ECONOMY.md` or a
   future combat-pacing doc to own.
-- **Utility/return scrolls still have no representable mechanic.** Gear-modification scrolls
-  (`aspect`/`temper`) are now representable — `10_systems/SCROLLS.md` owns their mechanic and this
-  schema's `scroll_kind`/`scroll_tier`/`slot_family` fields carry it (Validation rules 17–18),
-  closing half of the original question. The other half stands: `10_systems/ITEMS.md` §1 still
-  names "scrolls (utility/return)" as a `use` sub-kind (e.g. `item_use_0013` Millbrook Return
-  Scroll, `docs/ID_REGISTRY.md`) — and `10_systems/SCROLLS.md`'s own "Scope-out" clause confirms
-  it is a separate, unowned mechanic — but no doc defines a teleport/return mechanic and the
-  task's four permitted `effects` ops (`heal`/`restore_essence`/`cleanse_status`/`apply_status`)
-  cannot express one. This schema still allows `effects: []` for such rows rather than inventing a
-  15th op or a new field; the teleport/return mechanic remains unowned — raised here originally,
-  still open.
+- **Scrolls (utility/return) have no representable mechanic.** `10_systems/ITEMS.md` §1 names
+  "scrolls (utility/return)" as a `use` sub-kind (e.g. `item_use_0013` Millbrook Return Scroll,
+  `docs/ID_REGISTRY.md`), but no doc defines a teleport/return mechanic and the task's four
+  permitted `effects` ops (`heal`/`restore_essence`/`cleanse_status`/`apply_status`) cannot express
+  one. This schema allows `effects: []` for such rows rather than inventing a 15th op or a new
+  field; the actual mechanic is unowned and unflagged elsewhere — raised here for the first time.
 - **Rarity's mechanical scope on `use`/`etc`.** The task's common-field list requires `rarity` on
   every row, but `10_systems/ITEMS.md` §5 defines its mechanical meaning (affix-line count) only
   for `equip`. For `use`/`etc` this schema treats `rarity` as cosmetic-only; confirm this is
@@ -401,7 +331,3 @@ items:
   `20_schemas/drop_table.schema.md`, boss drop rows) requires computing "boss #n" from
   `docs/WORLD_PLAN.md`'s region order — correct today, but brittle if regions are ever reordered.
   Flag for `docs/ID_REGISTRY.md` to consider tabulating the 15 boss-order→`mob_NNN` pairs directly.
-- **(equipment v2) `overall` dual-position marker.** Whether an `overall` row should carry a field
-  marking the two worn positions it fills, or whether `slot: overall` alone suffices. Default: the
-  token alone suffices — `10_systems/ITEMS.md` §2.1 owns the dual-position/auto-swap runtime
-  behavior; this schema adds no `occupies` field.

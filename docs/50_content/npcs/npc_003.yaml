@@ -1,0 +1,13 @@
+id: npc_003
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES]
+name: Novice Guide Wick
+region: emberfoot
+map: map_004
+role: guide
+dialog:
+  greeting: "First time past the Hall doors? Talk to Perrin at the inn, then come find me if the fields confuse you."
+  idle: "Every skill you'll ever learn starts with the same first swing."
+  farewell: "Off with you, then -- the Elder's watching."
+portrait: portrait_npc_003
+flavor: "Wick graduated Emberfoot herself only a few years back and stayed on to walk every new novice through their first uncertain steps."

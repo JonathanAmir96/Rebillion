@@ -1,0 +1,34 @@
+id: skill_keeneye_014
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Aimed Shot                    # exact JOBS.md §3.3 Sureshot roster name (skill.schema rule 1)
+line: keeneye
+tier: second                        # Sureshot is a 2nd-advancement (Lv 40) spec (JOBS §1, SKILL_SYSTEM §2)
+kind: active
+targeting: { shape: line, length: 10, width: 1.0, pierce: 0 }   # roster target line — a charged shot down a corridor (SKILL_SYSTEM §6)
+cost: { essence: 16 }
+cooldown: 7.0
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 16
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.6 }   # "charged" shot — higher base mult than a snap shot; scales on power (bow default, §1)
+  - level: 4
+    essence_cost: 19
+    cooldown: 6.5
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.0 }
+  - level: 7
+    essence_cost: 23
+    cooldown: 6.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.5 }
+  - level: 10
+    essence_cost: 27
+    cooldown: 5.5
+    effects:
+      - { op: deal_damage, element: neutral, mult: 3.0 }
+animation: skill_keeneye_014_cast
+flavor: "A held breath, a locked line, a shot that punches clean through anything standing on it. The Sureshot's bread-and-butter opener."

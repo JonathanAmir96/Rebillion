@@ -105,7 +105,8 @@ live namespace, in this order — any stage's failure **rejects the whole save w
 3. **`level` re-derivation (option a — recompute, never trust).** The stored `level`/
    `exp_into_level` are **discarded** and recomputed from raw cumulative `exp` via
    `10_systems/LEVELING.md`'s curve. The recomputed value is canonical; a mismatch is not an error,
-   the derived value simply wins. Derived `level` above the run's arc cap (Lv 42; game cap Lv 300 per
+   the derived value simply wins. Derived `level` above the authored-arc cap (Lv 82 across the two
+   v3 arcs, `docs/WORLD_PLAN.md`; game cap Lv 300 per
    `00_vision/SCOPE.md`) → reject.
 4. **Bounds re-check (option b — legal against system-doc ceilings).** Against the **derived** level:
    - Primary-stat allocation total ≤ the free-point budget that level legally grants

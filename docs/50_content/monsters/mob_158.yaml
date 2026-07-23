@@ -1,0 +1,26 @@
+id: mob_158
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Frostwing Harrier
+tier: normal
+element: frost
+weak_to: [fire]                  # thematic frost creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 45
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 45
+  life: 9215                     # 4*(45+3)^2
+  power: 141                     # 6+3*45 (touch = round(0.5*power), §13.1)
+  armor: 270                     # 6*45  (armor+warding sum = 540 = 12*45)
+  warding: 270                   # 6*45
+  precision: 180                 # 4*45
+  evasion: 4.4                   # 3 + 0.03*45 (%)
+  exp: 564                     # exp_per_kill_normal(45)=round(4*45^1.3) (LEVELING §3)
+ai_profile: aerial_swooper
+ai_params:                       # override only aerial_swooper-declared tunables (AI_BEHAVIOR)
+  patrol_altitude: 4
+  swoop_speed_mult: 2.0
+  climb_recover_s: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_158
+flavor: "A rime-feathered raptor that rides the crag updrafts and folds into a screaming dive. Between passes it climbs out of reach to line up the next."

@@ -1,0 +1,94 @@
+id: map_018
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Millbrook Central
+region: millbrook
+map_type: town
+level_band: { min: 8, max: 9 }          # hub town, tight band (MAPS_SYSTEM §4); within region 8-14
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 150, h: 26 }            # hub town, wider than Rosen Harbor (MAPS_SYSTEM §2)
+bgm: bgm_town_millbrook
+ambience: [amb_crowd]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [75, 20] }
+  - { id: coach_stop, tile: [140, 20] }
+portals:
+  - id: to_rosen_harbor                    # reverse pair of map_017's to_millbrook_central
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_017
+    target_spawn: main
+    dead_end: false
+  - id: to_west_outskirts                  # ring road spoke toward Verdant Hollow (WORLD_PLAN edge table)
+    kind: edge
+    at: { edge: left }
+    target_map: map_027
+    target_spawn: main
+    dead_end: false
+  - id: to_east_road                       # ring road spoke toward Tidewatch Coast (WORLD_PLAN edge table)
+    kind: edge
+    at: { edge: right }
+    target_map: map_028
+    target_spawn: main
+    dead_end: false
+  - id: to_farmland                        # inland spur toward the Millbrook Catacombs chain
+    kind: edge
+    at: { edge: top }
+    target_map: map_029
+    target_spawn: main
+    dead_end: false
+  - id: to_smithy
+    kind: door
+    at: { tile: [40, 20] }
+    target_map: map_022
+    target_spawn: main
+    dead_end: false
+  - id: to_market_hall
+    kind: door
+    at: { tile: [60, 20] }
+    target_map: map_023
+    target_spawn: main
+    dead_end: false
+  - id: to_guild_hall
+    kind: door
+    at: { tile: [90, 20] }
+    target_map: map_024
+    target_spawn: main
+    dead_end: false
+  - id: to_tavern
+    kind: door
+    at: { tile: [105, 20] }
+    target_map: map_025
+    target_spawn: main
+    dead_end: false
+  - id: to_mayors_house
+    kind: door
+    at: { tile: [120, 20] }
+    target_map: map_026
+    target_spawn: main
+    dead_end: false
+  - id: coach_millbrook_central             # Coachworks portal; target authoring convention only (MAP_CONNECTIONS §3)
+    kind: coach
+    at: { tile: [140, 20] }
+    target_map: map_017
+    target_spawn: coach_stop
+    dead_end: false
+interactables:
+  - type: coach_station
+    id: coach_station_018
+    at_tile: [140, 20]
+    params: {}
+  - type: lore_marker
+    id: marker_undervault_seal
+    at_tile: [130, 19]
+    params:
+      text: "A rust-sealed gate sinks below the square here -- the old undervault quarter, where the Flicker line trains and older things than rats are said to sleep."
+      interact_prompt: Read
+npcs: [npc_016, npc_017, npc_018, npc_031]
+platform_brief: |
+  A broad market square of timber and worn cobble, one long band with the sealed
+  undervault gate set into the square's north wall. Terrain is foothold segments
+  under painted terrain_chunks (ART_BIBLE AB-001); no verticality gimmick, a hub town.
+flavor: "Millbrook Central hums lantern-lit day and night, cart wheels and market cries echoing off a square built over older stone than anyone admits."

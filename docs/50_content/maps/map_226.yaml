@@ -1,0 +1,41 @@
+id: map_226
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rimeglass Plateau, Wind Cut
+region: frostpeak
+map_type: field
+level_band: { min: 53, max: 54 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 20] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_225
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_227
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: map_226_zone
+    rect_tiles: { x: 30, y: 16, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_166, count: 3 }
+      - { mob: mob_167, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Steeper ice terraces than the lower flats, still within the standard jump budget
+  (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted snow terrain_chunks
+  (ART_BIBLE AB-001). No rope/ladder needed on this stretch.
+flavor: "The climb steepens past Wyrmcrag, glacier-blue ice underfoot and the summit crevasse always in view."

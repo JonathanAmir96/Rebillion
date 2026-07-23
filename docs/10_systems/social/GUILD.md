@@ -112,7 +112,7 @@ character has no one else to recruit, so no guild ever meaningfully forms.
   not Phase D authored content) — proposes server-assigned `guild_<NNNNNN>` IDs; needs
   `10_systems/PERSISTENCE.md` to confirm the format.
 - No schema doc yet exists for the guild record; proposes a `guild.schema` doc (proposed, not yet in the §2 tree) at Phase C.
-- ~~The crest shape enum is new vocabulary not yet in GLOSSARY.md~~ **Resolved:** the enum
+- **Crest shape enum vocabulary — resolved:** the enum
   (`heater`/`round`/`banner`/`diamond`/`crest_ornate`, §5) is canonical in
   `00_vision/GLOSSARY.md` under "Guild crest shapes"; the 24-symbol list remains owned by
   `40_assets/UI_ART_SPEC.md`.

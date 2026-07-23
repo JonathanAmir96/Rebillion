@@ -1,0 +1,27 @@
+id: mob_184
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Glyphward Turret
+tier: normal                     # ID slot 184 = R10 normal (ID_REGISTRY Monsters)
+element: arcane                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [shadow]
+resists: [arcane]                # ELEMENTS §2 (mutually exclusive lists)
+level: 56
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 56
+  life: 13924                    # 4*(56+3)^2
+  power: 174                     # 6+3*56
+  spellpower: 174                # 6+3*56 (parity; magic attacker, §13)
+  armor: 336                    # 6*56  (armor+warding sum = 672 = 12*56)
+  warding: 336                  # 6*56
+  precision: 224                # 4*56
+  evasion: 4.68                 # 3+0.03*56 (%)
+  exp: 749                     # round(4*56^1.3) normal (LEVELING §3)
+ai_profile: stationary_turret
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 8
+  attack_cooldown_s: 2.2
+  windup_s: 0.7
+animation_states: [idle, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_184
+flavor: "A ward-glyph fused into a floating pillar, firing on trespassers with the patience of a thing that has forgotten how to do anything else."
