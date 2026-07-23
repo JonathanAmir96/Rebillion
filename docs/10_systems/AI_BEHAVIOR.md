@@ -54,7 +54,7 @@ statuses (`10_systems/STATUS_EFFECTS.md` §1), regardless of which state the mon
 - **Telegraph requirement:** any `windup` on an elite- or boss-tier monster must use the
   `telegraph` animation state (`40_assets/ANIMATION_STATES.md`; required by `docs/VALIDATION.md`
   §6). Normal-tier monsters may use a short, untelegraphed windup unless a profile states
-  otherwise (`kamikaze_burster` is the one stated exception, §13).
+  otherwise (`kamikaze_burster` is the one stated exception, §12).
 - **Ground edge behavior (default):** ground profiles avoid walking off a platform edge or into a
   one-way-platform drop during `idle`/`patrol`/`chase`, unless their entry below explicitly says
   they drop-through or charge through edges.

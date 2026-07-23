@@ -105,7 +105,7 @@ roster; the wave's new slot tokens are listed under Provisional below pending ga
 `skill_novice_NNN`. 3rd jobs are named-and-reserved only — this run authors the Lv 1–42
 arc; the game cap is 300 (initial design; see SCOPE.md).
 
-## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in social/GUILD.md)
+## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in 10_systems/social/GUILD.md)
 `heater` · `round` · `banner` · `diamond` · `crest_ornate`
 
 ## ID prefixes (ranges owned by docs/ID_REGISTRY.md)
@@ -126,7 +126,7 @@ reserved for future expansions — invalid in this run's content.
 `terrain_chunk` (hand-painted ground art snapped to footholds; ART_BIBLE amendment AB-001)
 
 ## Transport (owner: 15_maps_system/MAP_CONNECTIONS.md; v2.2)
-`coach` (paid town-to-town portal kind, fares in shards per ECONOMY.md) · `coach_stop`
+`coach` (paid town-to-town portal kind, fares in shards per 10_systems/ECONOMY.md) · `coach_stop`
 (arrival spawn id) · the Harborwind Ferry (paid island crossing). The earlier free-warp
 "waygate" mechanism is retired — that token is invalid in content.
 

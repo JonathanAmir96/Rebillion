@@ -12,7 +12,7 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Regions | 8 | Level-banded Lv 1 → 42 (authored arc); see WORLD_PLAN.md |
 | Maps | 200 | 6 towns, 20 interiors (incl. ferry), 99 fields, 53 dungeons (incl. 6 PQ maps), 14 secrets, 8 boss arenas |
 | Monsters | 150 | 118 normal + 24 elite + 8 boss |
-| Party quests | 2 | `pq_undervault` (Lv 15–22), `pq_mainspring` (Lv 32–40); social/PARTY_QUEST.md |
+| Party quests | 2 | `pq_undervault` (Lv 15–22), `pq_mainspring` (Lv 32–40); 10_systems/social/PARTY_QUEST.md |
 | Drop tables | 150 + 8 pools | One per monster, plus one equip pool per region |
 | Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40); 3rd+ tiers deferred to future arcs |
 | Skills | 56 | 13 per job line (6 first / 7 second, passives included) + 4 novice |
