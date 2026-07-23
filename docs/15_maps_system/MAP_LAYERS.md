@@ -72,22 +72,29 @@ tileset) is fully determined by its region; there is no second map-level art tok
 
 | Region | Biome key | Tileset token |
 |---|---|---|
-| Emberfoot Grounds | `emberfoot` | `tileset_emberfoot` |
+| Emberfoot Isle | `emberfoot` | `tileset_emberfoot` |
+| Millbrook & Rosen Harbor | `old_town` | `tileset_old_town` |
 | Verdant Hollow | `verdant_hollow` | `tileset_verdant_hollow` |
-| Millbrook Township | `old_town` | `tileset_old_town` |
 | Tidewatch Coast | `tidewatch` | `tileset_tidewatch` |
-| Sunken Depths | `tidewatch_dark` | `tileset_tidewatch_dark` |
-| Ashfall Wastes | `ashfall` | `tileset_ashfall` |
-| Frostpeak Ascent | `frostpeak` | `tileset_frostpeak` |
 | Gloomwood | `gloomwood` | `tileset_gloomwood` |
+| Ashfall Barrens | `ashfall` | `tileset_ashfall` |
+| Sunken Depths | `tidewatch_dark` | `tileset_tidewatch_dark` |
 | Clockwork Ruins | `clockwork` | `tileset_clockwork` |
-| Arcane Reach | `arcane_reach` | `tileset_arcane_reach` |
-| Voidshore | `voidshore` | `tileset_voidshore` |
-| The Rift | `rift` | `tileset_rift` |
 
-One tileset id per biome (12 total); internal variants for a region's distinct sub-areas (e.g., a
+One tileset id per biome (8 active); internal variants for a region's distinct sub-areas (e.g., a
 cave versus an open field in the same region) are an atlas-organization concern inside that one
-tileset, owned by `40_assets/ART_BIBLE.yaml`, not a second token here.
+tileset, owned by `40_assets/ART_BIBLE.yaml`, not a second token here. Biome keys `frostpeak` /
+`arcane_reach` / `voidshore` / `rift` are reserved for future arcs — no region, map, or tileset
+token binds them in this run's content.
+
+**Terrain surfaces under v2.4 (ART_BIBLE amendment AB-001):** a biome tileset covers the region's
+**structural** elements — towns, interiors, dungeon brickwork, platform props, and other built
+tilework on the 16 px grid — while organic ground is hand-painted `terrain_chunk` art snapped to
+footholds (`15_maps_system/MAP_TRAVERSAL.md` "Foothold terrain model";
+`40_assets/ART_BIBLE.yaml` `amendments`). This changes what the `terrain` layer's art *is*, not
+the layer stack: §1–§3's depth layers and the locked collision enum (§2.1,
+`30_engineering/ENGINEERING_STANDARDS.md`) are unchanged — footholds are simply the geometry
+collision layers 1/2 carry.
 
 ## 5. Lighting/ambience overlay policy
 

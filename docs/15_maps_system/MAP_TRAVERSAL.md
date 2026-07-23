@@ -18,6 +18,26 @@ render base **640×360 px ≈ 40×22.5 tiles per screen**; entity pivot **feet-c
 distance below — apex height, gap rise — is measured floor-to-floor from this pivot, not
 bounding-box edges).
 
+## Foothold terrain model (v2.4 — ART_BIBLE amendment AB-001)
+
+Walkable terrain is Maple-style **footholds**: line-segment walk geometry laid out on the 16 px
+tile grid — flat and sloped segments the player stands on and runs along (`foothold`,
+`00_vision/GLOSSARY.md` Terrain tokens). Rules:
+
+- A foothold is **one-way from below** — jumps pass up through it; drop-through uses §3's chord
+  exactly as written for one-way platforms. Footholds are the geometry the locked collision
+  layers carry (`15_maps_system/MAP_LAYERS.md` §2.1: solid ground on layer 1 `world`,
+  droppable-through spans on layer 2 `one_way` — the enum itself stays as locked by
+  `30_engineering/ENGINEERING_STANDARDS.md`).
+- Ropes, ladders, and every climbing rule (§4) are unchanged by this model.
+- **Terrain chunks** (`terrain_chunk`) are hand-painted visual skins snapped to footholds — pure
+  art with no collision of their own; the art side is owned by `40_assets/ART_BIBLE.yaml`'s
+  `amendments` block (AB-001), never restated here.
+- Exact foothold segment geometry is **engine-pass data**, not Phase D map-YAML content
+  (`00_vision/SCOPE.md` deliberate scope limits).
+- Because footholds sit on the same 16 px tile grid, **every tile-based metric in this doc —
+  gap caps, jump heights, speeds — applies to foothold spans 1:1**; nothing below is retuned.
+
 ## 1. Run speed & jump physics
 
 | Constant | Value | Notes |
@@ -132,7 +152,7 @@ attack that could fling the player into more danger.
 
 ## 7. Swim: `water_physics` map flag
 
-Sunken Depths (`docs/WORLD_PLAN.md` R5) uses a **modified-jump flag**, not a separate stat or a new
+Sunken Depths (`docs/WORLD_PLAN.md` R7) uses a **modified-jump flag**, not a separate stat or a new
 movement mode: a boolean `water_physics: true` authored per map (Sunken Depths' field/dungeon
 maps; false/omitted everywhere else). It applies one scalar to the §1 jump/fall gravity and
 nothing else:
