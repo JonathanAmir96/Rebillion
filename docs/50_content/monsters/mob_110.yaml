@@ -1,0 +1,27 @@
+id: mob_110
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Rimewater Jelly
+tier: normal                     # ID slot 110 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: frost                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 31
+size_class: small
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 31
+  life: 4624                     # 4*(31+3)^2
+  power: 99                      # 6+3*31 (touch = round(0.5*power), neutral, §13.1)
+  armor: 186                     # 6*31  (armor+warding sum = 372 = 12*31)
+  warding: 186                   # 6*31
+  precision: 124                 # 4*31
+  evasion: 3.93                   # 3 + 0.03*31 (%)
+  exp: 347                       # exp_per_kill_normal(31)=round(4*31^1.3) (LEVELING §3)
+ai_profile: passive_wanderer
+ai_params:                       # override only passive_wanderer-declared tunables (AI_BEHAVIOR)
+  wander_radius: 6
+  flee_duration_s: 4
+  leash_radius: 5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_110
+# ambient drifter; ignores the diver unless struck (AI_BEHAVIOR §3) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "A drifting bell of near-clear ice-jelly, pulsing with a slow inner light as it wanders the cold currents. It means no harm and gives none, until you brush its freezing fringe."

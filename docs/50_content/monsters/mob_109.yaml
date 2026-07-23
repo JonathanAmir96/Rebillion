@@ -1,0 +1,27 @@
+id: mob_109
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Drowned Wretch
+tier: normal                     # ID slot 109 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: shadow                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+weak_to: [arcane]                # arcane pierces the drowned dark (ELEMENTS §2/§5)
+resists: [shadow]
+level: 30
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 30
+  life: 4355                     # 4*(30+3)^2
+  power: 96                      # 6+3*30 (touch = round(0.5*power), neutral, §13.1)
+  armor: 180                     # 6*30  (armor+warding sum = 360 = 12*30)
+  warding: 180                   # 6*30
+  precision: 120                 # 4*30
+  evasion: 3.9                   # 3 + 0.03*30 (%)
+  exp: 333                       # exp_per_kill_normal(30)=round(4*30^1.3) (LEVELING §3)
+ai_profile: aggressive_charger
+ai_params:                       # override only aggressive_charger-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  charge_speed_mult: 2.5
+  charge_recover_s: 2.5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_109
+# lunges hard, punishable on the long recover (AI_BEHAVIOR §5) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "A bloated husk of some long-drowned townsfolk, hollow-eyed and trailing ribbons of rot, that lunges the moment your lamp finds it. Whatever it was, the dark kingdom's cold kept it walking long after it should have stopped."

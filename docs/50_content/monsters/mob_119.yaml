@@ -1,0 +1,27 @@
+id: mob_119
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Glacial Lurker
+tier: normal                     # ID slot 119 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: frost                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 35
+size_class: large
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 35
+  life: 5775                     # 4*(35+3)^2
+  power: 111                      # 6+3*35 (touch = round(0.5*power), neutral, §13.1)
+  armor: 210                     # 6*35  (armor+warding sum = 420 = 12*35)
+  warding: 210                   # 6*35
+  precision: 140                 # 4*35
+  evasion: 4.05                   # 3 + 0.03*35 (%)
+  exp: 407                       # exp_per_kill_normal(35)=round(4*35^1.3) (LEVELING §3)
+ai_profile: ambush_lurker
+ai_params:                       # override only ambush_lurker-declared tunables (AI_BEHAVIOR)
+  ambush_radius: 3
+  leash_radius: 3
+  aggro_vertical_band: 1
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_119
+# buried angler; its cold lure is the telegraph (AI_BEHAVIOR §7) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "A hulking anglerlike thing that lies half-buried under a shelf of ruin-ice, its lure a single cold star hung before a mouth of glass teeth. The bioluminescent bait is the last thing many divers ever admire."

@@ -1,0 +1,43 @@
+id: mob_127
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Rimewarden Vanguard
+tier: elite                      # ID slot 127 = R7 Sunken elite (ID_REGISTRY Monsters)
+element: frost
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 40
+size_class: large
+stats:                           # §13 normal Lv 40 x §13.2 elite multipliers
+  life: 44370                    # 7395 x6
+  power: 189                     # 126 x1.5
+  armor: 312                     # 240 x1.3  (armor+warding sum ~= 12*40 x1.3)
+  warding: 312                   # 240 x1.3
+  precision: 176                 # 160 x1.1
+  evasion: 6.2                   # 4.2 + 2% (§13.2 elite)
+  exp: 2420                     # exp_per_kill_normal(40)=484 x5 (LEVELING §3 elite)
+ai_profile: territorial_guard
+ai_params:
+  aggro_radius: 6
+  leash_radius: 5
+  patrol_radius: 3
+abilities:
+  - id: wardens_sweep
+    name: Warden's Sweep
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 7.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.5 }
+      - { op: knockback }
+  - id: bulwark_of_ice
+    name: Bulwark of Ice
+    targeting: self
+    cooldown: 20.0
+    telegraph_s: 1.3
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.08 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_127
+flavor: "The captain of the Warden's frozen honor guard, a head taller than any thrall and clad in rime-welded plate no blade bites easily. It holds the last stair before the vault the way it held it in life: to the last, and beyond."

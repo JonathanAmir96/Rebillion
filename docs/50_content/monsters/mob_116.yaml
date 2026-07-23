@@ -1,0 +1,25 @@
+id: mob_116
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Fallen Sentinel
+tier: normal                     # ID slot 116 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: neutral                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+level: 34
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 34
+  life: 5476                     # 4*(34+3)^2
+  power: 108                      # 6+3*34 (touch = round(0.5*power), neutral, §13.1)
+  armor: 204                     # 6*34  (armor+warding sum = 408 = 12*34)
+  warding: 204                   # 6*34
+  precision: 136                 # 4*34
+  evasion: 4.02                   # 3 + 0.03*34 (%)
+  exp: 392                       # exp_per_kill_normal(34)=round(4*34^1.3) (LEVELING §3)
+ai_profile: stationary_turret
+ai_params:                       # override only stationary_turret-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  attack_cooldown_s: 2.5
+  windup_s: 0.6
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_116
+# rooted ruin-statue; owns its line of fire (AI_BEHAVIOR §13) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "A ruin-statue of some forgotten door-warden, half-animate still, that pivots its cracked stone bow to loose bolts of pressure at trespassers. It cannot leave its plinth, but its line of fire owns the whole flooded hall."
