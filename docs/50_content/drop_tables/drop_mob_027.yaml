@@ -1,0 +1,20 @@
+id: drop_mob_027
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN, PARTY]   # boss: emberstone + region-boss mapping; raid_undervault finale -> PARTY
+owner: mob_027
+rows:
+  # shards guaranteed, boss x15. mean=round(1.5*14+3)=24; x15=360; range=[round(0.8*360),round(1.2*360)]=[288,432] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 288, qty_max: 432 }
+  # region materials guaranteed (DROPS §5.3 crafting/quest mats)
+  - { ref: item_etc_0031, chance: guaranteed, qty_min: 2, qty_max: 3 }
+  - { ref: item_etc_0032, chance: guaranteed, qty_min: 1, qty_max: 2 }
+  # emberstone: 1 guaranteed + 1 uncommon (DROPS §5.3). R2 gear = T1-T2 -> Emberstone I
+  - { ref: item_etc_0193, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0193, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5). A raid_undervault-entry kill
+  # rolls the 'raid' weight row at runtime (§5.4); this static table is the region-boss/open-arena shape.
+  - { ref: pool_equip_r02, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss uniques: The Cellar King owns item_equip_0203/0204 (ID_REGISTRY boss #2 = 0199+2n, n=2).
+  # first-ever clear guarantees one of the two (DROPS §5.3 bad-luck protection). (parallel items batch)
+  - { ref: item_equip_0203, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0204, chance: legendary, qty_min: 1, qty_max: 1 }

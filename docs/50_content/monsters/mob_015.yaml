@@ -1,0 +1,24 @@
+id: mob_015
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Grainsack Crawler
+tier: normal                     # ID slot 015 = R2 normal (ID_REGISTRY Monsters)
+element: neutral                   # R2 mix is neutral/shadow (WORLD_PLAN R2)
+level: 9
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 9
+  life: 576                     # 4*(9+3)^2
+  power: 33                     # 6+3*9 (touch = round(0.5*power), §13.1)
+  armor: 54                     # 6*9  (armor+warding sum = 108 = 12*9)
+  warding: 54                     # 6*9
+  precision: 36                 # 4*9
+  evasion: 3.27                   # 3+0.03*9 (%)
+  exp: 70                      # exp_per_kill_normal(9)=round(4*9^1.3) (LEVELING §3)
+ai_profile: ambush_lurker
+ai_params:                       # override only ambush_lurker-declared tunables (AI_BEHAVIOR)
+  ambush_radius: 2
+  leash_radius: 3
+  aggro_vertical_band: 1
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_015
+flavor: "A fat pale grub the length of a forearm, burrowed into a split grain-sack until a footstep passes. Its first strike is out before you see the sack move; after that it is only a slow, blind thing."

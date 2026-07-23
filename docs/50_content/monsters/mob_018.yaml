@@ -1,0 +1,25 @@
+id: mob_018
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Bloated Tickmound
+tier: normal                     # ID slot 018 = R2 normal (ID_REGISTRY Monsters)
+element: neutral                   # R2 mix is neutral/shadow (WORLD_PLAN R2)
+weak_to: [fire]                  # thematic: fire burns out swollen vermin (ELEMENTS §2)
+level: 10
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 10
+  life: 676                     # 4*(10+3)^2
+  power: 36                     # 6+3*10 (touch = round(0.5*power), §13.1)
+  armor: 60                     # 6*10  (armor+warding sum = 120 = 12*10)
+  warding: 60                     # 6*10
+  precision: 40                 # 4*10
+  evasion: 3.3                   # 3+0.03*10 (%)
+  exp: 80                      # exp_per_kill_normal(10)=round(4*10^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only territorial_guard-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_018
+flavor: "A tick swollen to the size of a helm on a season of cellar blood, too heavy now to do more than hold its patch of floor. It plants itself over a drain and swings its engorged bulk at anything that crosses."

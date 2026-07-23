@@ -1,0 +1,83 @@
+id: mob_027
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS, RAID]
+name: The Cellar King
+tier: boss                       # ID slot 027 = R2 boss (ID_REGISTRY Monsters)
+element: shadow                  # WORLD_PLAN R2: bloated rat-king, shadow
+weak_to: [arcane]                # anti-shadow: arcane pierces decay/veil (ELEMENTS §2)
+resists: [shadow]
+level: 14
+size_class: large               # WORLD_PLAN R2: large (NOT boss size) -> knockable, an early throne fight
+stats:                           # §13 normal Lv 14 x §13.2 boss multipliers (region-boss/open-arena row).
+                                 # raid_undervault life-scaling is runtime per §13.3 — NOT restated here.
+  life: 40460                    # 1156 x35 (open-arena/soloable region-boss value; raid = §13.3 runtime)
+  power: 96                      # 48 x2.0 (touch = round(0.5*power), §13.1; contact-hot phases only)
+  spellpower: 96                 # parity (§13); shadow/plague casts scale on magic
+  armor: 134                     # 84 x1.6  (armor+warding sum ~= 12*14 x1.6)
+  warding: 134                   # 84 x1.6
+  precision: 67                  # 56 x1.2
+  evasion: 3.42                  # 3.42 + 0 (bosses don't dodge, §13.2)
+  exp: 3100                      # exp_per_kill_normal(14)=124 x25 (LEVELING §3 boss; raid 150x total is runtime)
+ai_profile: boss_scripted        # authored 2-phase fight (AI_BEHAVIOR §14-§15)
+abilities:
+  - id: vermin_wave
+    name: Vermin Wave
+    targeting: self
+    cooldown: 18.0
+    telegraph_s: 1.3
+    effects:
+      - { op: summon_entity, entity_ref: mob_013, count: 3, dur: 30 }
+  - id: royal_gnaw
+    name: Royal Gnaw
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 6.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.5 }
+      - { op: apply_status, status: sunder, chance: 0.5, dur: 6 }
+  - id: filth_spray
+    name: Filth Spray
+    targeting: { shape: line, length: 6, width: 2 }
+    cooldown: 8.0
+    telegraph_s: 1.1
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.4 }
+      - { op: apply_status, status: weaken, chance: 0.6, dur: 5 }
+  - id: plague_nova
+    name: Plague Nova
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.4
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.6 }
+      - { op: apply_status, status: weaken, chance: 0.7, dur: 6 }
+  - id: royal_summon
+    name: Royal Summon
+    targeting: self
+    cooldown: 24.0
+    telegraph_s: 1.5
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 10 }
+      - { op: summon_entity, entity_ref: mob_020, count: 2, dur: 30 }
+  - id: tail_thrash
+    name: Tail Thrash
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.7 }
+      - { op: knockback }
+phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
+  - phase_id: 1                  # the throne: holds the drowned grain vault, summons waves, sprays filth
+    life_threshold_pct: 100
+    base_profile: territorial_guard
+    added_abilities: [vermin_wave, royal_gnaw, filth_spray, plague_nova]
+  - phase_id: 2                  # the flood: enraged, mobile, calls a heavier pack and thrashes
+    life_threshold_pct: 50
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 2.8, charge_recover_s: 2.0 }
+    added_abilities: [royal_summon, tail_thrash]
+    enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+drop_table: drop_mob_027
+flavor: "A rat-king bloated past standing, throned on Millbrook's drowned grain stores with his tails knotted to his own vermin court. He does not fight so much as reign, drowning the cellar in gnawing waves until the last of his subjects fall — and this is where the Undervault Heist ends."
