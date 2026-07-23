@@ -3,7 +3,8 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/STATS.md, 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md,
 10_systems/LEVELING.md, 10_systems/SKILL_SYSTEM.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/AI_BEHAVIOR.md, 10_systems/social/PARTY.md, 10_systems/PERSISTENCE.md,
+10_systems/AI_BEHAVIOR.md, 10_systems/social/PARTY.md, 10_systems/social/RAID.md,
+10_systems/PERSISTENCE.md,
 20_schemas/monster.schema.md, 40_assets/ART_BIBLE.yaml, docs/WORLD_PLAN.md
 
 Owner doc for the combat **math**: how the stat values from `10_systems/STATS.md` and a monster's
@@ -268,14 +269,16 @@ their script marks contact-hot.
 | raid boss | §13.3 | ×2.5 (fixed) | ×1.8 | ×1.2 | +0 | CC-immune (STATUS_EFFECTS §3) |
 
 Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 150; boss Lv 60 `life` = 15 875×35 ≈ 555 700; boss
-Lv 100 `power` = 306×2 = 612. Region/Rift bosses (`docs/WORLD_PLAN.md`) copy the row for their level
-and phase-tune within it.
+Lv 80 `power` = 246×2 = 492. Region and raid finale bosses (`docs/WORLD_PLAN.md`,
+`10_systems/social/RAID.md`) copy the row for their level and phase-tune within it.
 
 ### 13.3 Raid-boss party scaling (owner)
 
-Rift raid bosses (`mob_147`–`mob_150`, `docs/WORLD_PLAN.md` R12) scale `life` with party size `N`
-(`10_systems/social/PARTY.md` owns the legal party range and how `N` is counted). This doc owns the
-math:
+The four raid finale bosses (`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md`
+§2, `docs/WORLD_PLAN.md`) scale `life` with party size `N` **when fought via raid entry**
+(`10_systems/social/RAID.md` §3). The same boss soloed through the arena's open (non-raid) entry is
+an ordinary region `boss` (§13.2, no `N`-scaling). `10_systems/social/PARTY.md` §6 owns the legal
+party range (`3–6`) and how `N` is counted; this doc owns the math:
 
 ```
 raid_life(N, L) = normal_life(L) · 90 · N          # per-member linear
@@ -283,18 +286,27 @@ raid_damage      = normal_power(L) · 2.5           # FIXED — never scaled by 
 enrage_timer     = 12 min                           # boss wipes the party on expiry
 ```
 
-Because both `raid_life` and total party DPS scale ≈ linearly in `N`, time-to-kill stays inside the
-§14 band across the whole legal party range (worked below); larger parties drift toward the slow end
-as coordination efficiency falls. Raid boss `damage` is **not** `N`-scaled — more players means more
-bodies to cover mechanics, not a bigger tank check. The party requirement is enforced by the
-`10_systems/social/PARTY.md` minimum-size gate, boss mechanics, and the enrage timer — **not** by
-`life` alone (a lone player would still hit enrage first). Reference table at Lv 105:
+Because both `raid_life` and total party DPS scale linearly in `N`, time-to-kill is essentially
+`N`-independent and holds at the §14 midpoint across the whole legal `3–6` range (worked below).
+Raid boss `damage` is **not** `N`-scaled — more players means more bodies to cover mechanics, not a
+bigger tank check. `N` is **fixed at instance creation** (`10_systems/SPAWN.md` §7,
+`10_systems/social/PARTY.md` §6) and never re-scales: if members fall or leave, the survivors face
+the full `N`-scaled `life` with reduced live DPS and hit enrage first — which, together with the
+3-member entry gate (`10_systems/social/PARTY.md` §6) and boss mechanics, is what enforces the party
+requirement, **not** `life` alone. Reference table at Lv 80 (`raid_voidtide` boss `mob_234`, the
+highest authored raid boss):
 
 | `N` | `raid_life` | party effective DPS (§15 × `N` × 0.85) | TTK |
 |---|---|---|---|
-| 4 | 16.8 M | ≈ 39 200 | ≈ 7.9 min |
-| 5 | 21.0 M | ≈ 49 000 | ≈ 7.9 min |
-| 6 | 25.2 M | ≈ 58 800 | ≈ 7.9 min |
+| 3 | 7.44 M | ≈ 15 600 | ≈ 7.9 min |
+| 4 | 9.92 M | ≈ 20 800 | ≈ 7.9 min |
+| 5 | 12.40 M | ≈ 26 000 | ≈ 7.9 min |
+| 6 | 14.88 M | ≈ 31 200 | ≈ 7.9 min |
+
+`N` = 3 (the entry floor) clears in ≈ 7.9 min — inside the §14 6–10 min band with margin under the
+12-minute enrage — so the floor needs no retune. Because TTK is `N`-independent at the fixed 0.85
+coordination factor, larger parties do **not** clear faster; any real large-party coordination
+falloff (Open Questions) only pushes `N` = 6 toward the slow end of the band, never outside it.
 
 ## 14. Time-to-kill targets (design contract)
 
@@ -306,7 +318,7 @@ and the §15 DPS curve; balance retunes toward the **midpoint**, never outside t
 | normal mob | 3–6 s | 4.5 s (`life` / effective DPS) | §13, §15 |
 | `elite` | 20–40 s | ≈ 30 s (×6 `life`, +mitigation/dodging) | §13.2 |
 | region `boss` | 2–4 min | ≈ 2.5 min base + phase/mechanic downtime | §13.2 |
-| Rift raid boss | 6–10 min | ≈ 8 min, mid party | §13.3 |
+| raid finale boss | 6–10 min | ≈ 8 min, any legal party (3–6) | §13.3 |
 
 ## 15. Player DPS assumption table (backs §14)
 
@@ -343,9 +355,12 @@ intended tutorial pacing (P2) and stays inside the "snappy" spirit of the band.
 - `base_move_speed` (200 px/s) and `base_attack_interval` (0.90 s) are placeholders until the tile
   scale is locked in `40_assets/ART_BIBLE.yaml`; the `haste` percentages (STATS §5) are scale-free,
   but the px value is not. Owner: COMBAT_FORMULA at the C gate.
-- Mid-party size for the §14 raid target is assumed `N ≈ 4–6` (mid 5) pending
-  `10_systems/social/PARTY.md`; the §13.3 formula is `N`-agnostic, but the legal party range and
-  `N` counting must be confirmed there. Flagged.
+- The legal raid party range is confirmed `3–6` (`10_systems/social/PARTY.md` §6,
+  `10_systems/social/RAID.md` §3); the §13.3 `raid_life`/DPS model is linear in `N`, so TTK is
+  ≈`N`-independent and holds at the §14 midpoint (≈8 min) across the whole 3–6 range (worked in
+  §13.3, incl. the `N` = 3 floor). Remaining flag: the fixed **0.85 coordination-efficiency** factor
+  is a first-pass assumption; if real large-party coordination falls faster than that, `N` = 6
+  drifts toward the slow end of the §14 band. Owner: balance pass with `10_systems/social/PARTY.md`.
 - `power_ref`/`mult m` (§15) assume typical gear budgets from `10_systems/ITEMS.md` and skill
   coefficients from `10_systems/SKILL_SYSTEM.md` that are not yet authored; if those land far from
   the reference, retune `mult m` (never `normal_life`). Owner: balance pass, C/D gates.

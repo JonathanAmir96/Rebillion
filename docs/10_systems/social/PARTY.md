@@ -1,14 +1,15 @@
-# PARTY.md — Party System, Exp Share & Rift Raids
+# PARTY.md — Party System, Exp Share & Raids
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md, 10_systems/JOBS.md,
 10_systems/LEVELING.md, 10_systems/COMBAT_FORMULA.md, 10_systems/DROPS.md, 10_systems/INVENTORY.md,
 10_systems/ECONOMY.md, 10_systems/QUESTS.md, 10_systems/DEATH_PENALTY.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/SPAWN.md, 10_systems/HUD.md, 10_systems/CONTROLS.md,
-10_systems/social/CHAT.md, 15_maps_system/MAPS_SYSTEM.md, 10_systems/PERSISTENCE.md,
-docs/WORLD_PLAN.md
+10_systems/social/CHAT.md, 10_systems/social/RAID.md, 15_maps_system/MAPS_SYSTEM.md,
+10_systems/PERSISTENCE.md, docs/WORLD_PLAN.md
 
 Owner doc for the **party**: membership and roster, invite/kick/leave and leader powers, the
-exp-share split, loot-share modes, the HUD data contract, and the Rift raid party rules. Kill/`exp`
+exp-share split, loot-share modes, the HUD data contract, and the raid party rules. The **raid**
+itself (entry, stage chain, lockout, rewards policy) is `10_systems/social/RAID.md`'s; kill/`exp`
 math is `10_systems/LEVELING.md`/`10_systems/COMBAT_FORMULA.md`; drop tagging and table shape are
 `10_systems/DROPS.md`; death/release-and-reenter is `10_systems/DEATH_PENALTY.md`; raid boss
 scaling math is `10_systems/COMBAT_FORMULA.md` §13.3. This doc consumes all of those and never
@@ -108,16 +109,19 @@ Questions — whether this duplicates the material/`shards` faucet per member is
 **Default: `round_robin`** for pool rolls and boss/raid uniques. The leader may toggle the mode
 (§2) at any time; a change applies to the next roll, never retroactively.
 
-## 6. Rift raids
+## 6. Raids
 
-Raid arenas (`map_197`–`map_200`, `docs/WORLD_PLAN.md` R12) are **party-required and
-party-instanced** (`10_systems/SPAWN.md` §7): entering allocates the encounter to the entering
-party alone.
+The **raid** — its concept, entry, stage chain, lockout, and rewards policy — is owned by
+`10_systems/social/RAID.md`; this section owns only the **party-side** rules a raid consumes. A raid
+run is **party-required and party-instanced** across the four raid finale arenas
+(`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md` §2, `docs/WORLD_PLAN.md`):
+entering allocates the stage chain and finale arena to the entering party alone
+(`10_systems/SPAWN.md` §7).
 
-- **Legal party size: 4–6.** Below 4, arena entry is refused (`15_maps_system/MAPS_SYSTEM.md` §8);
-  the cap is the same flat 6 as §1. This fixes `10_systems/COMBAT_FORMULA.md` §13.3's assumed
-  `N ≈ 4–6` range.
-- **`N` is fixed at instance creation** (`10_systems/SPAWN.md` §7) and never re-scales mid-fight —
+- **Legal party size: 3–6.** Below 3, raid entry is refused (`10_systems/social/RAID.md` §3,
+  `15_maps_system/MAPS_SYSTEM.md` §8); the cap is the same flat 6 as §1. This fixes
+  `10_systems/COMBAT_FORMULA.md` §13.3's assumed `N` range at `3–6`.
+- **`N` is fixed at instance creation** (`10_systems/SPAWN.md` §7) and never re-scales mid-run —
   not on a fall, a Release, a disconnect, or a late arrival (late arrivals fight but do not add to
   `N`). No hidden re-scaling (`00_vision/PILLARS.md` P1).
 - **Boss scaling** (`raid_life(N, L)`, fixed `raid_damage`, the 12-minute enrage timer) is entirely
@@ -129,10 +133,10 @@ party alone.
   restated here. This doc fixes only the party bookkeeping:
   - A **fallen** member stays on the roster and on party HUD plates (§3) in a distinct fallen
     state — resolves `10_systems/DEATH_PENALTY.md` §5.3's flagged open question.
-  - While fallen but not yet Released, they are still physically on the arena map, so they remain
+  - While fallen but not yet Released, they are still physically on the instance map, so they remain
     exp/loot-eligible (§4/§5) for kills that land before they Release.
-  - Once Released to the staging-shard field (`docs/WORLD_PLAN.md` R12), they fail the same-map
-    gate (§4) until they walk back through the entrance.
+  - Once Released to the raid's staging area (`10_systems/social/RAID.md` §3), they fail the
+    same-map gate (§4) until they walk back through the entrance.
 
 ## Server Dependency
 
@@ -140,16 +144,19 @@ Roster membership, HUD plate data, exp/loot arbitration, and raid instance alloc
 `authority: server` (`10_systems/PERSISTENCE.md` §1–§2; `00_vision/PILLARS.md` P6) — a client
 cannot self-certify who is in range or award itself a kill's exp/loot. **The interim solo build
 ships the entire party system present but dormant**: the invite/roster UI exists but has no other
-character to reach, so no party ever forms, and Rift raids stay unreachable
-(`10_systems/SPAWN.md` §7 requires an entering party).
+character to reach, so no party ever forms, and raids stay unreachable
+(`10_systems/social/RAID.md` §8; `10_systems/SPAWN.md` §7 requires an entering party).
 
 ## Open Questions
 
 - The 70/30 contribution/presence split and the range_mult bands (§4) are first-pass balance;
   retune once real damage-share telemetry exists. Owner: this doc with `10_systems/ECONOMY.md`.
-- This doc's split refines `10_systems/LEVELING.md` §3's "assumes an even split among a mid party"
-  note for the raid 150× total; the two should reconcile at the next gate — the actual split is
-  not strictly even, only approximately so for a balanced-damage party.
+- This doc's §4 contribution-weighted split is the arbiter of `10_systems/LEVELING.md` §3's
+  raid-boss **150× total** (`10_systems/social/RAID.md` §6 routes the finale-boss `exp` pool here);
+  LEVELING §3's per-member figures assume the even-split degenerate case (`N` = 5), which this split
+  only approximates for a balanced-damage party across the legal `3–6` range. Reconcile the exact
+  per-member share at the next gate. Owner: this doc with `10_systems/LEVELING.md` /
+  `10_systems/social/RAID.md`.
 - Whether "same-map" (§4/§5) should tighten to a same-screen/zone radius on very large field maps
   is flagged, not resolved; default keeps the literal same-map gate.
 - Whether material/use-item/`shards` rows duplicate per eligible member or are split (§5) is

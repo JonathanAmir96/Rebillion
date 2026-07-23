@@ -4,7 +4,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, doc
 docs/ID_REGISTRY.md, 10_systems/LEVELING.md, 10_systems/ECONOMY.md, 10_systems/DROPS.md,
 10_systems/ITEMS.md, 10_systems/INVENTORY.md, 10_systems/JOBS.md, 10_systems/HUD.md,
 10_systems/CONTROLS.md, 10_systems/PERSISTENCE.md, 10_systems/SPAWN.md,
-10_systems/social/PARTY.md, 15_maps_system/MAP_INTERACTABLES.md,
+10_systems/social/PARTY.md, 10_systems/social/RAID.md, 15_maps_system/MAP_INTERACTABLES.md,
 15_maps_system/MAPS_SYSTEM.md, 20_schemas/quest.schema.md
 
 Owner doc for **quests**: the fields every quest is built from, the four step types, how a
@@ -12,9 +12,9 @@ Owner doc for **quests**: the fields every quest is built from, the four step ty
 abandon/retry/repeat policy, and the quest-log UX hook. `exp` curve math is
 `10_systems/LEVELING.md`; `shards` faucet/sink balance is `10_systems/ECONOMY.md`; item
 definitions are `10_systems/ITEMS.md`; kill-credit tagging is `10_systems/DROPS.md` §7. This doc
-never restates those — it only sets the *quest-side* budget and shape. The 90 authored quests and
-their per-region ID blocks (`quest_001`–`090`) are `docs/ID_REGISTRY.md`'s; `docs/WORLD_PLAN.md`
-supplies region level bands. `20_schemas/quest.schema.md` (Phase C) formalizes field types; this
+never restates those — it only sets the *quest-side* budget and shape. The authored quests and
+their per-region ID blocks (arc-1 `quest_001`–`090`, arc-2 `quest_091`–`120`) are
+`docs/ID_REGISTRY.md`'s; `docs/WORLD_PLAN.md` supplies region level bands. `20_schemas/quest.schema.md` (Phase C) formalizes field types; this
 doc owns the anatomy and the numbers Phase D content copies.
 
 ## 1. Quest anatomy (fields)
@@ -105,10 +105,15 @@ quest_exp = round( pct · exp_to_next(quest_level) )     # exp_to_next per 10_sy
 A region's total quest `exp` should land near **≈25%** of the `exp` needed to clear that region's
 level band (`10_systems/LEVELING.md` §4 — cited, not restated); Phase D sums each region's
 authored quests against that target and tunes individual `pct` within the bands above, per
-`10_systems/LEVELING.md`'s own Open Question on this reconciliation. **Rift-band quests
-(`quest_085`–`090`, region 12, Lv 100+) pay no `exp`** — they inherit the post-cap policy
-(`10_systems/LEVELING.md` §6) exactly as monster kills do at cap; their reward is `shards`/items
-only (§5).
+`10_systems/LEVELING.md`'s own Open Question on this reconciliation. **Raid intro/handler quests**
+(arc-1 `quest_087`–`090`; arc-2 `quest_099`–`100` and `quest_119`–`120`; `docs/WORLD_PLAN.md`,
+`10_systems/social/RAID.md` §3) are authored as ordinary quests and pay **normal region-budget
+`exp`** for their band (§4 above, `10_systems/LEVELING.md` §4) — the authored arcs top out at Lv 80
+and there is **no post-cap zero-`exp` band** in scope (the `level` cap is 300,
+`10_systems/LEVELING.md` §1/§6). The raid **clear** reward itself is the finale-boss `exp` and loot
+(`10_systems/LEVELING.md` §3, `10_systems/social/RAID.md` §6), separate from these quests
+(handler-quest **repeatability** vs §7's one-time-per-character launch policy is flagged in Open
+Questions).
 
 ## 5. Reward budget — `shards`
 
@@ -183,9 +188,18 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 
 ## Open Questions
 
-- Party quest-credit sharing (does a party member's kill/collect count for everyone nearby?) is
-  deferred to `10_systems/social/PARTY.md`, not yet authored; default until then is **unshared** —
-  each member individually needs the kill tag / the collect item.
+- Quest kill/collect credit-sharing **among party members** (does a party member's kill/collect
+  count for everyone nearby?) is resolved by `10_systems/social/PARTY.md` §4: a `kill`-step's credit
+  shares across same-map members with that step active (mirroring `10_systems/DROPS.md` §7's shared
+  tag), while a `collect`-step does **not** share — credit requires the item in hand. Raids inherit
+  this same model for stage objectives (`10_systems/social/RAID.md` §4). This doc's §3 `kill` step
+  defers there; no separate quest-side rule.
+- **Raid handler-quest repeatability.** `10_systems/social/RAID.md` §3 describes the raid handler
+  quest as a **repeatable** clear turn-in wrapper, but §7 above sets the launch policy at
+  one-time-per-character with no repeatable-quest system. Reconcile before Phase D authors the
+  handler quests: either the raid clear-reward loop routes through `10_systems/social/RAID.md`'s own
+  clear/cooldown mechanics (not a re-acceptable quest), or the handler is the first sanctioned
+  exception to §7. Owner: this doc with `10_systems/social/RAID.md`.
 - Exact per-quest `pct` within the §4 bands, and the regional ≈25% reconciliation, is Phase D
   authoring work per `10_systems/LEVELING.md` §4's own Open Question; not resolved to the exact
   quest here.
