@@ -1,0 +1,17 @@
+id: item_table_materials_r09
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R9 monster materials: item_etc_0129-0144 (ID_REGISTRY etc block). This exemplar authors the
+# first row; the region batch fills 0130-0144, one per R9 species, on the same shape.
+items:
+  - id: item_etc_0129
+    name: Rimefang Pelt
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 40                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 45                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1);
+                                  # etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_151          # drops from Rimefang Prowler (cross-checks drop_mob_151)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A frost-stiffened wolf hide, cold to the touch long after the kill. The far-isle tanneries pay for hides the ring never sees."

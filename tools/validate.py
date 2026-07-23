@@ -807,7 +807,7 @@ def check_id(rep, path, ln, idv):
 # ---------------------------------------------------------------------------
 # §5 world-graph.
 # ---------------------------------------------------------------------------
-def check_world_graph(rep, maps, entry, scope):
+def check_world_graph(rep, maps, entry, scope, allow_missing=False):
     # maps: {map_id: (path, data)}
     def in_scope(mid):
         if scope is None:
@@ -834,7 +834,13 @@ def check_world_graph(rep, maps, entry, scope):
             tm = p.get("target_map")
             ts = p.get("target_spawn")
             if tm and tm not in maps:
-                rep.fail(5, rel(path), ln, "portal '%s' targets missing map %s" % (p.get("id"), tm))
+                if allow_missing:
+                    rep.warn(5, rel(path), ln,
+                             "portal '%s' targets not-yet-authored map %s (allow-missing)"
+                             % (p.get("id"), tm))
+                else:
+                    rep.fail(5, rel(path), ln,
+                             "portal '%s' targets missing map %s" % (p.get("id"), tm))
             elif tm and ts is not None:
                 if tm in spawns and ts not in spawns[tm]:
                     rep.fail(5, rel(path), ln, "portal '%s' targets missing spawn '%s' on %s"
@@ -1002,7 +1008,7 @@ def main(argv):
 
     # §5 world-graph.
     if maps:
-        check_world_graph(rep, maps, entry, scope)
+        check_world_graph(rep, maps, entry, scope, allow_missing)
 
     rep.render()
     return 1 if rep.has_fail() else 0

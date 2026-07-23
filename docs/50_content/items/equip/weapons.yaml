@@ -1,0 +1,29 @@
+id: item_table_weapons
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, ENHANCEMENT]
+# All line weapons live in this one table (ITEMS §12 grouping): arc-1 item_equip_0001-0040 AND
+# arc-2 item_equip_0231-0254 (v3 re-block, ID_REGISTRY / ITEMS §4). NB: item.schema's File-conventions
+# row still lists weapons.yaml as 0001-0040 only -- that predates the v3 arc-2 re-block; ID_REGISTRY
+# is authoritative on the range. Intra-block layout (ITEMS §4): arc-2 weapons contiguous by line,
+# blade 0231-0236 / bow 0237-0242 / staff 0243-0248 / dirk 0249-0254, each T7->T12.
+items:
+  - id: item_equip_0231             # arc-2 blade, T7
+    name: Rimesteel Warblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark              # fixed by weapon_type (ITEMS §3): blade -> bulwark
+    tier: 7
+    req_level: 43                   # T7 req_level = 1 + 7*(7-1) (ITEMS §4)
+    rarity: uncommon                # 1 affix line (ITEMS §5)
+    stats:
+      base: { power: 196 }          # T7 blade W = round(0.055*43^2 + 2.05*43 + 6) (ITEMS §7)
+      affixes:
+        # Lv43: u=round(1.5+0.22*43)=11; +primary line = u = 11 pe; per-line cap=round(1.4*11)=15;
+        # uncommon budget = 1 line * 15 = 15 pe; 11 <= 15 (ITEMS §10). `might` is weapon-eligible.
+        - { stat: might, value: 11 }
+    enhance_max: 9                   # uniform 0-9 track (ENHANCEMENT §2)
+    price:
+      buy: 7000                     # base_buy(T7)=2800 (ECONOMY §4.2 interp) * uncommon x2.5
+      sell: 1750                    # round(0.25 * 7000) (ECONOMY §4)
+    flavor: "Frost-quenched ring steel, reforged on the far ice. It rings a half-tone colder than any blade off Harthmoor."

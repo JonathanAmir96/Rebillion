@@ -1,0 +1,21 @@
+id: item_table_consumables
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, SKILL_EFFECTS, INVENTORY]
+# The use-item table: item_use_0001-0060 (ID_REGISTRY §use; 0001-0016 well-known names). This
+# exemplar authors the arc-2 tier-6 tonic; the batch fills the rest of the ladder + specialties.
+items:
+  - id: item_use_0017
+    name: Sovereign Life Tonic      # exact ID_REGISTRY name (well-known 0017-0020, arc-2 tonics)
+    category: use
+    rarity: common                  # cosmetic on use rows (ITEMS §5)
+    req_level: 40                   # tier-6 band start, Lv 40-61 (ITEMS §1.1)
+    price:
+      buy: 2000                     # continues ECONOMY §4.1 curve above Prime (1000) -- see note
+      sell: 500                     # round(0.25 * 2000) (ECONOMY §4)
+    effects:
+      # flat restore; magnitude is Phase D use-item data (ITEMS §1). ~40% of Lv-40-band player life
+      # (STATS §2 life ~1164 pre-gear at Lv40) per ECONOMY §5's ~40%-of-band assumption. First-pass.
+      - { op: heal, scaling: flat, amount: 600 }
+    use_cooldown: 1.0               # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                      # use tab fixed stack (INVENTORY §2)
+    flavor: "A resinous cordial brewed against the deep cold; one pull and the ache of the ice lets go."

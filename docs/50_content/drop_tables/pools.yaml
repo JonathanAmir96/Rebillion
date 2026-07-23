@@ -1,0 +1,17 @@
+id: drop_pools
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, WORLD_PLAN]
+# The single shared region-pools file (drop_table.schema §File conventions). The schema requires
+# exactly 12 pools[] (pool_equip_r01..r11 + reserved) -- rule 9 is a GLOBAL/final check, like the
+# world-graph check (VALIDATION §5): this exemplar seeds the R9 pool; each region batch APPENDS its
+# own pool entry here (it does NOT create a per-region pool file).
+pools:
+  - id: pool_equip_r09                 # NN=09 matches region order R9 (DROPS §6)
+    region: frostpeak
+    entries:                            # base equips whose tier sits in R9's band (T7-T8, Lv 40-55; DROPS §6, ITEMS §4)
+      - { item: item_equip_0231 }       # T7 blade (authored, items/equip/weapons.yaml); weight omitted = uniform
+      - { item: item_equip_0237 }       # forward-ref: T7 bow  (weapons.yaml batch, ITEMS §4 layout)
+      - { item: item_equip_0243 }       # forward-ref: T7 staff
+      - { item: item_equip_0249 }       # forward-ref: T7 dirk
+    # No arc-1 tail: DROPS §6 pools carry only the region-band tiers, and R9 is Lv 40-55 (T7-T8).
+    # Boss uniques (item_equip_0217-0222) are NOT in pools (DROPS §6, rule 10). Batch adds T8 rows.
