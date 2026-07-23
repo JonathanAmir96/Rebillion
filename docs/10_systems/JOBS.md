@@ -16,9 +16,8 @@ acquisition/targeting/level_data are `10_systems/SKILL_SYSTEM.md`, effect-op par
 
 **v3 owner revision (2026-07-23):** the 2nd advancement (Lv 40) now **branches** into per-line
 specializations — a character picks **one** and keeps it for life. This repeals the earlier
-"linear, no branching" model (`00_vision/SCOPE.md` still carries the stale linear line — patch
-proposed in Open Questions). Level cap is **300** (`00_vision/SCOPE.md`); this run authors the
-first arc, Lv 1–42.
+"linear, no branching" model (repealed in `00_vision/SCOPE.md` at the v3 revision). Level cap is
+**300** (`00_vision/SCOPE.md`); this run authors two arcs, Lv 1–82.
 
 ## 0. Token proposals (GLOSSARY Provisional → promote at the gate)
 
@@ -52,7 +51,7 @@ names, spec #2/#3 are **new** and proposed for promotion):
 - **Bands.** `novice` Lv 1–7 (shared kit, §6) → **1st** advancement at **Lv 8** (choose a line,
   permanent) → **2nd** advancement at **Lv 40** (choose a **specialization** of that line,
   permanent) → **3rd** tier reserved for a **future arc** (default gate Lv 80, Open Questions).
-  Level cap **300** (`00_vision/SCOPE.md`); this run authors Lv 1–42.
+  Level cap **300** (`00_vision/SCOPE.md`); this run authors two arcs, Lv 1–82.
 - **Two permanent choices.** The **line** is chosen at the 1st advancement (Lv 8) and is permanent;
   the **specialization** is chosen at the 2nd advancement (Lv 40) and is likewise permanent — a
   character is one line + one spec for life. Stat identity is undifferentiated during `novice`
@@ -451,9 +450,8 @@ duplicate a signature (`00_vision/PILLARS.md` P4).
   `cindercall`, `frostbind`, `wildcard` — for the `00_vision/GLOSSARY.md` Job-lines block (the four
   spec #1 tokens are already promoted as the v2 second-job names). Flag if any collides with a
   later-authored token.
-- **`00_vision/SCOPE.md` still says "job advancement is linear (no branching)"** and "Skills 56 =
-  13 per job line"; the v3 owner revision repeals both. SCOPE.md is producer-owned — patch proposed:
-  branching at Lv 40, and a skills count of 98 authored (94 line + 4 novice). Not edited here.
+- **`00_vision/SCOPE.md` linear-advancement / 56-skills lines — resolved:** SCOPE's v3 revision
+  (2026-07-23) now states branching at Lv 40 (10 specs) and 98 authored skills, matching this doc.
 - **3rd-tier mapping.** The four reserved 3rd-job names (Aegis/Skypiercer/Highweaver/Nightdancer)
   stay named-and-reserved. Whether each maps as **one capstone per line** (all of a line's specs
   converge on the single reserved name) or as **per-spec capstones** (each spec earns its own,

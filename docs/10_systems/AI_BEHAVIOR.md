@@ -296,6 +296,6 @@ above; set false only if a specific boss needs a softer transition — flag it i
   non-boss monster.
 - Exact tile-to-pixel size for `aggro_radius`/`aggro_vertical_band` units is owned by
   `40_assets/ART_BIBLE.yaml`; not fixed here.
-- `phase_shift_duration_s` and whether it should scale for PQ-instanced finales
-  (`10_systems/social/PARTY_QUEST.md`) is a first-pass default; owner
+- `phase_shift_duration_s` and whether it should scale for raid finales
+  (`10_systems/social/RAID.md`) is a first-pass default; owner
   `10_systems/COMBAT_FORMULA.md`/`10_systems/social/PARTY.md` may retune.

@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md,
 10_systems/ELEMENTS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/SKILL_SYSTEM.md, 10_systems/social/PARTY.md,
+10_systems/SKILL_SYSTEM.md, 10_systems/social/PARTY.md, 10_systems/social/RAID.md,
 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md, docs/ID_REGISTRY.md,
 docs/WORLD_PLAN.md
 
@@ -77,9 +77,11 @@ tier (`normal` · `elite` · `boss`, `20_schemas/monster.schema.md`):
 | Damage debuff (`sunder`, `weaken`) | 100% | 100% | 50% magnitude |
 | DoT (`burn`, `poison`) | 100% | 100% | 100% |
 
-A PQ-instanced finale boss (`10_systems/social/PARTY_QUEST.md`) uses this same `boss` row — the
-same monster, the same tier, regardless of entry path (`10_systems/social/PARTY.md` §6). A
-full-CC-immunity tier is reserved for a future-arc raid tier and does not exist in this arc.
+A raid-instanced finale boss (`10_systems/social/RAID.md`) uses this same `boss` row **except**
+as `10_systems/COMBAT_FORMULA.md` §13.2's raid-boss tier row specifies: fought via raid entry it
+is **CC-immune** — hard and soft CC alike land nothing — while the non-CC classes (damage
+debuffs, DoTs) keep the `boss` row's scaling. The same monster through the arena's open
+(non-raid) entry is an ordinary `boss` (this row; `10_systems/COMBAT_FORMULA.md` §13.3).
 
 ## 4. Registry — the 16 statuses
 
@@ -155,9 +157,10 @@ apply to DoT ticks exactly as to direct hits.
   player buffs. Owner: `10_systems/SKILL_EFFECTS.md`.
 - Hard-CC DR window (10 s) and immunity duration (8 s) are first-pass; may need retuning for
   party-instanced finales. Owner: `10_systems/COMBAT_FORMULA.md` / `10_systems/social/PARTY.md`.
-- **Raid-boss CC-immunity — resolved at the
-  v2 straggler wave:** no raid tier exists this arc; PQ-instanced finale bosses use the `boss`
-  row (§3). A future-arc raid tier re-opens the full-immunity question.
+- **Raid-boss CC-immunity — resolved at the v3 revision:** `10_systems/COMBAT_FORMULA.md` §13.2
+  now carries a live raid-boss tier row (full CC immunity via raid entry); §3 aligns with it.
+  Whether the non-CC classes (damage debuffs, DoTs) should also tighten on that row is that
+  doc's call — default keeps the `boss` row scaling for them.
 - **Max simultaneous statuses vs the HUD icon budget — resolved:** `10_systems/HUD.md` §8 specs
   the status icon row at exactly 12 and states it equals this doc's §1 per-entity cap.
 - `regen` and healing scaling: currently % of receiver max `life`; if healer output should scale

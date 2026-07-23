@@ -58,7 +58,7 @@ moment-to-moment Y — so an ordinary jump/fall arc does not bob the camera up a
 The camera's viewport never shows beyond a map's authored bounds rect (top/bottom/left/right, in
 tiles), adjusted for half the viewport's extent so the edge of the map sits flush with the edge
 of the screen rather than centering past it. The bounds rect itself is per-map authored data
-(`15_maps_system/MAPS_SYSTEM.md`, not yet written) — this doc owns only the clamp behavior that
+(`15_maps_system/MAPS_SYSTEM.md`) — this doc owns only the clamp behavior that
 consumes it.
 
 ## 5. Pixel snapping & zoom
@@ -83,8 +83,8 @@ arena-lock trigger, switches the camera from normal deadzone-follow to a **locke
 The tighter, un-eased tracking keeps boss telegraphs and arena hazards readable at all times (P1)
 — readability over camera smoothness during a fight that matters. The lock releases back to
 normal on the boss's death or the player exiting the arena. **Which map/zone triggers the lock,
-and the arena's rect, are authored data owned by `15_maps_system/MAPS_SYSTEM.md`** (not yet
-written); this doc owns only what the camera *does* once locked, per
+and the arena's rect, are authored data owned by `15_maps_system/MAPS_SYSTEM.md`**;
+this doc owns only what the camera *does* once locked, per
 `10_systems/AI_BEHAVIOR.md` §15's note that arena-side camera-lock authoring lives in the map
 file. A boss `phase_shift` transition (`10_systems/AI_BEHAVIOR.md` §15) may trigger a screen-shake
 pulse (§7) but does not itself alter the lock framing.
@@ -133,7 +133,7 @@ synced or validated by a server, even once the game is server-authoritative for 
   `10_systems/SKILL_EFFECTS.md` or `10_systems/AI_BEHAVIOR.md`; flagged for whichever doc adds
   ability-presentation metadata.
 - Whether non-arena "mini-lock" zones (e.g., a tough elite pack in a dungeon corridor) are used in
-  Phase D content, beyond the 8 boss arenas (one per region block; `docs/ID_REGISTRY.md`,
+  Phase D content, beyond the 11 boss arenas (one per region block; `docs/ID_REGISTRY.md`,
   `docs/WORLD_PLAN.md`), is undecided — the mechanism (§6) supports it either way.
 - Ultrawide/uncommon aspect ratios and any camera safe-area guarantee are not addressed; likely an
   `40_assets/ART_BIBLE.yaml`/engineering concern once a target resolution is fixed.

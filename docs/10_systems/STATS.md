@@ -99,8 +99,8 @@ Applied on each level-up. `novice` (Lv 1–7) grows evenly; from the 1st advance
 
 Cumulative auto-growth for a main primary at level `L≥9`: `5 + 7 + 3*(L-8)`. For an off-primary:
 `5 + 7 + 1*(L-8)`. The growth table is specified through Lv 100 today; its extension toward the
-300 cap (`00_vision/SCOPE.md` v2) is future-arc design (Open Questions) — the authored arc tops
-at Lv 42 and is unaffected.
+300 cap (`00_vision/SCOPE.md` v3) is future-arc design (Open Questions) — the authored arcs top
+at Lv 82 and are unaffected.
 
 ### 4.3 Free allocation pool (hybrid model)
 
@@ -196,5 +196,5 @@ client/server boundary are owned by `10_systems/PERSISTENCE.md`.
 - Resolved: `armor`/`warding` → damage-reduction curve owned by `10_systems/COMBAT_FORMULA.md`
   §5 (mitigation curve); `precision`-vs-`evasion` hit resolution owned by §3 (hit check).
 - Primary growth beyond Lv 100 (toward the 300 cap) is unspecified — future arcs decide whether
-  §4.2's +3/+1 continues, tapers, or hands off to gear-only; nothing in the authored Lv 1–42 arc
+  §4.2's +3/+1 continues, tapers, or hands off to gear-only; nothing in the authored Lv 1–82 arcs
   depends on the answer. Owner: this doc with `10_systems/LEVELING.md`.

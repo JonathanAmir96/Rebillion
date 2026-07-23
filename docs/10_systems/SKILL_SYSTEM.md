@@ -18,7 +18,8 @@ pipeline or cadence bases (`10_systems/COMBAT_FORMULA.md`), or status behavior
 Level-up grants skill points; `10_systems/LEVELING.md` §5 delegates the **magnitude** here.
 
 - **+1 skill point per level gained** (levels 2→cap 300 = **299 lifetime points**; none at Lv 1).
-  The authored first arc reaches Lv 42 (41 points); the full cap-300 total is flagged below.
+  The two authored arcs carry a character to Lv 80 (Lv 2→80 = **79 points** by arc-2's end; the
+  arc-1 milestone is Lv 42, 41 points); the full cap-300 total is flagged below.
 - Points are granted atomically with the level-up (server-authoritative,
   `10_systems/PERSISTENCE.md`; `10_systems/LEVELING.md` §5 owns the trigger).
 - A job **advancement** (`10_systems/JOBS.md` §1) grants **no** extra points — the 1st unlocks the
