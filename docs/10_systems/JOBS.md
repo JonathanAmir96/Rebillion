@@ -6,7 +6,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/COMBAT_FORMULA.md, 10_systems/QUESTS.md, 20_schemas/monster.schema.md,
 docs/ID_REGISTRY.md, docs/WORLD_PLAN.md
 
-Owner doc for the four job lines, the `novice` starting class, the twelve advancement jobs, and
+Owner doc for the four job lines, the `novice` starting class, the eight authored advancement
+jobs (4 first + 4 second; the four 3rd jobs are named-and-reserved for future arcs, §0.1), and
 the per-line **skill roster** (which `skill_<line>_NNN` IDs exist, their tier, and their shape).
 This doc **names** the lines/jobs and lists the rosters; it does not define how skills are learned
 or how their effect ops work — acquisition/targeting/level_data are `10_systems/SKILL_SYSTEM.md`,
@@ -16,17 +17,31 @@ advancement is **linear** (no branching, `00_vision/SCOPE.md`).
 
 ## 0. Token proposals (GLOSSARY Provisional → promote at the B gate)
 
-The four line tokens, `novice`, and the twelve advancement job names are proposed here for
-promotion into `00_vision/GLOSSARY.md` (`00_vision/GLOSSARY.md` Provisional; `docs/ID_REGISTRY.md`
+The four line tokens, `novice`, and the eight authored advancement job names are proposed here
+for promotion into `00_vision/GLOSSARY.md` (`00_vision/GLOSSARY.md` Provisional; `docs/ID_REGISTRY.md`
 reserves `skill_<line>_001`–`030` per line). Line tokens are `snake_case`, one word, and used
 verbatim in skill IDs.
 
-| Line token | Primary (`10_systems/STATS.md`) | Weapon (GLOSSARY) | Playstyle | `novice` | 1st job (Lv 8) | 2nd job (Lv 30) | 3rd job (Lv 60) |
-|---|---|---|---|---|---|---|---|
-| `bulwark` | `might` | `blade` | frontline brawler | Novice | Bulwark | Ironbrand | Aegis |
-| `keeneye` | `finesse` | `bow` | ranged precision | Novice | Keeneye | Pathstalker | Skypiercer |
-| `weaver` | `focus` | `staff` | elemental caster | Novice | Weaver | Runeweaver | Highweaver |
-| `flicker` | `fortune` | `dirk` | crit / mobility skirmisher | Novice | Flicker | Duskstep | Nightdancer |
+| Line token | Primary (`10_systems/STATS.md`) | Weapon (GLOSSARY) | Playstyle | `novice` | 1st job (Lv 8) | 2nd job (Lv 40) |
+|---|---|---|---|---|---|---|
+| `bulwark` | `might` | `blade` | frontline brawler | Novice | Bulwark | Ironbrand |
+| `keeneye` | `finesse` | `bow` | ranged precision | Novice | Keeneye | Pathstalker |
+| `weaver` | `focus` | `staff` | elemental caster | Novice | Weaver | Runeweaver |
+| `flicker` | `fortune` | `dirk` | crit / mobility skirmisher | Novice | Flicker | Duskstep |
+
+### 0.1 Future arcs (reserved) — 3rd jobs, names and IDs only
+
+The four 3rd jobs are **named-and-reserved** for future arcs on the road to cap 300
+(`00_vision/SCOPE.md`): **Aegis** (`bulwark`), **Skypiercer** (`keeneye`), **Highweaver**
+(`weaver`), **Nightdancer** (`flicker`). No 3rd-job gate, quest, or skill is authored this arc;
+`skill_<line>_014`–`030` stay reserved in `docs/ID_REGISTRY.md` (`014`–`021` earmarked for the
+3rd tier, `022`–`030` growth). Skill names sketched for those reserved kits, kept so nothing is
+lost when the arcs land: bulwark — Seismic Leap, Colossus Smash, Bulwark's Bastion, Retribution,
+Unbreakable, Warlord's Presence, Earthshaker, Aegis Eternal; keeneye — Rapid Fire, Thornvolley,
+Mark of the Hunt, Evasive Roll, Rain of Arrows, Beastmaster, Deadeye Shot, Arrowstorm; weaver —
+Meteor, Blizzard, Singularity, Summon Elemental, Elemental Ward, Mind Spike, Elemental Cataclysm,
+Archmage's Mantle; flicker — Assassinate, Shadow Clone, Bladedance, Umbral Leap, Cloak of Night,
+Deathmark, Vanishing Strike, Lady Luck. Names are sketches, not contracts, until authored.
 
 `novice` (Lv 1–7) is the shared pre-advancement class for **all** players; its display name is
 "Novice" (§6). One weapon type is fixed per line by GLOSSARY; equip-restriction enforcement is
@@ -35,33 +50,39 @@ verbatim in skill IDs.
 ## 1. Shared advancement rules
 
 - **Bands.** `novice` Lv 1–7 (shared kit, §6) → **1st** advancement at **Lv 8** → **2nd** at
-  **Lv 30** → **3rd** at **Lv 60**. Level cap 100 (`00_vision/SCOPE.md`); no 4th job.
+  **Lv 40**. Level cap 300 (initial design, `00_vision/SCOPE.md`); this run authors the Lv 1–42
+  arc, so the 2nd job is the arc's final advancement — 3rd jobs ship with future arcs (§0.1).
 - **Line is chosen at the 1st advancement (Lv 8)** and is permanent — a character is one line for
   life (linear model, `00_vision/SCOPE.md`). Stat identity is undifferentiated during `novice`
   (`10_systems/STATS.md` §4.1–4.2: 5/5/5/5, +1 to all on each novice level), so no build is locked
   before Lv 8.
-- **Advancement requirement = level gate + a trainer quest.** Each advancement needs (a) the
-  level above **and** (b) completing that line's **job-trainer quest** given by a town job-trainer
-  NPC. Trainer NPCs live in town NPC blocks and their quests in the trainer-town quest block
-  (`docs/ID_REGISTRY.md`; concrete `npc_NNN`/`quest_NNN` IDs are authored in Phase D —
-  `10_systems/QUESTS.md`). Pattern only, not concrete IDs:
+- **Advancement requirement = level gate + an instructor quest.** Each advancement needs (a) the
+  level above **and** (b) completing that line's **instructor quest** given by the line's
+  home-town job instructor (`docs/WORLD_PLAN.md` v2.3 "Job instructors"). Instructor NPCs live in
+  their home town's NPC block and their quests in that town's quest block (`docs/ID_REGISTRY.md`;
+  concrete `npc_NNN`/`quest_NNN` IDs are authored in Phase D — `10_systems/QUESTS.md`). Pattern
+  only, not concrete IDs:
 
-  | Advancement | Level | Trainer location (pattern) | Quest (pattern) |
+  | Advancement | Level | Instructor location (pattern) | Quest (pattern) |
   |---|---|---|---|
-  | 1st | 8 | starter-town trainer (Emberfoot NPC block) | a Lv 8 Emberfoot trainer quest |
-  | 2nd | 30 | Millbrook-hub trainer (Millbrook NPC block) | a Millbrook trainer quest, Lv 30 gate |
-  | 3rd | 60 | Millbrook-hub trainer | a Millbrook trainer quest, Lv 60 gate |
+  | 1st | 8 | the line's home-town instructor (advancement pilgrimage, below) | a Lv 8 instructor quest in the home town |
+  | 2nd | 40 | the **same** home-town instructor | an instructor quest routing through a trial in the Clockwork Ruins, Lv 40 gate |
 
-  Centralizing the 2nd/3rd trainers in the Millbrook hub matches `00_vision/PILLARS.md` P3
-  (hub-and-spoke). Trainer-quest `exp` counts toward the region quest budget
+  **The advancement pilgrimage (1st).** A novice finishes Emberfoot at ~Lv 8, takes the paid
+  Harborwind Ferry to Rosen Harbor, and gets **one free coach ride** from the Rosen Harbor
+  coachman to the line's home town: `bulwark` → Cindershelf (`map_125`, Ashfall), `keeneye` →
+  Tidewatch Port (`map_071`), `weaver` → Mossmere (`map_043`, Verdant), `flicker` → Millbrook
+  Central (`map_018`). A novice **guide** (not a trainer) lives in Emberfoot Village's elder's
+  hall and points the way. Every line's home city matches `00_vision/PILLARS.md` P3 (the ring's
+  towns each anchor a line). Instructor-quest `exp` counts toward the region quest budget
   (`10_systems/LEVELING.md` §4 / `10_systems/QUESTS.md`).
 - **What an advancement unlocks:** the next skill tier (`10_systems/SKILL_SYSTEM.md` gates skill
   tiers on job tier) and the auto-growth switch to +3 main primary (`10_systems/STATS.md` §4.2,
   already at Lv 9). It does **not** grant a stat swap — the line's main primary was implicit from
   Lv 8.
-- **Skill budget per line: exactly 21** authored skills, `skill_<line>_001`–`021` in tier order —
-  **6** first-job (`001`–`006`), **7** second-job (`007`–`013`), **8** third-job (`014`–`021`) —
-  including the line's passives (`docs/ID_REGISTRY.md`; `022`–`030` reserved). Counts checked in §7.
+- **Skill budget per line: exactly 13** authored skills, `skill_<line>_001`–`013` in tier order —
+  **6** first-job (`001`–`006`), **7** second-job (`007`–`013`) — including the line's passives
+  (`docs/ID_REGISTRY.md`; `014`–`030` reserved for future arcs, §0.1). Counts checked in §7.
 
 ## 2. Bulwark line (`bulwark` · `might` · `blade`)
 
@@ -95,14 +116,8 @@ without abandoning toughness. Bulwark relies on high `life`/`armor` rather than 
 | skill_bulwark_011 | Rallying Strike | 2 | A | `neutral` | `deal_damage` · `on_hit_proc`(→`empower`) | `melee_arc` |
 | skill_bulwark_012 | Bloodied Resolve | 2 | P | — | `on_hit_proc`(`on_deal`→`heal`) | `self` |
 | skill_bulwark_013 | Immovable | 2 | P | — | `passive_stat_bonus`(`armor`,`warding`) | `self` |
-| skill_bulwark_014 | Seismic Leap | 3 | A | `neutral` | `leap` · `deal_damage` · `apply_status`(`stun`) · `knockback` | `aoe_circle` |
-| skill_bulwark_015 | Colossus Smash | 3 | A | `neutral` | `deal_damage` · `apply_status`(`sunder`) | `melee_arc` |
-| skill_bulwark_016 | Bulwark's Bastion | 3 | A | — | `grant_shield` · `apply_status`(`fortify`) | `party` |
-| skill_bulwark_017 | Retribution | 3 | A | `neutral` | `apply_status`(`fortify`) · `on_hit_proc`(`on_take`→`deal_damage`) | `self` |
-| skill_bulwark_018 | Unbreakable | 3 | P | — | `passive_stat_bonus`(`life`) · `on_hit_proc`(low-`life`→`fortify`) | `self` |
-| skill_bulwark_019 | Warlord's Presence | 3 | P | — | `passive_stat_bonus`(party aura) | `party` |
-| skill_bulwark_020 | Earthshaker | 3 | A | `neutral` | `deal_damage` · `pull` · `apply_status`(`stun`) | `aoe_circle` |
-| skill_bulwark_021 | Aegis Eternal | 3 | A | — | `grant_shield` · `cleanse_status`(`control_type`) · `apply_status`(`fortify`) | `party` |
+
+`skill_bulwark_014`–`030` are reserved for future arcs (§0.1).
 
 ## 3. Keeneye line (`keeneye` · `finesse` · `bow`)
 
@@ -110,7 +125,7 @@ without abandoning toughness. Bulwark relies on high `life`/`armor` rather than 
 built on positioning. Keeneyes open from distance, plant traps, kite with backsteps and slows, and
 answer any gap-closer by making it costly to reach them. A falcon companion and a rain of arrows
 turn a single archer into zone control. Playstyle rewards spacing and target priority over raw
-burst — though the third-job finishers hit like a falling star.
+burst.
 
 **Stat growth.** Main primary `finesse` (auto +3/level, `10_systems/STATS.md` §4.2), driving
 `power` and the `precision` accurate-striker lean (`10_systems/STATS.md` §1). Recommended free-pool
@@ -137,20 +152,14 @@ is loose, `10_systems/ELEMENTS.md` §5). Fire and frost proper are the Weaver's 
 | skill_keeneye_011 | Concussive Shot | 2 | A | `neutral` | `deal_damage` · `knockback` | `projectile` |
 | skill_keeneye_012 | Keen Precision | 2 | P | — | `passive_stat_bonus`(`crit_power`,`precision`) | `self` |
 | skill_keeneye_013 | Deadly Momentum | 2 | P | — | `on_hit_proc`(`on_crit`→`restore_essence`) | `self` |
-| skill_keeneye_014 | Rapid Fire | 3 | A | `neutral` | `deal_damage` (multi-`hits`) | `projectile` |
-| skill_keeneye_015 | Thornvolley | 3 | A | `nature` | `deal_damage` · `apply_status`(`poison`) | `aoe_circle` |
-| skill_keeneye_016 | Mark of the Hunt | 3 | A | — | `apply_status`(`empower`) | `party` |
-| skill_keeneye_017 | Evasive Roll | 3 | A | — | `dash` (i-frames) · `apply_status`(`swiftness`) | `self` |
-| skill_keeneye_018 | Rain of Arrows | 3 | A | `neutral` | `deal_damage` | `aoe_circle` |
-| skill_keeneye_019 | Beastmaster | 3 | P | — | `passive_stat_bonus` · `on_hit_proc` (Falcon applies `poison`) | `self` |
-| skill_keeneye_020 | Deadeye Shot | 3 | A | `neutral` | `deal_damage` (guaranteed crit) | `line` |
-| skill_keeneye_021 | Arrowstorm | 3 | A | `neutral` | `deal_damage` · `apply_status`(`chill`) | `aoe_circle` |
+
+`skill_keeneye_014`–`030` are reserved for future arcs (§0.1).
 
 ## 4. Weaver line (`weaver` · `focus` · `staff`)
 
 **Identity.** The town's wise spellhand, weaving raw essence into the elements: an **elemental
-caster** who bends fire, frost, and arcane to a fight's shape. Weavers burst with fireballs and
-meteors, lock ground with frost and gravity, pierce stealth and casters with arcane, and — alone
+caster** who bends fire, frost, and arcane to a fight's shape. Weavers burst with fireballs,
+lock ground with frost, pierce stealth and casters with arcane, and — alone
 among the lines — mend and cleanse allies. Playstyle is a resource-managed rotation: read the
 encounter, pick the element, and keep `essence` flowing.
 
@@ -181,19 +190,8 @@ any element it has reason to.
 | skill_weaver_011 | Cleansing Light | 2 | A | — | `cleanse_status` · `heal` | `party` |
 | skill_weaver_012 | Elemental Harmony | 2 | P | — | `on_hit_proc` (element swap→`empower`) | `self` |
 | skill_weaver_013 | Warding Weave | 2 | P | — | `passive_stat_bonus`(`warding`,`essence`) | `self` |
-| skill_weaver_014 | Meteor | 3 | A | `fire` | `deal_damage` · `apply_status`(`burn`) | `aoe_circle` |
-| skill_weaver_015 | Blizzard | 3 | A | `frost` | `deal_damage` · `apply_status`(`chill`) | `aoe_circle` |
-| skill_weaver_016 | Singularity | 3 | A | `arcane` | `pull` · `deal_damage` | `aoe_circle` |
-| skill_weaver_017 | Summon Elemental | 3 | A | — | `summon_entity` (cap 1) | `self` |
-| skill_weaver_018 | Elemental Ward | 3 | A | — | `grant_shield` · `apply_status`(`fortify`) | `party` |
-| skill_weaver_019 | Mind Spike | 3 | A | `arcane` | `deal_damage` · `apply_status`(`silence`) | `projectile` |
-| skill_weaver_020 | Elemental Cataclysm | 3 | A | `fire`/`frost`/`arcane` | `deal_damage`×3 · `apply_status`(`burn`,`chill`) | `aoe_circle` |
-| skill_weaver_021 | Archmage's Mantle | 3 | P | — | `passive_stat_bonus`(`spellpower`,`essence`,`warding`) | `self` |
 
-Elemental Cataclysm composes **three** `deal_damage` effects (one `fire`, one `frost`, one
-`arcane`) executed in order — a single damage instance is one element
-(`10_systems/SKILL_EFFECTS.md` composition), so the capstone stacks three instances, not a
-multi-element instance.
+`skill_weaver_014`–`030` are reserved for future arcs (§0.1).
 
 ## 5. Flicker line (`flicker` · `fortune` · `dirk`)
 
@@ -230,14 +228,8 @@ pierce `veil` (`10_systems/ELEMENTS.md` §5), so stealth is not a safe button ve
 | skill_flicker_011 | Shadowhook | 2 | A | `shadow` | `pull` (self→point) · `deal_damage` | `line` |
 | skill_flicker_012 | Deadly Precision | 2 | P | — | `passive_stat_bonus`(`crit_power`) | `self` |
 | skill_flicker_013 | Evasive Instinct | 2 | P | — | `on_hit_proc`(`on_dodge`→`swiftness`+`restore_essence`) | `self` |
-| skill_flicker_014 | Assassinate | 3 | A | `neutral` | `deal_damage` (guaranteed crit, execute) | `melee_arc` |
-| skill_flicker_015 | Shadow Clone | 3 | A | `shadow` | `summon_entity` (cap 2) | `self` |
-| skill_flicker_016 | Bladedance | 3 | A | `neutral` | `dash` (chain) · `deal_damage` | `self` |
-| skill_flicker_017 | Umbral Leap | 3 | A | `shadow` | `leap` · `deal_damage` · `apply_status`(`veil`) | `aoe_circle` |
-| skill_flicker_018 | Cloak of Night | 3 | A | `shadow` | `apply_status`(`veil`) · `apply_status`(`swiftness`) | `party` |
-| skill_flicker_019 | Deathmark | 3 | A | `shadow` | `apply_status`(`weaken`) · `on_hit_proc` | `projectile` |
-| skill_flicker_020 | Vanishing Strike | 3 | A | `shadow` | `deal_damage` · `apply_status`(`veil`) | `melee_arc` |
-| skill_flicker_021 | Lady Luck | 3 | P | — | `passive_stat_bonus`(`fortune`,`crit_power`) · `on_hit_proc`(`on_crit`→cooldown/`essence`) | `self` |
+
+`skill_flicker_014`–`030` are reserved for future arcs (§0.1).
 
 ## 6. Novice — the shared starting kit (Lv 1–7)
 
@@ -260,33 +252,40 @@ op rules as line skills (`10_systems/SKILL_SYSTEM.md`, `10_systems/SKILL_EFFECTS
 
 ## 7. Roster budget check (per `docs/ID_REGISTRY.md`)
 
-| Line | 1st (`001`–`006`) | 2nd (`007`–`013`) | 3rd (`014`–`021`) | Passives | Actives | Total |
-|---|---|---|---|---|---|---|
-| `bulwark` | 4A / 2P | 5A / 2P | 6A / 2P | 6 | 15 | 21 |
-| `keeneye` | 4A / 2P | 5A / 2P | 7A / 1P | 5 | 16 | 21 |
-| `weaver` | 4A / 2P | 5A / 2P | 7A / 1P | 5 | 16 | 21 |
-| `flicker` | 4A / 2P | 5A / 2P | 7A / 1P | 5 | 16 | 21 |
+| Line | 1st (`001`–`006`) | 2nd (`007`–`013`) | Passives | Actives | Total |
+|---|---|---|---|---|---|
+| `bulwark` | 4A / 2P | 5A / 2P | 4 | 9 | 13 |
+| `keeneye` | 4A / 2P | 5A / 2P | 4 | 9 | 13 |
+| `weaver` | 4A / 2P | 5A / 2P | 4 | 9 | 13 |
+| `flicker` | 4A / 2P | 5A / 2P | 4 | 9 | 13 |
 
-Every line hits **6 / 7 / 8** by tier and **21** total; passive counts are within the 4–6 band
-(`bulwark` 6, others 5). Across all 84 line skills + 4 novice, all 14 effect ops
-(`10_systems/SKILL_EFFECTS.md`) and all 6 targeting shapes (`10_systems/SKILL_SYSTEM.md`) appear at
-least once, so the roster exercises the full primitive set (`00_vision/PILLARS.md` P4).
+Every line hits **6 / 7** by tier and **13** total (52 line skills + 4 novice = 56,
+`00_vision/SCOPE.md`); every line carries 4 passives, within the 4–6 band. Across the 56 authored
+skills, all 6 targeting shapes (`10_systems/SKILL_SYSTEM.md`) and 13 of the 14 effect ops
+(`10_systems/SKILL_EFFECTS.md`) appear at least once — `leap` first appears in the reserved
+future-arc kits (§0.1; flagged in Open Questions), so the arc roster exercises the primitive set
+minus that one op (`00_vision/PILLARS.md` P4).
 
 ## Open Questions
 
-- The four line tokens (`bulwark`/`keeneye`/`weaver`/`flicker`), `novice`, and the twelve job
-  names are proposed for `00_vision/GLOSSARY.md` promotion at the B gate (§0); until promoted they
-  live here as their sole definition. Flag if any collides with a later-authored token.
-- Job-trainer NPC IDs and the three advancement quest IDs per line are **Phase D** content
-  (`10_systems/QUESTS.md`, `docs/ID_REGISTRY.md`); §1 fixes only the level gates (8/30/60) and the
-  town pattern. Confirm the Millbrook trainer NPC allocation fits the Millbrook `npc` block when
-  quests are authored.
-- Whether a small `shards` cost or item gate should accompany the trainer quests (beyond the quest
-  itself) is an `10_systems/ECONOMY.md`/`10_systems/QUESTS.md` call; default is quest-only.
+- The four line tokens (`bulwark`/`keeneye`/`weaver`/`flicker`), `novice`, and the job names
+  (authored + reserved, §0/§0.1) are proposed for `00_vision/GLOSSARY.md` promotion at the B gate
+  (§0); until promoted they live here as their sole definition. Flag if any collides with a
+  later-authored token.
+- Instructor NPC IDs and the two advancement quest IDs per line are **Phase D** content
+  (`10_systems/QUESTS.md`, `docs/ID_REGISTRY.md`); §1 fixes only the level gates (8/40) and the
+  home-town pattern. Confirm each instructor NPC allocation fits its home town's `npc` block
+  (Cindershelf/Ashfall, Tidewatch Port, Mossmere/Verdant, Millbrook Central) when quests are
+  authored.
+- Whether a small `shards` cost or item gate should accompany the instructor quests (beyond the
+  quest itself) is an `10_systems/ECONOMY.md`/`10_systems/QUESTS.md` call; default is quest-only.
 - Prerequisite chains among a line's skills (e.g., an ultimate feeding off an earlier skill's rank)
   are owned by `10_systems/SKILL_SYSTEM.md`; the concrete prereq edges per skill are authored in
   Phase D skill YAML. This roster fixes tier order only.
-- Summon caps here (`Falcon` 1, `Summon Elemental` 1, `Shadow Clone` 2) assume the
-  `10_systems/SKILL_EFFECTS.md` / `20_schemas/monster.schema.md` cap of 1–2; confirm at the C gate.
+- The `leap` effect op has no authored skill this arc (§7) — its first users sit in the reserved
+  future-arc kits (§0.1). Confirm with `10_systems/SKILL_EFFECTS.md` that an op may stay
+  content-unused for an arc without leaving the GLOSSARY registry.
+- Summon caps here (`Falcon` 1) assume the `10_systems/SKILL_EFFECTS.md` /
+  `20_schemas/monster.schema.md` cap of 1–2; confirm at the C gate.
 - Balance of the `flicker`/`dirk` `fortune` double-dip inherits the open `10_systems/STATS.md` §2.1
   question; if a `power`-coefficient cut lands there, no name/roster change is needed here.

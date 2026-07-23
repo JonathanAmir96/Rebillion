@@ -2,13 +2,14 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, 10_systems/STATS.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/SPAWN.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/PARTY.md, 10_systems/LEVELING.md, 10_systems/ECONOMY.md,
+10_systems/social/PARTY.md, 10_systems/social/PARTY_QUEST.md, 10_systems/LEVELING.md,
+10_systems/ECONOMY.md,
 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_CONNECTIONS.md, 40_assets/ANIMATION_STATES.md,
 docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
 
 Owner doc for what happens when a player character is defeated: the exp cost, what is (and is
-deliberately not) lost, where the character respawns, how context (field/dungeon/arena/raid)
-changes that flow, and the current boundary around revival. Nothing here redefines combat,
+deliberately not) lost, where the character respawns, how context (field/dungeon/arena/party
+quest) changes that flow, and the current boundary around revival. Nothing here redefines combat,
 status, or travel rules owned elsewhere — it only defines the *consequence* of `life` reaching 0.
 
 ## 1. Defeat trigger
@@ -30,13 +31,15 @@ This makes de-leveling structurally impossible rather than a rule to remember.
 `exp_into_level - exp_lost`, which is always ≥ 0 since `pct ≤ 1`. The exp curve and per-level
 threshold are owned by `10_systems/LEVELING.md`; this doc defines only `pct` and the clamp.
 
-| Job tier (`00_vision/SCOPE.md`) | Levels | `pct` lost | Feel |
+| Job tier (`10_systems/JOBS.md`) | Levels | `pct` lost | Feel |
 |---|---|---|---|
 | Novice | 1–7 | 0% | Grace band — tutorial safety |
-| 1st job | 8–29 | 1% | Barely noticeable |
-| 2nd job | 30–59 | 3% | A real but small setback |
-| 3rd job | 60–99 | 6% | Meaningful — costs part of a session, never a whole level |
-| Level cap | 100 | 0% | No exp progress to lose at cap (post-cap is `00_vision/SCOPE.md`'s open question) |
+| 1st job | 8–39 | 1% | Barely noticeable |
+| 2nd job | 40+ | 3% | A real but small setback |
+
+Exp loss never reduces `level` (the clamp above), and at the cap (300) there is no exp progress
+to lose; finer brackets for future-arc bands (3rd jobs and beyond) are deferred until those arcs
+land.
 
 Cause of defeat (monster tier, `field` vs `dungeon`, environmental) never changes `pct` — only the
 victim's own level bracket does. One rule, no hidden cases (`00_vision/PILLARS.md` P1).
@@ -59,19 +62,21 @@ bind for a new character is the starting town, **Emberfoot Village** (`map_001`)
 only when the player deliberately rests at a different town's inn — never automatically on death,
 travel, or level-up.
 
-**Valid bind towns** (the 4 towns with an inn interior, `docs/WORLD_PLAN.md`): Emberfoot Village
-(`map_001`), Millbrook Central (`map_029`), Tidewatch Port (`map_041`), Arcane Sanctum
-(`map_145`).
+**Valid bind towns** (the 6 towns, `docs/WORLD_PLAN.md`): Emberfoot Village (`map_001`),
+Rosen Harbor (`map_017`), Millbrook Central (`map_018`), Mossmere (`map_043`), Tidewatch Port
+(`map_071`), Cindershelf (`map_125`).
 
 On defeat, the character respawns at its bound town's `main` spawn point (`docs/WORLD_PLAN.md`
 "Spawn-point convention"). Getting from the bind town back to wherever the character died is
-ordinary travel — the waygate network and its unlock rules belong to
-`15_maps_system/MAP_CONNECTIONS.md` and are not redefined here; this doc names only the
-respawn destination, never the route back.
+ordinary travel — walking the ring, the paid Harthmoor Coachworks network (rules and fares belong
+to `15_maps_system/MAP_CONNECTIONS.md`), or the Millbrook Return Scroll (`item_use_0013`); this
+doc names only the respawn destination, never the route back.
 
-Regions without their own town (Verdant, Sunken, Ashfall, Frostpeak, Gloomwood, Clockwork,
-Voidshore, Rift) have no local bind option — a character leveling there simply respawns at
-whichever town it last rested in, then travels back in via the normal network.
+Regions without their own town (Gloomwood, Sunken Depths, Clockwork Ruins) have no local bind
+option — a character leveling there simply respawns at whichever town it last rested in, then
+travels back in via the normal network (nearest ring bind towns: Gloomwood → Mossmere or
+Cindershelf; Sunken Depths → Tidewatch Port; Clockwork Ruins → Cindershelf via the char-ridge
+gate).
 
 ## 5. Death by context
 
@@ -81,56 +86,35 @@ Whether cleared trash mobs or other zone state reset on a death is a zone-reset 
 `15_maps_system/MAPS_SYSTEM.md` — this doc governs only the player's own respawn point and
 stat/currency/exp consequences, never zone content state.
 
-### 5.2 Boss arena deaths (regional, non-raid)
+### 5.2 Boss arena deaths (the 8 regional bosses)
 Same flow as §5.1. The boss encounter itself resets on the player's exit/respawn — re-entering the
 arena starts a fresh attempt at full boss life. Boss respawn/instancing mechanics are owned by
 `10_systems/SPAWN.md` (timer policy) and `15_maps_system/MAPS_SYSTEM.md` (arena scripting); this
 doc does not redefine them, only that the player's own consequence is the standard §2/§3/§4 flow.
 
-### 5.3 Rift raid deaths (`docs/WORLD_PLAN.md` R12; raid arenas `map_197`–`map_200`)
-A raid death does not use §4 directly. Instead:
-
-1. `die` plays and statuses clear as above; the character enters a **fallen** state: untargetable,
-   no actions except **Release**. It remains a party member for `10_systems/PARTY.md` purposes —
-   the raid continues without it.
-2. The player may **Release** at any time (no forced timer). Releasing applies the §2/§3
-   penalties for the character's level bracket and moves the character to that raid's
-   staging-shard field (`docs/WORLD_PLAN.md` R12 "staging shards," `map_183`–`map_188`) — **not**
-   to the character's bound town. This is a deliberate override of §4 scoped to Rift raid arenas
-   only; it does not change the character's stored bind point.
-3. From the staging shard, the player may walk back to the raid arena's entrance and **re-enter**
-   while the attempt is still live (the party has not wiped and the boss has not reset). There is
-   no re-entry cooldown beyond the walk itself.
-4. **Full-party wipe** (every member fallen, none returned in time): the attempt ends, the arena
-   empties, and the party must re-enter from its entrance to restart the boss at full life.
-   Reset/instancing mechanics are `10_systems/SPAWN.md` + `15_maps_system/MAPS_SYSTEM.md`'s.
-
-On-the-spot revival of a fallen ally without releasing is not available in this pass — see §6.
+### 5.3 Party-quest deaths (`pq_undervault`, `pq_mainspring`)
+Death handling inside the two party quests is owned by `10_systems/social/PARTY_QUEST.md`; the
+standard §2/§3/§4 exp-loss and respawn flow applies.
 
 ## 6. Revive — reserved for a future skill op
 
 None of the 14 skill effect ops in `00_vision/GLOSSARY.md` (owner `10_systems/SKILL_EFFECTS.md`)
 revive a fallen character — `heal` and the `regen` status (`10_systems/STATUS_EFFECTS.md`) only
-affect entities still standing. Mid-encounter revival (a party member picking up a fallen ally, as
-opposed to the self-service Release in §5.3) is intentionally **not implemented** in this pass and
-requires a new effect op proposed by `10_systems/SKILL_EFFECTS.md` — and promoted through the
-`00_vision/GLOSSARY.md` Provisional process — before any skill can grant it. Until that lands,
-§5.3's release-and-reenter is the only recovery path in raid content, and field/dungeon/arena
-deaths have no revive option at all (respawn is the only path).
+affect entities still standing. Mid-encounter revival (a party member picking up a fallen ally) is
+intentionally **not implemented** in this pass and requires a new effect op proposed by
+`10_systems/SKILL_EFFECTS.md` — and promoted through the `00_vision/GLOSSARY.md` Provisional
+process — before any skill can grant it. Until that lands, respawn is the only recovery path for
+field/dungeon/arena deaths, and party-quest death flow follows
+`10_systems/social/PARTY_QUEST.md` (§5.3).
 
 ## Open Questions
 - Exact `pct` values (§2) are first-pass balance; owner for retuning is this doc, informed by
-  `10_systems/LEVELING.md`'s eventual exp curve.
-- Whether a fallen character (§5.3) still shows on party frames or counts for loot eligibility is
-  `10_systems/PARTY.md`'s call — flagged for confirmation.
+  `10_systems/LEVELING.md`'s exp curve.
 - Rebind cost: is resting at a new inn free, or does it cost `shards`/carry a cooldown? Default
   assumed **free**; owner `10_systems/ECONOMY.md` may add a fee.
 - A revive skill effect op (§6) is proposed for `10_systems/SKILL_EFFECTS.md` to pick up as
   Provisional; it is not defined here and no op name is assumed.
 - Dungeon/zone content-reset-on-death behavior (§5.1) is flagged for
   `15_maps_system/MAPS_SYSTEM.md` to confirm, not assumed here.
-- Which specific staging-shard field (of `map_183`–`188`) each raid arena releases its fallen
-  players to is a 1:1 mapping that `docs/WORLD_PLAN.md`/`15_maps_system/MAP_CONNECTIONS.md` will
-  need to assign when the Rift is authored; not fixed here.
-- Post-cap (Lv 100+) exp loss, once post-cap progression is defined, inherits
-  `00_vision/SCOPE.md`'s open question; the 0% default here assumes gear-only post-cap holds.
+- Exp-loss brackets for future arcs (the Lv 42+ bands on the road to cap 300, including the
+  reserved 3rd jobs) are deferred; the 2nd-job 40+ bracket (§2) holds until those arcs land.

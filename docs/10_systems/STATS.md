@@ -95,16 +95,18 @@ Applied on each level-up. `novice` (Lv 1–7) grows evenly; from the 1st advance
 | Tier | Applies on reaching | Main primary | Each off-primary |
 |---|---|---|---|
 | `novice` | Lv 2–8 | +1 (all four equal) | +1 |
-| advanced | Lv 9–100 | +3 | +1 |
+| advanced | Lv 9+ (to cap 300, formula-first) | +3 | +1 |
 
 Cumulative auto-growth for a main primary at level `L≥9`: `5 + 7 + 3*(L-8)`. For an off-primary:
-`5 + 7 + 1*(L-8)`. Growth stops at the level cap (100); post-cap growth is an Open Question
-(`10_systems/LEVELING.md`, default gear-only per `00_vision/SCOPE.md`).
+`5 + 7 + 1*(L-8)`. The formulas run to the level cap of 300 (`00_vision/SCOPE.md`) with no band
+change; this run's authored content spans the Lv 1–42 arc, and future arcs inherit the same curve
+(`10_systems/LEVELING.md` §6).
 
 ### 4.3 Free allocation pool (hybrid model)
 
 In addition to auto-growth, each level-up grants **+2 free points** to spend across the four
-primaries (198 points at Lv 100). Free points are **reallocatable** at a town NPC for a `shards`
+primaries — formula-first, `2·(L−1)` lifetime points at level `L` (82 by the arc's end at Lv 42,
+continuing to cap 300). Free points are **reallocatable** at a town NPC for a `shards`
 fee (`10_systems/LEVELING.md` / `ECONOMY.md` own the fee).
 
 **Model decision — hybrid (auto-growth + small reallocatable pool).** Auto-growth guarantees
@@ -122,9 +124,12 @@ Illustrates the primary-driven portion; add `W`/`Σ*_gear` for real characters.
 |---|---|---|---|---|---|
 | 1 | 5 | 5 | 153 | 59 | 10 (+`W`) |
 | 8 | 12 | 12 | 300 | 108 | 24 (+`W`) |
-| 30 | 78 | 34 | 894 | 262 | 156 (+`W`) |
-| 60 | 168 | 64 | 1704 | 472 | 336 (+`W`) |
-| 100 | 288 | 104 | 2784 | 752 | 576 (+`W`) |
+| 10 | 18 | 14 | 354 | 122 | 36 (+`W`) |
+| 25 | 63 | 29 | 759 | 227 | 126 (+`W`) |
+| 42 | 114 | 46 | 1218 | 346 | 228 (+`W`) |
+
+Rows stop at the arc's end (Lv 42); beyond it the §4.2 formulas extrapolate unchanged toward
+cap 300 (formula-only — no authored content or sample rows past the arc).
 
 ## 5. `haste` conversion (single combined rating)
 
@@ -194,5 +199,6 @@ client/server boundary are owned by `10_systems/PERSISTENCE.md`.
   ownership by `10_systems/COMBAT_FORMULA.md` or a dedicated rest rule. Flagged.
 - Exact `armor`/`warding` → damage-reduction curve and `precision`-vs-`evasion` hit resolution
   are `10_systems/COMBAT_FORMULA.md`'s; confirm the boundary at the B gate.
-- Post-cap (Lv 100+) primary growth interaction once auto-growth stops (inherits
-  `00_vision/SCOPE.md` OQ; default gear-only). Owner: `10_systems/LEVELING.md`.
+- Post-arc growth (Lv 42+ on current content): auto-growth runs formula-first to cap 300 (§4.2),
+  but whether future arcs adjust the +3/+1 deltas or add new bands is a future-arc decision.
+  Owner: `10_systems/LEVELING.md` (§6 past-arc pacing).
