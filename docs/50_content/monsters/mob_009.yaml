@@ -1,0 +1,24 @@
+id: mob_009
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Warmstone Warden
+tier: normal                     # ID slot 009 = R1 normal (ID_REGISTRY Monsters)
+element: neutral                 # neutral critter (WORLD_PLAN R1 mix)
+level: 7
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 7
+  life: 400                      # 4*(7+3)^2
+  power: 27                      # 6+3*7 (touch dmg = round(0.5*power), neutral, §13.1)
+  armor: 42                      # 6*7  (armor+warding sum = 84 = 12*7)
+  warding: 42                    # 6*7
+  precision: 28                  # 4*7
+  evasion: 3.2                   # 3 + 0.03*7 (%)
+  exp: 50                        # exp_per_kill_normal(7)=round(4*7^1.3) (LEVELING §3)
+ai_profile: support_caller       # buffs its kin instead of fighting; teaches target priority (AI_BEHAVIOR §11)
+ai_params:                       # override only support_caller-declared tunables
+  support_radius: 6
+  cast_cooldown_s: 6
+  retreat_range: 6
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+drop_table: drop_mob_009
+flavor: "A squat stone-idol given a slow half-life by the isle's warmth, humming a rote that heartens the beasts around it. Novices learn to break it first, or fight everything else twice."

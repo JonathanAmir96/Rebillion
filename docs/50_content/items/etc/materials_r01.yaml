@@ -1,0 +1,183 @@
+id: item_table_materials_r01
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R1 Emberfoot monster materials: item_etc_0001-0016 (ID_REGISTRY etc block). One row per R1
+# species (0001-0013) plus three region-gathered materials (0014-0016). No `buy` on etc rows
+# (not vendor-purchasable, ITEMS §1); `sell` is first-pass (etc price has no ECONOMY owner,
+# item.schema OQ); stack 999 fixed (INVENTORY §2); rarity is display-tier only on etc (ITEMS §5).
+items:
+  - id: item_etc_0001
+    name: Tuftmoth Down
+    category: etc
+    rarity: common
+    req_level: 1                  # band placement (advisory for etc)
+    price:
+      sell: 3
+    source_hint: mob_001          # Tuftmoth Grub (cross-checks drop_mob_001)
+    stack: 999
+    flavor: "A pinch of soft grey fluff shed by the meadow grubs. Emberfoot's outfitter stuffs it into a novice's first bedroll."
+
+  - id: item_etc_0002
+    name: Leveret Pelt
+    category: etc
+    rarity: common
+    req_level: 1
+    price:
+      sell: 3
+    source_hint: mob_002          # Meadow Leveret (cross-checks drop_mob_002)
+    stack: 999
+    flavor: "A supple hay-colored hide, still warm. The village tanner trades scraps of it for the price of a meal."
+
+  - id: item_etc_0003
+    name: Cinder Husk
+    category: etc
+    rarity: common
+    req_level: 2
+    price:
+      sell: 4
+    source_hint: mob_003          # Cinder Mite (cross-checks drop_mob_003)
+    stack: 999
+    flavor: "The brittle burnt shell a cinder mite leaves behind, faintly warm even cold. A jarful smells of a doused campfire."
+
+  - id: item_etc_0004
+    name: Kiln Shell Shard
+    category: etc
+    rarity: common
+    req_level: 3
+    price:
+      sell: 5
+    source_hint: mob_004          # Kiln Tortoise (cross-checks drop_mob_004)
+    stack: 999
+    flavor: "A chip of the heat-glazed shell a kiln tortoise wears like fired clay. Smiths grind it into a coarse polishing grit."
+
+  - id: item_etc_0005
+    name: Ashwing Scale
+    category: etc
+    rarity: common
+    req_level: 4
+    price:
+      sell: 6
+    source_hint: mob_005          # Ashwing Flitter (cross-checks drop_mob_005)
+    stack: 999
+    flavor: "A dusty grey wing-scale that smudges the fingers like soft charcoal. Children on Emberfoot draw with it."
+
+  - id: item_etc_0006
+    name: Sootpaw Claw
+    category: etc
+    rarity: common
+    req_level: 5
+    price:
+      sell: 6
+    source_hint: mob_006          # Emberfoot Prowler (cross-checks drop_mob_006)
+    stack: 999
+    flavor: "A curved black claw worn smooth from scrabbling over warm scree. Strung on a cord, it is a novice's proudest first trophy."
+
+  - id: item_etc_0007
+    name: Sparkcap Spore
+    category: etc
+    rarity: common
+    req_level: 5
+    price:
+      sell: 6
+    source_hint: mob_007          # Sparkcap Skulker (cross-checks drop_mob_007)
+    stack: 999
+    flavor: "A pod of glowing ember-spores that pop with a dry hiss when squeezed. The elder's hall keeps a bowl of them for light."
+
+  - id: item_etc_0008
+    name: Imp Knuckle
+    category: etc
+    rarity: common
+    req_level: 6
+    price:
+      sell: 7
+    source_hint: mob_008          # Pebblethrow Imp (cross-checks drop_mob_008)
+    stack: 999
+    flavor: "A knobbly little finger-bone, oddly heavy for its size. Gamblers on the ferry roll a pair of them for luck."
+
+  - id: item_etc_0009
+    name: Warmstone Chip
+    category: etc
+    rarity: common
+    req_level: 7
+    price:
+      sell: 8
+    source_hint: mob_009          # Warmstone Warden (cross-checks drop_mob_009)
+    stack: 999
+    flavor: "A fragment of the idol-stone that holds the isle's warmth long into the night. Fisherfolk tuck one in a glove against the cold water."
+
+  - id: item_etc_0010
+    name: Coalback Ember
+    category: etc
+    rarity: common
+    req_level: 8
+    price:
+      sell: 9
+    source_hint: mob_010          # Coalback Brute (cross-checks drop_mob_010, drop_mob_011)
+    stack: 999
+    flavor: "A live coal prised from a brute's crusted hide, still glowing at its heart. It will not go out until it is good and ready."
+
+  - id: item_etc_0011
+    name: Embermane Tuft
+    category: etc
+    rarity: uncommon
+    req_level: 8
+    price:
+      sell: 12
+    source_hint: mob_011          # Embermane Alpha, elite (cross-checks drop_mob_011)
+    stack: 999
+    flavor: "A singed lock from a pack-leader's smoldering mane. It smells of hot fur and holds a faint warmth for days."
+
+  - id: item_etc_0012
+    name: Cindermaw Fang
+    category: etc
+    rarity: rare
+    req_level: 8
+    price:
+      sell: 20
+    source_hint: mob_012          # Cindermaw, boss (cross-checks drop_mob_012)
+    stack: 999
+    flavor: "A blunt, soot-blackened fang the length of a hand, still warm from the kiln-hound's jaw. The village strings the first one taken over the elder's hearth."
+
+  - id: item_etc_0013
+    name: Cindermaw Cinderheart
+    category: etc
+    rarity: rare
+    req_level: 8
+    price:
+      sell: 25
+    source_hint: mob_012          # Cindermaw, boss (cross-checks drop_mob_012)
+    stack: 999
+    flavor: "The knot of everlasting coals that beat where the furnace-hound's heart should be. It glows brighter the longer you hold it, as if remembering the fire."
+
+  - id: item_etc_0014
+    name: Scorched Bark
+    category: etc
+    rarity: common
+    req_level: 1
+    price:
+      sell: 4
+    source_hint: emberfoot        # region-gathered off the cinder-field snags (no single mob source)
+    stack: 999
+    flavor: "A curl of bark charred hard as tile by the isle's warmth. Kindling-gatherers strip it by the armful."
+
+  - id: item_etc_0015
+    name: Warm Ash
+    category: etc
+    rarity: common
+    req_level: 4
+    price:
+      sell: 6
+    source_hint: emberfoot        # region-gathered from the cinder fields (no single mob source)
+    stack: 999
+    flavor: "Fine pale ash scooped from the fields that never quite goes cold. Potters wash it for a grey glaze."
+
+  - id: item_etc_0016
+    name: Kiln Glass
+    category: etc
+    rarity: uncommon
+    req_level: 8
+    price:
+      sell: 9
+    source_hint: emberfoot        # region-gathered slag near the Old Kiln (no single mob source)
+    stack: 999
+    flavor: "A bead of green-black glass fused in the old kiln's heat, smooth and surprisingly heavy. Novices hoard the prettiest ones."
