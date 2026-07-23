@@ -4,7 +4,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/PERSISTENCE.md, 10_systems/COMBAT_FORMULA.md, 10_systems/SKILL_SYSTEM.md,
 10_systems/SKILL_EFFECTS.md, 10_systems/STATS.md, 10_systems/LEVELING.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/ENHANCEMENT.md, 10_systems/DROPS.md,
-10_systems/DEATH_PENALTY.md, 10_systems/SPAWN.md, 10_systems/AI_BEHAVIOR.md,
+10_systems/INVENTORY.md, 10_systems/DEATH_PENALTY.md, 10_systems/SPAWN.md, 10_systems/AI_BEHAVIOR.md,
 30_engineering/ENGINEERING_STANDARDS.md,
 70_integrations/BACKEND_ARCHITECTURE.md, 70_integrations/NETWORK_PROTOCOL.md,
 70_integrations/WORLD_CHANNELS.md, 70_integrations/DATABASE_PERSISTENCE.md,
@@ -17,7 +17,7 @@ owns which data is `server`-truth; `70_integrations/BACKEND_ARCHITECTURE.md` (ga
 doc delegates here) owns *which component* runs it. This doc owns the third question those two leave
 open: **when** it runs — the concrete tick model (§1), the movement-reconciliation cadence
 `10_systems/PERSISTENCE.md` §4 deferred (§2), the client/server `CombatMath` test-vector parity
-requirement `70_integrations/BACKEND_ARCHITECTURE.md` §2 flagged (§3), and, per domain (§5–§12),
+requirement `70_integrations/BACKEND_ARCHITECTURE.md` §2 flagged (§3), and, per domain (§5–§13),
 where each server rule executes, what triggers it, and what it validates — citing the owning system
 doc for every formula rather than restating it. It never re-derives a value: combat math stays
 `10_systems/COMBAT_FORMULA.md`'s, drop odds `10_systems/DROPS.md`'s, exp curve `10_systems/LEVELING.md`'s.
@@ -36,7 +36,7 @@ already been proven to come from the authenticated character before simulation s
 until then the interim solo build runs this same logic *client-side* through the `GameState` facade
 (`10_systems/PERSISTENCE.md` §5) as a rehearsal for the boundary. The rates below become the server's
 authoritative cadence when networked; the solo client simulates at its own frame rate against the same
-rules, so the request→validate→apply shape (§13) is identical whether the "server" is in-process or real.
+rules, so the request→validate→apply shape (§14) is identical whether the "server" is in-process or real.
 
 ---
 
@@ -113,18 +113,22 @@ with independent loops, so a busy channel never stalls a sibling (fault isolatio
 while it has zero occupants** and resumes on entry — this is the "empty map is near-free" property made
 literal (initial zone population still spawns at load/transition per `10_systems/SPAWN.md` §5, before
 the loop parks). A shared open-entry arena's reset-when-empty grace (`10_systems/SPAWN.md` §3,
-`15_maps_system/MAPS_SYSTEM.md` §8, 30 s) is a timer the parked-and-resumed loop owns.
+`15_maps_system/MAPS_SYSTEM.md` §8) is a **one-shot scheduled message the map process arms as it
+parks** — independent of the recurring tick loop, so the reset fires on schedule without waking the
+full simulation.
 
 ### 1.4 Timer resolution — absolute timestamps, checked per tick (±50 ms)
 
 All durations — status timers, DoT/`regen` 1 s ticks, cooldowns, hard-CC DR (10 s) and CC-immunity
 (8 s) windows (`10_systems/STATUS_EFFECTS.md` §1), i-frame windows (`10_systems/COMBAT_FORMULA.md` §12),
 loot ownership windows (`10_systems/DROPS.md` §7) — are stored as **absolute expiry timestamps on a
-monotonic server clock**, never as decremented counters. Each simulation tick fires every timer whose
-timestamp is now due. **Chosen** because timestamps are robust to tick jitter and to a process being
-briefly descheduled (a counter would drift; a timestamp is exact), and cooldowns can then be checked at
-cast time against the ETS/Redis cooldown table (`70_integrations/BACKEND_ARCHITECTURE.md` §5) rather
-than polled. Effective resolution is one sim tick (±50 ms), imperceptible against the finest 1 s cadence
+monotonic server clock**, never as decremented counters. Each simulation tick fires every *actively
+swept* timer whose timestamp is now due — status expiry, DoT/`regen` boundaries, i-frame and loot
+windows. **Cooldowns are the one lazily-checked exception**: stored as the same absolute timestamps but
+never swept by the tick — validity is checked on demand at cast time against the ETS/Redis cooldown
+table (`70_integrations/BACKEND_ARCHITECTURE.md` §5), since nothing needs to *happen* when a cooldown
+lapses. **Chosen** because timestamps are robust to tick jitter and to a process being
+briefly descheduled (a counter would drift; a timestamp is exact). Effective resolution is one sim tick (±50 ms), imperceptible against the finest 1 s cadence
 in the design. *Failure mode:* if the monotonic clock source is unavailable the map process fails loud
 in dev and, in prod, refuses to advance timers rather than firing them on a guessed interval
 (`30_engineering/ENGINEERING_STANDARDS.md` directive 7 fail-safe).
@@ -199,7 +203,10 @@ roll and its `BASE_HIT`/`HIT_FLOOR`/`HIT_CEIL` clamps and `blind` penalty (§3);
 short-circuit (§2 step 2); the mitigation curve `K(L)/(K(L)+defense)` (§5); the element multiplier (§6);
 the crit multiply (§4); the **±8 % variance and the rounding** — the subtle one, since
 `rng.uniform(0.92, 1.08)`, `round()`, and the `max(1, round(raw))` floor must match exactly, so the
-vectors pin the RNG algorithm and the round-half-up convention (`10_systems/SKILL_SYSTEM.md` §4); the
+vectors pin the RNG algorithm and a rounding convention — `10_systems/COMBAT_FORMULA.md` does not yet
+fix one for `round(raw)` (`10_systems/SKILL_SYSTEM.md` §4 fixes round-half-up only for rank
+interpolation), so the vectors pin **round-half-up** pending that doc's owner confirming it (Open
+Questions); the
 `empower`/`weaken` damage-dealt multiplier (§8); and the level-difference dampener (§9). Snapshotted DoT
 ticks (`10_systems/STATUS_EFFECTS.md` §1) are vectors too — a DoT tick is an ordinary `CombatMath` call
 on the application-time snapshot (`10_systems/COMBAT_FORMULA.md` §4).
@@ -209,14 +216,14 @@ draw sequence, outputs are bit-identical*. For the deterministic steps (mitigati
 rounding, floor) the client can and does compute the exact server answer, so its predicted number is
 already correct. For the RNG-bearing steps (hit roll, crit, variance, and all of §10/§11's drop and
 enhancement rolls) the client does **not** hold the server's seed, so it shows an *optimistic plausible*
-prediction and always accepts the authoritative event (§13) — the parity guarantee is that the
+prediction and always accepts the authoritative event (§14) — the parity guarantee is that the
 *algorithm* is identical, so the moment the real draw is known the two agree. The fixtures feed a fixed
 stream to prove the algorithm; runtime authority handles the unknowable draws. *Failure mode:* a
 divergence on any vector fails CI; the server is authority, so the client is corrected to the server's
 result at runtime and the GDScript is fixed to match the fixtures before the divergent build ships.
 
 **Same fixture discipline extends** to the two other seeded rollers that move server-side unchanged
-(`70_integrations/BACKEND_ARCHITECTURE.md` §2): the drop roller (§10) and the enhancement roller (§9)
+(`70_integrations/BACKEND_ARCHITECTURE.md` §2): the drop roller (§11) and the enhancement roller (§10)
 each carry their own seeded vector set for the same reason — no client may reproduce or pre-empt a roll
 it cannot seed.
 
@@ -224,7 +231,7 @@ it cannot seed.
 
 ## 4. Domain execution — reading guide
 
-Sections §5–§12 are the nine `authority: server` domains. Each states, in one shape: **executes on**
+Sections §5–§13 are the nine `authority: server` domains. Each states, in one shape: **executes on**
 (the `70_integrations/BACKEND_ARCHITECTURE.md` §1 component) · **triggered by** · **validates** ·
 **owning doc** (cited, never restated). The seeded RNG service and append-only audit log are shared
 dependencies; their unavailable-stance is fixed once in `70_integrations/BACKEND_ARCHITECTURE.md` §8
@@ -248,7 +255,7 @@ event, no second timer.
 
 - **Actor & authenticity** — the `hit_event` comes from the gateway-bound session for that character
   (`70_integrations/ACCOUNTS_AUTH.md` §4); the client never resolves damage, it only *requests* by
-  reporting the hit frame (§13).
+  reporting the hit frame (§14).
 - **Range/geometry** — the named targets actually fall in the skill's targeting shape
   (`10_systems/SKILL_SYSTEM.md` §6) from the attacker's server-side position; out-of-shape targets are
   dropped. Facing/aim are advisory client input, re-checked here.
@@ -256,9 +263,9 @@ event, no second timer.
   a basic attack within `base_attack_interval` cadence (`10_systems/COMBAT_FORMULA.md` §10); an
   i-framed target takes 0 (`10_systems/COMBAT_FORMULA.md` §12), and monsters get no i-frames so player
   combos land fully.
-- **Final stat blocks** — attacker and defender blocks are the server's own recomputed values (§6), with
+- **Final stat blocks** — attacker and defender blocks are the server's own recomputed values (§7), with
   transient statuses already folded per `10_systems/STATS.md` §7; the client's stat numbers are never
-  trusted as input (§13).
+  trusted as input (§14).
 
 ### 5.2 What it computes (cited, not restated)
 
@@ -267,7 +274,7 @@ offense × coefficient, mitigation curve (§5), element multiplier (§6), crit (
 `empower`/`weaken` (§8), level-difference dampener (§9), `max(1, round(raw))` floor. Hit classing,
 hitstun, knockback impulse, and size-class scaling are `10_systems/COMBAT_FORMULA.md` §11; a heavy hit's
 cast-interrupt and boss super-armor / `phase_shift` invulnerability are §11 and
-`10_systems/STATUS_EFFECTS.md` §1. The resolved `HitResult` and any death (§11) are pushed as immediate
+`10_systems/STATUS_EFFECTS.md` §1. The resolved `HitResult` and any death (§12) are pushed as immediate
 events (§1.2). Every roll is server-verifiable against the audit log; if the RNG service or audit log is
 unavailable the hit is blocked, not rolled unverifiably (`70_integrations/BACKEND_ARCHITECTURE.md` §8).
 
@@ -296,16 +303,16 @@ The server checks, in order, all `10_systems/SKILL_SYSTEM.md` gates — never th
 
 On pass: deduct `essence`, stamp the cooldown timestamp, and run the effect list. Any skipped
 `essence_cost`/cooldown/prereq gate is exactly the `10_systems/PERSISTENCE.md` §7 never-trust item this
-section enforces (§13).
+section enforces (§14).
 
 ### 6.2 Effect-op application
 
 The skill's ordered `effects: [...]` (`10_systems/SKILL_EFFECTS.md` §2) run top-to-bottom, each filtered
-to its target class: `deal_damage` routes each hit through §5's pipeline; `apply_status` hands off to §8;
-`heal`/`grant_shield`/`restore_essence` adjust pools with the §6 caps; `knockback`/`pull`/`dash`/`leap`
+to its target class: `deal_damage` routes each hit through §5's pipeline; `apply_status` hands off to §9;
+`heal`/`grant_shield`/`restore_essence` adjust pools with the §7 caps; `knockback`/`pull`/`dash`/`leap`
 apply displacement/i-frames (`10_systems/COMBAT_FORMULA.md` §11/§12); `summon_entity` spawns an
-owner-tagged monster-schema entity that then ticks under §12; `taunt` sets an AI forced-target
-(§12); `on_hit_proc` is the only conditional, evaluated server-side with its `icd`
+owner-tagged monster-schema entity that then ticks under §13; `taunt` sets an AI forced-target
+(§13); `on_hit_proc` is the only conditional, evaluated server-side with its `icd`
 (`10_systems/SKILL_EFFECTS.md` §16). Op resolution is server-authoritative
 (`10_systems/SKILL_EFFECTS.md` §18); the client predicts and reconciles. Cooldowns run authoritatively
 server-side when live (`10_systems/SKILL_SYSTEM.md` §5).
@@ -315,7 +322,7 @@ server-side when live (`10_systems/SKILL_SYSTEM.md` §5).
 ## 7. Stats — `10_systems/STATS.md`
 
 **Executes on:** the world process (`70_integrations/BACKEND_ARCHITECTURE.md` §5); the recomputed block
-is the **single truth** every other section (§5 combat, §6 skills, §8 statuses) reads.
+is the **single truth** every other section (§5 combat, §6 skills, §9 statuses) reads.
 
 **Triggered by:** any input to the compute order — level-up (§8-here / `10_systems/LEVELING.md`),
 a free-point allocation or reallocation request, an equipment/enhancement change, or a transient status
@@ -329,7 +336,7 @@ apply/expire (`10_systems/STATUS_EFFECTS.md`).
 - **Derived recompute as the sole truth** — the server runs the `10_systems/STATS.md` §7 compute order
   (primaries → derived formulas → soft/hard caps §6 → transient status fold, re-clamped) and stores the
   result. A **client-recomputed derived stat is never treated as truth over this stored value**
-  (`10_systems/STATS.md` §8, `10_systems/PERSISTENCE.md` §7 — enforced at §13). The `10_systems/STATS.md`
+  (`10_systems/STATS.md` §8, `10_systems/PERSISTENCE.md` §7 — enforced at §14). The `10_systems/STATS.md`
   §6 soft caps on `crit_rate`/`evasion`/`haste` are applied here, so no client can present an
   over-cap block. The recomputed block feeds §5's final attacker/defender blocks.
 
@@ -343,15 +350,15 @@ Changes commit to the character DB on the `10_systems/PERSISTENCE.md` §6 trigge
 
 **Executes on:** the world process (leveling; `70_integrations/BACKEND_ARCHITECTURE.md` §5).
 
-**Triggered by:** a monster death the character is eligible for (tag rule, §10 / `10_systems/DROPS.md`
+**Triggered by:** a monster death the character is eligible for (tag rule, §11 / `10_systems/DROPS.md`
 §7), a quest turn-in (quest logic, `10_systems/QUESTS.md`), or a one-time first-clear/bestiary grant
 (`10_systems/DROPS.md` §8).
 
-**Validates & computes (cited):** `exp_awarded = round(base_exp(mob) · exp_diff_mult(...))` per
-`10_systems/LEVELING.md` §2, where the level-difference exp multiplier is `10_systems/COMBAT_FORMULA.md`
-§9's exp column and `base_exp` uses the tier multipliers of `10_systems/LEVELING.md` §3 — the server
+**Validates & computes (cited):** the exp award is computed by `10_systems/LEVELING.md` §2's formula
+(its level-difference multiplier is `10_systems/COMBAT_FORMULA.md` §9's exp column; its tier
+multipliers `10_systems/LEVELING.md` §3's) — the server
 derives the reward from the *server's* record of the mob level and killer level; the client never
-reports an exp amount, only that a kill/turn-in occurred (§13). Crossing `exp_to_next(L)`
+reports an exp amount, only that a kill/turn-in occurred (§14). Crossing `exp_to_next(L)`
 (`10_systems/LEVELING.md` §1) triggers the atomic level-up: `life`/`essence` refill, primary
 auto-growth (`10_systems/STATS.md` §4.2), +2 free points (`10_systems/STATS.md` §4.3), and +1 skill
 point (`10_systems/SKILL_SYSTEM.md` §1) — all owned there, applied here as one transaction, then a §7
@@ -373,10 +380,10 @@ and stacks live on the map process holding the affected entity.
 
 **Validates & ticks (cited):** application obeys the `10_systems/STATUS_EFFECTS.md` global rules — the
 `source_power`/`crit_power` **snapshot at apply time** (§1), per-status stacking (`unique`/`stack`/
-`refresh`) and caps, the **12-status-per-entity** ceiling with least-remaining-duration displacement,
-hard-CC **diminishing returns** (2nd at 50 %, 3rd → 8 s immunity), and tier scaling by target
-(`normal`/`elite`/`boss`, §3 — bosses immune to hard CC). DoT ticks (`burn`/`poison`, 8 %/6 % of
-`source_power`) and `regen` (3 % of receiver max `life`, read live) fire on the first sim tick at/after
+`refresh`) and the per-entity status ceiling with least-remaining-duration displacement,
+hard-CC **diminishing returns** and the escalation-to-immunity window (§1), and tier scaling by target
+(`normal`/`elite`/`boss`, §3 — bosses immune to hard CC). DoT ticks (`burn`/`poison`, percentages
+owned by §4.1) and `regen` (§4.2, read live against max `life`) fire on the first sim tick at/after
 each 1 s boundary and route through §5 as ordinary snapshot `CombatMath` calls, so element and
 mitigation apply exactly as to direct hits (`10_systems/STATUS_EFFECTS.md` §5). Entering `die` clears
 all statuses with **no post-mortem tick**; a boss `phase_shift` suspends timers and blocks new
@@ -404,7 +411,7 @@ save (`70_integrations/BACKEND_ARCHITECTURE.md` §5).
 so it survives logout and is not farmable by re-equipping. There is **no "reroll until success"** — the
 client cannot re-request a fresh roll on the same seed; each attempt is one gated, audited roll, and the
 per-`+` counter only ever moves forward. This is the `10_systems/PERSISTENCE.md` §7 enhancement
-never-trust item (§13). On success `enhance_level` increments (never destroys/downgrades,
+never-trust item (§14). On success `enhance_level` increments (never destroys/downgrades,
 `10_systems/ENHANCEMENT.md` §2); the result commits to the character DB. If the RNG service or audit log
 is unavailable the attempt is blocked, not rolled (`70_integrations/BACKEND_ARCHITECTURE.md` §8).
 
@@ -424,7 +431,7 @@ writing the audit log; ownership timers on the map process (§1.4).
 `fortune_drop_bonus` hook and applies `10_systems/DROPS.md` §4's `m` multiplier (capped +100 %, adjusted
 chance clamped ≤ 0.95). The first-ever region-boss clear guarantees one unique (`10_systems/DROPS.md`
 §5.3 bad-luck protection). No client may re-roll a table or self-assign `rarity`/`qty`/pool result
-(`10_systems/DROPS.md` §9, `10_systems/PERSISTENCE.md` §7 — §13).
+(`10_systems/DROPS.md` §9, `10_systems/PERSISTENCE.md` §7 — §14).
 
 **Loot ownership tags (cited):** on death, drops spawn **tagged** to whoever dealt or took damage to/from
 the monster (`10_systems/DROPS.md` §7 anyone-who-tagged rule) — an **exclusive 60 s** window for
@@ -433,7 +440,15 @@ tagger and never lie on the ground. The window timers are timestamp-based (§1.4
 owns everything; in a party, eligibility is shared and the **per-drop split is
 `70_integrations/CHAT_SOCIAL_BACKEND.md`'s** reward arbitration (`10_systems/social/PARTY.md` §5),
 not decided here — this section owns the roll and the tag, that tier owns the distribution. No minted
-items/`shards` and no self-assigned untagged drop (`10_systems/PERSISTENCE.md` §7 → §13).
+items/`shards` and no self-assigned untagged drop (`10_systems/PERSISTENCE.md` §7 → §14).
+
+**Inventory & bank operations (the remaining PERSISTENCE §2 ledger row).** Pickup requests against
+the tag window above, item move/equip/use, stack merges, and bank deposits/withdrawals execute in
+the world process's inventory logic (`70_integrations/BACKEND_ARCHITECTURE.md` §5's "Inventory logic
+in world process" row); every rule they validate — tab/slot legality, stack caps, the anti-dupe and
+no-minted-items laws — is `10_systems/INVENTORY.md`'s (§9 for the never-trust items), cited not
+restated, and each is an ordinary §14 request→validate→delta flow. Storage is
+`70_integrations/DATABASE_PERSISTENCE.md`'s; the wire packets are `70_integrations/NETWORK_PROTOCOL.md`'s.
 
 ---
 
@@ -445,16 +460,16 @@ items/`shards` and no self-assigned untagged drop (`10_systems/PERSISTENCE.md` �
 **Triggered by:** a character's `life` reaching 0 (server-detected in §5).
 
 **Validates & applies (cited):** on defeat the server plays out `10_systems/DEATH_PENALTY.md`'s flow —
-clear all statuses with no post-mortem tick (§1, shared with §9), apply the exp cost
-`exp_lost = floor(pct · exp_into_level)` by the victim's own level bracket (`10_systems/DEATH_PENALTY.md`
-§2, clamped so de-leveling is structurally impossible), and apply **no durability loss and no `shards`
+clear all statuses with no post-mortem tick (§1, shared with §9), apply the exp cost by
+`10_systems/DEATH_PENALTY.md` §2's bracket formula (clamped there so de-leveling is structurally
+impossible), and apply **no durability loss and no `shards`
 loss** (`10_systems/DEATH_PENALTY.md` §3 — there is no durability field to touch). Respawn is at the
 character's stored **bind point** (`10_systems/DEATH_PENALTY.md` §4), set only by deliberately resting at
 a valid bind-town inn — never automatically on death. **Bind changes are validated server-side**: a rest
 request is honored only from one of the five bind towns' inn interiors; the client cannot self-assign a
 bind. Party-instance deaths use the `10_systems/DEATH_PENALTY.md` §5.3 fallen/Release/re-enter override
 (the instance persists across member deaths, `10_systems/SPAWN.md` §7) rather than §4; a full-party wipe
-resets the instance (§12-here spawn ownership). Revive is reserved (`10_systems/DEATH_PENALTY.md` §6) —
+resets the instance (§13-here spawn ownership). Revive is reserved (`10_systems/DEATH_PENALTY.md` §6) —
 no op grants it this arc, so the server offers no revive path. The exp change and any bind update commit
 on the `10_systems/PERSISTENCE.md` §6 triggers.
 
@@ -467,12 +482,12 @@ process owns its spawn zones and every live mob's AI. Instances tick identically
 worker; a vacant map parks its tick (§1.3).
 
 **Simulated on the server (per simulation tick):**
-- **Spawn maintenance** — zone `target_count`/`max_concurrent` upkeep, tier respawn timers (`normal`
-  10 s / `elite` 90 s, `10_systems/SPAWN.md` §3), and the **off-screen hold** rule
+- **Spawn maintenance** — zone `target_count`/`max_concurrent` upkeep, per-tier respawn timers
+  (values `10_systems/SPAWN.md` §3's), and the **off-screen hold** rule
   (`10_systems/SPAWN.md` §5: a respawn whose point is on-screen is *held*, not lost or re-timed, and
   resolves on the next tick the point is clear). The server owns which points are "off-screen" per each
-  present player's viewport. Shared open-entry arena reset-when-empty (30 s grace,
-  `10_systems/SPAWN.md` §3) and PQ-instance spawn scoping (`10_systems/SPAWN.md` §7) are the same
+  present player's viewport. Shared open-entry arena reset-when-empty (grace value
+  `10_systems/SPAWN.md` §3's) and PQ-instance spawn scoping (`10_systems/SPAWN.md` §7) are the same
   process's timers.
 - **AI advancement** — every mob's profile state machine (`10_systems/AI_BEHAVIOR.md` §1: `idle`/
   `patrol`/`chase`/`windup`/`attack`/`recover`/`flee`/`return`), aggro scans (`sight`/`proximity`/
@@ -529,7 +544,7 @@ confirmations remain:
   `10_systems/COMBAT_FORMULA.md` §10 `base_move_speed`; the *shape* (accept-if-plausible, forward
   correct, no rollback) is fixed, the numbers are tunable. Owner: this doc with the client movement pass.
 - **Anti-cheat posture beyond reconciliation** — repeated out-of-envelope reports (§2) or gate-failing
-  requests (§13) are a signal a live-ops fraud/telemetry system should consume
+  requests (§14) are a signal a live-ops fraud/telemetry system should consume
   (`70_integrations/TELEMETRY_ANALYTICS.md`); what threshold trips a flag or a kick is an operational
   policy, not a simulation rule, and is not decided here.
 - **Out-of-combat `life`/`essence` regen (resting)** is still unowned across
@@ -544,3 +559,8 @@ confirmations remain:
   the split to `70_integrations/CHAT_SOCIAL_BACKEND.md` (`10_systems/social/PARTY.md` §4/§5). The exact
   request/response boundary between the world process and the party service is that sibling's to finalize;
   named here, not designed.
+- **`round(raw)` rounding convention** — `10_systems/COMBAT_FORMULA.md` never states a rounding
+  convention for its damage-pipeline `round(raw)` step (`10_systems/SKILL_SYSTEM.md` §4's round-half-up
+  covers rank interpolation only). §3's parity vectors pin **round-half-up** so the two implementations
+  cannot diverge; flagged to `10_systems/COMBAT_FORMULA.md`'s owner (ROLE_SYSTEMS_ARCHITECT) to confirm
+  and state it in that doc, at which point §3 cites it instead of pinning it.
