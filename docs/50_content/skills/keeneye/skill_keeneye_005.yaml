@@ -1,0 +1,31 @@
+id: skill_keeneye_005
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Steady Aim                   # exact JOBS.md §3.1 first-job roster name
+line: keeneye
+tier: first
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  # two passive_stat_bonus effects (§2 "multiple same-op effects are allowed"): `precision` is a
+  # flat rating (keeneye_012 Keen Precision precedent) while `crit_rate` is pct-valued (weaver_020
+  # Combustion precedent) — split so each carries its correct `mode` rather than sharing one.
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { precision: 1 }, mode: flat }   # STATS.md token (SKILL_EFFECTS §13); first-job kit, smaller than spec-tier bands
+      - { op: passive_stat_bonus, stats: { crit_rate: 0.01 }, mode: pct }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { precision: 2 }, mode: flat }
+      - { op: passive_stat_bonus, stats: { crit_rate: 0.02 }, mode: pct }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { precision: 3 }, mode: flat }
+      - { op: passive_stat_bonus, stats: { crit_rate: 0.03 }, mode: pct }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { precision: 4 }, mode: flat }
+      - { op: passive_stat_bonus, stats: { crit_rate: 0.04 }, mode: pct }
+flavor: "A hunter's patience folded into the draw: a Keeneye who takes the extra half-second lands truer, and crits a little more often for it."

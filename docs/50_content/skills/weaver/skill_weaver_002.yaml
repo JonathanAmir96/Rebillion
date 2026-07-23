@@ -1,0 +1,37 @@
+id: skill_weaver_002
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Frost Shard                  # exact JOBS.md §4.1 first-job roster name
+line: weaver
+tier: first
+kind: active
+targeting: { shape: projectile, speed: 12, range: 9, pierce: 0, gravity: false, impact_radius: 0 }   # roster target `projectile` (SKILL_SYSTEM §6)
+cost: { essence: 6 }
+cooldown: 4.0
+level_data:
+  - level: 1
+    essence_cost: 6
+    cooldown: 4.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 0.8 }             # scales on `spellpower` (staff default, §1)
+      - { op: apply_status, status: chill, chance: 0.40 }          # STATUS_EFFECTS §4.1 soft CC, base dur 4 s
+  - level: 4
+    essence_cost: 8
+    cooldown: 3.4
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.0 }
+      - { op: apply_status, status: chill, chance: 0.50 }
+  - level: 7
+    essence_cost: 9
+    cooldown: 2.8
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.2 }
+      - { op: apply_status, status: chill, chance: 0.60 }
+  - level: 10
+    essence_cost: 10
+    cooldown: 2.5
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.3 }             # mult non-decreasing, cooldown non-increasing (§4 warn)
+      - { op: apply_status, status: chill, chance: 0.65 }
+animation: skill_weaver_002_cast
+flavor: "A splinter of ice flung hard enough to bite. It doesn't need to freeze solid to slow a target down."
