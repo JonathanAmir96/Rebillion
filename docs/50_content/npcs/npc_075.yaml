@@ -1,0 +1,12 @@
+id: npc_075
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Isolde Vaultwatch
+region: sunken
+map: map_173
+role: handler
+dialog:
+  greeting: "This is as far as logistics gets you. Past that door, it's just you and the Warden."
+  farewell: "Come back through that door however you can. I'll be here either way."
+portrait: portrait_npc_075
+flavor: "Isolde staffs the last dry stretch before the vault, and has watched more hopefuls walk through that door than walk back out."

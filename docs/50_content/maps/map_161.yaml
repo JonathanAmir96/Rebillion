@@ -1,0 +1,41 @@
+id: map_161
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Drowned Approach, Ruinlight Reach
+region: sunken
+map_type: field
+level_band: { min: 34, max: 35 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 155, h: 30 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_160
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_162
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_field_161
+    rect_tiles: { x: 47, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_117, count: 4 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A long, gently descending reach toward the ruin gate. Terraces step down in 2-tile drops;
+  no jump on this stretch approaches even the un-doubled 3.5-tile rise cap.
+flavor: "Ruinlight -- the drowned-scholar's word for the pale glow the stone itself seems to hold -- thickens here."

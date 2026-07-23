@@ -1,0 +1,47 @@
+id: map_168
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hall of Silent Bells
+region: sunken
+map_type: dungeon
+level_band: { min: 37, max: 37 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 70, h: 50 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_167
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_169
+    target_spawn: main
+    dead_end: false
+  - id: to_bellring_hollow
+    kind: door
+    at: { tile: [50, 12] }
+    target_map: map_175
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_dungeon_168
+    rect_tiles: { x: 15, y: 32, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_122, count: 3 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  A hushed vertical hall lined with hanging bell-frames; a side door leads to a sealed hollow
+  off the main line. Ledges sit inside the standard MAP_TRAVERSAL §1.1 caps.
+flavor: "Rows of drowned bells hang motionless from a corroded frame, silenced since the sea first climbed this high."

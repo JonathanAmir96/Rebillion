@@ -1,0 +1,41 @@
+id: map_166
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Collapsed Reliquary
+region: sunken
+map_type: dungeon
+level_band: { min: 36, max: 37 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 70, h: 50 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_165
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_167
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_dungeon_166
+    rect_tiles: { x: 15, y: 32, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_121, count: 3 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  A rubble-choked vertical chamber; ledges stack at the doubled water-physics rise cap.
+  One collapsed archway forces a single-file approach -- deliberate chokepoint pacing.
+flavor: "A reliquary chamber caved in on itself long ago, its relics scattered across the silted floor."

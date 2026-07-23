@@ -1,0 +1,48 @@
+id: map_170
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hall of the Waterlocked Kings
+region: sunken
+map_type: dungeon
+level_band: { min: 37, max: 38 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 70, h: 55 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 45] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_169
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_171
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_dungeon_170
+    rect_tiles: { x: 15, y: 37, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_123, count: 3 }
+    max_concurrent: 8
+interactables:
+  - type: climbable
+    id: rope_kings_dais
+    at_tile: [60, 45]
+    params:
+      rect_tiles: { x: 60, y: 8, w: 2, h: 37 }
+      orientation: "vertical"
+      visual: "rope"
+npcs: []
+platform_brief: |
+  A tall vertical throne-hall; a rope climbable (MAP_TRAVERSAL §4) runs the full height to the
+  highest king's dais, the one vertical gimmick on the main line through the ruin halls.
+flavor: "Drowned statues of forgotten kings line this hall, crowns still gleaming faintly under the silt."

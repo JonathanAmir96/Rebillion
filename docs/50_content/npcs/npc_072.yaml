@@ -1,0 +1,12 @@
+id: npc_072
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Scholar Adric
+region: sunken
+map: map_163
+role: quest_giver
+dialog:
+  greeting: "Perrine sent word ahead of you. Good -- the gate's not going to study itself."
+  farewell: "Past this gate the halls stop being kind. Go in with your eyes open."
+portrait: portrait_npc_072
+flavor: "Adric keeps a careful vigil at the drowned gatefront, cataloguing everything that comes back out of the ruin halls."

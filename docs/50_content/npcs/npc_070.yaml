@@ -1,0 +1,12 @@
+id: npc_070
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Salvager Wick
+region: sunken
+map: map_153
+role: handler
+dialog:
+  greeting: "Anything you pull off those drowned things, I'll take a good look at."
+  farewell: "Keep it dry till you reach me -- salt ruins everything twice down here."
+portrait: portrait_npc_070
+flavor: "Wick sorts the camp's salvage by lamplight, muttering prices to herself long before a buyer ever asks."
