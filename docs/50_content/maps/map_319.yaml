@@ -1,0 +1,32 @@
+id: map_319
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: "the Sunken Reliquary"
+region: voidshore
+map_type: secret
+level_band: { min: 80, max: 82 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 48, h: 28 }
+bgm: bgm_voidshore
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 14] }
+portals:
+  - id: to_umbral_317
+    kind: door
+    at: { tile: [8, 14] }
+    target_map: map_317
+    target_spawn: main
+spawn_zones:
+  - id: reliquary_pocket
+    rect_tiles: { x: 14, y: 8, w: 26, h: 14 }
+    mobs:
+      - { mob: mob_232, count: 1 }
+    max_concurrent: 3
+npcs: []
+platform_brief: |
+  A single sunken vault chamber, one flat band -- a bonus pocket off the Umbral
+  Reach, sparser and richer per SPAWN §2's secret budget.
+flavor: "A vault the tide itself could not empty, its relics still humming faintly with a light that isn't light."
