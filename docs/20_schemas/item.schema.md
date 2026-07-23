@@ -8,8 +8,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 
 ## Purpose
 
-Defines the content shape of the **item batch tables** — the `equip` (~144), `use` (~36), and
-`etc` (~197) items in `00_vision/SCOPE.md` / `10_systems/ITEMS.md` §1. Unlike monsters/skills,
+Defines the content shape of the **item batch tables** — the `equip` (~86), `use` (~30), and
+`etc` (~133) items in `00_vision/SCOPE.md` / `10_systems/ITEMS.md` §1. Unlike monsters/skills,
 items are authored many-rows-per-file (`10_systems/ITEMS.md` §12's batch-table convention): a
 table file carries front-matter plus an `items:` list, each row one `item_equip_NNNN` /
 `item_use_NNNN` / `item_etc_NNNN`. A row is the base/affix stat-line budget copied from
@@ -36,18 +36,18 @@ table wrapper" — binding the names here is this schema's job, not a restatemen
 
 | Path | `id` | Row IDs (`docs/ID_REGISTRY.md`) | Authored |
 |---|---|---|---|
-| `equip/weapons.yaml` | `item_table_weapons` | `item_equip_0001`–`0040` | one batch |
-| `equip/armor.yaml` | `item_table_armor` | `item_equip_0041`–`0140` (+ its share of reserved-growth `0181`–`0200`/`0231`–`0300`, ITEMS.md §4 OQ) | one batch |
-| `equip/accessories.yaml` | `item_table_accessories` | `item_equip_0141`–`0180` (+ its share of reserved growth, same OQ) | one batch |
-| `equip/uniques.yaml` | `item_table_uniques` | `item_equip_0201`–`0230` | one batch |
-| `use/consumables.yaml` | `item_table_consumables` | `item_use_0001`–`0060` | one batch (`0001`–`0016` well-known, `docs/ID_REGISTRY.md`) |
-| `etc/materials_r01.yaml` … `materials_r12.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
+| `equip/weapons.yaml` | `item_table_weapons` | `item_equip_0001`–`0040` | 24 rows (4 types × 6 arc tiers T1–T6; rest of block reserved) |
+| `equip/armor.yaml` | `item_table_armor` | `item_equip_0041`–`0140` | 30 rows (5 slots × 6 arc tiers; rest of block reserved) |
+| `equip/accessories.yaml` | `item_table_accessories` | `item_equip_0141`–`0180` | 16 rows (cape/ring/amulet; rest of block reserved) |
+| `equip/uniques.yaml` | `item_table_uniques` | `item_equip_0201`–`0216` (`0217`–`0230` reserved, unauthored) | 16 rows (2 per boss, boss order #1–#8) |
+| `use/consumables.yaml` | `item_table_consumables` | `item_use_0001`–`0060` | ~30 rows (`0001`–`0016` well-known, `docs/ID_REGISTRY.md`) |
+| `etc/materials_r01.yaml` … `materials_r08.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`; `0129`–`0192` reserved for future regions, unauthored) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
 | `etc/enhancement.yaml` | `item_table_enhancement` | `item_etc_0193`–`0197` (Emberstone I–V; `0198`–`0200` reserved, unauthored) | one batch |
 
-- The **armor/accessories reserved-growth split** (`0181`–`0200`, `0231`–`0300`) is not fixed by
-  this schema — `10_systems/ITEMS.md` §4's own Open Question leaves the per-slot SKU count to
-  Phase D bounded only by `docs/ID_REGISTRY.md`'s ranges; both files may draw from either reserved
-  block as Phase D fills toward `00_vision/SCOPE.md`'s counts.
+- The v2 authored grid fits inside the base blocks. `item_equip_0181`–`0200`, `0217`–`0230`, and
+  `0231`–`0300` are **reserved growth** (`docs/ID_REGISTRY.md`): they stay unauthored this run,
+  and if a category ever outgrows its block the range is extended in `docs/ID_REGISTRY.md` in a
+  new commit — never renumbered.
 - Field values use only GLOSSARY tokens (`docs/VALIDATION.md` §1); no unknown fields
   (`docs/VALIDATION.md` §3).
 
@@ -75,7 +75,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].name` | string | yes | `docs/ID_REGISTRY.md` (well-known `item_use_0001`–`0016` only) | US spelling. Well-known use IDs must match the ID_REGISTRY name exactly (Validation). `client`. |
 | `items[].category` | enum | yes | this schema (`10_systems/ITEMS.md` §1) | `equip`\|`use`\|`etc`; must match the table's own file (Validation). `server`. |
 | `items[].rarity` | enum | yes | `10_systems/ITEMS.md` §5 (GLOSSARY Rarity) | Drives affix-line count/budget **only for `equip`** (§10); on `use`/`etc` rows it is display-tier only (icon border, `40_assets/ART_BIBLE.yaml` `rarity_code`) with no mechanical effect — see Open Questions. `client` (display) / `server` (equip: gates affix rolling). |
-| `items[].req_level` | int 1–100 | yes | `10_systems/ITEMS.md` §4 (equip); Phase D (use/etc) | Minimum character `level` to equip/benefit as intended. For `equip`, must equal the tier's `req_level` (§4 table). For `use`/`etc`, an authoring guideline (band placement, `10_systems/ECONOMY.md` §4.1/§6), not a hard equip gate. `server`. |
+| `items[].req_level` | int 1–300 | yes | `10_systems/ITEMS.md` §4 (equip); Phase D (use/etc) | Minimum character `level` to equip/benefit as intended. Legal range runs to 300 (the game cap); authored rows use 1–42 (first arc, `00_vision/SCOPE.md`). For `equip`, must equal the tier's `req_level` (§4 table). For `use`/`etc`, an authoring guideline (band placement, `10_systems/ECONOMY.md` §4.1/§6), not a hard equip gate. `server`. |
 | `items[].price` | map `{buy, sell}` | yes | `10_systems/ECONOMY.md` §4 | Sub-fields below. |
 | `items[].price.buy` | int | equip/use: yes; etc: **omit** | `ECONOMY` §4.1 (use)/§4.2 (equip) | Etc items are not vendor-purchasable (`10_systems/ITEMS.md` §1 "mostly vendor/trade value"; emberstones specifically never purchasable, `10_systems/ENHANCEMENT.md` §6) — omit `buy` entirely for `etc` rows. |
 | `items[].price.sell` | int | yes | `ECONOMY` §4 | Equip/use: `= round(0.25 · buy)` (hard, `ECONOMY` §4). Etc: authored directly (no `buy` to derive from — see Open Questions, `ECONOMY.md` prices only `use`/`equip`). |
@@ -88,7 +88,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].slot` | enum | yes | `10_systems/ITEMS.md` §2 (GLOSSARY Equipment slots) | One of the 9 tokens. `server`. |
 | `items[].weapon_type` | enum | `slot: weapon` only | `10_systems/ITEMS.md` §3 (GLOSSARY Weapon types) | `blade`\|`bow`\|`staff`\|`dirk`. Forbidden on non-weapon slots (Validation). `server`. |
 | `items[].line_hint` | enum | `slot: weapon` only | `10_systems/JOBS.md` / GLOSSARY Job lines | The job line this weapon equips (fixed 1:1 by `weapon_type`, `10_systems/ITEMS.md` §3). Redundant with `weapon_type` by design — authored explicitly so tooling/UI never re-derives the mapping (see Open Questions). Must equal the fixed mapping (Validation, hard). `server`/`client`. |
-| `items[].tier` | int 1–10 | yes | `10_systems/ITEMS.md` §4 | The `T1`–`T10` gear tier; keys the §7–§9 base-line lookup. Must correspond to `req_level` per the §4 table (Validation). `server`. |
+| `items[].tier` | int 1–10 | yes | `10_systems/ITEMS.md` §4 | The gear tier; keys the §7–§9 base-line lookup. The authored arc uses `T1`–`T6` (Lv 1/8/15/22/29/36 grid, `docs/ID_REGISTRY.md`); higher tiers are future-arc. Must correspond to `req_level` per the §4 table (Validation; see Open Questions on ITEMS.md's pending v2 re-band). `server`. |
 | `items[].stats` | map `{base, affixes}` | yes | `10_systems/ITEMS.md` §6–§10 | The base+affix stat-line budget (§6: "base lines + affix lines"). Sub-fields below. `server`. |
 | `items[].stats.base` | map `{<stat token>: value}` | yes | `ITEMS` §7 (weapon `W`) / §8 (armor+warding by slot×tier) / §9 (accessory by tier) | Rarity-independent; one entry per this slot's fixed base-line set (§2 table, e.g. `body` → `armor`+`warding`). Values copied exactly from the formula for this row's `slot`×`tier` (Validation, hard). |
 | `items[].stats.affixes` | list[line] | yes (`[]` for `common`) | `ITEMS` §10 | Rarity-driven rolled lines. Line count = the §5 rarity→count table. Each entry is an **ordinary line** (`stat`/`value`) or, **`uniques.yaml` only**, a **flourish line** (`op`/`flourish`, §11). |
@@ -97,7 +97,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].stats.affixes[].op` | enum | flourish lines only | `ITEMS` §11; `10_systems/SKILL_EFFECTS.md` §13 (`passive_stat_bonus`)/§16 (`on_hit_proc`) | A flourish may be a small effect instead of a stat line ("expressed only through existing ops," §11) — params per that op's own schema (`SKILL_EFFECTS`). |
 | `items[].stats.affixes[].flourish` | bool | flourish lines only | `ITEMS` §11 | `true` marks this line eligible for the §11 **×1.5 per-line pe-cap exception**; absent/false = ordinary §10 rules apply. Uniques only (Validation). |
 | `items[].enhance_max` | int | yes | `10_systems/ENHANCEMENT.md` §2 | The top of this item's `+` track. Every equip today uses the same uniform `0`–`9` track (`ENHANCEMENT` §2, "any single equip, all nine slots") — this field must equal `9` (Validation, hard). Authored explicitly for forward-compatibility/tooling rather than assumed; see Open Questions. `server`. |
-| `items[].unique_of` | string `mob_NNN` | `uniques.yaml` only | `docs/ID_REGISTRY.md` Monsters + Items (boss-unique mapping); `10_systems/ITEMS.md` §11 | The boss this unique belongs to. Must resolve to a `tier: boss` mob (`20_schemas/monster.schema.md`) whose region-order boss number `n` (region order = `docs/WORLD_PLAN.md` Region overview R1–R11, then the four Rift raid bosses as `n`=12–15) makes this row's own `id` one of `item_equip_{0199+2n}` / `{0200+2n}` (`docs/ID_REGISTRY.md`). Forbidden outside `uniques.yaml` (Validation). `server`. |
+| `items[].unique_of` | string `mob_NNN` | `uniques.yaml` only | `docs/ID_REGISTRY.md` Monsters + Items (boss-unique mapping); `10_systems/ITEMS.md` §11 | The boss this unique belongs to. Must resolve to a `tier: boss` mob (`20_schemas/monster.schema.md`) whose boss-order number `n` = 1–8 (region order per `docs/WORLD_PLAN.md`'s Region overview R1–R8: Cindermaw `n`=1 … The Custodian `n`=8) makes this row's own `id` one of `item_equip_{0199+2n}` / `{0200+2n}` (`docs/ID_REGISTRY.md`). Forbidden outside `uniques.yaml` (Validation). `server`. |
 
 ### Row — `use` only
 
@@ -136,8 +136,8 @@ Every enum value comes from its owning registry; this schema points, never redef
 ## Example
 
 ```yaml
-# illustrative — real tables land in Phase D. This file holds all 40 rows item_equip_0001-0040;
-# one shown. Numbers are exact per ITEMS.md §7/§10 and ECONOMY.md §4.2 (a checkable worked case).
+# illustrative — real tables land in Phase D. This file holds the 24 authored weapon rows
+# inside item_equip_0001-0040; one shown. Numbers are exact per ITEMS.md §7/§10 and ECONOMY.md §4.2 (a checkable worked case).
 id: item_table_weapons
 schema: 20_schemas/item.schema.md
 references: [ITEMS, ENHANCEMENT, ECONOMY]
@@ -189,7 +189,7 @@ restore `amount` is Phase D's):
     rarity: common
     req_level: 1
     price: { sell: 8 }                   # no buy — etc items are not vendor-purchasable
-    source_hint: mob_010                 # Cinder Houndmaster (elite, cross-checked vs drop_mob_010)
+    source_hint: mob_011                 # Cinder Houndmaster (elite, cross-checked vs drop_mob_011)
     stack: 999
     flavor: "A blunt fang still warm from the kiln-hound's jaw."
 ```
@@ -224,7 +224,8 @@ referential integrity, §3 schema conformance/front-matter/unknown-fields, §4 I
    `line_hint` equals the fixed `weapon_type`→line mapping (`10_systems/ITEMS.md` §3 / GLOSSARY Job
    lines): `blade`→`bulwark`, `bow`→`keeneye`, `staff`→`weaver`, `dirk`→`flicker`.
 7. **`tier` ↔ `req_level` (hard).** `tier` corresponds to `req_level` per the `10_systems/ITEMS.md`
-   §4 tier table (`T1`=1 … `T10`=90).
+   §4 tier table; the authored arc spans `T1`–`T6` (Lv 1/8/15/22/29/36 per `docs/ID_REGISTRY.md` —
+   see Open Questions on ITEMS.md's pending v2 re-band).
 8. **`unique_of` resolution (hard, `uniques.yaml` only).** Resolves to an existing `mob_NNN` whose
    `tier: boss` (`20_schemas/monster.schema.md`); this row's `id` is one of the two IDs
    `docs/ID_REGISTRY.md` maps to that boss's region-order number (derivation above).
@@ -263,7 +264,7 @@ items:
     name: "{Display Name}"
     category: {equip|use|etc}
     rarity: {common|uncommon|rare|epic|legendary}
-    req_level: {1..100}
+    req_level: {1..42}                   # authored arc; legal field range 1..300 (game cap)
     price:
       buy: {int}                         # omit entirely for etc rows
       sell: {int}                        # equip/use: round(0.25*buy); etc: authored directly
@@ -273,7 +274,7 @@ items:
     # slot: {weapon|head|body|legs|boots|gloves|cape|ring|amulet}
     # weapon_type: {blade|bow|staff|dirk}      # weapon slot only
     # line_hint: {bulwark|keeneye|weaver|flicker}   # weapon slot only; = fixed weapon_type mapping
-    # tier: {1..10}
+    # tier: {1..6}                            # authored arc tiers (T7+ future-arc)
     # stats:
     #   base: { {stat_token}: {value} }        # ITEMS §7-§9, exact per slot x tier
     #   affixes:                                # count per ITEMS §5 rarity; [] for common
@@ -327,7 +328,15 @@ items:
   every row, but `10_systems/ITEMS.md` §5 defines its mechanical meaning (affix-line count) only
   for `equip`. For `use`/`etc` this schema treats `rarity` as cosmetic-only; confirm this is
   intended, or whether those categories should omit it.
-- **Boss-unique region-order table isn't tabulated anywhere.** Validating `unique_of` (and, in
+- **Boss-order pairs lack a `mob_NNN` column.** Validating `unique_of` (and, in
   `20_schemas/drop_table.schema.md`, boss drop rows) requires computing "boss #n" from
   `docs/WORLD_PLAN.md`'s region order — correct today, but brittle if regions are ever reordered.
-  Flag for `docs/ID_REGISTRY.md` to consider tabulating the 15 boss-order→`mob_NNN` pairs directly.
+  `docs/ID_REGISTRY.md`'s boss-unique mapping now names the 8 boss-order pairs by boss name
+  (Cindermaw 0201–0202 … Custodian 0215–0216); adding the matching `mob_NNN` column there would
+  close the gap.
+- **ITEMS.md §4's tier grid predates v2.** `docs/ID_REGISTRY.md` and `00_vision/SCOPE.md` (v2) fix
+  the authored arc at 6 gear tiers (`T1`–`T6`, Lv 1/8/15/22/29/36), but `10_systems/ITEMS.md` §4's
+  tier table still shows the pre-v2 10-tier/Lv-90 grid (its B-revision is pending,
+  `00_vision/SCOPE.md` Open Questions). This schema follows `docs/ID_REGISTRY.md` for authored
+  ranges and keeps citing ITEMS.md §4 as the formula owner; the worked example's T2/Lv-10 numbers
+  follow ITEMS.md's current tables and must be refreshed when that doc re-bands.

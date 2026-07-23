@@ -10,7 +10,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/COMBAT_FORMU
 ## Purpose
 
 Defines the content shape of one **monster** (`mob_NNN`) — the 150 designs in `00_vision/SCOPE.md`
-(112 `normal` + 23 `elite` + 15 `boss`, including summon templates authored the same way). A
+(118 `normal` + 24 `elite` + 8 `boss`, including summon templates authored the same way). A
 monster file is the data a Phase D author fills and the coding pass loads: a stat block copied from
 the `10_systems/COMBAT_FORMULA.md` §13 budget, an `ai_profile` from `10_systems/AI_BEHAVIOR.md`, an
 element affinity set from `10_systems/ELEMENTS.md`, elite/boss abilities composed from the
@@ -54,9 +54,9 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `weak_to` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×1.5 elements. Mutually exclusive with `resists`/`immune_to`. Keep lists short/thematic (`10_systems/ELEMENTS.md` §2). `server`. |
 | `resists` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×0.5 elements. `server`. |
 | `immune_to` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×0 elements (short-circuits at pipeline step 2). Rare. `server`. |
-| `level` | int | yes | `10_systems/COMBAT_FORMULA.md` §13; `docs/WORLD_PLAN.md` | 1–105 (Rift ≤105 only, `00_vision/SCOPE.md`). Keys the stat budget, `exp`, level dampener, and CC tier scaling. `server`. |
+| `level` | int | yes | `10_systems/COMBAT_FORMULA.md` §13; `docs/WORLD_PLAN.md` | Authored 1–42 this arc (`00_vision/SCOPE.md`; the field's legal range is 1–300, the game cap — values above 42 are future-arc content). Keys the stat budget, `exp`, level dampener, and CC tier scaling. `server`. |
 | `size_class` | enum | yes | `40_assets/ART_BIBLE.yaml` `sizing.size_classes` | `tiny`\|`small`\|`medium`\|`large`\|`boss`. Drives sprite size **and** the knockback/CC size multiplier (`10_systems/COMBAT_FORMULA.md` §11 — `boss` size = knockback-immune). `shared`. |
-| `stats` | map | yes | `10_systems/COMBAT_FORMULA.md` §13/§13.2, §13.3; `10_systems/LEVELING.md` §3 | Sub-fields below. **All values are copied from the §13 monster budget** (formulas authoritative, §13.2 tier multipliers, §13.3 raid scaling) — this schema never restates them. `server`. |
+| `stats` | map | yes | `10_systems/COMBAT_FORMULA.md` §13/§13.2; `10_systems/LEVELING.md` §3 | Sub-fields below. **All values are copied from the §13 monster budget** (formulas authoritative, §13.2 tier multipliers) — this schema never restates them. `server`. |
 | `stats.life` | int | yes | `COMBAT_FORMULA` §13 | Survival pool. Within ±15% of budget (Validation). |
 | `stats.power` | int | yes | `COMBAT_FORMULA` §13 | Weapon rating; drives touch damage (§13.1) and ability scaling (`10_systems/SKILL_EFFECTS.md` §1). |
 | `stats.spellpower` | int | **no** (casters) | `COMBAT_FORMULA` §13 | Present only when the mob's abilities/touch scale on magic (parity with `power`, §13). Budget-checked if present. |
@@ -64,7 +64,7 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `stats.warding` | int | yes | `COMBAT_FORMULA` §13 | Magic defense. |
 | `stats.precision` | int | yes | `COMBAT_FORMULA` §13 | At-level hit baseline (`4·level`). |
 | `stats.evasion` | float (%) | yes | `COMBAT_FORMULA` §13 | Kept low by budget; monsters barely dodge. |
-| `stats.exp` | int | yes | `10_systems/LEVELING.md` §3 | Per-kill `exp` reward = `exp_per_kill_normal(level) × tier_mult` (raid boss = 150× base **total**, §3). The level-difference dampener is applied at award time (`10_systems/COMBAT_FORMULA.md` §9), **not** stored here. |
+| `stats.exp` | int | yes | `10_systems/LEVELING.md` §3 | Per-kill `exp` reward = `exp_per_kill_normal(level) × tier_mult` (§3). The level-difference dampener is applied at award time (`10_systems/COMBAT_FORMULA.md` §9), **not** stored here. |
 | `ai_profile` | enum | yes | `10_systems/AI_BEHAVIOR.md` | Exactly one of the 12 profiles. `server`. |
 | `ai_params` | map | no | `10_systems/AI_BEHAVIOR.md` §2–§13 | Overrides **only** tunables the chosen profile declares (plus shared §2 tunables it has, e.g. `leash_radius`, `aggro_vertical_band`). Values are `snake_case` → number/bool. `server`. |
 | `abilities` | list | **elite/boss only** | `10_systems/SKILL_EFFECTS.md` §17; `10_systems/SKILL_SYSTEM.md` §6 | Named ability rows composed from the op registry. **Forbidden on `normal`** (Validation); required (≥1) on `elite`/`boss`. `server`. Sub-fields below. |
@@ -109,8 +109,9 @@ members.
 
 ```yaml
 # illustrative — real instances land in Phase D. Values here are the §13 budget for a
-# Lv 10 elite (Emberfoot); tune per WORLD_PLAN R1 during the region batch.
-id: mob_010
+# Lv 10 elite (Emberfoot's elite slot); tune level/values per WORLD_PLAN R1 (Lv 1-8 band)
+# during the region batch.
+id: mob_011
 schema: 20_schemas/monster.schema.md
 references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
 name: Cinder Houndmaster
@@ -143,7 +144,7 @@ abilities:
       - { op: deal_damage, element: fire, mult: 1.6 }
       - { op: apply_status, status: burn, chance: 0.5, dur: 6 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
-drop_table: drop_mob_010
+drop_table: drop_mob_011
 respawn_override: 120
 flavor: "A scarred alpha that herds the kiln's fire-hounds by scent and snarl. It slams the
   ground to scatter cinders before it charges."
@@ -159,7 +160,9 @@ contract).
    Monsters table for its region (normals / elites / boss). A boss ID slot may not hold a `normal`,
    etc. (`docs/VALIDATION.md` §4).
 2. **Stat budget ±15% (hard).** Compute the `10_systems/COMBAT_FORMULA.md` §13 budget for this
-   `level`, apply the §13.2 tier multipliers (and §13.3 for raid bosses `mob_147`–`mob_150`):
+   `level`, apply the §13.2 tier multipliers (every `boss` uses the §13.2 boss row — no separate
+   scaling tier exists; `mob_147`–`mob_149` are Clockwork elites and `mob_150` is the Clockwork
+   boss, `docs/ID_REGISTRY.md`):
    `life`, `power`, `spellpower` (if present), `precision`, and `evasion` must each land within
    ±15% of their budgeted value; `armor` + `warding` are checked as a **sum** against the defense
    budget (±15%), since §13 permits reallocation between them (neither may be negative or zero).
@@ -203,7 +206,7 @@ references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS]   # a
 name: "{Display Name}"
 tier: {normal|elite|boss}
 element: {neutral|fire|frost|nature|arcane|shadow}
-level: {1..105}
+level: {1..42}                 # authored arc; legal field range 1-300 (game cap)
 size_class: {tiny|small|medium|large|boss}
 stats:
   life: {int}
