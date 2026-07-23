@@ -54,7 +54,7 @@ thin `exp` strip beneath it. Bottom-left = the chat dock.
 - **Gauges.** `life` (ember ramp) above `essence` (tide ramp), horizontal bars, left-aligned,
   numeric `current`/`max` in `ui_number` font overlaid. `exp` is a separate, thinner, full-width
   bar (arcane ramp) along the very bottom edge — the classic always-visible progress strip,
-  distinct from the two pool gauges above it (`00_vision/GLOSSARY.md` `hud_colors`).
+  distinct from the two pool gauges above it (`40_assets/ART_BIBLE.yaml` `hud_colors`).
 - **Skill bar.** 8 `frame_slot` cells (`10_systems/SKILL_SYSTEM.md` §7), centered, plus the
   dedicated **Dodge** slot (`10_systems/CONTROLS.md` §3) immediately beside them, visually
   distinguished (its own small frame) so it doesn't read as a 9th combat skill.

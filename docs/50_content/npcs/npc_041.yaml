@@ -1,0 +1,12 @@
+id: npc_041
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS, JOBS]
+name: Warden Saela
+region: tidewatch
+map: map_071
+role: quest_giver
+dialog:
+  greeting: "Another set of steady hands, or another set of restless feet? Either way, the harborwatch could use you."
+  farewell: "Keep your eye on the horizon. That's the whole job, really."
+portrait: portrait_npc_041
+flavor: "Warden of Tidewatch's harborwatch and instructor to every keeneye who takes the oath -- she reads a squall a full hour before it breaks."

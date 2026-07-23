@@ -12,7 +12,7 @@ The content schema for one map in the 200-map world (`docs/WORLD_PLAN.md`) — f
 YAML typing for the map anatomy `15_maps_system/MAPS_SYSTEM.md` §1 describes conceptually, plus the
 portal/spawn shapes `15_maps_system/MAP_CONNECTIONS.md` and `15_maps_system/MAP_INTERACTABLES.md`
 leave to "the future map schema." This doc never restates those docs' rules (size guidance, portal
-semantics, coach fares, spawn-density budgets, traversal physics) — it only fixes field names,
+semantics, coach/longship transport, spawn-density budgets, traversal physics) — it only fixes field names,
 types, and the schema-local checks a validator runs on top of them. Read by: Phase D region-batch
 authors writing `map_NNN.yaml` files; the Phase D world-graph reconciler (`docs/VALIDATION.md` §5);
 `20_schemas/npc.schema.md` (bidirectional `map`/`npcs` check); and the Phase E coding pass loading
@@ -21,7 +21,7 @@ map data into Godot scenes (`60_agents/`, not yet authored).
 ## File conventions
 
 One file per map at `50_content/maps/map_NNN.yaml` — `NNN` zero-padded to 3 digits, matching the
-map's reserved slot in `docs/ID_REGISTRY.md`'s 8 region blocks (`map_001`–`map_200`). No batch
+map's reserved slot in `docs/ID_REGISTRY.md`'s 12 region blocks (`map_001`–`map_200`). No batch
 tables (contrast `10_systems/ITEMS.md` §12's category tables) — every map is distinct enough to
 own its file. The file's `id` field and its filename's `NNN` must agree.
 
@@ -53,40 +53,35 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `ambience` | list of string, tag | no | `15_maps_system/MAPS_SYSTEM.md` §5 | 0+ independent looped-texture tags, same policy as `bgm`. `client`. |
 | `layers_preset` | enum | yes | `15_maps_system/MAP_LAYERS.md` §1–§2 | One legal value exists today (Enums). `client`. |
 | `spawn_points` | list of `{id, tile:[x,y]}`, ≥1 | yes | `15_maps_system/MAP_CONNECTIONS.md` §2 | Must include `main`; full naming law in Validation rules. `server` (world-graph fact; teleport-target correctness). |
-| `portals` | list of object | no | `15_maps_system/MAP_CONNECTIONS.md`; `15_maps_system/MAP_INTERACTABLES.md` §2 | World-graph edges; empty only for a fully isolated map (none expected in the 200-map set). See §"portals" below. `server` (a `coach` portal's fare charge and delivery are explicitly server-adjudicated, `15_maps_system/MAP_CONNECTIONS.md` §3). |
+| `portals` | list of object | no | `15_maps_system/MAP_CONNECTIONS.md`; `15_maps_system/MAP_INTERACTABLES.md` §2 | World-graph edges; empty only for a fully isolated map (none expected in the 200-map set). See §"portals" below. `server` (a `coach`/`longship` portal's fare charge — and a `longship`'s scheduled transit state — are server-authoritative, `15_maps_system/MAP_CONNECTIONS.md` §3/§8). |
 | `moving_platforms` | list of object | no | `15_maps_system/MAP_TRAVERSAL.md` §5 | See §"moving_platforms" below — that doc names this schema as pending owner of the param shape. `shared` (live position is client-predicted then server-reconciled, same shape as `10_systems/PERSISTENCE.md` §4's position/velocity case). |
 | `spawn_zones` | list of object | no | `10_systems/SPAWN.md` | Must be empty/absent for `town`/`interior`/`arena`. See §"spawn_zones" below. `server` (zone population/timers). |
-| `interactables` | list of object | no | `15_maps_system/MAP_INTERACTABLES.md` | Excludes `portal` (own field, above) and `loot_drop` (runtime-spawned only). See §"interactables" below. `server` (`sign`/`lore_marker` are presentation-only; the other 5 types drive a server-adjudicated mechanic — bind point, bank, harvest/respawn, quest-flag gate). |
+| `interactables` | list of object | no | `15_maps_system/MAP_INTERACTABLES.md` | Excludes `portal` (own field, above) and `loot_drop` (runtime-spawned only). See §"interactables" below. `server` (`sign`/`lore_marker` are presentation-only; the other 6 types drive a server-adjudicated mechanic — bind point, bank, coach transit, harvest/respawn, quest-flag gate). |
 | `npcs` | list of string `npc_NNN` | no | `20_schemas/npc.schema.md` | Bidirectional with the NPC's own `map` field; region-local (Validation). `server` (world-population fact). |
 | `platform_brief` | string, ≤6 lines | yes | `15_maps_system/MAP_TRAVERSAL.md` §1.1, §7; `00_vision/SCOPE.md` | The one descriptive/geometry-adjacent field (bands, verticality, gimmick) — not tile-exact; may assert traversal legality, engine-checked later. `client` (design-communication prose; see Open Questions on whether it even ships to the runtime client). |
 | `arena_config` | object | required iff `map_type: arena`; must be absent otherwise | `15_maps_system/MAPS_SYSTEM.md` §8 | See §"arena_config" below. `server` (boss identity, gate rules). |
 | `flavor` | string, ≤2 sentences | yes | `docs/VALIDATION.md` §7 | General player-facing blurb (proposed flavor-length lint). `client`. |
-
-**Terrain note (v2.4).** Terrain surfaces are hand-painted terrain chunks snapped to foothold
-segments (`40_assets/ART_BIBLE.yaml` amendment AB-001; foothold model in
-`15_maps_system/MAP_TRAVERSAL.md`). The `tileset`/`layers_preset` fields above still select the
-biome art library and the locked `TileMapLayer`/collision stack (`15_maps_system/MAP_LAYERS.md`,
-`30_engineering/ENGINEERING_STANDARDS.md` layer enums); exact foothold geometry and chunk
-placement are engine-pass data (`00_vision/SCOPE.md`), never authored in map YAML.
 
 ### `portals`
 
 | Sub-field | Type | Required | Notes |
 |---|---|---|---|
 | `id` | string, `snake_case` | yes | Unique within the map (`15_maps_system/MAP_INTERACTABLES.md` §1 shared-field convention) |
-| `kind` | enum: `edge`, `door`, `coach` | yes | Owner: `15_maps_system/MAP_INTERACTABLES.md` §2 / `15_maps_system/MAP_CONNECTIONS.md` §1 |
-| `at` | `{tile:[x,y]}` **or** `{edge:<side>, tile_range:[min,max]?}` | yes | `tile` shape for `door`/`coach` (point placement); `edge` shape for `kind: edge` — `side` enum owned by this schema (Enums); `tile_range` optionally narrows the walk-off span along the edge, default full edge |
-| `target_map` | string `map_NNN` | `edge`/`door` only | Must resolve to an existing map file. Omitted on `kind: coach` — a coach transit's destination is chosen at ride time (see coach note below) |
-| `target_spawn` | string | `edge`/`door` only | Must resolve to a `spawn_points[].id` on `target_map`; always authored explicitly, even when the value is `main`. Omitted on `kind: coach` (arrival is always the destination station's `coach_stop`) |
-| `dead_end` | bool | no, default `false` | Authored only on the origin portal, never the destination; never on `coach` portals (`15_maps_system/MAP_CONNECTIONS.md` §5). Ties to a world-graph check that runs globally, not per-file (`docs/VALIDATION.md` §5) |
+| `kind` | enum: `edge`, `door`, `coach`, `longship` | yes | Owner: `15_maps_system/MAP_INTERACTABLES.md` §2 / `15_maps_system/MAP_CONNECTIONS.md` §1 |
+| `at` | `{tile:[x,y]}` **or** `{edge:<side>, tile_range:[min,max]?}` | yes | `tile` shape for `door`/`coach`/`longship` (point placement); `edge` shape for `kind: edge` — `side` enum owned by this schema (Enums); `tile_range` optionally narrows the walk-off span along the edge, default full edge |
+| `target_map` | string `map_NNN` | yes | Must resolve to an existing map file. For `coach`, the fixed value is authoring convention only — the live destination is chosen at use-time from the Coachworks menu (`15_maps_system/MAP_CONNECTIONS.md` §3) |
+| `target_spawn` | string | yes | Must resolve to a `spawn_points[].id` on `target_map`; always authored explicitly, even when the value is `main` (`coach_stop` for coach; `longship_deck`/`longship_dock` for longship) |
+| `level_gate` | int | no | Optional minimum character `level` to pass; absent = no gate (`15_maps_system/MAP_CONNECTIONS.md` §9). Legal on any `kind` |
+| `route_id` | string | required iff `kind: longship` | The longship route this portal serves; identity/endpoints owned by `docs/WORLD_PLAN.md`'s arc-2 edge table (`15_maps_system/MAP_CONNECTIONS.md` §8.2) |
+| `fare_ref` | string | required iff `kind: longship` | Hook to the route's `10_systems/ECONOMY.md` §7.2 fare row, charged at boarding (`15_maps_system/MAP_CONNECTIONS.md` §8.1) |
+| `cadence_s` | float | no (`longship` only) | Real-time interval between departures; default `15_maps_system/MAP_CONNECTIONS.md` §8.3 |
+| `sail_duration_s` | float | no (`longship` only) | Real-time deck-ride length; default `15_maps_system/MAP_CONNECTIONS.md` §8.3 |
+| `dead_end` | bool | no, default `false` | Authored only on the origin portal, never the destination (`15_maps_system/MAP_CONNECTIONS.md` §5). Ties to a world-graph check that runs globally, not per-file (`docs/VALIDATION.md` §5) |
 
-A `coach`-kind portal is the paid Harthmoor Coachworks station-to-station transit
-(`docs/WORLD_PLAN.md` "Harthmoor Coachworks"). The ride is offered through the station's coachman
-NPC fare dialogue (`coachman` role, `20_schemas/npc.schema.md`; coach service per
-`15_maps_system/MAP_INTERACTABLES.md` §9): the destination station is chosen there, the fare
-(shards, `10_systems/ECONOMY.md`) is charged server-side (`15_maps_system/MAP_CONNECTIONS.md` §3),
-and arrival always lands on the destination station's `coach_stop` spawn point. This file only
-declares where the station's portal object sits.
+A `coach`-kind portal's live destination and a `longship`-kind portal's scheduled transit state
+and fare charge are `server`-authoritative (`15_maps_system/MAP_CONNECTIONS.md` §3/§8,
+`10_systems/PERSISTENCE.md`) — that state is not itself stored in this file; this file only declares
+where the station/pier and portal objects sit.
 
 ### `moving_platforms`
 
@@ -116,8 +111,8 @@ A `boss`-tier `mob_NNN` may never appear in `mobs` (`10_systems/SPAWN.md` §1 �
 
 | Sub-field | Type | Required | Notes |
 |---|---|---|---|
-| `type` | enum, 7 values | yes | Owner: `15_maps_system/MAP_INTERACTABLES.md`; excludes `portal`/`loot_drop` (Enums) |
-| `id` | string, `snake_case` | no | Unique within the map if present; some types are singleton-per-map by convention (e.g. `inn_bed`) |
+| `type` | enum, 8 values | yes | Owner: `15_maps_system/MAP_INTERACTABLES.md`; excludes `portal`/`loot_drop` (Enums) |
+| `id` | string, `snake_case` | no | Unique within the map if present; some types are singleton-per-map by convention (e.g. `coach_station`) |
 | `at_tile` | `[x, y]` (int) | yes | Anchor/placement point. `climbable`'s full vertical extent additionally uses `params.rect_tiles` below |
 | `params` | object, shape by `type` | yes (`{}` legal only for types with no params) | See table below |
 
@@ -131,6 +126,7 @@ A `boss`-tier `mob_NNN` may never appear in `mobs` (`10_systems/SPAWN.md` §1 �
 | `lore_marker` | `text` (string, ≤2 sentences), `interact_prompt` (string) | §6 |
 | `inn_bed` | `{}` | §7 |
 | `storage_chest` | `scope: character\|account` | §8 |
+| `coach_station` | `{}` (must co-locate with exactly one `portals[]` entry of `kind: coach`) | §9 |
 | `quest_object` | `drop_table_ref` (id), `respawn_timer_s` (float, default 60), `required_quest_flag` (string — syntax unconfirmed, see Open Questions) | §10 |
 
 ### `arena_config`
@@ -138,7 +134,7 @@ A `boss`-tier `mob_NNN` may never appear in `mobs` (`10_systems/SPAWN.md` §1 �
 | Sub-field | Type | Required | Notes |
 |---|---|---|---|
 | `boss_mob_id` | string `mob_NNN` | yes | Named field per `15_maps_system/MAPS_SYSTEM.md` §8 (`boss_mob_id`); must be `boss`-tier and match this region's `docs/WORLD_PLAN.md` boss seed |
-| `gate` | `{type, required_flag?, party_min?}` | yes | `type: open\|quest_flag`, default `open` (`15_maps_system/MAPS_SYSTEM.md` §8); `required_flag` (quest-stage ref) required iff `type: quest_flag`; `party_min` (int) meaningful only for the party-quest finale/stage maps — `map_038`–`map_040`/`map_042` (`pq_undervault`) and `map_195`–`map_197`/`map_200` (`pq_mainspring`), party 3–6, owner `10_systems/social/PARTY_QUEST.md` — arenas' open (non-PQ) entry never requires a party |
+| `gate` | `{type, required_flag?, party_min?}` | yes | `type: open\|quest_flag`, default `open` (`15_maps_system/MAPS_SYSTEM.md` §8); `required_flag` (quest-stage ref) required iff `type: quest_flag`; `party_min` (int) meaningful only for the 4 Rift raid arenas (`map_197`–`map_200`, `10_systems/SPAWN.md` §7) — regional arenas never require a party |
 | `reset_grace_s` | float | no, default 30 | `15_maps_system/MAPS_SYSTEM.md` §8's `arena_reset_grace_s`; per-arena override hook |
 | `hazards` | list of `{tier, at_tile\|rect_tiles}` | no | `tier` enum owned by `15_maps_system/MAP_TRAVERSAL.md` §6 (`minor`\|`standard`\|`severe`) |
 | `camera_locks` | list of `{phase_id, params:{}}` | no | Phase-triggered per the boss's `phases[]` (`10_systems/AI_BEHAVIOR.md` §15); exact `params` shape is `10_systems/CAMERA.md`'s, not authored in this pass (Open Questions) |
@@ -153,10 +149,10 @@ ability (`15_maps_system/MAPS_SYSTEM.md` §8), authored on the boss's own monste
 | Enum | Owner | Members (do not redefine — cite only) |
 |---|---|---|
 | `map_type` | `00_vision/GLOSSARY.md` / `15_maps_system/MAPS_SYSTEM.md` §2 | `field` · `dungeon` · `town` · `interior` · `arena` · `secret` |
-| `region` | `docs/WORLD_PLAN.md` | The 8 GLOSSARY region slugs |
-| `biome` | `40_assets/ART_BIBLE.yaml` `environment.biome_identity` / `15_maps_system/MAP_LAYERS.md` §4 | The 8 active biome-identity keys (one per region; note Millbrook = `old_town`, Sunken = `tidewatch_dark`, not the region slug). ART_BIBLE's other 4 keys (frostpeak / arcane_reach / voidshore / rift) are reserved-future and invalid in this run's content |
-| `portals[].kind` | `15_maps_system/MAP_INTERACTABLES.md` §2 / `15_maps_system/MAP_CONNECTIONS.md` §1 | `edge` · `door` · `coach` |
-| `interactables[].type` | `15_maps_system/MAP_INTERACTABLES.md` | `climbable` · `reactor` · `sign` · `lore_marker` · `inn_bed` · `storage_chest` · `quest_object` (7 of its registry's types; `portal` and `loot_drop` are excluded here, see Fields) |
+| `region` | `docs/WORLD_PLAN.md` | The 12 GLOSSARY region slugs |
+| `biome` | `40_assets/ART_BIBLE.yaml` `environment.biome_identity` / `15_maps_system/MAP_LAYERS.md` §4 | The 12 biome-identity keys (one per region; note Millbrook = `old_town`, Sunken = `tidewatch_dark`, not the region slug) |
+| `portals[].kind` | `15_maps_system/MAP_INTERACTABLES.md` §2 / `15_maps_system/MAP_CONNECTIONS.md` §1 | `edge` · `door` · `coach` · `longship` |
+| `interactables[].type` | `15_maps_system/MAP_INTERACTABLES.md` | `climbable` · `reactor` · `sign` · `lore_marker` · `inn_bed` · `storage_chest` · `coach_station` · `quest_object` (8 of its registry's types; `portal` and `loot_drop` are excluded here, see Fields) |
 | `interactables[].params.scope` (`storage_chest`) | `15_maps_system/MAP_INTERACTABLES.md` §8 | `character` · `account` |
 | `arena_config.hazards[].tier` | `15_maps_system/MAP_TRAVERSAL.md` §6 | `minor` · `standard` · `severe` |
 | `portals[].at.edge` (screen side) | **this schema** (no other doc owns edge-side vocabulary) | `left` · `right` · `top` · `bottom` |
@@ -228,17 +224,18 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
    every `target_spawn` resolves to a `spawn_points[].id` on that `target_map`
    (`docs/VALIDATION.md` §2/§5).
 2. **Spawn-point naming law.** Exactly one `main`. Every map that is the destination of a
-   cross-region `edge` portal (`docs/WORLD_PLAN.md`'s 11-row edge table — the complete authorized
-   cross-region set, `15_maps_system/MAP_CONNECTIONS.md` §7) carries the matching
-   `from_<origin_slug>`. Every coach-station map (one whose `portals` include a `coach`-kind
-   portal) carries exactly one `coach_stop` spawn point (`15_maps_system/MAP_CONNECTIONS.md` §2).
+   cross-region `edge` portal (`docs/WORLD_PLAN.md`'s edge table plus
+   `15_maps_system/MAP_CONNECTIONS.md` §7's two additions) carries the matching
+   `from_<origin_slug>`. Every map with a `coach_station` interactable carries exactly one
+   `coach_stop` spawn point (`15_maps_system/MAP_CONNECTIONS.md` §2).
 3. **`dead_end` consistency.** A portal with no matching reverse portal on its destination map
-   must set `dead_end: true`; ordinary paired `edge`/`door` portals never set it, and `coach`
-   portals never set it either — every transit runs between two stations that each carry a coach
-   portal (`15_maps_system/MAP_CONNECTIONS.md` §5). Checked globally at world-graph
-   reconciliation, not per-file (`docs/VALIDATION.md` §5).
+   must set `dead_end: true`; ordinary paired `edge`/`door`/`coach` portals never set it. Checked
+   globally at world-graph reconciliation, not per-file (`docs/VALIDATION.md` §5).
 4. **Arena entrance rule.** An `arena` map's only entrance-capable portal is exactly one
-   `door`-kind portal from its adjoining field/dungeon (`15_maps_system/MAPS_SYSTEM.md` §8).
+   `door`-kind portal from its adjoining field/dungeon (`15_maps_system/MAPS_SYSTEM.md` §8). An
+   additional one-way, `dead_end: true`, egress-only `edge` portal (the Frostpeak/Clockwork
+   terminus drop chute, `15_maps_system/MAP_CONNECTIONS.md` §7) is permitted and does not count as
+   a second entrance.
 5. **Platform-gap promise.** `platform_brief` may assert gaps are crossable per
    `15_maps_system/MAP_TRAVERSAL.md` §1.1 (or §7's doubled figures under `water_physics: true`);
    this schema mechanically checks only the ≤6-line cap — exact tile-distance legality is an
@@ -247,9 +244,7 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
    inside this map's `region`'s mob block (`docs/ID_REGISTRY.md`). A `boss`-tier id may never
    appear in `spawn_zones` (`10_systems/SPAWN.md` §1).
 7. **Arena boss match.** `arena_config.boss_mob_id` must be the boss `docs/WORLD_PLAN.md` names for
-   this map's region; for the PQ finale arenas (`map_042`, `map_200`) that is the matching finale
-   boss — `mob_027` (The Cellar King) and `mob_150` (The Custodian), owner
-   `10_systems/social/PARTY_QUEST.md`.
+   this map's region (or, for `map_197`–`map_200`, the matching Rift raid boss).
 8. **Combat-free map types.** `spawn_zones` must be empty/absent on `town` and `interior` maps
    (`15_maps_system/MAPS_SYSTEM.md` §6, `10_systems/SPAWN.md` §2). `spawn_zones` must also be
    empty/absent on `arena` maps (boss-scripted only, no zone spawner). `arena_config` must be
@@ -290,13 +285,17 @@ layers_preset: standard
 spawn_points:
   - { id: main, tile: [{x}, {y}] }
   # - { id: from_{origin_slug}, tile: [{x}, {y}] }   # required if this map is a cross-region edge destination
-  # - { id: coach_stop, tile: [{x}, {y}] }           # required if this map is a coach station (carries a coach-kind portal)
+  # - { id: coach_stop, tile: [{x}, {y}] }           # required if this map has a coach_station
+  # - { id: longship_dock, tile: [{x}, {y}] }        # arc-2 longship destination pier only
 portals:
   - id: { portal_id }
-    kind: { edge|door|coach }
+    kind: { edge|door|coach|longship }
     at: { tile: [{x}, {y}] }      # or: { edge: left|right|top|bottom }
-    target_map: map_{NNN}         # edge/door only — omitted on kind: coach
-    target_spawn: { spawn_id }    # edge/door only — coach arrival is always the destination's coach_stop
+    target_map: map_{NNN}
+    target_spawn: { spawn_id }
+    # level_gate: { N }           # optional — minimum level to pass (any kind); e.g. the Deepway door
+    # route_id: { route_ref }     # longship only
+    # fare_ref: { fare_ref }      # longship only
     # dead_end: true              # optional — only if no reverse portal exists on target_map
 # moving_platforms: []            # optional
 # spawn_zones: []                 # optional — omit/empty for town, interior, and arena map_types
@@ -312,11 +311,11 @@ flavor: "{≤2 sentences}"
 
 ## Open Questions
 
-- `15_maps_system/MAP_INTERACTABLES.md`'s per-section headers name `rope` and `ladder` as two
-  distinct nouns (plus `sign`/`lore_marker` as two) while its own stated type count treats
-  rope/ladder as one. This schema assumes `rope`/`ladder` collapse into one
-  `climbable` type (distinguished only by the `visual` param), matching that doc's own
-  count — but that doc never states the unified token name; `climbable` is this schema's inference
+- `15_maps_system/MAP_INTERACTABLES.md` frames itself as owning "the 10 interactable object
+  types" while its per-section headers literally name 11 distinct nouns (`rope`/`ladder` as two,
+  plus `sign`/`lore_marker` as two). This schema assumes `rope`/`ladder` collapse into one
+  `climbable` type (distinguished only by the `visual` param), matching that doc's own count of
+  10 — but that doc never states the unified token name; `climbable` is this schema's inference
   (borrowed from the `15_maps_system/MAP_LAYERS.md` §2.1 collision-layer name), not a confirmed
   one. Flag for `15_maps_system/MAP_INTERACTABLES.md`'s owner to confirm or correct.
 - `spawn_zones[].mobs` uses an absolute `count` per mob (this schema's resolution) rather than

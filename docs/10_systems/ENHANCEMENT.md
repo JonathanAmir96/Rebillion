@@ -1,7 +1,7 @@
 # ENHANCEMENT.md — Emberstone Gear Enhancement (+1..+9)
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
-10_systems/STATS.md, 10_systems/ITEMS.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
+10_systems/STATS.md, 10_systems/ITEMS.md, 10_systems/SCROLLS.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
 10_systems/COMBAT_FORMULA.md, 10_systems/LEVELING.md, 10_systems/PERSISTENCE.md,
 20_schemas/item.schema.md, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md
 
@@ -11,23 +11,22 @@ stat *values* an item starts with are `10_systems/ITEMS.md` (§7–§9 base line
 the **multiplier** enhancement layers on top, which STATS §2 then sums as part of `Σ*_gear`. The
 `shards` fee schedule is `10_systems/ECONOMY.md`; emberstone drop rates are `10_systems/DROPS.md`.
 Enhancement is cozy by design (`00_vision/PILLARS.md` P2): **no item is ever destroyed or
-downgraded**, and worst-case cost is bounded by pity.
+downgraded**, and worst-case cost is bounded by pity. **Affix-line modification is owned by
+`10_systems/SCROLLS.md`; this doc's track scales base lines only (§4).**
 
 ## 1. Emberstone tiers → gear-band mapping
 
 Five emberstone tiers (`item_etc_0193`–`0197`, `docs/ID_REGISTRY.md`), each covering two gear
 tiers (`10_systems/ITEMS.md` §4). The stone tier must match the item's tier band — you cannot
-enhance a T6 item with Emberstone I. The authored arc's top gear is **T6**, so the arc uses
-**Emberstone I–III** only; IV–V keep their IDs and band mapping but stay reserved alongside the
-T7–T10 tiers for future arcs (`00_vision/SCOPE.md`).
+enhance a T10 item with Emberstone I.
 
-| Emberstone | ID | Enhances gear tiers | Item `req_level` range (`10_systems/ITEMS.md` §4) |
+| Emberstone | ID | Enhances gear tiers | Item `req_level` range |
 |---|---|---|---|
-| Emberstone I | `item_etc_0193` | T1–T2 | 1–14 |
-| Emberstone II | `item_etc_0194` | T3–T4 | 15–28 |
-| Emberstone III | `item_etc_0195` | T5–T6 | 29–42 (arc top) |
-| Emberstone IV | `item_etc_0196` | T7–T8 *(reserved — future arcs)* | — |
-| Emberstone V | `item_etc_0197` | T9–T10 *(reserved — future arcs)* | — |
+| Emberstone I | `item_etc_0193` | T1–T2 | 1–19 |
+| Emberstone II | `item_etc_0194` | T3–T4 | 20–39 |
+| Emberstone III | `item_etc_0195` | T5–T6 | 40–59 |
+| Emberstone IV | `item_etc_0196` | T7–T8 | 60–79 |
+| Emberstone V | `item_etc_0197` | T9–T10 | 80–100 |
 
 One emberstone of the matching tier is consumed **per attempt** (success or fail). The visual
 flavor of `emberstone` may be reskinned by an ART_BIBLE amendment (GLOSSARY note); the mechanic is
@@ -35,9 +34,10 @@ fixed here.
 
 ## 2. The enhancement track
 
-Any single equip (`10_systems/ITEMS.md` §2, all nine slots) carries an `enhance_level` from `0`
-(base) to `9`, stored per item (`20_schemas/item.schema.md` `enhance_level` field, server-
-authoritative §6). Each attempt targets the next `+`:
+Any single equip (every equip slot, `10_systems/ITEMS.md` §2) carries an `enhance_level` from `0`
+(base) to `9`. The static `0`–`9` ceiling is the `enhance_max` field in `20_schemas/item.schema.md`;
+the per-item runtime `enhance_level` is server-authoritative persisted state per §6 and
+`10_systems/PERSISTENCE.md`. Each attempt targets the next `+`:
 
 | Target `+` | Success | On failure |
 |---|---|---|
@@ -93,14 +93,16 @@ gamble):
 |---|---|
 | `weapon` | `W` (`power` or `spellpower`) |
 | `head`/`body`/`legs`/`boots`/`gloves` | `armor` **and** `warding` |
+| `shield` | `armor` **and** `warding` |
+| `overall` | `armor` **and** `warding` |
 | `cape` | `warding` and `evasion` |
 | `ring` | primary and `crit_rate` |
 | `amulet` | primary and `crit_power` |
 
 Worked: a T6 `blade` (base `W` 246, `10_systems/ITEMS.md` §7) at +9 adds +62% = +153 `power`
-(total 399), exceeding the reserved T7 ladder value (327) — the enhancement chase leapfrogs one
-tier at the top end, which is the intended arc endgame (T6 +9 + boss uniques,
-`10_systems/LEVELING.md`).
+(total 399), exceeding a +0 T7 `blade` (327) — the enhancement chase leapfrogs one tier at the
+top end. T6 is this arc's top authored tier, so **T6 +9 + boss uniques is the arc endgame**
+(`10_systems/LEVELING.md` §6); the leapfrog principle carries to future-arc tiers unchanged.
 The added value enters `power`/`armor`/… as `Σ*_gear` per `10_systems/STATS.md` §2 and is subject
 to that doc's soft caps (§6) for the percentage lines. This enhancement headroom is part of the
 at-level `power_ref` assumption in `10_systems/COMBAT_FORMULA.md` §15.
@@ -139,9 +141,8 @@ progression behind luck (pity, §3, bounds the material and fee cost).
 - Emberstone vendor purchase / crafting from region materials (`item_etc` per region) is deferred;
   if added it belongs to `10_systems/ECONOMY.md` (a `shards`/material sink) referencing this doc's
   tier mapping (§1), not a new drop rule.
-- Whether future arcs activate Emberstone IV–V exactly as banded in §1 (T7–T8 / T9–T10) or
-  rebalance the band split when those tiers land is a future-arc call; this run fixes only that
-  the IDs and the I–III arc usage stand.
+- Whether a future-arc raid tier drops a distinct high-tier emberstone or reuses Emberstone V is
+  deferred with that tier (`10_systems/DROPS.md`); default reuses V.
 - Enhancement above +9 (e.g., a +10..+12 "starforce" extension) is explicitly **not** in scope this
   pass; if ever added it must not break the `10_systems/COMBAT_FORMULA.md` §13/§15 balance surface
   (the anti-power-creep concern of `00_vision/PILLARS.md`).

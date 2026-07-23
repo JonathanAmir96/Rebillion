@@ -86,7 +86,7 @@ locked max), `rows=9`. `cell_box = 34x34`. `sheet_content = 272x306` → `sheet 
 spawn`; `size_class: boss` → `cw=ch=96`): `cols=8`, `rows=9`. `cell_box = 98x98`.
 `sheet_content = 784x882` → `sheet = 1024x1024`.
 
-In the boss example, `attack`'s row is index 2 (canonical-order position, §4); if that row's
+In the boss example, `attack`'s row is index 2 (canonical-order position, §3); if that row's
 `hit_frame` is 2 (`40_assets/ANIMATION_TIMING.md` default formula for a 5-frame clip), its content
 rect is `content_x = 2*98+1 = 197`, `content_y = 2*98+1 = 197`, size `96x96`.
 
@@ -177,11 +177,11 @@ references: [ART_BIBLE, ANIMATION_STATES, ANIMATION_TIMING]
 size_class: large                  # 40_assets/ART_BIBLE.yaml sizing.size_classes key
 sheet:
   file: mob_010.png
-  dimensions_px: [1024, 512]        # power-of-two, padding included (§2.1)
+  dimensions_px: [512, 512]         # power-of-two, padding included (§2.1)
   cell_content_px: [64, 64]         # = size_class dims (§4)
   padding_px: 1
   extruded: true
-  cols: 8                           # §2.2 — max frame_count across this entity's declared states
+  cols: 6                           # §2.2 — max frame_count across this entity's declared states
 pivot:
   mode: feet-center                 # ART_BIBLE.yaml sizing.pivot
   content_px: [32, 64]              # §5 table value for this size_class — exact, per-asset
@@ -189,9 +189,9 @@ states:                             # keys: subset of the 12 canonical tokens th
   idle:     { row: 0, frame_count: 3, fps_ref: idle }
   walk:     { row: 1, frame_count: 6, fps_ref: walk }
   attack:   { row: 2, frame_count: 5, fps_ref: attack, hit_frame: 2 }
-  telegraph:{ row: 3, frame_count: 3, fps_ref: telegraph }
-  hit:      { row: 4, frame_count: 3, fps_ref: hit }
-  die:      { row: 5, frame_count: 5, fps_ref: die }
+  hit:      { row: 3, frame_count: 3, fps_ref: hit }
+  die:      { row: 4, frame_count: 5, fps_ref: die }
+  telegraph:{ row: 5, frame_count: 3, fps_ref: telegraph }
   spawn:    { row: 6, frame_count: 4, fps_ref: spawn }
 ```
 

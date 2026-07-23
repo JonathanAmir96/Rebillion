@@ -1,0 +1,35 @@
+id: mob_230
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Nightsky Ravener
+tier: elite                      # ID_REGISTRY: mob_227-233 = R11 elites (Lv 77-82)
+element: shadow                     # WORLD_PLAN R11 mix: shadow/neutral
+weak_to: [arcane]
+resists: [shadow]
+level: 80
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget x §13.2 elite mults, Lv 80
+  life: 165336                  # 4*(80+3)^2 x6
+  power: 369                    # (6+3*80) x1.5
+  armor: 624                   # 6*80 x1.3  (armor+warding sum = 1248)
+  warding: 624                 # 6*80 x1.3
+  precision: 352                # 4*80 x1.1
+  evasion: 7.4                  # (3+0.03*80) +2 (§13.2 elite)
+  exp: 5955                     # round(4*80^1.3) x5 (LEVELING §3 elite)
+ai_profile: aerial_swooper
+ai_params:
+  patrol_altitude: 6
+  swoop_speed_mult: 2.4
+  climb_recover_s: 3
+abilities:
+  - id: dive_rend
+    name: Dive-Rend
+    targeting: { shape: line, length: 7, width: 1.5 }
+    cooldown: 8.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: shadow, mult: 2.0 }
+      - { op: apply_status, status: sunder, chance: 0.6, dur: 8 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+drop_table: drop_mob_230
+flavor: "A vast winged predator of the umbral surf that folds out of the black cloud and rends armor to ribbons before climbing away."

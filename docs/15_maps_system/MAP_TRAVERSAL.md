@@ -18,26 +18,6 @@ render base **640×360 px ≈ 40×22.5 tiles per screen**; entity pivot **feet-c
 distance below — apex height, gap rise — is measured floor-to-floor from this pivot, not
 bounding-box edges).
 
-## Foothold terrain model (v2.4 — ART_BIBLE amendment AB-001)
-
-Walkable terrain is Maple-style **footholds**: line-segment walk geometry laid out on the 16 px
-tile grid — flat and sloped segments the player stands on and runs along (`foothold`,
-`00_vision/GLOSSARY.md` Terrain tokens). Rules:
-
-- A foothold is **one-way from below** — jumps pass up through it; drop-through uses §3's chord
-  exactly as written for one-way platforms. Footholds are the geometry the locked collision
-  layers carry (`15_maps_system/MAP_LAYERS.md` §2.1: solid ground on layer 1 `world`,
-  droppable-through spans on layer 2 `one_way` — the enum itself stays as locked by
-  `30_engineering/ENGINEERING_STANDARDS.md`).
-- Ropes, ladders, and every climbing rule (§4) are unchanged by this model.
-- **Terrain chunks** (`terrain_chunk`) are hand-painted visual skins snapped to footholds — pure
-  art with no collision of their own; the art side is owned by `40_assets/ART_BIBLE.yaml`'s
-  `amendments` block (AB-001), never restated here.
-- Exact foothold segment geometry is **engine-pass data**, not Phase D map-YAML content
-  (`00_vision/SCOPE.md` deliberate scope limits).
-- Because footholds sit on the same 16 px tile grid, **every tile-based metric in this doc —
-  gap caps, jump heights, speeds — applies to foothold spans 1:1**; nothing below is retuned.
-
 ## 1. Run speed & jump physics
 
 | Constant | Value | Notes |
@@ -176,13 +156,9 @@ as floaty, not a new animation vocabulary.
 
 ## Open Questions
 
-- `run_speed` (8 tiles/s = 128 px/s) is this doc's own figure for level design; it does not
-  currently match `10_systems/COMBAT_FORMULA.md` §10's placeholder `base_move_speed` reference
-  (200 px/s), which that doc explicitly flags as pending the tile-scale lock. Once
-  `40_assets/ART_BIBLE.yaml` formally locks the 16 px grid, the two figures must be reconciled —
-  owner call sits with `10_systems/COMBAT_FORMULA.md` at the C gate; this doc's tiles/s figures
-  (and every authored gap in the tree) would need re-validation if the reconciled value changes
-  `run_speed`.
+- **`run_speed` — resolved at the C gate:** `10_systems/COMBAT_FORMULA.md` §10 adopted this
+  doc's 8 tiles/s (= 128 px/s at the AB-001 16 px grid) as `base_move_speed`, replacing its
+  200 px/s placeholder; every authored gap figure in this doc stands unchanged.
 - Derived gravity/`v0` (§1) are a mathematical reference, not an independently tuned feel; the
   coding pass (`30_engineering/ENGINEERING_STANDARDS.md`) may retune within the constraint that
   apex/distance/run-speed stay locked.

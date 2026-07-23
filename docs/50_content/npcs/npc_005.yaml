@@ -1,0 +1,12 @@
+id: npc_005
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, MAP_CONNECTIONS, ECONOMY]
+name: Ferryhand Oskar
+region: emberfoot
+map: map_015
+role: handler                     # logistics NPC; the door portal (not an NPC service) handles the fare
+dialog:
+  greeting: "Fare's posted by the door. Step aboard once you've paid and we'll cast off shortly."
+  farewell: "Harthmoor's a bigger island than this one, novice. Mind yourself."
+portrait: portrait_npc_005
+flavor: "Oskar has crewed the Harborwind crossing for a decade and can tell a nervous first-timer from a homesick veteran at a glance."

@@ -1,0 +1,27 @@
+id: mob_114
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Frostshell Snapper
+tier: normal                     # ID slot 114 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: frost                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 33
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 33
+  life: 5184                     # 4*(33+3)^2
+  power: 105                      # 6+3*33 (touch = round(0.5*power), neutral, §13.1)
+  armor: 198                     # 6*33  (armor+warding sum = 396 = 12*33)
+  warding: 198                   # 6*33
+  precision: 132                 # 4*33
+  evasion: 3.99                   # 3 + 0.03*33 (%)
+  exp: 377                       # exp_per_kill_normal(33)=round(4*33^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only territorial_guard-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_114
+# holds one flooded doorway; will not be pulled (AI_BEHAVIOR §6) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "A heavy-clawed crab the size of a shield that has claimed one flooded doorway as its own and will not be moved from it. Its shell is crusted in blue rime it grows back over any wound within a tide."

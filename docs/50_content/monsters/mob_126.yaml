@@ -1,0 +1,43 @@
+id: mob_126
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Glacial Behemoth Ray
+tier: elite                      # ID slot 126 = R7 Sunken elite (ID_REGISTRY Monsters)
+element: frost
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 39
+size_class: large
+stats:                           # §13 normal Lv 39 x §13.2 elite multipliers
+  life: 42336                    # 7056 x6
+  power: 185                     # 123 x1.5
+  armor: 304                     # 234 x1.3  (armor+warding sum ~= 12*39 x1.3)
+  warding: 304                   # 234 x1.3
+  precision: 172                 # 156 x1.1
+  evasion: 6.17                   # 4.17 + 2% (§13.2 elite)
+  exp: 2340                     # exp_per_kill_normal(39)=468 x5 (LEVELING §3 elite)
+ai_profile: aerial_swooper
+ai_params:
+  patrol_altitude: 5
+  swoop_speed_mult: 2.3
+  climb_recover_s: 2.5
+abilities:
+  - id: freezing_dive
+    name: Freezing Dive
+    targeting: { shape: line, length: 8, width: 2 }
+    cooldown: 8.0
+    telegraph_s: 1.2
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.7 }
+      - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
+  - id: rime_wake
+    name: Rime Wake
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 13.0
+    telegraph_s: 1.4
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.4 }
+      - { op: apply_status, status: freeze, chance: 0.4, dur: 2 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_126
+flavor: "A ray grown vast and ancient in the lightless deep, its wingspan darkening a whole flooded vault as it wheels overhead. Each dive drags a wake of freezing water that stills everything it washes over."

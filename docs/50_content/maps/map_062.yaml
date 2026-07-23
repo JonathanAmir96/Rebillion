@@ -1,0 +1,56 @@
+id: map_062
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Root Warrens, Twisting Roots
+region: verdant
+map_type: dungeon
+level_band: { min: 11, max: 12 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 60, h: 64 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [30, 8] }
+portals:
+  - id: to_upper_tunnels
+    kind: edge
+    at: { edge: top }
+    target_map: map_061
+    target_spawn: main
+    dead_end: false
+  - id: to_sunken_chamber
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_063
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: twisting_roots_hall
+    rect_tiles: { x: 14, y: 20, w: 32, h: 28 }
+    mobs:
+      - { mob: mob_034, count: 3 }
+      - { mob: mob_035, count: 2 }
+    max_concurrent: 8
+interactables:
+  - type: climbable
+    id: climb_twisting_roots
+    at_tile: [40, 20]
+    params:
+      rect_tiles: { x: 40, y: 20, w: 2, h: 24 }
+      orientation: vertical
+      visual: rope
+  - type: sign
+    id: sign_twisting_roots
+    at_tile: [20, 18]
+    params:
+      text: "The tunnel forks and doubles back on itself here. A rope someone else left behind marks the quick way down."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A knotted, doubling-back tunnel; the main descent uses a rope (climbable, MAP_TRAVERSAL
+  §4, climb_speed 4 tiles/s) alongside a stepped fallback route within the standard
+  5-tile/3.5-tile jump caps (§1.1). Foothold segments dressed in root-tunnel terrain_chunks
+  (ART_BIBLE AB-001).
+flavor: "The roots knot and double back here so thoroughly that even the warren's own tenants seem to lose the thread."

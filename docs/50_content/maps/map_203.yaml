@@ -1,0 +1,60 @@
+id: map_203
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Deepway, Frostbreak Landing
+region: frostpeak
+map_type: dungeon
+level_band: { min: 40, max: 41 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 64, h: 30 }
+bgm: bgm_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [32, 22] }
+portals:
+  - id: to_deepway_ii
+    kind: door
+    at: { tile: [6, 22] }
+    target_map: map_202
+    target_spawn: main
+    dead_end: false
+  - id: to_frosthaven
+    kind: door
+    at: { tile: [58, 22] }
+    target_map: map_204
+    target_spawn: from_deepway
+    dead_end: false  # surfacing exit; pairs map_204's to_deepway portal
+  - id: to_hearth_inn
+    kind: door
+    at: { tile: [24, 20] }
+    target_map: map_205
+    target_spawn: main
+    dead_end: false  # the inn is built into the landing itself (map_204 is locked; this pairing keeps 205 reachable without touching it)
+  - id: to_outfitter
+    kind: door
+    at: { tile: [40, 20] }
+    target_map: map_206
+    target_spawn: main
+    dead_end: false  # same landing-side pairing rationale as to_hearth_inn
+spawn_zones:
+  - id: frostbreak_landing_floor
+    rect_tiles: { x: 14, y: 18, w: 36, h: 8 }
+    mobs:
+      - { mob: mob_152, count: 2 }
+      - { mob: mob_153, count: 2 }
+    max_concurrent: 8
+interactables:
+  - type: lore_marker
+    id: marker_frostbreak_landing
+    at_tile: [32, 20]
+    params:
+      text: "Daylight, at last -- pale and blue through a crack in the ice. Frosthaven waits at the top of the stair."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  The Deepway's surface chamber: a wide, flat landing where the tunnel widens into daylight.
+  Two side doors (the hearth-inn and outfitter, built right into the ice-cut walls) flank the
+  main stair up to Frosthaven proper. No verticality gimmick -- this is the region's welcome mat.
+flavor: "Where the tunnel finally widens into blue daylight, and the first warm doors on the far ice stand open."

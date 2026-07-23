@@ -1,0 +1,29 @@
+id: skill_bulwark_019
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Unyielding
+line: bulwark
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { life: 0.05 }, mode: pct }
+      # condition token per the SKILL_EFFECTS §16 / schema OQ example form `below_life_pct:X`
+      - { op: on_hit_proc, trigger: on_take, condition: "below_life_pct:30", chance: 1.0, icd: 20, effect: { op: apply_status, status: fortify, chance: 1.0 } }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { life: 0.08 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_take, condition: "below_life_pct:30", chance: 1.0, icd: 20, effect: { op: apply_status, status: fortify, chance: 1.0 } }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { life: 0.11 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_take, condition: "below_life_pct:30", chance: 1.0, icd: 20, effect: { op: apply_status, status: fortify, chance: 1.0 } }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { life: 0.15 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_take, condition: "below_life_pct:30", chance: 1.0, icd: 20, effect: { op: apply_status, status: fortify, chance: 1.0 } }
+flavor: "The Stoneguard's own life is a wellspring. When it runs low, the stance closes tighter, not looser."

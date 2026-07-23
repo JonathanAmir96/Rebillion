@@ -1,0 +1,31 @@
+id: skill_weaver_012
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Elemental Harmony
+line: weaver
+tier: second
+kind: passive
+# NOTE (flag, not guess): JOBS.md §4.2 describes this passive's trigger as "element swap" — there is
+# no matching `on_hit_proc` trigger token in the fixed set (`on_deal`/`on_take`/`on_crit`/`on_kill`/
+# `on_dodge`/`on_cast`, SKILL_EFFECTS §16) and no frozen `condition` token for "cast a different
+# element than the previous cast" (schema OQ: condition vocabulary open-ended, authors limited to the
+# examples named there). Authored with `trigger: on_cast` as the closest available approximation
+# (harmony procs off casting, not off a literal tracked swap); the swap-detection semantics are not
+# expressible with the current registry. Flagged for the batch lead / SKILL_EFFECTS owner.
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: on_hit_proc, trigger: on_cast, chance: 1.0, icd: 15, effect: { op: apply_status, status: empower, chance: 1.0 } }
+  - level: 4
+    effects:
+      - { op: on_hit_proc, trigger: on_cast, chance: 1.0, icd: 12, effect: { op: apply_status, status: empower, chance: 1.0 } }
+  - level: 7
+    effects:
+      - { op: on_hit_proc, trigger: on_cast, chance: 1.0, icd: 9, effect: { op: apply_status, status: empower, chance: 1.0 } }
+  - level: 10
+    effects:
+      - { op: on_hit_proc, trigger: on_cast, chance: 1.0, icd: 6, effect: { op: apply_status, status: empower, chance: 1.0 } }
+flavor: "Fire, frost, and arcane all answer the same hand. Reading the fight and switching elements keeps the Runeweaver's essence humming."

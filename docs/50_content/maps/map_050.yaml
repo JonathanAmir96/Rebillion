@@ -1,0 +1,55 @@
+id: map_050
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Root Hollow
+region: verdant
+map_type: field
+level_band: { min: 10, max: 11 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 150, h: 30 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_sunken_glade
+    kind: edge
+    at: { edge: left }
+    target_map: map_049
+    target_spawn: main
+    dead_end: false
+  - id: to_weeping_willows
+    kind: edge
+    at: { edge: right }
+    target_map: map_051
+    target_spawn: main
+    dead_end: false
+  - id: to_root_warrens
+    kind: door                              # a root-mouth cave sunk into the glade floor, explicit approach-and-interact
+    at: { tile: [78, 22] }
+    target_map: map_061
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: root_hollow_clearing
+    rect_tiles: { x: 32, y: 20, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_032, count: 3 }        # shares mob_032 with sunken glade
+      - { mob: mob_033, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_root_hollow
+    at_tile: [70, 21]
+    params:
+      text: "The roots here don't just grow down -- they hollow out. Something dug this warren long before Mossmere stood."
+      interact_prompt: Read
+npcs: [npc_039]
+platform_brief: |
+  A wide clearing ringed by exposed roots, one root-mouth sinking into the ground at
+  center leading to the warrens below. Terraces stay within the 5-tile/3.5-tile jump caps
+  (MAP_TRAVERSAL §1.1); foothold segments dressed in root/moss terrain_chunks (ART_BIBLE
+  AB-001). No rope/ladder on the surface; the warren mouth is a walk-in door, not a climb.
+flavor: "Every root in this clearing bends toward one dark hollow at its center, as if the whole hollow leans in to listen."

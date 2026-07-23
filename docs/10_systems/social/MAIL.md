@@ -17,8 +17,8 @@ demand payment before the recipient claims it. Exists so trading
   the sender untouched (never destroyed, `00_vision/PILLARS.md` P2).
 - Claim is a discrete action, not proximity auto-loot (`10_systems/INVENTORY.md` §4) — needs
   inventory room and, if `cod_amount` > 0, the `shards` to pay it.
-- Reuses `10_systems/social/TRADING.md`'s untradeable policy verbatim: quest items never attach;
-  boss uniques can.
+- Defers to `10_systems/social/TRADING.md` §4's untradeable policy (quest items never attach;
+  boss uniques can).
 
 ## Dependencies
 Tradeability rules are `10_systems/social/TRADING.md`'s; send/COD flow and fees are

@@ -1,0 +1,41 @@
+id: map_217
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Frostspire Foothills, Outer Rise
+region: frostpeak
+map_type: field
+level_band: { min: 49, max: 49 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 20] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_216
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_218
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: map_217_zone
+    rect_tiles: { x: 30, y: 16, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_159, count: 3 }
+      - { mob: mob_160, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Two low ice terraces stepped by a 2-tile rise, crossable in a single running jump
+  (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted snow terrain_chunks
+  (ART_BIBLE AB-001). No rope/ladder needed; a straightforward hunting stretch.
+flavor: "Another stretch of the climb toward Wyrmcrag Hold, wind-scoured and thin on cover."

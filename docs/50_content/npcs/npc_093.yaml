@@ -1,0 +1,12 @@
+id: npc_093
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Wardcaptain Brenn
+region: frostpeak
+map: map_220
+role: quest_giver
+dialog:
+  greeting: "Word from Frosthaven says you're the one thinning the flats. Wyrmcrag's got its own trouble, higher up."
+  farewell: "Report back when the ridge is quieter."
+portrait: portrait_npc_093
+flavor: "Brenn keeps Wyrmcrag Hold's gate log and hands out the hold's hunting work to whoever proves capable."

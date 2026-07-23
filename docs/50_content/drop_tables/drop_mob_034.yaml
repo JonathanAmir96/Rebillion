@@ -1,0 +1,11 @@
+id: drop_mob_034
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone/pool row
+owner: mob_034
+rows:
+  # shards guaranteed. mean_shards_normal(11)=round(1.5*11+3)=20; range=[16,24] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 16, qty_max: 24 }
+  # 1 region material, common (DROPS §5.1); item_etc_0039 is this mob's R3 material
+  - { ref: item_etc_0039, chance: common, qty_min: 1, qty_max: 2 }
+  # a use item at rare (DROPS §5.1); Antidote fits the hollow's poison flavor
+  - { ref: item_use_0011, chance: rare, qty_min: 1, qty_max: 1 }

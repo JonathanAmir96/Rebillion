@@ -1,0 +1,10 @@
+id: drop_mob_052
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]
+owner: mob_052
+rows:
+  # shards guaranteed. mean_shards_normal(16)=round(1.5*16+3)=27; range=[round(21.6),round(32.4)]=[22,32] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 22, qty_max: 32 }
+  - { ref: item_etc_0053, chance: common, qty_min: 1, qty_max: 2 }
+  # a chill-cleanse serves the frost coast (DROPS §5.1 use item); Thaw Salve clears chill_type
+  - { ref: item_use_0012, chance: rare, qty_min: 1, qty_max: 1 }

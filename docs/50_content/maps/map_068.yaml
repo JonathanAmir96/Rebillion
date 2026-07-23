@@ -1,0 +1,41 @@
+id: map_068
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Sunken Hoard
+region: verdant
+map_type: secret
+level_band: { min: 12, max: 14 }           # secrets break the curve by design (WORLD_PLAN map-order law)
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 44, h: 26 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [6, 18] }
+portals:
+  - id: to_sunken_chamber
+    kind: door
+    at: { tile: [4, 18] }
+    target_map: map_063
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_hoard_pocket
+    rect_tiles: { x: 16, y: 14, w: 24, h: 8 }
+    mobs:
+      - { mob: mob_044, count: 1 }        # elevated elite weight, secret-map bonus content (SPAWN §2)
+    max_concurrent: 4                      # secret default (SPAWN §4)
+interactables:
+  - type: sign
+    id: sign_sunken_hoard
+    at_tile: [12, 17]
+    params:
+      text: "Old coin and older bones, half-swallowed by root. Someone else came looking, once, and didn't leave."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A small sunken side-pocket, one flat floor with no verticality gimmick. Foothold
+  segments dressed in root/coin-scatter terrain_chunks (ART_BIBLE AB-001); a dead end
+  off Sunken Chamber, small and reward-dense rather than a through-route.
+flavor: "Half-sunk chests and older bones share this pocket -- whoever left this hoard never made it back for it."

@@ -1,0 +1,37 @@
+id: skill_weaver_007
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Fireball                    # exact JOBS.md §4.2 Runeweaver roster name (skill.schema rule 1)
+line: weaver
+tier: second                      # Runeweaver is a 2nd-advancement (Lv 40) spec (JOBS §1, SKILL_SYSTEM §2)
+kind: active
+targeting: { shape: aoe_circle, radius: 3, origin: reticle, reticle_range: 8 }   # roster target `aoe_circle` (SKILL_SYSTEM §6)
+cost: { essence: 14 }             # flat default; scaled per-rank in level_data (spec band 12->28, §5)
+cooldown: 6.0                     # flat default; scaled per-rank below (spec band 4-20 s, §5)
+level_data:
+  - level: 1
+    essence_cost: 14
+    cooldown: 6.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.4 }        # scales on `spellpower` (staff default, §1)
+      - { op: apply_status, status: burn, chance: 0.30, dur: 4 }
+  - level: 4
+    essence_cost: 18
+    cooldown: 5.5
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.9 }
+      - { op: apply_status, status: burn, chance: 0.40, dur: 5 }
+  - level: 7
+    essence_cost: 23
+    cooldown: 5.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 2.4 }
+      - { op: apply_status, status: burn, chance: 0.50, dur: 5 }
+  - level: 10
+    essence_cost: 28
+    cooldown: 4.5
+    effects:
+      - { op: deal_damage, element: fire, mult: 3.0 }
+      - { op: apply_status, status: burn, chance: 0.60, dur: 6 }
+animation: skill_weaver_007_cast
+flavor: "A packed bloom of essence-fire lobbed onto a point and left to smolder. The blast lands, the ground keeps burning."

@@ -1,0 +1,25 @@
+id: skill_flicker_020
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Untouchable                   # exact JOBS.md §5.3 Wildcard roster name
+line: flicker
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+max_level: 10
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { evasion: 3, haste: 2 }, mode: flat }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { evasion: 6, haste: 4 }, mode: flat }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { evasion: 9, haste: 6 }, mode: flat }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { evasion: 12, haste: 8 }, mode: flat }
+flavor: "A Wildcard who never stands still long enough to be hit — every point of grace makes the next swing whiff a little wider."

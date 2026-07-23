@@ -3,7 +3,7 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/JOBS.md,
 10_systems/ECONOMY.md, 10_systems/HUD.md, 10_systems/CONTROLS.md, 10_systems/social/CHAT.md,
 10_systems/social/PARTY.md, 40_assets/ART_BIBLE.yaml, 40_assets/UI_ART_SPEC.md,
-20_schemas/guild.schema.md, 10_systems/PERSISTENCE.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
+10_systems/PERSISTENCE.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
 
 Owner doc for the **guild**: creation, name rules, the three-rank permission model, roster cap
 growth, and the crest **data** contract. The crest's rendering, symbol art, and palette are
@@ -19,10 +19,9 @@ and MOTD only** — no guild bank, no guild quests (§8).
 - **Fee: 100,000 `shards`**, paid by the founder alone (no guild bank exists to split it, §8).
   This adopts `10_systems/ECONOMY.md` §6's placeholder as authoritative — that doc reserves the
   exact number to this one.
-- Creation happens at the **guild hall** interior in Millbrook Central's interior block
-  (`map_019`–`026`, `docs/WORLD_PLAN.md` R2; the exact interior ID is a Phase D allocation, Open
-  Questions) — the only guild hall in the world, matching Millbrook's role as the social heart
-  (`00_vision/PILLARS.md` P3). The panel is toggled with `G`
+- Creation happens at the **guild hall** interior, Millbrook Central (`map_022`,
+  `docs/WORLD_PLAN.md` R2) — the only guild hall in the world, matching Millbrook's role as the
+  social heart (`00_vision/PILLARS.md` P3). The panel is toggled with `G`
   (`10_systems/CONTROLS.md` §1) and rendered in `frame_window` (`10_systems/HUD.md` §1), both
   already reserved for Guild by those docs.
 - One guild membership per character. The fee is only charged once the chosen name (§2) is
@@ -51,7 +50,7 @@ Leadership transfer is leader-initiated only (no auto-succession like
 
 ## 4. Roster cap & growth
 
-Base cap **20**. The leader may purchase **+10** per step at the guild hall (§1), up to
+Base cap **20**. The leader may purchase **+10** per step at the guild hall (`map_022`), up to
 **4 purchases** (cap **60**), paid personally (§8 — no guild bank). The `shards` cost per step is
 reserved to `10_systems/ECONOMY.md`, mirroring how that doc reserves the creation fee here (§1);
 not fixed in this doc (Open Questions).
@@ -77,7 +76,7 @@ crest:
   per guild (server-tracked). Both numbers are this doc's first-pass proposal; the `shards`
   magnitude is still `10_systems/ECONOMY.md`'s sink budget to confirm (Open Questions).
 - The guild record (roster/ranks/crest/MOTD fields) has no schema doc yet; proposed as
-  `20_schemas/guild.schema.md` at Phase C (Open Questions).
+  a `guild.schema` doc (proposed, not yet in the §2 tree) at Phase C (Open Questions).
 
 ## 6. MOTD
 
@@ -106,19 +105,17 @@ character has no one else to recruit, so no guild ever meaningfully forms.
 
 ## Open Questions
 
-- Which Millbrook Central interior (`map_019`–`026`, §1) is the guild hall is a Phase D map
-  allocation — `docs/WORLD_PLAN.md` R2 lists a guild hall among the interiors; pin the exact
-  `map_NNN` when the R2 map batch is authored.
 - Roster-expansion (§4) and crest-edit (§5) `shards` amounts are this doc's first-pass proposals;
   `10_systems/ECONOMY.md` needs to fold them into its sink budget (its own Open Questions already
   flags this exact reconciliation for the `social/` docs' fee stubs).
 - Guild records have no ID scheme in `docs/ID_REGISTRY.md` (guilds are runtime player-created data,
   not Phase D authored content) — proposes server-assigned `guild_<NNNNNN>` IDs; needs
   `10_systems/PERSISTENCE.md` to confirm the format.
-- No schema doc yet exists for the guild record; proposes `20_schemas/guild.schema.md` at Phase C.
-- The crest shape enum (`heater`/`round`/`banner`/`diamond`/`crest_ornate`, §5) is new vocabulary
-  not yet in `00_vision/GLOSSARY.md` — propose promoting it to GLOSSARY Provisional at the B/C
-  gate, alongside the 24-symbol list owned by `40_assets/UI_ART_SPEC.md`.
+- No schema doc yet exists for the guild record; proposes a `guild.schema` doc (proposed, not yet in the §2 tree) at Phase C.
+- **Crest shape enum vocabulary — resolved:** the enum
+  (`heater`/`round`/`banner`/`diamond`/`crest_ornate`, §5) is canonical in
+  `00_vision/GLOSSARY.md` under "Guild crest shapes"; the 24-symbol list remains owned by
+  `40_assets/UI_ART_SPEC.md`.
 - Which 40_assets doc owns the crest color palette (`40_assets/ART_BIBLE.yaml` vs
   `40_assets/UI_ART_SPEC.md`) is undecided.
 - Officer cap (5, §3) and the roster growth steps (§4) are first-pass; may need retuning once

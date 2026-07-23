@@ -1,0 +1,47 @@
+id: map_156
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Bioluminous Flats, Drift Camp Rise
+region: sunken
+map_type: field
+level_band: { min: 32, max: 33 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 150, h: 30 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_155
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_157
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_field_156
+    rect_tiles: { x: 45, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_112, count: 4 }
+    max_concurrent: 6
+interactables:
+  - type: lore_marker
+    id: marker_drift_camp
+    at_tile: [124, 21]
+    params:
+      text: "Waterlogged notebooks are stacked under an oiled cloth, every page dense with careful handwriting."
+      interact_prompt: "Read"
+npcs: [npc_071]
+platform_brief: |
+  Three stepped terraces rising toward a scholar's camp on the highest shelf. Rises stay under
+  the 3.5-tile normal cap; the water-physics doubling is not needed on this stretch.
+flavor: "A drowned-scholar's drift camp clings to the highest dry shelf, lanterns strung against the gloom."

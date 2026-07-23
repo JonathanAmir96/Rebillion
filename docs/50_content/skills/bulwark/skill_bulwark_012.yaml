@@ -1,0 +1,27 @@
+id: skill_bulwark_012
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Bloodied Resolve
+line: bulwark
+tier: second
+kind: passive                     # passive shape: cost 0, cooldown 0, targeting self (skill.schema rule 5)
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      # lifesteal: heal op has no "% damage dealt" scaling mode (SKILL_EFFECTS §4 lists spellpower/power/
+      # max_life/flat only), so this is expressed as an on-hit heal scaling on `power` (the Ironbrand's
+      # offense rating) rather than a literal damage-dealt percentage.
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.5, effect: { op: heal, scaling: power, mult: 0.06 } }
+  - level: 4
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.6, effect: { op: heal, scaling: power, mult: 0.09 } }
+  - level: 7
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.7, effect: { op: heal, scaling: power, mult: 0.12 } }
+  - level: 10
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.8, effect: { op: heal, scaling: power, mult: 0.15 } }
+flavor: "Every blow the Ironbrand lands feeds a little back. The longer the fight runs, the harder they are to put down."

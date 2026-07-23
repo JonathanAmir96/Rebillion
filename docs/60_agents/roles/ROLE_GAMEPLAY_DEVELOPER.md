@@ -1,7 +1,7 @@
 # ROLE_GAMEPLAY_DEVELOPER — Coding Pass (Godot 4.3+)
 
 References: ORG.md, docs/30_engineering/ENGINEERING_STANDARDS.md (LOCKED — the law),
-docs/60_agents/ phase briefs (Phase E, once authored), docs/20_schemas/
+docs/60_agents/ phase briefs, docs/20_schemas/
 
 **Mission:** implement the game from this tree in a future coding pass: data pipeline
 (YAML → Resources), components, state machines (including the foothold walker and the

@@ -1,0 +1,37 @@
+id: skill_bulwark_023
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Rallying Horn
+line: bulwark
+tier: second
+kind: active
+targeting: party                  # roster target `party` (SKILL_SYSTEM §6)
+cost: { essence: 14 }
+cooldown: 12.0
+level_data:
+  - level: 1
+    essence_cost: 14
+    cooldown: 12.0
+    effects:
+      - { op: apply_status, status: swiftness, chance: 1.0 }
+      - { op: restore_essence, pct: 0.10, target: party }
+  - level: 4
+    essence_cost: 17
+    cooldown: 11.0
+    effects:
+      - { op: apply_status, status: swiftness, chance: 1.0 }
+      - { op: restore_essence, pct: 0.14, target: party }
+  - level: 7
+    essence_cost: 20
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: swiftness, chance: 1.0 }
+      - { op: restore_essence, pct: 0.18, target: party }
+  - level: 10
+    essence_cost: 23
+    cooldown: 9.0
+    effects:
+      - { op: apply_status, status: swiftness, chance: 1.0 }
+      - { op: restore_essence, pct: 0.22, target: party }
+animation: skill_bulwark_023_cast
+flavor: "A horn blast that quickens every stride and tops off spent essence in the same note. The warband never runs dry on the Warcaller's watch."

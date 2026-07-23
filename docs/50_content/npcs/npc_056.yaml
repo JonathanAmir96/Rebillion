@@ -1,0 +1,12 @@
+id: npc_056
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Trapper Coss
+region: gloomwood
+map: map_102
+role: quest_giver
+dialog:
+  greeting: "My lines have been coming back chewed through lately. Thin what's chewing them and I'll make it worth your while."
+  farewell: "Mind where you step -- some of my own snares are still out there."
+portrait: portrait_npc_056
+flavor: "Coss has run trap-lines through the Hush Path longer than she's willing to admit, and trusts her snares more than most people."

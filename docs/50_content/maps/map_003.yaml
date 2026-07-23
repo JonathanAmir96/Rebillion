@@ -1,0 +1,34 @@
+id: map_003
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Sootmark Outfitters
+region: emberfoot
+map_type: interior
+level_band: { min: 1, max: 8 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 34, h: 18 }
+bgm: bgm_town_emberfoot
+ambience: [amb_crackle]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [17, 12] }
+portals:
+  - id: to_village
+    kind: door
+    at: { tile: [4, 13] }
+    target_map: map_001
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: sign
+    id: sign_outfitter_counter
+    at_tile: [20, 11]
+    params:
+      text: "Cinder-cured leathers and a fair blade for anyone headed to the fields."
+      interact_prompt: Read
+npcs: [npc_002, npc_008]
+platform_brief: |
+  Single flat shop floor, no verticality. A counter along the back wall splits the
+  merchant's stall from the smith's small forge nook; door to the square on the left.
+flavor: "Racks of soot-cured leather and a modest forge share the same small room -- everything a fresh graduate needs before the fields."

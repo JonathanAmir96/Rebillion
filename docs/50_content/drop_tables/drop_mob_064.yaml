@@ -1,0 +1,16 @@
+id: drop_mob_064
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT]   # elite: emberstone row -> ENHANCEMENT
+owner: mob_064
+rows:
+  # shards guaranteed, elite x4. mean_shards_normal(22)=36; x4=144; range=[round(115.2),round(172.8)]=[115,173] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 115, qty_max: 173 }
+  # 2-3 region materials (DROPS §5.2 — elites are the material-density farm)
+  - { ref: item_etc_0062, chance: common, qty_min: 1, qty_max: 2 }
+  - { ref: item_etc_0064, chance: uncommon, qty_min: 1, qty_max: 2 }
+  # one region-tier emberstone (DROPS §5.2, ENHANCEMENT §1). R4 gear = T3-T4 -> Emberstone II
+  - { ref: item_etc_0194, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one pool roll (rarity_source: elite, DROPS §5.2/§5.5); pool_equip_r04 (parallel items batch)
+  - { ref: pool_equip_r04, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: elite }
+  # a use item at uncommon (DROPS §5.2)
+  - { ref: item_use_0002, chance: uncommon, qty_min: 1, qty_max: 1 }

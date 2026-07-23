@@ -1,0 +1,22 @@
+id: quest_090
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, RAID, ITEMS]
+name: The Mainspring Reckoning
+region: clockwork
+quest_type: side
+giver_npc: npc_084
+level_requirement: 32
+recommended_level: 32
+prereqs: [quest_089]
+steps:
+  - type: kill   # The Custodian -- via raid_mainspring's finale instance or the arena's open solo entry (RAID.md §7)
+    target: mob_150
+    count: 1
+rewards:
+  exp: 6516   # round(0.08*81,450); raid_mainspring handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
+  shards: 204 # side = mean_shards_normal(32)*4 = 51*4
+  items:
+    - { id: item_use_0017, qty: 3 }
+flavor: "Torvane keeps a tally of every muster that's put the Custodian down, and pays out of the herald's own cache for it."
+offer_text: "Bring the Custodian down -- raid or open gate, I don't care which -- and I'll see the muster paid properly."
+complete_text: "The Custodian's still. Brass and iron, well earned. The Mainspring's yours to run again whenever the cooldown clears."

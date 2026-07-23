@@ -1,0 +1,42 @@
+id: mob_228
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Bulwark of the Drowned
+tier: elite                      # ID_REGISTRY: mob_227-233 = R11 elites (Lv 77-82)
+element: neutral                     # WORLD_PLAN R11 mix: shadow/neutral
+weak_to: [fire]
+resists: [frost]
+level: 78
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget x §13.2 elite mults, Lv 78
+  life: 157464                  # 4*(78+3)^2 x6
+  power: 360                    # (6+3*78) x1.5
+  armor: 608                   # 6*78 x1.3  (armor+warding sum = 1216)
+  warding: 608                 # 6*78 x1.3
+  precision: 343                # 4*78 x1.1
+  evasion: 7.34                  # (3+0.03*78) +2 (§13.2 elite)
+  exp: 5765                     # round(4*78^1.3) x5 (LEVELING §3 elite)
+ai_profile: territorial_guard
+ai_params:
+  aggro_radius: 6
+  leash_radius: 5
+  patrol_radius: 3
+abilities:
+  - id: brine_bash
+    name: Brine Bash
+    targeting: { shape: melee_arc, arc_degrees: 140, radius: 2.5 }
+    cooldown: 7.0
+    telegraph_s: 0.9
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.7 }
+      - { op: apply_status, status: stun, chance: 0.4, dur: 1.5 }
+  - id: drowning_grasp
+    name: Drowning Grasp
+    targeting: { shape: aoe_circle, radius: 3, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.3
+    effects:
+      - { op: apply_status, status: root, chance: 0.7, dur: 3 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+drop_table: drop_mob_228
+flavor: "A drowned marshal still clad in the black plate of a lost garrison, holding the last strand as if orders never came to fall back."

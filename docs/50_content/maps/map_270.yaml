@@ -1,0 +1,48 @@
+id: map_270
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rune Vaults, the Sunken Archive
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 67, max: 68 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 65, h: 65 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 58] }
+portals:
+  - id: to_ledger_rooms
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_269
+    target_spawn: main
+    dead_end: false
+  - id: to_fourth_chamber
+    kind: edge
+    at: { edge: top }
+    target_map: map_271
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_archive_chamber
+    rect_tiles: { x: 18, y: 20, w: 30, h: 32 }
+    mobs:
+      - { mob: mob_196, count: 4 }
+    max_concurrent: 8
+interactables:
+  - type: climbable
+    id: rope_sunken_archive
+    at_tile: [46, 24]
+    params:
+      rect_tiles: { x: 46, y: 24, w: 1, h: 28 }
+      orientation: vertical
+      visual: rope
+npcs: []
+platform_brief: |
+  This archive floor tilted and half-sank into the shard below it; a light-vine rope
+  (MAP_TRAVERSAL §4) climbs the tilted upper stacks. Dense combat per the dungeon budget
+  (SPAWN §2), corridor-loop layout.
+flavor: "Half this archive slid loose of its shelving when the floor gave way -- the tablets that survived only fell up."

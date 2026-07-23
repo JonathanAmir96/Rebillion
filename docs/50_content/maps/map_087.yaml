@@ -1,0 +1,40 @@
+id: map_087
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Graywater Fen
+region: tidewatch
+map_type: field
+level_band: { min: 21, max: 21 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 180, h: 34 }
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [20, 20] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_086
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_088
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: field_main_087
+    rect_tiles: { x: 10, y: 18, w: 160, h: 10 }
+    mobs:
+      - { mob: mob_060, count: 2 }
+      - { mob: mob_061, count: 2 }
+      - { mob: mob_062, count: 2 }
+    max_concurrent: 8
+platform_brief: |
+  A single walkable band with gentle 1-2 tile rises, well within a standing jump.
+  No verticality gimmick beyond the coastal terrain dressing (ART_BIBLE AB-001) --
+  open exploration ground, gaps never exceed the 5-tile running-jump figure.
+flavor: "Brackish fen-water pooled behind the dunes, gray with silt kicked up by things unseen."

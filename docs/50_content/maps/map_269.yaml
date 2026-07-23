@@ -1,0 +1,42 @@
+id: map_269
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rune Vaults, the Ledger Rooms
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 67, max: 68 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 65, h: 65 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 58] }
+portals:
+  - id: to_outer_threshold
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_268
+    target_spawn: main
+    dead_end: false
+  - id: to_third_chamber
+    kind: edge
+    at: { edge: top }
+    target_map: map_270
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: ledger_rooms_chamber
+    rect_tiles: { x: 18, y: 20, w: 30, h: 32 }
+    mobs:
+      - { mob: mob_195, count: 2 }
+      - { mob: mob_196, count: 3 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  Shelved chambers of failed rune-ledgers, connected by short climbs within the 3.5-tile rise
+  cap (MAP_TRAVERSAL §1.1). Dense corridor-loop combat per the dungeon budget (SPAWN §2); no
+  new verticality gimmick beyond the climbs.
+flavor: "Every ledger here recorded a shard the Sanctum lost track of -- the room itself is an admission of failure."

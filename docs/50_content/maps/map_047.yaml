@@ -1,0 +1,49 @@
+id: map_047
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hollow Path, Mossy Steps
+region: verdant
+map_type: field
+level_band: { min: 8, max: 9 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 145, h: 28 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves, amb_birdsong]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 20] }
+portals:
+  - id: to_outskirts
+    kind: edge
+    at: { edge: left }
+    target_map: map_046
+    target_spawn: main
+    dead_end: false
+  - id: to_fernbrake
+    kind: edge
+    at: { edge: right }
+    target_map: map_048
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: mossy_steps_mid
+    rect_tiles: { x: 32, y: 16, w: 62, h: 10 }
+    mobs:
+      - { mob: mob_029, count: 3 }        # shares mob_029 with the outskirts (path-neighbor overlap rule)
+      - { mob: mob_030, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_mossy_steps
+    at_tile: [24, 19]
+    params:
+      text: "The old stone steps are more root than rock now. Mind the moss -- it hides the gaps."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Broken stone steps stagger upward in ~2-tile rises, each gap within the 5-tile/3.5-tile
+  jump caps (MAP_TRAVERSAL §1.1). Foothold segments dressed in mossy terrain_chunks
+  (ART_BIBLE AB-001). No rope/ladder needed; a one-way ledge lets a hasty return skip
+  the full stair.
+flavor: "Someone paved this path once, long enough ago that the hollow has half-forgiven the intrusion."

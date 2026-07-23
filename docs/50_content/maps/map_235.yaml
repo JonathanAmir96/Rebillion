@@ -1,0 +1,41 @@
+id: map_235
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Rime-Choked Hollow
+region: frostpeak
+map_type: secret
+level_band: { min: 56, max: 57 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 50, h: 24 }
+bgm: bgm_frostpeak
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 18] }
+portals:
+  - id: to_cracked_vault
+    kind: door
+    at: { tile: [4, 18] }
+    target_map: map_231
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: rime_choked_hollow_zone
+    rect_tiles: { x: 14, y: 14, w: 30, h: 8 }
+    mobs:
+      - { mob: mob_175, count: 2 }
+      - { mob: mob_176, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_rime_hollow
+    at_tile: [30, 16]
+    params:
+      text: "Older ice than the rest of the cavern -- something has been sealed in here a long time."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A single sealed chamber off the Cracked Vault, weighted toward its elite pair
+  (SPAWN §2 secret: elevated elite mob_pool weight). No verticality gimmick, small and dense.
+flavor: "A frozen-over side chamber the Glacier Caverns' main crews never bothered to dig out."

@@ -62,15 +62,15 @@ both sides to their normal inventory state untouched.
 
 | Category | Tradeable? |
 |---|---|
-| Boss unique equipment (`item_equip_0201`–`0216`, `10_systems/ITEMS.md` §11; `0217`–`0230` reserved) | **Yes** — no special-case removal; enhancement level and affixes travel with the item (Open Questions). |
-| A one-off `item_etc` minted solely for a quest's `collect` step (`10_systems/QUESTS.md` §3.1, second bullet) | **No** — hardcoded, never offerable, regardless of any other flag. |
+| Boss unique equipment (`item_equip_0201`–`0230`, `10_systems/ITEMS.md` §11) | **Yes** — no special-case removal; enhancement level and affixes travel with the item (Open Questions). |
+| A one-off `item_etc` minted solely for a quest's `collect` step (`10_systems/QUESTS.md` §3.1, first bullet) | **No** — hardcoded, never offerable, regardless of any other flag. |
 | An ordinary shared regional material a quest also targets (`10_systems/QUESTS.md` §3.1, first bullet) | Tradeable — it is an ordinary `etc` item with independent vendor/trade value; a quest wanting some of it does not revoke that (`10_systems/QUESTS.md` §3.1 already confirms non-questers loot/use the same material normally). |
 | Other ordinary `equip`/`use`/`etc` items | Tradeable by default. |
 | `shards` | Always tradeable, subject to the receiving wallet cap (§3). |
 
 The concrete `tradeable`/`untradeable` field belongs on the item schema (Phase C,
-`20_schemas/item.schema.md`, not yet authored) — this doc fixes the **policy** the field must
-encode, not the field itself (Open Questions).
+`20_schemas/item.schema.md`, authored, but does not yet define this field) — this doc fixes the
+**policy** the field must encode, not the field itself (Open Questions).
 
 ## 5. Scam guards & rate limits
 
@@ -82,7 +82,7 @@ encode, not the field itself (Open Questions).
   client-side.
 - **Session exclusivity** — one active trade session per character (§1); a second invite sent or
   received while already in a session is refused.
-- **Cooldown** — a **5 s** cooldown after any trade closes (completed or cancelled) before that
+- **Cooldown** — a **5 s** cooldown after any trade closes (completed or canceled) before that
   character may open another.
 - **Volume ceiling** — a first-pass soft cap of **20 completed trades/hour** per character, an
   anti-bot/anti-farming ceiling pending real economy telemetry (Open Questions).

@@ -1,0 +1,35 @@
+id: skill_novice_004
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Second Wind                  # exact JOBS.md §6 novice-kit roster name
+line: novice
+tier: novice
+kind: active
+targeting: self                    # roster target `self` (SKILL_SYSTEM §6)
+cost: { essence: 6 }
+cooldown: 8.0
+level_data:
+  - level: 1
+    essence_cost: 6
+    cooldown: 8.0
+    effects:
+      # `regen` magnitude (3% max life per tick) and base 10 s duration are STATUS_EFFECTS §4.2's
+      # and read live receiver max_life (§1) rather than a snapshot; only cost/cooldown scale here.
+      - { op: apply_status, status: regen, chance: 1.0 }   # SKILL_EFFECTS §14
+  - level: 4
+    essence_cost: 8
+    cooldown: 7.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+  - level: 7
+    essence_cost: 9
+    cooldown: 6.5
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+  - level: 10
+    essence_cost: 9
+    cooldown: 6.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }   # cooldown non-increasing (§4 warn)
+animation: skill_novice_004_cast
+flavor: "A steadying breath that lets a trainee patch themselves up mid-fight. Small, but it has saved more novices than any weapon has."

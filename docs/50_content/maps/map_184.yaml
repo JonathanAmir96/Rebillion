@@ -1,0 +1,48 @@
+id: map_184
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, The Grinding Span
+region: clockwork
+map_type: field
+level_band: { min: 37, max: 39 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_verdigris_plaza
+    kind: edge
+    at: { edge: left }
+    target_map: map_183
+    target_spawn: main
+    dead_end: false
+  - id: to_deepset_colonnade
+    kind: edge
+    at: { edge: right }
+    target_map: map_185
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: grinding_span_zone
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_136, count: 3 }
+      - { mob: mob_137, count: 2 }
+    max_concurrent: 6
+moving_platforms:
+  - id: platform_grinding_span
+    path: [[40, 22], [70, 14], [100, 22]]
+    speed: 3.5
+    pause_s: 1.0
+    loop_mode: ping_pong
+    one_way: false
+npcs: []
+platform_brief: |
+  A slow rotating gear-tooth bridge spans a broken gap mid-map; the moving_platforms
+  rise takes riders above two low guard-rail terraces (MAP_TRAVERSAL §5). The gimmick is
+  the ride itself, not a jump check.
+flavor: "A single great gear-tooth still turns here, load-bearing the last intact span across the sunken span."

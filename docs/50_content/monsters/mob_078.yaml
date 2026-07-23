@@ -1,0 +1,26 @@
+id: mob_078
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Shadeclaw Prowler
+tier: normal                     # ID slot 078 = R5 Gloomwood normal (ID_REGISTRY Monsters)
+element: shadow                    # R5 element mix = shadow/nature/neutral (WORLD_PLAN R5)
+weak_to: [arcane]
+resists: [shadow]
+level: 25
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 25
+  life: 3136                     # 4*(25+3)^2
+  power: 81                      # 6+3*25 (touch = round(0.5*power), neutral, §13.1)
+  armor: 150                      # 6*25  (armor+warding sum = 300 = 12*25)
+  warding: 150                    # 6*25
+  precision: 100                  # 4*25
+  evasion: 3.75                    # 3 + 0.03*25 (%)
+  exp: 263                       # exp_per_kill_normal(25)=round(4*25^1.3) (LEVELING §3)
+ai_profile: pack_hunter
+ai_params:                       # override only pack_hunter-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 6
+  pack_call_radius: 10
+  pack_max_size: 5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_078
+flavor: "A lean, ink-black cat that runs in silent threes through the deepest hollows, more shadow than beast. When one yowls the others are already at your flanks."

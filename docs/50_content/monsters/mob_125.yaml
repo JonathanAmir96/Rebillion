@@ -1,0 +1,42 @@
+id: mob_125
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Sunken Hierophant
+tier: elite                      # ID slot 125 = R7 Sunken elite (ID_REGISTRY Monsters)
+element: shadow
+weak_to: [arcane]                # arcane pierces the drowned dark (ELEMENTS §2/§5)
+resists: [shadow]
+level: 38
+size_class: medium
+stats:                           # §13 normal Lv 38 x §13.2 elite multipliers
+  life: 40344                    # 6724 x6
+  power: 180                     # 120 x1.5
+  armor: 296                     # 228 x1.3  (armor+warding sum ~= 12*38 x1.3)
+  warding: 296                   # 228 x1.3
+  precision: 167                 # 152 x1.1
+  evasion: 6.14                   # 4.14 + 2% (§13.2 elite)
+  exp: 2265                     # exp_per_kill_normal(38)=453 x5 (LEVELING §3 elite)
+ai_profile: support_caller
+ai_params:
+  support_radius: 8
+  cast_cooldown_s: 5
+  retreat_range: 7
+abilities:
+  - id: cold_benediction
+    name: Cold Benediction
+    targeting: self
+    cooldown: 14.0
+    telegraph_s: 1.2
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 8 }
+  - id: raise_the_drowned
+    name: Raise the Drowned
+    targeting: self
+    cooldown: 24.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_109, count: 2, dur: 25 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_125
+flavor: "The high priest of the drowned rite, who never lifts a hand in his own defense yet turns a hall of shambling husks into a disciplined, glowing host. Cut down his flock and he will simply chant more up out of the silt."

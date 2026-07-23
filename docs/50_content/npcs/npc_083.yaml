@@ -1,0 +1,14 @@
+id: npc_083
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: West Gate Quartermaster Coen
+region: clockwork
+map: map_188
+role: merchant
+shop:
+  items: [item_use_0017, item_use_0018]
+dialog:
+  greeting: "Same stock as the east camp, half the markup. Somebody has to undercut Rell."
+  farewell: "Stair's that way if you're diving into the works. Tonics first."
+portrait: portrait_npc_083
+flavor: "Coen set up a second supply cache at the west gate the day the first expedition ran out of tonics three terraces from the stair."

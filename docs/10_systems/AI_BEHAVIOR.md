@@ -54,7 +54,7 @@ statuses (`10_systems/STATUS_EFFECTS.md` §1), regardless of which state the mon
 - **Telegraph requirement:** any `windup` on an elite- or boss-tier monster must use the
   `telegraph` animation state (`40_assets/ANIMATION_STATES.md`; required by `docs/VALIDATION.md`
   §6). Normal-tier monsters may use a short, untelegraphed windup unless a profile states
-  otherwise (`kamikaze_burster` is the one stated exception, §13).
+  otherwise (`kamikaze_burster` is the one stated exception, §12).
 - **Ground edge behavior (default):** ground profiles avoid walking off a platform edge or into a
   one-way-platform drop during `idle`/`patrol`/`chase`, unless their entry below explicitly says
   they drop-through or charge through edges.
@@ -282,10 +282,9 @@ combat resumes), `phase_transition_lock` true (life-threshold crossings always i
 above; set false only if a specific boss needs a softer transition — flag it in that boss's data).
 
 ## Open Questions
-- Boss/monster ability IDs (§15 `added_abilities`) have no reserved prefix in
-  `docs/ID_REGISTRY.md` today (only `skill_<line>_NNN` for player job-line skills). Needs an
-  ID_REGISTRY decision before Phase D authors boss kits — proposing a
-  `mob_ability_<mob_NNN>_NN` convention or similar; flagged, not decided here.
+- **Boss/monster ability ID prefix — resolved at the C gate:**
+  `docs/ID_REGISTRY.md` now reserves `mob_ability_<mob_NNN>_01`–`_08` (per-monster namespace)
+  and `mob_151`–`mob_160` for summon templates.
 - An on-death-detonate variant of `kamikaze_burster` (explodes even if killed before its windup
   completes) is not defined; if a later design wants it, it should be a monster-authored
   `on_hit_proc`/death effect (`10_systems/SKILL_EFFECTS.md`), not a change to this profile's base
@@ -297,6 +296,6 @@ above; set false only if a specific boss needs a softer transition — flag it i
   non-boss monster.
 - Exact tile-to-pixel size for `aggro_radius`/`aggro_vertical_band` units is owned by
   `40_assets/ART_BIBLE.yaml`; not fixed here.
-- `phase_shift_duration_s` and whether it should scale by boss context (regional arena vs
-  party-quest finale) is a first-pass default; owner `10_systems/COMBAT_FORMULA.md`/
-  `10_systems/social/PARTY.md` may retune for party content.
+- `phase_shift_duration_s` and whether it should scale for PQ-instanced finales
+  (`10_systems/social/PARTY_QUEST.md`) is a first-pass default; owner
+  `10_systems/COMBAT_FORMULA.md`/`10_systems/social/PARTY.md` may retune.

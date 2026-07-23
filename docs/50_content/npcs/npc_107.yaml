@@ -1,0 +1,13 @@
+id: npc_107
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, ENHANCEMENT]
+name: Enchanter Vell
+region: arcane_reach
+map: map_267
+role: enchanter
+services: [enhance]
+dialog:
+  greeting: "Gear or shard, everything out here wants to come undone. I just slow it down."
+  farewell: "Careful in the Orrery. Half of what's unraveled in there is still trying to finish."
+portrait: portrait_npc_107
+flavor: "Vell works from the Sanctum hall's quietest corner, coaxing steadier bindings out of gear the vaults have already half-unmade."

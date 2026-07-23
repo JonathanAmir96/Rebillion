@@ -1,0 +1,14 @@
+id: npc_097
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, MAP_CONNECTIONS]
+name: Pier Warden Cressida
+region: arcane_reach
+map: map_245
+role: pier_officer                # the longship boarding gate (npc.schema role enum)
+services: [longship]              # role floor: pier_officer -> services >= {longship};
+                                  # co-located with map_245's three portal(kind: longship) gangways
+dialog:
+  greeting: "Three ships, three horizons -- Tidewatch, Frosthaven, or the dark water past Duskwatch. Pick your fare and mind the gangway."
+  farewell: "Hold the rail when the shard-wind gusts. It gusts often, out here."
+portrait: portrait_npc_097
+flavor: "Cressida has logged more sky-crossings than any deckhand on the Reach, and still won't say aloud what she's seen fall past the shard's edge."

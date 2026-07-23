@@ -1,0 +1,16 @@
+id: drop_mob_127
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT]   # elite: emberstone row -> ENHANCEMENT
+owner: mob_127
+rows:
+  # shards guaranteed, elite x4. mean_shards_normal(40)=63; x4=252 (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 202, qty_max: 302 }
+  # 2 region materials (DROPS §5.2 -- elites are the material-density farm)
+  - { ref: item_etc_0109, chance: common, qty_min: 1, qty_max: 2 }   # Rimeguard Plate-Shard
+  - { ref: item_etc_0112, chance: uncommon, qty_min: 1, qty_max: 2 }   # Thrall Oath-Sigil
+  # one region-tier emberstone (DROPS §5.2, ENHANCEMENT §1). R7 gear = T3-T4 (Lv 30-38) -> Emberstone II
+  - { ref: item_etc_0194, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one pool roll (rarity_source: elite, DROPS §5.2/§5.5); pool_equip_r07 authored in parallel items batch (dangling OK)
+  - { ref: pool_equip_r07, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: elite }
+  # a use item at uncommon (DROPS §5.2); Prime Life Tonic serves the Lv 40 band (ITEMS §1.1)
+  - { ref: item_use_0005, chance: uncommon, qty_min: 1, qty_max: 1 }

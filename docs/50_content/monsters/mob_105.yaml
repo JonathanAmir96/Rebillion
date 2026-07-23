@@ -1,0 +1,44 @@
+id: mob_105
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Slagplate Behemoth
+tier: elite                      # ID slot 105 = R6 elite (ID_REGISTRY ashfall)
+element: fire
+weak_to: [frost]
+resists: [fire]
+level: 35
+size_class: large
+stats:                           # §13 normal Lv 35 x §13.2 elite multipliers
+  life: 34656                    # 5776 x6
+  power: 166                     # 111 x1.5
+  armor: 273                     # 210 x1.3  (armor+warding sum ~= 12*35 x1.3)
+  warding: 273                   # 210 x1.3
+  precision: 154                 # 140 x1.1
+  evasion: 6.0                   # 4.0 + 2% (§13.2 elite)
+  exp: 2035                     # exp_per_kill_normal(35)=407 x5 (LEVELING §3 elite)
+ai_profile: territorial_guard
+ai_params:
+  aggro_radius: 5
+  leash_radius: 5
+  patrol_radius: 3
+abilities:
+  - id: molten_slam
+    name: Molten Slam
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.7 }
+      - { op: apply_status, status: burn, chance: 0.7, dur: 6 }
+      - { op: knockback, distance: 2 }
+  - id: ember_ward
+    name: Ember Ward
+    targeting: self
+    cooldown: 18.0
+    telegraph_s: 1.5
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.1, dur: 10 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_105
+flavor: "An old slagshell grown vast and immovable, its fused crust cracked open to show the furnace beneath. It plants itself over the hottest ground and makes you fight the heat as much as the beast."

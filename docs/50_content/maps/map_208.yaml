@@ -1,0 +1,48 @@
+id: map_208
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hoarfrost Flats, Lower Reach
+region: frostpeak
+map_type: field
+level_band: { min: 40, max: 41 }        # first field; R9 fields ascend 40->51 across 208-219
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 160, h: 30 }            # field: ~4 screens wide (MAPS_SYSTEM §2)
+bgm: bgm_frostpeak                        # field/dungeon pattern bgm_<biome_key> (MAPS_SYSTEM §5)
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }          # intra-region entrances target `main` (MAP_CONNECTIONS §2)
+portals:
+  - id: to_frosthaven                      # back to the port town (reverse pairs map_204's edge)
+    kind: edge
+    at: { edge: left }
+    target_map: map_204
+    target_spawn: main
+    dead_end: false
+  - id: to_hoarfrost_climb                 # forward along the ascending field chain
+    kind: edge
+    at: { edge: right }
+    target_map: map_209                      # forward-ref: next field (R9 batch); gradient continues
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: hoarfrost_flats_lower
+    rect_tiles: { x: 34, y: 18, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_151, count: 4 }          # count = target concurrent population (SPAWN §1)
+    max_concurrent: 6                        # field default (SPAWN §4)
+interactables:
+  - type: sign
+    id: sign_trailhead_208
+    at_tile: [22, 21]
+    params:
+      text: "Frosthaven behind you, the peaks ahead. Keep to the low flats until your legs learn the ice."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Two low snow terraces stepped by ~2-tile rises, each crossable in a single running jump
+  (MAP_TRAVERSAL §1.1: gaps <=5 tiles horizontal / <=3.5 tiles rise). Terrain is foothold
+  segments under painted snow terrain_chunks (ART_BIBLE AB-001). A one-way drop-ledge mid-map
+  shortcuts down toward the lower spawn cluster; no rope/ladder needed on this opener.
+flavor: "Wind-scoured hoarfrost flats where the isle's first frost-wolves den. The snow gives underfoot but the footing holds."

@@ -1,0 +1,19 @@
+id: drop_mob_107
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN]   # region boss: emberstone + region-boss unique mapping (not a raid finale -> no PARTY)
+owner: mob_107
+rows:
+  # shards guaranteed, boss x15. mean=round(1.5*34+3)=54; x15=810 (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 648, qty_max: 972 }
+  # region materials guaranteed (DROPS §5.3 crafting/quest mats)
+  - { ref: item_etc_0096, chance: guaranteed, qty_min: 2, qty_max: 3 }
+  - { ref: item_etc_0088, chance: guaranteed, qty_min: 1, qty_max: 2 }
+  # emberstone: 1 guaranteed + 1 uncommon (DROPS §5.3). R6 gear = T5 -> Emberstone III
+  - { ref: item_etc_0195, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0195, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5). pool_equip_r06 = parallel items batch
+  - { ref: pool_equip_r06, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss uniques: Karnothal owns item_equip_0211/0212 (ID_REGISTRY boss #6 = 0199+2n).
+  # first-ever clear guarantees one of the two (DROPS §5.3 bad-luck protection). Parallel items batch.
+  - { ref: item_equip_0211, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0212, chance: legendary, qty_min: 1, qty_max: 1 }

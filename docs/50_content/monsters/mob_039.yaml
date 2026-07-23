@@ -1,0 +1,26 @@
+id: mob_039
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Nightcap Ambusher
+tier: normal                     # ID slot 039 = R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 13
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 13
+  life: 1024                     # 4*(13+3)^2
+  power: 45                      # 6+3*13 (venom-strike scales on power, §13.1)
+  armor: 78                      # 6*13  (armor+warding sum = 156 = 12*13)
+  warding: 78                    # 6*13
+  precision: 52                  # 4*13
+  evasion: 3.4                   # 3 + 0.03*13 (%)
+  exp: 112                       # exp_per_kill_normal(13) (LEVELING §3)
+ai_profile: ambush_lurker        # buried in leaf-litter; poisons on the surprise strike (AI_BEHAVIOR §7)
+ai_params:                       # override only ambush_lurker-declared tunables
+  ambush_radius: 2
+  leash_radius: 3
+  aggro_vertical_band: 1
+animation_states: [idle, walk, attack, hit, die]   # concealed idle then reveal; normal set
+drop_table: drop_mob_039
+flavor: "A blue-black toadstool that hunts, sunk to its cap in wet leaf-litter with one hollow fang cocked. It strikes upward as you cross it, driving a bead of venom under the skin before you have even seen it move."

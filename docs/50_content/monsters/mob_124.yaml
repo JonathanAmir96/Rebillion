@@ -1,0 +1,43 @@
+id: mob_124
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Chillspine Matriarch
+tier: elite                      # ID slot 124 = R7 Sunken elite (ID_REGISTRY Monsters)
+element: frost
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 37
+size_class: large
+stats:                           # §13 normal Lv 37 x §13.2 elite multipliers
+  life: 38400                    # 6400 x6
+  power: 176                     # 117 x1.5
+  armor: 289                     # 222 x1.3  (armor+warding sum ~= 12*37 x1.3)
+  warding: 289                   # 222 x1.3
+  precision: 163                 # 148 x1.1
+  evasion: 6.11                   # 4.11 + 2% (§13.2 elite)
+  exp: 2185                     # exp_per_kill_normal(37)=437 x5 (LEVELING §3 elite)
+ai_profile: ambush_lurker
+ai_params:
+  ambush_radius: 3
+  leash_radius: 4
+  aggro_vertical_band: 1
+abilities:
+  - id: silt_eruption
+    name: Silt Eruption
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.1
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.6 }
+      - { op: apply_status, status: chill, chance: 0.7, dur: 4 }
+  - id: impaling_lunge
+    name: Impaling Lunge
+    targeting: { shape: line, length: 6, width: 2 }
+    cooldown: 7.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.5 }
+      - { op: knockback }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_124
+flavor: "A monstrous elder of the chillspine lurkers, broad as a longboat and buried so deep in the silt she is mistaken for the ruin floor itself. When she rises the whole hall erupts in a cloud of freezing needles."

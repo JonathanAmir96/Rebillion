@@ -1,0 +1,35 @@
+id: map_284
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Anchor Vault
+region: arcane_reach
+map_type: arena
+level_band: { min: 68, max: 68 }         # matches Boss #10, mob_206, Lv 68 (WORLD_PLAN)
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 70, h: 40 }              # arena: 1-2 screens wide, up to 2 tall for a vertical fight (MAPS_SYSTEM §2)
+bgm: bgm_boss_arcane_reach                 # bespoke boss theme (MAPS_SYSTEM §5)
+ambience: [amb_arcane_hum, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 34] }
+portals:
+  - id: to_unmoored_stair
+    kind: door
+    at: { tile: [10, 36] }
+    target_map: map_282
+    target_spawn: main
+    dead_end: false
+interactables: []
+npcs: []
+platform_brief: |
+  A vast anchor-ring chamber open to the void mist below, three broad platforms stacked at
+  ~3-tile rises for the boss's phase shifts (MAP_TRAVERSAL §1.1). No fall damage regardless
+  (§2); the ring itself is the only floor that never drifts.
+arena_config:
+  boss_mob_id: mob_206              # Aetheron, the Unmoored -- matches WORLD_PLAN's R10 boss seed
+  gate: { type: open }              # regional arenas never require a party (MAPS_SYSTEM §8)
+  reset_grace_s: 30
+  hazards:
+    - { tier: severe, rect_tiles: { x: 0, y: 36, w: 70, h: 4 } }   # the open drop past the ring's rim
+flavor: "The last anchor-ring still holding the Reach's shards in their slow, failing orbit -- and the golem built to keep it that way."

@@ -1,0 +1,30 @@
+id: map_286
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: "Landing Hearth"
+region: voidshore
+map_type: interior
+level_band: { min: 66, max: 66 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 32, h: 18 }
+bgm: bgm_town_voidshore
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 10] }
+portals:
+  - id: door_to_landing
+    kind: door
+    at: { tile: [16, 16] }
+    target_map: map_285
+    target_spawn: main
+interactables:
+  - type: inn_bed
+    id: bed_landing_hearth
+    at_tile: [8, 10]
+    params:
+npcs: [npc_110]
+platform_brief: |
+  Single-room hearth-inn, one flat band, no traversal gimmick -- a plain indoor box
+  matching MAPS_SYSTEM §2's interior guidance.
+flavor: "A low, warm room built to keep the torn sky out for one more night, its hearth never quite going cold."

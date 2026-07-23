@@ -1,0 +1,12 @@
+id: npc_119
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Archivist Ness Corrow
+region: voidshore
+map: map_308
+role: flavor
+dialog:
+  greeting: "Careful with the shelves. Half of what's down here bites back if you're not."
+  farewell: "Mind the water rising behind you."
+portrait: portrait_npc_119
+flavor: "Ness has catalogued the Sunder Deeps' drowned archive for a decade and still hasn't reached the last shelf."

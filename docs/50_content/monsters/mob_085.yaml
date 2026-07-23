@@ -1,0 +1,43 @@
+id: mob_085
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Rotheart Elder
+tier: elite                      # ID slot 085 = R5 Gloomwood elite (ID_REGISTRY Monsters)
+element: nature
+weak_to: [fire]
+resists: [nature]
+level: 27
+size_class: large
+stats:                           # §13 normal Lv 27 x §13.2 elite multipliers
+  life: 21600                    # 3600 x6
+  power: 131                     # 87 x1.5
+  armor: 211                     # 162 x1.3  (armor+warding sum = 422 ~= 12*27 x1.3)
+  warding: 211                   # 162 x1.3
+  precision: 119                 # 108 x1.1
+  evasion: 5.81                   # 3.81 + 2% (§13.2 elite)
+  exp: 1450                     # exp_per_kill_normal(27)=290 x5 (LEVELING §3 elite)
+ai_profile: territorial_guard
+ai_params:
+  aggro_radius: 5
+  leash_radius: 5
+  patrol_radius: 3
+abilities:
+  - id: spore_burst
+    name: Spore Burst
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 8.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: nature, mult: 1.4 }
+      - { op: apply_status, status: poison, chance: 0.8, dur: 10 }
+  - id: bramble_lash
+    name: Bramble Lash
+    targeting: { shape: melee_arc, radius: 2.5 }
+    cooldown: 6.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: nature, mult: 1.6 }
+      - { op: apply_status, status: root, chance: 0.6, dur: 3 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_085
+flavor: "An ancient knot of dead timber grown vast on the fen's slow rot, hollow-hearted and seething with spore. It moves once a century and crushes anything foolish enough to make it move now."

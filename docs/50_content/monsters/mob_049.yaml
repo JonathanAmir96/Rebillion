@@ -1,0 +1,23 @@
+id: mob_049
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Kelp Skitterer
+tier: normal                     # ID slot 049 = R4 normal (ID_REGISTRY Monsters)
+element: neutral                 # R4 element split is frost/neutral (WORLD_PLAN)
+level: 14
+size_class: small
+stats:                           # all copied from COMBAT_FORMULA §13 normal budget, Lv 14
+  life: 1156                     # 4*(14+3)^2
+  power: 48                      # 6+3*14 (passive_wanderer deals no touch dmg, §13.1)
+  armor: 84                      # 6*14  (armor+warding sum = 168 = 12*14)
+  warding: 84                    # 6*14
+  precision: 56                  # 4*14
+  evasion: 3.42                  # 3 + 0.03*14 (%)
+  exp: 124                       # exp_per_kill_normal(14)=round(4*14^1.3) (LEVELING §3)
+ai_profile: passive_wanderer     # harmless kelp-forager; ignores the player unless struck (AI_BEHAVIOR §3)
+ai_params:                       # override only passive_wanderer-declared tunables
+  wander_radius: 7
+  flee_duration_s: 4
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_049
+flavor: "A drab, many-legged grazer that combs the wrack line for rot and rarely lifts its eyes. Corner one and it panics; leave it be and it never knows you passed."

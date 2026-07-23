@@ -1,0 +1,14 @@
+id: npc_036
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Bram Alderleaf
+region: verdant
+map: map_043
+role: merchant
+shop:
+  items: [item_use_0001, item_use_0002, item_use_0006, item_use_0007]   # tonic ladder rungs, reserved names (ID_REGISTRY)
+dialog:
+  greeting: "Tonics, cordage, whatever the hollow's about to take from you. Stock up before you need it, not after."
+  farewell: "Come back with coin or with stories. I'll take either."
+portrait: portrait_npc_036
+flavor: "Bram sells out of a moss-roofed stall in the square, restocked weekly by a supply cart that always arrives a little muddier than it left."

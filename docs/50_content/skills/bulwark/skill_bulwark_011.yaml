@@ -1,0 +1,37 @@
+id: skill_bulwark_011
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Rallying Strike
+line: bulwark
+tier: second
+kind: active
+targeting: { shape: melee_arc, arc_degrees: 120, radius: 2.0 }   # roster target `melee_arc` (SKILL_SYSTEM §6)
+cost: { essence: 13 }
+cooldown: 10.0
+level_data:
+  - level: 1
+    essence_cost: 13
+    cooldown: 10.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.3 }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, effect: { op: apply_status, status: empower, chance: 1.0 } }   # SKILL_EFFECTS §16
+  - level: 4
+    essence_cost: 16
+    cooldown: 9.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.7 }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, effect: { op: apply_status, status: empower, chance: 1.0 } }
+  - level: 7
+    essence_cost: 19
+    cooldown: 8.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.1 }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, effect: { op: apply_status, status: empower, chance: 1.0 } }
+  - level: 10
+    essence_cost: 22
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.5 }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, effect: { op: apply_status, status: empower, chance: 1.0 } }
+animation: skill_bulwark_011_cast
+flavor: "A shield-rim strike that lands and shouts the line forward in the same motion. Momentum becomes everyone's."

@@ -1,0 +1,13 @@
+id: npc_062
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, JOBS]
+name: Master Bram
+region: ashfall
+map: map_126                     # bidirectional with map_126's npcs[] (both list each other)
+role: quest_giver                # the Bulwark instructor (WORLD_PLAN §Job instructors); no dedicated trainer role token exists
+dialog:
+  greeting: "Another shield-arm for the barrens. Good -- Cindershelf never turns one away."
+  idle: "Every dent in this hall's racks was earned. Yours will be too, in time."
+  farewell: "Plant your feet and hold the line. That's the whole of it."
+portrait: portrait_npc_062
+flavor: "Master Bram has trained every Bulwark to walk out of Cindershelf since before the kilns needed relighting, and he still spars every one of them himself."

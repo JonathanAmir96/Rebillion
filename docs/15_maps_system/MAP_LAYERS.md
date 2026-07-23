@@ -70,7 +70,7 @@ Every map's `tileset_id` = `tileset_<biome_key>`, where `biome_key` is looked up
 the same as the region slug for Millbrook and Sunken (below). A map's biome (and therefore
 tileset) is fully determined by its region; there is no second map-level art token.
 
-| Region | Biome key | Tileset token |
+| Region (v2, `docs/WORLD_PLAN.md`) | Biome key | Tileset token |
 |---|---|---|
 | Emberfoot Isle | `emberfoot` | `tileset_emberfoot` |
 | Millbrook & Rosen Harbor | `old_town` | `tileset_old_town` |
@@ -81,20 +81,11 @@ tileset) is fully determined by its region; there is no second map-level art tok
 | Sunken Depths | `tidewatch_dark` | `tileset_tidewatch_dark` |
 | Clockwork Ruins | `clockwork` | `tileset_clockwork` |
 
-One tileset id per biome (8 active); internal variants for a region's distinct sub-areas (e.g., a
+One tileset id per biome (8 total this arc); the `frostpeak`/`arcane_reach`/`voidshore`/`rift`
+biome keys are **reserved for future arcs** (`00_vision/SCOPE.md`) and mint their tileset tokens
+when those arcs land. Internal variants for a region's distinct sub-areas (e.g., a
 cave versus an open field in the same region) are an atlas-organization concern inside that one
-tileset, owned by `40_assets/ART_BIBLE.yaml`, not a second token here. Biome keys `frostpeak` /
-`arcane_reach` / `voidshore` / `rift` are reserved for future arcs — no region, map, or tileset
-token binds them in this run's content.
-
-**Terrain surfaces under v2.4 (ART_BIBLE amendment AB-001):** a biome tileset covers the region's
-**structural** elements — towns, interiors, dungeon brickwork, platform props, and other built
-tilework on the 16 px grid — while organic ground is hand-painted `terrain_chunk` art snapped to
-footholds (`15_maps_system/MAP_TRAVERSAL.md` "Foothold terrain model";
-`40_assets/ART_BIBLE.yaml` `amendments`). This changes what the `terrain` layer's art *is*, not
-the layer stack: §1–§3's depth layers and the locked collision enum (§2.1,
-`30_engineering/ENGINEERING_STANDARDS.md`) are unchanged — footholds are simply the geometry
-collision layers 1/2 carry.
+tileset, owned by `40_assets/ART_BIBLE.yaml`, not a second token here.
 
 ## 5. Lighting/ambience overlay policy
 

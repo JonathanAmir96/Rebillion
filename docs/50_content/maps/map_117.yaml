@@ -1,0 +1,41 @@
+id: map_117
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hollow Trunk Warrens, Deadwood Gallery
+region: gloomwood
+map_type: dungeon
+level_band: { min: 27, max: 28 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_wood_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 42] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_116
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_118
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: trunk_warrens_deadwood_gallery
+    rect_tiles: { x: 20, y: 32, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_083, count: 3 }
+      - { mob: mob_084, count: 1 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  A long gallery of petrified deadwood pillars, ledges within the standard jump budget
+  (MAP_TRAVERSAL §1.1). Denser dungeon combat pacing with the region's first elite presence
+  (SPAWN §2). No rope/ladder required.
+flavor: "The gallery's dead pillars have gone hard as stone, strung floor to ceiling with old, abandoned silk."

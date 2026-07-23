@@ -1,0 +1,33 @@
+id: map_324
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: "The Tidesunder Maw"
+region: voidshore
+map_type: arena
+level_band: { min: 80, max: 80 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 70, h: 30 }
+bgm: bgm_boss_voidshore
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [12, 20] }
+portals:
+  - id: to_stage_3
+    kind: door
+    at: { tile: [10, 20] }
+    target_map: map_322
+    target_spawn: main
+npcs: []
+platform_brief: |
+  A single sunken amphitheater open to the torn sky, one band with a low
+  second tier around the rim (up to 2 screens tall per MAPS_SYSTEM §2's arena
+  guidance). The Maw itself is the boss's stage; no traversal gimmick beyond the rim.
+arena_config:
+  boss_mob_id: mob_234
+  gate: { type: open }
+  hazards:
+    - { tier: severe, at_tile: [35, 22] }
+    - { tier: standard, at_tile: [20, 24] }
+flavor: "The amphitheater where the shore finally gives way to open void, and where Nyxaris waits beneath a sky that never closes."

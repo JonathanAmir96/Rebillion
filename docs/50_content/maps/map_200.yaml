@@ -1,0 +1,34 @@
+id: map_200
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, RAID]
+name: The Mainspring
+region: clockwork
+map_type: arena
+level_band: { min: 40, max: 40 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 72, h: 24 }
+bgm: bgm_boss_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [36, 18] }
+portals:
+  - id: to_cogwork_muster
+    kind: door
+    at: { tile: [2, 18] }
+    target_map: map_194
+    target_spawn: main
+    dead_end: false  # ordinary open-entry pairing with map_194's to_the_mainspring door (MAPS_SYSTEM §8: arena's dedicated door entrance)
+npcs: []
+platform_brief: |
+  A single flat brass floor ringed by the city's namesake coiled mainspring, one screen
+  wide -- the region's final stage. No verticality gimmick beyond the coil framing the
+  fight; hazards are authored on arena_config, not the platform itself.
+arena_config:
+  boss_mob_id: mob_150
+  gate: { type: open }
+  hazards:
+    - { tier: minor, rect_tiles: { x: 10, y: 20, w: 6, h: 2 } }   # a slow-venting steam grate, avoidable
+    - { tier: standard, rect_tiles: { x: 56, y: 20, w: 6, h: 2 } } # a grinding gear-tooth track, avoidable
+flavor: "The city's namesake mainspring still coils here, wound past reason, with the Custodian standing watch over its tension."

@@ -1,0 +1,48 @@
+id: map_053
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Tanglevine Draw
+region: verdant
+map_type: field
+level_band: { min: 11, max: 12 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 150, h: 30 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_mosswatch_ridge
+    kind: edge
+    at: { edge: left }
+    target_map: map_052
+    target_spawn: main
+    dead_end: false
+  - id: to_bramblewood
+    kind: edge
+    at: { edge: right }
+    target_map: map_054
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: tanglevine_draw_thicket
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_035, count: 3 }        # shares mob_035 with mosswatch ridge
+      - { mob: mob_036, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_tanglevine_draw
+    at_tile: [22, 21]
+    params:
+      text: "Vines thick as rope choke this draw. Some of them move when you're not looking."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A narrow draw laced with hanging vine-cover over two low terraces, gaps within the
+  5-tile/3.5-tile caps (MAP_TRAVERSAL §1.1). Foothold segments under vine/moss
+  terrain_chunks (ART_BIBLE AB-001); no rope/ladder needed, the vines are dressing only.
+flavor: "The vines here grow thick enough to mistake for rope, and thin enough to snap if you actually trust one."

@@ -1,0 +1,26 @@
+id: mob_095
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Slagshell Tortoise
+tier: normal                     # ID slot 95 = R6 normal (ID_REGISTRY ashfall)
+element: fire                      # R6 element mix is fire/neutral (WORLD_PLAN)
+weak_to: [frost]                  # thematic (ELEMENTS §2; lists mutually exclusive)
+resists: [fire]
+level: 29
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 29
+  life: 4096                     # 4*(29+3)^2
+  power: 93                     # 6+3*29 (touch = round(0.5*power), neutral, §13.1)
+  armor: 174                     # 6*29  (armor+warding sum = 12*29)
+  warding: 174                   # 6*29
+  precision: 116                 # 4*29
+  evasion: 3.9                   # 3 + 0.03*29 (%)
+  exp: 319                       # exp_per_kill_normal(29)=round(4*29^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only territorial_guard-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_095
+flavor: "A ponderous reptile whose shell has fused with cooled slag into a crust that glows dull red at the seams. It holds its patch of scalding rock and dares you to come take it."

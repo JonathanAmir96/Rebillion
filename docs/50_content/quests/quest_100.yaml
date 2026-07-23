@@ -1,0 +1,22 @@
+id: quest_100
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, RAID, ITEMS]
+name: The Deepfrost Reckoning
+region: frostpeak
+quest_type: side
+giver_npc: npc_095
+level_requirement: 45
+recommended_level: 45
+prereqs: [quest_099]
+steps:
+  - type: kill  # Skoldir, the Rimewyrm -- via raid_deepfrost's finale instance or the arena's open solo entry (RAID.md §7)
+    target: mob_178
+    count: 1
+rewards:
+  exp: 19176  # round(0.08*239,700); raid_deepfrost handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
+  shards: 284  # mean_shards_normal(45)*4 = 71*4
+  items:
+    - { id: item_use_0017, qty: 3 }
+flavor: "Skarn keeps a tally of every muster that's put Skoldir down, and pays out of the herald's own cache for it."
+offer_text: "Bring the Rimewyrm down -- raid or open gate, I don't care which -- and I'll see the muster paid properly."
+complete_text: "Skoldir's down. Ice and iron, well earned. The Deepfrost's yours to run again whenever the cooldown clears."

@@ -1,0 +1,32 @@
+id: map_176
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Warden's Vault
+region: sunken
+map_type: arena
+level_band: { min: 38, max: 38 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 64, h: 40 }
+water_physics: true
+bgm: bgm_boss_sunken
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [32, 30] }
+portals:
+  - id: to_vault_threshold
+    kind: door
+    at: { tile: [6, 30] }
+    target_map: map_173
+    target_spawn: main
+    dead_end: false  # ordinary open-entry pairing with map_173's to_wardens_vault door (MAPS_SYSTEM §8: arena's dedicated door entrance)
+npcs: []
+platform_brief: |
+  A tall, flooded vault chamber rising two screens, the Warden's dais at the center of a
+  sunken floor. No verticality gimmick beyond the chamber's sheer height framing the fight;
+  hazards are authored on arena_config, not the platform itself.
+arena_config:
+  boss_mob_id: mob_128
+  gate: { type: open }
+flavor: "The last door of a drowned kingdom, and the armored husk that has kept it a hundred years past anyone needing it kept."

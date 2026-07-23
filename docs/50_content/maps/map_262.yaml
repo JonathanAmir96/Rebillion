@@ -1,0 +1,42 @@
+id: map_262
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Rimeless Height
+region: arcane_reach
+map_type: field
+level_band: { min: 65, max: 66 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 175, h: 30 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_last_causeway
+    kind: edge
+    at: { edge: left }
+    target_map: map_261
+    target_spawn: main
+    dead_end: false
+  - id: to_stormglass_ridge
+    kind: edge
+    at: { edge: right }
+    target_map: map_263
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: rimeless_height_stretch
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_192, count: 2 }
+      - { mob: mob_193, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A high, wind-scoured shelf where the void mist thins enough to see the drop clearly for
+  once. Two terraces stepped by a 3-tile rise, within the standing-jump cap (MAP_TRAVERSAL
+  §1.1). No verticality gimmick beyond the exposure itself.
+flavor: "The mist thins up here, just enough to remind you exactly how far the fall would be."

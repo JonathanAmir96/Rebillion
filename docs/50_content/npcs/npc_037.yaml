@@ -1,0 +1,13 @@
+id: npc_037
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, PERSISTENCE, ECONOMY]
+name: Cobb Underroot
+region: verdant
+map: map_043
+role: banker                      # co-located with map_043's storage_chest (npc.schema role enum)
+services: [storage]                # role floor: banker -> services >= {storage} (npc.schema rule 1)
+dialog:
+  greeting: "Whatever you can't carry, I'll keep dry and out of root-rot."
+  farewell: "It'll all still be there. The chest doesn't wander."
+portrait: portrait_npc_037
+flavor: "Cobb keeps Mossmere's storage chest bone-dry against the hollow's damp, a small miracle nobody quite understands."

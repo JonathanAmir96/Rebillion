@@ -1,0 +1,37 @@
+id: skill_weaver_014
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Incinerate                  # exact JOBS.md §4.3 Cindercall roster name (skill.schema rule 1)
+line: weaver
+tier: second                      # Cindercall is a 2nd-advancement (Lv 40) spec (JOBS §1, SKILL_SYSTEM §2)
+kind: active
+targeting: { shape: projectile, speed: 14, range: 10, pierce: 0, gravity: false, impact_radius: 0 }   # roster target `projectile`
+cost: { essence: 14 }
+cooldown: 8.0
+level_data:
+  - level: 1
+    essence_cost: 14
+    cooldown: 8.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.2 }
+      - { op: apply_status, status: burn, chance: 0.60, stacks: 1 }   # stack cap 5 (STATUS_EFFECTS §4.1)
+  - level: 4
+    essence_cost: 18
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.6 }
+      - { op: apply_status, status: burn, chance: 0.70, stacks: 2 }
+  - level: 7
+    essence_cost: 22
+    cooldown: 6.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 2.0 }
+      - { op: apply_status, status: burn, chance: 0.80, stacks: 3 }
+  - level: 10
+    essence_cost: 26
+    cooldown: 5.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 2.4 }
+      - { op: apply_status, status: burn, chance: 0.90, stacks: 4 }
+animation: skill_weaver_014_cast
+flavor: "A fast fire bolt built to stack burn faster than it burns off. The Cindercall's bread-and-butter opener."

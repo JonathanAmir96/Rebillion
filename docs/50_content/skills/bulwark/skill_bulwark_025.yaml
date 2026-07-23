@@ -1,0 +1,41 @@
+id: skill_bulwark_025
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Break Their Line
+line: bulwark
+tier: second
+kind: active
+targeting: { shape: aoe_circle, radius: 2.5, origin: self }   # landing point becomes the origin after the leap (SKILL_SYSTEM §6)
+cost: { essence: 16 }
+cooldown: 14.0
+level_data:
+  - level: 1
+    essence_cost: 16
+    cooldown: 14.0
+    effects:
+      - { op: leap, distance: 5, height: 3, target: point }
+      - { op: deal_damage, element: neutral, mult: 1.2 }
+      - { op: apply_status, status: weaken, chance: 0.4 }
+  - level: 4
+    essence_cost: 19
+    cooldown: 12.0
+    effects:
+      - { op: leap, distance: 5, height: 3, target: point }
+      - { op: deal_damage, element: neutral, mult: 1.6 }
+      - { op: apply_status, status: weaken, chance: 0.5 }
+  - level: 7
+    essence_cost: 22
+    cooldown: 10.0
+    effects:
+      - { op: leap, distance: 5, height: 3, target: point }
+      - { op: deal_damage, element: neutral, mult: 2.0 }
+      - { op: apply_status, status: weaken, chance: 0.6 }
+  - level: 10
+    essence_cost: 25
+    cooldown: 8.0
+    effects:
+      - { op: leap, distance: 5, height: 3, target: point }
+      - { op: deal_damage, element: neutral, mult: 2.4 }
+      - { op: apply_status, status: weaken, chance: 0.7 }
+animation: skill_bulwark_025_cast
+flavor: "The Warcaller leaps clean over the front rank and lands square in the middle of the enemy line, breaking their formation and their nerve."

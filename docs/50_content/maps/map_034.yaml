@@ -1,0 +1,53 @@
+id: map_034
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Sunken Row
+region: millbrook
+map_type: field
+level_band: { min: 12, max: 13 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_old_town
+ambience: [amb_wind, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 22] }
+portals:
+  - id: to_millworks_yard
+    kind: edge
+    at: { edge: left }
+    target_map: map_033
+    target_spawn: main
+    dead_end: false
+  - id: to_cellar_outskirts
+    kind: edge
+    at: { edge: right }
+    target_map: map_035
+    target_spawn: main
+    dead_end: false
+  - id: to_forgotten_cold_cellar        # secret branch (MAP_CONNECTIONS §5 pattern)
+    kind: door
+    at: { tile: [90, 20] }
+    target_map: map_041
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_row_zone
+    rect_tiles: { x: 40, y: 16, w: 70, h: 10 }
+    mobs:
+      - { mob: mob_020, count: 2 }
+      - { mob: mob_021, count: 3 }        # shadow-tier normal introduced (WORLD_PLAN R2: 8 neutral, 4 shadow)
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_sunken_row
+    at_tile: [24, 21]
+    params:
+      text: "The row sags where the old cellars gave way beneath it -- a loose flagstone here and there hides a way down."
+      interact_prompt: Read
+platform_brief: |
+  A row of tilted, half-swallowed buildings, single band with a shallow sunken
+  pocket mid-map crossable within the standard jump budget (MAP_TRAVERSAL §1.1).
+  Terrain is foothold segments under painted terrain_chunks (ART_BIBLE AB-001).
+flavor: "Whole storefronts along the Sunken Row have slumped into whatever's hollow beneath Millbrook, and nobody's in a hurry to dig them out."

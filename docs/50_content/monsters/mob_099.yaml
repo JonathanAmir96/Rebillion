@@ -1,0 +1,25 @@
+id: mob_099
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Scoria Sentinel
+tier: normal                     # ID slot 99 = R6 normal (ID_REGISTRY ashfall)
+element: neutral                      # R6 element mix is fire/neutral (WORLD_PLAN)
+resists: [fire]
+level: 31
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 31
+  life: 4624                     # 4*(31+3)^2
+  power: 99                     # 6+3*31 (touch = round(0.5*power), neutral, §13.1)
+  armor: 186                     # 6*31  (armor+warding sum = 12*31)
+  warding: 186                   # 6*31
+  precision: 124                 # 4*31
+  evasion: 3.9                   # 3 + 0.03*31 (%)
+  exp: 347                       # exp_per_kill_normal(31)=round(4*31^1.3) (LEVELING §3)
+ai_profile: stationary_turret
+ai_params:                       # override only stationary_turret-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  attack_cooldown_s: 2.5
+  windup_s: 0.6
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_099
+flavor: "A rooted spire of heaped slag and stone that only reveals itself by the rock it flings down the draw. Metronomic, patient, and impossible to pull from its post."

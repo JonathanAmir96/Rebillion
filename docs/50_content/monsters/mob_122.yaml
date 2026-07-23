@@ -1,0 +1,27 @@
+id: mob_122
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Abyssal Ray
+tier: normal                     # ID slot 122 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: frost                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 37
+size_class: large
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 37
+  life: 6400                     # 4*(37+3)^2
+  power: 117                      # 6+3*37 (touch = round(0.5*power), neutral, §13.1)
+  armor: 222                     # 6*37  (armor+warding sum = 444 = 12*37)
+  warding: 222                   # 6*37
+  precision: 148                 # 4*37
+  evasion: 4.11                   # 3 + 0.03*37 (%)
+  exp: 437                       # exp_per_kill_normal(37)=round(4*37^1.3) (LEVELING §3)
+ai_profile: aerial_swooper
+ai_params:                       # override only aerial_swooper-declared tunables (AI_BEHAVIOR)
+  patrol_altitude: 5
+  swoop_speed_mult: 2.2
+  climb_recover_s: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_122
+# rules the deepest vault on cold wingbeats (AI_BEHAVIOR §9) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "A great pale ray broad as a fishing sail, ruling the deepest flooded vault on slow, cold wingbeats and diving on anything that dares its water. The glow along its wings is the only light in that drowned dark."

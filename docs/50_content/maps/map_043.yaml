@@ -1,0 +1,70 @@
+id: map_043
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Mossmere Township
+region: verdant
+map_type: town
+level_band: { min: 8, max: 8 }          # town band, tight (MAPS_SYSTEM §4)
+biome: verdant_hollow                    # fixed by region (MAP_LAYERS §4, note: slug 'verdant' != biome key)
+tileset: tileset_verdant_hollow
+size_tiles: { w: 112, h: 24 }            # town: ~2-4 screens wide (MAPS_SYSTEM §2)
+bgm: bgm_town_verdant                     # town pattern bgm_town_<region_slug> (MAPS_SYSTEM §5)
+ambience: [amb_leaves, amb_birdsong]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [54, 18] }
+  - { id: from_millbrook, tile: [10, 18] }   # ring-road arrival from Millbrook (WORLD_PLAN edge table)
+  - { id: coach_stop, tile: [70, 18] }       # coach_station arrival (MAP_CONNECTIONS §2)
+portals:
+  - id: to_millbrook_outskirts               # ring-road edge, both endpoints authored (WORLD_PLAN edge table)
+    kind: edge
+    at: { edge: left }
+    target_map: map_027                       # sibling map, Millbrook batch not yet authored -- dangling by design
+    target_spawn: from_verdant
+    dead_end: false
+  - id: to_athenaeum
+    kind: door
+    at: { tile: [46, 18] }
+    target_map: map_044
+    target_spawn: main
+    dead_end: false
+  - id: to_mossmere_inn
+    kind: door
+    at: { tile: [62, 18] }
+    target_map: map_045
+    target_spawn: main
+    dead_end: false
+  - id: to_hollow_path
+    kind: edge
+    at: { edge: right }
+    target_map: map_046
+    target_spawn: main
+    dead_end: false
+  - id: coach_mossmere                        # Harthmoor Coachworks portal (MAP_CONNECTIONS §3)
+    kind: coach
+    at: { tile: [70, 18] }
+    target_map: map_018                        # authoring-convention fixed value; live pick is menu-driven
+    target_spawn: coach_stop
+interactables:
+  - type: coach_station
+    id: coach_station_mossmere
+    at_tile: [70, 17]
+    params: {}
+  - type: storage_chest
+    id: chest_mossmere
+    at_tile: [56, 17]
+    params:
+      scope: character
+  - type: lore_marker
+    id: marker_mossmere_hollow
+    at_tile: [30, 18]
+    params:
+      text: "Moss climbs every roofline here -- Mossmere was built to be swallowed gently by the hollow, not to fight it."
+      interact_prompt: Read
+npcs: [npc_034, npc_036, npc_037]            # bidirectional with each NPC's `map`; athenaeum/inn NPCs live on 044/045
+platform_brief: |
+  Flat mossy square on a single band, no verticality gimmick -- a welcoming ring town.
+  Terrain is foothold segments dressed with painted terrain_chunks (ART_BIBLE AB-001,
+  MAP_TRAVERSAL v2.4). Millbrook road west, the hollow's first field east, the athenaeum
+  and inn doors flank the square; the whole walkable span is one continuous foothold.
+flavor: "Mossmere sits half-sunk in ferns and lantern-moss where the ring road meets the hollow, its roofs green with the same growth that hems the wild beyond."

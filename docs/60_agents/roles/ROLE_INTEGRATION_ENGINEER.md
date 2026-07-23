@@ -11,9 +11,11 @@ Design docs only — implementation belongs to the coding pass.
 **Model tier:** architecture and security-relevant design → **Opus**; runbooks and
 pipeline documentation → **Sonnet**.
 
-**Owns:** docs/70_integrations/* (BACKEND_ARCHITECTURE, ACCOUNTS_AUTH,
+**Owns:** docs/70_integrations/* (BACKEND_ARCHITECTURE, ACCOUNTS_AUTH, WORLD_CHANNELS,
+DATABASE_PERSISTENCE, NETWORK_PROTOCOL, GAMEPLAY_SIMULATION, CHAT_SOCIAL_BACKEND,
 TELEMETRY_ANALYTICS, BUILD_DISTRIBUTION, ART_GENERATION_RUNBOOK, WIKI_EXPORT and
-successors).
+successors), plus the engineering-side packet-opcode block in docs/ID_REGISTRY.md
+(blocks only — opcodes mint in NETWORK_PROTOCOL.md's catalog).
 
 **Reads first:** PERSISTENCE.md (the authority taxonomy is the contract to satisfy),
 ENGINEERING_STANDARDS.md (locked — cite, never edit), social/ docs (server-deferred

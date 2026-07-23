@@ -8,15 +8,17 @@ docs/VALIDATION.md
 ## Purpose
 
 Defines the **JobData Resource** shape — one per job for the 9 authored jobs (`novice` + 8
-advancement jobs: 4 first + 4 second) in `10_systems/JOBS.md` §0; the four 3rd-tier jobs are
-named-and-reserved for future arcs (`10_systems/JOBS.md` §0.1) and get **no** Resources this arc. It describes a job's identity, its line/tier band, its weapon
-type, its stat-growth model, the skill IDs it unlocks, and its advancement hook, so the runtime can
-gate skill tiers (`10_systems/SKILL_SYSTEM.md` §2), apply auto-growth (`10_systems/STATS.md` §4.2),
-and enforce advancement (`10_systems/JOBS.md` §1). Read by the stat/skill/quest runtimes; owned as a
-shape contract by this schema.
+advancement jobs: first+second per line) in `10_systems/JOBS.md` §0. The four 3rd-tier jobs
+(Aegis/Skypiercer/Highweaver/Nightdancer) are named-and-reserved for a future arc
+(`00_vision/GLOSSARY.md` Job lines; `00_vision/SCOPE.md` Deliberate scope limits) — no JobData
+resource is generated for them this run. It describes a job's identity, its line/tier band, its
+weapon type, its stat-growth model, the skill IDs it unlocks, and its advancement hook, so the
+runtime can gate skill tiers (`10_systems/SKILL_SYSTEM.md` §2), apply auto-growth
+(`10_systems/STATS.md` §4.2), and enforce advancement (`10_systems/JOBS.md` §1). Read by the
+stat/skill/quest runtimes; owned as a shape contract by this schema.
 
 **Deviation — jobs are not authored as `50_content` YAML in this run (state this loudly).** The 9
-jobs are already **fully specified** in the `10_systems/JOBS.md` §0–§7 roster tables; there is
+authored jobs are already **fully specified** in the `10_systems/JOBS.md` §0–§7 roster tables; there is
 nothing left to hand-author per job. The coding pass (`60_agents/`, Phase E) **generates** these
 JobData Resources deterministically from `10_systems/JOBS.md` (identity, roster, skill ranges),
 `10_systems/STATS.md` §4 (growth), and `docs/ID_REGISTRY.md` (skill ranges). This schema therefore
@@ -31,9 +33,9 @@ content-authoring template a Phase D agent fills. The `## Template` block shows 
   the coding pass's (`30_engineering/ENGINEERING_STANDARDS.md`); this schema fixes only the field
   shape.
 - **One Resource per job**, 9 total: `job_novice` + `job_<line>_<tier>` for each of
-  {`bulwark`,`keeneye`,`weaver`,`flicker`} × {`first`,`second`}. No `third`-tier Resource is
-  generated this arc — those jobs are reserved-future (IDs/names reserved,
-  `10_systems/JOBS.md` §0.1).
+  {`bulwark`,`keeneye`,`weaver`,`flicker`} × {`first`,`second`}. Third-tier jobs are
+  named-and-reserved for a future arc (`00_vision/GLOSSARY.md` Job lines; `00_vision/SCOPE.md`
+  Deliberate scope limits) — no `job_<line>_third` resource is generated this run.
 - **No content front-matter trio.** Because a JobData Resource is not a `50_content` YAML, it is
   **exempt from `docs/VALIDATION.md` check 3** (`id`/`schema`/`references` front-matter, which
   applies to content files). It carries a stable `id` for referencing, but no `schema:`/`references:`
@@ -50,20 +52,20 @@ gate (`10_systems/SKILL_SYSTEM.md` §8); display strings are `client`.
 | Field | Type | Required | References | Notes |
 |---|---|---|---|---|
 | `id` | string `job_<line>_<tier>` | yes | this schema; `10_systems/JOBS.md` §0 | `job_novice` for the shared class; else `job_<line>_<tier>`. A derived-resource id, **not** an `docs/ID_REGISTRY.md`-minted content ID (no job block exists — see Open Questions). `server`. |
-| `name` | string | yes | `10_systems/JOBS.md` §0 | Display name — `Novice`, `Bulwark`, `Ironbrand`, `Keeneye`, `Pathstalker`, `Weaver`, `Runeweaver`, `Flicker`, `Duskstep`. Must match the §0 table (Validation); the four 3rd-job names (`10_systems/JOBS.md` §0.1) are reserved-future and never appear. `client`. |
+| `name` | string | yes | `10_systems/JOBS.md` §0 | Display name — `Novice`, `Bulwark`, `Ironbrand`, `Aegis`, `Keeneye`, `Pathstalker`, `Skypiercer`, `Weaver`, `Runeweaver`, `Highweaver`, `Flicker`, `Duskstep`, `Nightdancer`. Must match the §0 table (Validation). `client`. |
 | `line` | enum | yes | `10_systems/JOBS.md` / GLOSSARY Job lines | `bulwark`\|`keeneye`\|`weaver`\|`flicker`\|`novice`. `server`. |
-| `tier` | enum | yes | `10_systems/JOBS.md` §1 | `novice`\|`first`\|`second` (`third` reserved-future, never generated this arc). `server`. |
-| `advancement_level` | int | yes | `10_systems/JOBS.md` §1 | The `level` at which this job is entered: `1` (novice), `8` (first), `40` (second). Must agree with `tier` (Validation). `server`. |
+| `tier` | enum | yes | `10_systems/JOBS.md` §1 | `novice`\|`first`\|`second`\|`third`. `server`. |
+| `advancement_level` | int | yes | `10_systems/JOBS.md` §1 | The `level` at which this job is entered: `1` (novice), `8` (first), `40` (second). The 3rd tier has no authored advancement level — it is named-and-reserved for a future arc (`00_vision/GLOSSARY.md` Job lines; `00_vision/SCOPE.md` Deliberate scope limits) and no `job_<line>_third` resource exists to carry one. Must agree with `tier` (Validation). `server`. |
 | `weapon_type` | enum | no (omit for novice) | `00_vision/GLOSSARY.md` Weapon types; `10_systems/ITEMS.md` | The line's weapon (`blade`/`bow`/`staff`/`dirk`); one per line (`10_systems/JOBS.md` §0). **Omitted for `novice`** (weapon-agnostic starter kit, `10_systems/JOBS.md` §6). Equip-restriction enforcement is `10_systems/ITEMS.md`'s. `server`. |
 | `stat_growth` | map | yes | `10_systems/STATS.md` §4.1–§4.3 | The auto-growth + free-pool model, **baked from `10_systems/STATS.md` §4** at generation (this schema never restates the deltas). Sub-fields below. `server`. |
 | `stat_growth.main_primary` | enum \| null | yes | `10_systems/STATS.md` §1; `10_systems/JOBS.md` §0 | The line's driving primary (`might`/`finesse`/`focus`/`fortune`) that auto-grows fastest from Lv 9 (`10_systems/STATS.md` §4.2). **`null` for `novice`** (all four grow equally). |
-| `stat_growth.base_primaries` | map | yes | `10_systems/STATS.md` §4.1 | Lv-1 base (global `5/5/5/5`); identical across all 9 jobs (copied from `10_systems/STATS.md` §4.1). |
+| `stat_growth.base_primaries` | map | yes | `10_systems/STATS.md` §4.1 | Lv-1 base (global `5/5/5/5`); identical across all 9 authored jobs (copied from `10_systems/STATS.md` §4.1). |
 | `stat_growth.growth_rows` | list[row] | yes | `10_systems/STATS.md` §4.2 | Per-band auto-growth deltas, copied verbatim from `10_systems/STATS.md` §4.2 (novice band = +1 all; advanced band = main / off deltas). Row shape `{band, applies_levels, main_delta, off_delta}`. |
 | `stat_growth.free_points_per_level` | int | yes | `10_systems/STATS.md` §4.3 | Global free-allocation grant per level-up (copied from §4.3). Identical across jobs. |
-| `skills` | list[skill id] | yes | `docs/ID_REGISTRY.md` Skills; `10_systems/JOBS.md` §1 | The skill IDs this job **tier unlocks** — its ID sub-block: first `skill_<line>_001`–`006`, second `007`–`013` (`014`–`030` reserved-future); `job_novice` → `skill_novice_001`–`004`. Cumulative availability (prior tiers) is composed by the runtime (`10_systems/SKILL_SYSTEM.md` §2), not this list. Must match the range (Validation). `server`. |
+| `skills` | list[skill id] | yes | `docs/ID_REGISTRY.md` Skills; `10_systems/JOBS.md` §1 | The skill IDs this job **tier unlocks** — its ID sub-block: first `skill_<line>_001`–`006`, second `007`–`013`; `job_novice` → `skill_novice_001`–`004`. `skill_<line>_014`–`021` are **reserved** for the deferred 3rd-job tier (`10_systems/JOBS.md` §1; `docs/ID_REGISTRY.md`) — not authored this run and never populate an authored `skills` list. Cumulative availability (prior tiers) is composed by the runtime (`10_systems/SKILL_SYSTEM.md` §2), not this list. Must match the range (Validation). `server`. |
 | `advancement` | map | yes | `10_systems/JOBS.md` §1 | The advancement hook into this job. Sub-fields below. `server`. |
-| `advancement.requires_prior` | string (job id) \| null | yes | `10_systems/JOBS.md` §1 | The job that must precede this one (linear chain: `first`←`job_novice`, `second`←`first`). `null` for `novice`. |
-| `advancement.trainer_town` | enum \| null | yes | `10_systems/JOBS.md` §1; `docs/WORLD_PLAN.md` v2.3 | The line's **home town, for both advancements** (advancement pilgrimage + Lv 40 return): `bulwark`→`cindershelf`, `keeneye`→`tidewatch_port`, `weaver`→`mossmere`, `flicker`→`millbrook_central`; `null` for `novice`. |
+| `advancement.requires_prior` | string (job id) \| null | yes | `10_systems/JOBS.md` §1 | The job that must precede this one (linear chain: `first`←`job_novice`, `second`←`first`). `null` for `novice`. A `third`←`second` link is not applicable — `third` is named-and-reserved only, no `job_<line>_third` resource is authored this run (`00_vision/GLOSSARY.md` Job lines; `00_vision/SCOPE.md` Deliberate scope limits). |
+| `advancement.trainer_town` | enum \| null | yes | `10_systems/JOBS.md` §1; `docs/WORLD_PLAN.md` "Job instructors" | The line's home-town region hosting its job instructor (`bulwark`→`ashfall` [Cindershelf], `keeneye`→`tidewatch` [Tidewatch Port], `weaver`→`verdant` [Mossmere], `flicker`→`millbrook` [Millbrook Central]); the **same** instructor issues both first and second advancement (`10_systems/JOBS.md` §1). `null` for `novice`. `server`. |
 | `advancement.quest` | string `quest_NNN` \| null | yes | `10_systems/JOBS.md` §1; `10_systems/QUESTS.md`; `docs/ID_REGISTRY.md` | The trainer quest gate. **`null` until Phase D authors trainer quests** (`10_systems/JOBS.md` §1 OQ); when set, a `quest_NNN` in the trainer town's quest block. `server`. |
 | `advancement.trainer_npc` | string `npc_NNN` \| null | yes | `10_systems/JOBS.md` §1; `docs/ID_REGISTRY.md` | The job-trainer NPC. **`null` until Phase D**; when set, an `npc_NNN` in the trainer town's NPC block. `server`. |
 
@@ -74,10 +76,10 @@ Points at owners; never redefines members.
 | Field | Owning registry |
 |---|---|
 | `line` | `10_systems/JOBS.md` / `00_vision/GLOSSARY.md` Job lines (+`novice`). |
-| `tier` | `10_systems/JOBS.md` §1: `novice`·`first`·`second` (`third` reserved-future, §0.1 there). |
+| `tier` | `10_systems/JOBS.md` §1: `novice`·`first`·`second`·`third`. |
 | `weapon_type` | `00_vision/GLOSSARY.md` Weapon types (owner `10_systems/ITEMS.md`): `blade`·`bow`·`staff`·`dirk`. |
 | `stat_growth.main_primary` | `00_vision/GLOSSARY.md` Primary stats (owner `10_systems/STATS.md`): `might`·`finesse`·`focus`·`fortune` (or `null`). |
-| `advancement.trainer_town` | `docs/WORLD_PLAN.md` v2.3 home towns (used by `10_systems/JOBS.md` §1): `cindershelf`·`tidewatch_port`·`mossmere`·`millbrook_central`. Town-slug tokens are not yet in `00_vision/GLOSSARY.md` (which owns only region slugs) — flagged in Open Questions. |
+| `advancement.trainer_town` | `docs/WORLD_PLAN.md` region slugs (job-instructor home towns per `docs/WORLD_PLAN.md` "Job instructors"): `ashfall`·`tidewatch`·`verdant`·`millbrook` (or `null`). |
 
 ## Example
 
@@ -94,15 +96,15 @@ stat_growth:
   main_primary: might
   base_primaries: { might: 5, finesse: 5, focus: 5, fortune: 5 }   # STATS §4.1 (global)
   growth_rows:                                                     # STATS §4.2 (copied)
-    - { band: novice,   applies_levels: "2-8", main_delta: 1, off_delta: 1 }
-    - { band: advanced, applies_levels: "9+",  main_delta: 3, off_delta: 1 }   # formula-first to cap 300
+    - { band: novice,   applies_levels: "2-8",   main_delta: 1, off_delta: 1 }
+    - { band: advanced, applies_levels: "9-100", main_delta: 3, off_delta: 1 }
   free_points_per_level: 2                                         # STATS §4.3 (global)
 skills: [skill_bulwark_001, skill_bulwark_002, skill_bulwark_003, skill_bulwark_004, skill_bulwark_005, skill_bulwark_006]
 advancement:
   requires_prior: job_novice
-  trainer_town: cindershelf   # the bulwark line's home town (WORLD_PLAN v2.3)
-  quest: null          # Phase D instructor quest (JOBS §1 OQ)
-  trainer_npc: null    # Phase D instructor NPC
+  trainer_town: ashfall        # bulwark home town = Cindershelf (Ashfall), WORLD_PLAN "Job instructors"
+  quest: null          # Phase D trainer quest (JOBS §1 OQ)
+  trainer_npc: null    # Phase D trainer NPC
 ```
 
 ## Validation rules
@@ -111,16 +113,19 @@ Schema-specific checks. Note: JobData is **exempt from `docs/VALIDATION.md` chec
 per File conventions; it is still subject to referential integrity (check 2) and ID uniqueness
 (check 4, `id` unique among jobs).
 
-1. **Identity ↔ roster (hard).** `id`, `name`, `line`, `tier`, `advancement_level`, and (for the 8)
-   `weapon_type` must match the `10_systems/JOBS.md` §0/§1 roster: `tier`→`advancement_level` is
-   `novice`→1, `first`→8, `second`→40; `weapon_type` is the line's GLOSSARY weapon;
-   `job_novice` omits `weapon_type` and sets `main_primary: null`. No `third`-tier Resource may
-   exist this arc (reserved-future, `10_systems/JOBS.md` §0.1).
+1. **Identity ↔ roster (hard).** `id`, `name`, `line`, `tier`, `advancement_level`, and (for the 8
+   authored advancement jobs) `weapon_type` must match the `10_systems/JOBS.md` §0/§1 roster:
+   `tier`→`advancement_level` is `novice`→1, `first`→8, `second`→40; `third` has no authored
+   advancement level (named-and-reserved only, `00_vision/GLOSSARY.md` Job lines /
+   `00_vision/SCOPE.md` Deliberate scope limits — no `job_<line>_third` resource exists this run);
+   `weapon_type` is the line's GLOSSARY weapon; `job_novice` omits `weapon_type` and sets
+   `main_primary: null`.
 2. **Skill list ↔ ID range (hard).** `skills` equals the line+tier sub-block from `docs/ID_REGISTRY.md`
-   / `10_systems/JOBS.md` §1: first `001`–`006`, second `007`–`013` (`014`–`030` reserved-future,
-   never listed), `job_novice` `skill_novice_001`–`004`. Every id exists as a skill content file
-   (check 2). No id outside the line's block.
-3. **`main_primary` (hard).** For the 8 advancement jobs, `stat_growth.main_primary` is the line's
+   / `10_systems/JOBS.md` §1: first `001`–`006`, second `007`–`013`, `job_novice`
+   `skill_novice_001`–`004`. `014`–`021` are reserved for the deferred 3rd-job tier and never
+   appear in an authored `skills` list (rule 1). Every id exists as a skill content file (check 2).
+   No id outside the line's block.
+3. **`main_primary` (hard).** For the 8 authored advancement jobs, `stat_growth.main_primary` is the line's
    primary (`bulwark`→`might`, `keeneye`→`finesse`, `weaver`→`focus`, `flicker`→`fortune`,
    `10_systems/STATS.md` §1 / `10_systems/JOBS.md` §0); `job_novice` → `null`.
 4. **Growth baked from STATS (hard).** `stat_growth.base_primaries`, `growth_rows`, and
@@ -128,14 +133,18 @@ per File conventions; it is still subject to referential integrity (check 2) and
    copies them; a mismatch means the resource drifted from the owner doc).
 5. **Advancement chain (hard).** `advancement.requires_prior` forms the linear chain
    (`first`←`job_novice`, `second`←`first`; `novice`→`null`) with no branching
-   (`00_vision/SCOPE.md`). `advancement.trainer_town` is the line's home town for **both** first
-   and second (`bulwark`→`cindershelf`, `keeneye`→`tidewatch_port`, `weaver`→`mossmere`,
-   `flicker`→`millbrook_central`), `null` for novice (`10_systems/JOBS.md` §1,
-   `docs/WORLD_PLAN.md` v2.3).
+   (`00_vision/SCOPE.md`). A `third`←`second` link is not applicable this run — no
+   `job_<line>_third` resource is authored (named-and-reserved, `00_vision/GLOSSARY.md` Job lines
+   / `00_vision/SCOPE.md` Deliberate scope limits). `advancement.trainer_town` is the line's
+   home-town region for **both** first and second advancement (`bulwark`→`ashfall`,
+   `keeneye`→`tidewatch`, `weaver`→`verdant`, `flicker`→`millbrook`; `docs/WORLD_PLAN.md` "Job
+   instructors"), `null` for novice.
 6. **Advancement hooks resolve when set (hard-when-present).** `advancement.quest`/`trainer_npc` are
-   `null` until Phase D; once set they must resolve to a `quest_NNN`/`npc_NNN` in the home town's
-   region blocks (`docs/ID_REGISTRY.md`, `docs/WORLD_PLAN.md`) — the same home-town instructor
-   issues both advancements (`10_systems/JOBS.md` §1). A non-null broken ref fails (check 2).
+   `null` until Phase D; once set they must resolve to a `quest_NNN`/`npc_NNN` in the trainer town's
+   block (`docs/ID_REGISTRY.md`, `docs/WORLD_PLAN.md`) — a trainer quest/NPC in the line's
+   home-town region block for both first and second advancement (bulwark→Cindershelf/Ashfall,
+   keeneye→Tidewatch Port/Tidewatch, weaver→Mossmere/Verdant, flicker→Millbrook Central/Millbrook;
+   `docs/WORLD_PLAN.md` "Job instructors"). A non-null broken ref fails (check 2).
 
 ## Template
 
@@ -144,20 +153,20 @@ per File conventions; it is still subject to referential integrity (check 2) and
 id: job_{line}_{tier}                 # job_novice for the shared class
 name: "{JOBS.md §0 display name}"
 line: {bulwark|keeneye|weaver|flicker|novice}
-tier: {novice|first|second}            # third reserved-future (JOBS §0.1)
-advancement_level: {1|8|40}            # per tier
+tier: {novice|first|second}           # third is named-and-reserved only, not authored (see Fields)
+advancement_level: {1|8|40}           # per tier; third has no authored level (see Fields)
 stat_growth:
   main_primary: {might|finesse|focus|fortune}   # null for novice
   base_primaries: { might: {n}, finesse: {n}, focus: {n}, fortune: {n} }   # from STATS §4.1
   growth_rows:                                                             # from STATS §4.2
-    - { band: novice,   applies_levels: "2-8", main_delta: {n}, off_delta: {n} }
-    - { band: advanced, applies_levels: "9+",  main_delta: {n}, off_delta: {n} }   # to cap 300
+    - { band: novice,   applies_levels: "2-8",   main_delta: {n}, off_delta: {n} }
+    - { band: advanced, applies_levels: "9-100", main_delta: {n}, off_delta: {n} }
   free_points_per_level: {n}                                              # from STATS §4.3
 skills: [{the line+tier ID sub-block from ID_REGISTRY / JOBS §1}]
 advancement:
   requires_prior: {prior job id | null}
-  trainer_town: {cindershelf|tidewatch_port|mossmere|millbrook_central|null}   # the line's home town (WORLD_PLAN v2.3)
-  quest: {quest_NNN | null}            # null until Phase D authors instructor quests
+  trainer_town: {ashfall|tidewatch|verdant|millbrook|null}
+  quest: {quest_NNN | null}            # null until Phase D authors trainer quests
   trainer_npc: {npc_NNN | null}        # null until Phase D
 # weapon_type omitted for novice; else:
 # weapon_type: {blade|bow|staff|dirk}
@@ -173,11 +182,6 @@ advancement:
   it is not a `50_content` file (`docs/VALIDATION.md` check 3 targets content files). Confirm the
   validator special-cases derived-resource schemas so this exemption is explicit rather than a silent
   gap in check 3.
-- **Town-slug tokens.** `advancement.trainer_town` uses town slugs (`cindershelf`,
-  `tidewatch_port`, `mossmere`, `millbrook_central`) derived from the `docs/WORLD_PLAN.md` v2.3
-  town names; `00_vision/GLOSSARY.md` currently owns only **region** slugs. Propose promoting the
-  town slugs to GLOSSARY (Provisional) at the C gate, or swapping this field to `map_NNN` town
-  IDs if the owner prefers — flagged, not guessed.
 - **Growth redundancy.** All growth fields except `main_primary` are global constants
   (`10_systems/STATS.md` §4.1–§4.3), baked identically into all 9 resources. If the coding pass
   prefers a single shared growth model referenced by `main_primary` alone, that is an

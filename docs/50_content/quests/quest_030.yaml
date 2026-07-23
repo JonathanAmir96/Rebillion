@@ -1,0 +1,25 @@
+# side band 5-10% of exp_to_next(12)=4,949 (LEVELING §1); pct=0.06. shards = mean_shards_normal(12)*4
+# = 21*4 (QUESTS §5 / DROPS §3).
+id: quest_030
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Twisting Roots, Twisting Trouble
+region: verdant
+quest_type: side
+giver_npc: npc_039
+prereqs: [quest_029]
+level_requirement: 12
+recommended_level: 12
+steps:
+  - type: kill
+    target: mob_035
+    count: 10
+  - type: collect
+    target: item_etc_0040          # sourced from mob_035's drop table (parallel monster batch)
+    count: 5
+rewards:
+  exp: 297                        # round(0.06 * 4,949)
+  shards: 84                      # mean_shards_normal(12)*4 = 21*4
+flavor: "The tunnel forks so many times down there that Oskar keeps a tally just to be sure he's not walking in circles."
+offer_text: "Deeper in, the warren doubles back on itself. Thin what's nesting there and bring back a marker of it -- proof I can chart against."
+complete_text: "That matches what I'd charted, more or less. Deeper still, if you've got the nerve."

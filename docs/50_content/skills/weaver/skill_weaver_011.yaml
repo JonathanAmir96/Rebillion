@@ -1,0 +1,37 @@
+id: skill_weaver_011
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Cleansing Light
+line: weaver
+tier: second
+kind: active
+targeting: party                  # roster target `party` (SKILL_SYSTEM §6)
+cost: { essence: 15 }
+cooldown: 12.0
+level_data:
+  - level: 1
+    essence_cost: 15
+    cooldown: 12.0
+    effects:
+      - { op: cleanse_status, tag: control_type, target: party }   # SKILL_EFFECTS §15
+      - { op: heal, scaling: spellpower, mult: 0.8 }
+  - level: 4
+    essence_cost: 18
+    cooldown: 11.0
+    effects:
+      - { op: cleanse_status, tag: control_type, target: party }
+      - { op: heal, scaling: spellpower, mult: 1.1 }
+  - level: 7
+    essence_cost: 21
+    cooldown: 10.0
+    effects:
+      - { op: cleanse_status, tag: control_type, target: party }
+      - { op: heal, scaling: spellpower, mult: 1.4 }
+  - level: 10
+    essence_cost: 24
+    cooldown: 9.0
+    effects:
+      - { op: cleanse_status, tag: control_type, target: party }
+      - { op: heal, scaling: spellpower, mult: 1.7 }
+animation: skill_weaver_011_cast
+flavor: "A wash of clean essence that breaks the party free of stun and root and knits the worst of the damage shut. The Runeweaver's signature mercy."

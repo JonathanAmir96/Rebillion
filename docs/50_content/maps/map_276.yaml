@@ -1,0 +1,42 @@
+id: map_276
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Vault Cache
+region: arcane_reach
+map_type: secret
+level_band: { min: 68, max: 70 }         # secret; may break the field/dungeon curve (WORLD_PLAN)
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 40, h: 30 }              # secret: <=2 screens any dimension (MAPS_SYSTEM §2)
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [20, 24] }
+portals:
+  - id: to_deepest_chamber
+    kind: door
+    at: { tile: [20, 26] }
+    target_map: map_275
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: vault_cache_pocket
+    rect_tiles: { x: 10, y: 12, w: 20, h: 10 }
+    mobs:
+      - { mob: mob_199, count: 2 }              # elevated elite weight, bonus content (SPAWN §2)
+    max_concurrent: 4
+interactables:
+  - type: reactor
+    id: reactor_vault_cache
+    at_tile: [20, 14]
+    params:
+      drop_table_ref: pool_equip_r10
+      respawn_timer_s: 60
+      harvest_prompt: Search
+npcs: []
+platform_brief: |
+  A single sealed pocket-room behind the Deepest Chamber's side door, dense and self-
+  contained. One flat foothold floor, no verticality gimmick -- a reward pocket, not a
+  traversal puzzle (MAPS_SYSTEM §2).
+flavor: "Whoever sealed this cache meant to come back for it. Long enough has passed that they clearly didn't."

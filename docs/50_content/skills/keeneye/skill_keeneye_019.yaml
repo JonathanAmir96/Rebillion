@@ -1,0 +1,29 @@
+id: skill_keeneye_019
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Deadeye Focus                 # exact JOBS.md §3.3 Sureshot roster name
+line: keeneye
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+max_level: 10
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_power: 4 }, mode: flat }
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: apply_status, status: empower, chance: 1.0, dur: 4 }, icd: 6.0 }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_power: 7 }, mode: flat }
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: apply_status, status: empower, chance: 1.0, dur: 5 }, icd: 6.0 }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_power: 10 }, mode: flat }
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: apply_status, status: empower, chance: 1.0, dur: 6 }, icd: 6.0 }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_power: 13 }, mode: flat }
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: apply_status, status: empower, chance: 1.0, dur: 8 }, icd: 6.0 }
+flavor: "One good crit and the Sureshot's whole rhythm locks in — every solid hit sharpens the next."

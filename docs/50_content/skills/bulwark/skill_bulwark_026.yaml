@@ -1,0 +1,24 @@
+id: skill_bulwark_026
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Commanding Presence
+line: bulwark
+tier: second
+kind: passive
+targeting: party                  # party targeting requires passive_stat_bonus scope party_aura (skill.schema rule 5)
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { might: 0.04 }, mode: pct, scope: party_aura }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { might: 0.06 }, mode: pct, scope: party_aura }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { might: 0.08 }, mode: pct, scope: party_aura }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { might: 0.10 }, mode: pct, scope: party_aura }
+flavor: "The Warcaller's mere presence stiffens every spine nearby. A warband fights harder with its commander in sight."

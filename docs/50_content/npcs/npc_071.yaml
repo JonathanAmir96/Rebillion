@@ -1,0 +1,12 @@
+id: npc_071
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Scholar Perrine
+region: sunken
+map: map_156
+role: quest_giver
+dialog:
+  greeting: "Careful -- the whole shelf is one good push from the water. Now, what have you found me?"
+  farewell: "Every tablet you bring back is a sentence of a kingdom no one else remembers."
+portrait: portrait_npc_071
+flavor: "Perrine set up her drift camp the day she realized the ruins below were older than anything in Millbrook's archives."

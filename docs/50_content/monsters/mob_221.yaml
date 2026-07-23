@@ -1,0 +1,26 @@
+id: mob_221
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Sunken Spineturret
+tier: normal                     # ID_REGISTRY: mob_207-226 = R11 normals (14 shadow / 6 neutral)
+element: neutral                     # WORLD_PLAN R11 element mix: shadow/neutral
+weak_to: [fire]
+resists: [frost]
+level: 76                         # monotone gradient along R11 field path map_288-305 (66->80)
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 76
+  life: 24964                    # 4*(76+3)^2
+  power: 234                     # 6+3*76
+  armor: 456                     # 6*76  (armor+warding sum = 912 = 12*76)
+  warding: 456                   # 6*76
+  precision: 304                 # 4*76
+  evasion: 5.28                   # 3 + 0.03*76 (%)
+  exp: 1115                      # round(4*76^1.3) (LEVELING §3 normal x1)
+ai_profile: stationary_turret
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 8
+  attack_cooldown_s: 2.5
+  windup_s: 0.7
+animation_states: [idle, attack, cast, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_221
+flavor: "A rooted coral battery that pivots on its base and rakes its line of fire with barbed spines. Break its cadence and cross the gap."

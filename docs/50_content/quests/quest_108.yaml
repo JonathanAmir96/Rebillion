@@ -1,0 +1,25 @@
+id: quest_108
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Orrery's Loose Gear
+region: arcane_reach
+quest_type: main
+giver_npc: npc_106                # Vault Warden Iskrel, Highrune Sanctum
+prereqs: [quest_106]
+level_requirement: 66
+recommended_level: 66
+steps:                            # parallel: the plating comes off the same construct you're sent to stop
+  - type: kill
+    target: mob_199
+    count: 5
+  - type: collect
+    target: item_etc_0157
+    count: 5
+rewards:
+  exp: 165370                     # round(0.20 * exp_to_next(66)=826,848); main band (QUESTS §4)
+  shards: 1530                    # mean_shards_normal(66)*15 = 102*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 4 }
+flavor: "A loosed orrery-construct has been shedding its own plating across the Shattered Orrery's outer floor, and grinding louder with every pass."
+offer_text: "One of the Orrery's old gear-wardens has slipped its mount and won't stop circling. Put it down and bring back what it's shedding."
+complete_text: "Still ticking, even in pieces. Whatever's driving that thing, it isn't done yet -- but that's one less gear turning against us."

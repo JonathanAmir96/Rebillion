@@ -1,0 +1,26 @@
+id: mob_182
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Mistcreep Lurker
+tier: normal                     # ID slot 182 = R10 normal (ID_REGISTRY Monsters)
+element: shadow                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [arcane]
+resists: [shadow]                # ELEMENTS §2 (mutually exclusive lists)
+level: 54
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 54
+  life: 12996                    # 4*(54+3)^2
+  power: 168                     # 6+3*54
+  armor: 324                    # 6*54  (armor+warding sum = 648 = 12*54)
+  warding: 324                  # 6*54
+  precision: 216                # 4*54
+  evasion: 4.62                 # 3+0.03*54 (%)
+  exp: 715                     # round(4*54^1.3) normal (LEVELING §3)
+ai_profile: ambush_lurker
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  ambush_radius: 2
+  leash_radius: 3
+  aggro_vertical_band: 1
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_182
+flavor: "A pool of void-mist that lies flat as spilled ink across a shard until a foot finds it. What it grabs, it drinks."

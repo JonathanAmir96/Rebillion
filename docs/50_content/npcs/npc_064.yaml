@@ -1,0 +1,15 @@
+id: npc_064
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Innkeeper Sela
+region: ashfall
+map: map_127                     # bidirectional with map_127's npcs[] (both list each other)
+role: innkeeper                  # one per bind town (DEATH_PENALTY §4)
+shop:
+  items: [item_use_0001, item_use_0002, item_use_0014]
+services: [inn_rest]             # role floor: innkeeper -> services >= {inn_rest} (npc.schema rule 1)
+dialog:
+  greeting: "Warm bed, warmer stew -- the Kilnwarm never runs short of either."
+  farewell: "Rest easy. The barrens will still be hot come morning."
+portrait: portrait_npc_064
+flavor: "Sela keeps the Kilnwarm's hearth banked around the clock, and every traveler swears her stew tastes of woodsmoke and home."

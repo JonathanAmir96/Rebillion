@@ -1,0 +1,40 @@
+id: map_070
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Thornheart Grove
+region: verdant
+map_type: arena
+level_band: { min: 16, max: 16 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 70, h: 40 }               # arena: 1-2 screens wide, up to 2 tall for a vertical fight (MAPS_SYSTEM §2)
+bgm: bgm_boss_verdant                       # arena pattern bgm_boss_<region_slug> (MAPS_SYSTEM §5)
+ambience: [amb_leaves]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [8, 30] }
+portals:
+  - id: to_last_root
+    kind: door                              # arena's only entrance-capable portal (MAPS_SYSTEM §8)
+    at: { tile: [5, 30] }
+    target_map: map_067
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: lore_marker
+    id: marker_thornheart_grove
+    at_tile: [12, 29]
+    params:
+      text: "Sunlight breaks through here for the first time since the warrens -- and something huge, moss-armored, waits at the grove's heart."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A sun-broken grove clearing, one open floor with two shallow ~2-tile root-terraces
+  flanking the boss's ground (within MAP_TRAVERSAL §1.1 caps). Foothold segments dressed
+  in thorn/moss terrain_chunks (ART_BIBLE AB-001); enough open ground for a two-phase
+  melee encounter, no rope/ladder.
+arena_config:
+  boss_mob_id: mob_047
+  gate: { type: open }
+  reset_grace_s: 30
+flavor: "Thorns crown the grove's edge like a wall, and at its heart the Thornback Sovereign has slept, half-armored in moss, for longer than Mossmere has stood."

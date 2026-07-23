@@ -1,0 +1,26 @@
+id: mob_028
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Sporeling Swarm
+tier: normal                     # ID slot 028 = first R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]                  # dry spore-flesh (ELEMENTS §2; mutually exclusive lists)
+resists: [nature]
+level: 8
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 8
+  life: 485                      # §13 table Lv 8 (4*(8+3)^2)
+  power: 30                      # 6+3*8 (touch = round(0.5*power), neutral, §13.1)
+  armor: 48                      # 6*8  (armor+warding sum = 96 = 12*8)
+  warding: 48                    # 6*8
+  precision: 32                  # 4*8
+  evasion: 3.2                   # 3 + 0.03*8 (%)
+  exp: 60                        # exp_per_kill_normal(8)=round(4*8^1.3) (LEVELING §3)
+ai_profile: pack_hunter          # weak alone, dangerous when the cap-cloud answers (AI_BEHAVIOR §10)
+ai_params:                       # override only pack_hunter-declared tunables
+  aggro_radius: 5
+  pack_call_radius: 8
+  pack_max_size: 5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_028
+flavor: "A drifting knot of ambulatory sporelings that pops loose from the hollow's rot-logs at a footfall. One is a puff of mold; a whole flush of them buries you in choking cap-dust."

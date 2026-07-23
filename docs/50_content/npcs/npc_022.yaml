@@ -1,0 +1,12 @@
+id: npc_022
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Old Munk
+region: millbrook
+map: map_025
+role: quest_giver
+dialog:
+  greeting: "Ale's middling, but the talk's free -- and lately it's all about the noise under the square."
+  farewell: "Drink your fill. You'll want steady nerves for that undervault business."
+portrait: portrait_npc_022
+flavor: "Old Munk pours the Millwheel's ale slow enough to hear out every rumor twice before it's stale."

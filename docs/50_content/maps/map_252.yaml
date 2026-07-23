@@ -1,0 +1,42 @@
+id: map_252
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, the Long Drift
+region: arcane_reach
+map_type: field
+level_band: { min: 56, max: 57 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 190, h: 28 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_rune_lit_span
+    kind: edge
+    at: { edge: left }
+    target_map: map_251
+    target_spawn: main
+    dead_end: false
+  - id: to_hanging_gardens
+    kind: edge
+    at: { edge: right }
+    target_map: map_253
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: long_drift_stretch
+    rect_tiles: { x: 30, y: 18, w: 84, h: 8 }
+    mobs:
+      - { mob: mob_182, count: 2 }
+      - { mob: mob_183, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A wide, wind-scoured span of moored shard-plate, the widest field yet at 190 tiles. Three
+  low terraces stepped by ~2-tile rises, each an easy standing jump (MAP_TRAVERSAL §1.1). No
+  verticality gimmick -- the length itself is the challenge, not the footing.
+flavor: "The shards run wide and flat here, long enough that the far edge is lost in prismatic haze."

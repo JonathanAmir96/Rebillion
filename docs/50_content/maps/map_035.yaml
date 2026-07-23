@@ -1,0 +1,48 @@
+id: map_035
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Cellar Outskirts
+region: millbrook
+map_type: field
+level_band: { min: 13, max: 14 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_old_town
+ambience: [amb_wind, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 22] }
+portals:
+  - id: to_sunken_row
+    kind: edge
+    at: { edge: left }
+    target_map: map_034
+    target_spawn: main
+    dead_end: false
+  - id: to_catacombs_upper
+    kind: edge
+    at: { edge: right }
+    target_map: map_036
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: cellar_outskirts_zone
+    rect_tiles: { x: 40, y: 16, w: 70, h: 10 }
+    mobs:
+      - { mob: mob_021, count: 2 }
+      - { mob: mob_022, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_cellar_outskirts
+    at_tile: [24, 21]
+    params:
+      text: "The Watch keeps a post here at the mouth of the old catacombs -- past this point, you're on your own."
+      interact_prompt: Read
+npcs: [npc_028]
+platform_brief: |
+  The last open ground before the catacombs mouth, single band, a low rubble
+  step onto the entrance apron within the standard jump budget (MAP_TRAVERSAL
+  §1.1). Terrain is foothold segments under painted terrain_chunks (ART_BIBLE AB-001).
+flavor: "Beyond the Watch post, Millbrook's tended ground gives way to a black stair down into the old catacombs."

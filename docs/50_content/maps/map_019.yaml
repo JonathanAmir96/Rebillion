@@ -1,0 +1,31 @@
+id: map_019
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Anchor & Ember Inn
+region: millbrook
+map_type: interior
+level_band: { min: 8, max: 8 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 26, h: 14 }             # interior: <=1 screen (MAPS_SYSTEM §2)
+bgm: bgm_town_millbrook                  # interior inherits its town's tag (MAPS_SYSTEM §5)
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [13, 10] }
+portals:
+  - id: to_rosen_harbor
+    kind: door
+    at: { tile: [13, 12] }
+    target_map: map_017
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: inn_bed
+    id: inn_bed_019
+    at_tile: [6, 8]
+    params: {}
+npcs: [npc_013]
+platform_brief: |
+  A single low common room, hearth-warm and flat -- no verticality, an inn interior
+  per MAPS_SYSTEM §2/§6 (combat-free).
+flavor: "Driftwood beams and a hearth that never quite goes out; half of Rosen Harbor's gossip changes hands here."
