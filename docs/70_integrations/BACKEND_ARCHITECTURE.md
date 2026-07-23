@@ -35,7 +35,9 @@ items and `shards`; splitting the world into independent parallel worlds would f
 and force cross-world reconciliation the design never asks for. A single logical world keeps one truth
 ledger (`10_systems/PERSISTENCE.md` §2). Population channels are a load/readability valve, not a
 separate world: a crowded town map hosts N parallel copies sharing one character DB, so no economy
-fork occurs. Party-quest stages/finales are per-party instanced by `10_systems/SPAWN.md` §7 and
+fork occurs. ("Towns, popular fields" is illustrative, not a type restriction — channel eligibility
+is demand-driven across the shared map graph; `70_integrations/WORLD_CHANNELS.md` §1 owns the
+eligibility rules and its two exemptions.) Party-quest stages/finales are per-party instanced by `10_systems/SPAWN.md` §7 and
 `10_systems/social/PARTY_QUEST.md` (`pq_undervault` finale `map_042`, `pq_mainspring` finale
 `map_200`), so instance workers are a requirement, not a choice. Open-entry boss arenas are **not**
 per-party: `10_systems/SPAWN.md` §3 runs a regional arena as one shared map that resets once empty

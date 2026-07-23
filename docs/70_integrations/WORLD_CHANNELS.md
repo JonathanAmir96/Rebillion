@@ -69,7 +69,8 @@ occupancy-capped the way §7's channels are:
 | `pq_mainspring` | `map_195`–`map_197` | `map_200` | `mob_150` (The Custodian) |
 
 (`docs/ID_REGISTRY.md` "Maps," `10_systems/social/PARTY_QUEST.md` §1 — cited, not restated.) Party
-membership/size (3–6) is `10_systems/social/PARTY.md` §1/§6's; instance lifecycle (leaving, the 60 s
+size is owned split: the 3-member floor by `10_systems/social/PARTY_QUEST.md` §2, the 6-cap by
+`10_systems/social/PARTY.md` §1; instance lifecycle (leaving, the 60 s
 disconnect grace, full-wipe reset, dissolution) is `10_systems/social/PARTY_QUEST.md` §5's. This doc
 adds one fact neither states: **an active PQ instance never counts against its stage/finale map's
 channel occupancy**, because it isn't a channel of that map at all — `map_042` and `map_200` also
@@ -230,7 +231,8 @@ hundreds-to-low-thousands concurrent (`70_integrations/BACKEND_ARCHITECTURE.md` 
 | Target | Value | One-line rationale |
 |---|---|---|
 | Occupancy cap — `town` maps (2–4 screens wide, `15_maps_system/MAPS_SYSTEM.md` §2) | **150** concurrent players/channel | A multi-screen social hub spreads its crowd across vendors/instructors/coach station rather than one combat viewport, so it tolerates far more simultaneous bodies before it reads as cluttered (P1 readability) |
-| Occupancy cap — `field` / `dungeon` / `interior` / `secret` maps (≤1–2 screens, combat or tight vendor space) | **60** concurrent players/channel | These are the maps where `10_systems/SPAWN.md` §2/§4's mob-density budget lives; past ~60 simultaneous players the shared spawn-zone pool (`target_count`/`max_concurrent`) is contested badly enough to break the "player chooses engagements" pillar (P1), well before the screen itself feels crowded |
+| Occupancy cap — `field` / `dungeon` / `secret` maps (`field` up to 3–6 screens wide, `15_maps_system/MAPS_SYSTEM.md` §2) | **60** concurrent players/channel | These are the maps where `10_systems/SPAWN.md` §2/§4's mob-density budget lives; past ~60 simultaneous players the shared spawn-zone pool (`target_count`/`max_concurrent`) is contested badly enough to break the "player chooses engagements" pillar (P1), even on the widest `field` maps — contention is per spawn zone, not per screen |
+| Occupancy cap — `interior` maps (combat-free, 0/0 density budget, `10_systems/SPAWN.md` §2 / `15_maps_system/MAPS_SYSTEM.md` §6) | **60** concurrent players/channel | No spawn zones to contest — the cap here is room-crowding readability only (a tight vendor/instructor room reads as cluttered far sooner than a town's multi-screen spread); kept equal to the field cap for one fewer ops knob |
 | Max channels per map | **5** (`channel_01`–`channel_05`) | Bounds monitoring/ops surface and prevents a viral event from fragmenting the social graph into copies too thin to feel like a shared world (P3); a map genuinely needing a 6th channel is a launch/patch-day spike ops should handle by cordoning a queue, not by unbounded spin-up |
 | Channel_01 floor | Always resident, never torn down (§3) | It is the map's canonical presence in the world graph — every map must stay routable at population zero the same way any other empty, near-free map process does (`70_integrations/BACKEND_ARCHITECTURE.md` §1) |
 | Extra-channel teardown grace | **5 min** empty before a channel (2+) is torn down | Long enough that ordinary population drift (a quiet minute on a busy map) doesn't thrash spin-up/teardown cycles; short enough that a launch-week spike's extra channels reclaim their world-node budget promptly once the crowd moves on |

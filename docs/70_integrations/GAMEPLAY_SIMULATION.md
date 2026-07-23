@@ -59,7 +59,7 @@ Those are decided here — numbers, not options.
 **Simulation at 20 Hz — rationale.** Side-scroller combat is hit-frame-*event*-driven, not a heavy
 fixed-rate numeric integration (`70_integrations/BACKEND_ARCHITECTURE.md` §2): the tick only has to
 advance AI state machines (`10_systems/AI_BEHAVIOR.md` §1), fire status ticks whose finest real cadence
-is 1 s (`10_systems/STATUS_EFFECTS.md` §4.1 DoT/`regen`), and sample reconciliation. 50 ms granularity
+is 1 s (`10_systems/STATUS_EFFECTS.md` §4.1 DoT / §4.2 `regen`), and sample reconciliation. 50 ms granularity
 is imperceptible against those and keeps a busy map's loop cheap while an empty map's costs nothing
 (§1.3). *Rejected:* **60 Hz** (matching the Godot 4.3 client physics rate) — the client already predicts
 its own movement at 60 Hz locally; the server gains no authority by matching it and triples per-map
