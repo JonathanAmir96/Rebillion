@@ -1,0 +1,11 @@
+id: drop_mob_016
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone/pool -> no ENHANCEMENT/WORLD_PLAN/PARTY
+owner: mob_016
+rows:
+  # shards guaranteed. mean_shards_normal(9)=round(1.5*9+3)=16; range=[round(0.8*16),round(1.2*16)]=[13,19] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 13, qty_max: 19 }
+  # 1 region material, common (DROPS §5.1); item_etc_0020 is this mob's R2 material
+  - { ref: item_etc_0020, chance: common, qty_min: 1, qty_max: 2 }
+  # a use item (tonic) at rare (DROPS §5.1); band-appropriate tonic for Lv 9
+  - { ref: item_use_0001, chance: rare, qty_min: 1, qty_max: 1 }

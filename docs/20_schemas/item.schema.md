@@ -36,18 +36,18 @@ table wrapper" — binding the names here is this schema's job, not a restatemen
 
 | Path | `id` | Row IDs (`docs/ID_REGISTRY.md`) | Authored |
 |---|---|---|---|
-| `equip/weapons.yaml` | `item_table_weapons` | `item_equip_0001`–`0040` | one batch |
-| `equip/armor.yaml` | `item_table_armor` | `item_equip_0041`–`0140` (+ its share of reserved-growth `0181`–`0200`/`0231`–`0300`, ITEMS.md §4 OQ) | one batch |
-| `equip/accessories.yaml` | `item_table_accessories` | `item_equip_0141`–`0180` (+ its share of reserved growth, same OQ) | one batch |
-| `equip/uniques.yaml` | `item_table_uniques` | `item_equip_0201`–`0230` | one batch |
+| `equip/weapons.yaml` | `item_table_weapons` | `item_equip_0001`–`0040` (arc 1, T1–T6) + `0231`–`0254` (arc 2, T7–T12; ID_REGISTRY v3) | arc batches share the file |
+| `equip/armor.yaml` | `item_table_armor` | `item_equip_0041`–`0140` (arc 1) + `0255`–`0284` (arc 2) (+ reserved-growth `0181`–`0200`, ITEMS.md §4 OQ) | arc batches share the file |
+| `equip/accessories.yaml` | `item_table_accessories` | `item_equip_0141`–`0180` (arc 1) + `0285`–`0300` (arc 2) | arc batches share the file |
+| `equip/uniques.yaml` | `item_table_uniques` | `item_equip_0201`–`0222` (bosses #1–#11; `0223`–`0230` reserved) | one batch |
 | `use/consumables.yaml` | `item_table_consumables` | `item_use_0001`–`0060` | one batch (`0001`–`0016` well-known, `docs/ID_REGISTRY.md`) |
-| `etc/materials_r01.yaml` … `materials_r12.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
+| `etc/materials_r01.yaml` … `materials_r11.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
 | `etc/enhancement.yaml` | `item_table_enhancement` | `item_etc_0193`–`0197` (Emberstone I–V; `0198`–`0200` reserved, unauthored) | one batch |
 
-- The **armor/accessories reserved-growth split** (`0181`–`0200`, `0231`–`0300`) is not fixed by
-  this schema — `10_systems/ITEMS.md` §4's own Open Question leaves the per-slot SKU count to
-  Phase D bounded only by `docs/ID_REGISTRY.md`'s ranges; both files may draw from either reserved
-  block as Phase D fills toward `00_vision/SCOPE.md`'s counts.
+- The **reserved-growth split** (`0181`–`0200`) is not fixed by this schema —
+  `10_systems/ITEMS.md` §4's own Open Question leaves the per-slot SKU count to Phase D
+  bounded only by `docs/ID_REGISTRY.md`'s ranges. (`0231`–`0300` was re-blocked at the v3
+  gate as the arc-2 weapons/armor/accessories ranges above and is no longer free growth.)
 - Field values use only GLOSSARY tokens (`docs/VALIDATION.md` §1); no unknown fields
   (`docs/VALIDATION.md` §3).
 

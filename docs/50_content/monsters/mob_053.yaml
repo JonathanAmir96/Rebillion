@@ -1,0 +1,24 @@
+id: mob_053
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Spitting Barnacle
+tier: normal                     # ID slot 053 = R4 normal (ID_REGISTRY Monsters)
+element: neutral
+level: 16
+size_class: small
+stats:                           # all copied from COMBAT_FORMULA §13 normal budget, Lv 16
+  life: 1444                     # 4*(16+3)^2
+  power: 54                      # 6+3*16 (ranged spit; touch n/a for a fixed turret, §13.1)
+  armor: 96                      # 6*16  (armor+warding sum = 192 = 12*16)
+  warding: 96                    # 6*16
+  precision: 64                  # 4*16
+  evasion: 3.48                  # 3 + 0.03*16 (%)
+  exp: 147                       # exp_per_kill_normal(16)=round(4*16^1.3) (LEVELING §3)
+ai_profile: stationary_turret    # cemented to the rocks; punishes standing in its line (AI_BEHAVIOR §13)
+ai_params:                       # override only stationary_turret-declared tunables
+  aggro_radius: 7
+  attack_cooldown_s: 2.5
+  windup_s: 0.6
+animation_states: [idle, attack, hit, die]   # fixed turret: no walk/jump/fall; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_053
+flavor: "A crusted cluster welded to the sea-cliff, harmless until you cross its arc — then it spits a jet of grit and brine hard enough to stagger. It cannot chase; it only waits for you to forget it's there."

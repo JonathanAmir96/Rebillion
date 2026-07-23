@@ -1,0 +1,183 @@
+id: item_table_materials_r04
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R4 Tidewatch Coast monster materials: item_etc_0049-0064 (ID_REGISTRY etc block). One row per
+# R4 normal species (mob_048-063); source_hint cross-checks each drop_mob table (same batch).
+# etc rows carry no `buy` (not vendor-purchasable, ITEMS §1); etc sell has no ECONOMY owner
+# (item.schema OQ) -- first-pass, gentle ~1x-level ramp across the Lv 14-22 band.
+items:
+  - id: item_etc_0049
+    name: Rimeshell Claw
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 14                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 14                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_048          # drops from Shallows Nipper (cross-checks drop_mob_048)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A pinch-claw still sheathed in its skin of rime, cold long after the crab is dead. Coast children string them for luck against the undertow."
+
+  - id: item_etc_0050
+    name: Kelp-Fouled Carapace
+    category: etc
+    rarity: common
+    req_level: 14
+    price:
+      sell: 14
+    source_hint: mob_049          # drops from Kelp Skitterer (cross-checks drop_mob_049)
+    stack: 999
+    flavor: "A drab shell matted with dried wrack and grit, worth little but plentiful. The chandlery buys them by the sackful to grind for fishmeal."
+
+  - id: item_etc_0051
+    name: Brinemaw Fang
+    category: etc
+    rarity: common
+    req_level: 15
+    price:
+      sell: 15
+    source_hint: mob_050          # drops from Brinemaw Gar (cross-checks drop_mob_050)
+    stack: 999
+    flavor: "A needle of a tooth from a cold-water gar, translucent and faintly blue at the root. Fishers barb their handlines with them where the water runs deep."
+
+  - id: item_etc_0052
+    name: Dunerack Pincer
+    category: etc
+    rarity: common
+    req_level: 15
+    price:
+      sell: 15
+    source_hint: mob_051          # drops from Dunerack Crab (cross-checks drop_mob_051)
+    stack: 999
+    flavor: "The heavy shield-claw of a dune crab, thick as a fist and stubborn to crack. Ground down, it makes a grit the harborwatch uses to scour rust off blades."
+
+  - id: item_etc_0053
+    name: Rime Jelly Bell
+    category: etc
+    rarity: common
+    req_level: 16
+    price:
+      sell: 16
+    source_hint: mob_052          # drops from Rime Jelly (cross-checks drop_mob_052)
+    stack: 999
+    flavor: "The glassy dome of a rime jelly, still numbingly cold to hold and prone to fogging over. Salvers render it into a chill-balm that eases a burn."
+
+  - id: item_etc_0054
+    name: Barnacle Cluster
+    category: etc
+    rarity: common
+    req_level: 16
+    price:
+      sell: 16
+    source_hint: mob_053          # drops from Spitting Barnacle (cross-checks drop_mob_053)
+    stack: 999
+    flavor: "A knot of crusted shells prised whole off the sea-cliff, sharp enough to open a careless hand. Burned to lime, it binds the mortar of every wall in the port."
+
+  - id: item_etc_0055
+    name: Frostbrine Eye-Stalk
+    category: etc
+    rarity: common
+    req_level: 17
+    price:
+      sell: 17
+    source_hint: mob_054          # drops from Frostbrine Lurker (cross-checks drop_mob_054)
+    stack: 999
+    flavor: "A stiff, stalked eye plucked from a sand-buried lurker, still cold and faintly glassy. Superstitious crews nail them above a hatch to spot the next ambush."
+
+  - id: item_etc_0056
+    name: Salt-Stiff Plume
+    category: etc
+    rarity: common
+    req_level: 17
+    price:
+      sell: 17
+    source_hint: mob_055          # drops from Strand Gull (cross-checks drop_mob_055)
+    stack: 999
+    flavor: "A broad grey wing-feather crusted stiff with sea salt, reeking faintly of gutted fish. Fletchers wash and split them for cheap, serviceable vanes."
+
+  - id: item_etc_0057
+    name: Chillspray Bladder
+    category: etc
+    rarity: common
+    req_level: 18
+    price:
+      sell: 18
+    source_hint: mob_056          # drops from Chillspray Drifter (cross-checks drop_mob_056)
+    stack: 999
+    flavor: "The taut float-sac of a drifter, sloshing with a brine that stays cold in the palm for hours. Icers pack them around a catch to keep it fresh to market."
+
+  - id: item_etc_0058
+    name: Frozen Kelp Frond
+    category: etc
+    rarity: common
+    req_level: 18
+    price:
+      sell: 18
+    source_hint: mob_057          # drops from Kelpbound Crawler (cross-checks drop_mob_057)
+    stack: 999
+    flavor: "A length of ice-stiffened kelp still twitching faintly when cut, cold and ropey to the grip. Twisted into cord, it holds a chill against a flask well past noon."
+
+  - id: item_etc_0059
+    name: Seafog Mote
+    category: etc
+    rarity: common
+    req_level: 19
+    price:
+      sell: 19
+    source_hint: mob_058          # drops from Icewater Wisp (cross-checks drop_mob_058)
+    stack: 999
+    flavor: "A bead of blue seafog caught the instant a wisp bursts, held stable only in a stoppered vial. It clouds the glass from within and never quite warms."
+
+  - id: item_etc_0060
+    name: Tide-Urchin Spine
+    category: etc
+    rarity: common
+    req_level: 19
+    price:
+      sell: 19
+    source_hint: mob_059          # drops from Urchin Roller (cross-checks drop_mob_059)
+    stack: 999
+    flavor: "A barbed spine flung from a bursting tide-urchin, needle-fine and ridged its whole length. Whole ones are prized; most snap on the throw that loosed them."
+
+  - id: item_etc_0061
+    name: Tidecult Charm
+    category: etc
+    rarity: common
+    req_level: 20
+    price:
+      sell: 20
+    source_hint: mob_060          # drops from Tidecaller Acolyte (cross-checks drop_mob_060)
+    stack: 999
+    flavor: "A salt-caked token an acolyte wore against her heart, still humming faintly with Morva's cold hymn. Scholars pay for the etching; the harborwatch pays to burn them."
+
+  - id: item_etc_0062
+    name: Reef Stalker Scale
+    category: etc
+    rarity: common
+    req_level: 20
+    price:
+      sell: 20
+    source_hint: mob_061          # drops from Reef Stalker (cross-checks drop_mob_061)
+    stack: 999
+    flavor: "A palm-broad scale from a reef barracuda, mirror-silver and cold as the deep water it came from. Sewn in overlapping rows, they turn a glancing edge."
+
+  - id: item_etc_0063
+    name: Frostshell Plate
+    category: etc
+    rarity: common
+    req_level: 21
+    price:
+      sell: 21
+    source_hint: mob_062          # drops from Frostshell Tortoise (cross-checks drop_mob_062)
+    stack: 999
+    flavor: "A slab of ice-glazed tortoise shell, half horn and half rime, near impossible to split at the front. Masons set them as cheap, durable roofing along the strand."
+
+  - id: item_etc_0064
+    name: Deepchill Talon
+    category: etc
+    rarity: common
+    req_level: 22
+    price:
+      sell: 22
+    source_hint: mob_063          # drops from Deepchill Marauder (cross-checks drop_mob_063)
+    stack: 999
+    flavor: "A hooked talon from a deep-water marauder, cold to the marrow and edged like a gaff. The far-strand smiths temper them into fish-hooks that never seem to rust."

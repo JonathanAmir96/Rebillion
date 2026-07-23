@@ -1,0 +1,41 @@
+id: map_032
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Mill Lane, the Grinding Wheel
+region: millbrook
+map_type: field
+level_band: { min: 10, max: 11 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_old_town
+ambience: [amb_wind, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 22] }
+portals:
+  - id: to_lower_race
+    kind: edge
+    at: { edge: left }
+    target_map: map_031
+    target_spawn: main
+    dead_end: false
+  - id: to_millworks_yard
+    kind: edge
+    at: { edge: right }
+    target_map: map_033
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: grinding_wheel_zone
+    rect_tiles: { x: 40, y: 16, w: 70, h: 10 }
+    mobs:
+      - { mob: mob_018, count: 3 }
+      - { mob: mob_019, count: 2 }
+    max_concurrent: 6
+npcs: [npc_027]
+platform_brief: |
+  The old grinding wheel looms stalled over the lane, a single band with a 2-tile
+  rise onto the millworks apron, within the standard jump budget (MAP_TRAVERSAL
+  §1.1). Terrain is foothold segments under painted terrain_chunks (ART_BIBLE AB-001).
+flavor: "The grinding wheel hasn't turned in years, but something keeps the gears greased all the same."

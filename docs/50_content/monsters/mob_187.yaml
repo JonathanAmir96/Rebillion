@@ -1,0 +1,26 @@
+id: mob_187
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Prism Stalker
+tier: normal                     # ID slot 187 = R10 normal (ID_REGISTRY Monsters)
+element: arcane                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [shadow]
+resists: [arcane]                # ELEMENTS §2 (mutually exclusive lists)
+level: 59
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 59
+  life: 15376                    # 4*(59+3)^2
+  power: 183                     # 6+3*59
+  armor: 354                    # 6*59  (armor+warding sum = 708 = 12*59)
+  warding: 354                  # 6*59
+  precision: 236                # 4*59
+  evasion: 4.77                 # 3+0.03*59 (%)
+  exp: 802                     # round(4*59^1.3) normal (LEVELING §3)
+ai_profile: aggressive_charger
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  charge_speed_mult: 2.6
+  charge_recover_s: 2.4
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_187
+flavor: "A four-legged shard of living crystal that refracts the haze into a dozen false stalkers, then charges from the one you were not watching."

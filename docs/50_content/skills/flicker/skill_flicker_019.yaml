@@ -1,0 +1,29 @@
+id: skill_flicker_019
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Lucky Streak                  # exact JOBS.md §5.3 Wildcard roster name
+line: flicker
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+max_level: 10
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { fortune: 3, evasion: 2 }, mode: flat }
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: restore_essence, amount: 4, target: self }, icd: 2.0 }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { fortune: 6, evasion: 4 }, mode: flat }
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: restore_essence, amount: 6, target: self }, icd: 2.0 }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { fortune: 9, evasion: 6 }, mode: flat }
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: restore_essence, amount: 8, target: self }, icd: 2.0 }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { fortune: 12, evasion: 8 }, mode: flat }
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: restore_essence, amount: 10, target: self }, icd: 2.0 }
+flavor: "The house always seems to favor a Wildcard — every crit pays the essence back and the luck just keeps compounding."

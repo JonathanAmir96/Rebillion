@@ -1,0 +1,49 @@
+id: map_061
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Root Warrens, Upper Tunnels
+region: verdant
+map_type: dungeon
+level_band: { min: 10, max: 11 }          # continues the gradient from its branch field, map_050
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 60, h: 60 }              # dungeon: 1-2 screens wide, tall vertical shaft (MAPS_SYSTEM §2)
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [30, 8] }
+portals:
+  - id: to_root_hollow
+    kind: door
+    at: { tile: [30, 6] }
+    target_map: map_050
+    target_spawn: main
+    dead_end: false
+  - id: to_twisting_roots
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_062
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: upper_tunnels_hall
+    rect_tiles: { x: 14, y: 20, w: 32, h: 24 }
+    mobs:
+      - { mob: mob_032, count: 3 }        # shares mob_032/033 with the surface Root Hollow clearing
+      - { mob: mob_033, count: 2 }
+    max_concurrent: 8                      # dungeon default (SPAWN §4)
+interactables:
+  - type: sign
+    id: sign_upper_tunnels
+    at_tile: [22, 18]
+    params:
+      text: "The tunnel narrows here, root-walls close on every side. The warren goes deeper than it looks."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A cramped root-walled hall descending through a single vertical shaft in ~2-tile drops,
+  within the standard jump/fall caps (MAP_TRAVERSAL §1.1, §2). Foothold segments dressed
+  in root-tunnel terrain_chunks (ART_BIBLE AB-001); denser combat than the surface fields
+  (SPAWN §2 dungeon budget), no rope/ladder yet.
+flavor: "Root-walls close in on every side down here, thick enough to blot out the last of the surface light."

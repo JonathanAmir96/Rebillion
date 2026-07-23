@@ -1,0 +1,47 @@
+id: map_278
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shattered Orrery, the Middle Gears
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 69, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 70, h: 65 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 58] }
+portals:
+  - id: to_outer_gears
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_277
+    target_spawn: main
+    dead_end: false
+  - id: to_gear_cache
+    kind: door
+    at: { tile: [52, 40] }
+    target_map: map_280
+    target_spawn: main
+    dead_end: false
+  - id: to_inner_gears
+    kind: edge
+    at: { edge: top }
+    target_map: map_279
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: middle_gears_chamber
+    rect_tiles: { x: 20, y: 24, w: 32, h: 28 }
+    mobs:
+      - { mob: mob_202, count: 2 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  Gears here still shudder with the occasional grinding turn, half-alive. A sealed side cache
+  sits mid-floor; the climb onward stays within the 3.5-tile rise cap (MAP_TRAVERSAL §1.1).
+  Dense corridor combat (SPAWN §2).
+flavor: "Every few minutes something deep in the mechanism groans and shifts, as if the Orrery is still trying to remember its own shape."

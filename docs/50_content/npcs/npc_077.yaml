@@ -1,0 +1,13 @@
+id: npc_077
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES]
+name: Warden-Scout Yulla
+region: clockwork
+map: map_177
+role: guide
+dialog:
+  greeting: "Keep to the terraces and the gears won't notice you. Wander off them and they will."
+  idle: "Every survey party that's gone quiet in the ruins went quiet off the marked path."
+  farewell: "Walk the brass, not the shadows between it."
+portrait: portrait_npc_077
+flavor: "Yulla scouted the ruins' outer terraces for two seasons before the camp ever had a name for them."

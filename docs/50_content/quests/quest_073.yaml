@@ -1,0 +1,20 @@
+id: quest_073
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Tablets Out of the Colonnade
+region: sunken
+quest_type: side
+giver_npc: npc_071
+level_requirement: 33
+recommended_level: 33
+prereqs: [quest_072]
+steps:
+  - type: collect
+    target: item_etc_0102
+    count: 5
+rewards:
+  exp: 5384  # side pct=0.06 of exp_to_next(33)=89,726; shards=mean_shards_normal(33)*4=53*4
+  shards: 208
+flavor: "The fallen colonnade holds tablets Perrine can't reach herself -- not without an escort, anyway."
+offer_text: "There are tablets buried in that colonnade rubble. Bring me whatever's still whole and I'll make it worth the trip."
+complete_text: "These alone are worth the whole camp's season. Thank you -- truly."

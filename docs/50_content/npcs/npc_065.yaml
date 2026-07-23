@@ -1,0 +1,12 @@
+id: npc_065
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Smith Orin
+region: ashfall
+map: map_126                     # bidirectional with map_126's npcs[] (both list each other)
+role: blacksmith                 # shares the shield hall with the instructor (WORLD_PLAN R6)
+dialog:
+  greeting: "Bram trains the arm; I temper the steel it swings. Bring me barrens-ore and I'll make it count."
+  farewell: "Keep your shield edge true. I'll be at the forge."
+portrait: portrait_npc_065
+flavor: "Orin forges every recruit's first shield himself, and still checks the balance of every one that comes back for repair."

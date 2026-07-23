@@ -1,0 +1,48 @@
+id: map_049
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Sunken Glade
+region: verdant
+map_type: field
+level_band: { min: 9, max: 10 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 150, h: 30 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_fernbrake
+    kind: edge
+    at: { edge: left }
+    target_map: map_048
+    target_spawn: main
+    dead_end: false
+  - id: to_root_hollow
+    kind: edge
+    at: { edge: right }
+    target_map: map_050
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_glade_pool
+    rect_tiles: { x: 32, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_031, count: 3 }        # shares mob_031 with fernbrake
+      - { mob: mob_032, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_sunken_glade
+    at_tile: [24, 21]
+    params:
+      text: "The ground dips into standing water past here. Nothing drowns easily in the hollow, but plenty tries."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A shallow bowl-shaped glade, one central sunken pool crossed by two low root-bridges
+  (each a standard <=5-tile jump, MAP_TRAVERSAL §1.1). Foothold segments dressed in damp
+  moss/root terrain_chunks (ART_BIBLE AB-001); no rope/ladder needed.
+flavor: "Rainwater pools here year-round, black-mirrored under the canopy, and the frogs never stop singing."

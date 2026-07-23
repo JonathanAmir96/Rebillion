@@ -1,0 +1,12 @@
+id: npc_074
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Archivist Voss
+region: sunken
+map: map_169
+role: quest_giver
+dialog:
+  greeting: "Sit if you like -- the water doesn't rise this far, not yet. Now, what did the deep hand you?"
+  farewell: "Every page you bring me is one less the sea gets to keep for itself."
+portrait: portrait_npc_074
+flavor: "Voss has lived in this last dry archive longer than anyone at the salvage camp likes to admit, and reads by lamplight until the oil runs out."

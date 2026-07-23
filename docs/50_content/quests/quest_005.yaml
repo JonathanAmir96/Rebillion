@@ -1,0 +1,19 @@
+id: quest_005
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Warden's Favor
+region: emberfoot
+quest_type: side
+giver_npc: npc_006                # Trailwarden Fenna
+level_requirement: 4
+recommended_level: 4
+steps:
+  - type: kill
+    target: mob_004
+    count: 8
+rewards:
+  exp: 44                          # round(0.08 * 552); side band, exp_to_next(4)=552
+  shards: 36                       # mean_shards_normal(4)*4 = 9*4
+flavor: "Fenna keeps a running tally of every pest that strays too close to the trail."
+offer_text: "The ashen flat's overrun again. Thin them out and I'll see you're paid for it."
+complete_text: "That'll keep the trail quiet a while longer. Appreciated."

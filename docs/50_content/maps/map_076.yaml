@@ -1,0 +1,54 @@
+id: map_076
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Tidewatch Shallows
+region: tidewatch
+map_type: field
+level_band: { min: 14, max: 14 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 170, h: 30 }
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [20, 20] }
+  - { id: from_millbrook, tile: [10, 20] }
+portals:
+  - id: to_port
+    kind: edge
+    at: { edge: left }
+    target_map: map_071
+    target_spawn: main
+    dead_end: false
+  - id: to_millbrook
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_028
+    target_spawn: from_tidewatch  # cross-region walk edge, WORLD_PLAN edge table -- forward-ref, Millbrook batch
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_077
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: field_main_076
+    rect_tiles: { x: 10, y: 18, w: 150, h: 10 }
+    mobs:
+      - { mob: mob_048, count: 3 }
+      - { mob: mob_049, count: 2 }
+    max_concurrent: 7
+interactables:
+  - type: sign
+    id: sign_millbrook_road
+    at_tile: [10, 19]
+    params:
+      text: "A signpost, one arm pointing inland toward Millbrook, the other toward the port."
+      interact_prompt: Read
+npcs: [npc_049]
+platform_brief: |
+  A single walkable band with gentle 1-2 tile rises, well within a standing jump.
+  No verticality gimmick beyond the coastal terrain dressing (ART_BIBLE AB-001) --
+  open exploration ground, gaps never exceed the 5-tile running-jump figure.
+flavor: "Ankle-deep tidepools stretch from Millbrook's border road down to the port's outer gate."

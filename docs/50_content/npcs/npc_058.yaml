@@ -1,0 +1,12 @@
+id: npc_058
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Trapper Rowe
+region: gloomwood
+map: map_105
+role: quest_giver
+dialog:
+  greeting: "Coss doesn't own this stretch of wood, whatever she tells you. Clear my line same as hers and I'll pay the same rate."
+  farewell: "Don't mention my name to her if you cross paths."
+portrait: portrait_npc_058
+flavor: "Rowe staked a rival trap-line across Cobweb Hollow out of pure spite for Coss, and has kept it running out of pure stubbornness since."

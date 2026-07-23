@@ -1,0 +1,19 @@
+id: quest_017
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Mill's Complaint
+region: millbrook
+quest_type: side
+giver_npc: npc_027
+level_requirement: 11
+recommended_level: 11
+steps:
+  - type: kill
+    target: mob_019
+    count: 8
+rewards:
+  exp: 297      # round(0.075*3,960) (LEVELING §1 Lv11 exp_to_next); side band, pct=0.075
+  shards: 80     # mean_shards_normal(11)*4 = 20*4 (round(1.5*11+3)=19.5 -> 20) (QUESTS §5 / DROPS §3)
+flavor: "Fenn's stalled grinding wheel has never once turned in her lifetime, but something down in the lane keeps its gears greased."
+offer_text: "Clear out whatever's nesting in the gear pit and maybe I'll finally see that wheel turn."
+complete_text: "Quiet gears at last. Doesn't mean the wheel will turn, but a girl can dream."

@@ -1,0 +1,45 @@
+id: map_083
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Barnacle Ridge
+region: tidewatch
+map_type: field
+level_band: { min: 18, max: 18 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 170, h: 32 }
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [20, 20] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_082
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_084
+    target_spawn: main
+    dead_end: false
+  - id: to_smugglers_cache
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_095
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: field_main_083
+    rect_tiles: { x: 10, y: 18, w: 150, h: 10 }
+    mobs:
+      - { mob: mob_055, count: 2 }
+      - { mob: mob_056, count: 3 }
+    max_concurrent: 7
+platform_brief: |
+  A single walkable band with gentle 1-2 tile rises, well within a standing jump.
+  No verticality gimmick beyond the coastal terrain dressing (ART_BIBLE AB-001) --
+  open exploration ground, gaps never exceed the 5-tile running-jump figure.
+flavor: "A crusted ridge line thick with barnacle colonies, sharp enough to cut an unwary hand."

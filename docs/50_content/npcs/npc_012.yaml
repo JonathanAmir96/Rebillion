@@ -1,0 +1,12 @@
+id: npc_012
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Dockhand Sallow Nix
+region: millbrook
+map: map_017
+role: quest_giver
+dialog:
+  greeting: "Rats in the cargo again -- worse out past the outskirts, I hear."
+  farewell: "Watch the boards, they're slick this morning."
+portrait: portrait_npc_012
+flavor: "Nix has hauled crates on Rosen Harbor's docks since before the last mayor, and grumbles about every one of them."

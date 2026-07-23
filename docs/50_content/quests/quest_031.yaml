@@ -1,0 +1,25 @@
+# side band 5-10% of exp_to_next(13)=6,048 (LEVELING §1); pct=0.07. shards = mean_shards_normal(13)*4
+# = 23*4 (QUESTS §5 / DROPS §3).
+id: quest_031
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Sunken Chamber's Crack
+region: verdant
+quest_type: side
+giver_npc: npc_039
+prereqs: [quest_030]
+level_requirement: 13
+recommended_level: 13
+steps:
+  - type: kill
+    target: mob_037
+    count: 10
+  - type: collect
+    target: item_etc_0042          # sourced from mob_037's drop table (parallel monster batch)
+    count: 5
+rewards:
+  exp: 423                        # round(0.07 * 6,048)
+  shards: 92                      # mean_shards_normal(13)*4 = 23*4
+flavor: "There's a wider crack in that caved-in chamber than there used to be, and Oskar doesn't like what that implies."
+offer_text: "The caved chamber's gotten busier since I last mapped it. Clear a path through and bring back what's denning there."
+complete_text: "Wider crack, thinner nest. Whatever dug that side-passage, it isn't finished yet."

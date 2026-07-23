@@ -1,0 +1,30 @@
+id: map_151
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Stoked Core
+region: ashfall
+map_type: arena
+level_band: { min: 34, max: 34 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 60, h: 23 }
+bgm: bgm_boss_ashfall
+ambience: [amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [8, 18] }
+portals:
+  - id: to_stokers_threshold
+    kind: door
+    at: { tile: [4, 18] }
+    target_map: map_148
+    target_spawn: main
+npcs: []
+platform_brief: |
+  A single wide brazier-floor chamber, flat but for the raised central core Karnothal
+  circles. No verticality gimmick beyond a shallow rim step (MAP_TRAVERSAL §1.1).
+  Terrain is foothold segments under painted ash terrain_chunks (ART_BIBLE AB-001).
+arena_config:
+  boss_mob_id: mob_107
+  gate: { type: open }
+flavor: "Every cinder in the barrens seems to feed this pit, where Karnothal has burned since before Cindershelf had a name."

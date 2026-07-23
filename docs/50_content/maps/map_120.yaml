@@ -1,0 +1,41 @@
+id: map_120
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Silkbound Vault, The Weaving Floor
+region: gloomwood
+map_type: dungeon
+level_band: { min: 28, max: 28 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_gloomwood
+ambience: [amb_web_creak, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 42] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_119
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_121
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: silkbound_vault_weaving_floor
+    rect_tiles: { x: 20, y: 32, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_085, count: 2 }
+      - { mob: mob_086, count: 1 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  An open floor strung floor-to-ceiling with active weaving lines, ledges within the
+  standard jump budget (MAP_TRAVERSAL §1.1). Heaviest elite density of the dungeon chain
+  (SPAWN §2), just short of the loom gate.
+flavor: "The weaving here never stops -- new strands cross the old ones even as you watch."

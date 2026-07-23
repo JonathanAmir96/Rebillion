@@ -1,0 +1,48 @@
+id: map_153
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Drowned Shallows, Glowreed Shoals
+region: sunken
+map_type: field
+level_band: { min: 30, max: 31 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 150, h: 30 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_152
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_154
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_field_153
+    rect_tiles: { x: 45, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_109, count: 4 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_salvage_lean_to
+    at_tile: [120, 21]
+    params:
+      text: "Racks of half-cleaned salvage lean drying against a lean-to frame."
+      interact_prompt: "Read"
+npcs: [npc_070]
+platform_brief: |
+  Wide, shallow terraces stepped by 2-tile rises, all well within the doubled water-physics
+  jump budget (MAP_TRAVERSAL §7). A salvager's lean-to sits on the second shelf. No
+  rope/ladder needed.
+flavor: "Glow-reed stands sway in the current, throwing pale blue-green light across the silt."

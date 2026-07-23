@@ -1,0 +1,43 @@
+id: mob_232
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Voidtide Oracle
+tier: elite                      # ID_REGISTRY: mob_227-233 = R11 elites (Lv 77-82)
+element: shadow                     # WORLD_PLAN R11 mix: shadow/neutral
+weak_to: [arcane]
+resists: [shadow]
+level: 81
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget x §13.2 elite mults, Lv 81
+  life: 169344                  # 4*(81+3)^2 x6
+  power: 374                    # (6+3*81) x1.5
+  spellpower: 374               # parity with power (caster; §13)
+  armor: 632                   # 6*81 x1.3  (armor+warding sum = 1264)
+  warding: 632                 # 6*81 x1.3
+  precision: 356                # 4*81 x1.1
+  evasion: 7.43                  # (3+0.03*81) +2 (§13.2 elite)
+  exp: 6055                     # round(4*81^1.3) x5 (LEVELING §3 elite)
+ai_profile: support_caller
+ai_params:
+  support_radius: 8
+  cast_cooldown_s: 6
+  retreat_range: 8
+abilities:
+  - id: void_mending
+    name: Void Mending
+    targeting: { shape: aoe_circle, radius: 6, origin: self }
+    cooldown: 8.0
+    telegraph_s: 1.2
+    effects:
+      - { op: apply_status, status: regen, dur: 10 }
+      - { op: apply_status, status: fortify, dur: 10 }
+  - id: eclipse_ward
+    name: Eclipse Ward
+    targeting: { shape: aoe_circle, radius: 6, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.2
+    effects:
+      - { op: grant_shield, scaling: spellpower, dur: 8 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+drop_table: drop_mob_232
+flavor: "A blind seer wrapped in living tide that mends and wards the horrors around it, giving ground toward the deep whenever a blade seeks it out."

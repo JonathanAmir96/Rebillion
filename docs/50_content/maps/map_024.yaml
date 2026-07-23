@@ -1,0 +1,33 @@
+id: map_024
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, QUESTS]
+name: Millbrook Guild Hall
+region: millbrook
+map_type: interior
+level_band: { min: 8, max: 9 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 26, h: 14 }
+bgm: bgm_town_millbrook
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [13, 10] }
+portals:
+  - id: to_millbrook_central
+    kind: door
+    at: { tile: [13, 12] }
+    target_map: map_018
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: sign
+    id: sign_bounty_board
+    at_tile: [19, 9]
+    params:
+      text: "A bounty board thick with nailed-up notices -- half of Millbrook's odd jobs start right here."
+      interact_prompt: Read
+npcs: [npc_021]
+platform_brief: |
+  A single hall lined with adventuring-guild banners and a bounty board, flat,
+  combat-free interior (MAPS_SYSTEM §2/§6).
+flavor: "The guild hall's bounty board never sits empty for long -- Millbrook always has one more problem worth a stranger's coin."

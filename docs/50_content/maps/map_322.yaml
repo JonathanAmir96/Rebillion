@@ -1,0 +1,39 @@
+id: map_322
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: "Voidtide Stage: the Last Approach"
+region: voidshore
+map_type: dungeon
+level_band: { min: 82, max: 82 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 68, h: 76 }
+bgm: bgm_voidshore
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 62] }
+portals:
+  - id: to_secret_323
+    kind: door
+    at: { tile: [20, 14] }
+    target_map: map_323
+    target_spawn: main
+  - id: to_maw
+    kind: door
+    at: { tile: [60, 12] }
+    target_map: map_324
+    target_spawn: main
+    dead_end: true
+spawn_zones:
+  - id: voidtide_stage_3
+    rect_tiles: { x: 14, y: 10, w: 44, h: 46 }
+    mobs:
+      - { mob: mob_233, count: 2 }
+    max_concurrent: 4
+npcs: []
+platform_brief: |
+  The stage chain's final gauntlet before the Tidesunder Maw, one-way forward
+  (RAID.md §4). Terrain is foothold segments under painted terrain_chunks
+  (ART_BIBLE AB-001); the arena's single entrance door sits at the far wall.
+flavor: "The last stretch before the Maw, where the stone itself seems to lean away from the door at its end."

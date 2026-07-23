@@ -1,0 +1,33 @@
+id: map_206
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Frosthaven Outfitter
+region: frostpeak
+map_type: interior
+level_band: { min: 40, max: 40 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 26, h: 14 }
+bgm: bgm_town_frostpeak
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [13, 10] }
+portals:
+  - id: to_frostbreak_landing
+    kind: door
+    at: { tile: [4, 10] }
+    target_map: map_203
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: sign
+    id: sign_outfitter_wares
+    at_tile: [18, 9]
+    params:
+      text: "Cold-weather kit, hides tanned to spec, and a scout's honest opinion on the fields ahead."
+      interact_prompt: Read
+npcs: [npc_087, npc_089]
+platform_brief: |
+  A cramped gear stall built into the landing's ice wall, racks of cold-weather kit lining
+  both sides. No verticality, no combat -- a single-room shop.
+flavor: "A gear stall built into the frost-carved landing, selling cold-weather kit to Deepway travelers and dockhands alike."

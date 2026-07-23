@@ -1,0 +1,20 @@
+id: quest_082
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Relics Beneath the Green
+region: clockwork
+quest_type: side
+giver_npc: npc_079
+level_requirement: 37
+recommended_level: 37
+prereqs: [quest_081]
+steps:
+  - type: collect
+    target: item_etc_0119
+    count: 6
+rewards:
+  exp: 10278  # round(0.08*128,478) (LEVELING §1 Lv37); side band 5-10%
+  shards: 232 # side = mean_shards_normal(37)*4 = 58*4 (QUESTS §5 / DROPS §3)
+flavor: "Deeper under the verdigris, Ione suspects, sits something the statues themselves were built to guard."
+offer_text: "Six clean relic-shards this time, no cracks. The good ones sit deeper than the surface scrapings."
+complete_text: "Not a single crack among them. The archive back home will want to see these properly."

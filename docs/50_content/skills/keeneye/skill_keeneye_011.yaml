@@ -1,0 +1,38 @@
+id: skill_keeneye_011
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Concussive Shot               # exact JOBS.md §3.2 Pathstalker roster name
+line: keeneye
+tier: second
+kind: active
+targeting: { shape: projectile, speed: 14, range: 8, pierce: 0, gravity: false, impact_radius: 0 }
+cost: { essence: 14 }
+cooldown: 9.0
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 14
+    cooldown: 9.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.3 }               # scales on power (bow default, §1)
+      - { op: knockback, distance: 2.0, vertical: 0.5 }                 # base displacement (SKILL_EFFECTS §7); flags this hit heavy
+  - level: 4
+    essence_cost: 17
+    cooldown: 8.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.7 }
+      - { op: knockback, distance: 2.5, vertical: 0.5 }
+  - level: 7
+    essence_cost: 21
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.1 }
+      - { op: knockback, distance: 3.0, vertical: 1.0 }
+  - level: 10
+    essence_cost: 25
+    cooldown: 6.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.5 }
+      - { op: knockback, distance: 3.5, vertical: 1.0 }
+animation: skill_keeneye_011_cast
+flavor: "A blunt-tipped shaft that hits like a fist, punching a target off its feet and buying the Pathstalker the room they always want."

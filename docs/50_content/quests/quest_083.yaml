@@ -1,0 +1,19 @@
+id: quest_083
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Guard the Proving Floor
+region: clockwork
+quest_type: side
+giver_npc: npc_081
+level_requirement: 38
+recommended_level: 38
+steps:
+  - type: kill
+    target: mob_145
+    count: 5
+rewards:
+  exp: 12598  # round(0.09*139,977) (LEVELING §1 Lv38); side band 5-10%
+  shards: 240 # side = mean_shards_normal(38)*4 = 60*4 (QUESTS §5 / DROPS §3)
+flavor: "The proving floor's guardian constructs have been drifting off their old patrol lines, right toward the sigil ring."
+offer_text: "Every line's trial deserves an undisturbed floor. Put the drifting guardians back to sleep for me."
+complete_text: "The sigils are quiet again. Whoever's oath is sworn here next will thank you, even if they never know it."

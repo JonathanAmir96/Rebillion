@@ -1,0 +1,12 @@
+id: npc_059
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Warden Ilse Marrow
+region: gloomwood
+map: map_113
+role: quest_giver
+dialog:
+  greeting: "The fen's pushing things toward Cindershelf's road faster than I like. Thin the reed line before it reaches the barrens."
+  farewell: "Walk light past the reeds. The fen remembers footsteps."
+portrait: portrait_npc_059
+flavor: "Ilse has warded the fen approach alone since the last Cindershelf patrol stopped bothering to come this far."

@@ -1,0 +1,31 @@
+id: map_127
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Kilnwarm Inn
+region: ashfall
+map_type: interior
+level_band: { min: 26, max: 26 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 32, h: 18 }
+bgm: bgm_town_ashfall
+ambience: [amb_crowd]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 13] }
+portals:
+  - id: to_cindershelf
+    kind: door
+    at: { tile: [4, 13] }
+    target_map: map_125
+    target_spawn: main
+interactables:
+  - type: inn_bed
+    id: inn_bed_cindershelf
+    at_tile: [24, 12]
+    params: {}
+npcs: [npc_064]
+platform_brief: |
+  One flat common room, no verticality -- combat-free (MAPS_SYSTEM §6).
+  A row of beds lines the back wall behind the hearth.
+flavor: "The Kilnwarm never truly cools; its hearth banks the same coals the barrens themselves seem to burn on."

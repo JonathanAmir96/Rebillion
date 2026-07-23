@@ -1,0 +1,39 @@
+id: map_320
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: "Voidtide Stage: the Sunken Approach"
+region: voidshore
+map_type: dungeon
+level_band: { min: 80, max: 81 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 64, h: 70 }
+bgm: bgm_voidshore
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 55] }
+portals:
+  - id: to_umbral_318
+    kind: door
+    at: { tile: [8, 55] }
+    target_map: map_318
+    target_spawn: main
+  - id: to_stage_2
+    kind: door
+    at: { tile: [56, 12] }
+    target_map: map_321
+    target_spawn: main
+    dead_end: true
+spawn_zones:
+  - id: voidtide_stage_1
+    rect_tiles: { x: 14, y: 10, w: 40, h: 40 }
+    mobs:
+      - { mob: mob_232, count: 2 }
+    max_concurrent: 4
+npcs: []
+platform_brief: |
+  The stage chain's threshold gallery -- SPAWN §7: an ordinary combat dungeon that
+  runs the normal zone spawner, only its instance copy is party-scoped when entered
+  through the herald (RAID.md §3-4). A locked exit ahead opens on stage-clear.
+flavor: "The first hall of the Voidtide stage chain, its walls already weeping black water from the tide above."

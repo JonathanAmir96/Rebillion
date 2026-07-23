@@ -1,0 +1,12 @@
+id: npc_108
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Sentinel-Scholar Rho
+region: arcane_reach
+map: map_267
+role: quest_giver
+dialog:
+  greeting: "Aetheron was built to hold the shards steady. It has been failing at that for longer than any of us have lived."
+  farewell: "Whatever you find past the Unmoored Stair, bring it here first. Some doors shouldn't open twice."
+portrait: portrait_npc_108
+flavor: "Rho has spent a decade tracing the golem Aetheron's slow unraveling, and no longer believes the Anchor Vault will hold much longer."

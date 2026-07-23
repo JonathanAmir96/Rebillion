@@ -1,0 +1,89 @@
+id: mob_206
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
+name: Aetheron, the Unmoored
+tier: boss                       # ID slot 206 = R10 boss #10 (ID_REGISTRY Monsters)
+element: arcane                  # arcane pierces veil (ELEMENTS §5); region identity (WORLD_PLAN R10)
+weak_to: [neutral]               # physical force cracks its rune-bindings (ELEMENTS §2)
+resists: [arcane]                # built of dead sorcery
+level: 68
+size_class: boss                 # knockback/CC-immune (COMBAT_FORMULA §11; STATUS_EFFECTS §3)
+stats:                           # COMBAT_FORMULA §13.2 boss (normal Lv 68 x tier mults)
+  life: 705740                # 20164 (§13 Lv68) * 35
+  power: 420                    # 210 * 2.0
+  spellpower: 420               # 210 * 2.0 (arcane caster boss)
+  armor: 653                   # 408 * 1.6  (armor+warding sum = 1306)
+  warding: 653                 # 408 * 1.6
+  precision: 326               # 272 * 1.2
+  evasion: 5.04                 # 3+0.03*68 (bosses don't dodge, +0)
+  exp: 24125                  # exp_per_kill_normal(68)=965 * 25 (LEVELING §3 boss)
+ai_profile: boss_scripted
+abilities:                       # SKILL_EFFECTS §17; referenced by phases[].added_abilities
+  - id: shard_barrage
+    name: Shard Barrage
+    targeting: projectile
+    cooldown: 4.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.6, hits: 4 }
+  - id: gravity_well
+    name: Gravity Well
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.5
+    effects:
+      - { op: pull, distance: 4 }
+      - { op: deal_damage, element: arcane, mult: 1.4 }
+  - id: rune_nova
+    name: Rune Nova
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 10.0
+    telegraph_s: 1.2
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.8 }
+      - { op: apply_status, status: blind, chance: 0.5, dur: 4 }
+  - id: summon_shards
+    name: Summon Loose Shards
+    targeting: self
+    cooldown: 20.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_180, count: 2, dur: 30 }
+  - id: unmoor_slam
+    name: Unmoor Slam
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3
+    effects:
+      - { op: leap, distance: 6, height: 5 }
+      - { op: deal_damage, element: neutral, mult: 2.0 }
+      - { op: apply_status, status: stun, chance: 0.6, dur: 1.5 }
+      - { op: knockback, distance: 3, vertical: 1 }
+  - id: collapse_beam
+    name: Collapse Beam
+    targeting: line
+    cooldown: 14.0
+    telegraph_s: 2.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 2.6 }
+      - { op: apply_status, status: weaken, chance: 0.7, dur: 6 }
+phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
+  - phase_id: 1                  # BOUND -- anchored, casting from its mooring
+    life_threshold_pct: 100
+    base_profile: stationary_turret
+    added_abilities: [shard_barrage]
+  - phase_id: 2                  # UNBOUND -- tears free, drifts and reels the arena in
+    life_threshold_pct: 66
+    base_profile: ranged_skirmisher
+    param_overrides: { attack_cooldown_s: 1.6, preferred_range_max: 10 }
+    added_abilities: [gravity_well, rune_nova, summon_shards]
+    enter_telegraph: true
+  - phase_id: 3                  # COLLAPSE -- flings itself and the shards loose
+    life_threshold_pct: 33
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 2.8, charge_recover_s: 2.0 }
+    added_abilities: [unmoor_slam, collapse_beam]
+    enter_telegraph: true
+animation_states: [idle, walk, jump, fall, cast, attack, telegraph, hit, die, spawn, phase_shift]
+drop_table: drop_mob_206
+flavor: "A vast rune-golem raised to hold the whole archipelago in its orbit, now spinning free of the anchor it was built to be. As it comes apart it flings the shards -- and everything on them -- loose into the void."

@@ -1,0 +1,167 @@
+id: item_table_materials_r02
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R2 (Millbrook) monster materials: item_etc_0017-0032 (ID_REGISTRY etc block). One per R2 mob
+# (013-027) plus one region-sourced crafting mat (0032). etc rows: no `buy`, cosmetic rarity,
+# stack 999, sell authored directly (first-pass; ECONOMY prices only use/equip, item.schema OQ).
+items:
+  - id: item_etc_0017
+    name: Rat Tail
+    category: etc
+    rarity: common
+    req_level: 8                  # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 8                     # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_013          # drops from Cellar Rat (cross-checks drop_mob_013)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A scaly grey tail, still faintly warm, that the Millbrook ratcatchers pay a copper a dozen for. Proof of a clean kill, and nothing more."
+  - id: item_etc_0018
+    name: Mangy Pelt
+    category: etc
+    rarity: common
+    req_level: 8
+    price:
+      sell: 8
+    source_hint: mob_014          # drops from Wharf Cur (cross-checks drop_mob_014)
+    stack: 999
+    flavor: "A patchy hide off a stray dock cur, more scar than fur. The tanneries take them cheap and dye them cheaper."
+  - id: item_etc_0019
+    name: Grub Casing
+    category: etc
+    rarity: common
+    req_level: 9
+    price:
+      sell: 9
+    source_hint: mob_015          # drops from Grainsack Crawler (cross-checks drop_mob_015)
+    stack: 999
+    flavor: "The shed skin of a cellar grub, translucent and stiff as parchment. Millers burn them by the sackful and still find more in the grain."
+  - id: item_etc_0020
+    name: Tattered Wing
+    category: etc
+    rarity: common
+    req_level: 9
+    price:
+      sell: 9
+    source_hint: mob_016          # drops from Rafter Bat (cross-checks drop_mob_016)
+    stack: 999
+    flavor: "A leather bat-wing, holed and greasy from the lantern smoke it circled. Boiled down, it makes a passable waterproofing size."
+  - id: item_etc_0021
+    name: Bilge Gland
+    category: etc
+    rarity: common
+    req_level: 10
+    price:
+      sell: 10
+    source_hint: mob_017          # drops from Bilge Toad (cross-checks drop_mob_017)
+    stack: 999
+    flavor: "The swollen throat-sac of a sump toad, sloshing with sour bilge. Apothecaries buy them for a tincture nobody asks the ingredients of."
+  - id: item_etc_0022
+    name: Engorged Tick Sac
+    category: etc
+    rarity: common
+    req_level: 10
+    price:
+      sell: 10
+    source_hint: mob_018          # drops from Bloated Tickmound (cross-checks drop_mob_018)
+    stack: 999
+    flavor: "A blood-heavy sac the size of a fist, best not squeezed. The dye-houses render a deep rust-red from them that never quite washes out."
+  - id: item_etc_0023
+    name: Skulk's Rag
+    category: etc
+    rarity: common
+    req_level: 11
+    price:
+      sell: 11
+    source_hint: mob_019          # drops from Undervault Skulk (cross-checks drop_mob_019)
+    stack: 999
+    flavor: "A strip of oil-black cloth off an undervault cutpurse, still smelling of cellar damp. The Flicker line's apprentices prize them as first-cut practice cloth."
+  - id: item_etc_0024
+    name: Plague-Rat Fang
+    category: etc
+    rarity: common
+    req_level: 11
+    price:
+      sell: 11
+    source_hint: mob_020          # drops from Plague Rat (cross-checks drop_mob_020)
+    stack: 999
+    flavor: "A yellow, over-long incisor from a sick rat, the gum around it gone black. Handled with gloves, ground for a rat-bane the harbor office hands out free."
+  - id: item_etc_0025
+    name: Rotgas Bladder
+    category: etc
+    rarity: common
+    req_level: 12
+    price:
+      sell: 12
+    source_hint: mob_021          # drops from Rotgas Puffer (cross-checks drop_mob_021)
+    stack: 999
+    flavor: "A punctured gas-bladder from a corpse-fly grub, deflated and reeking. Sappers pack the dried membrane into stink-charges for clearing a warren."
+  - id: item_etc_0026
+    name: Wisplight Mote
+    category: etc
+    rarity: common
+    req_level: 12
+    price:
+      sell: 12
+    source_hint: mob_022          # drops from Lantern Wisp (cross-checks drop_mob_022)
+    stack: 999
+    flavor: "A cold blue ember caught in a sealed jar the instant a wisp guttered out. It sheds no heat and a little light, and unsettles anyone who holds it too long."
+  - id: item_etc_0027
+    name: Gravecap Spore
+    category: etc
+    rarity: common
+    req_level: 13
+    price:
+      sell: 13
+    source_hint: mob_023          # drops from Gravecap Lurker (cross-checks drop_mob_023)
+    stack: 999
+    flavor: "A pinch of pale deathcap spore scraped from a cellar bloom, kept stoppered for good reason. Alchemists want it; the harbor watch would rather it stayed underground."
+  - id: item_etc_0028
+    name: Warden's Molar
+    category: etc
+    rarity: common
+    req_level: 14
+    price:
+      sell: 14
+    source_hint: mob_024          # drops from Cellar Warden (cross-checks drop_mob_024)
+    stack: 999
+    flavor: "A grinding tooth the size of a thumb-joint, worn flat on a diet of drowned grain and worse. A rat this big should not exist; the tooth proves one did."
+  - id: item_etc_0029
+    name: Ratlord's Crest
+    category: etc
+    rarity: uncommon              # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 14
+    price:
+      sell: 20                    # elite-sourced, richer than the common vermin drops
+    source_hint: mob_025          # drops from Gorehide Ratlord (cross-checks drop_mob_025)
+    stack: 999
+    flavor: "The matted ridge of fur and scar-tissue that crowned a pack-lord's skull, taken whole. Cellar wisdom says the pack scatters the day their crest is carried off."
+  - id: item_etc_0030
+    name: Drownveil Shroud
+    category: etc
+    rarity: uncommon              # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 15
+    price:
+      sell: 22                    # elite-sourced, richer than the common vermin drops
+    source_hint: mob_026          # drops from Drownveil Wraith (cross-checks drop_mob_026)
+    stack: 999
+    flavor: "A rag of woven shadow that stays cold and half-there in the hand, unravelling slowly in daylight. The weavers of Mossmere would pay to study one before it fades."
+  - id: item_etc_0031
+    name: Cellar King's Whisker
+    category: etc
+    rarity: rare                  # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 14
+    price:
+      sell: 40                    # boss-sourced crafting/quest mat, richest of the R2 block
+    source_hint: mob_027          # drops from The Cellar King (cross-checks drop_mob_027)
+    stack: 999
+    flavor: "A single coarse whisker as long as a short sword, plucked from the drowned throne's ruler. Millbrook's guild pins one to its hall as proof the undervault was, for a season, cleared."
+  - id: item_etc_0032
+    name: Waterlogged Grain
+    category: etc
+    rarity: common
+    req_level: 10
+    price:
+      sell: 10
+    source_hint: millbrook        # region-sourced crafting mat (WORLD_PLAN R2 slug); not one mob's drop
+    stack: 999
+    flavor: "A fistful of grain hauled sodden and sprouting from the flooded stores, sour and swollen. Useless as bread, but the cellar's whole vermin economy is built on it."

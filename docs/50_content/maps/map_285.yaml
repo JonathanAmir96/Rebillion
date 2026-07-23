@@ -1,0 +1,65 @@
+id: map_285
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: "Duskwatch Landing"
+region: voidshore
+map_type: town
+level_band: { min: 66, max: 66 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 140, h: 24 }
+bgm: bgm_town_voidshore
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [30, 18] }
+  - { id: longship_dock, tile: [118, 18] }
+portals:
+  - id: to_umbral_shore
+    kind: edge
+    at: { edge: right }
+    target_map: map_288
+    target_spawn: main
+  - id: door_to_inn
+    kind: door
+    at: { tile: [22, 18] }
+    target_map: map_286
+    target_spawn: main
+  - id: pier_voidwake_tidewatch
+    kind: longship
+    at: { tile: [120, 18] }
+    target_map: map_287
+    target_spawn: longship_deck
+    route_id: route_voidshore_tidewatch
+    fare_ref: fare_longship_long
+    cadence_s: 120.0
+    sail_duration_s: 180.0
+  - id: pier_voidwake_spirehaven
+    kind: longship
+    at: { tile: [124, 18] }
+    target_map: map_287
+    target_spawn: longship_deck
+    route_id: route_arcane_reach_voidshore
+    fare_ref: fare_longship_short
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+interactables:
+  - type: lore_marker
+    id: marker_torn_sky
+    at_tile: [6, 17]
+    params:
+      text: "The sky over the strand hangs open like a wound; the Landing is the last quay that still calls itself safe."
+      interact_prompt: Read
+  - type: sign
+    id: sign_shore_trailhead
+    at_tile: [60, 18]
+    params:
+      text: "The Umbral Shore runs west into the black surf. Keep the lantern lit past the Landing's lights."
+      interact_prompt: Read
+npcs: [npc_109, npc_111, npc_112]
+platform_brief: |
+  Flat basalt quay on a single band, no verticality gimmick -- the arc's last easy footing.
+  Terrain is foothold segments dressed with painted terrain_chunks (ART_BIBLE AB-001,
+  MAP_TRAVERSAL v2.4). The Voidwake pier sits east, the shore road west; the whole span
+  is one continuous foothold, no gaps.
+flavor: "The last safe harbor under the torn sky, built on black basalt where the void-tide has not yet climbed. Longships ride at anchor, waiting on a schedule the sea barely respects."

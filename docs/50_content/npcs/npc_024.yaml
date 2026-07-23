@@ -1,0 +1,12 @@
+id: npc_024
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Outskirts Warden Perrin Wode
+region: millbrook
+map: map_027
+role: quest_giver
+dialog:
+  greeting: "The road west gets thin with vermin past the hedgerows. Thin them out and I'll see you paid."
+  farewell: "Verdant's close now. Keep your eyes on the tree line."
+portrait: portrait_npc_024
+flavor: "Wode walks the west outskirts road twice a day and has never once let a pack of pests go uncounted."

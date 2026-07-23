@@ -1,0 +1,31 @@
+id: map_042
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, RAID]
+name: The Cellar Deep
+region: millbrook
+map_type: arena
+level_band: { min: 14, max: 14 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 70, h: 24 }
+bgm: bgm_boss_millbrook
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 18] }
+portals:
+  - id: to_herald_hall
+    kind: door
+    at: { tile: [4, 18] }
+    target_map: map_037
+    target_spawn: main
+    dead_end: false      # ordinary open-entry pairing with map_037's to_cellar_deep door (MAPS_SYSTEM §8: arena's dedicated door entrance); raid stage chain also arrives here one-way via map_040 (RAID.md §7 solo fallback kept alongside the raid finale)
+npcs: []
+platform_brief: |
+  A single flooded grain-store throne room, one screen wide, the region's final
+  stage. No verticality gimmick beyond the drowned grain-pit framing the fight;
+  hazards are authored on arena_config, not the platform itself.
+arena_config:
+  boss_mob_id: mob_027
+  gate: { type: open }
+flavor: "The drowned grain stores where the Cellar King has throned himself on Millbrook's own hoarded harvest."

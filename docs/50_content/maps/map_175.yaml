@@ -1,0 +1,41 @@
+id: map_175
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Bellring Hollow
+region: sunken
+map_type: secret
+level_band: { min: 37, max: 38 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 50, h: 24 }
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 18] }
+portals:
+  - id: to_map_168
+    kind: door
+    at: { tile: [4, 18] }
+    target_map: map_168
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_secret_175
+    rect_tiles: { x: 10, y: 12, w: 30, h: 8 }
+    mobs:
+      - { mob: mob_122, count: 1 }
+      - { mob: mob_125, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_bellring_hollow
+    at_tile: [25, 16]
+    params:
+      text: "The one bell that still rings is cracked clean through -- and yet it rings."
+      interact_prompt: "Read"
+npcs: []
+platform_brief: |
+  A single sealed hollow off the Hall of Silent Bells, weighted toward its elite pair
+  (SPAWN §2 secret). No verticality gimmick, small and dense.
+flavor: "A hollow behind the silent bells where one bell, somehow, still rings faintly with the current."

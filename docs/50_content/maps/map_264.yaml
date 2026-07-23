@@ -1,0 +1,47 @@
+id: map_264
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, the Sanctum Approach
+region: arcane_reach
+map_type: field
+level_band: { min: 67, max: 68 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 175, h: 30 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_stormglass_ridge
+    kind: edge
+    at: { edge: left }
+    target_map: map_263
+    target_spawn: main
+    dead_end: false
+  - id: to_far_moor
+    kind: edge
+    at: { edge: right }
+    target_map: map_265
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sanctum_approach_stretch
+    rect_tiles: { x: 32, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_194, count: 2 }
+      - { mob: mob_195, count: 3 }
+    max_concurrent: 6
+  - id: sanctum_approach_flourish
+    rect_tiles: { x: 110, y: 12, w: 16, h: 6 }
+    mobs:
+      - { mob: mob_199, count: 1 }              # rare elite flourish, 1 per 3-4 screens (SPAWN §2)
+    max_concurrent: 2
+interactables: []
+npcs: []
+platform_brief: |
+  The shards visibly cluster tighter here, drawn toward Highrune Sanctum's mass ahead. Two
+  terraces stepped by ~2-tile rises, all within the standing-jump cap (MAP_TRAVERSAL §1.1).
+  No verticality gimmick beyond the rises.
+flavor: "The nearer shards crowd together the closer you get to the Sanctum, as if drawn by whatever still anchors it."

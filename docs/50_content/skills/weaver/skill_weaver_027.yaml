@@ -1,0 +1,28 @@
+id: skill_weaver_027
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Deep Freeze
+line: weaver
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { focus: 0.04 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.10, effect: { op: apply_status, status: freeze, chance: 1.0, dur: 1.5 } }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { focus: 0.06 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.14, effect: { op: apply_status, status: freeze, chance: 1.0, dur: 1.5 } }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { focus: 0.08 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.18, effect: { op: apply_status, status: freeze, chance: 1.0, dur: 1.5 } }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { focus: 0.10 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.22, effect: { op: apply_status, status: freeze, chance: 1.0, dur: 1.5 } }
+flavor: "A dormant cold woven into every cast, waiting for the moment it can lock a target solid on its own."

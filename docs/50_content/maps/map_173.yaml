@@ -1,0 +1,48 @@
+id: map_173
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Vault Threshold
+region: sunken
+map_type: dungeon
+level_band: { min: 38, max: 38 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 60, h: 40 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 30] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_172
+    target_spawn: main
+    dead_end: false
+  - id: to_wardens_vault
+    kind: door
+    at: { tile: [54, 30] }
+    target_map: map_176
+    target_spawn: main
+    dead_end: false  # arena entrance, MAPS_SYSTEM §8
+spawn_zones:
+  - id: sunken_dungeon_173
+    rect_tiles: { x: 10, y: 22, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_126, count: 1 }
+      - { mob: mob_127, count: 1 }
+    max_concurrent: 8
+interactables:
+  - type: sign
+    id: sign_vault_threshold
+    at_tile: [50, 28]
+    params:
+      text: "Beyond this door the Warden still keeps its watch. Mind your footing -- the water runs deep past here."
+      interact_prompt: "Read"
+npcs: [npc_075]
+platform_brief: |
+  A short, flat staging chamber before the vault door -- deliberately calmer than the halls
+  behind it (SPAWN §2), giving a clean approach to the arena gate. No verticality gimmick.
+flavor: "The last stretch before the Warden's own door, where the water itself seems to hold its breath."

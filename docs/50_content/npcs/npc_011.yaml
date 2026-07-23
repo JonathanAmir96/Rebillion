@@ -1,0 +1,13 @@
+id: npc_011
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, MAP_CONNECTIONS]
+name: Coachman Pell
+region: millbrook
+map: map_017
+role: coach_clerk
+services: [coach]
+dialog:
+  greeting: "Millbrook's a shard away, or your line's home town free, this once, if you're fresh off the ferry."
+  farewell: "Mind the step up -- the coach doesn't wait twice."
+portrait: portrait_npc_011
+flavor: "Pell has driven the Rosen Harbor run long enough to know every novice's first nervous question before they ask it."

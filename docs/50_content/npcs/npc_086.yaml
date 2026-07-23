@@ -1,0 +1,13 @@
+id: npc_086
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Brona Hearthkeep
+region: frostpeak
+map: map_205
+role: innkeeper
+services: [inn_rest]
+dialog:
+  greeting: "Sit by the fire, ice-walker. The Deepway's cold clings for a while yet."
+  farewell: "Rest easy. The pack's quieter out there than it looks."
+portrait: portrait_npc_086
+flavor: "Brona has kept the hearth-inn's fire lit since Frosthaven's first winter, and never once let it gutter."

@@ -1,0 +1,24 @@
+id: quest_043
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Smugglers' Ledger
+region: tidewatch
+quest_type: main
+giver_npc: npc_044
+level_requirement: 18
+recommended_level: 18
+steps:
+  - type: reach
+    target: map_095
+    zone: "cache_ledger_room"
+    count: 1
+  - type: collect
+    target: item_etc_0057
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 2616                  # round(0.18 * 14535); band per QUESTS §4 at Lv18
+  shards: 450                # mean_shards_normal(18)*15 = 30*15 (QUESTS §5 main / DROPS §3)
+flavor: "A ledger long missing from the harbormaster's records surfaced in gossip about a hidden ridge cache packed in drifter-bladder ice."
+offer_text: "Find whatever's hidden past Barnacle Ridge and bring back proof of what they were icing and moving through my harbor unlogged."
+complete_text: "Chillspray bladders packed round the crates -- clever, keeping cargo cold this far from the ice-house. This settles a debt I've been chasing a long while."

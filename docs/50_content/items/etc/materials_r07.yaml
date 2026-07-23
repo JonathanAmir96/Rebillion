@@ -1,0 +1,182 @@
+id: item_table_materials_r07
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R7 Sunken Depths monster materials: item_etc_0097-0112 (ID_REGISTRY etc block; 16 items, one
+# per R7 normal species mob_108-123). Lands with R7 drop_mob_* (drop_table.schema batch-order rule).
+items:
+  - id: item_etc_0097
+    name: Glowfin Lantern-Sac
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 30                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 33                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_108          # drops from Glowfin Darter (cross-checks drop_mob_108)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A pinch-sized bladder of cold biolight, still glowing faintly hours after the fish is dead. Deep-ruin scavengers thread them onto lines for lamps that never need oil."
+
+  - id: item_etc_0098
+    name: Grave-Silt Rag
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 30                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 33                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_109          # drops from Drowned Wretch (cross-checks drop_mob_109)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A sodden scrap of a drowned commoner's clothing, black with the ruin's silt and colder than the water it came from. It never fully dries and never stops smelling of the deep."
+
+  - id: item_etc_0099
+    name: Rime-Jelly Bell
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 31                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 34                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_110          # drops from Rimewater Jelly (cross-checks drop_mob_110)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The translucent cap of a cold-water jelly, firm as chilled glass and faintly luminous at the rim. Alchemists prize the chill it holds for setting salves."
+
+  - id: item_etc_0100
+    name: Scuttler Carapace
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 31                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 34                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_111          # drops from Ruin Scuttler (cross-checks drop_mob_111)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A dish-flat crab shell, grey as the ruin's stone and nearly as hard. Smiths grind the rim into a grit that polishes brass without scratching it."
+
+  - id: item_etc_0101
+    name: Chillspine Barb
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 32                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 35                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_112          # drops from Chillspine Lurker (cross-checks drop_mob_112)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A hand-length dorsal spine sheathed in a rime that will not melt in the palm. Fishers on the deep piers tip their gaffs with them."
+
+  - id: item_etc_0102
+    name: Gloamlight Ember
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 32                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 35                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_113          # drops from Gloamlight Wisp (cross-checks drop_mob_113)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A bead of cold, dark-burning light caught in a sealed vial, where it goes on guttering with no fuel at all. Rune-scholars pay well and ask no questions."
+
+  - id: item_etc_0103
+    name: Snapper Frost-Claw
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 33                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 36                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_114          # drops from Frostshell Snapper (cross-checks drop_mob_114)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The blunt fore-claw of a ruin crab, still cold enough to numb a bare hand and heavy enough to double as a mallet. It keeps its chill for days out of the water."
+
+  - id: item_etc_0104
+    name: Ray Wing-Membrane
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 33                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 36                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_115          # drops from Deepcurrent Ray (cross-checks drop_mob_115)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A pane of pale, near-weightless ray-skin that holds a chill and sheds water like oiled silk. Deep divers stretch them over frames for cold-proof cowls."
+
+  - id: item_etc_0105
+    name: Sentinel Core-Gear
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 34                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 37                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_116          # drops from Fallen Sentinel (cross-checks drop_mob_116)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A fist-sized brass gear pried from a ruin construct's chest, its teeth still faintly warm with the sorcery that drove it. Tinkers covet them for clockwork that needs no winding."
+
+  - id: item_etc_0106
+    name: Eel Frost-Hide
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 34                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 37                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_117          # drops from Hoarfrost Eel (cross-checks drop_mob_117)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A supple length of eel-skin veined with threads of ice that never quite thaw. Deep-ruin leatherers braid it into cord that keeps its bite in the coldest water."
+
+  - id: item_etc_0107
+    name: Acolyte Rite-Bead
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 35                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 39                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_118          # drops from Sunken Acolyte (cross-checks drop_mob_118)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A single black prayer-bead from a drowned cleric's broken string, still murmuring a rote of cold if held to the ear. Scholars pay for the litany etched inside, not the stone."
+
+  - id: item_etc_0108
+    name: Lurker Lure-Node
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 35                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 39                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_119          # drops from Glacial Lurker (cross-checks drop_mob_119)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The glowing bait-organ of a deep ambusher, still shining its cold, patient blue in a jar. Its light draws small fish for a lantern-line as surely as it drew the diver."
+
+  - id: item_etc_0109
+    name: Rimeguard Plate-Shard
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 36                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 40                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_120          # drops from Rimeguard Husk (cross-checks drop_mob_120)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A shard of frost-fused garrison armor, its rust locked under a rime that keeps it from ever flaking away. Smiths melt them down for a steel that takes an unnatural cold-edge."
+
+  - id: item_etc_0110
+    name: Wraith-Ectoplasm
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 36                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 40                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_121          # drops from Deepwraith (cross-checks drop_mob_121)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A cupful of cold, black, half-liquid shadow that resists drying and clings to whatever it touches. Enchanters render it down for inks that drink the light."
+
+  - id: item_etc_0111
+    name: Abyssal Wing-Barb
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 37                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 41                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_122          # drops from Abyssal Ray (cross-checks drop_mob_122)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A curved venom-barb from a great deep ray, edged in cold and longer than a forearm. Deep hunters haft them as spears that need no whetting."
+
+  - id: item_etc_0112
+    name: Thrall Oath-Sigil
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 38                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 43                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
+    source_hint: mob_123          # drops from Frostbound Thrall (cross-checks drop_mob_123)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A frost-welded rank-sigil torn from the Warden's honor guard, its device long since scoured to a cold blank. It hums faintly against the palm, as if still awaiting an order."
+

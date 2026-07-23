@@ -1,0 +1,11 @@
+id: drop_mob_097
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone/pool row
+owner: mob_097
+rows:
+  # shards guaranteed. mean_shards_normal(30)=round(1.5*30+3)=48; range=[round(0.8*48),round(1.2*48)] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 38, qty_max: 58 }
+  # 1 region material, common (DROPS §5.1); item_etc_0090 is this mob's R6 material
+  - { ref: item_etc_0090, chance: common, qty_min: 1, qty_max: 2 }
+  # a use item (tonic) at rare (DROPS §5.1); Greater Life Tonic (Lv 30-49 band) serves this band
+  - { ref: item_use_0003, chance: rare, qty_min: 1, qty_max: 1 }

@@ -1,0 +1,22 @@
+id: quest_097
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The High Scarp Ledger
+region: frostpeak
+quest_type: side
+giver_npc: npc_094
+level_requirement: 54
+recommended_level: 54
+steps:
+  - type: kill
+    target: mob_166
+    count: 8
+  - type: collect
+    target: item_etc_0140
+    count: 6
+rewards:
+  exp: 38857  # round(0.09*431,748); exp_to_next(54)=round(4*54^1.3)*round(20+0.2*54^2)=716*603
+  shards: 336  # mean_shards_normal(54)*4 = 84*4
+flavor: "The High Scarp's newest arrivals aren't in any of Wyrmcrag's old field notes."
+offer_text: "Nothing in the archive matches what's denning on the High Scarp now. Bring specimens and I'll update the record."
+complete_text: "The ledger's better for it. Rimeglass Plateau won't surprise the next hunter half as badly."

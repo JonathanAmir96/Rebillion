@@ -1,0 +1,26 @@
+id: mob_196
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Runeflare Wisp
+tier: normal                     # ID slot 196 = R10 normal (ID_REGISTRY Monsters)
+element: arcane                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [shadow]
+resists: [arcane]                # ELEMENTS §2 (mutually exclusive lists)
+level: 66
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 66
+  life: 19044                    # 4*(66+3)^2
+  power: 204                     # 6+3*66
+  armor: 396                    # 6*66  (armor+warding sum = 792 = 12*66)
+  warding: 396                  # 6*66
+  precision: 264                # 4*66
+  evasion: 4.98                 # 3+0.03*66 (%)
+  exp: 928                     # round(4*66^1.3) normal (LEVELING §3)
+ai_profile: kamikaze_burster
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 6
+  detonate_range: 1
+  rush_speed_mult: 2.0
+animation_states: [idle, walk, jump, fall, telegraph, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_196
+flavor: "A brighter, hungrier cousin of the glimmer wisps, so overfull of stolen light that its final flare can blind a whole ledge before it goes dark."

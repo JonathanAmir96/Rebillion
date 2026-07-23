@@ -1,0 +1,54 @@
+id: map_063
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Root Warrens, Sunken Chamber
+region: verdant
+map_type: dungeon
+level_band: { min: 12, max: 13 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 64, h: 64 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [32, 8] }
+portals:
+  - id: to_twisting_roots
+    kind: edge
+    at: { edge: top }
+    target_map: map_062
+    target_spawn: main
+    dead_end: false
+  - id: to_grub_hollows
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_064
+    target_spawn: main
+    dead_end: false
+  - id: to_sunken_hoard
+    kind: door                              # a cracked side-wall, easy to miss (secret pocket)
+    at: { tile: [8, 40] }
+    target_map: map_068
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_chamber_hall
+    rect_tiles: { x: 16, y: 20, w: 36, h: 28 }
+    mobs:
+      - { mob: mob_036, count: 3 }
+      - { mob: mob_037, count: 2 }
+    max_concurrent: 8
+interactables:
+  - type: sign
+    id: sign_sunken_chamber
+    at_tile: [24, 18]
+    params:
+      text: "A wide chamber, roof caved in long ago. Something scratched a crack wider in the west wall, recently."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A wide caved-in chamber with a sunken center floor, crossable in a single running jump
+  each side (MAP_TRAVERSAL §1.1). Foothold segments dressed in caved-root terrain_chunks
+  (ART_BIBLE AB-001); a cracked west wall hides the door to a side pocket.
+flavor: "The chamber's roof gave way generations ago, and root and daylight both fight for the same gap in the stone."

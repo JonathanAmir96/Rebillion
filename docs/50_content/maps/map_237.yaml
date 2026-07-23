@@ -1,0 +1,41 @@
+id: map_237
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Rimevaults, Sunken Archive
+region: frostpeak
+map_type: dungeon
+level_band: { min: 57, max: 57 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_frostpeak
+ambience: [amb_wind, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_236
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_238
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: map_237_zone
+    rect_tiles: { x: 20, y: 30, w: 30, h: 12 }
+    mobs:
+      - { mob: mob_175, count: 2 }
+      - { mob: mob_177, count: 1 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  Denser ice-vault corridors than the Glacier Caverns proper, the elite pair now the norm
+  rather than the exception (SPAWN §2). No rope/ladder on the main line; ledges stay within
+  the standard jump budget (MAP_TRAVERSAL §1.1).
+flavor: "The Rimevaults, where the isle's oldest ice keeps its oldest secrets -- and where the Deepfrost muster gathers."

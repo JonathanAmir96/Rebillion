@@ -1,0 +1,48 @@
+id: map_059
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow, Hollowvale Descent
+region: verdant
+map_type: field
+level_band: { min: 14, max: 15 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 155, h: 34 }
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 24] }
+portals:
+  - id: to_elderbark_reach
+    kind: edge
+    at: { edge: left }
+    target_map: map_058
+    target_spawn: main
+    dead_end: false
+  - id: to_deep_hollow
+    kind: edge
+    at: { edge: right }
+    target_map: map_060
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: hollowvale_descent_slope
+    rect_tiles: { x: 30, y: 22, w: 66, h: 10 }
+    mobs:
+      - { mob: mob_041, count: 3 }        # shares mob_041 with elderbark reach
+      - { mob: mob_042, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_hollowvale_descent
+    at_tile: [22, 23]
+    params:
+      text: "The path drops from here on. This is as shallow as the hollow gets."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A gentle downward slope in ~2-tile drops toward the deep hollow, each within the
+  5-tile/3.5-tile jump/fall caps (MAP_TRAVERSAL §1.1, §2 no fall damage regardless).
+  Foothold segments dressed in root/moss terrain_chunks (ART_BIBLE AB-001).
+flavor: "The ground begins to sink here, ferns giving way to root and shadow the deeper you walk."

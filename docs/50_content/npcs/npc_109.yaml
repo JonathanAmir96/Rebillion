@@ -1,0 +1,13 @@
+id: npc_109
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, MAP_CONNECTIONS]
+name: Deckwarden Orsa
+region: voidshore
+map: map_285
+role: pier_officer
+services: [longship]
+dialog:
+  greeting: "The Voidwake sails on the tide same as ever. Pay the fare, mind the rail, and don't look too long at the water."
+  farewell: "Fair tide. Keep your eyes forward."
+portrait: portrait_npc_109
+flavor: "Orsa has crewed the Voidwake since the Landing was three huts and a torch, and has never once looked back at the black surf."

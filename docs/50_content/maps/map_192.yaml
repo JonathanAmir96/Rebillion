@@ -1,0 +1,41 @@
+id: map_192
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Gearworks, Escapement Deep
+region: clockwork
+map_type: dungeon
+level_band: { min: 40, max: 41 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_dust]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 40] }
+portals:
+  - id: to_proving_floor
+    kind: edge
+    at: { edge: left }
+    target_map: map_191
+    target_spawn: main
+    dead_end: false
+  - id: to_mainspring_approach
+    kind: edge
+    at: { edge: right }
+    target_map: map_193
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: escapement_deep_zone
+    rect_tiles: { x: 20, y: 30, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_144, count: 2 }
+      - { mob: mob_145, count: 1 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  A ticking maze of escapement arms sweeping the corridor at a slow, readable cadence
+  (a hazard-adjacent gimmick, authored fully on the boss's own arena, not here). No
+  rope/ladder; standard jump gaps between arm sweeps (MAP_TRAVERSAL §1.1).
+flavor: "The escapement's arms sweep the corridor floor in a slow, patient rhythm, still counting seconds no one is left to spend."

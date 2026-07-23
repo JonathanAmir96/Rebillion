@@ -1,0 +1,27 @@
+id: mob_189
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Rune Adept
+tier: normal                     # ID slot 189 = R10 normal (ID_REGISTRY Monsters)
+element: arcane                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [shadow]
+resists: [arcane]                # ELEMENTS §2 (mutually exclusive lists)
+level: 61
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 61
+  life: 16384                    # 4*(61+3)^2
+  power: 189                     # 6+3*61
+  spellpower: 189                # 6+3*61 (parity; magic attacker, §13)
+  armor: 366                    # 6*61  (armor+warding sum = 732 = 12*61)
+  warding: 366                  # 6*61
+  precision: 244                # 4*61
+  evasion: 4.83                 # 3+0.03*61 (%)
+  exp: 838                     # round(4*61^1.3) normal (LEVELING §3)
+ai_profile: support_caller
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  support_radius: 6
+  cast_cooldown_s: 6
+  retreat_range: 6
+animation_states: [idle, walk, jump, fall, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_189
+flavor: "A robed husk of an apprentice who never left the Reach, still chanting the wards that keep its fellows aloft rather than lifting a hand against you."

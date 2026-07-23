@@ -1,0 +1,26 @@
+id: quest_094
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Long Climb to Wyrmcrag
+region: frostpeak
+quest_type: main
+giver_npc: npc_089
+turn_in_npc: npc_093
+level_requirement: 48
+recommended_level: 48
+steps:
+  - type: kill
+    target: mob_156
+    count: 10
+  - type: talk  # must clear the Wind Scar pack before Wyrmcrag's wardcaptain will hear you out
+    target: npc_093
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 58971  # round(0.20*294,853); exp_to_next(48)=round(4*48^1.3)*round(20+0.2*48^2)=613*481 (main band 15-30%)
+  shards: 1125  # mean_shards_normal(48)*15 = 75*15 (QUESTS §5 main)
+  items:
+    - { id: item_use_0017, qty: 2 }
+flavor: "The road to Wyrmcrag Hold is clear enough, if you clear the Wind Scar pack that's taken to guarding it."
+offer_text: "Wyrmcrag's wardcaptain will want proof you can handle yourself before she'll open the gate log to you. Clear the Wind Scar, then present yourself."
+complete_text: "Ilse's word was good, then. Wyrmcrag's gate is yours to pass whenever you climb this far."

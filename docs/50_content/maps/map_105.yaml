@@ -1,0 +1,48 @@
+id: map_105
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Cobweb Hollow, Outer Skein
+region: gloomwood
+map_type: field
+level_band: { min: 23, max: 24 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_gloomwood
+ambience: [amb_web_creak, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_104
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_106
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: cobweb_outer_skein
+    rect_tiles: { x: 26, y: 20, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_074, count: 3 }
+      - { mob: mob_075, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_trapper_camp_rowe
+    at_tile: [38, 21]
+    params:
+      text: "A second trap-line, newer than the last, cuts straight across the first one's ground."
+      interact_prompt: Read
+npcs: [npc_058]
+platform_brief: |
+  Loose skeins of old web drape between the trunks, purely visual set-dressing over
+  ordinary foothold terrain (MAP_TRAVERSAL §1.1, ART_BIBLE AB-001). Gaps stay within the
+  standard running-jump budget throughout.
+flavor: "Web hangs so thick here it catches falling leaves before they reach the ground."

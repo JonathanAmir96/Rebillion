@@ -1,0 +1,22 @@
+id: quest_092
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Windward Shelf
+region: frostpeak
+quest_type: side
+giver_npc: npc_089
+level_requirement: 42
+recommended_level: 42
+steps:
+  - type: kill
+    target: mob_152
+    count: 8
+  - type: collect
+    target: item_etc_0130
+    count: 5
+rewards:
+  exp: 13473  # round(0.07*192,468); exp_to_next(42)=round(4*42^1.3)*round(20+0.2*42^2)=516*373 (LEVELING §1)
+  shards: 264  # mean_shards_normal(42)*4 = 66*4 (QUESTS §5 / DROPS §3)
+flavor: "The shelf-dwelling prowlers have pushed further down the flats than the outfitter would like."
+offer_text: "Every season the pack pushes closer to Frosthaven's own doorstep. Thin the Windward Shelf pack and bring me their hides."
+complete_text: "Good hides, and a quieter shelf. The outfitter thanks you, even if she'll never say so twice."

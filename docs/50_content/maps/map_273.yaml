@@ -1,0 +1,46 @@
+id: map_273
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rune Vaults, the Guttering Hall
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 69, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 65, h: 68 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 60] }
+portals:
+  - id: to_fractured_stacks
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_272
+    target_spawn: main
+    dead_end: false
+  - id: to_seventh_chamber
+    kind: edge
+    at: { edge: top }
+    target_map: map_274
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: guttering_hall_chamber
+    rect_tiles: { x: 18, y: 24, w: 30, h: 28 }
+    mobs:
+      - { mob: mob_198, count: 3 }
+    max_concurrent: 8
+  - id: guttering_hall_flourish
+    rect_tiles: { x: 20, y: 10, w: 20, h: 10 }
+    mobs:
+      - { mob: mob_200, count: 1 }
+    max_concurrent: 2
+interactables: []
+npcs: []
+platform_brief: |
+  A long hall of failing wardlight, most of the old glyphwork gone dark. One long chamber
+  with a raised gallery reachable by a single climb within the standing-jump cap
+  (MAP_TRAVERSAL §1.1). Dense corridor combat plus a common elite zone (SPAWN §2).
+flavor: "Only a handful of the old glyphs still burn here -- the rest gutter, faint and cold, like something worked loose their hold."

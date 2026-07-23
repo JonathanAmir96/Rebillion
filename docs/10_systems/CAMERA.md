@@ -133,7 +133,7 @@ synced or validated by a server, even once the game is server-authoritative for 
   `10_systems/SKILL_EFFECTS.md` or `10_systems/AI_BEHAVIOR.md`; flagged for whichever doc adds
   ability-presentation metadata.
 - Whether non-arena "mini-lock" zones (e.g., a tough elite pack in a dungeon corridor) are used in
-  Phase D content, beyond the 15 boss arenas, is undecided — the mechanism (§6) supports it either
-  way.
+  Phase D content, beyond the 8 boss arenas (one per region block; `docs/ID_REGISTRY.md`,
+  `docs/WORLD_PLAN.md`), is undecided — the mechanism (§6) supports it either way.
 - Ultrawide/uncommon aspect ratios and any camera safe-area guarantee are not addressed; likely an
   `40_assets/ART_BIBLE.yaml`/engineering concern once a target resolution is fixed.

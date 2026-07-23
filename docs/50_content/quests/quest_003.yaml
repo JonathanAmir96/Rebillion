@@ -1,0 +1,19 @@
+id: quest_003
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Spare Kindling
+region: emberfoot
+quest_type: side
+giver_npc: npc_002                # Tansy Sootmark, outfitters
+level_requirement: 2
+recommended_level: 2
+steps:
+  - type: collect
+    target: item_etc_0002
+    count: 5
+rewards:
+  exp: 17                          # round(0.08 * 210); side band 5-10% (QUESTS §4)
+  shards: 24                       # side = mean_shards_normal(2)*4 = 6*4
+flavor: "Tansy is always short on cure-stock, and the lower reach is thick with it."
+offer_text: "Bring me a handful of that pale kindling from the lower reach and I'll make it worth your trip."
+complete_text: "That'll cure a whole rack of leathers. My thanks."

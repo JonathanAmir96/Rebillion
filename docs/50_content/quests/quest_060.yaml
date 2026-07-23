@@ -1,0 +1,22 @@
+id: quest_060
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS, JOBS]
+name: The Ember Trial
+region: ashfall
+quest_type: main
+giver_npc: npc_062                # same instructor issues both advancements (JOBS §1 / WORLD_PLAN §Job instructors)
+level_requirement: 40
+recommended_level: 40
+prereqs: [quest_059]
+steps:                            # Ashfall-side leg of the Lv40 trial: prove the line still holds against its own
+  - type: kill                    # region boss before the Clockwork Ruins leg -- that leg is authored in the R8
+    target: mob_107                # Clockwork batch (out of this batch's scope), per JOBS §1's "trial routes through
+    count: 1                       # the Clockwork Ruins" pattern; flagged here rather than guessed at a Clockwork map id.
+rewards:
+  exp: 32912                     # round(0.20 * 164,560); main band 15-30% of exp_to_next(40) (LEVELING §1 / QUESTS §4)
+  shards: 945                    # main = mean_shards_normal(40)*15 = 63*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }   # a pair of Sovereign Life Tonics for the Clockwork leg ahead
+flavor: "The specialization a Bulwark chooses at Lv 40 is permanent, and Master Bram makes every one of them face Karnothal again before he'll vouch for that choice."
+offer_text: "You've grown since your vow. Prove it against the Stoked Core one more time, then take the coach for the Clockwork -- the rest of the trial waits there."
+complete_text: "Karnothal still remembers your first visit, I'd wager. Go choose your path, Bulwark. Whichever it is, you've earned it."

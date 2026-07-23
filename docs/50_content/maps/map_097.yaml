@@ -1,0 +1,31 @@
+id: map_097
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Siren Shoal
+region: tidewatch
+map_type: arena
+level_band: { min: 22, max: 22 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 64, h: 23 }
+bgm: bgm_boss_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [32, 14] }
+portals:
+  - id: to_north_strand
+    kind: door
+    at: { tile: [6, 14] }
+    target_map: map_088
+    target_spawn: main
+    dead_end: false
+platform_brief: |
+  An offshore reef arena, one broad flat shelf awash at the edges. The surge hazard
+  sweeps the shelf's low ground -- no verticality gimmick otherwise, keeping the fight
+  readable for the boss's two phases (song / storm).
+arena_config:
+  boss_mob_id: mob_067
+  gate: { type: open }
+  hazards:
+    - { tier: standard, rect_tiles: { x: 20, y: 16, w: 24, h: 4 } }  # storm-surge wash
+flavor: "Tidecaller Morva sings from the reef's heart, and the storm she calls answers every note."

@@ -1,0 +1,31 @@
+id: map_205
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Frosthaven Hearth-Inn
+region: frostpeak
+map_type: interior
+level_band: { min: 40, max: 40 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 28, h: 16 }
+bgm: bgm_town_frostpeak
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 12] }
+portals:
+  - id: to_frostbreak_landing
+    kind: door
+    at: { tile: [4, 12] }
+    target_map: map_203
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: inn_bed
+    id: bed_hearth_inn
+    at_tile: [20, 12]
+    params: {}
+npcs: [npc_086]
+platform_brief: |
+  A single low-beamed room, hearth-fire against the far wall. No verticality, no combat --
+  just a bar, a fire, and a bench of travelers thawing out.
+flavor: "Built into the ice-cut landing where the Deepway meets the surface, this hearth-inn warms every traveler who's just climbed out of the dark."

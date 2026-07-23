@@ -1,0 +1,24 @@
+id: mob_033
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Fen Boar
+tier: normal                     # ID slot 033 = R3 normal (ID_REGISTRY Monsters)
+element: neutral                 # R3 element split is nature/neutral (WORLD_PLAN)
+level: 10
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 10
+  life: 675                      # §13 table Lv 10
+  power: 36                      # 6+3*10 (touch = round(0.5*power), neutral, §13.1)
+  armor: 60                      # 6*10  (armor+warding sum = 120 = 12*10)
+  warding: 60                    # 6*10
+  precision: 40                  # 4*10
+  evasion: 3.3                   # 3 + 0.03*10 (%)
+  exp: 80                        # exp_per_kill_normal(10)=80 (LEVELING §3)
+ai_profile: aggressive_charger   # commits to a straight-line gore; punishable on the recover (AI_BEHAVIOR §5)
+ai_params:                       # override only aggressive_charger-declared tunables
+  aggro_radius: 7
+  charge_speed_mult: 2.6
+  charge_recover_s: 2.4
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; short untelegraphed windup (normal tier)
+drop_table: drop_mob_033
+flavor: "A rangy mud-caked boar that roots the fen's soft edges and does not like to be interrupted. It squares up, snorts once, and comes at you dead straight; step aside and it plows past into the reeds."

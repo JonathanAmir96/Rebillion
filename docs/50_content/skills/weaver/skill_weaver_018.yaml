@@ -1,0 +1,37 @@
+id: skill_weaver_018
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Arcane Detonation
+line: weaver
+tier: second
+kind: active
+targeting: { shape: aoe_circle, radius: 3, origin: reticle, reticle_range: 8 }   # roster target `aoe_circle`
+cost: { essence: 16 }
+cooldown: 12.0
+level_data:
+  - level: 1
+    essence_cost: 16
+    cooldown: 12.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.3 }
+      - { op: apply_status, status: silence, chance: 0.40, dur: 3 }
+  - level: 4
+    essence_cost: 19
+    cooldown: 11.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.7 }
+      - { op: apply_status, status: silence, chance: 0.50, dur: 3 }
+  - level: 7
+    essence_cost: 22
+    cooldown: 10.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 2.1 }
+      - { op: apply_status, status: silence, chance: 0.60, dur: 3 }
+  - level: 10
+    essence_cost: 25
+    cooldown: 9.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 2.5 }
+      - { op: apply_status, status: silence, chance: 0.70, dur: 3 }
+animation: skill_weaver_018_cast
+flavor: "An overloaded burst of raw arcane that blows outward and gags every caster caught in it. Answer to answer this one."

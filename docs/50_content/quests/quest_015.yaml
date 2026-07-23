@@ -1,0 +1,19 @@
+id: quest_015
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: A Brew Worth Bottling
+region: millbrook
+quest_type: side
+giver_npc: npc_013
+level_requirement: 9
+recommended_level: 9
+steps:
+  - type: collect
+    target: item_etc_0018
+    count: 6
+rewards:
+  exp: 189      # round(0.075*2,520) (LEVELING §1 Lv9); side band, pct=0.075
+  shards: 68     # mean_shards_normal(9)*4 = 17*4 (QUESTS §5 / DROPS §3)
+flavor: "Ma Thistledown swears the best stew in Rosen Harbor needs one more ingredient than she's got on hand."
+offer_text: "Bring me what the outskirts pests keep chewing through my herb boxes for, and I'll make it worth your while."
+complete_text: "That'll do nicely. The stew tonight owes you a debt it can't repay in coin alone."

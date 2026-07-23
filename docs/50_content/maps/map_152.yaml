@@ -1,0 +1,50 @@
+id: map_152
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Sunken Descent, Tideline Grotto
+region: sunken
+map_type: field
+level_band: { min: 30, max: 31 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 160, h: 32 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+  - { id: from_tidewatch, tile: [10, 24] }
+portals:
+  - id: to_sea_cave
+    kind: edge
+    at: { edge: left }
+    target_map: map_094
+    target_spawn: from_sunken
+    dead_end: false  # map_094 forward-ref, R4 Tidewatch sibling batch; reverse edge (Tidewatch sea cave -> Sunken, WORLD_PLAN edge table)
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_153
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_field_152
+    rect_tiles: { x: 50, y: 20, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_108, count: 4 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_camp_entrance
+    at_tile: [20, 23]
+    params:
+      text: "A hand-lettered board: SALVAGE CAMP, TREAD SOFT. The tide runs shallow past here."
+      interact_prompt: "Read"
+npcs: [npc_069]
+platform_brief: |
+  A gentle downward stair of terraces, each drop under the water-physics apex (MAP_TRAVERSAL §7:
+  7.0-tile apex, 10-tile jump distance). A small salvage camp holds the entrance shelf; the tide
+  runs shallow enough here to wade. Terrain is foothold segments under painted drowned-ruin
+  terrain_chunks (ART_BIBLE AB-001).
+flavor: "The sea cave's floor gives way to a slow bioluminescent gloom -- the first drowned light of the ruins below."

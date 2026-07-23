@@ -1,0 +1,41 @@
+id: map_110
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Sunken Canopy, Fog Line
+region: gloomwood
+map_type: field
+level_band: { min: 26, max: 26 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 32 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_web_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_109
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_111
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_canopy_fog_line
+    rect_tiles: { x: 26, y: 22, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_079, count: 3 }
+      - { mob: mob_080, count: 3 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Low ground fog sits permanently at ankle height, purely visual (no water_physics -- this
+  is not Sunken Depths). Terraces keep every gap within the standard jump budget
+  (MAP_TRAVERSAL §1.1); terrain is foothold segments under painted terrain_chunks (ART_BIBLE AB-001).
+flavor: "The fog never lifts down here, thick enough that footsteps behind you could belong to anyone."

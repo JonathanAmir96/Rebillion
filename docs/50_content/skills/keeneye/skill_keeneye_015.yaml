@@ -1,0 +1,38 @@
+id: skill_keeneye_015
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Sunder Shot                   # exact JOBS.md §3.3 Sureshot roster name
+line: keeneye
+tier: second
+kind: active
+targeting: { shape: projectile, speed: 15, range: 9, pierce: 0, gravity: false, impact_radius: 0 }
+cost: { essence: 13 }
+cooldown: 8.0
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 13
+    cooldown: 8.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.3 }                                   # scales on power (bow default, §1)
+      - { op: apply_status, status: sunder, chance: 0.70, stacks: 1 }                       # armor-break, cap 3 (STATUS_EFFECTS §4.1)
+  - level: 4
+    essence_cost: 16
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.7 }
+      - { op: apply_status, status: sunder, chance: 0.80, stacks: 1 }
+  - level: 7
+    essence_cost: 20
+    cooldown: 6.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.1 }
+      - { op: apply_status, status: sunder, chance: 0.90, stacks: 2 }
+  - level: 10
+    essence_cost: 24
+    cooldown: 5.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.5 }
+      - { op: apply_status, status: sunder, chance: 1.0, stacks: 2 }
+animation: skill_keeneye_015_cast
+flavor: "A broadhead shot aimed to crack plate, not flesh — every armor-breaker in a Sureshot's quiver makes the kill shot hit that much harder."

@@ -1,0 +1,22 @@
+id: quest_115
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Brine Below the Heights
+region: voidshore
+quest_type: side
+giver_npc: npc_114
+level_requirement: 74
+recommended_level: 74
+steps:
+  - type: kill
+    target: mob_218
+    count: 8
+  - type: collect
+    target: item_etc_0168
+    count: 5
+rewards:
+  exp: 72051  # round(0.06 * 1,200,855); side band 5-10% (QUESTS §4)
+  shards: 456  # mean_shards_normal(74)*4 = 114*4 (QUESTS §5 / DROPS §3)
+flavor: "The tiderammers have been dredging up brine dense enough to float a dropped coin, and Sella wants to know why."
+offer_text: "Drop a few tiderammers and bottle their brine. Something below the Heights is stirring water that shouldn't exist."
+complete_text: "Dense as she said. Whatever's stirring it, it's not done yet -- but that's a problem for another day."

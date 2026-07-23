@@ -1,0 +1,34 @@
+id: map_240
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
+name: Deepfrost Vault, the Sundered Gate
+region: frostpeak
+map_type: dungeon
+level_band: { min: 50, max: 55 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 60, h: 40 }
+bgm: bgm_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 30] }
+portals:
+  - id: to_frozen_cistern
+    kind: door
+    at: { tile: [54, 12] }
+    target_map: map_241
+    target_spawn: main
+    dead_end: true  # stage chain is sequential and one-way forward (RAID.md §4); this exit unlocks once the stage's kill gate clears
+spawn_zones:
+  - id: sundered_gate_zone
+    rect_tiles: { x: 16, y: 22, w: 32, h: 10 }
+    mobs:
+      - { mob: mob_169, count: 3 }
+      - { mob: mob_170, count: 3 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  Stage 1 of the Deepfrost muster: a kill-gate room (RAID.md §4 pattern) barring the sundered
+  gate until the trash count clears. Party-instanced per SPAWN §7; no verticality gimmick.
+flavor: "The Deepfrost's outer gate, sundered by Skoldir's own coils long before any muster reached it."

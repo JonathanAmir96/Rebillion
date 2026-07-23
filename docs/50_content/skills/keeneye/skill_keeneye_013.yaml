@@ -1,0 +1,25 @@
+id: skill_keeneye_013
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Deadly Momentum               # exact JOBS.md §3.2 Pathstalker roster name
+line: keeneye
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+max_level: 10
+level_data:
+  - level: 1
+    effects:
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: restore_essence, pct: 0.05, target: self }, icd: 2.5 }   # crit-refund engine (SKILL_EFFECTS §5/§16)
+  - level: 4
+    effects:
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: restore_essence, pct: 0.07, target: self }, icd: 2.5 }
+  - level: 7
+    effects:
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: restore_essence, pct: 0.09, target: self }, icd: 2.5 }
+  - level: 10
+    effects:
+      - { op: on_hit_proc, trigger: on_crit, chance: 1.0, effect: { op: restore_essence, pct: 0.12, target: self }, icd: 2.5 }
+flavor: "Every solid hit steadies the breath a little more — a Pathstalker who crits keeps shooting, essence topped up by their own aim."

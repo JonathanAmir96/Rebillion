@@ -1,0 +1,40 @@
+id: skill_keeneye_010
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Falcon                       # exact JOBS.md §3.2 Pathstalker roster name
+line: keeneye
+tier: second
+kind: active
+targeting: self                    # summons spawn near the caster (SKILL_SYSTEM §6 `self`; SKILL_EFFECTS §12)
+cost: { essence: 18 }
+cooldown: 20.0                     # top of the spec cooldown band (§5) — persistent-summon skill, gated by the 1-cap
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 18
+    cooldown: 20.0
+    effects:
+      # OPEN QUESTION (flag, don't guess): summon_entity.entity_ref needs a summon-template
+      # entity id, but no ID block for summon templates exists yet — 20_schemas/monster.schema.md
+      # Open Questions ("no reserved ID block yet") and 20_schemas/skill.schema.md Open Questions
+      # ("Summon entity_ref targets... skill_keeneye_010") both flag this as unresolved at the C
+      # gate. Placeholder token below is NOT a mob_NNN id and must not be treated as one; swap for
+      # the real template id once that block lands.
+      - { op: summon_entity, entity_ref: summon_tmpl_keeneye_falcon, count: 1, dur: 30, inherit_scaling: power }   # cap 1 (SKILL_EFFECTS §12; JOBS §7 "Falcon 1")
+  - level: 4
+    essence_cost: 22
+    cooldown: 18.0
+    effects:
+      - { op: summon_entity, entity_ref: summon_tmpl_keeneye_falcon, count: 1, dur: 45, inherit_scaling: power }
+  - level: 7
+    essence_cost: 25
+    cooldown: 16.0
+    effects:
+      - { op: summon_entity, entity_ref: summon_tmpl_keeneye_falcon, count: 1, dur: 60, inherit_scaling: power }
+  - level: 10
+    essence_cost: 28
+    cooldown: 14.0
+    effects:
+      - { op: summon_entity, entity_ref: summon_tmpl_keeneye_falcon, count: 1, dur: 90, inherit_scaling: power }
+animation: skill_keeneye_010_cast
+flavor: "A sharp whistle and a hunting falcon drops from nowhere to fight at the Pathstalker's shoulder — a second set of eyes and talons that stays until the fight ends it."

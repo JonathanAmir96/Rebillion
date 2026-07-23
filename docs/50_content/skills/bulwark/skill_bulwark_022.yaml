@@ -1,0 +1,37 @@
+id: skill_bulwark_022
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Battle Standard
+line: bulwark
+tier: second
+kind: active
+targeting: self                   # roster target `self`; the standard plants near the caster (SKILL_SYSTEM §6)
+cost: { essence: 16 }
+cooldown: 18.0
+level_data:
+  - level: 1
+    essence_cost: 16
+    cooldown: 18.0
+    effects:
+      # PLACEHOLDER entity_ref: the summon-template mob for a stationary party banner has not been
+      # authored yet — `entity_ref` format / summon-template ID allocation is an open question
+      # (skill.schema.md OQ "Summon entity_ref targets"; SKILL_EFFECTS §12 OQ). Flagged, not guessed;
+      # confirm the real template ID with the batch lead / monster.schema.md owner at the C gate.
+      - { op: summon_entity, entity_ref: summon_tmpl_bulwark_banner, count: 1, dur: 20, inherit_scaling: power }
+  - level: 4
+    essence_cost: 19
+    cooldown: 16.0
+    effects:
+      - { op: summon_entity, entity_ref: summon_tmpl_bulwark_banner, count: 1, dur: 24, inherit_scaling: power }
+  - level: 7
+    essence_cost: 22
+    cooldown: 15.0
+    effects:
+      - { op: summon_entity, entity_ref: summon_tmpl_bulwark_banner, count: 1, dur: 28, inherit_scaling: power }
+  - level: 10
+    essence_cost: 25
+    cooldown: 14.0
+    effects:
+      - { op: summon_entity, entity_ref: summon_tmpl_bulwark_banner, count: 1, dur: 32, inherit_scaling: power }
+animation: skill_bulwark_022_cast
+flavor: "A banner planted in the thick of it, cap 1 per Warcaller, that keeps the warband's spirit anchored to one spot. Fight near the flag."

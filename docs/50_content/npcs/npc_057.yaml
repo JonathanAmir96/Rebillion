@@ -1,0 +1,12 @@
+id: npc_057
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Scholar Innes Vell
+region: gloomwood
+map: map_108
+role: quest_giver
+dialog:
+  greeting: "The web-patterns here don't match anything in my texts. I need fresh specimens, and a steadier pair of hands than mine."
+  farewell: "Note everything you see down there. It matters more than either of us can prove yet."
+portrait: portrait_npc_057
+flavor: "Innes pinned her tent to a hollow trunk to study Gloomwood's spiders and hasn't left in a full season."

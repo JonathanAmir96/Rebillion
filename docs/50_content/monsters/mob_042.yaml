@@ -1,0 +1,26 @@
+id: mob_042
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Thornhide Tusker
+tier: normal                     # ID slot 042 = R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 15
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 15
+  life: 1295                     # §13 table Lv 15
+  power: 51                      # 6+3*15 (gore scales on power, §13.1)
+  armor: 90                      # 6*15  (armor+warding sum = 180 = 12*15)
+  warding: 90                    # 6*15
+  precision: 60                  # 4*15
+  evasion: 3.5                   # 3 + 0.03*15 (%)
+  exp: 135                       # exp_per_kill_normal(15)=round(4*15^1.3) (LEVELING §3)
+ai_profile: aggressive_charger   # a bristling brute that gores in a long committed run (AI_BEHAVIOR §5)
+ai_params:                       # override only aggressive_charger-declared tunables
+  aggro_radius: 8
+  charge_speed_mult: 2.7
+  charge_recover_s: 2.8
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; short untelegraphed windup
+drop_table: drop_mob_042
+flavor: "A heavy fen-tusker gone half to bramble, its hide grown through with iron-hard thorn-bristles that turn a glancing blow. It picks a line, lowers its scarred head, and covers the ground faster than a thing that size has any right to."

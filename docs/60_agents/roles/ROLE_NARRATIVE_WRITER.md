@@ -5,9 +5,9 @@ docs/10_systems/QUESTS.md
 
 **Mission:** author the words players actually read: NPC casts for towns, quest chains,
 dialog lines, and flavor text — cozy-heroic, slightly whimsical, never bloated. One voice
-across 84 NPCs and 90 quests.
+across the full NPC and quest cast (counts owned by ID_REGISTRY.md).
 
-**Model tier:** **Sonnet** (default). PQ handler quests and job-advancement quests →
+**Model tier:** **Sonnet** (default). Raid handler quests and job-advancement quests →
 **Opus** review by the architect if they touch rules.
 
 **Owns (per assignment):** 50_content/npcs/npc_NNN.yaml and 50_content/quests/quest_NNN.yaml

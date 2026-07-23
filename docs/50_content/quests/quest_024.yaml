@@ -1,0 +1,23 @@
+id: quest_024
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Cellar King
+region: millbrook
+quest_type: main
+giver_npc: npc_028
+turn_in_npc: npc_023
+level_requirement: 14
+recommended_level: 14
+prereqs: [quest_023]
+steps:
+  - type: kill
+    target: mob_027
+    count: 1
+rewards:
+  exp: 1463     # round(0.20*7,316) (LEVELING §1 Lv14 exp_to_next); main band, pct=0.20
+  shards: 360    # mean_shards_normal(14)*15 = 24*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0005, qty: 3 }
+flavor: "The Cellar King has throned himself on Millbrook's own hoarded grain, and someone has to knock him off it."
+offer_text: "Raid or open gate, I don't care which -- put the Cellar King down and Millbrook's undervault is finally quiet again."
+complete_text: "Millbrook owes you more than this, but it's what the charter allows. Well fought, truly."

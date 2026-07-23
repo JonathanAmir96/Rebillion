@@ -1,0 +1,26 @@
+id: mob_062
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Frostshell Tortoise
+tier: normal                     # ID slot 062 = R4 normal (ID_REGISTRY Monsters)
+element: neutral
+resists: [frost]                 # its rimed carapace shrugs off cold (ELEMENTS §2)
+level: 21
+size_class: large
+stats:                           # all copied from COMBAT_FORMULA §13 normal budget, Lv 21.
+                                 # armor/warding reallocated toward armor (shell tank), sum kept = 252 (§13)
+  life: 2304                     # 4*(21+3)^2
+  power: 69                      # 6+3*21 (touch = round(0.5*power), neutral, §13.1)
+  armor: 164                     # reallocated up from 126 (§13 permits, sum = 252)
+  warding: 88                    # reallocated down from 126 (armor+warding sum = 252 = 12*21)
+  precision: 84                  # 4*21
+  evasion: 3.63                  # 3 + 0.03*21 (%)
+  exp: 209                       # exp_per_kill_normal(21)=round(4*21^1.3) (LEVELING §3)
+ai_profile: territorial_guard    # a slow, immovable wall of shell over its stretch of strand (AI_BEHAVIOR §6)
+ai_params:                       # override only territorial_guard-declared tunables
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 2
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_062
+flavor: "An old shore tortoise whose humped shell has crusted over with a permanent glaze of sea-ice, near impossible to crack from the front. It plods, it endures, and it outlasts the impatient."

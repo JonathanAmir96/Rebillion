@@ -1,0 +1,42 @@
+id: map_257
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, the Broken Stair
+region: arcane_reach
+map_type: field
+level_band: { min: 60, max: 61 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 170, h: 30 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_voidmist_reach
+    kind: edge
+    at: { edge: left }
+    target_map: map_256
+    target_spawn: main
+    dead_end: false
+  - id: to_skyroad_remnant
+    kind: edge
+    at: { edge: right }
+    target_map: map_258
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: broken_stair_stretch
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_187, count: 2 }
+      - { mob: mob_188, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A ruined stair of shard-plate steps up in broken flights, each riser within the 3.5-tile
+  standing-jump rise cap (MAP_TRAVERSAL §1.1). Three tiers total; no verticality gimmick
+  beyond the climb itself.
+flavor: "Whatever stair once led higher into the old sky-roads broke apart long ago -- these steps are only what's left."

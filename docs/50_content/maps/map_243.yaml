@@ -1,0 +1,40 @@
+id: map_243
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Frostbitten Cairn
+region: frostpeak
+map_type: secret
+level_band: { min: 56, max: 57 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 46, h: 22 }
+bgm: bgm_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 16] }
+portals:
+  - id: to_wyrms_throat
+    kind: door
+    at: { tile: [4, 16] }
+    target_map: map_233
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: frostbitten_cairn_zone
+    rect_tiles: { x: 12, y: 12, w: 26, h: 8 }
+    mobs:
+      - { mob: mob_174, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_frostbitten_cairn
+    at_tile: [26, 14]
+    params:
+      text: "A climber's cairn, stones stacked by hands that never came back down."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A tucked-away memorial chamber off Wyrm's Throat, sparse and quiet (SPAWN §2 secret
+  budget). No verticality gimmick.
+flavor: "A hidden cairn on the climb, stacked stone by stone by travelers the Frozen Maw never let leave."

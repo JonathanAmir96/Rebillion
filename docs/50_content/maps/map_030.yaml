@@ -1,0 +1,41 @@
+id: map_030
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Millbrook Farmland, Scarecrow Flats
+region: millbrook
+map_type: field
+level_band: { min: 9, max: 10 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_old_town
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 22] }
+portals:
+  - id: to_furrow_row
+    kind: edge
+    at: { edge: left }
+    target_map: map_029
+    target_spawn: main
+    dead_end: false
+  - id: to_lower_race
+    kind: edge
+    at: { edge: right }
+    target_map: map_031
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: scarecrow_flats_zone
+    rect_tiles: { x: 40, y: 16, w: 70, h: 10 }
+    mobs:
+      - { mob: mob_016, count: 3 }
+      - { mob: mob_017, count: 2 }
+    max_concurrent: 6
+npcs: [npc_032]
+platform_brief: |
+  Open flats studded with leaning scarecrows, one flat band, no verticality
+  gimmick. Terrain is foothold segments under painted terrain_chunks (ART_BIBLE
+  AB-001).
+flavor: "The scarecrows here lean at odd angles, more from what they've fended off than from age."

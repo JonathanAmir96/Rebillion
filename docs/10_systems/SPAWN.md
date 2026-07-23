@@ -2,7 +2,8 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md,
 docs/VALIDATION.md, 10_systems/AI_BEHAVIOR.md, 10_systems/DEATH_PENALTY.md,
-10_systems/SKILL_EFFECTS.md, 10_systems/PARTY.md, 10_systems/STATUS_EFFECTS.md,
+10_systems/SKILL_EFFECTS.md, 10_systems/social/PARTY.md, 10_systems/social/RAID.md,
+10_systems/STATUS_EFFECTS.md,
 15_maps_system/MAPS_SYSTEM.md, 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md,
 40_assets/UI_ART_SPEC.md, 30_engineering/ENGINEERING_STANDARDS.md
 
@@ -64,9 +65,9 @@ summed across its `target_count`s, should land near `width_screens × per-screen
 | `normal` | 10 s baseline | Zone spawner (§1); per-mob override via `respawn_timer_s` |
 | `elite` | 90 s baseline | Zone spawner; same override field |
 | `boss` (regional arena) | No real-time timer — **arena-entry instanced** | Resets when the arena is unoccupied and re-triggered |
-| `boss` (Rift raid) | No real-time timer — **party-instanced** | Scoped per party; §7 |
+| `boss` (raid finale) | No real-time timer — **party-instanced** | Scoped per party; §7 |
 
-**Boss respawn decision.** Both regional and Rift raid bosses use arena-entry instancing rather
+**Boss respawn decision.** Both regional and raid finale bosses use arena-entry instancing rather
 than a long real-world timer: the boss is always available and resets to full life the next time
 a player/party properly enters and triggers the arena, consistent with
 `10_systems/DEATH_PENALTY.md` §5.2/§5.3's "walk back in, fresh attempt" model. This was chosen
@@ -115,20 +116,27 @@ untargetable for the duration of its `spawn` state**, so its entrance can't be p
 player has even seen it. Any accompanying screen or audio cue is `40_assets/UI_ART_SPEC.md`'s to
 define, not this doc's.
 
-## 7. Rift raid arena spawn rules
+## 7. Raid finale arena spawn rules
 
-Rift raid arenas (`map_197`–`map_200`, `docs/WORLD_PLAN.md` R12) do not use the zone spawner
-(§1–§4) at all — they are single-boss scripted encounters, exempt exactly like regular arenas
-(§2). Spawning here is **party-instanced**: entering a raid arena allocates that encounter to the
-entering party alone (party size/membership rules owned by `10_systems/PARTY.md`), and the raid
-boss (`mob_147`–`mob_150`) spawns fresh for that instance at full life. Mid-fight adds/waves are
-not a `SPAWN.md` concept — they are the boss's own `phases[].added_abilities`
-(`10_systems/AI_BEHAVIOR.md` §15) executed through the `summon_entity` effect op
-(`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
+The four raid finale arenas (`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md`
+§2, `docs/WORLD_PLAN.md`) do not use the zone spawner (§1–§4) at all — they are single-boss scripted
+encounters, exempt exactly like regular arenas (§2). Entry is through the raid herald and stage
+chain, not an open portal (`10_systems/social/RAID.md` §3–§4). Spawning here is **party-instanced**:
+entering the finale arena allocates that encounter to the entering party alone (party
+size/membership rules owned by `10_systems/social/PARTY.md`), and the finale boss
+(`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md` §2) spawns fresh for that
+instance at full life. Mid-fight adds/waves are not a `SPAWN.md` concept — they are the boss's own
+`phases[].added_abilities` (`10_systems/AI_BEHAVIOR.md` §15) executed through the `summon_entity`
+effect op (`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
+
+A raid's **stage maps** (`10_systems/social/RAID.md` §4) are ordinary combat dungeons and **do** run
+the zone spawner (§1–§4) — the spawner's rules are unchanged; only the map copy is party-scoped to
+the instance.
 
 A party's raid instance persists across individual member deaths/releases
 (`10_systems/DEATH_PENALTY.md` §5.3) — it resets only on a full-party wipe or the party leaving
-the arena, per the boss respawn decision in §3.
+the instance, per the boss respawn decision in §3 and the re-entry model in
+`10_systems/social/RAID.md` §5.
 
 ## Open Questions
 - The `1 screen-width ≈ 20 tiles` assumption (§2) is provisional pending the real camera/viewport
@@ -143,5 +151,5 @@ the arena, per the boss respawn decision in §3.
 - Whether the regional-boss "arena-entry instanced" mechanism (§3) is a true per-player instance
   or a shared arena that resets on empty is left to `15_maps_system/MAPS_SYSTEM.md`; both satisfy
   this doc's "no long timer" intent.
-- Rift add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
+- Raid add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
   data, not a SPAWN.md rule.

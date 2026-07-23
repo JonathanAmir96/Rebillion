@@ -1,0 +1,40 @@
+id: map_287
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: "The Voidwake"
+region: voidshore
+map_type: interior
+level_band: { min: 66, max: 80 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 50, h: 18 }
+bgm: bgm_interior_hushed
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: longship_deck, tile: [25, 10] }
+portals:
+  - id: to_tidewatch_pier
+    kind: longship
+    at: { tile: [8, 10] }
+    target_map: map_071
+    target_spawn: longship_dock
+    route_id: route_voidshore_tidewatch
+    fare_ref: fare_longship_long
+    cadence_s: 120.0
+    sail_duration_s: 180.0
+  - id: to_spirehaven_pier
+    kind: longship
+    at: { tile: [42, 10] }
+    target_map: map_245
+    target_spawn: longship_dock
+    route_id: route_arcane_reach_voidshore
+    fare_ref: fare_longship_short
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+npcs: []
+platform_brief: |
+  The Voidwake's open deck, one flat band end to end -- combat-free (MAPS_SYSTEM §6),
+  no monster_body presence and no SPAWN.md zones (MAP_CONNECTIONS §8.4). A social
+  interlude for the sail, not a traversal puzzle.
+flavor: "A black-sailed longship that has crossed the void-tide gap more times than her crew can count, her deck worn smooth by pacing passengers."
