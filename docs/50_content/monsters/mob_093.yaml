@@ -1,0 +1,26 @@
+id: mob_093
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Scoria Hurler
+tier: normal                     # ID slot 93 = R6 normal (ID_REGISTRY ashfall)
+element: fire                      # R6 element mix is fire/neutral (WORLD_PLAN)
+weak_to: [frost]                  # thematic (ELEMENTS §2; lists mutually exclusive)
+resists: [fire]
+level: 28
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 28
+  life: 3844                     # 4*(28+3)^2
+  power: 90                     # 6+3*28 (touch = round(0.5*power), neutral, §13.1)
+  armor: 168                     # 6*28  (armor+warding sum = 12*28)
+  warding: 168                   # 6*28
+  precision: 112                 # 4*28
+  evasion: 3.8                   # 3 + 0.03*28 (%)
+  exp: 304                       # exp_per_kill_normal(28)=round(4*28^1.3) (LEVELING §3)
+ai_profile: ranged_skirmisher
+ai_params:                       # override only ranged_skirmisher-declared tunables (AI_BEHAVIOR)
+  preferred_range_min: 4
+  preferred_range_max: 8
+  attack_cooldown_s: 1.5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_093
+flavor: "A squat, long-armed brute that pries glowing clinker from the vents and lobs it in a smoking arc. It backs away the moment you close, never wanting the fight in its lap."
