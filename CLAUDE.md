@@ -46,6 +46,9 @@ code, no generated art. Read `README.md` for the tree map and
   `docs/10_systems/JOBS.md`); 3rd-tier jobs named-and-reserved for future arcs.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
+- Monetization (owner amendment MON-001, 2026-07-23): cosmetic-only + in-world sponsor
+  billboards, hard no-pay-to-win charter — `docs/10_systems/MONETIZATION.md`. Direction only;
+  no store content is authored this run.
 
 ## Git & generation workflow
 

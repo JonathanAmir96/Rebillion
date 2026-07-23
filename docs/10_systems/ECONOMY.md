@@ -286,6 +286,10 @@ server-authoritative flag (`10_systems/PERSISTENCE.md`); every later crossing pa
   balanced against §2.
 - Whether stat reallocation should be cheaper/free below some level (to lower the early
   experimentation barrier) is open; default is the flat `50·L` curve (§3.1).
+- (MON-001) A billboard-rental `shards` sink in town maps is reserved by
+  `10_systems/MONETIZATION.md` §3.2; if adopted it lands as a §2 sink row in a future
+  amendment. The premium currency (`gleam`, GLOSSARY Provisional) never converts to or from
+  `shards` in either direction — no monetization faucet or sink may ever appear in this doc.
 - §7 fares (ferry 40; coach 120/220/320 by ring distance; longship 300/500/800 by route length)
   are first-pass, anchored to §5 income and §3's `mean_shards_normal`. §7.1 also *fills*
   `docs/WORLD_PLAN.md`'s previously-unwritten ferry/coach fare delegation; if that owner intended a

@@ -136,6 +136,9 @@ WORLD_PLAN.md/MAP_CONNECTIONS.md) · `longship` (paid
 The earlier free-warp "waygate" mechanism is retired — that token is invalid in content.
 
 ## Provisional (pending promotion at a phase gate)
+- `gleam` — premium cosmetic-only currency (real money; account-bound; never converts to or
+  from `shards`). Owner: 10_systems/MONETIZATION.md (MON-001). OQ: promote or rename at the
+  next phase gate.
 - `raid_herald` — NPC archetype: the staging-area NPC that fronts a raid's entry
   (10_systems/social/RAID.md). Promote if Phase D NPC content uses it as a field value.
 - `coach_station` (interactable) · `coach_clerk` / `pier_officer` (NPC roles) — the coach
