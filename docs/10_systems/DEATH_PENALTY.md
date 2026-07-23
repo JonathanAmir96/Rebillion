@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, 10_systems/STATS.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/SPAWN.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/PARTY.md, 10_systems/social/PARTY_QUEST.md, 10_systems/LEVELING.md,
+10_systems/social/PARTY.md, 10_systems/social/PARTY_QUEST.md, 10_systems/LEVELING.md,
 10_systems/ECONOMY.md,
 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_CONNECTIONS.md, 40_assets/ANIMATION_STATES.md,
 docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
@@ -93,7 +93,7 @@ A death inside a party-quest instance (stage maps or the party-instanced finale 
 use §4 directly. Instead:
 
 1. `die` plays and statuses clear as above; the character enters a **fallen** state: untargetable,
-   no actions except **Release**. It remains a party member for `10_systems/PARTY.md` purposes —
+   no actions except **Release**. It remains a party member for `10_systems/social/PARTY.md` purposes —
    the run continues without it.
 2. The player may **Release** at any time (no forced timer). Releasing applies the §2/§3
    penalties for the character's level bracket and moves the character to the map holding the
@@ -124,7 +124,7 @@ field/dungeon/arena deaths have no revive option at all (respawn is the only pat
 - Exact `pct` values (§2) are first-pass balance; owner for retuning is this doc, informed by
   `10_systems/LEVELING.md`'s eventual exp curve.
 - Whether a fallen character (§5.3) still shows on party frames or counts for loot eligibility is
-  `10_systems/PARTY.md`'s call — flagged for confirmation.
+  `10_systems/social/PARTY.md`'s call — flagged for confirmation.
 - Rebind cost: is resting at a new inn free, or does it cost `shards`/carry a cooldown? Default
   assumed **free**; owner `10_systems/ECONOMY.md` may add a fee.
 - A revive skill effect op (§6) is proposed for `10_systems/SKILL_EFFECTS.md` to pick up as

@@ -76,7 +76,7 @@ crest:
   per guild (server-tracked). Both numbers are this doc's first-pass proposal; the `shards`
   magnitude is still `10_systems/ECONOMY.md`'s sink budget to confirm (Open Questions).
 - The guild record (roster/ranks/crest/MOTD fields) has no schema doc yet; proposed as
-  `20_schemas/guild.schema.md` at Phase C (Open Questions).
+  a `guild.schema` doc (proposed, not yet in the §2 tree) at Phase C (Open Questions).
 
 ## 6. MOTD
 
@@ -111,7 +111,7 @@ character has no one else to recruit, so no guild ever meaningfully forms.
 - Guild records have no ID scheme in `docs/ID_REGISTRY.md` (guilds are runtime player-created data,
   not Phase D authored content) — proposes server-assigned `guild_<NNNNNN>` IDs; needs
   `10_systems/PERSISTENCE.md` to confirm the format.
-- No schema doc yet exists for the guild record; proposes `20_schemas/guild.schema.md` at Phase C.
+- No schema doc yet exists for the guild record; proposes a `guild.schema` doc (proposed, not yet in the §2 tree) at Phase C.
 - The crest shape enum (`heater`/`round`/`banner`/`diamond`/`crest_ornate`, §5) is new vocabulary
   not yet in `00_vision/GLOSSARY.md` — propose promoting it to GLOSSARY Provisional at the B/C
   gate, alongside the 24-symbol list owned by `40_assets/UI_ART_SPEC.md`.

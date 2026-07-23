@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md,
 docs/VALIDATION.md, 10_systems/AI_BEHAVIOR.md, 10_systems/DEATH_PENALTY.md,
-10_systems/SKILL_EFFECTS.md, 10_systems/PARTY.md, 10_systems/STATUS_EFFECTS.md,
+10_systems/SKILL_EFFECTS.md, 10_systems/social/PARTY.md, 10_systems/STATUS_EFFECTS.md,
 15_maps_system/MAPS_SYSTEM.md, 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md,
 40_assets/UI_ART_SPEC.md, 30_engineering/ENGINEERING_STANDARDS.md
 

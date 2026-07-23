@@ -32,7 +32,7 @@ binaries have no home here.
 
 PixelLab is reached exclusively through the PixelLab MCP tools, authenticated by the
 `PIXELLAB_SECRET` environment secret configured in the Claude Code environment settings
-(`docs/CLAUDE.md`). Rules, no exceptions:
+(the repo root `CLAUDE.md`). Rules, no exceptions:
 
 - The token value is **never** committed to this repo, never pasted into a doc, a commit message,
   a log line, a generation prompt, or a chat transcript that could be persisted as an artifact.

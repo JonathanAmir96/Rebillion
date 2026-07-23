@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md,
 10_systems/ELEMENTS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/SKILL_SYSTEM.md, 10_systems/PARTY.md,
+10_systems/SKILL_SYSTEM.md, 10_systems/social/PARTY.md,
 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md, docs/ID_REGISTRY.md,
 docs/WORLD_PLAN.md
 
@@ -155,7 +155,7 @@ apply to DoT ticks exactly as to direct hits.
   ops have no `purge`. Default: buffs only expire (no purge); flag if a boss design needs to strip
   player buffs. Owner: `10_systems/SKILL_EFFECTS.md`.
 - Hard-CC DR window (10 s) and immunity duration (8 s) are first-pass; may need retuning for
-  party-instanced finales. Owner: `10_systems/COMBAT_FORMULA.md` / `10_systems/PARTY.md`.
+  party-instanced finales. Owner: `10_systems/COMBAT_FORMULA.md` / `10_systems/social/PARTY.md`.
 - ~~Whether Rift raid bosses use full CC-immunity or the `boss` soft-CC row~~ **Resolved at the
   v2 straggler wave:** no raid tier exists this arc; PQ-instanced finale bosses use the `boss`
   row (§3). A future-arc raid tier re-opens the full-immunity question.

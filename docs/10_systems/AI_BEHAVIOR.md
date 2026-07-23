@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md,
 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/COMBAT_FORMULA.md, 10_systems/SPAWN.md, 10_systems/PARTY.md,
+10_systems/COMBAT_FORMULA.md, 10_systems/SPAWN.md, 10_systems/social/PARTY.md,
 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md, 40_assets/ART_BIBLE.yaml,
 15_maps_system/MAPS_SYSTEM.md, docs/VALIDATION.md, docs/ID_REGISTRY.md
 
@@ -298,4 +298,4 @@ above; set false only if a specific boss needs a softer transition — flag it i
   `40_assets/ART_BIBLE.yaml`; not fixed here.
 - `phase_shift_duration_s` and whether it should scale for PQ-instanced finales
   (`10_systems/social/PARTY_QUEST.md`) is a first-pass default; owner
-  `10_systems/COMBAT_FORMULA.md`/`10_systems/PARTY.md` may retune.
+  `10_systems/COMBAT_FORMULA.md`/`10_systems/social/PARTY.md` may retune.
