@@ -44,7 +44,9 @@ that the death/economy consequence is **no repair `shards` sink**. Skill-point r
 (`10_systems/JOBS.md` §6 / `10_systems/SKILL_SYSTEM.md`); only **stat** free-point reallocation
 carries a fee (§3.1). Resting at an inn to rebind (`10_systems/DEATH_PENALTY.md` §4) is **free** at
 launch (resolving that doc's rebind-cost OQ from the economy side; a fee may be added later if
-bind-hopping is abused).
+bind-hopping is abused). Paid travel is a further small steady sink owned by this doc: Harthmoor
+Coachworks coach fares scale with ring distance per `docs/WORLD_PLAN.md` §Harthmoor Coachworks,
+and the Harborwind Ferry charges a small flat crossing fare (first-pass numbers land with Phase D).
 
 ## 3. Enhancement fee schedule (cited by `10_systems/ENHANCEMENT.md` §5)
 
@@ -57,17 +59,20 @@ base_fee(T) = round( 3 · mean_shards_normal(T.req_level) )   # DROPS §3
 plus_mult(n) = 1 + 0.5·(n - 1)                        # +1 → ×1.0 … +9 → ×5.0
 ```
 
+The checksum table samples the arc's tier grid (`10_systems/ITEMS.md` §4); reserved tiers T7–T10
+sample the same formula when future arcs set their `req_level`s:
+
 | Tier (`req_level`) | `base_fee` | fee @ +1 | @ +5 | @ +9 |
 |---|---|---|---|---|
 | T1 (1) | 15 | 15 | 45 | 75 |
-| T3 (20) | 99 | 99 | 297 | 495 |
-| T5 (40) | 189 | 189 | 567 | 945 |
-| T6 (50) | 234 | 234 | 702 | 1,170 |
-| T8 (70) | 324 | 324 | 972 | 1,620 |
-| T10 (90) | 414 | 414 | 1,242 | 2,070 |
+| T2 (8) | 45 | 45 | 135 | 225 |
+| T3 (15) | 78 | 78 | 234 | 390 |
+| T4 (22) | 108 | 108 | 324 | 540 |
+| T5 (29) | 141 | 141 | 423 | 705 |
+| T6 (36) | 171 | 171 | 513 | 855 |
 
 Worked: taking one T6 item 0→+9 (guaranteed +1..+5, then the §3-pity risky band, expected ≈ 8
-attempts total) costs ≈ **10.5 K `shards`** ≈ 17 min of at-level income (§5) — a real but cozy
+attempts total) costs ≈ **7.5 K `shards`** ≈ 15 min of at-level income (§5) — a real but cozy
 sink, repeated per key item. Pity (`10_systems/ENHANCEMENT.md` §3) bounds the worst case; luck
 never inflates the *fee* past the 5-attempt cap per level.
 
@@ -80,7 +85,9 @@ fee; this doc owns the number:
 reallocation_fee(L) = round( 50 · L )       # full respec of the free pool
 ```
 
-Lv 30 → 1,500; Lv 50 → 2,500; Lv 100 → 5,000. Scales with `level` so it stays a meaningful choice
+Lv 20 → 1,000; Lv 30 → 1,500; Lv 40 → 2,000 (the arc's endgame anchor). The `50·L` formula is
+level-driven and extends formula-first into future arcs on the road to cap 300 — no re-anchoring
+needed. Scales with `level` so it stays a meaningful choice
 without ever locking a build (P2 — no trap builds; the pool is always reallocatable). First-pass;
 `10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
 
@@ -96,9 +103,9 @@ buy)`.
 |---|---|---|---|
 | Lesser Life / Essence Tonic (`0001`/`0006`) | Lv 1–9 | 15 | 4 |
 | Life / Essence Tonic (`0002`/`0007`) | Lv 10–29 | 60 | 15 |
-| Greater … (`0003`/`0008`) | Lv 30–49 | 200 | 50 |
-| Superior … (`0004`/`0009`) | Lv 50–69 | 500 | 125 |
-| Prime … (`0005`/`0010`) | Lv 70–100 | 1,000 | 250 |
+| Greater … (`0003`/`0008`) | Lv 30–49 (covers the arc's end) | 200 | 50 |
+| Superior … (`0004`/`0009`) | Lv 50–69 *(future arcs)* | 500 | 125 |
+| Prime … (`0005`/`0010`) | Lv 70+ *(future arcs)* | 1,000 | 250 |
 | Antidote (`0011`) / Thaw Salve (`0012`) | any | 50 | 12 |
 | Millbrook Return Scroll (`0013`) | any | 100 | 25 |
 | Hearth Bread (`0014`, food buff) | any | 80 | 20 |
@@ -116,23 +123,24 @@ buy anything at 25%. Buy value = `base_buy(tier) · rarity_mult`:
 | Tier (`req_level`) | `base_buy` (`common`) |  | `rarity_mult` |  |
 |---|---|---|---|---|
 | T1 (1) | 30 |  | `common` | ×1 |
-| T2 (10) | 120 |  | `uncommon` | ×2.5 |
-| T4 (30) | 600 |  | `rare` | ×8 |
-| T6 (50) | 1,800 |  | `epic` | ×30 |
-| T8 (70) | 4,000 |  | `legendary` | ×30 (suppressed) |
-| T10 (90) | 8,000 |  | | |
+| T2 (8) | 120 |  | `uncommon` | ×2.5 |
+| T4 (22) | 600 |  | `rare` | ×8 |
+| T6 (36) | 1,800 |  | `epic` | ×30 |
+| T8 *(reserved)* | 4,000 |  | `legendary` | ×30 (suppressed) |
+| T10 *(reserved)* | 8,000 |  | | |
 
-`base_buy` for intermediate tiers interpolates (T3 300, T5 1,050, T7 2,800, T9 6,000).
+`base_buy` for intermediate tiers interpolates (T3 300, T5 1,050; reserved T7 2,800, T9 6,000 —
+future-arc seeds on the same ladder).
 **`legendary` and boss-unique vendor value is suppressed to the `epic` multiplier** so the best
 gear is used or traded on the future market (`10_systems/social/MARKET.md`), never vendored for a
 `shards` windfall (an inflation guard, §6). Example vendoring faucet: a `rare` T6 drop sells for
-`round(0.25 · 1800 · 8)` = **3,600** `shards` (≈ 5 min of income) — a satisfying but non-dominant
-faucet.
+`round(0.25 · 1800 · 8)` = **3,600** `shards` (≈ 7 min of arc-end income, §5) — a satisfying but
+non-dominant faucet.
 
 ## 5. Potion economics vs hunting income
 
-A session must net **positive** while potions take a real **~20–30%** bite at combat-heavy levels
-(P2 — you always come out ahead, but consumables matter). Model: at-level income =
+A session must net **positive** while potions take a real bite — rising toward **~20–30%** in the
+combat-heaviest bands (P2 — you always come out ahead, but consumables matter). Model: at-level income =
 `480 · mean_shards_normal(L)` (`10_systems/DROPS.md` §3 × `10_systems/LEVELING.md` §1 kills/hour);
 potion spend assumes ≈ **18 tonics/hour** of the band tonic (≈ 1 per 27 kills, given
 `10_systems/COMBAT_FORMULA.md` §12 i-frames make cozy combat low-attrition).
@@ -140,14 +148,14 @@ potion spend assumes ≈ **18 tonics/hour** of the band tonic (≈ 1 per 27 kill
 | Player Lv | Band tonic (buy) | Income/hr | Potion spend/hr | Bite | Net/hr |
 |---|---|---|---|---|---|
 | 10 | Life Tonic (60) | 8,640 | 1,080 | 12.5% | +7,560 |
+| 20 | Life Tonic (60) | 15,840 | 1,080 | 6.8% | +14,760 |
 | 30 | Greater (200) | 23,040 | 3,600 | 15.6% | +19,440 |
-| 50 | Superior (500) | 37,440 | 9,000 | 24.0% | +28,440 |
-| 70 | Prime (1,000) | 51,840 | 18,000 | 34.7% | +33,840 |
-| 90 | Prime (1,000) | 66,240 | 18,000 | 27.2% | +48,240 |
+| 40 | Greater (200) | 30,240 | 3,600 | 11.9% | +26,640 |
 
-The bite deliberately **rises into the 50–70 band** (the combat-heavy dungeon years) then eases at
-90 as income outpaces the capped Prime tonic price. Early levels (10–30) sit under 20% — intended
-tutorial gentleness (P2). Net is positive at every level, funding the enhancement (§3) and gear
+The table samples the authored arc (model is formula-first; future arcs re-sample it with the
+Superior/Prime bands, §4.1, where the heavier 20–30% bite is designed to land against post-arc
+income). Within the arc the bite stays under ~20% — intended tutorial-through-midgame gentleness
+(P2). Net is positive at every level, funding the enhancement (§3) and gear
 (§4) sinks that turn surplus `shards` into power. Exact restore amounts (Phase D use-item data)
 set the real drink rate; if tonics restore more/less than the ~40%-of-band-`life` assumption here,
 drinks/hour shifts and the bite with it — retune tonic **price** (§4.1), not the faucet.

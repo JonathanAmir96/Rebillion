@@ -68,33 +68,34 @@ type→line pairing is fixed by GLOSSARY/`10_systems/JOBS.md`; this doc owns its
 
 ## 4. Tier bands and level requirements
 
-Ten gear tiers **T1–T10**, each keyed to a required level aligned to region entry
-(`docs/WORLD_PLAN.md`). Weapons and armor share the tier grid; accessories use the same grid
-(Phase D may author accessories at fewer bands, §12). The **Lv 8 first advancement**
-(`10_systems/JOBS.md`) is the gate at which a character can first equip a line weapon (it will be
-past T1's `req_level` 1 by then). There is **no T11**: at Lv 100 the endgame power source is
-**T10 + enhancement (`10_systems/ENHANCEMENT.md`) + boss uniques (§11)**, matching the gear-only
-post-cap policy (`10_systems/LEVELING.md` §6).
+The tier grid spans **T1–T10**; the **authored arc uses T1–T6**, keyed to required levels aligned
+to region entry across the 8 canon regions (`docs/WORLD_PLAN.md`), stepping every ~7 levels
+(`docs/ID_REGISTRY.md`: tiers at Lv 1/8/15/22/29/36). Weapons and armor share the tier grid;
+accessories use the same grid (Phase D may author accessories at fewer bands, §12). The **Lv 8
+first advancement** (`10_systems/JOBS.md`) is the gate at which a character can first equip a line
+weapon (T1's `req_level` is 1; the T2 band arrives with the advancement). There is **no arc tier
+above T6**: at the arc's end (Lv 40+) the power source is **T6 + enhancement
+(`10_systems/ENHANCEMENT.md`) + boss uniques (§11)**, matching the slow post-arc grind policy
+(`10_systems/LEVELING.md`, `00_vision/SCOPE.md`).
 
 | Tier | `req_level` | Region context (`docs/WORLD_PLAN.md`) |
 |---|---|---|
-| T1 | 1 | Emberfoot (starter) |
-| T2 | 10 | Verdant |
-| T3 | 20 | Tidewatch |
-| T4 | 30 | Sunken |
-| T5 | 40 | Ashfall |
-| T6 | 50 | Frostpeak |
-| T7 | 60 | Gloomwood |
-| T8 | 70 | Clockwork |
-| T9 | 80 | Arcane Reach |
-| T10 | 90 | Voidshore / Rift-ready |
+| T1 | 1 | Emberfoot Isle (Lv 1–8, starter) |
+| T2 | 8 | Millbrook & Rosen Harbor · Verdant Hollow (Lv 8–16) |
+| T3 | 15 | Tidewatch Coast (Lv 14–22) |
+| T4 | 22 | Gloomwood (Lv 20–28) |
+| T5 | 29 | Ashfall Barrens · Sunken Depths (Lv 26–38) |
+| T6 | 36 | Clockwork Ruins (Lv 34–40, elites to 42 — the arc's endgame) |
+| T7–T10 | *reserved* | Future arcs on the road to cap 300 (`00_vision/SCOPE.md`); ID space stays reserved — **not** mapped to the reserved biomes (frostpeak/arcane_reach/voidshore/rift) as active content |
 
 **ID-block layout** within `item_equip` (`docs/ID_REGISTRY.md` owns the ranges; this is the
-intra-block convention): weapons `0001`–`0040` = 10 tiers × 4 types in line order
-(`blade 0001`–`0010`, `bow 0011`–`0020`, `staff 0021`–`0030`, `dirk 0031`–`0040`); armor
-`0041`–`0140` = 5 slots × tiers (`head 0041`–, `body`, `legs`, `boots`, `gloves`, then reserved
-growth for intermediate/region-variant pieces); accessories `0141`–`0180` = `cape`/`ring`/`amulet`
-× tiers; boss uniques `0201`–`0230` (§11).
+intra-block convention): weapons `0001`–`0040` = 4 types × up to 10 tiers in line order
+(`blade 0001`–`0010`, `bow 0011`–`0020`, `staff 0021`–`0030`, `dirk 0031`–`0040`) — the arc
+authors 6 tiers per type (**24 weapons**), the top 4 slots per type reserved for future-arc
+tiers; armor `0041`–`0140` = 5 slots × tiers (**30 authored** = 5 slots × 6 arc tiers;
+`head 0041`–, `body`, `legs`, `boots`, `gloves`, then reserved growth for future-arc tiers and
+intermediate/region-variant pieces); accessories `0141`–`0180` = `cape`/`ring`/`amulet` × tiers
+(**16 authored**, §12); boss uniques `0201`–`0216` (§11; `0217`–`0230` reserved).
 
 ## 5. Rarity ladder
 
@@ -108,7 +109,7 @@ piece's base defense — it adds **affix lines** (§10). Colors are locked in
 | `uncommon` | 1 | `normal`/`elite` drops, region pools |
 | `rare` | 2 | `elite`/`boss` pools |
 | `epic` | 3 | `boss` pools, boss uniques (§11) |
-| `legendary` | 4 (+1 flourish on uniques) | `boss`/raid pools, boss uniques (§11) |
+| `legendary` | 4 (+1 flourish on uniques) | `boss` pools, boss uniques (§11) |
 
 ## 6. Stat model: base lines + affix lines
 
@@ -138,18 +139,22 @@ lever. These values, plus gear affix `power` and the primary contribution, are t
 at-level geared character reaches the `power_ref` offense of `10_systems/COMBAT_FORMULA.md` §15
 (that doc's OQ owns retuning `mult m` if they drift; `W` is never retuned to break the band).
 
-| Tier | `req_level` | `W` (`blade`/`bow`/`dirk` → `power`) | `W` (`staff` → `spellpower`) |
+| Tier | `req_level` (§4) | `W` (`blade`/`bow`/`dirk` → `power`) | `W` (`staff` → `spellpower`) |
 |---|---|---|---|
 | T1 | 1 | 8 | 9 |
-| T2 | 10 | 30 | 33 |
-| T3 | 20 | 68 | 74 |
-| T4 | 30 | 116 | 127 |
-| T5 | 40 | 176 | 193 |
-| T6 | 50 | 246 | 270 |
-| T7 | 60 | 327 | 359 |
-| T8 | 70 | 418 | 460 |
-| T9 | 80 | 522 | 574 |
-| T10 | 90 | 636 | 700 |
+| T2 | 8 | 30 | 33 |
+| T3 | 15 | 68 | 74 |
+| T4 | 22 | 116 | 127 |
+| T5 | 29 | 176 | 193 |
+| T6 | 36 | 246 | 270 |
+| T7 | *reserved* | 327 | 359 |
+| T8 | *reserved* | 418 | 460 |
+| T9 | *reserved* | 522 | 574 |
+| T10 | *reserved* | 636 | 700 |
+
+The per-tier `W` ladder is kept from the pre-v2 grid while the §4 `req_level`s compress to the
+arc — a deliberately steeper power-per-level curve, flagged first-pass for the
+`10_systems/COMBAT_FORMULA.md` §15 check. T7–T10 rows are reserved seeds for future arcs.
 
 ## 8. Armor / warding base by slot × tier
 
@@ -184,18 +189,21 @@ primary_base(L) = round( 2 + 0.35·L )     # ring & amulet primary
 cape_warding(L) = round( 0.15 · K(L) / 3 )     # K(L) per COMBAT_FORMULA §5
 ```
 
-| Tier band | `ring` primary / `crit_rate` | `amulet` primary / `crit_power` | `cape` `warding` / `evasion` |
+Formulas are authoritative; the checksum table samples them on a level grid (Phase D reads each
+tier's values at its §4 `req_level` — e.g. T6 at Lv 36; samples past Lv 42 serve future arcs):
+
+| Sample Lv | `ring` primary / `crit_rate` | `amulet` primary / `crit_power` | `cape` `warding` / `evasion` |
 |---|---|---|---|
-| T1 (Lv 1) | 2 / 1.0% | 2 / +0.03 | 4 / 1.0% |
-| T2 (Lv 10) | 6 / 1.0% | 6 / +0.03 | 13 / 1.0% |
-| T3 (Lv 20) | 9 / 1.5% | 9 / +0.05 | 22 / 1.5% |
-| T4 (Lv 30) | 13 / 1.5% | 13 / +0.05 | 33 / 1.5% |
-| T5 (Lv 40) | 16 / 2.0% | 16 / +0.07 | 43 / 2.0% |
-| T6 (Lv 50) | 20 / 2.0% | 20 / +0.07 | 53 / 2.0% |
-| T7 (Lv 60) | 23 / 2.5% | 23 / +0.09 | 63 / 2.5% |
-| T8 (Lv 70) | 27 / 2.5% | 27 / +0.09 | 73 / 2.5% |
-| T9 (Lv 80) | 30 / 3.0% | 30 / +0.12 | 83 / 3.0% |
-| T10 (Lv 90) | 34 / 3.0% | 34 / +0.12 | 93 / 3.0% |
+| Lv 1 | 2 / 1.0% | 2 / +0.03 | 4 / 1.0% |
+| Lv 10 | 6 / 1.0% | 6 / +0.03 | 13 / 1.0% |
+| Lv 20 | 9 / 1.5% | 9 / +0.05 | 22 / 1.5% |
+| Lv 30 | 13 / 1.5% | 13 / +0.05 | 33 / 1.5% |
+| Lv 40 | 16 / 2.0% | 16 / +0.07 | 43 / 2.0% |
+| Lv 50 | 20 / 2.0% | 20 / +0.07 | 53 / 2.0% |
+| Lv 60 | 23 / 2.5% | 23 / +0.09 | 63 / 2.5% |
+| Lv 70 | 27 / 2.5% | 27 / +0.09 | 73 / 2.5% |
+| Lv 80 | 30 / 3.0% | 30 / +0.12 | 83 / 3.0% |
+| Lv 90 | 34 / 3.0% | 34 / +0.12 | 93 / 3.0% |
 
 `crit_rate`/`crit_power`/`evasion` from accessories feed `10_systems/STATS.md` §2 and are
 soft-capped there (§6) — stacking beyond the band is self-limiting, no special rule here.
@@ -240,15 +248,15 @@ primary/`life`/`armor`/`warding`/`haste`; `gloves` may also roll `crit_rate`/`pr
 `cape` rolls `evasion`/`warding`/`haste`; `ring`/`amulet` roll primary/`crit_rate`/`crit_power`/
 `power`/`spellpower`. Armor rolling a primary is the "stat lean" (§2).
 
-**Worked example** — `rare` T6 (Lv 50) `body` armor: base 98 `armor` / 69 `warding`
+**Worked example** — a `rare` `body` armor sampled at Lv 50: base 98 `armor` / 69 `warding`
 (16.7 pe); affixes = 2 lines, budget 34 pe: e.g. +12 `might` (12 pe) + +132 `life` (3.96 pe) =
 16 pe ≤ 34, per-line cap 17 not exceeded. Total item pe ≈ 32.7.
 
 ## 11. Boss unique gear
 
-Each of the 15 bosses (`docs/WORLD_PLAN.md`, 11 region + 4 raid) owns **two** uniques at
-`item_equip_0201`–`0230` (mapping owned by `docs/ID_REGISTRY.md`: boss #n → `0199+2n`, `0200+2n`).
-Rules:
+Each of the 8 bosses (`docs/WORLD_PLAN.md`) owns **two** uniques at `item_equip_0201`–`0216`
+(mapping owned by `docs/ID_REGISTRY.md`: boss #n → `0199+2n`, `0200+2n`; `0217`–`0230` stays
+reserved for future-arc bosses). Rules:
 
 - **Rarity `epic` or `legendary`.** `req_level` = the boss's level band; slot/type is the unique's
   own (a boss may own e.g. one `weapon` + one `amulet`).
@@ -259,7 +267,7 @@ Rules:
   — no new rules, P4).
 - Total item pe ≤ the `legendary` budget (§10) × 1.5 for uniques. No unique introduces a
   per-element resistance or any token outside GLOSSARY (`10_systems/ELEMENTS.md` OQ).
-- Dropped from their boss's table (`10_systems/DROPS.md` boss/raid shape); first regional-boss
+- Dropped from their boss's table (`10_systems/DROPS.md` boss shape); first regional-boss
   clear grants one of its uniques (bad-luck protection, `10_systems/DROPS.md`).
 
 ## 12. Batch-table file convention (formalized by `20_schemas/item.schema.md`)
@@ -297,11 +305,11 @@ and required/optional flags; this doc owns only the table wrapper and the meanin
 
 ## Open Questions
 
-- SCOPE (`00_vision/SCOPE.md`) lists "~80 armor" and "~24 accessories"; the §4 clean grid yields 50
-  core armor (5 slots × 10 tiers) + reserved growth and 30 core accessories. Phase D fills toward
-  the SCOPE counts using the reserved `item_equip` ranges (intermediate/region-variant pieces on
-  the same §8/§9 value curve, interpolated by `req_level`); exact per-slot SKU count is a Phase D
-  call bounded by `docs/ID_REGISTRY.md`. Flagged for the content pass.
+- ~~SCOPE lists "~80 armor" / "~24 accessories" vs the clean grid~~ **Resolved by the v2 count
+  revision:** `00_vision/SCOPE.md` now lists 30 armor (exactly the 5 slots × 6 arc tiers grid) and
+  16 accessories (3 slots × 6 tiers with two bands unauthored — which two is a Phase D call, §12).
+  Reserved `item_equip` ranges remain for future-arc tiers and region-variant pieces on the same
+  §8/§9 value curves, bounded by `docs/ID_REGISTRY.md`.
 - `W` and the §10 affix budgets assume the `power_ref`/`mult m` reference of
   `10_systems/COMBAT_FORMULA.md` §15; if the balance pass finds an at-level geared character lands
   far off `power_ref`, retune `mult m` there (never `normal_life`), and revisit the staff +10%
