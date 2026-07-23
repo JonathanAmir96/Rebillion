@@ -298,11 +298,13 @@ define — this section fixes only the hop sequence and where each check runs.
 cross-node coordination, BEAM-native ETS/Phoenix.Presence for in-node ephemeral state); this doc
 owns the **semantics** — staleness and fan-out scope — layered on top.
 
-- **Who sees online/offline.** Party rosters (`10_systems/social/PARTY.md` §3 HUD plates) and guild
-  rosters (`10_systems/social/GUILD.md` §6/§7 panel) both surface a per-member online/offline
-  indicator; the source is the same presence layer both times, scoped by each service's roster
-  (§3.2/§3.3), never a world-wide "who's online" list — no system in this tree asks for a global
-  online roster, so none is built.
+- **Who sees online/offline.** This doc **proposes** a per-member online/offline indicator on the
+  existing party roster surface (`10_systems/social/PARTY.md` §3's HUD-plate data contract) and
+  guild panel (`10_systems/social/GUILD.md` §6/§7) — neither owner doc defines one today, so the
+  field is flagged to their Open Questions for adoption (same pattern as the `world` channel
+  proposal, §1). Whatever surfaces it, the source is this one presence layer, scoped by each
+  service's roster (§3.2/§3.3), never a world-wide "who's online" list — no system in this tree
+  asks for a global online roster, so none is built.
 - **Where presence lives.** Phoenix.Presence, backed by BEAM-native ETS for in-node state and Redis
   for cross-node fan-out, per `70_integrations/BACKEND_ARCHITECTURE.md` §3 — this doc does not
   choose a different technology, only how it is read.
