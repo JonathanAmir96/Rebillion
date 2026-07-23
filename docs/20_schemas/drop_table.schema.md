@@ -8,8 +8,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 ## Purpose
 
 Defines two related content shapes, both owned by `10_systems/DROPS.md`: one **drop table**
-per monster (`drop_mob_NNN`, 150 files, `00_vision/SCOPE.md`) and the single shared **region
-pools** file (`pools.yaml`, 12 entries). A `drop_mob_NNN` file is the ordered-independent-rolls
+per monster (`drop_mob_NNN`, 234 files, `00_vision/SCOPE.md`) and the single shared **region
+pools** file (`pools.yaml`, 11 entries). A `drop_mob_NNN` file is the ordered-independent-rolls
 row list `10_systems/DROPS.md` §1 anatomizes: `shards`, region materials, use items, emberstones,
 and (elite/boss/raid) an equip-pool roll or boss/raid uniques, shaped per §5's per-tier contract.
 `pools.yaml` is the region equip pools `10_systems/DROPS.md` §6 rolls against. Both are read by
@@ -21,7 +21,7 @@ rarity-weight tables — it cites them.
 ## File conventions
 
 - **`drop_mob_NNN.yaml` — one entity per file.** `50_content/drop_tables/drop_mob_NNN.yaml`,
-  zero-padded three digits, `drop_mob_001`–`drop_mob_150`, number matching its `mob_NNN` exactly
+  zero-padded three digits, `drop_mob_001`–`drop_mob_234`, number matching its `mob_NNN` exactly
   (`10_systems/DROPS.md` §1, `docs/ID_REGISTRY.md`). The file's `id` is its filename stem; both
   immutable.
 - **`pools.yaml` — one shared file, not a per-entity file and not an `20_schemas/item.schema.md`-
@@ -47,7 +47,7 @@ marks who owns the *runtime effect* the field drives (`10_systems/PERSISTENCE.md
 |---|---|---|---|---|
 | `id` | string `drop_mob_NNN` | yes | `docs/ID_REGISTRY.md` Drop tables | Zero-padded; immutable; must equal the filename stem. `server`. |
 | `schema` | string | yes | this file | Literal `20_schemas/drop_table.schema.md` (`docs/VALIDATION.md` §3). |
-| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[DROPS, ITEMS]`; add `ENHANCEMENT` when any row refs an emberstone; add `WORLD_PLAN` for `boss`/raid tables (region-order boss-unique mapping, rule 6); add `PARTY` for raid tables (`mob_147`–`150`, loot-split ownership). |
+| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[DROPS, ITEMS]`; add `ENHANCEMENT` when any row refs an emberstone; add `WORLD_PLAN` for `boss` tables (region-order boss-unique mapping, rule 6); add `PARTY` for the four raid finale bosses' tables (`mob_027`/`mob_150`/`mob_178`/`mob_234`, loot-split ownership; `10_systems/social/RAID.md` §2). |
 | `owner` | string `mob_NNN` | yes | `10_systems/DROPS.md` §1 | Must equal `mob_<this file's own NNN>` (task's explicit "owner matches filename" rule). `server`. |
 | `rows` | list[row] | yes (≥1) | `10_systems/DROPS.md` §1, §5 | Independently rolled on the monster's death. Shape requirements per this mob's tier — Validation. `server`. |
 | `rows[].ref` | string | yes | `item.schema.md` IDs; literal `shards`; `pools.yaml` IDs | A concrete `item_equip_*`/`item_use_*`/`item_etc_*` id, the literal token `shards`, or a `pool_equip_r01`–`r11` id (§6). Must resolve (`docs/VALIDATION.md` §2). |
@@ -65,7 +65,7 @@ marks who owns the *runtime effect* the field drives (`10_systems/PERSISTENCE.md
 | `schema` | string | yes | this file | Literal `20_schemas/drop_table.schema.md`. |
 | `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[DROPS, ITEMS, WORLD_PLAN]` (pool `id`↔`region` binding, matching `20_schemas/npc.schema.md`'s convention for region-bound content). |
 | `pools` | list[pool] | yes (exactly 11) | `10_systems/DROPS.md` §6; `docs/ID_REGISTRY.md` | One per region, `pool_equip_r01`–`r11`. `server`. |
-| `pools[].id` | string `pool_equip_rNN` | yes | `docs/ID_REGISTRY.md` | `NN` = the region's two-digit order number (`docs/WORLD_PLAN.md` Region overview, R1–R12). `server`. |
+| `pools[].id` | string `pool_equip_rNN` | yes | `docs/ID_REGISTRY.md` | `NN` = the region's two-digit order number (`docs/WORLD_PLAN.md` Region overview, R1–R11). `server`. |
 | `pools[].region` | enum | yes | `docs/WORLD_PLAN.md` / GLOSSARY Region slugs | Must correspond to `id`'s `rNN` (Validation). `server`. |
 | `pools[].entries` | list `{item, weight}` | yes (≥1) | `10_systems/DROPS.md` §6 | The pool's candidate base equips. `server`. |
 | `pools[].entries[].item` | string `item_equip_NNNN` | yes | `20_schemas/item.schema.md` | Must resolve; its `tier` should match the region's level band (`10_systems/ITEMS.md` §4, `docs/WORLD_PLAN.md`) (Validation, warn). `server`. |
@@ -115,7 +115,7 @@ rows:
 ```
 
 **`pools.yaml`** (the second file shape this schema defines — complete for one region, the other
-11 follow the same pattern):
+10 follow the same pattern):
 
 ```yaml
 id: drop_pools
@@ -158,25 +158,31 @@ referential integrity, §3 schema conformance/front-matter, §4 ID uniqueness+ra
      `guaranteed` pool-roll row (`rarity_source: boss`); exactly the boss's two unique
      `item_equip` refs (mapping per rule 6 below) each on an `epic`-or-`legendary` row, with
      exactly one carrying `first_clear_guaranteed: true`.
-   - **raid boss (§5.4, `mob_147`–`150`):** `guaranteed` `shards` (≥ the `boss` §3 mean floor);
-     `guaranteed` raid-token row (Rift `item_etc` `0177`–`0192`); exactly one `guaranteed`
-     pool-roll row (`rarity_source: raid`); exactly the raid boss's two unique refs,
-     `legendary`-weighted.
+   - **raid finale bosses (§5.4, `mob_027`/`mob_150`/`mob_178`/`mob_234` — `10_systems/social/RAID.md`
+     §2):** these are region bosses; their static tables satisfy the `boss` (§5.3) shape above,
+     nothing more. The §5.4 **raid-entry treatment** — the `rarity_source: raid` weight row, the
+     `guaranteed` per-member raid-token grant (reserved `item_etc_0177`–`0192` block), and the
+     `legendary`-weighted unique treatment — is applied at run time by entry context
+     (`10_systems/DROPS.md` §5.4, `10_systems/social/RAID.md` §6–§7) and is **never authored as
+     extra static rows**; an open-arena kill of the same boss takes plain §5.3. Concrete raid-token
+     items are a deferred batch (`10_systems/DROPS.md` Open Questions).
 5. **`rarity_source` gating (hard).** Present if and only if `ref` is a pool id; value matches the
-   owner tier's expected source (`elite`/`boss`/`raid` per rule 4).
-6. **Boss/raid unique refs (hard).** An `item_equip` ref inside the `0201`–`0230` `docs/ID_REGISTRY.md`
-   block may appear **only** in a `boss`- or raid-boss-tier owner's table (task's explicit "boss
-   uniques only in boss tables"), and must be one of the two IDs that doc's boss-unique mapping
-   assigns to this owner's region-order number `n` (region order = `docs/WORLD_PLAN.md` Region
-   overview R1–R11, then the four Rift raid bosses as `n`=12–15 — the same derivation
-   `20_schemas/item.schema.md`'s `unique_of` rule uses, cited once, not restated twice).
+   owner tier's expected source (`elite`/`boss` per rule 4; `raid` is the §5.4 runtime
+   entry-context row and appears in no authored static table).
+6. **Boss unique refs (hard).** An `item_equip` ref inside the `0201`–`0230` `docs/ID_REGISTRY.md`
+   block may appear **only** in a `boss`-tier owner's table (task's explicit "boss uniques only in
+   boss tables"), and must be one of the two IDs that doc's boss-unique mapping assigns to this
+   owner's region-order number `n` (`n` = 1–11 only, uniques `0201`–`0222`; the raid finale bosses
+   are region bosses and add no unique slots, `10_systems/social/RAID.md` §2/§6 — the same
+   derivation `20_schemas/item.schema.md`'s `unique_of` rule uses, cited once, not restated twice).
 7. **Equip `qty` (hard).** `qty_min == qty_max == 1` whenever `ref` is an `item_equip_*` id
    (unstacked, `10_systems/DROPS.md` §1).
 8. **`shards` row math (hard).** For the `guaranteed` `shards` row, `[qty_min, qty_max]` equals
    `[round(0.8·mean), round(1.2·mean)]` where `mean = mean_shards_normal(owner.level) ·
-   tier_mult` (`10_systems/DROPS.md` §3: `tier_mult` = 1/4/15 for `normal`/`elite`/`boss`; raid
-   uses the `boss` mean as a tunable floor, not an exact multiplier — rule 4).
-9. **`pools.yaml` shape (hard).** Exactly 12 `pools[]` entries; `id` = `pool_equip_r<NN>` where
+   tier_mult` (`10_systems/DROPS.md` §3: `tier_mult` = 1/4/15 for `normal`/`elite`/`boss`; a
+   raid-entry kill's larger §5.4 payout is runtime tuning above this authored `boss` floor —
+   rule 4).
+9. **`pools.yaml` shape (hard).** Exactly 11 `pools[]` entries; `id` = `pool_equip_r<NN>` where
    `NN` matches `region`'s order number; `entries[].item` resolves to an existing `item_equip` id
    (`20_schemas/item.schema.md`). **Tier fit (warn):** each entry's item `tier` should sit in the
    region's level band (`10_systems/ITEMS.md` §4, `docs/WORLD_PLAN.md`).
@@ -191,7 +197,7 @@ referential integrity, §3 schema conformance/front-matter, §4 ID uniqueness+ra
 # --- drop_mob_NNN.yaml ---
 id: drop_mob_{NNN}
 schema: 20_schemas/drop_table.schema.md
-references: [DROPS, ITEMS]        # add ENHANCEMENT if any emberstone row; WORLD_PLAN + PARTY for boss/raid tables
+references: [DROPS, ITEMS]        # add ENHANCEMENT if any emberstone row; WORLD_PLAN for boss tables; + PARTY for the raid finale bosses
 owner: mob_{NNN}                  # must equal this file's own NNN
 rows:
   - { ref: shards, chance: guaranteed, qty_min: {int}, qty_max: {int} }   # every table has this row
@@ -201,12 +207,11 @@ rows:
   # - { ref: item_etc_{emberstone_id}, chance: uncommon, qty_min: 1, qty_max: 1 }
   # - { ref: pool_equip_r{NN}, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: elite }
   # --- boss (DROPS §5.3): guaranteed materials + emberstone(s) + guaranteed pool + 2 unique rows ---
+  # --- (the four raid finale bosses mob_027/150/178/234 author exactly this shape too; the DROPS §5.4
+  # ---  raid-entry treatment is runtime entry-context, never extra static rows — rule 4) ---
   # - { ref: pool_equip_r{NN}, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
   # - { ref: item_equip_{unique_id_1}, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
   # - { ref: item_equip_{unique_id_2}, chance: legendary, qty_min: 1, qty_max: 1 }
-  # --- raid boss (DROPS §5.4, mob_147-150 only): guaranteed raid token + guaranteed raid pool + 2 uniques ---
-  # - { ref: item_etc_{raid_token_id}, chance: guaranteed, qty_min: 1, qty_max: 1 }
-  # - { ref: pool_equip_r11, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: raid }
 
 # --- pools.yaml (single shared file) ---
 id: drop_pools
@@ -218,7 +223,7 @@ pools:
     entries:
       - { item: item_equip_{NNNN} }          # weight optional, defaults uniform
       - { item: item_equip_{NNNN}, weight: {n} }
-  # repeat for all 12 regions
+  # repeat for all 11 regions
 ```
 
 ## Open Questions

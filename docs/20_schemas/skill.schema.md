@@ -8,8 +8,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/JOBS.md,
 
 ## Purpose
 
-Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 84
-line skills + 4 novice skills in `00_vision/SCOPE.md` / `10_systems/JOBS.md`. A skill file is the
+Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 94
+line skills + 4 novice skills (98 total) in `00_vision/SCOPE.md` / `10_systems/JOBS.md` v3. A skill file is the
 data a Phase D author fills and the coding pass loads: an identity that must match a
 `10_systems/JOBS.md` roster row exactly, a targeting shape from `10_systems/SKILL_SYSTEM.md` §6, an
 `essence` cost and cooldown, and a `level_data` table of ordered effect ops drawn from the

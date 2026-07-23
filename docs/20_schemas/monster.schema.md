@@ -4,13 +4,13 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/COMBAT_FORMU
 10_systems/STATS.md, 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md,
 10_systems/AI_BEHAVIOR.md, 10_systems/SPAWN.md, 10_systems/DROPS.md,
 10_systems/SKILL_SYSTEM.md, 10_systems/SKILL_EFFECTS.md, 10_systems/LEVELING.md,
-10_systems/PERSISTENCE.md, 20_schemas/drop_table.schema.md, 40_assets/ART_BIBLE.yaml,
+10_systems/PERSISTENCE.md, 10_systems/social/RAID.md, 20_schemas/drop_table.schema.md, 40_assets/ART_BIBLE.yaml,
 40_assets/ANIMATION_STATES.md, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md, docs/VALIDATION.md
 
 ## Purpose
 
-Defines the content shape of one **monster** (`mob_NNN`) — the 150 designs in `00_vision/SCOPE.md`
-(118 `normal` + 24 `elite` + 8 `boss`, `docs/ID_REGISTRY.md` v2; summon templates are authored the same way outside those counts). A
+Defines the content shape of one **monster** (`mob_NNN`) — the 234 designs in `00_vision/SCOPE.md`
+(178 `normal` + 45 `elite` + 11 `boss`, `docs/ID_REGISTRY.md` v3; summon templates are authored the same way outside those counts). A
 monster file is the data a Phase D author fills and the coding pass loads: a stat block copied from
 the `10_systems/COMBAT_FORMULA.md` §13 budget, an `ai_profile` from `10_systems/AI_BEHAVIOR.md`, an
 element affinity set from `10_systems/ELEMENTS.md`, elite/boss abilities composed from the
@@ -27,7 +27,7 @@ owner `20_schemas/monster.schema.md`) and the entity that `10_systems/SKILL_EFFE
 ## File conventions
 
 - **One entity per file.** `50_content/monsters/mob_NNN.yaml`, zero-padded three digits,
-  `mob_001`–`mob_150` (`docs/ID_REGISTRY.md` Monsters block). No batch tables — monsters carry
+  `mob_001`–`mob_234` (`docs/ID_REGISTRY.md` Monsters block). No batch tables — monsters carry
   per-entity AI, abilities, and affinities, so each is its own file.
 - The file's `id` **is** its filename stem; both are immutable (`docs/ID_REGISTRY.md`).
 - **Tier is fixed by the ID slot.** `docs/ID_REGISTRY.md` lays out each region's block as
@@ -54,9 +54,9 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `weak_to` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×1.5 elements. Mutually exclusive with `resists`/`immune_to`. Keep lists short/thematic (`10_systems/ELEMENTS.md` §2). `server`. |
 | `resists` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×0.5 elements. `server`. |
 | `immune_to` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×0 elements (short-circuits at pipeline step 2). Rare. `server`. |
-| `level` | int | yes | `10_systems/COMBAT_FORMULA.md` §13; `docs/WORLD_PLAN.md` | 1–42 (the authored arc tops at 42, `00_vision/SCOPE.md` v2; higher levels are future-arc content). Keys the stat budget, `exp`, level dampener, and CC tier scaling. `server`. |
+| `level` | int | yes | `10_systems/COMBAT_FORMULA.md` §13; `docs/WORLD_PLAN.md` | Authored 1–82 (the two authored arcs top out with Voidshore's Lv-82 elites, `00_vision/SCOPE.md` v3); the field is legal to 300 (the game cap), but higher levels are future-arc content. Keys the stat budget, `exp`, level dampener, and CC tier scaling. `server`. |
 | `size_class` | enum | yes | `40_assets/ART_BIBLE.yaml` `sizing.size_classes` | `tiny`\|`small`\|`medium`\|`large`\|`boss`. Drives sprite size **and** the knockback/CC size multiplier (`10_systems/COMBAT_FORMULA.md` §11 — `boss` size = knockback-immune). `shared`. |
-| `stats` | map | yes | `10_systems/COMBAT_FORMULA.md` §13/§13.2, §13.3; `10_systems/LEVELING.md` §3 | Sub-fields below. **All values are copied from the §13 monster budget** (formulas authoritative, §13.2 tier multipliers; §13.3 party scaling is runtime-applied for PQ finales, never baked into the file) — this schema never restates them. `server`. |
+| `stats` | map | yes | `10_systems/COMBAT_FORMULA.md` §13/§13.2, §13.3; `10_systems/LEVELING.md` §3 | Sub-fields below. **All values are copied from the §13 monster budget** (formulas authoritative, §13.2 tier multipliers; §13.3 party scaling is runtime-applied for raid finales (`10_systems/social/RAID.md` §7), never baked into the file) — this schema never restates them. `server`. |
 | `stats.life` | int | yes | `COMBAT_FORMULA` §13 | Survival pool. Within ±15% of budget (Validation). |
 | `stats.power` | int | yes | `COMBAT_FORMULA` §13 | Weapon rating; drives touch damage (§13.1) and ability scaling (`10_systems/SKILL_EFFECTS.md` §1). |
 | `stats.spellpower` | int | **no** (casters) | `COMBAT_FORMULA` §13 | Present only when the mob's abilities/touch scale on magic (parity with `power`, §13). Budget-checked if present. |
@@ -159,7 +159,7 @@ contract).
    Monsters table for its region (normals / elites / boss). A boss ID slot may not hold a `normal`,
    etc. (`docs/VALIDATION.md` §4).
 2. **Stat budget ±15% (hard).** Compute the `10_systems/COMBAT_FORMULA.md` §13 budget for this
-   `level`, apply the §13.2 tier multipliers (§13.3 party scaling for PQ finales is runtime-only, never stored):
+   `level`, apply the §13.2 tier multipliers (§13.3 party scaling for raid finales is runtime-only, never stored):
    `life`, `power`, `spellpower` (if present), `precision`, and `evasion` must each land within
    ±15% of their budgeted value; `armor` + `warding` are checked as a **sum** against the defense
    budget (±15%), since §13 permits reallocation between them (neither may be negative or zero).
@@ -203,7 +203,7 @@ references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS]   # a
 name: "{Display Name}"
 tier: {normal|elite|boss}
 element: {neutral|fire|frost|nature|arcane|shadow}
-level: {1..42}
+level: {1..82}
 size_class: {tiny|small|medium|large|boss}
 stats:
   life: {int}

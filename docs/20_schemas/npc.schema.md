@@ -7,7 +7,7 @@ References: 00_vision/GLOSSARY.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md, docs
 
 ## Purpose
 
-The content schema for one NPC in the 84-NPC cast (`docs/ID_REGISTRY.md`) — formalizing the YAML
+The content schema for one NPC in the 120-NPC cast (`docs/ID_REGISTRY.md`) — formalizing the YAML
 typing for a town cast entry (`docs/WORLD_PLAN.md`) whose service ultimately opens an interactable
 (inn bed, storage chest, coach station; `15_maps_system/MAP_INTERACTABLES.md`) priced by
 `10_systems/ECONOMY.md`. This doc never restates those — it fixes field names, types, the `role`
@@ -26,7 +26,7 @@ be added without revising this doc; an NPC file that lists a quest fails schema 
 ## File conventions
 
 One file per NPC at `50_content/npcs/npc_NNN.yaml` — `NNN` zero-padded to 3 digits, matching the
-NPC's reserved slot in `docs/ID_REGISTRY.md`'s per-region blocks (`npc_001`–`npc_120`, 84
+NPC's reserved slot in `docs/ID_REGISTRY.md`'s per-region blocks (`npc_001`–`npc_120`, 120
 authored). No batch tables. The file's `id` field and its filename's `NNN` must agree.
 
 ## Fields
@@ -65,13 +65,13 @@ Aligned to `docs/WORLD_PLAN.md`'s town casts and `15_maps_system/MAP_INTERACTABL
 | `merchant` | General-goods town shop interior (outfitter, fishmonger, chandlery, market hall) | Typically carries `shop`; no forced `services` |
 | `innkeeper` | Inn interior, one per bind town (`10_systems/DEATH_PENALTY.md` §4) | `services` ⊇ {`inn_rest`} |
 | `blacksmith` | Smithy interior (equipment vendor) | Typically carries `shop`; may also carry `enhance` (see Open Questions) |
-| `enchanter` | Dedicated enchanter interior (e.g. Arcane Sanctum) or a town's smithy | `services` ⊇ {`enhance`} |
+| `enchanter` | Dedicated enchanter interior (e.g. Highrune Sanctum, `docs/WORLD_PLAN.md` R10) or a town's smithy | `services` ⊇ {`enhance`} |
 | `banker` | Co-located with a `storage_chest` (`15_maps_system/MAP_INTERACTABLES.md` §8) | `services` ⊇ {`storage`}; optional flavor around what is otherwise a self-service object |
 | `quest_giver` | Any interior/town/field NPC who offers or accepts a quest | No forced `services`; should be named as `giver_npc`/`turn_in_npc` by ≥1 quest file (soft cross-file check, see Open Questions) |
 | `coach_clerk` | Co-located with a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9), one per Harthmoor ring town | `services` ⊇ {`coach`}; grants the one free novice pilgrimage ride (`15_maps_system/MAP_CONNECTIONS.md` §3), otherwise optional flavor around a self-service station |
 | `pier_officer` | Stands at an arc-2 longship pier, co-located with a `portal(kind: longship)` (`15_maps_system/MAP_INTERACTABLES.md` §2) | `services` ⊇ {`longship`}; takes the route fare and admits boarders (`15_maps_system/MAP_CONNECTIONS.md` §8.1) — the boarding mechanism, not mere flavor |
 | `guide` | Tutorial/help-lean NPC, e.g. near a `main` spawn or a starter town | No forced `services` |
-| `handler` | Camp/outpost logistics (e.g. Rift-camp vendors/handlers, `docs/WORLD_PLAN.md` R12) | No forced `services`; `shop`/`services` authored per instance |
+| `handler` | Camp/outpost logistics and raid handlers (the 8 raid-handler quests' NPCs; owner `10_systems/social/RAID.md`) | No forced `services`; `shop`/`services` authored per instance |
 | `flavor` | Pure ambiance/lore NPC | No `shop`, no `services` |
 
 A role's implied minimum is a **floor, not a ceiling** — an NPC may carry additional `services`
@@ -165,7 +165,7 @@ flavor: "{≤2 sentences}"
 
 - `blacksmith` vs. `enchanter` role boundary: `10_systems/ENHANCEMENT.md` §5 ties the `enhance`
   service's fee to "a town smith interior," but `docs/WORLD_PLAN.md`'s per-town interior lists name
-  an explicit "smithy" only at Millbrook and an explicit "enchanter" only at Arcane Sanctum —
+  an explicit "smithy" only at Millbrook and an explicit "enchanter" only at Highrune Sanctum —
   Emberfoot's and Tidewatch's interior lists name neither. Whether every bind town needs an
   enhance-service NPC, and which role carries it where no smithy/enchanter interior is named, is
   unresolved; flagged for `docs/WORLD_PLAN.md`/`10_systems/ENHANCEMENT.md`'s owners.

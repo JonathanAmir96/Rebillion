@@ -3,12 +3,13 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/QUESTS.md, 10_systems/LEVELING.md, 10_systems/ECONOMY.md, 10_systems/DROPS.md,
 10_systems/ITEMS.md, 10_systems/INVENTORY.md, 10_systems/JOBS.md, 10_systems/PERSISTENCE.md,
+10_systems/social/RAID.md,
 15_maps_system/MAP_INTERACTABLES.md, 15_maps_system/MAPS_SYSTEM.md, docs/ID_REGISTRY.md,
 docs/WORLD_PLAN.md, docs/VALIDATION.md
 
 ## Purpose
 
-Defines the content shape of one **quest** (`quest_NNN`) — the 90 quests in `00_vision/SCOPE.md`
+Defines the content shape of one **quest** (`quest_NNN`) — the 120 quests in `00_vision/SCOPE.md`
 / `docs/ID_REGISTRY.md`. A quest file is the data a Phase D author fills and the coding pass
 loads: the anatomy fields `10_systems/QUESTS.md` §1 names (giver/turn-in, level gate, prereqs), an
 ordered set of the four `10_systems/QUESTS.md` §3 step types, and an `exp`/`shards`/item reward
@@ -22,11 +23,14 @@ tag-eligibility rule, or the zone-declaration mechanism — it cites them.
 ## File conventions
 
 - **One entity per file.** `50_content/quests/quest_NNN.yaml`, zero-padded three digits,
-  `quest_001`–`quest_090` authored (`091`–`120` reserved, `docs/ID_REGISTRY.md` Quests block).
+  `quest_001`–`quest_120` all authored (`docs/ID_REGISTRY.md` Quests block): the eleven region
+  blocks plus the 8 raid intro/handler quests — `quest_087`–`090` (arc-1 raids),
+  `quest_099`–`100` (`raid_deepfrost`), `quest_119`–`120` (`raid_voidtide`) — which are ordinary
+  quest files serving `10_systems/social/RAID.md` §3's intro/handler pattern.
   The file's `id` is its filename stem; both immutable.
 - **Region ↔ ID block.** A quest's `id` must fall inside its `region`'s sub-range in
-  `docs/ID_REGISTRY.md`'s Quests table (e.g. Emberfoot `quest_001`–`008`); this schema does not
-  restate the twelve per-region ranges.
+  `docs/ID_REGISTRY.md`'s Quests table (e.g. Emberfoot `quest_001`–`010`); this schema does not
+  restate the eleven per-region ranges.
 - Job-advancement trainer quests are **ordinary quest files** — `10_systems/QUESTS.md` §2 fixes
   that no separate "job-gate" field exists; the trainer relationship is expressed entirely through
   `quest_type: main` + `prereqs` (the prior tier's trainer quest) + the giver being a trainer NPC.
@@ -44,14 +48,14 @@ gates, step progress, and turn-in grants are **server-authoritative**
 |---|---|---|---|---|
 | `id` | string `quest_NNN` | yes | `docs/ID_REGISTRY.md` Quests | Zero-padded; immutable; in-range for its `region` block (Validation). `server`. |
 | `schema` | string | yes | this file | Literal `20_schemas/quest.schema.md` (`docs/VALIDATION.md` §3). |
-| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]` (every `kill` step relies on DROPS §7 tag-eligibility; `region`/step-target placement relies on WORLD_PLAN, matching `20_schemas/npc.schema.md`'s convention for its own `region` field); add `ITEMS` when `rewards.items` present; add `JOBS` for job-trainer quests. |
+| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]` (every `kill` step relies on DROPS §7 tag-eligibility; `region`/step-target placement relies on WORLD_PLAN, matching `20_schemas/npc.schema.md`'s convention for its own `region` field); add `ITEMS` when `rewards.items` present; add `JOBS` for job-trainer quests; add `RAID` for the 8 raid intro/handler quests (`10_systems/social/RAID.md` §3). |
 | `name` | string | yes | — | Display name, US spelling. `client`. |
 | `region` | enum | yes | `docs/WORLD_PLAN.md` / GLOSSARY Region slugs | Scopes `giver_npc`/`turn_in_npc`/step-target region membership (Validation). `server`. |
 | `quest_type` | enum | yes | `10_systems/QUESTS.md` §1 (this doc's own enum) | `main`\|`side`. Drives the §4/§5 reward-budget bands. **Added by this schema** — the task's field list omitted it, but §4/§5's formulas cannot be validated without it (see Open Questions). `server`. |
 | `giver_npc` | string `npc_NNN` | yes | `docs/ID_REGISTRY.md` NPCs | The offering NPC. Must exist and live in `region`'s NPC block (Validation). `server`. |
 | `turn_in_npc` | string `npc_NNN` | no — defaults to `giver_npc` | `10_systems/QUESTS.md` §1 | If present, must exist and live in `region`'s NPC block (Validation). `server`. |
-| `level_requirement` | int 1–100 | yes | `10_systems/QUESTS.md` §6 | Hard accept gate. `server`. |
-| `recommended_level` | int 1–100 | yes | `10_systems/QUESTS.md` §6 | Display-only; no mechanical gate. Normally equals `level_requirement` for `main` (warn if not, §6). `client`. |
+| `level_requirement` | int 1–300 (cap; authored ≤80) | yes | `10_systems/QUESTS.md` §6 | Hard accept gate. `server`. |
+| `recommended_level` | int 1–300 (cap; authored ≤80) | yes | `10_systems/QUESTS.md` §6 | Display-only; no mechanical gate. Normally equals `level_requirement` for `main` (warn if not, §6). `client`. |
 | `prereqs` | list[`quest_NNN`] | no — default `[]` | `10_systems/QUESTS.md` §2 | Must-already-be-completed quests; both this and `level_requirement` gate acceptance. Every entry resolves; the full prereq graph is acyclic (Validation, hard — task's explicit rule). `server`. |
 | `steps` | list[step] | yes (≥1) | `10_systems/QUESTS.md` §3 | Guideline 1–3, up to 4 for a chain-establisher. Default parallel (any order); see `requires_step`. Sub-fields below. `server`. |
 | `steps[].type` | enum | yes | `10_systems/QUESTS.md` §3 (this doc's own fixed 4-value set, not a GLOSSARY family) | `kill`\|`collect`\|`talk`\|`reach`. |
@@ -60,7 +64,7 @@ gates, step progress, and turn-in grants are **server-authoritative**
 | `steps[].count` | int ≥1 | `kill`/`collect`: yes; `talk`/`reach`: no — default `1` | `10_systems/QUESTS.md` §3 | Repeat count. |
 | `steps[].requires_step` | int (1-based index into this quest's own `steps`) | no | `10_systems/QUESTS.md` §3 | Forces sequencing (same prereq-linking pattern as quest-level `prereqs`, §2/§3). Default: all steps open in parallel. Indexing scheme is this schema's own choice — QUESTS.md names the feature but not an addressing mechanism (Open Questions). `server`. |
 | `rewards` | map | yes | `10_systems/QUESTS.md` §4–§5 | Sub-fields below. No reward *numbers* are authored by this schema (cited, not restated). |
-| `rewards.exp` | int | yes, **except** `region: rift` `quest_type: main`/`side` at Lv100+ (§4) | `10_systems/QUESTS.md` §4; `10_systems/LEVELING.md` §1 | `= round(pct · exp_to_next(quest_level))`, `pct` ∈ the `quest_type`'s §4 band. Rift-band quests (`quest_085`–`090`) pay **no** `exp` — omit or `0` (Validation, hard). `server`. |
+| `rewards.exp` | int | yes | `10_systems/QUESTS.md` §4; `10_systems/LEVELING.md` §1 | `= round(pct · exp_to_next(quest_level))`, `pct` ∈ the `quest_type`'s §4 band. Every quest pays `exp` — the raid intro/handler quests (`quest_087`–`090`/`099`–`100`/`119`–`120`) are ordinary quests on the ordinary §4/§5 reward bands (`10_systems/social/RAID.md` §3; raid *clear* rewards are `RAID.md` §6's, never a quest field). `server`. |
 | `rewards.shards` | int | yes | `10_systems/QUESTS.md` §5; `10_systems/DROPS.md` §3 | `side = mean_shards_normal(quest_level)·4`; `main = mean_shards_normal(quest_level)·15` (exact formula, not a band). `server`. |
 | `rewards.items` | list `{id, qty}` | no | `10_systems/ITEMS.md`; `20_schemas/item.schema.md` | No budget cap fixed by `10_systems/QUESTS.md` (Phase D authors against `ITEMS`/`ECONOMY` value bands). Each `id` resolves; `qty` ≥1. `server`. |
 | `flavor` | string | yes | `00_vision/PILLARS.md` P1 | ≤2 sentences, US spelling; quest-log/journal description. `client`. |
@@ -136,10 +140,10 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4).
 7. **`requires_step` resolution (hard).** Each `steps[].requires_step` is a valid 1-based index
    into this same quest's `steps` list, not self-referential, and introduces no cycle among the
    quest's own steps (same acyclic principle as rule 6, applied locally).
-8. **Reward — `exp` (hard).** For non-Rift quests, `rewards.exp == round(pct · exp_to_next(level))`
+8. **Reward — `exp` (hard).** Every quest: `rewards.exp == round(pct · exp_to_next(level))`
    for some `pct` inside the `quest_type`'s `10_systems/QUESTS.md` §4 band, `exp_to_next` from
-   `10_systems/LEVELING.md` §1 at `level_requirement`. Rift-band quests (`quest_085`–`090`) carry
-   no `exp` (§4).
+   `10_systems/LEVELING.md` §1 at `level_requirement`. There is no zero-`exp` quest class — the
+   raid intro/handler quests pay ordinary rewards (`10_systems/social/RAID.md` §3).
 9. **Reward — `shards` (hard).** Equals the `10_systems/QUESTS.md` §5 formula exactly
    (`mean_shards_normal(level_requirement)` from `10_systems/DROPS.md` §3, ×4 for `side`, ×15 for
    `main`) — a fixed formula, not a tunable band.
@@ -158,13 +162,13 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4).
 ```yaml
 id: quest_{NNN}
 schema: 20_schemas/quest.schema.md
-references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]   # add ITEMS if rewards.items; JOBS if trainer quest
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]   # add ITEMS if rewards.items; JOBS if trainer quest; RAID if raid intro/handler quest
 name: "{Display Name}"
 region: {region_slug}
 quest_type: {main|side}
 giver_npc: npc_{NNN}
-level_requirement: {1..100}
-recommended_level: {1..100}         # usually == level_requirement for main
+level_requirement: {1..300}         # legal to the Lv-300 cap; authored quests top out at 80
+recommended_level: {1..300}         # usually == level_requirement for main
 steps:
   - type: {kill|collect|talk|reach}
     target: {mob_NNN | [mob_NNN, ...] | item_etc_NNNN | item_use_NNNN | npc_NNN | map_NNN}
@@ -172,7 +176,7 @@ steps:
     count: {int}                    # required for kill/collect; default 1 for talk/reach
   # add more step objects (guideline 1-3, up to 4); requires_step forces sequencing
 rewards:
-  exp: {int}                        # round(pct * exp_to_next(level)); omit/0 for Rift quests
+  exp: {int}                        # round(pct * exp_to_next(level)) per the quest_type's QUESTS §4 band
   shards: {int}                     # mean_shards_normal(level) * 4 (side) or *15 (main)
   # items: [{ id: item_{equip|use|etc}_{NNNN}, qty: {int} }]   # optional
 flavor: "{<=2 sentences}"
@@ -217,6 +221,6 @@ complete_text: "{<=2 sentences, turn-in's dialog voice}"
   data (`15_maps_system/MAP_INTERACTABLES.md` §10's `required_quest_flag`), not by anything in this
   quest file — this schema cannot and does not distinguish the two mechanisms; validation rule 5
   is warn-only for exactly this reason.
-- **Raid/party quest-credit sharing** is explicitly deferred to `10_systems/social/PARTY.md` (not yet
-  authored, `10_systems/QUESTS.md` OQ); this schema assumes unshared (each character needs their
+- **Raid/party quest-credit sharing** is explicitly deferred to `10_systems/social/PARTY.md`
+  (`10_systems/QUESTS.md` OQ); this schema assumes unshared (each character needs their
   own kill tag/collect item) and carries no field for it.

@@ -174,7 +174,7 @@ values are normally equal.
   quests at once, each as a one-line name + current step's progress counter; which quests are
   tracked (of the player's active set) is a player choice made from the full log.
 - **Concurrency cap.** A character may hold up to **20** active (accepted, not turned in) quests
-  at once — generous enough to never bind normal region-by-region play (90 quests total, mostly
+  at once — generous enough to never bind normal region-by-region play (120 quests total, mostly
   cleared in sequence).
 - Controller navigation of the full log follows `10_systems/CONTROLS.md`'s framed-UI rules.
 

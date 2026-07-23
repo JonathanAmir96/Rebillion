@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, docs/WORLD_PLAN.md, docs/VALIDATION.md,
 docs/ID_REGISTRY.md, 10_systems/DEATH_PENALTY.md, 10_systems/COMBAT_FORMULA.md,
-10_systems/LEVELING.md, 10_systems/PERSISTENCE.md, 10_systems/ECONOMY.md,
+10_systems/LEVELING.md, 10_systems/PERSISTENCE.md, 10_systems/ECONOMY.md, 10_systems/social/RAID.md,
 10_systems/HUD.md, 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_INTERACTABLES.md
 
 Owner doc for the **rules** portals, spawns, and the transport network follow between maps.
@@ -11,7 +11,7 @@ tables are the sole authoritative source for *which* `map_NNN` pairs connect —
 never reproduced, here. This doc formalizes the spawn-naming convention `docs/WORLD_PLAN.md`
 previews, the paid coach-network rule, death-return routing, `dead_end` marking, the
 region-progression gate policy, the arc-2 longship and `level_gate` primitives (§§8–9), and
-resolves `docs/WORLD_PLAN.md`'s terminus open question. Portal object params are
+records the v3 retirement of the old terminus drop chutes (§7). Portal object params are
 `15_maps_system/MAP_INTERACTABLES.md` §2's; this doc owns only the rules governing them.
 
 ## Transport taxonomy (v3)
@@ -21,7 +21,7 @@ axes — **paid vs free** and **instant vs scheduled**:
 
 | Mode | Cost / timing | Scope | Rules / fare owner |
 |---|---|---|---|
-| **Walk edges** (`edge` portals) | free · instant | intra-region + the authorized cross-region walk edges (`docs/WORLD_PLAN.md` edge table, + §7) | this doc §§1–2, §5 |
+| **Walk edges** (`edge` portals) | free · instant | intra-region + the authorized cross-region walk edges (`docs/WORLD_PLAN.md` edge tables; §7) | this doc §§1–2, §5 |
 | **Coach** (Harthmoor Coachworks) | paid · **instant** | Harthmoor town↔town network | `docs/WORLD_PLAN.md` (Coachworks); fares `10_systems/ECONOMY.md` §7.1 |
 | **Harborwind Ferry** | paid · **instant** | Emberfoot ↔ Harthmoor island crossing (`map_015`) | `docs/WORLD_PLAN.md`; fare `10_systems/ECONOMY.md` §7.1 |
 | **Longship** (v3) | paid · **scheduled** | arc-2 inter-island network (Harthmoor pier ↔ new islands; `docs/WORLD_PLAN.md` arc-2 edge table) | this doc **§8**; fares `10_systems/ECONOMY.md` §7.2 |
@@ -38,7 +38,7 @@ the optional `level_gate` property (§9) — that is a per-portal property, not 
 
 | Kind | Typical use | Region span |
 |---|---|---|
-| `edge` | Most field/dungeon chain links; the cross-region walk edges (`docs/WORLD_PLAN.md`) | Usually intra-region; cross-region for the listed edges (+ §7's two additions) |
+| `edge` | Most field/dungeon chain links; the cross-region walk edges (`docs/WORLD_PLAN.md`) | Usually intra-region; cross-region only for the edges `docs/WORLD_PLAN.md`'s tables list (§7) |
 | `door` | Town↔interior; every arena's entry gate (`15_maps_system/MAPS_SYSTEM.md` §8); the Harborwind Ferry crossing (`map_015`) and the Deepway (§9.1) | Same-region for town↔interior and arena gates; the ferry and the Deepway are the authored cross-region door cases |
 | `coach` | The paid Harthmoor Coachworks town↔town network (`docs/WORLD_PLAN.md` "Harthmoor Coachworks") | Cross-region within the Harthmoor ring — that is its purpose |
 | `longship` (v3) | Paid **scheduled** arc-2 inter-island transport: pier→deck boarding portal and deck→destination-pier arrival portal (§8) | Cross-island (arc-2 island network) |
@@ -55,10 +55,12 @@ multi-entrance dungeon's `upper_west`) as long as they never collide with the re
 | `from_<origin_slug>` | Every map that is the destination of an `edge` portal crossing a region boundary | `<origin_slug>` is the origin **region**'s GLOSSARY slug (not a per-map slug — maps have none). An intra-region `edge` targets plain `main` unless the destination map has multiple distinct entrances needing disambiguation |
 | `coach_stop` | Every map with a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9) | The fixed arrival point for all Harthmoor Coachworks transits; exactly one per coach-station map (`docs/00_vision/GLOSSARY.md` Transport token) |
 
-Each of `docs/WORLD_PLAN.md`'s 8 bidirectional cross-region edges produces exactly two
+Each of `docs/WORLD_PLAN.md`'s 8 bidirectional arc-1 cross-region walk edges produces exactly two
 `from_<origin_slug>` spawns (one per endpoint, each named for the *other* side's region) — e.g.
-the Emberfoot↔Verdant edge gives Verdant's endpoint a `from_emberfoot` spawn and Emberfoot's
-endpoint a `from_verdant` spawn.
+the Millbrook↔Verdant edge gives Verdant's endpoint a `from_millbrook` spawn and Millbrook's
+endpoint a `from_verdant` spawn. (Arc-2's Deepway and longship crossings use their own reserved
+transport spawns — `from_deepway`, `longship_deck`/`longship_dock` — per `docs/WORLD_PLAN.md`'s
+arc-2 spawn convention and §8.)
 
 **v3 (longship transport spawns):** §8 reserves two further transport-network spawns following
 this same law — `longship_deck` (the boarding point on every longship deck map) and
@@ -94,8 +96,8 @@ fares are `10_systems/ECONOMY.md` §7.1's.
 ## 4. Death-return routing
 
 `10_systems/DEATH_PENALTY.md` owns death **policy**: §4 the bind mechanic and the respawn
-destination (a bound town's `main` spawn), and §5.3 the Rift-raid release to a staging-shard field.
-Neither is restated here. This doc owns only the *world-graph* consequence — where a respawned or
+destination (a bound town's `main` spawn), and §5.3 the in-raid death/Release rule, consumed
+unchanged by `10_systems/social/RAID.md` §5. Neither is restated here. This doc owns only the *world-graph* consequence — where a respawned or
 released character lands, and how it travels back — and fixes one rule: **the route back to the
 frontier is ordinary travel, never a death-only path.**
 
@@ -107,9 +109,11 @@ frontier is ordinary travel, never a death-only path.**
   old free-warp-home routing is gone with the retired free-warp model it belonged to). There is no world-graph
   guarantee a bound town even has a coach station: a character bound outside the Harthmoor ring
   (e.g. Emberfoot Village) simply walks, ferries, or scrolls back, uncharged for having died.
-- **Rift-raid release.** A released raider lands at that raid's staging-shard field rather than its
-  bound town (`10_systems/DEATH_PENALTY.md` §5.3); the 1:1 raid-arena→staging-shard assignment is an
-  open item both that doc and this one flag (Open Questions).
+- **Raid release.** Death, Release, and walk-back re-entry inside a `raid_*` instance are
+  `10_systems/social/RAID.md` §5's, which consumes `10_systems/DEATH_PENALTY.md` §5.3 unchanged; a
+  full wipe dissolves the instance and a fresh entry starts from the raid herald (`RAID.md` §3/§5).
+  Nothing about a raid death is a world-graph special case, so nothing more is stated here (see
+  Open Questions on §5.3's own stale map refs).
 
 ## 5. `dead_end` marking
 
@@ -140,30 +144,23 @@ signposted** requirement (the player sees the door and the level it wants), not 
 so it honors the same P2 intent this section serves; it gates a single authored arc-1→arc-2
 threshold, not the emergent region curve, which §6 still governs everywhere else.
 
-## 7. Terminus decision — Frostpeak & Clockwork drop chutes
+## 7. The authorized cross-region edge set — drop chutes retired (v3)
 
-`docs/WORLD_PLAN.md` flags an open question, explicitly delegated to this doc: should Frostpeak
-and Clockwork — both deliberate branch termini — get a late-game shortcut back toward Millbrook
-besides the return scroll? **Decision: yes.** Both termini get a one-way drop chute from their
-region's arena back down to a re-entry field in the neighboring region, so a player who has
-just finished the terminus content isn't forced to walk the whole chain back or spend a return
-scroll.
+**The complete authorized cross-region connection set is exactly `docs/WORLD_PLAN.md`'s edge
+tables**: the arc-1 "Cross-region walk edges" table plus the arc-2 edge table (the Deepway door
+chain and the longship links, §§8–9). This doc adds no edges of its own; `docs/VALIDATION.md` §5's
+"must match `docs/WORLD_PLAN.md`'s edge table exactly" reads literally.
 
-| Terminus | New portal on | Kind | `target_map` | `target_spawn` (new) | `dead_end` |
-|---|---|---|---|---|---|
-| Frostpeak (The Hornfall Summit) | `map_108` | `edge` | `map_073` (an Ashfall re-entry field) | `from_frostpeak` | `true` |
-| Clockwork (The Mainspring) | `map_144` | `edge` | `map_109` (a Gloomwood re-entry field) | `from_clockwork` | `true` |
-
-All four IDs already fall inside their region's reserved block (`docs/ID_REGISTRY.md`) — this
-decision adds a portal between existing maps, it mints no new `map_NNN`.
-
-Both new spawns follow this doc's own §2 naming law (`from_<origin_region_slug>`) and land on maps
-that currently carry no `from_*` spawn (their existing cross-region edges use different map IDs
-per `docs/WORLD_PLAN.md`'s edge table), so neither collides with an existing spawn. **No reverse
-portal is authored** on either destination map back up to the arena — one-way is the point of a
-terminus shortcut. `docs/WORLD_PLAN.md`'s edge table plus these two additions together form the
-complete authorized cross-region walk-edge set (see Open Questions re: `docs/VALIDATION.md` §5's
-wording). Phase D authors these two portals directly from this table.
+The pre-v3 revision of this section authored two extra one-way "terminus drop chutes"
+(`map_108`→`map_073` and `map_144`→`map_109`, answering a since-superseded `docs/WORLD_PLAN.md`
+open question about walk-chain termini). **Both are retired.** They are geographically impossible
+in the v3 world: "Frostpeak" is now the Arc-2 *island* R9 (`map_201`–`map_244`, reached by
+Deepway/longship, not a walk chain), Clockwork's arena is `map_200`, and the four chute-endpoint
+IDs all sit inside mid-ring arc-1 blocks (Tidewatch/Gloomwood/Ashfall per `docs/ID_REGISTRY.md`)
+where no terminus arena exists. The termini that remain (Sunken Depths; Clockwork as the ring's
+deep heart) are deliberate, served by the Millbrook Return Scroll and ordinary travel; a future
+cross-arc shortcut, if any, lands via `docs/WORLD_PLAN.md`'s reserved boss-connectivity hook using
+§9's `level_gate` primitive — not by reviving chutes here.
 
 ## 8. `longship` — paid scheduled island transport (v3)
 
@@ -255,25 +252,26 @@ map, no new mechanism.
 
 ## Map-level edge table
 
-Authored by the Phase D world-graph reconciler after all 200 maps exist.
+Authored by the Phase D world-graph reconciler after all 324 maps exist.
 
 ## Open Questions
 
-- `docs/VALIDATION.md` §5 states cross-region edges "must match `docs/WORLD_PLAN.md`'s edge table
-  exactly." `docs/WORLD_PLAN.md` itself delegates the §7 terminus decision to this doc, so that
-  phrase should be read (or amended at a future pass) to include this doc's §7 additions as part of
-  the authorized edge set. Flagged for `docs/VALIDATION.md`'s owner to confirm/reword — not
-  resolved by editing that file here (out of scope for this doc).
+- **Drop-chute retirement (v3, resolved here; residue flagged).** §7's former terminus drop chutes
+  (`map_108`→`map_073`, `map_144`→`map_109`) are retired; `docs/VALIDATION.md` §5's "must match
+  `docs/WORLD_PLAN.md`'s edge table exactly" once again reads literally with no §7 rider.
+  `docs/WORLD_PLAN.md` no longer carries a terminus-shortcut open question (its successor is the
+  reserved cross-arc boss-connectivity hook, §7/§9.2). One stale chute residue survives in content:
+  `50_content/maps/map_109.yaml` still authors a `from_clockwork` chute-arrival spawn and a
+  platform-brief mention — flagged for the Phase D world-graph reconciler to strip.
 - Freely-authored extra spawn names on multi-entrance maps (§2) have no stricter naming
   convention yet; flag if Phase D authoring shows collisions or ambiguity in practice.
 - Whether a map UI visually flags a `dead_end` portal before the player commits to it (§5) is
   `10_systems/HUD.md`'s design call, not decided here.
-- The 1:1 mapping from each Rift raid arena to its staging-shard field
-  (`10_systems/DEATH_PENALTY.md` §5.3's flagged open item) is still unresolved and is not settled
-  by this doc either — it awaits Rift authoring.
-- Whether the two new §7 drop-chutes need their own `docs/WORLD_PLAN.md` mention (beyond this
-  doc) for discoverability is a light documentation question, not a design one; default is that
-  this doc is the sole source for them.
+- The in-raid release destination (`10_systems/DEATH_PENALTY.md` §5.3, consumed by
+  `10_systems/social/RAID.md` §5) is those docs' rule, not this one's — but §5.3's own text still
+  carries pre-v3 map refs (a retired "R12" staging-shard layout) that contradict the v3 raid
+  roster (`RAID.md` §2). Flagged for `10_systems/DEATH_PENALTY.md`'s v3 reconciliation; §4 here
+  deliberately cites the rule without repeating any map IDs.
 - **v2.2 coach reconciliation (resolved):** §§1–4 previously described the retired free-forever
   town-warp mechanism (`docs/00_vision/GLOSSARY.md`'s retired token); this pass reconciled them to
   the **paid** Harthmoor Coachworks — renamed the
@@ -288,12 +286,9 @@ Authored by the Phase D world-graph reconciler after all 200 maps exist.
   `longship` NPC services — are proposed for `docs/00_vision/GLOSSARY.md` promotion at the C gate
   alongside the already-flagged `longship_deck` / `longship_dock` spawns (§2). `coach` and
   `coach_stop` are already GLOSSARY Transport tokens.
-- **§7 terminus vs arc-2 geography (pre-existing):** §7's Frostpeak/Clockwork drop chutes read from
-  an arc-1 layout in which Frostpeak was a walk-chain terminus; the v3 arc-2 revision makes Frostpeak
-  an *island* reached by the Deepway (§9.1) / longship (§8), and the §7 `target_map` region labels
-  (e.g. `map_073` tagged "Ashfall") may not match `docs/WORLD_PLAN.md`'s current region blocks. This
-  reconciliation only neutralized the retired free-warp "entrance-field" wording; the deeper §7 geography
-  refresh is a separate debt flagged for the world-graph reconciler, not resolved here.
+- **§7 terminus vs arc-2 geography — resolved:** the flagged geography debt is closed by this
+  pass's §7 rewrite (chutes retired; the authorized set is `docs/WORLD_PLAN.md`'s edge tables
+  alone). Recorded here only as a change marker.
 - **Longship mid-sail logout model (§8.3):** default is destination-arrival on relog (fare honored,
   no feel-bad). Alternative is return-to-origin + refund. Confirm at the arc-2 D gate once the
   server transit-state model (`10_systems/PERSISTENCE.md`) is concrete.

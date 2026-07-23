@@ -2,6 +2,23 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-23 — full-tree markdown sync vs v3.1 (session: markdown-sync-check)
+
+Audited every markdown doc against v3.1 canon and fixed the stragglers the merge waves
+missed — report: `docs/phase_reports/SYNC_AUDIT_v3_2026-07-23.md`. Headlines: DEATH_PENALTY
+rebuilt from its untouched v1 state (brackets, canon bind towns incl. the three arc-2
+ports, raid deaths via social/RAID.md); STATUS_EFFECTS/AI_BEHAVIOR off the deleted
+PARTY_QUEST.md; job.schema rebuilt to the branching 15-job model and the other schemas
+re-counted to v3 (324/234/120/120, pools r01–r11, T1–T12, no Rift-raid quartet);
+COLLECTIONS/AUDIO_DESIGN/WORLD_LORE/MAP_LAYERS/WIKI_EXPORT/ART_GENERATION_RUNBOOK extended
+to the 11-region world; ENHANCEMENT/ECONOMY re-banded to the T1–T12 ladder + seven-tonic
+table; VALIDATION §5 gained the WORLD_PLAN-promised monotonic-gradient warn; PILLARS P3 and
+SCOPE counts to five islands/234; GLOSSARY gained a Deepway entry. `tools/validate.py`
+strict: 0/0 before and after. Known debts left by design (shields/overalls/scrolls +
+COLLECTIONS/AUDIO/FTUE deep hooks; WORLD_CHANNELS capacity targets; validate.py item_use
+ceiling — flagged in VALIDATION OQs). New OQs: arc-2 WORLD_LORE expansion; Emberstone
+VI for T11–T12; ECONOMY §5 tonic-bite retune past Superior.
+
 ## 2026-07-23 — Phase I: backend-design suite (session: backend-kickoff-prompt) + v3 merge
 
 **I (backend-design suite) ✅** — see `docs/phase_reports/PHASE_I_BACKEND_REPORT.md`. Executed
