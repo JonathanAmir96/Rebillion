@@ -35,8 +35,30 @@ decisions*; rules live in their owner docs — never restate them here.
 - **GLOSSARY Provisional:** `title` (from COLLECTIONS §7); `shield` / `overall` / `req_line`
   and the scroll vocabulary (`aspect`/`temper`, `steady`/`bold`/`perilous`,
   `scroll_kind`/`scroll_tier`/`slot_family`) from the G wave — all pending promotion.
+- **I (backend-design suite) ✅** — see `docs/phase_reports/PHASE_I_BACKEND_REPORT.md`. The
+  full `70_integrations/` authoritative-server suite is authored and gated: BACKEND_ARCHITECTURE
+  (revised), ACCOUNTS_AUTH (revised), WORLD_CHANNELS, DATABASE_PERSISTENCE, NETWORK_PROTOCOL,
+  GAMEPLAY_SIMULATION, CHAT_SOCIAL_BACKEND (new). ID_REGISTRY gained the engineering-side
+  packet-opcode block (`op_0001`–`op_9999`, 13 domain ranges; 103 opcodes minted in
+  NETWORK_PROTOCOL §9). Tree validates clean (88 files, 0 fails).
 
 ## Decisions log
+
+- **I wave (2026-07-23, backend-design suite):** decision authority was owner-delegated to the
+  session (kickoff prompt), so these are decided, not open: server stack = engine-independent
+  Elixir/OTP + Phoenix (headless Godot and Go rejected); storage = one PostgreSQL database with
+  `char`/`wallet`/`social` schemas + least-privilege roles (separate databases rejected — value
+  transfers must commit without 2PC; doc 1 amended to match doc 4), append-only off-Postgres RNG
+  audit log, Redis/ETS never truth; tick model = 20 Hz sim / 10 Hz snapshot, per-map parked
+  loops, queued deterministic combat drain, timestamp timers, 20 Hz accept-if-plausible
+  reconciliation (resolves PERSISTENCE §4's deferred flag by delegation); wire = WSS +
+  MessagePack, positional envelope, protocol_version handshake, 15 s heartbeat inside
+  ACCOUNTS_AUTH's 90 s reconnect grace; auth = Argon2id, opaque 60-min tokens + 30-day rotating
+  refresh, fail-closed re-derive+range-check import (answers PERSISTENCE §9); channels =
+  demand-driven, cap 5/map, 150/60 occupancy, 2,000/node; arenas are shared reset-when-empty
+  maps — only PQ gates allocate per-party instances; `intent` is a NETWORK_PROTOCOL wire-role
+  annotation, deliberately NOT a fourth PERSISTENCE tag. Open-questions rollup in
+  PHASE_I_BACKEND_REPORT.md §4; telemetry/build/PixelLab runbook deliberately untouched.
 
 - **H wave (2026-07-23, consistency):** raid tier explicitly future-arc (PQ finales own
   party-instancing; `pq_life = normal_life·70·N`, boss-row damage, 10-min enrage); coach fares
@@ -92,7 +114,12 @@ decisions*; rules live in their owner docs — never restate them here.
   titles-only until then); COMBAT_FORMULA §15 `mult m` retune check (tenth affix slot,
   ~+11% affix pe, flagged in PHASE_G_EQUIPMENT_REPORT.md).
 - Owner-priced questions (hosting, storefronts, SSO, retention, signing) are collected in
-  PHASE_F_INTEGRATIONS_REPORT.md's rollup — none block Phase D.
+  PHASE_F_INTEGRATIONS_REPORT.md's rollup, extended by PHASE_I_BACKEND_REPORT.md §4 (pooling
+  layer, audit retention, vendor picks) — none block Phase D.
+- The backend suite (`70_integrations/`, I wave) is design-complete; its cross-doc residue
+  (world-channel promotion, report-table schema, listing-fee ownership, rounding convention)
+  is indexed in PHASE_I_BACKEND_REPORT.md §4 for the owning docs' next passes. A LIVE_OPS.md
+  successor doc is proposed-but-deferred (report §5).
 - Phase E (coding-pass briefs in `60_agents/`, VALIDATION Open-Questions rollup) is still
   unstarted; validator checks 5–6 land with the Phase D world-graph reconciler.
 
