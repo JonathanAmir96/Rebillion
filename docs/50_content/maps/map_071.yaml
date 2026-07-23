@@ -1,0 +1,101 @@
+id: map_071
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Tidewatch Port
+region: tidewatch
+map_type: town
+level_band: { min: 14, max: 14 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 150, h: 24 }
+bgm: bgm_town_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [70, 18] }
+  - { id: coach_stop, tile: [30, 18] }
+  - { id: longship_dock, tile: [122, 18] }
+portals:
+  - id: to_harbormaster
+    kind: door
+    at: { tile: [18, 18] }
+    target_map: map_072
+    target_spawn: main
+    dead_end: false
+  - id: to_inn
+    kind: door
+    at: { tile: [40, 18] }
+    target_map: map_073
+    target_spawn: main
+    dead_end: false
+  - id: to_fishmonger
+    kind: door
+    at: { tile: [52, 18] }
+    target_map: map_074
+    target_spawn: main
+    dead_end: false
+  - id: to_chandlery
+    kind: door
+    at: { tile: [62, 18] }
+    target_map: map_075
+    target_spawn: main
+    dead_end: false
+  - id: to_shallows
+    kind: edge
+    at: { edge: right }
+    target_map: map_076
+    target_spawn: main
+    dead_end: false
+  - id: coach_menu
+    kind: coach
+    at: { tile: [28, 18] }
+    target_map: map_017  # authoring convention only -- live destination chosen at the Coachworks menu (MAP_CONNECTIONS §3)
+    target_spawn: coach_stop
+    dead_end: false
+  - id: pier_frostwake
+    kind: longship
+    at: { tile: [116, 17] }
+    target_map: map_207
+    target_spawn: longship_deck
+    route_id: route_frostpeak_tidewatch
+    fare_ref: fare_longship_short
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+    dead_end: false
+  - id: pier_runewake
+    kind: longship
+    at: { tile: [120, 17] }
+    target_map: map_247
+    target_spawn: longship_deck
+    route_id: route_arcane_reach_tidewatch
+    fare_ref: fare_longship_medium
+    cadence_s: 120.0
+    sail_duration_s: 165.0
+    dead_end: false
+  - id: pier_voidwake
+    kind: longship
+    at: { tile: [124, 17] }
+    target_map: map_287
+    target_spawn: longship_deck
+    route_id: route_voidshore_tidewatch
+    fare_ref: fare_longship_long
+    cadence_s: 120.0
+    sail_duration_s: 180.0
+    dead_end: false
+interactables:
+  - type: coach_station
+    id: coach_station_tidewatch
+    at_tile: [28, 19]
+    params: {}
+  - type: lore_marker
+    id: marker_harborwatch_post
+    at_tile: [70, 17]
+    params:
+      text: "A weathered post carved with tide-tables and the harborwatch roster -- Warden Saela's name sits at the top."
+      interact_prompt: Read
+npcs: [npc_041, npc_042, npc_043, npc_048, npc_051]
+platform_brief: |
+  One long quayside band, flat end to end -- a working harbor town, no verticality
+  gimmick. Terrain is foothold segments dressed with painted terrain_chunks (ART_BIBLE
+  AB-001). Interior doors line the landward side; the coach station sits mid-quay, the
+  longship pier past the breakwater at the eastern end.
+flavor: "Salt-scoured and gull-loud, Tidewatch Port ties the harborwatch's coastal beat to the wider Harthmoor ring and the longship lanes beyond it."

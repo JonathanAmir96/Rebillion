@@ -1,0 +1,21 @@
+id: quest_046
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Into the Sea Caves
+region: tidewatch
+quest_type: main
+giver_npc: npc_052
+level_requirement: 20
+recommended_level: 20
+steps:
+  - type: kill
+    target: [mob_060, mob_061]
+    count: 12
+rewards:
+  exp: 4334                  # round(0.22 * 19700); band per QUESTS §4 at Lv20
+  shards: 495                # mean_shards_normal(20)*15 = 33*15 (QUESTS §5 main / DROPS §3)
+  items:
+    - { id: item_use_0012, qty: 3 }
+flavor: "Thistle won't lead anyone past the Sea Cave Mouth until they've proven they can handle the acolytes and reef-stalkers already denned up in it."
+offer_text: "Twelve of them, acolytes or stalkers, however they come at you. Someone's cult has moved into the mouth chambers, and I want proof you can clear a path through before I show you the deeper charts."
+complete_text: "Caves are yours to chart now. Whoever that cult answers to, it isn't done with this coast -- just don't go past the Saltworn Deep without telling someone first."

@@ -1,0 +1,25 @@
+id: quest_037
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS, JOBS]
+name: The Harborwatch Oath
+region: tidewatch
+quest_type: main
+giver_npc: npc_041
+level_requirement: 8
+recommended_level: 8
+steps:
+  - type: kill
+    target: mob_048
+    count: 5
+  - type: talk
+    target: npc_041
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 396                  # round(0.20 * 1980); band per QUESTS §4 at Lv8
+  shards: 225                # mean_shards_normal(8)*15 = 15*15 (QUESTS §5 main / DROPS §3)
+  items:
+    - { id: item_use_0006, qty: 3 }
+flavor: "Warden Saela tests every hopeful keeneye against the shallows before she'll vouch for them at the ring towns."
+offer_text: "Five of the tide-crabs past the shallows, cleanly, and I'll hear your oath. Prove your aim before you swear it."
+complete_text: "Steady hands, steady eye. Welcome to the harborwatch -- the ring will know you by that oath now."

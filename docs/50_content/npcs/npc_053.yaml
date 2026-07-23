@@ -1,0 +1,12 @@
+id: npc_053
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS]
+name: Diver Mirelle
+region: tidewatch
+map: map_092
+role: quest_giver
+dialog:
+  greeting: "Something down past the Saltworn Deep has been surfacing at night. I want to know what before it decides to visit the port."
+  farewell: "Don't dive past the ledge without a line. Please."
+portrait: portrait_npc_053
+flavor: "Mirelle free-dives deeper into the sea caves than the harborwatch is comfortable with, and always comes back with a new worry."

@@ -1,0 +1,39 @@
+id: map_095
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Smugglers' Cache
+region: tidewatch
+map_type: secret
+level_band: { min: 18, max: 18 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 50, h: 34 }
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [12, 14] }
+portals:
+  - id: to_barnacle_ridge
+    kind: edge
+    at: { edge: left }
+    target_map: map_083
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: cache_pocket
+    rect_tiles: { x: 8, y: 12, w: 30, h: 10 }
+    mobs:
+      - { mob: mob_056, count: 1 }
+      - { mob: mob_057, count: 1 }
+    max_concurrent: 3
+interactables:
+  - type: sign
+    id: sign_cache_ledger
+    at_tile: [12, 13]
+    params:
+      text: "A waterlogged ledger, half its entries smeared past reading -- someone kept careful books here once."
+      interact_prompt: Read
+platform_brief: |
+  A single hidden pocket off Barnacle Ridge's underside, flat and shallow. No
+  verticality gimmick -- the reward is finding it, not crossing it.
+flavor: "A smugglers' bolt-hole tucked beneath the ridge, its crates long abandoned but never quite emptied."
