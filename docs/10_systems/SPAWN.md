@@ -2,7 +2,8 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md,
 docs/VALIDATION.md, 10_systems/AI_BEHAVIOR.md, 10_systems/DEATH_PENALTY.md,
-10_systems/SKILL_EFFECTS.md, 10_systems/PARTY.md, 10_systems/STATUS_EFFECTS.md,
+10_systems/SKILL_EFFECTS.md, 10_systems/social/PARTY.md, 10_systems/social/PARTY_QUEST.md,
+10_systems/STATUS_EFFECTS.md,
 15_maps_system/MAPS_SYSTEM.md, 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md,
 40_assets/UI_ART_SPEC.md, 30_engineering/ENGINEERING_STANDARDS.md
 
@@ -64,16 +65,17 @@ summed across its `target_count`s, should land near `width_screens × per-screen
 | `normal` | 10 s baseline | Zone spawner (§1); per-mob override via `respawn_timer_s` |
 | `elite` | 90 s baseline | Zone spawner; same override field |
 | `boss` (regional arena) | No real-time timer — **arena-entry instanced** | Resets when the arena is unoccupied and re-triggered |
-| `boss` (Rift raid) | No real-time timer — **party-instanced** | Scoped per party; §7 |
 
-**Boss respawn decision.** Both regional and Rift raid bosses use arena-entry instancing rather
-than a long real-world timer: the boss is always available and resets to full life the next time
-a player/party properly enters and triggers the arena, consistent with
+**Boss respawn decision.** Regional bosses use arena-entry instancing rather than a long
+real-world timer: the boss is always available and resets to full life the next time a
+player/party properly enters and triggers the arena, consistent with
 `10_systems/DEATH_PENALTY.md` §5.2/§5.3's "walk back in, fresh attempt" model. This was chosen
 over a long fixed timer to avoid a dead, waiting boss (`00_vision/PILLARS.md` P2) and because a
 solo/small-party regional boss needs no server clock to stay fair. The literal mechanism — a true
 per-party instance vs. a shared arena that resets on empty — is `15_maps_system/MAPS_SYSTEM.md`'s
-to define; this doc fixes only the intent (no long timer).
+to define; this doc fixes only the intent (no long timer). The two party-quest finale arenas
+(`map_042`, `map_200`) additionally support **party-instanced** entry as PQ finales; that
+instancing (and everything else PQ) is owned by `10_systems/social/PARTY_QUEST.md`, not here.
 
 ## 4. Max concurrent per zone
 
@@ -115,20 +117,25 @@ untargetable for the duration of its `spawn` state**, so its entrance can't be p
 player has even seen it. Any accompanying screen or audio cue is `40_assets/UI_ART_SPEC.md`'s to
 define, not this doc's.
 
-## 7. Rift raid arena spawn rules
+## 7. Map-order & monster-gradient law (spawn-authoring rules)
 
-Rift raid arenas (`map_197`–`map_200`, `docs/WORLD_PLAN.md` R12) do not use the zone spawner
-(§1–§4) at all — they are single-boss scripted encounters, exempt exactly like regular arenas
-(§2). Spawning here is **party-instanced**: entering a raid arena allocates that encounter to the
-entering party alone (party size/membership rules owned by `10_systems/PARTY.md`), and the raid
-boss (`mob_147`–`mob_150`) spawns fresh for that instance at full life. Mid-fight adds/waves are
-not a `SPAWN.md` concept — they are the boss's own `phases[].added_abilities`
-(`10_systems/AI_BEHAVIOR.md` §15) executed through the `summon_entity` effect op
-(`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
+`docs/WORLD_PLAN.md` §"Map order & monster gradient law" (v2.3) owns this law; this section
+encodes it as the rules Phase D spawn authoring follows when filling `spawn_zones` (§1):
 
-A party's raid instance persists across individual member deaths/releases
-(`10_systems/DEATH_PENALTY.md` §5.3) — it resets only on a full-party wipe or the party leaving
-the arena, per the boss respawn decision in §3.
+- **Monotonic gradient along the main path.** Within a region, field-map IDs ascend along the
+  region's main path (town/entrance → deep end), and the spawn-zone monster levels on those maps
+  rise **monotonically** in that same order — +1/+2 per map, never dipping back down.
+- **1–3 species per field map; neighbors share at most one.** A field map's combined `mob_pool`s
+  draw from 1–3 monster species, and two path-neighbor maps share **at most one** species — every
+  map keeps a clear "this is where X lives" identity.
+- **Dungeons continue, secrets may break, the arena caps.** A dungeon chain's spawn levels
+  continue the gradient of the field map it branches from; `secret` maps may break the curve
+  (that is their fun); the region's arena (its boss) caps the region's band.
+- **Quest species live near their giver.** A species targeted by a quest `kill`/`collect` step
+  spawns within ~2 maps of that quest giver's town/camp (`10_systems/QUESTS.md` step targets).
+
+The validator warns when spawn levels are non-monotonic along field-map ID order
+(`docs/VALIDATION.md` §5); a deliberate break (a secret map) is flagged, not silently accepted.
 
 ## Open Questions
 - The `1 screen-width ≈ 20 tiles` assumption (§2) is provisional pending the real camera/viewport
@@ -143,5 +150,3 @@ the arena, per the boss respawn decision in §3.
 - Whether the regional-boss "arena-entry instanced" mechanism (§3) is a true per-player instance
   or a shared arena that resets on empty is left to `15_maps_system/MAPS_SYSTEM.md`; both satisfy
   this doc's "no long timer" intent.
-- Rift add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
-  data, not a SPAWN.md rule.

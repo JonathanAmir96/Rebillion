@@ -188,7 +188,7 @@ scaled by the target's size class (`40_assets/ART_BIBLE.yaml sizing.size_classes
 | knockback × | 1.5 | 1.2 | 1.0 | 0.5 | 0.0 (immune) |
 
 A heavy hit **interrupts** a `normal`/`elite` monster mid-`cast` unless it is flagged super-armored;
-`boss`/raid entities have super-armor except in scripted-vulnerable windows owned by
+`boss` entities have super-armor except in scripted-vulnerable windows owned by
 `10_systems/AI_BEHAVIOR.md`. `boss`-size knockback ×0 aligns with their CC immunity
 (`10_systems/STATUS_EFFECTS.md` §3). Player casts are interrupted by heavy hits unless the player is
 in i-frames (§12) or a stability effect applies.
@@ -237,18 +237,9 @@ adjacent rows (≤1% error).
 | 35 | 5775 | 111 | 210 | 210 | 140 | 4.1 |
 | 40 | 7395 | 126 | 240 | 240 | 160 | 4.2 |
 | 45 | 9215 | 141 | 270 | 270 | 180 | 4.4 |
-| 50 | 11235 | 156 | 300 | 300 | 200 | 4.5 |
-| 55 | 13455 | 171 | 330 | 330 | 220 | 4.7 |
-| 60 | 15875 | 186 | 360 | 360 | 240 | 4.8 |
-| 65 | 18495 | 201 | 390 | 390 | 260 | 5.0 |
-| 70 | 21315 | 216 | 420 | 420 | 280 | 5.1 |
-| 75 | 24335 | 231 | 450 | 450 | 300 | 5.3 |
-| 80 | 27555 | 246 | 480 | 480 | 320 | 5.4 |
-| 85 | 30975 | 261 | 510 | 510 | 340 | 5.6 |
-| 90 | 34595 | 276 | 540 | 540 | 360 | 5.7 |
-| 95 | 38415 | 291 | 570 | 570 | 380 | 5.9 |
-| 100 | 42435 | 306 | 600 | 600 | 400 | 6.0 |
-| 105 | 46655 | 321 | 630 | 630 | 420 | 6.2 |
+
+Rows stop at Lv 45, covering the authored arc (Lv 1–42, Clockwork elites topping out at 42);
+budgets past the arc are **formula-first** until future arcs land — compute from the formulas above.
 
 ### 13.1 Touch (body-contact) damage
 
@@ -265,36 +256,18 @@ their script marks contact-hot.
 |---|---|---|---|---|---|---|
 | `elite` | ×6 | ×1.5 | ×1.3 | ×1.1 | +2% | STATUS_EFFECTS §3 elite row |
 | `boss` | ×35 | ×2.0 | ×1.6 | ×1.2 | +0 (bosses don't dodge) | boss row; knockback-immune (§11) |
-| raid boss | §13.3 | ×2.5 (fixed) | ×1.8 | ×1.2 | +0 | CC-immune (STATUS_EFFECTS §3) |
 
-Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 150; boss Lv 60 `life` = 15 875×35 ≈ 555 700; boss
-Lv 100 `power` = 306×2 = 612. Region/Rift bosses (`docs/WORLD_PLAN.md`) copy the row for their level
+Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 150; boss Lv 40 `life` = 7395×35 ≈ 258 800; boss
+Lv 40 `power` = 126×2 = 252. Regional bosses (`docs/WORLD_PLAN.md`) copy the row for their level
 and phase-tune within it.
 
-### 13.3 Raid-boss party scaling (owner)
+### 13.3 Party-instanced finale bosses
 
-Rift raid bosses (`mob_147`–`mob_150`, `docs/WORLD_PLAN.md` R12) scale `life` with party size `N`
-(`10_systems/social/PARTY.md` owns the legal party range and how `N` is counted). This doc owns the
-math:
-
-```
-raid_life(N, L) = normal_life(L) · 90 · N          # per-member linear
-raid_damage      = normal_power(L) · 2.5           # FIXED — never scaled by N
-enrage_timer     = 12 min                           # boss wipes the party on expiry
-```
-
-Because both `raid_life` and total party DPS scale ≈ linearly in `N`, time-to-kill stays inside the
-§14 band across the whole legal party range (worked below); larger parties drift toward the slow end
-as coordination efficiency falls. Raid boss `damage` is **not** `N`-scaled — more players means more
-bodies to cover mechanics, not a bigger tank check. The party requirement is enforced by the
-`10_systems/social/PARTY.md` minimum-size gate, boss mechanics, and the enrage timer — **not** by
-`life` alone (a lone player would still hit enrage first). Reference table at Lv 105:
-
-| `N` | `raid_life` | party effective DPS (§15 × `N` × 0.85) | TTK |
-|---|---|---|---|
-| 4 | 16.8 M | ≈ 39 200 | ≈ 7.9 min |
-| 5 | 21.0 M | ≈ 49 000 | ≈ 7.9 min |
-| 6 | 25.2 M | ≈ 58 800 | ≈ 7.9 min |
+The party-quest finale bosses (The Cellar King `mob_027` and The Custodian `mob_150`,
+`docs/WORLD_PLAN.md`) are ordinary `boss`-tier entities and use the standard `boss` row above —
+there is no separate raid tier and no party-size stat scaling in this doc. Party-content
+difficulty balance (party sizing 3–6, PQ-vs-open-entry tuning, reward splits) is owned by
+`10_systems/social/PARTY.md` and `10_systems/social/PARTY_QUEST.md`.
 
 ## 14. Time-to-kill targets (design contract)
 
@@ -306,7 +279,6 @@ and the §15 DPS curve; balance retunes toward the **midpoint**, never outside t
 | normal mob | 3–6 s | 4.5 s (`life` / effective DPS) | §13, §15 |
 | `elite` | 20–40 s | ≈ 30 s (×6 `life`, +mitigation/dodging) | §13.2 |
 | region `boss` | 2–4 min | ≈ 2.5 min base + phase/mechanic downtime | §13.2 |
-| Rift raid boss | 6–10 min | ≈ 8 min, mid party | §13.3 |
 
 ## 15. Player DPS assumption table (backs §14)
 
@@ -316,7 +288,7 @@ player must output to hit the §14 midpoint; it equals `normal_life(L) / 4.5`. `
 (`10_systems/STATS.md` formulas + typical gear); `mult m` = effective DPS ÷ `power_ref` is the
 combined rotation × `haste` × `crit` × mitigation factor that `10_systems/SKILL_SYSTEM.md` +
 `10_systems/ITEMS.md` must collectively deliver (it matures from basic-attack ≈1.0 early to a full
-geared rotation ≈5.2 at cap). Load-bearing artifact is `normal_life`; `power_ref`/`m` are the
+geared rotation ≈3.9 by the arc's end). Load-bearing artifact is `normal_life`; `power_ref`/`m` are the
 balance target, not a formula this doc owns.
 
 | Lv | `normal_life` | effective DPS | `power_ref` | `mult m` | TTK |
@@ -327,13 +299,9 @@ balance target, not a formula this doc owns.
 | 20 | 2115 | 470 | 162 | 2.90 | 4.5 s |
 | 30 | 4355 | 968 | 277 | 3.49 | 4.5 s |
 | 40 | 7395 | 1644 | 418 | 3.93 | 4.5 s |
-| 50 | 11235 | 2497 | 585 | 4.27 | 4.5 s |
-| 60 | 15875 | 3528 | 778 | 4.53 | 4.5 s |
-| 70 | 21315 | 4737 | 997 | 4.75 | 4.5 s |
-| 80 | 27555 | 6124 | 1242 | 4.93 | 4.5 s |
-| 90 | 34595 | 7688 | 1513 | 5.08 | 4.5 s |
-| 100 | 42435 | 9430 | 1810 | 5.21 | 4.5 s |
-| 105 | 46655 | 10368 | 1968 | 5.27 | 4.5 s |
+
+Rows stop at the arc ceiling (elites Lv 40–42 use the §13.2 multipliers on the §13 rows);
+post-arc DPS references are formula-first (`normal_life(L) / 4.5`) until future arcs land.
 
 Very early mobs (Lv 1–4) may die below 3 s once a player has any active skill; that fast end is
 intended tutorial pacing (P2) and stays inside the "snappy" spirit of the band.
@@ -343,9 +311,9 @@ intended tutorial pacing (P2) and stays inside the "snappy" spirit of the band.
 - `base_move_speed` (200 px/s) and `base_attack_interval` (0.90 s) are placeholders until the tile
   scale is locked in `40_assets/ART_BIBLE.yaml`; the `haste` percentages (STATS §5) are scale-free,
   but the px value is not. Owner: COMBAT_FORMULA at the C gate.
-- Mid-party size for the §14 raid target is assumed `N ≈ 4–6` (mid 5) pending
-  `10_systems/social/PARTY.md`; the §13.3 formula is `N`-agnostic, but the legal party range and
-  `N` counting must be confirmed there. Flagged.
+- Party sizing for the party-quest finale bosses is 3–6 (`10_systems/social/PARTY_QUEST.md` owns
+  the range and PQ difficulty tuning, with `10_systems/social/PARTY.md`); whether the §14 region
+  `boss` TTK band needs a party-adjusted variant for PQ finale runs is that pair's call. Flagged.
 - `power_ref`/`mult m` (§15) assume typical gear budgets from `10_systems/ITEMS.md` and skill
   coefficients from `10_systems/SKILL_SYSTEM.md` that are not yet authored; if those land far from
   the reference, retune `mult m` (never `normal_life`). Owner: balance pass, C/D gates.
