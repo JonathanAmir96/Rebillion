@@ -1,0 +1,55 @@
+id: map_013
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Old Kiln Tunnels, the Furnace Depths
+region: emberfoot
+map_type: dungeon
+level_band: { min: 8, max: 8 }            # deepest reach, right at the region ceiling before the boss
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 60, h: 75 }
+bgm: bgm_emberfoot
+ambience: [amb_ember_glow, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [8, 68] }
+portals:
+  - id: to_upper_reach
+    kind: edge
+    at: { edge: top }
+    target_map: map_012
+    target_spawn: main
+    dead_end: false
+  - id: to_kiln_heart
+    kind: door
+    at: { tile: [30, 8] }
+    target_map: map_016
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: furnace_depths_chamber
+    rect_tiles: { x: 10, y: 24, w: 40, h: 40 }
+    mobs:
+      - { mob: mob_009, count: 3 }
+      - { mob: mob_010, count: 2 }
+    max_concurrent: 8
+npcs: [npc_010]
+interactables:
+  - type: climbable
+    id: rope_furnace_shaft
+    at_tile: [30, 12]
+    params:
+      rect_tiles: { x: 30, y: 12, w: 1, h: 34 }
+      orientation: vertical
+      visual: rope
+  - type: lore_marker
+    id: marker_kiln_heart_door
+    at_tile: [28, 9]
+    params:
+      text: "The heat past this door is a different animal entirely. The Kiln Marshal won't let anyone through unready."
+      interact_prompt: Read
+platform_brief: |
+  The deepest, hottest chamber cluster, corridor-and-room loops (MAPS_SYSTEM §2). A
+  long rope carries the final descent toward the arena door, guarded at the landing
+  by the Kiln Marshal. No jump exceeds MAP_TRAVERSAL §1.1's caps.
+flavor: "The tunnels end in a wide, glowing chamber where the air itself shimmers. Somewhere past the last door, Cindermaw sleeps."

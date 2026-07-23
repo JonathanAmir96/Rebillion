@@ -1,0 +1,13 @@
+id: npc_009
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES]
+name: Old Cadge
+region: emberfoot
+map: map_001
+role: flavor
+dialog:
+  greeting: "Sit a spell. I've a story about the kiln, if you've the ears for it."
+  idle: "Cindermaw's slept longer than this village has stood. Some nights I wonder which one wakes first."
+  farewell: "Off you go, then. Mind the smoke."
+portrait: portrait_npc_009
+flavor: "A retired kiln-worker who never left the village, Cadge trades old furnace stories for whoever will sit and listen in the square."

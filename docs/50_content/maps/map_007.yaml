@@ -1,0 +1,49 @@
+id: map_007
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Emberfoot Fields, Windbreak Ridge
+region: emberfoot
+map_type: field
+level_band: { min: 3, max: 4 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 140, h: 28 }
+bgm: bgm_emberfoot
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_lower_reach
+    kind: edge
+    at: { edge: left }
+    target_map: map_006
+    target_spawn: main
+    dead_end: false
+  - id: to_ashen_flat
+    kind: edge
+    at: { edge: right }
+    target_map: map_008
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: windbreak_ridge_stretch
+    rect_tiles: { x: 22, y: 20, w: 66, h: 6 }
+    mobs:
+      - { mob: mob_003, count: 3 }
+      - { mob: mob_004, count: 1 }
+    max_concurrent: 6
+npcs: []
+interactables:
+  - type: sign
+    id: sign_windbreak_ridge
+    at_tile: [50, 21]
+    params:
+      text: "Windbreak Ridge -- the tallest rise before the flats. The kiln-smoke plume is visible from here on a clear day."
+      interact_prompt: Read
+platform_brief: |
+  A raised ridge terrace (3-tile rise) crossable in a single running jump
+  (MAP_TRAVERSAL §1.1), then a level run to the far edge. Foothold segments under
+  painted terrain_chunks (ART_BIBLE AB-001). The ridge crest is the named waypoint
+  a novice is sent to reach.
+flavor: "Wind scours the high ridge clean of ash, and on a clear day you can see the Old Kiln's smoke rising past the fields ahead."
