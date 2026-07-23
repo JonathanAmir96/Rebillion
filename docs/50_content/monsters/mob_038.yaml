@@ -1,0 +1,24 @@
+id: mob_038
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Bog Slinger
+tier: normal                     # ID slot 038 = R3 normal (ID_REGISTRY Monsters)
+element: neutral                 # R3 element split is nature/neutral (WORLD_PLAN)
+level: 13
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 13
+  life: 1024                     # 4*(13+3)^2
+  power: 45                      # 6+3*13 (thrown-stone scales on power, §13.1)
+  armor: 78                      # 6*13  (armor+warding sum = 156 = 12*13)
+  warding: 78                    # 6*13
+  precision: 52                  # 4*13
+  evasion: 3.4                   # 3 + 0.03*13 (%)
+  exp: 112                       # exp_per_kill_normal(13)=round(4*13^1.3) (LEVELING §3)
+ai_profile: ranged_skirmisher    # keeps its distance and hurls ballast-stones (AI_BEHAVIOR §8)
+ai_params:                       # override only ranged_skirmisher-declared tunables
+  preferred_range_min: 5
+  preferred_range_max: 9
+  attack_cooldown_s: 1.6
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; basic sling is the attack
+drop_table: drop_mob_038
+flavor: "A stilt-legged marsh-dweller with a gullet full of swallowed river-stones and a wicked overhand throw. It backpedals across the mud as it pelts you, spitting a fresh stone into its sling-hand between each cast."

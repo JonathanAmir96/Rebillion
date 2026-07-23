@@ -1,0 +1,19 @@
+id: drop_mob_047
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN]   # boss: emberstone + region-boss unique mapping (non-raid -> no PARTY)
+owner: mob_047
+rows:
+  # shards guaranteed, boss x15. mean_shards_normal(16)=27; x15=405; range=[round(0.8*405),round(1.2*405)]=[324,486] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 324, qty_max: 486 }
+  # region materials guaranteed (DROPS §5.3 crafting/quest mats)
+  - { ref: item_etc_0048, chance: guaranteed, qty_min: 2, qty_max: 3 }
+  - { ref: item_etc_0035, chance: guaranteed, qty_min: 1, qty_max: 2 }
+  # emberstone: 1 guaranteed + 1 uncommon (DROPS §5.3). R3 gear req_level <=16 -> Emberstone I (T1-T2, ENHANCEMENT §1)
+  - { ref: item_etc_0193, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0193, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5); pool_equip_r03 authored in parallel items batch (dangling OK)
+  - { ref: pool_equip_r03, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss uniques: Thornback Sovereign owns item_equip_0205/0206 (ID_REGISTRY boss #3 = 0199+2n, n=3).
+  # first-ever clear guarantees one of the two (DROPS §5.3 bad-luck protection). Parallel items batch (dangling OK).
+  - { ref: item_equip_0205, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0206, chance: legendary, qty_min: 1, qty_max: 1 }

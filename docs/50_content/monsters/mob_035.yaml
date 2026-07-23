@@ -1,0 +1,26 @@
+id: mob_035
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Rootbound Sentinel
+tier: normal                     # ID slot 035 = R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 11
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 11
+  life: 784                      # 4*(11+3)^2
+  power: 39                      # 6+3*11 (thorn volley scales on power, §13.1)
+  armor: 80                      # reallocated toward armor (bark-plated, rooted); sum 132 = 12*11
+  warding: 52                    # 132 - 80 (§13 permits armor/warding reallocation)
+  precision: 44                  # 4*11
+  evasion: 3.3                   # 3 + 0.03*11 (%)
+  exp: 90                        # exp_per_kill_normal(11) (LEVELING §3)
+ai_profile: stationary_turret    # rooted in place; punishes standing in its thorn-line (AI_BEHAVIOR §13)
+ai_params:                       # override only stationary_turret-declared tunables
+  aggro_radius: 7
+  attack_cooldown_s: 2.5
+  windup_s: 0.6
+animation_states: [idle, attack, hit, die]   # immobile turret: idle/attack/hit/die only (no walk/patrol)
+drop_table: drop_mob_035
+flavor: "A grey, bark-scaled thing grown fast to the hollow floor, more stump than beast until it turns its knothole eye on you. It cannot follow, but it never misses the same spot twice, and it loosens a spray of hardwood thorns on a clockwork beat."

@@ -1,0 +1,183 @@
+id: item_table_materials_r03
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R3 Verdant Hollow monster materials: item_etc_0033-0048 (ID_REGISTRY etc block, 16 per region).
+# One row per R3 normal species (mob_028-043); source_hint cross-checks each drop_mob_NNN table.
+# etc rows carry no `buy` (not vendor-purchasable, ITEMS §1); etc `sell` has no ECONOMY owner
+# (item.schema OQ) -- first-pass, scaled to the Lv 8-16 band. stack fixed 999 (INVENTORY §2).
+items:
+  - id: item_etc_0033
+    name: Sporeling Cap
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 8                  # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 13                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_028          # drops from Sporeling Swarm (cross-checks drop_mob_028)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The whole cap of a wandering sporeling, plucked before it could root. It weeps a thin milk that the hollow's dyers set with lime for a stubborn moss-green."
+
+  - id: item_etc_0034
+    name: Vole Pelt
+    category: etc
+    rarity: common
+    req_level: 8
+    price:
+      sell: 13
+    source_hint: mob_029          # drops from Hollow Vole (cross-checks drop_mob_029)
+    stack: 999
+    flavor: "A scrap of soft grey underfur from a hollow vole, warm and quick to felt. Trappers sell them by the sack to line a winter boot."
+
+  - id: item_etc_0035
+    name: Thornvine Coil
+    category: etc
+    rarity: common
+    req_level: 9
+    price:
+      sell: 14
+    source_hint: mob_030          # drops from Thornvine Lasher (cross-checks drop_mob_030)
+    stack: 999
+    flavor: "A cut length of living thorn-vine that keeps trying to knot itself around a wrist. Left in water it stays supple for weeks, which the basket-weavers prize and curse."
+
+  - id: item_etc_0036
+    name: Mossmatted Fur
+    category: etc
+    rarity: common
+    req_level: 9
+    price:
+      sell: 14
+    source_hint: mob_031          # drops from Moss Prowler (cross-checks drop_mob_031)
+    stack: 999
+    flavor: "A hank of prowler coat so grown-through with moss it roots when it hits the ground. It smells of wet stone and old leaves long after the tanning."
+
+  - id: item_etc_0037
+    name: Mireback Gland
+    category: etc
+    rarity: common
+    req_level: 10
+    price:
+      sell: 15
+    source_hint: mob_032          # drops from Mireback Spitter (cross-checks drop_mob_032)
+    stack: 999
+    flavor: "The paired venom-sac from a spitter's throat, still bulging with the toxin it lobbed at you. Herbalists thin it a hundredfold into a passable numbing draught."
+
+  - id: item_etc_0038
+    name: Fen Tusk
+    category: etc
+    rarity: common
+    req_level: 10
+    price:
+      sell: 15
+    source_hint: mob_033          # drops from Fen Boar (cross-checks drop_mob_033)
+    stack: 999
+    flavor: "A short, mud-stained tusk worn to a chisel by a lifetime of rooting. Carvers on the ring like them for handle-scales; they take a polish and never crack."
+
+  - id: item_etc_0039
+    name: Puffcap Spore-Sac
+    category: etc
+    rarity: common
+    req_level: 11
+    price:
+      sell: 16
+    source_hint: mob_034          # drops from Puffcap Burster (cross-checks drop_mob_034)
+    stack: 999
+    flavor: "An intact spore-sac cut before the burster could pop it, taut as a wineskin and just as eager. Alchemists keep them sealed in wax and handle them like eggs."
+
+  - id: item_etc_0040
+    name: Rootbound Bark
+    category: etc
+    rarity: common
+    req_level: 11
+    price:
+      sell: 16
+    source_hint: mob_035          # drops from Rootbound Sentinel (cross-checks drop_mob_035)
+    stack: 999
+    flavor: "A plate of grey sentinel-bark, hard as a shield-boss and ringed like old timber. The count of its rings is a lie; a sentinel grows a ring for every kill, not every year."
+
+  - id: item_etc_0041
+    name: Deadwood Splinter
+    category: etc
+    rarity: common
+    req_level: 12
+    price:
+      sell: 17
+    source_hint: mob_036          # drops from Deadwood Lurker (cross-checks drop_mob_036)
+    stack: 999
+    flavor: "A finger of petrified heartwood from a lurker's disguise, cold and heavier than it looks. It sinks in water and rings faintly when struck."
+
+  - id: item_etc_0042
+    name: Pollenwing Dust
+    category: etc
+    rarity: common
+    req_level: 12
+    price:
+      sell: 17
+    source_hint: mob_037          # drops from Pollenwing Moth (cross-checks drop_mob_037)
+    stack: 999
+    flavor: "A pinch of the glittering scale-dust a pollenwing sheds mid-dive, gold in one light and sickly green in another. Breathe it and you sneeze for an hour."
+
+  - id: item_etc_0043
+    name: Bogstone Nodule
+    category: etc
+    rarity: common
+    req_level: 13
+    price:
+      sell: 18
+    source_hint: mob_038          # drops from Bog Slinger (cross-checks drop_mob_038)
+    stack: 999
+    flavor: "One of the smooth river-stones a slinger swallows for ballast and coughs up to throw. Each is worn perfectly round, and worth a slinger's whole gizzard to a mason."
+
+  - id: item_etc_0044
+    name: Nightcap Toxin
+    category: etc
+    rarity: common
+    req_level: 13
+    price:
+      sell: 18
+    source_hint: mob_039          # drops from Nightcap Ambusher (cross-checks drop_mob_039)
+    stack: 999
+    flavor: "A bead of the blue-black venom a nightcap paints its ambush with, corked in a splinter of its own hollow fang. A drop fouls a stew; a thimble fouls a well."
+
+  - id: item_etc_0045
+    name: Bramblewing Feather
+    category: etc
+    rarity: common
+    req_level: 14
+    price:
+      sell: 19
+    source_hint: mob_040          # drops from Bramblewing Harrier (cross-checks drop_mob_040)
+    stack: 999
+    flavor: "A stiff barred flight-feather off a harrier of the canopy, its shaft threaded with a hair-fine bramble the bird never sheds. Fletchers pay double for a matched pair."
+
+  - id: item_etc_0046
+    name: Gloomcap Fungus
+    category: etc
+    rarity: common
+    req_level: 14
+    price:
+      sell: 19
+    source_hint: mob_041          # drops from Gloomcap Shambler (cross-checks drop_mob_041)
+    stack: 999
+    flavor: "A wedge of the black fungus that rides a shambler's back and drives it half-mad, still faintly warm with rot. Dried and ground, it is a dye no wash will lift."
+
+  - id: item_etc_0047
+    name: Thornhide Bristle
+    category: etc
+    rarity: common
+    req_level: 15
+    price:
+      sell: 20
+    source_hint: mob_042          # drops from Thornhide Tusker (cross-checks drop_mob_042)
+    stack: 999
+    flavor: "A cluster of the iron-hard bristles a tusker grows along its spine, each tipped with a hooked barb. Pulled free, they make an awl that outlasts three of steel."
+
+  - id: item_etc_0048
+    name: Mossgorger Heartwood
+    category: etc
+    rarity: common
+    req_level: 16
+    price:
+      sell: 21
+    source_hint: mob_043          # drops from Elder Mossgorger (cross-checks drop_mob_043)
+    stack: 999
+    flavor: "A knot of dense, sap-dark heartwood from the oldest browser in the hollow, grown slow and grown hard. It is half a tree's age in a fist, and burns a whole night on one log."
