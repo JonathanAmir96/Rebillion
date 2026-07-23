@@ -20,7 +20,9 @@ UI_ART_SPEC.md, ANIMATION_STATES.md matrix, the relevant brief template.
 **Deliverable contract:** amendments as numbered dated entries (AB-NNN) stating what is
 added and what stays binding; QA verdicts against the SPRITESHEET_SPEC.md checklist
 (palette-locked ramps, silhouette-first, size-class fit, pivot feet-center, state list
-complete); generation runs per ART_GENERATION_RUNBOOK.md once it exists.
+complete); generation runs per ART_GENERATION_RUNBOOK.md once it exists. Every generation run is
+cost-routed through ROLE_ART_QUARTERMASTER *before* any PixelLab call (balance check +
+self-vs-PixelLab lane decision); the art director judges quality, not spend.
 
 **Definition of done (QA):** asset passes every checklist line or is rejected with the
 specific violated rule — never "close enough."
