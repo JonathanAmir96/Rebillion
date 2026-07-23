@@ -1,0 +1,12 @@
+id: npc_068
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Warden Tolvic
+region: ashfall
+map: map_136                     # bidirectional with map_136's npcs[] (both list each other)
+role: quest_giver
+dialog:
+  greeting: "The vents run deep and hotter every year. I keep watch so Cindershelf doesn't have to."
+  farewell: "Don't linger past the vent mouths without a reason. The heat down there earns its name."
+portrait: portrait_npc_068
+flavor: "Tolvic's camp marks the last safe ground before the cinder vents, and he's buried enough gear-scarred boots to know exactly where that line sits."

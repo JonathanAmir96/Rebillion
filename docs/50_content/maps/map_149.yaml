@@ -1,0 +1,40 @@
+id: map_149
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Hidden Kiln Vault
+region: ashfall
+map_type: secret
+level_band: { min: 34, max: 34 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 40, h: 24 }
+bgm: bgm_ashfall
+ambience: [amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [8, 18] }
+portals:
+  - id: to_cracked_kiln_fields
+    kind: edge
+    at: { edge: left }
+    target_map: map_133
+    target_spawn: main
+spawn_zones:
+  - id: hidden_kiln_vault_zone
+    rect_tiles: { x: 14, y: 12, w: 20, h: 8 }
+    mobs:
+      - { mob: mob_104, count: 2 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_old_kiln
+    at_tile: [20, 16]
+    params:
+      text: "A sealed kiln, older than Cindershelf itself, still holds a stubborn pocket of embercinder heat -- and something that guards it."
+      interact_prompt: "Read"
+npcs: []
+platform_brief: |
+  A single sunken chamber behind the collapsed kiln, no verticality gimmick.
+  Terrain is foothold segments under painted ash terrain_chunks (ART_BIBLE AB-001);
+  the whole pocket crosses in a few steps.
+flavor: "Cracked Kiln Fields hides an older kiln beneath its ruin, one still fiercely defended by what's nested inside."

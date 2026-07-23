@@ -1,0 +1,33 @@
+id: map_126
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Cindershelf Shield Hall
+region: ashfall
+map_type: interior
+level_band: { min: 26, max: 26 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 32, h: 18 }
+bgm: bgm_town_ashfall
+ambience: [amb_forge]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 13] }
+portals:
+  - id: to_cindershelf
+    kind: door
+    at: { tile: [4, 13] }
+    target_map: map_125
+    target_spawn: main
+interactables:
+  - type: sign
+    id: sign_bulwark_creed
+    at_tile: [20, 12]
+    params:
+      text: "Racked shields line every wall, each dented and each still sound. The Bulwark creed is carved above the forge: hold the line."
+      interact_prompt: "Read"
+npcs: [npc_062, npc_065]
+platform_brief: |
+  One flat room, no verticality -- a training hall, not a traversal challenge.
+  Racked shields and a cold forge line the walls; combat-free (MAPS_SYSTEM §6).
+flavor: "The clang of shield drills echoes here from dawn past dusk, Master Bram's voice carrying over every recruit's grunt."
