@@ -1,0 +1,18 @@
+id: drop_mob_206
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN]  # boss: emberstone + region-order uniques
+owner: mob_206
+rows:
+  # shards guaranteed, boss x15. mean=round(1.5*68+3)=105; x15=1575; range +-20% (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 1260, qty_max: 1890 }
+  # region materials guaranteed (crafting/quest mats; DROPS §5.3)
+  - { ref: item_etc_0160, chance: guaranteed, qty_min: 1, qty_max: 2 }   # Unmoored Keystone
+  - { ref: item_etc_0155, chance: guaranteed, qty_min: 1, qty_max: 1 }   # Adept's Sigil
+  # emberstones: 1 guaranteed + 1 uncommon (DROPS §5.3; ENHANCEMENT §1)
+  - { ref: item_etc_0196, chance: guaranteed, qty_min: 1, qty_max: 1 }   # Emberstone IV
+  - { ref: item_etc_0197, chance: uncommon, qty_min: 1, qty_max: 1 }     # Emberstone V
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5)
+  - { ref: pool_equip_r10, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss #10 uniques (WORLD_PLAN: item_equip_0219/0220); one first-clear-guaranteed (DROPS §5.3)
+  - { ref: item_equip_0219, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0220, chance: legendary, qty_min: 1, qty_max: 1 }

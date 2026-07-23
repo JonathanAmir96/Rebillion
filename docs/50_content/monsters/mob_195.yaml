@@ -1,0 +1,27 @@
+id: mob_195
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Voidcaller Acolyte
+tier: normal                     # ID slot 195 = R10 normal (ID_REGISTRY Monsters)
+element: shadow                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [arcane]
+resists: [shadow]                # ELEMENTS §2 (mutually exclusive lists)
+level: 65
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 65
+  life: 18496                    # 4*(65+3)^2
+  power: 201                     # 6+3*65
+  spellpower: 201                # 6+3*65 (parity; magic attacker, §13)
+  armor: 390                    # 6*65  (armor+warding sum = 780 = 12*65)
+  warding: 390                  # 6*65
+  precision: 260                # 4*65
+  evasion: 4.95                 # 3+0.03*65 (%)
+  exp: 910                     # round(4*65^1.3) normal (LEVELING §3)
+ai_profile: support_caller
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  support_radius: 6
+  cast_cooldown_s: 6
+  retreat_range: 7
+animation_states: [idle, walk, jump, fall, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_195
+flavor: "A hooded devotee of the torn sky who calls the void up around its kin to shield them, and would rather flee toward the dark than face you in it."
