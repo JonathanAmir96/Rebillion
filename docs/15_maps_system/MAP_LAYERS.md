@@ -70,22 +70,20 @@ Every map's `tileset_id` = `tileset_<biome_key>`, where `biome_key` is looked up
 the same as the region slug for Millbrook and Sunken (below). A map's biome (and therefore
 tileset) is fully determined by its region; there is no second map-level art token.
 
-| Region | Biome key | Tileset token |
+| Region (v2, `docs/WORLD_PLAN.md`) | Biome key | Tileset token |
 |---|---|---|
-| Emberfoot Grounds | `emberfoot` | `tileset_emberfoot` |
+| Emberfoot Isle | `emberfoot` | `tileset_emberfoot` |
+| Millbrook & Rosen Harbor | `old_town` | `tileset_old_town` |
 | Verdant Hollow | `verdant_hollow` | `tileset_verdant_hollow` |
-| Millbrook Township | `old_town` | `tileset_old_town` |
 | Tidewatch Coast | `tidewatch` | `tileset_tidewatch` |
-| Sunken Depths | `tidewatch_dark` | `tileset_tidewatch_dark` |
-| Ashfall Wastes | `ashfall` | `tileset_ashfall` |
-| Frostpeak Ascent | `frostpeak` | `tileset_frostpeak` |
 | Gloomwood | `gloomwood` | `tileset_gloomwood` |
+| Ashfall Barrens | `ashfall` | `tileset_ashfall` |
+| Sunken Depths | `tidewatch_dark` | `tileset_tidewatch_dark` |
 | Clockwork Ruins | `clockwork` | `tileset_clockwork` |
-| Arcane Reach | `arcane_reach` | `tileset_arcane_reach` |
-| Voidshore | `voidshore` | `tileset_voidshore` |
-| The Rift | `rift` | `tileset_rift` |
 
-One tileset id per biome (12 total); internal variants for a region's distinct sub-areas (e.g., a
+One tileset id per biome (8 total this arc); the `frostpeak`/`arcane_reach`/`voidshore`/`rift`
+biome keys are **reserved for future arcs** (`00_vision/SCOPE.md`) and mint their tileset tokens
+when those arcs land. Internal variants for a region's distinct sub-areas (e.g., a
 cave versus an open field in the same region) are an atlas-organization concern inside that one
 tileset, owned by `40_assets/ART_BIBLE.yaml`, not a second token here.
 

@@ -14,7 +14,10 @@ Start here:
 - `docs/20_schemas/` — entity shapes · `docs/50_content/` — values only, referencing the above
 - `docs/30_engineering/` + `docs/40_assets/` — engineering standards and art/UI bible (locked)
 - `docs/60_agents/` — coding-pass phase briefs · `docs/VALIDATION.md` — pass/fail rules
-- `docs/phase_reports/` — per-phase generation reports
+- `docs/70_integrations/` — platform & pipeline design (backend, accounts/auth, telemetry,
+  build/distribution, PixelLab art-pass runbook, wiki export)
+- `docs/phase_reports/` — per-phase generation reports · `tools/validate.py` — the batch
+  validator (VALIDATION checks 1–4)
 
 Rules of the tree: content files hold values and references, never rule text; every reference
 must resolve; unknown terms are proposed in GLOSSARY, never invented silently.

@@ -2,6 +2,23 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-23 — main merge reconciliation (after Phase D completion)
+
+Merged `origin/main` (phases F/G/H from parallel sessions: 70_integrations backend/
+accounts/telemetry docs, AUDIO_DESIGN/COLLECTIONS/ONBOARDING_FTUE/WORLD_LORE/
+WRITING_STYLE/SCROLLS/SKILL_ANIMATION, ROLE_ART_QUARTERMASTER, phase reports F/G/H) into
+the v3 line. Policy: **v3 wins co-modified design files** (it is the owner's latest
+directive, backed by the minted 50_content tree); main's net-new docs all kept. Semantic
+fixes at the merge: PARTY_QUEST.md deleted (superseded by social/RAID.md), pq_*/party-
+quest/waygate refs in the incoming docs retargeted to raid_*/coach; equipment-v2's
+shield/overall ID blocks **re-homed** from 0231–0250 (collides with minted arc-2 equips)
+to the never-minted 0181–0200 reserve; scroll block item_use_0061–0100 ported; new
+provisional tokens (title, shield, overall, req_line, scroll vocabulary) carried in
+GLOSSARY. **Open debt:** integrating shields/overalls/scrolls + COLLECTIONS/AUDIO/FTUE
+hooks with the v3 systems docs and content (they were written against the v2 world) —
+see ID_REGISTRY Open Questions; main's variant of tools/validate.py was dropped in favor
+of the v3-aware one (diff it from git history if its extra checks are wanted).
+
 ## 2026-07-23 — v3 owner revision + Arc-2 Phase D (session: maps-levels-40-80)
 
 **State now:** design tree is at **v3.1** (five islands, two authored arcs Lv 1–82, cap

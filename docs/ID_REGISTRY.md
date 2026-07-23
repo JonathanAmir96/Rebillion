@@ -60,7 +60,8 @@ Exactly one per monster, number matching its `mob_NNN`. Region equip pools:
 | Weapons, arc 1 (4 lines × T1–T6: Lv 1/8/15/22/29/36) | `0001`–`0040` | 24 |
 | Armor, arc 1 (head/body/legs/boots/gloves × T1–T6) | `0041`–`0140` | 30 |
 | Accessories, arc 1 (cape/ring/amulet) | `0141`–`0180` | 16 |
-| Reserved (growth) | `0181`–`0200` | — |
+| Shield (`shield` slot, equipment-v2 wave; re-homed at the v3 merge) | `0181`–`0190` | 6 planned |
+| Overall (`overall` slot, equipment-v2 wave; re-homed at the v3 merge) | `0191`–`0200` | 6 planned |
 | Boss uniques (2 per boss, boss order #1–#11) | `0201`–`0222` | 22 |
 | Reserved (uniques growth / future bosses) | `0223`–`0230` | — |
 | Weapons, arc 2 (4 lines × T7–T12: Lv 43/50/57/64/71/78) | `0231`–`0254` | 24 |
@@ -72,7 +73,14 @@ Boss unique mapping: boss #n (region order) owns `item_equip_{0199+2n}` and `{02
 0209–0210, Karnothal 0211–0212, Drowned Warden 0213–0214, Custodian 0215–0216, Skoldir
 0217–0218, Aetheron 0219–0220, Nyxaris 0221–0222).
 
-## Items — `item_use_0001`–`0060`
+**Equipment-v2 re-homing note (v3 merge):** the equipment-v2 wave originally carved
+shield/overall from `0231`–`0250`, but the v3 arc-2 batch had already **minted**
+`0231`–`0300` as arc-2 weapons/armor/accessories content. Minted IDs never move, so
+shield/overall re-homed into the never-minted `0181`–`0200` growth reserve (10 + 10 slots).
+Their content and the ITEMS §2 slot-roster integration with the v3 T1–T12 ladder are a
+follow-up wave (see Open Questions).
+
+## Items — `item_use_0001`–`0100`
 
 Well-known IDs `0001`–`0016` are reserved with final names so drop tables and shops can
 reference them before item files exist (stats authored in Phase D):
@@ -93,6 +101,13 @@ reference them before item files exist (stats authored in Phase D):
 Tonic tiers bind to level bands per 10_systems/ITEMS.md (v3: seven tiers across the
 authored Lv 1–80+ arcs).
 `0021`–`0060` reserved for Phase D (region specialties, raid consumables, quest consumables).
+
+**Gear-modification scrolls (equipment-v2 wave; semantics 10_systems/SCROLLS.md):**
+`0061`–`0078` = 18 SKUs, 3 slot families × 2 kinds × 3 tiers, laid out `0061`–`0066`
+weapon_family, `0067`–`0072` armor_family, `0073`–`0078` accessory_family (each family in
+order aspect steady/bold/perilous, then temper steady/bold/perilous). `0079`–`0090`
+reserved scroll growth; `0091`–`0100` reserved. The range extension `0061`–`0100` was
+appended past the former `0060` cap in a new commit; `0001`–`0060` are unmoved.
 
 ## Items — `item_etc_0001`–`0200` (16 per region, monster materials)
 
@@ -157,3 +172,7 @@ legacy `pq_<name>` family is retired and must not appear in content).
 - `item_etc_0198` is proposed as Emberstone VI for the arc-2 enhancement bands; the band
   mapping decision belongs to 10_systems/ENHANCEMENT.md (see ITEMS.md Open Questions). Mint
   only once that doc lands the mapping.
+- Equipment-v2 integration (v3 merge debt): shield/overall content (`0181`–`0200`) and
+  scroll content (`item_use_0061`–`0078`) are registered but unauthored; ITEMS.md §2's v3
+  slot roster and the schemas/validator must adopt `shield`/`overall`/`req_line` and the
+  scroll vocabulary before that Phase D batch runs. Owner: ITEMS.md + SCROLLS.md wave.

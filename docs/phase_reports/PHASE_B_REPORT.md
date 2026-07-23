@@ -235,9 +235,10 @@ lines. All files passed: forbidden-token scan, H1 + References header, Open Ques
   `20_schemas/item.schema.md`. Flagged, not designed.
 
 ### docs/10_systems/JOBS.md
-- The four line tokens (`bulwark`/`keeneye`/`weaver`/`flicker`), `novice`, and the twelve job
-  names are proposed for `00_vision/GLOSSARY.md` promotion at the B gate (§0); until promoted they
-  live here as their sole definition. Flag if any collides with a later-authored token.
+- **Resolved** — the four line tokens (`bulwark`/`keeneye`/`weaver`/`flicker`), `novice`, and the
+  twelve job names were promoted at the B gate (see "Gate actions taken" above); canonical in
+  `docs/00_vision/GLOSSARY.md` §"Job lines". The live `docs/10_systems/JOBS.md` §Open Questions
+  already reflects this as struck.
 - Job-trainer NPC IDs and the three advancement quest IDs per line are **Phase D** content
   (`10_systems/QUESTS.md`, `docs/ID_REGISTRY.md`); §1 fixes only the level gates (8/30/60) and the
   town pattern. Confirm the Millbrook trainer NPC allocation fits the Millbrook `npc` block when
@@ -381,10 +382,10 @@ lines. All files passed: forbidden-token scan, H1 + References header, Open Ques
   `00_vision/SCOPE.md` OQ; default gear-only). Owner: `10_systems/LEVELING.md`.
 
 ### docs/10_systems/STATUS_EFFECTS.md
-- Cleanse-group tags (`burn_type`, `poison_type`, `chill_type`, `control_type`, `sense_type`,
-  `curse_type`) are **new classification tokens** referenced by the `cleanse_status` op, item
-  files, and skill data. Propose promoting them to `00_vision/GLOSSARY.md` Provisional at the B
-  gate; until then they live here as the sole definition.
+- **Resolved** — the cleanse-group tags (`burn_type`, `poison_type`, `chill_type`, `control_type`,
+  `sense_type`, `curse_type`) were promoted at the B gate (see "Gate actions taken" above);
+  canonical in `docs/00_vision/GLOSSARY.md` §"Status effects". The live
+  `docs/10_systems/STATUS_EFFECTS.md` §Open Questions already reflects this as struck.
 - Buff removal: is a monster **dispel/purge** op needed? `00_vision/GLOSSARY.md`'s skill-effect
   ops have no `purge`. Default: buffs only expire (no purge); flag if a boss design needs to strip
   player buffs. Owner: `10_systems/SKILL_EFFECTS.md`.
@@ -412,9 +413,11 @@ lines. All files passed: forbidden-token scan, H1 + References header, Open Ques
   not Phase D authored content) — proposes server-assigned `guild_<NNNNNN>` IDs; needs
   `10_systems/PERSISTENCE.md` to confirm the format.
 - No schema doc yet exists for the guild record; proposes `20_schemas/guild.schema.md` at Phase C.
-- The crest shape enum (`heater`/`round`/`banner`/`diamond`/`crest_ornate`, §5) is new vocabulary
-  not yet in `00_vision/GLOSSARY.md` — propose promoting it to GLOSSARY Provisional at the B/C
-  gate, alongside the 24-symbol list owned by `40_assets/UI_ART_SPEC.md`.
+- **Resolved** — the crest shape enum (`heater`/`round`/`banner`/`diamond`/`crest_ornate`, §5) was
+  promoted at the B gate (see "Gate actions taken" above); canonical in
+  `docs/00_vision/GLOSSARY.md` §"Guild crest shapes" (the 24-symbol list remains owned by
+  `40_assets/UI_ART_SPEC.md`). The live `docs/10_systems/social/GUILD.md` §Open Questions already
+  reflects this as struck.
 - Which 40_assets doc owns the crest color palette (`40_assets/ART_BIBLE.yaml` vs
   `40_assets/UI_ART_SPEC.md`) is undecided.
 - Officer cap (5, §3) and the roster growth steps (§4) are first-pass; may need retuning once

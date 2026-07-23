@@ -79,8 +79,9 @@ Questions.
 through one **`GameState` facade** rather than touching a save file or a future network call
 directly, so swapping the backing store later (local file → networked client) never requires
 changing calling code. This doc fixes the **data model** (§1–§4) and the **cadence** (§6) that
-facade must serve; the facade's actual interface/class design is
-`30_engineering/ENGINEERING_STANDARDS.md`'s (Phase B/E engineering territory, not yet authored).
+facade must serve; the GameState save-facade autoload is established in
+`30_engineering/ENGINEERING_STANDARDS.md`; its detailed interface/class design is coding-pass
+territory.
 
 ## 6. Save slots & autosave cadence (solo build)
 
@@ -118,8 +119,8 @@ boundary, not an exception to it:
 ## 8. `save_version` — migration/versioning field
 
 Every save file carries a `save_version` integer. On load, if it is lower than the build's
-current version, a migration step runs (owned by `30_engineering/ENGINEERING_STANDARDS.md` once
-authored) before any system reads through the facade; an unrecognized *future* `save_version`
+current version, a migration step runs (owned by `30_engineering/ENGINEERING_STANDARDS.md`) before
+any system reads through the facade; an unrecognized *future* `save_version`
 (the file is newer than the running build) refuses to load rather than silently truncating data.
 No system may drop an unrecognized field silently — an unknown field is a migration bug, not
 ignorable input.
@@ -149,9 +150,9 @@ is assumed safe by default.
   **per-character** for the solo build and the interim server; an account-shared purse/vault is a
   later, explicitly opt-in addition, not a launch item.
 - `save_version`'s migration framework (§8) has no concrete implementation yet; flagged for
-  `30_engineering/ENGINEERING_STANDARDS.md`, which itself is not confirmed to exist as a Phase B
-  deliverable (`00_vision/SCOPE.md`'s phase list does not explicitly enumerate
-  `30_engineering/*`) — flag this gap for the orchestrator.
+  `30_engineering/ENGINEERING_STANDARDS.md` (authored and locked per CLAUDE.md Law 5), which
+  establishes the GameState save facade but does not yet specify the concrete migration
+  framework; the migration step is deferred to the coding pass.
 - Cloud-save / multi-device sync for the solo build is not addressed; assumed local-disk-only
   until a server exists.
 - Whether a corrupted/unreadable save slot should attempt partial recovery or hard-fail to a

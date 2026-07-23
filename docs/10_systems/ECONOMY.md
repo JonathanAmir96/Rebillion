@@ -31,6 +31,7 @@ handful of Lesser tonics; §4).
 | Sink | Owner of the number | Scales with |
 |---|---|---|
 | Consumables (tonics/cleanses/scrolls/foods) | §4 (this doc) | level band (§4) |
+| Travel (Harborwind Ferry + Harthmoor Coachworks fares) | §4.3 (this doc) | ring distance |
 | Enhancement fee | §3 (this doc) | gear tier × target `+` |
 | Stat free-point reallocation | §3.1 (this doc) | `level` |
 | Guild creation | `10_systems/social/GUILD.md` (fee reserved here) | flat, endgame |
@@ -80,9 +81,11 @@ fee; this doc owns the number:
 reallocation_fee(L) = round( 50 · L )       # full respec of the free pool
 ```
 
-Lv 30 → 1,500; Lv 50 → 2,500; Lv 100 → 5,000. Scales with `level` so it stays a meaningful choice
-without ever locking a build (P2 — no trap builds; the pool is always reallocatable). First-pass;
-`10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
+Lv 10 → 500; Lv 30 → 1,500; Lv 42 (authored arc's top, `docs/00_vision/SCOPE.md`) → 2,100. The
+formula is designed to keep scaling unchanged over the full climb to the Lv 300 cap
+(`10_systems/LEVELING.md` §6) as future arcs land. Scales with `level` so it stays a meaningful
+choice without ever locking a build (P2 — no trap builds; the pool is always reallocatable).
+First-pass; `10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
 
 ## 4. Vendor price bands
 
@@ -95,18 +98,45 @@ buy)`.
 | Item (life / essence pair) | Serves band | Buy | Sell |
 |---|---|---|---|
 | Lesser Life / Essence Tonic (`0001`/`0006`) | Lv 1–9 | 15 | 4 |
-| Life / Essence Tonic (`0002`/`0007`) | Lv 10–29 | 60 | 15 |
-| Greater … (`0003`/`0008`) | Lv 30–49 | 200 | 50 |
-| Superior … (`0004`/`0009`) | Lv 50–69 | 500 | 125 |
-| Prime … (`0005`/`0010`) | Lv 70–100 | 1,000 | 250 |
+| Life / Essence Tonic (`0002`/`0007`) | Lv 10–17 | 60 | 15 |
+| Greater … (`0003`/`0008`) | Lv 18–25 | 200 | 50 |
+| Superior … (`0004`/`0009`) | Lv 26–33 | 500 | 125 |
+| Prime … (`0005`/`0010`) | Lv 34–42 (arc top) | 1,000 | 250 |
 | Antidote (`0011`) / Thaw Salve (`0012`) | any | 50 | 12 |
 | Millbrook Return Scroll (`0013`) | any | 100 | 25 |
 | Hearth Bread (`0014`, food buff) | any | 80 | 20 |
 | Sharpening Oil (`0015`) / Ironhide Draught (`0016`) | any | 150 | 37 |
 
 Restore/buff magnitudes are Phase D use-item data (`10_systems/ITEMS.md` §1); this table owns only
-price. A tonic tier is meant to be replaced as you out-level its band (its flat restore stops
+price. Tonic bands are the v2 five-tier split of the authored Lv 1–42 arc (`docs/ID_REGISTRY.md`).
+A tonic tier is meant to be replaced as you out-level its band (its flat restore stops
 keeping pace) — the upgrade cadence is itself a rising sink (§6).
+
+**`steady` scroll shelf** (`10_systems/SCROLLS.md` §4.2 — vendor sells `steady` tier only;
+`bold`/`perilous` are drop-/quest-only; resolves that doc's filed §4.1-price-rows question):
+
+| Scroll SKU (`steady`, `docs/ID_REGISTRY.md` scroll block) | Buy | Sell |
+|---|---|---|
+| Weapon-family `aspect` | 800 | 200 |
+| Weapon-family `temper` | 1,200 | 300 |
+| Armor-family `aspect` | 500 | 125 |
+| Armor-family `temper` | 750 | 188 |
+| Accessory-family `aspect` | 600 | 150 |
+| Accessory-family `temper` | 900 | 225 |
+
+### 4.3 Travel fares (`docs/WORLD_PLAN.md` v2.2 — Harborwind Ferry & Harthmoor Coachworks)
+
+| Ride | Fare (`shards`) |
+|---|---|
+| Harborwind Ferry, per crossing (`map_001` ↔ `map_017`) | 25 |
+| Coach, between stations | `100 × hops` (100–400) |
+
+`hops` counts stations along the shortest coach-route path (stations: Rosen Harbor, Millbrook
+Central, Mossmere, Cindershelf, Tidewatch Port; Rosen Harbor ↔ Millbrook Central counts as 1).
+Each fresh character's **one free ride** from Rosen Harbor to their job instructor's town (the
+advancement pilgrimage, `docs/WORLD_PLAN.md`) waives the fare once and only once, server-tracked.
+Fares are deliberately below one minute of at-band hunting income (§5) — paid convenience, never
+a wall (`00_vision/PILLARS.md` P2); walking the ring stays free.
 
 ### 4.2 Equipment (buy value by tier × rarity)
 

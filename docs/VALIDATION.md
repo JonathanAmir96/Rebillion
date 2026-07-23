@@ -35,8 +35,9 @@ ID_REGISTRY.md (including tier layout for mobs — e.g., a boss ID slot may not 
 ## 5. World-graph soundness
 Every portal targets an existing map **and** an existing spawn point on that map; every map is
 reachable from `map_001`; no dead-end portals. One-way or intentionally terminal exits must be
-marked `dead_end: true` in the map file. Cross-region edges must match WORLD_PLAN.md's edge
-table exactly.
+marked `dead_end: true` in the map file. Cross-region edges must match the **authorized edge
+set** exactly: WORLD_PLAN.md's edge table plus 15_maps_system/MAP_CONNECTIONS.md §7's terminus
+addition.
 
 ## 6. Asset contract
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
