@@ -1,0 +1,26 @@
+id: map_022
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, ENHANCEMENT]
+name: Millbrook Smithy
+region: millbrook
+map_type: interior
+level_band: { min: 8, max: 9 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 24, h: 14 }
+bgm: bgm_town_millbrook
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [12, 10] }
+portals:
+  - id: to_millbrook_central
+    kind: door
+    at: { tile: [12, 12] }
+    target_map: map_018
+    target_spawn: main
+    dead_end: false
+npcs: [npc_019]
+platform_brief: |
+  A single soot-blackened forge room, anvil and rack along one wall, flat and
+  combat-free (MAPS_SYSTEM §2/§6 interior).
+flavor: "The Millbrook smithy's fire hasn't gone cold in three generations of the same family working the bellows."

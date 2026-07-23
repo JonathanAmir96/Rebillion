@@ -1,0 +1,19 @@
+id: quest_016
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Outskirts Watch
+region: millbrook
+quest_type: side
+giver_npc: npc_018
+level_requirement: 9
+recommended_level: 9
+steps:
+  - type: kill
+    target: mob_014
+    count: 8
+rewards:
+  exp: 189      # round(0.075*2,520) (LEVELING §1 Lv9); side band, pct=0.075
+  shards: 68     # mean_shards_normal(9)*4 = 17*4 (QUESTS §5 / DROPS §3)
+flavor: "Alders keeps a standing watch on the roads out of Millbrook, and the west outskirts have been busier than he'd like."
+offer_text: "Clear the outskirts pack for me. I'd rather my watch reports stay boring."
+complete_text: "Quiet roads. That's exactly the kind of report I like filing."

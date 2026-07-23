@@ -1,0 +1,12 @@
+id: npc_027
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Miller Greta Fenn
+region: millbrook
+map: map_032
+role: quest_giver
+dialog:
+  greeting: "The old wheel's stalled for years, but something's still greasing the gears down below."
+  farewell: "Clear the lane and maybe I'll finally get that wheel turning again."
+portrait: portrait_npc_027
+flavor: "Fenn keeps hoping to restart the grinding wheel one day, if the lane ever stays clear long enough."

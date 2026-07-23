@@ -1,0 +1,12 @@
+id: npc_021
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Guildmaster Aldric Thorne
+region: millbrook
+map: map_024
+role: quest_giver
+dialog:
+  greeting: "The board's never empty in Millbrook -- pick a notice, and I'll see you paid for it."
+  farewell: "Nail up proof when it's done. The board likes proof."
+portrait: portrait_npc_021
+flavor: "Thorne has run the guild hall's bounty board long enough to know which notices are worth a stranger's time and which aren't."

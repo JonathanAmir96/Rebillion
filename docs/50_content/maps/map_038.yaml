@@ -1,0 +1,34 @@
+id: map_038
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
+name: "Undervault Heist Stage 1: the Sunken Larders"
+region: millbrook
+map_type: dungeon
+level_band: { min: 14, max: 14 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 55, h: 35 }
+bgm: bgm_old_town
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 26] }
+portals:
+  - id: to_ledger_vaults
+    kind: door
+    at: { tile: [48, 10] }
+    target_map: map_039
+    target_spawn: main
+    dead_end: true        # stage chain is sequential and one-way forward (RAID.md §4); this exit unlocks once the stage's kill gate clears
+spawn_zones:
+  - id: sunken_larders_zone
+    rect_tiles: { x: 14, y: 18, w: 28, h: 10 }
+    mobs:
+      - { mob: mob_025, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Stage 1 of the Undervault Heist: a kill-gate room (RAID.md §4 pattern) among
+  the old grain larders, barring the way until the elite pack clears. Party-
+  instanced per SPAWN §7; no verticality gimmick.
+flavor: "The sunken larders where the Cellar King's vermin still hoard whatever Millbrook's granaries once lost."

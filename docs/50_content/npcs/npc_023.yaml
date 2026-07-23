@@ -1,0 +1,12 @@
+id: npc_023
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Mayor Weatherby Hune
+region: millbrook
+map: map_026
+role: quest_giver
+dialog:
+  greeting: "Millbrook's charter promises safe streets. Lately the undervault's making that a harder promise to keep."
+  farewell: "Bring me good news from down there, if there's any to be had."
+portrait: portrait_npc_023
+flavor: "Mayor Hune keeps Millbrook's charter framed behind glass and its every crisis squarely on her own desk."

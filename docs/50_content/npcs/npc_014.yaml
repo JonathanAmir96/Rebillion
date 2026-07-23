@@ -1,0 +1,12 @@
+id: npc_014
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS, ECONOMY]
+name: Harbor Master Cobb Ferris
+region: millbrook
+map: map_020
+role: quest_giver
+dialog:
+  greeting: "Every crate that crosses this harbor gets tallied twice -- lately the count keeps coming up short."
+  farewell: "Straight tally, straight coin. Go on."
+portrait: portrait_npc_014
+flavor: "Ferris trusts his own ledger over any sailor's word, and has the ink-stained fingers to prove it."

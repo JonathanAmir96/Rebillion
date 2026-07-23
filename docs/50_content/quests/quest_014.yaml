@@ -1,0 +1,19 @@
+id: quest_014
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Ledger and Line
+region: millbrook
+quest_type: side
+giver_npc: npc_014
+level_requirement: 9
+recommended_level: 9
+steps:
+  - type: collect
+    target: item_etc_0017
+    count: 5
+rewards:
+  exp: 189      # round(0.075*2,520) (LEVELING §1 Lv9 exp_to_next); side band, pct=0.075
+  shards: 68     # mean_shards_normal(9)*4 = 17*4 (round(1.5*9+3)=16.5 -> 17) (QUESTS §5 / DROPS §3)
+flavor: "Ferris says the harbor's ledger won't balance until someone accounts for what the dock rats have been dragging off."
+offer_text: "Bring back what they've been hoarding and I'll square the books -- and pay you for the trouble."
+complete_text: "Straight tally at last. Ferris hates an open column more than he hates rats."
