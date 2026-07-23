@@ -47,7 +47,7 @@ Every event carries a common envelope plus its own fields (§3):
 | `character_id` | Which of the account's ≤3 save slots (`10_systems/PERSISTENCE.md` §6) |
 | `level` | Character `level` at emit time |
 | `job_line` | GLOSSARY job-line token (`novice`/`bulwark`/`keeneye`/`weaver`/`flicker`) |
-| `region` | GLOSSARY/WORLD_PLAN region slug (`emberfoot`…`clockwork`) |
+| `region` | GLOSSARY/WORLD_PLAN region slug (`emberfoot`…`voidshore`) |
 | `map_id` | `map_NNN` (`docs/ID_REGISTRY.md`) |
 | `authority` | `server` \| `client` (§4 — who may treat this event's payload as fact) |
 | `unverified` | `true` in the interim solo build (§4); dropped once a real server exists |

@@ -13,7 +13,7 @@ across the full NPC and quest cast (counts owned by ID_REGISTRY.md).
 **Owns (per assignment):** 50_content/npcs/npc_NNN.yaml and 50_content/quests/quest_NNN.yaml
 within one region's blocks.
 
-**Reads first:** WRITING_STYLE.md if it exists (else PILLARS mood + ART_BIBLE identity),
+**Reads first:** docs/10_systems/WRITING_STYLE.md (the voice bible),
 the region's WORLD_PLAN section, its mob + map manifests (real names for kill/reach
 targets), QUESTS.md reward budgets, the instructor table (WORLD_PLAN v2.3).
 

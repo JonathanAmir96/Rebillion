@@ -19,8 +19,9 @@ about, no trap builds. Sessions of 20 minutes must feel rewarding. Death stings 
 deletes an evening (10_systems/DEATH_PENALTY.md). Idle moments in towns are part of the game, not waste.
 
 ## P3 — One world, a walkable ring
-Two islands, one world: a sheltered training isle, then a ferry to the great island where
-Millbrook is the social heart. Regions have strong biome identity (one palette ramp, one
+Five islands, one world: a sheltered training isle, a ferry to the great ringed island where
+Millbrook is the social heart, and the far isles beyond — reached by deep passage or
+longship. Regions have strong biome identity (one palette ramp, one
 motif), maps connect like real geography, and travel is a legible loop: hunt outward, return
 home by the Millbrook Return Scroll or a paid coach — there are no free warps
 (WORLD_PLAN.md §Harthmoor Coachworks). The world map should be drawable from memory.

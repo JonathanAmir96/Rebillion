@@ -1,7 +1,7 @@
 # ROLE_INTEGRATION_ENGINEER — Backend, Platform & Pipeline Design
 
 References: ORG.md, docs/10_systems/PERSISTENCE.md,
-docs/30_engineering/ENGINEERING_STANDARDS.md, docs/70_integrations/ (once it exists)
+docs/30_engineering/ENGINEERING_STANDARDS.md, docs/70_integrations/ (11 docs; Phase I)
 
 **Mission:** design everything that connects the game to the outside world: the future
 authoritative server architecture, accounts/auth, telemetry, build & distribution

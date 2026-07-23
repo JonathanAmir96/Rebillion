@@ -37,7 +37,7 @@ ledger (`10_systems/PERSISTENCE.md` §2). Population channels are a load/readabi
 separate world: a crowded town map hosts N parallel copies sharing one character DB, so no economy
 fork occurs. ("Towns, popular fields" is illustrative, not a type restriction — channel eligibility
 is demand-driven across the shared map graph; `70_integrations/WORLD_CHANNELS.md` §1 owns the
-eligibility rules and its two exemptions.) Party-quest stages/finales are per-party instanced by `10_systems/SPAWN.md` §7 and
+eligibility rules and its two exemptions.) Raid stages/finales are per-party instanced by `10_systems/SPAWN.md` §7 and
 `10_systems/social/RAID.md` (`raid_undervault` finale `map_042`, `raid_mainspring` finale
 `map_200`), so instance workers are a requirement, not a choice. Open-entry boss arenas are **not**
 per-party: `10_systems/SPAWN.md` §3 runs a regional arena as one shared map that resets once empty

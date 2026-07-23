@@ -55,7 +55,7 @@ until future arcs land. 10_systems/LEVELING.md designs the full curve to 300
 - The ART_BIBLE `rift` biome is reserved for future islands/expansions and unused in this
   run's content (frostpeak / arcane_reach / voidshore entered use with arc 2).
 - Palette-swap monster variants are permitted later but are **not** authored here and do not
-  count toward the 150 designs.
+  count toward the 234 designs.
 - Map YAMLs describe structure (zones, spawns, portals, interactables) at design granularity,
   not geometry; exact foothold segments and terrain-chunk placement happen in the engine
   pass (v2.4: terrain is Maple-style footholds + painted chunks per ART_BIBLE amendment
@@ -70,5 +70,6 @@ until future arcs land. 10_systems/LEVELING.md designs the full curve to 300
 
 ## Open Questions
 - Should secret maps count toward region completion metrics used by quests? Default: no.
-- v2 revision arrived after Phase B: system docs written for the Lv 100 world are patched by
-  the B-revision wave (tracked in docs/phase_reports/); flag any straggler references.
+- The v2 B-revision wave landed (docs/phase_reports/, phases F–H); the v3.1 straggler sync is
+  tracked in docs/phase_reports/SYNC_AUDIT_v3_2026-07-23.md — flag any remaining straggler
+  references there.

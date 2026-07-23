@@ -127,7 +127,9 @@ reserved for future expansions — invalid in this run's content.
 
 ## Transport (owner: 15_maps_system/MAP_CONNECTIONS.md; v3)
 `coach` (paid town-to-town portal kind, fares in shards per ECONOMY.md) · `coach_stop`
-(arrival spawn id) · the Harborwind Ferry (paid instant island crossing) · `longship` (paid
+(arrival spawn id) · the Harborwind Ferry (paid instant island crossing) · the Deepway (free
+Lv-40-gated underground passage, Cindershelf `map_125` → `map_201`–`203` → Frosthaven; owner
+WORLD_PLAN.md/MAP_CONNECTIONS.md) · `longship` (paid
 **scheduled** Arc-2 inter-island portal kind, 2–3 min real-time sail on a deck map) ·
 `longship_deck` (deck boarding spawn id) · `longship_dock` (pier arrival spawn id) ·
 `level_gate` (optional portal property: minimum `level` to pass; rules MAP_CONNECTIONS.md §9).

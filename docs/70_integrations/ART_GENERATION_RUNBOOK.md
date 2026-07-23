@@ -54,8 +54,9 @@ generates before a small, representative sample has cleared QA.
 
 **Region order** follows `docs/WORLD_PLAN.md`'s numbering exactly — Emberfoot Isle (`emberfoot`,
 R1) first (it is the training island; its assets set the palette/silhouette baseline before
-anything harder), then Millbrook, Verdant, Tidewatch, Gloomwood, Ashfall, Sunken, Clockwork in
-that order. A later region never generates ahead of an earlier one still failing QA.
+anything harder), then Millbrook, Verdant, Tidewatch, Gloomwood, Ashfall, Sunken, Clockwork,
+Frostpeak Isle (R9), Arcane Reach (R10), Voidshore (R11) in that order. A later region never
+generates ahead of an earlier one still failing QA.
 
 **Within one region**, asset classes run in this order:
 

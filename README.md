@@ -17,7 +17,7 @@ Start here:
 - `docs/70_integrations/` — platform & pipeline design (backend, accounts/auth, telemetry,
   build/distribution, PixelLab art-pass runbook, wiki export)
 - `docs/phase_reports/` — per-phase generation reports · `tools/validate.py` — the batch
-  validator (VALIDATION checks 1–4)
+  validator (VALIDATION checks 1–6)
 
 Rules of the tree: content files hold values and references, never rule text; every reference
 must resolve; unknown terms are proposed in GLOSSARY, never invented silently.

@@ -293,10 +293,9 @@ One folder per `mob_NNN`/`npc_NNN` (rather than a flat `monsters/mob_010.png` al
   Flag if a future texture-memory budget pass wants the tighter layout instead.
 - **Per-ability clip granularity does not exist yet.** `20_schemas/monster.schema.md` `abilities[]`
   rows carry no clip id of their own — every elite/boss ability that plays through `cast` (or
-  `attack`) shares that one state row's `hit_frame`/frame count in this doc's manifest. Whether a
-  future per-ability animation-id layer (parallel to the still-unauthored
-  `40_assets/SKILL_ANIMATION.md` for player skills, flagged by both `20_schemas/skill.schema.md` and
-  `40_assets/ANIMATION_STATES.md`) is needed for monster kits is not resolved here.
+  `attack`) shares that one state row's `hit_frame`/frame count in this doc's manifest.
+  `40_assets/SKILL_ANIMATION.md` is now authored and covers player skills; whether a parallel
+  per-ability animation-id layer is needed for monster kits is not resolved here.
 - **`docs/VALIDATION.md` has no check for this manifest.** §6 there validates an entity's
   `animation_states` field and skill `animation` ID naming, but nothing yet checks the atlas
   manifest sidecar itself (power-of-two dimensions, `hit_frame` present on every `attack`/`cast` row,
