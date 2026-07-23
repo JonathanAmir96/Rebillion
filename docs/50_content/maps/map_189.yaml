@@ -1,0 +1,41 @@
+id: map_189
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Gearworks, Threshold Vault
+region: clockwork
+map_type: dungeon
+level_band: { min: 38, max: 40 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_dust]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 40] }
+portals:
+  - id: to_west_gate
+    kind: door
+    at: { tile: [8, 44] }
+    target_map: map_188
+    target_spawn: main
+    dead_end: false
+  - id: to_flywheel_hall
+    kind: edge
+    at: { edge: right }
+    target_map: map_190
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: threshold_vault_zone
+    rect_tiles: { x: 20, y: 30, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_141, count: 2 }
+      - { mob: mob_142, count: 2 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  Denser corridor loops than the open fields above (SPAWN §2 dungeon budget), the gear-pit
+  floor stepped in ~2-tile rises. No rope/ladder on the main line; gaps stay within the
+  standard jump budget (MAP_TRAVERSAL §1.1).
+flavor: "The stair from the west gate bottoms out in a vault of idle flywheels, each taller than a house."

@@ -1,0 +1,49 @@
+id: map_191
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Gearworks, The Proving Floor
+region: clockwork
+map_type: dungeon
+level_band: { min: 39, max: 41 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 72, h: 46 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 36] }
+portals:
+  - id: to_flywheel_hall
+    kind: edge
+    at: { edge: left }
+    target_map: map_190
+    target_spawn: main
+    dead_end: false
+  - id: to_escapement_deep
+    kind: edge
+    at: { edge: right }
+    target_map: map_192
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: proving_floor_zone
+    rect_tiles: { x: 20, y: 26, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_143, count: 2 }
+      - { mob: mob_144, count: 2 }
+    max_concurrent: 8
+interactables:
+  - type: lore_marker
+    id: marker_proving_floor
+    at_tile: [36, 24]
+    params:
+      text: "A ring of brass sigils, worn smooth by four job lines' worth of Lv 40 trials. This is the proving_floor waypoint the Clockwork trial hook (10_systems/JOBS.md) points to."
+      interact_prompt: Read
+npcs: [npc_081]
+platform_brief: |
+  A sunken circular floor ringed by brass sigil-plates, wide open and flat -- the
+  region's shared 2nd-advancement trial site (10_systems/JOBS.md's Clockwork trial hook,
+  pattern only there; concrete quest wiring is each line's home-town batch). Overseer
+  Brannick keeps watch from the gantry rim. No verticality gimmick on the floor itself.
+flavor: "Every job line's second oath is sworn on this floor, brass sigils underfoot worn smooth by four centuries of trials."

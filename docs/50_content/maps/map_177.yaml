@@ -1,0 +1,49 @@
+id: map_177
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, East Gate
+region: clockwork
+map_type: field
+level_band: { min: 34, max: 35 }        # region floor; ascends to 40 by map_188 (WORLD_PLAN map order law)
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 22] }
+  - { id: from_ashfall, tile: [8, 22] }      # destination of Ashfall's char-ridge edge (WORLD_PLAN edge table)
+portals:
+  - id: to_char_ridge
+    kind: edge
+    at: { edge: left }
+    target_map: map_141                       # forward-ref: Ashfall char ridge (sibling batch)
+    target_spawn: from_clockwork                # cross-region convention: targets from_<origin_slug> (WORLD_PLAN)
+    dead_end: false
+  - id: to_rustfall_approach
+    kind: edge
+    at: { edge: right }
+    target_map: map_178
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: east_gate_zone
+    rect_tiles: { x: 30, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_129, count: 3 }
+      - { mob: mob_130, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_east_gate
+    at_tile: [16, 21]
+    params:
+      text: "Brass hinges taller than a house, frozen half-open. The ruins keep ticking beyond."
+      interact_prompt: Read
+npcs: [npc_076, npc_077, npc_078]
+platform_brief: |
+  A single broad terrace before the sundered brass gate, walkable start to finish with no
+  gaps (MAP_TRAVERSAL §1.1). The expedition camp sits just inside the gate's shadow; no
+  verticality gimmick on this opening stretch.
+flavor: "The east gate of a city that stopped keeping time centuries ago, its brass teeth still meshed mid-motion."

@@ -1,0 +1,12 @@
+id: npc_078
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Expedition Captain Voss
+region: clockwork
+map: map_177
+role: quest_giver
+dialog:
+  greeting: "Every gear-hound past this gate answers to the expedition roster. Sign in, or turn back."
+  farewell: "The city doesn't forgive stragglers. Stay roped to the terrace line."
+portrait: portrait_npc_078
+flavor: "Voss has led three expeditions into the ruins and buried the roster of a fourth that never came back."

@@ -1,0 +1,40 @@
+id: map_187
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, Ironloom Reach
+region: clockwork
+map_type: field
+level_band: { min: 39, max: 40 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_last_archive
+    kind: edge
+    at: { edge: left }
+    target_map: map_186
+    target_spawn: main
+    dead_end: false
+  - id: to_west_gate
+    kind: edge
+    at: { edge: right }
+    target_map: map_188
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: ironloom_reach_zone
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_139, count: 3 }
+      - { mob: mob_140, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  A reach of seized brass loom-frames, standing like a forest of frozen machinery. No
+  verticality gimmick; standard jump gaps between the loom footings (MAP_TRAVERSAL §1.1).
+flavor: "Rows of brass looms stand seized mid-weave, the city's last cloth still threaded on their arms."

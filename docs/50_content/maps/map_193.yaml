@@ -1,0 +1,41 @@
+id: map_193
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Gearworks, The Mainspring Approach
+region: clockwork
+map_type: dungeon
+level_band: { min: 41, max: 42 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 40] }
+portals:
+  - id: to_escapement_deep
+    kind: edge
+    at: { edge: left }
+    target_map: map_192
+    target_spawn: main
+    dead_end: false
+  - id: to_cogwork_muster
+    kind: edge
+    at: { edge: right }
+    target_map: map_194
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: mainspring_approach_zone
+    rect_tiles: { x: 20, y: 30, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_145, count: 2 }
+      - { mob: mob_146, count: 1 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  The elite pair is now the norm rather than the exception this deep (SPAWN §2), corridor
+  loops denser than any field above. No verticality gimmick; gaps stay within the
+  standard jump budget (MAP_TRAVERSAL §1.1).
+flavor: "The heartbeat grows louder here -- a vast coiled spring somewhere ahead, still under tension."

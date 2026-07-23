@@ -1,0 +1,40 @@
+id: map_198
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Brass Reliquary
+region: clockwork
+map_type: secret
+level_band: { min: 39, max: 41 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 46, h: 22 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 16] }
+portals:
+  - id: to_flywheel_hall
+    kind: door
+    at: { tile: [4, 16] }
+    target_map: map_190
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: brass_reliquary_zone
+    rect_tiles: { x: 12, y: 12, w: 26, h: 8 }
+    mobs:
+      - { mob: mob_144, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_brass_reliquary
+    at_tile: [26, 14]
+    params:
+      text: "A locked reliquary case, brass fogged with age -- whatever it once held still rattles faintly inside."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A single reward pocket off the Flywheel Hall's raised gantry, sparse and quiet
+  (SPAWN §2 secret budget). No verticality gimmick.
+flavor: "A reliquary tucked above the flywheel gantry, forgotten by whichever archivist locked it away."
