@@ -261,13 +261,15 @@ arrival order, which is also the order the combat-event queue drains them in
 
 ---
 
-## 9. Packet catalog — domain-ordered skeleton (**catalog filled in stage 2**)
+## 9. Packet catalog — domain-ordered, filled
 
-> **STAGE STATUS.** This section fixes the **structure, opcode sub-blocks, validating sections, and the
-> per-packet template**. The individual packet rows are authored in **stage 2** by a Sonnet sub-agent
-> filling the template below inside this fixed contract; every row it adds must satisfy §7 (the
-> acquisition rule) and cite its `70_integrations/GAMEPLAY_SIMULATION.md` validating section. No opcode
-> is minted until it is written into a row here; minted opcodes are immutable (`docs/ID_REGISTRY.md`).
+> **STAGE STATUS.** §9.0's structure, opcode sub-blocks, validating sections, and per-packet template
+> were fixed in stage 1; the individual packet rows below were authored in **stage 2** against that
+> fixed contract. Every row satisfies §7 (the acquisition rule) and cites its
+> `70_integrations/GAMEPLAY_SIMULATION.md` (or domain-owning doc) validating section. Every opcode below
+> is minted and **immutable** (`docs/ID_REGISTRY.md`); a retired packet's opcode is never reused. Gaps
+> inside each block are explicitly reaffirmed **reserved** at the end of that domain's table — a future
+> addition mints the next free slot in a new commit, never renumbers a row above it.
 
 ### 9.0 Per-packet template (fill one row per packet)
 
@@ -292,77 +294,288 @@ Fill rules (from §7, restated as a checklist for the stage-2 author — these a
 ### 9.1 System, keep-alive & transport control — `op_0001`–`op_0099`
 Validating layer: transport-level (heartbeat, ack, error/disconnect reason, reconnect **resume** —
 resume validity is `70_integrations/ACCOUNTS_AUTH.md` §4.3's; §6 here fixes the timing). Column 5 is
-mostly `—` for this block. **Catalog filled in stage 2.**
+mostly `—` for this block.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0001` | `heartbeat_ping` | `c2s` | `client_time: uint32 — client` | `—` (liveness signal, §6) | `op_0090` |
+| `op_0002` | `resume_request` | `c2s` | `resume_ticket: bytes — client` (bearer copy of the `70_integrations/ACCOUNTS_AUTH.md` §3.4 signed ticket), `last_ack_seq: uint32 — client` | `—` (ticket signature + 90 s grace validity is `70_integrations/ACCOUNTS_AUTH.md` §4.3's; §6 here fixes the timing) | `op_0091` or `op_0092` |
+| `op_0090` | `heartbeat_pong` | `s2c` | `server_time: uint32 — server` | `—` | `—` |
+| `op_0091` | `resume_accept` | `s2c` | `character_id: string — server`, `map_id: string — server`, `channel_index: uint8 — server` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §4.3; sets envelope `flags.RESUMED`, §3) | `—` |
+| `op_0092` | `resume_reject` | `s2c` | `reason: enum{grace_expired, ticket_invalid} — server` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §4.3) | client falls back to `op_0101` full login (§9.2) |
+| `op_0093` | `disconnect_notify` | `s2c` | `reason: enum{idle_timeout, kicked_duplicate_login, malformed_threshold, server_shutdown} — server` | `—` (§6 socket-dead 30 s; `70_integrations/ACCOUNTS_AUTH.md` §4.4 kick-on-second-login) | `—` |
+
+Note: `disconnect_notify` is the one generic transport-level disconnect event, reused by every domain
+that needs to end a connection (e.g. auth's kick-on-second-login, §9.2) rather than each domain minting
+its own duplicate shape.
+
+`op_0003`–`op_0089` and `op_0094`–`op_0099` remain **unminted/reserved** in this block.
 
 ### 9.2 Auth, handshake & session — `op_0100`–`op_0199`
 Validating layer: `70_integrations/ACCOUNTS_AUTH.md` §3 (login, token) and §4 (gateway bind,
 character-select, resume); the §4 `protocol_version`/`client_version`/`content_version` negotiation is
 this doc's. Not gated by a `70_integrations/GAMEPLAY_SIMULATION.md` section — cite ACCOUNTS_AUTH in
-notes. **Catalog filled in stage 2.**
+notes.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0100` | `client_hello` | `c2s` | `protocol_version: uint32 — client`, `client_version: string — client`, `content_version: string — client` | `—` (§4 negotiation window; `70_integrations/BUILD_DISTRIBUTION.md` §2/§3 version gate) | `op_0190` |
+| `op_0101` | `login_request` | `c2s` | `handle: string — client`, `password: string — client` (submitted over TLS, never persisted verbatim, `70_integrations/ACCOUNTS_AUTH.md` §3.2) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §3.2–§3.5: rate-limit/lockout gate before hash compare, Argon2id verify, uniform failure message) | `op_0191` |
+| `op_0102` | `character_select_request` | `c2s` | `slot_index: uint8 — client` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §4.1/§4.2 gateway bind) | `op_0192` |
+| `op_0103` | `character_create_request` | `c2s` | `slot_index: uint8 — client`, `name: string — client` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §5 name-policy gate: allowed set/length, reserved+profanity filter, global uniqueness) | `op_0193` |
+| `op_0104` | `logout_request` | `c2s` | (empty map) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §3.6 revocation — invalidates refresh-token family) | `op_0093` (§9.1) |
+| `op_0190` | `server_hello` | `s2c` | `accepted: bool — server`, `agreed_protocol_version: uint32 — server`, `min_required_client_version: string — server`, `reject_reason: enum{version_too_old, none} — server` | `—` (§4) | `—` |
+| `op_0191` | `login_result` | `s2c` | `success: bool — server`, `character_roster: array — server` (up to 3 slots, `70_integrations/ACCOUNTS_AUTH.md` §2.2), `fail_reason: enum{invalid_credentials, account_locked} — server` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §3.3–§3.5) | `—` |
+| `op_0192` | `character_select_result` | `s2c` | `character_id: string — server`, `level: uint16 — server`, `map_id: string — server`, `position: vec2 — shared`, `life: uint32 — server`, `essence: uint32 — server`, `shards: uint32 — server` (initial `GameState` pointer, `10_systems/PERSISTENCE.md` §1) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §4.1/§4.2) | `—` |
+| `op_0193` | `character_create_result` | `s2c` | `success: bool — server`, `character_id: string — server`, `fail_reason: enum{name_taken, invalid_name, slot_occupied} — server` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §5) | `—` |
+
+`op_0105`–`op_0189` and `op_0194`–`op_0199` remain **unminted/reserved** in this block.
 
 ### 9.3 Channel & instance management — `op_0200`–`op_0299`
 Validating layer: `70_integrations/WORLD_CHANNELS.md` §3 (channel select/switch) and §6 (map-transition
 handoff sequencing / what blocks); PQ-instance allocation is `10_systems/SPAWN.md` §7 as scoped by
-`70_integrations/GAMEPLAY_SIMULATION.md` §13. **Catalog filled in stage 2.**
+`70_integrations/GAMEPLAY_SIMULATION.md` §13.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0200` | `channel_switch_request` | `c2s` | `target_channel_index: uint8 — client` | `—` (`70_integrations/WORLD_CHANNELS.md` §3 fill-lowest-first/party-aware assignment overrides a full target; §4 30 s cooldown + 5 s combat lock) | `op_0290` |
+| `op_0201` | `portal_transition_request` | `c2s` | `portal_id: string — client`, `claimed_destination_map_id: string — client` (advisory only — the server re-derives the real destination from the map's authored portal graph, never trusts this field, `docs/VALIDATION.md` §5) | `—` (`70_integrations/WORLD_CHANNELS.md` §6 blocking sequence: portal-target validation, §3 channel assignment) | `op_0291` |
+| `op_0202` | `coach_travel_request` | `c2s` | `destination_town_map_id: string — client` | `—` (`70_integrations/WORLD_CHANNELS.md` §6 handoff; the fare charge itself is `10_systems/ECONOMY.md`'s — no `70_integrations/GAMEPLAY_SIMULATION.md` section owns fare validation, flagged) | `op_0291`, `op_0990` (§9.10, `reason: coach_fare`) |
+| `op_0203` | `pq_enter_request` | `c2s` | `pq_token: string — client` (`pq_undervault` \| `pq_mainspring`; acting party read server-side, not client-asserted) | `—` (`10_systems/SPAWN.md` §7 as scoped by `70_integrations/GAMEPLAY_SIMULATION.md` §13; party-size floor `10_systems/social/PARTY_QUEST.md` §2, cap `10_systems/social/PARTY.md` §1) | `op_0292` |
+| `op_0204` | `pq_leave_request` | `c2s` | (empty map) | `—` (`10_systems/social/PARTY_QUEST.md` §5 fallen/Release/re-enter, fed by `70_integrations/GAMEPLAY_SIMULATION.md` §12) | `op_0292` |
+| `op_0290` | `channel_switch_result` | `s2c` | `accepted: bool — server`, `channel_index: uint8 — server`, `spawn_point: string — server`, `reject_reason: enum{cooldown, combat_lock, channel_full, all_channels_full} — server` | `—` (`70_integrations/WORLD_CHANNELS.md` §3/§4) | `—` |
+| `op_0291` | `transition_result` | `s2c` | `destination_map_id: string — server`, `channel_index: uint8 — server`, `spawn_point: string — server`, `accepted: bool — server`, `reject_reason: enum{invalid_portal, spinup_failed, held_queued} — server` | `—` (`70_integrations/WORLD_CHANNELS.md` §6) | `—` |
+| `op_0292` | `pq_instance_result` | `s2c` | `accepted: bool — server`, `instance_id: string — server`, `stage_map_id: string — server`, `reject_reason: enum{party_too_small, party_too_large, headroom} — server` | `—` (`10_systems/SPAWN.md` §7, `10_systems/social/PARTY_QUEST.md` §2/§5) | `—` |
+
+Note: `op_0291` is the single `transition_result` shape returned for both `op_0201` (portal) and `op_0202`
+(coach); a coach transition additionally emits `op_0990` for the fare debit. Manual switch (`op_0200`)
+severs the character's live mob engagement and resumes at the destination channel's `main` spawn per
+`70_integrations/WORLD_CHANNELS.md` §4 — no field carries "where I stood," matching that section's rule
+that `authority: shared` position does not carry across a channel/process boundary.
+
+`op_0205`–`op_0289` and `op_0293`–`op_0299` remain **unminted/reserved** in this block.
 
 ### 9.4 Movement & reconciliation — `op_0300`–`op_0399`
 Validating section: `70_integrations/GAMEPLAY_SIMULATION.md` §2 (the 20 Hz client report, the per-tick
 reconciliation, the accept-if-plausible envelope, forward soft-correct vs hard-snap). Payload is the one
-`authority: shared` pairing — position/velocity (`10_systems/PERSISTENCE.md` §4). **Catalog filled in
-stage 2.**
+`authority: shared` pairing — position/velocity (`10_systems/PERSISTENCE.md` §4).
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0300` | `movement_input_report` | `c2s` | `position: vec2 — shared`, `velocity: vec2 — shared`, `client_time: uint32 — shared` (reported at the client's 20 Hz cadence, `10_systems/PERSISTENCE.md` §4) | `§2` (accept-if-plausible envelope: ± ½-tile slack + per-interval displacement margin + velocity-direction sanity check) | `op_0390` on rejection only |
+| `op_0390` | `movement_hard_snap` | `s2c` | `position: vec2 — shared`, `velocity: vec2 — shared`, `corrected_seq: uint32 — server` (correlates to the rejected client `seq`, §8) | `§2` (gross-divergence / teleport-scale hard-snap path) | `—` |
+
+Note: an in-envelope report gets **no reply** — the server silently adopts it (§2, "no correction
+sent"). A small overshoot (soft-correct) carries **no dedicated opcode**: it rides the next `op_0400`
+`entity_snapshot` (§9.5) as that occupant's own authoritative position/velocity, which the client
+error-blends over 2–3 frames; only the gross-divergence case gets the immediate `op_0390` out-of-band
+event. This is why the domain is intentionally narrow — one `authority: shared` pairing, one report
+shape, one correction shape.
+
+`op_0301`–`op_0389` and `op_0391`–`op_0399` remain **unminted/reserved** in this block.
 
 ### 9.5 World snapshot & entity lifecycle — `op_0400`–`op_0499`
 Validating section: `70_integrations/GAMEPLAY_SIMULATION.md` §1.1 (the 10 Hz continuous-state snapshot
 of visible entities' position/velocity/animation-state/status-icon set) and §13 (authoritative
 spawn/despawn, death, `phase_shift`, boss-phase events — client only animates these). All `s2c`.
-**Catalog filled in stage 2.**
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0400` | `entity_snapshot` | `s2c` | `entities: array<{entity_id: string, position: vec2 — shared, velocity: vec2 — shared, animation_state: enum — server, status_icons: array — server}>` | `§1.1` (10 Hz broadcast, visible-entity set) | `—` |
+| `op_0401` | `entity_spawn` | `s2c` | `entity_id: string — server`, `entity_kind: enum{mob, player, summon} — server`, `mob_id: string — server` (when a mob), `position: vec2 — server`, `tier: enum{normal, elite, boss} — server` | `§13` (spawn maintenance; elite/boss `spawn`-flourish invulnerability window, `10_systems/SPAWN.md` §6) | `—` |
+| `op_0402` | `entity_despawn` | `s2c` | `entity_id: string — server`, `reason: enum{out_of_range, leash_return, expired} — server` | `§13` | `—` |
+| `op_0403` | `entity_death` | `s2c` | `entity_id: string — server`, `killer_character_id: string — server` | `§5.2`/`§13` (death pushed as an immediate event) | credited kill triggers `op_0792` `kill_reward_delta` (§9.8) |
+| `op_0404` | `boss_phase_shift` | `s2c` | `entity_id: string — server`, `phase_index: uint8 — server`, `invulnerable: bool — server` | `§13` (`life_threshold_pct` crossing, `boss_scripted` AI, `10_systems/AI_BEHAVIOR.md` §15) | `—` |
+
+Note: this domain is deliberately `s2c`-only (§9.0's direction rule still holds — every opcode is
+unidirectional) because the client requests nothing here; it only ever animates what the server pushes
+(`§13`'s "client only animates, never authoritative" stance). An entering character's initial full state
+is the first `entity_snapshot`/`entity_spawn` set pushed right after `op_0291`/`op_0192` (§9.3/§9.2)
+completes the handoff — no separate "give me the snapshot" request exists.
+
+`op_0405`–`op_0499` remain **unminted/reserved** in this block.
 
 ### 9.6 Combat — `op_0500`–`op_0599`
 Validating section: `70_integrations/GAMEPLAY_SIMULATION.md` §5 (the `hit_event` on the hit-frame
 signal, the §5.1 validation gate, the queued per-tick resolve, the resolved `HitResult`/death pushed as
-immediate events). `c2s` = the hit-frame request; `s2c` = the authoritative result. **Catalog filled in
-stage 2.**
+immediate events). `c2s` = the hit-frame request; `s2c` = the authoritative result.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0500` | `hit_event_request` | `c2s` | `attacker_entity_id: string — client`, `candidate_target_ids: array — client`, `skill_id: string — client` (basic-attack sentinel or `skill_<line>_NNN`), `client_hit_frame_time: uint32 — client` | `§5.1` (actor/authenticity, range/geometry against server-side position, legality — learned/cooldown/`essence_cost` or basic-attack cadence, final stat blocks) | `op_0590` |
+| `op_0590` | `hit_result` | `s2c` | `attacker_entity_id: string — server`, `results: array<{target_entity_id: string, outcome: enum{hit, miss, immune}, damage: uint32, is_crit: bool, element: enum — server, knockback_impulse: vec2 — server, hitstun_ms: uint16 — server, interrupted: bool — server}>` | `§5.2` (full `10_systems/COMBAT_FORMULA.md` §2 pipeline — hit/miss, immunity short-circuit, mitigation, element, crit, ±8 % variance, `empower`/`weaken`, level-diff dampener, floor; hit classing/knockback/hitstun/interrupt per §11) | `op_0403` `entity_death` (§9.5) follows if a target's `life` reaches 0 |
+
+`op_0501`–`op_0589` and `op_0591`–`op_0599` remain **unminted/reserved** in this block.
 
 ### 9.7 Skill — `op_0600`–`op_0699`
 Validating section: `70_integrations/GAMEPLAY_SIMULATION.md` §6 (cast request → the learned/rank/
 cooldown/`essence_cost`/targeting gate → effect-op application) with §9 for any `apply_status` result.
-`c2s` = cast request (skill id, rank, aim); `s2c` = the authoritative effect deltas. **Catalog filled in
-stage 2.**
+`c2s` = cast request (skill id, rank, aim); `s2c` = the authoritative effect deltas.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0600` | `skill_cast_request` | `c2s` | `skill_id: string — client`, `rank: uint8 — client`, `aim: vec2 — client` (or `target_entity_id: string — client` per targeting shape) | `§6.1` (learned & ranked, prereq chain, `cooldown` elapsed, `essence_cost` payable, targeting shape resolved server-side) | `op_0690` |
+| `op_0690` | `skill_cast_result` | `s2c` | `accepted: bool — server`, `skill_id: string — server`, `essence_spent: uint16 — server`, `cooldown_expires_at: uint32 — server`, `reject_reason: enum{not_learned, on_cooldown, insufficient_essence, prereq_unmet, out_of_range} — server` | `§6.1` | on accept, followed by `op_0590` (§9.6, for `deal_damage` effects) and/or `op_0691`/`op_0692`/`op_0693` per the skill's effect list |
+| `op_0691` | `status_applied` | `s2c` | `target_entity_id: string — server`, `status: enum — server` (GLOSSARY status-effect token), `stacks: uint8 — server`, `expires_at: uint32 — server`, `source_power_snapshot: uint32 — server` | `§6.2` (`apply_status` op) and `§9` (application rules, `unique`/`stack`/`refresh` stacking, 12-status ceiling with least-remaining-duration displacement) | `—` |
+| `op_0692` | `status_cleared` | `s2c` | `target_entity_id: string — server`, `status: enum — server`, `reason: enum{expired, cleansed, death_clear} — server` | `§9` (expiry/cleanse; `die` clears all statuses with no post-mortem tick) | `—` |
+| `op_0693` | `skill_effect_delta` | `s2c` | `target_entity_id: string — server`, `op: enum{heal, restore_essence, grant_shield, knockback, pull, dash, leap, summon_entity, taunt} — server`, `amount: uint32 — server` (pool ops, capped per §7), `displacement: vec2 — server` (movement ops), `summoned_entity_id: string — server` (for `summon_entity`, ticks under `§13`) | `§6.2` (non-damage effect-op application) | `—` |
+
+`op_0601`–`op_0689` and `op_0694`–`op_0699` remain **unminted/reserved** in this block.
 
 ### 9.8 Loot & drop pickup — `op_0700`–`op_0799`
 Validating section: `70_integrations/GAMEPLAY_SIMULATION.md` §11 (drop rolls on monster death, loot
 ownership tags/timers, the `shards` faucet). `c2s` = a pickup *request*; the server assigns per tag,
-never the client (§7). **Catalog filled in stage 2.**
+never the client (§7).
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0700` | `loot_pickup_request` | `c2s` | `drop_instance_id: string — client` (a ground drop the client is in the platformer-friendly vacuum range of, `10_systems/INVENTORY.md` §4) | `§11` (ownership-tag/timer check — exclusive 60 s, free 60–120 s, despawn 120 s) | `op_0791` |
+| `op_0790` | `loot_drop_spawn` | `s2c` | `drop_instance_id: string — server`, `position: vec2 — server`, `owner_tag_character_ids: array — server`, `exclusive_expires_at: uint32 — server`, `free_expires_at: uint32 — server` | `§11` (drop rolled per that mob's `drop_mob_NNN` table, tagged to whoever dealt/took damage) | `—` |
+| `op_0791` | `loot_pickup_result` | `s2c` | `accepted: bool — server`, `item_id: string — server`, `qty: uint16 — server`, `rarity: enum — server`, `reject_reason: enum{not_tagged, expired, inventory_full} — server` | `§11` (no self-assigned `rarity`/`qty`/pool result) | on accept, followed by `op_0890` `inventory_delta` (§9.9) |
+| `op_0792` | `kill_reward_delta` | `s2c` | `killed_entity_id: string — server`, `shards: uint32 — server` (guaranteed faucet per kill, level-scaled, **not** `fortune`-affected), `exp: uint32 — server`, `level_up: bool — server` | `§11` (`shards` faucet) and `§8` (`exp_awarded = round(base_exp(mob) · exp_diff_mult(...))`, level-up transaction — a kill's `shards` and `exp` are computed together and delivered on one packet) | if `level_up`, followed by `op_0891` `stat_block_delta` (§9.9); the **party split** of both fields is `70_integrations/CHAT_SOCIAL_BACKEND.md`'s reward arbitration (§9.13), not this packet |
+
+Note: `shards` and quest items auto-route to the tagger and never lie on the ground (`10_systems/DROPS.md`
+§7), so only tagged, non-currency items go through `op_0700`/`op_0791`; `op_0792` fires unconditionally
+on an eligible kill with no client request. The exact world-process↔party-service request/response
+boundary for reward arbitration is `70_integrations/GAMEPLAY_SIMULATION.md`'s own flagged Open Question
+(not this doc's to resolve) — `op_0792` covers the solo/soloed-kill wire shape; the party-split delivery
+mechanism is `70_integrations/CHAT_SOCIAL_BACKEND.md`'s to finalize.
+
+`op_0701`–`op_0789` and `op_0793`–`op_0799` remain **unminted/reserved** in this block.
 
 ### 9.9 Inventory & equipment — `op_0800`–`op_0899`
 Validating section: `70_integrations/GAMEPLAY_SIMULATION.md` §7 (equip → derived-stat recompute as sole
 truth); inventory/bank moves are `server` truth (`10_systems/PERSISTENCE.md` §2) committed atomically
 per `70_integrations/DATABASE_PERSISTENCE.md`. `c2s` = move/equip/use *request*; `s2c` = the
-authoritative inventory + recomputed-stat delta. **Catalog filled in stage 2.**
+authoritative inventory + recomputed-stat delta.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0800` | `item_move_request` | `c2s` | `tab: enum{use, etc, equip} — client`, `from_slot: uint8 — client`, `to_slot: uint8 — client`, `qty: uint16 — client` | `—` (a pure container move has no simulation-layer gate; checked against `10_systems/INVENTORY.md` §1–§2 slot/stack ceilings) | `op_0890` |
+| `op_0801` | `item_equip_request` | `c2s` | `item_id: string — client`, `from_slot: uint8 — client`, `equip_slot: enum — client` (GLOSSARY equipment-slot token) | `§7` (derived-stat recompute as the sole truth; the server's stored equip-set is never overridden by a client claim) | `op_0890`, `op_0891` |
+| `op_0802` | `item_unequip_request` | `c2s` | `equip_slot: enum — client` | `§7` | `op_0890`, `op_0891` |
+| `op_0803` | `item_use_request` | `c2s` | `item_id: string — client`, `from_slot: uint8 — client`, `target_entity_id: string — client` (optional, self-target default) | `—` (consumable pool restore recomputes through §6.2's `heal`/`restore_essence` caps) | `op_0890`, `op_0693` (§9.7, pool-restore delta) |
+| `op_0804` | `bank_deposit_request` | `c2s` | `tab: enum{use, etc, equip} — client`, `from_slot: uint8 — client`, `qty: uint16 — client` | `—` (`10_systems/INVENTORY.md` §7 bank ceilings; committed per `70_integrations/DATABASE_PERSISTENCE.md`) | `op_0890` |
+| `op_0805` | `bank_withdraw_request` | `c2s` | `bank_tab: enum{use, etc, equip} — client`, `bank_slot: uint8 — client`, `qty: uint16 — client` | `—` (`10_systems/INVENTORY.md` §7) | `op_0890` |
+| `op_0890` | `inventory_delta` | `s2c` | `tab: enum — server`, `slots: array<{slot_index: uint8, item_id: string, qty: uint16}> — server`, `bank_slots: array — server` (present on a bank op) | `—` (`10_systems/PERSISTENCE.md` §2 inventory truth) | `—` |
+| `op_0891` | `stat_block_delta` | `s2c` | `primaries: {might: uint16, finesse: uint16, focus: uint16, fortune: uint16} — server`, `derived: {life: uint32, essence: uint32, power: uint32, spellpower: uint32, armor: uint32, warding: uint32, precision: uint32, evasion: uint32, crit_rate: uint16, crit_power: uint16, haste: uint16} — server` | `§7` (compute order primaries → derived → soft/hard caps §6 → transient status fold; the sole recompute truth) | `—` |
+| `op_0892` | `inventory_action_rejected` | `s2c` | `request_seq: uint32 — server`, `reason: enum{slot_full, wrong_tab, level_gate, stack_cap, invalid_item, bank_full} — server` | `§7` / `10_systems/INVENTORY.md` ceilings | `—` |
+
+Note: `op_0891` is the **one canonical stat-recompute push**, minted once here and reused as the response
+for every trigger that forces a `§7` recompute — equip/unequip (this domain), free-point
+allocation/respec (`op_0900`/`op_0901`, §9.10), level-up (`op_0792`/`op_1092`, §9.8/§9.11), and a
+transient status fold (§9.7) — rather than each domain minting a duplicate shape for the same
+server-truth push.
+
+`op_0806`–`op_0889` and `op_0893`–`op_0899` remain **unminted/reserved** in this block.
 
 ### 9.10 Shards, acquisition & enhancement — `op_0900`–`op_0999`
 Validating sections: `70_integrations/GAMEPLAY_SIMULATION.md` §10 (enhancement attempt → server-held
 soft-pity roll, no reroll) and §7 (free-point allocation fee, wallet); shop buy/sell are
 `10_systems/ECONOMY.md` sinks/faucets executed server-side. This block is the sharp end of §7 — the
-`shards` amount, the enhance result, and the rolled outcome are **`s2c`-only**. **Catalog filled in
-stage 2.**
+`shards` amount, the enhance result, and the rolled outcome are **`s2c`-only**.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_0900` | `stat_allocate_request` | `c2s` | `points: {might: uint8, finesse: uint8, focus: uint8, fortune: uint8} — client` (requested distribution, intent only) | `§7` (checked against the available +2/level pool; applied only if it covers) | `op_0891` (§9.9) |
+| `op_0901` | `stat_reallocate_request` | `c2s` | `points: {might: uint8, finesse: uint8, focus: uint8, fortune: uint8} — client` (full redistribution intent) | `§7` (reallocation `shards` fee charged via wallet, `10_systems/LEVELING.md`/`10_systems/ECONOMY.md`) | `op_0891` (§9.9), `op_0990` |
+| `op_0902` | `enhancement_attempt_request` | `c2s` | `item_id: string — client`, `from_slot: uint8 — client` (the target equip; no outcome field, §7.1) | `§10` (matching-tier `emberstone` held + `shards` fee payable; consumed regardless of roll outcome) | `op_0991` |
+| `op_0903` | `shop_buy_request` | `c2s` | `vendor_npc_id: string — client`, `sku: string — client`, `qty: uint16 — client` | `—` (`10_systems/ECONOMY.md` §4 vendor price bands; no `70_integrations/GAMEPLAY_SIMULATION.md` section owns shop pricing — flagged) | `op_0992` |
+| `op_0904` | `shop_sell_request` | `c2s` | `item_id: string — client`, `from_slot: uint8 — client`, `qty: uint16 — client` | `—` (`10_systems/ECONOMY.md` §4 — vendor buys at 25 % of buy value) | `op_0992` |
+| `op_0990` | `wallet_delta` | `s2c` | `shards: uint32 — server`, `reason: enum{shop_buy, shop_sell, respec_fee, enhancement_fee, coach_fare} — server` | `—` (`10_systems/ECONOMY.md` sinks/faucets; `coach_fare` per `70_integrations/WORLD_CHANNELS.md` §6) | `—` |
+| `op_0991` | `enhancement_result` | `s2c` | `item_id: string — server`, `success: bool — server`, `enhance_level: uint8 — server` (never destroys/downgrades, `10_systems/ENHANCEMENT.md` §2), `pity_counter: uint8 — server` (server-held persisted state, §3/§6) | `§10` | `—` |
+| `op_0992` | `shop_transaction_result` | `s2c` | `accepted: bool — server`, `item_id: string — server`, `qty: uint16 — server`, `reject_reason: enum{insufficient_shards, out_of_stock, inventory_full} — server` | `—` (`10_systems/ECONOMY.md` §4) | `op_0890` (§9.9), `op_0990` |
+
+`op_0905`–`op_0989` and `op_0993`–`op_0999` remain **unminted/reserved** in this block.
 
 ### 9.11 Quest — `op_1000`–`op_1099`
 Validating sections: `70_integrations/GAMEPLAY_SIMULATION.md` §14 (quest never-trust gate, same
 request→validate→delta shape) and §8 (turn-in `exp`/level-up). `c2s` = accept/progress/turn-in
-*request*; `s2c` = the authoritative quest-flag + reward delta. **Catalog filled in stage 2.**
+*request*; `s2c` = the authoritative quest-flag + reward delta.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_1000` | `quest_accept_request` | `c2s` | `quest_id: string — client`, `giver_npc_id: string — client` | `§14`; `10_systems/QUESTS.md` §2/§6 (`level_requirement` hard gate, `prereqs`) | `op_1090` |
+| `op_1001` | `quest_progress_request` | `c2s` | `quest_id: string — client`, `step_id: string — client`, `progress_ref: string — client` (a kill/collect/reach/interact reference — never an asserted completion) | `§14` (same request→validate→delta shape as the never-trust list) | `op_1091` |
+| `op_1002` | `quest_turn_in_request` | `c2s` | `quest_id: string — client`, `turn_in_npc_id: string — client` | `§8` (`exp`/`shards`/item reward, level-up transaction) and `§14` | `op_1092` |
+| `op_1003` | `quest_abandon_request` | `c2s` | `quest_id: string — client` | `—` (`10_systems/QUESTS.md` §7 — no pre-turn-in reward to revoke; `collect`-step items already picked up are kept) | `op_1093` |
+| `op_1090` | `quest_accept_result` | `s2c` | `accepted: bool — server`, `quest_id: string — server`, `step_states: array — server`, `reject_reason: enum{level_gate, prereq_unmet, concurrency_cap} — server` (cap 20 active, `10_systems/QUESTS.md` §8) | `§14` | `—` |
+| `op_1091` | `quest_progress_delta` | `s2c` | `quest_id: string — server`, `step_id: string — server`, `progress: uint16 — server`, `target: uint16 — server` | `§14` | `—` |
+| `op_1092` | `quest_turn_in_result` | `s2c` | `quest_id: string — server`, `exp: uint32 — server`, `shards: uint32 — server`, `items_granted: array — server`, `level_up: bool — server` | `§8` | if `level_up`, followed by `op_0891` `stat_block_delta` (§9.9) |
+| `op_1093` | `quest_abandon_result` | `s2c` | `quest_id: string — server`, `accepted: bool — server` | `—` (`10_systems/QUESTS.md` §7) | `—` |
+
+`op_1004`–`op_1089` and `op_1094`–`op_1099` remain **unminted/reserved** in this block.
 
 ### 9.12 Chat — `op_1100`–`op_1199`
 Validating layer: `70_integrations/CHAT_SOCIAL_BACKEND.md` (map-scoped `normal`, roster `party`/`guild`,
 `whisper`, rate limits, moderation hooks). Not gated by a `70_integrations/GAMEPLAY_SIMULATION.md`
-section — social-tier relay; cite CHAT_SOCIAL_BACKEND in notes. **Catalog filled in stage 2.**
+section — social-tier relay; cite CHAT_SOCIAL_BACKEND in notes.
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_1100` | `chat_send_request` | `c2s` | `channel: enum{normal, party, guild, whisper} — client`, `body: string — client`, `whisper_recipient: string — client` (whisper only) | `—` (`70_integrations/CHAT_SOCIAL_BACKEND.md` §2 mute/rate-limit/filter gates, §4 relay hop sequence) | `op_1190` or `op_1191` |
+| `op_1101` | `chat_report_request` | `c2s` | `message_id: string — client`, `reason: string — client` | `—` (`70_integrations/CHAT_SOCIAL_BACKEND.md` §2 report flow — captured verbatim into the moderation queue) | `op_1192` |
+| `op_1190` | `chat_message` | `s2c` | `channel: enum — server`, `sender_character_id: string — server`, `body: string — server`, `sent_at: uint32 — server` | `—` (`70_integrations/CHAT_SOCIAL_BACKEND.md` §4 relay) | `—` |
+| `op_1191` | `chat_send_rejected` | `s2c` | `request_seq: uint32 — server`, `reason: enum{rate_limited, channel_muted, gm_muted, recipient_offline} — server` | `—` (`70_integrations/CHAT_SOCIAL_BACKEND.md` §2 escalation ladder; §5 whisper-offline result) | `—` |
+| `op_1192` | `chat_report_ack` | `s2c` | `message_id: string — server`, `queued: bool — server` | `—` (`70_integrations/CHAT_SOCIAL_BACKEND.md` §2 report flow) | `—` |
+
+Note: the `channel` enum ships four values (`normal`/`party`/`guild`/`whisper`) per
+`10_systems/social/CHAT.md`'s "Planned scope." A fifth value, `world`, is proposed but **not yet
+adopted** (`70_integrations/CHAT_SOCIAL_BACKEND.md` §1 Open Question, pending `10_systems/social/CHAT.md`
+and `00_vision/GLOSSARY.md` promotion) — it is **not** a legal wire value until that promotion lands;
+flagged, not minted as a live enum member, per the "flag, don't guess" law.
+
+`op_1102`–`op_1189` and `op_1193`–`op_1199` remain **unminted/reserved** in this block.
 
 ### 9.13 Party & social — `op_1200`–`op_1299`
 Validating layer: `70_integrations/CHAT_SOCIAL_BACKEND.md` (party roster, guild, live `TRADING` escrow,
 async `MARKET`, `MAIL`); the party exp/loot **arbitration** handoff is that doc's, fed by
 `70_integrations/GAMEPLAY_SIMULATION.md` §8/§11 (which compute the total and roll, then hand off the
 split). All value transfer is `server` truth committed through the Postgres ledger
-(`70_integrations/DATABASE_PERSISTENCE.md`), never a client copy (§7). **Catalog filled in stage 2.**
+(`70_integrations/DATABASE_PERSISTENCE.md`), never a client copy (§7).
+
+| Opcode | Name | Dir | Payload fields (`field: type` — authority tag) | Server validation | Response / delta packet(s) |
+|---|---|---|---|---|---|
+| `op_1200` | `party_invite_request` | `c2s` | `target_character_id: string — client` | `—` (`10_systems/social/PARTY.md` §1 roster cap 6; `70_integrations/CHAT_SOCIAL_BACKEND.md` §3.2 roster service) | `op_1270` or `op_1271` |
+| `op_1201` | `party_join_request` | `c2s` | `invite_id: string — client` | `—` (§3.2) | `op_1270` |
+| `op_1202` | `party_leave_request` | `c2s` | (empty map) | `—` (§3.2; a party of 1 auto-disbands, `10_systems/social/PARTY.md` §1) | `op_1270` |
+| `op_1203` | `party_kick_request` | `c2s` | `target_character_id: string — client` (leader-only, checked server-side) | `—` (§3.2) | `op_1270` or `op_1271` |
+| `op_1204` | `party_loot_mode_request` | `c2s` | `mode: enum — client` (`10_systems/social/PARTY.md` §5 loot-mode enum) | `—` (§3.2) | `op_1270` |
+| `op_1205` | `guild_create_request` | `c2s` | `name: string — client` | `—` (`10_systems/social/GUILD.md` §2 global-uniqueness/name policy; creation fee `10_systems/ECONOMY.md`) | `op_1272` or `op_1273` |
+| `op_1206` | `guild_invite_request` | `c2s` | `target_character_id: string — client` | `—` (`70_integrations/CHAT_SOCIAL_BACKEND.md` §3.3) | `op_1272` or `op_1273` |
+| `op_1207` | `guild_join_request` | `c2s` | `invite_id: string — client` | `—` (§3.3) | `op_1272` |
+| `op_1208` | `guild_leave_request` | `c2s` | (empty map) | `—` (§3.3) | `op_1272` |
+| `op_1209` | `guild_rank_change_request` | `c2s` | `target_character_id: string — client`, `new_rank: string — client` (officer-only, checked server-side) | `—` (`10_systems/social/GUILD.md` §3 rank policy) | `op_1272` or `op_1273` |
+| `op_1210` | `trade_invite_request` | `c2s` | `target_character_id: string — client` | `—` (`10_systems/social/TRADING.md` §1 same-map proximity gate) | `op_1274` |
+| `op_1211` | `trade_offer_update_request` | `c2s` | `items: array — client` (item refs/qty, intent only), `shards: uint32 — client` (offered amount, intent only) | `—` (`10_systems/social/TRADING.md` §3 offer/lock state machine) | `op_1274` |
+| `op_1212` | `trade_confirm_request` | `c2s` | (empty map) | `—` (`10_systems/social/TRADING.md` §3 confirm → atomic swap) | `op_1274` or `op_1275` |
+| `op_1213` | `trade_cancel_request` | `c2s` | (empty map) | `—` (`10_systems/social/TRADING.md` §3 — nothing transferred pre-swap) | `op_1274` |
+| `op_1214` | `market_list_request` | `c2s` | `item_id: string — client`, `from_slot: uint8 — client`, `ask_price: uint32 — client` | `—` (`10_systems/social/MARKET.md` data sketch; listing-fee ownership unsettled, `70_integrations/CHAT_SOCIAL_BACKEND.md` §3.5 Open Question) | `op_1276` or `op_1277` |
+| `op_1215` | `market_buy_request` | `c2s` | `listing_id: string — client` | `—` (`70_integrations/CHAT_SOCIAL_BACKEND.md` §3.5 atomic buy transaction) | `op_1276` or `op_1277` |
+| `op_1216` | `market_delist_request` | `c2s` | `listing_id: string — client` | `—` (§3.5) | `op_1276` |
+| `op_1217` | `mail_compose_request` | `c2s` | `recipient_character_id: string — client`, `item_id: string — client` (optional), `shards_attached: uint32 — client`, `cod_amount: uint32 — client` | `—` (`10_systems/social/MAIL.md` data sketch; send fee `10_systems/ECONOMY.md`) | `op_1278` or `op_1281` |
+| `op_1218` | `mail_claim_request` | `c2s` | `mail_id: string — client` | `—` (`70_integrations/CHAT_SOCIAL_BACKEND.md` §3.6 claim transaction) | `op_1279` or `op_1281` |
+| `op_1270` | `party_roster_update` | `s2c` | `party_id: string — server`, `members: array — server`, `leader_character_id: string — server`, `loot_mode: enum — server` | `—` (§3.2) | `—` |
+| `op_1271` | `party_action_rejected` | `s2c` | `request_seq: uint32 — server`, `reason: enum{invite_declined, party_full, not_leader, target_unreachable} — server` | `—` (§3.2) | `—` |
+| `op_1272` | `guild_roster_update` | `s2c` | `guild_id: string — server`, `members: array — server`, `ranks: array — server`, `motd: string — server` | `—` (§3.3) | `—` |
+| `op_1273` | `guild_action_rejected` | `s2c` | `request_seq: uint32 — server`, `reason: enum{name_taken, insufficient_rank, roster_cap, invite_declined} — server` | `—` (§3.3) | `—` |
+| `op_1274` | `trade_state_update` | `s2c` | `session_id: string — server`, `offers: {a: array, b: array} — server`, `locked: {a: bool, b: bool} — server` | `—` (`10_systems/social/TRADING.md` §3) | `—` |
+| `op_1275` | `trade_result` | `s2c` | `session_id: string — server`, `committed: bool — server`, `items_received: array — server`, `shards_received: uint32 — server` | `—` (`10_systems/social/TRADING.md` §3 atomic swap) | `—` |
+| `op_1276` | `market_listing_update` | `s2c` | `listing_id: string — server`, `status: enum{active, sold, delisted, expired} — server` | `—` (§3.5) | `—` |
+| `op_1277` | `market_action_rejected` | `s2c` | `request_seq: uint32 — server`, `reason: enum{fee_unpayable, item_untradeable, listing_not_found} — server` | `—` (§3.5) | `—` |
+| `op_1278` | `mail_delivered` | `s2c` | `mail_id: string — server`, `sender_character_id: string — server`, `has_attachment: bool — server` | `—` (§3.6) | `—` |
+| `op_1279` | `mail_claim_result` | `s2c` | `mail_id: string — server`, `item_id: string — server`, `shards_received: uint32 — server`, `cod_paid: uint32 — server` | `—` (§3.6) | `—` |
+| `op_1280` | `presence_update` | `s2c` | `character_id: string — server`, `online: bool — server`, `roster_scope: enum{party, guild} — server` | `—` (§5 — proposed presence indicator, **not yet adopted** by `10_systems/social/PARTY.md`/`10_systems/social/GUILD.md`, flagged in their Open Questions) | `—` |
+| `op_1281` | `mail_action_rejected` | `s2c` | `request_seq: uint32 — server`, `reason: enum{recipient_not_found, insufficient_shards, item_untradeable} — server` | `—` (§3.6) | `—` |
+
+Note: `party`/`guild` reward *math* stays `10_systems/social/PARTY.md`'s and `10_systems/DROPS.md`'s;
+this table only wires the roster/escrow/listing *requests*. The exp/loot **split** that
+`op_0792`/`op_0791` (§9.8) hand off to this tier has no dedicated opcode of its own here — that
+world-process↔party-service boundary is `70_integrations/GAMEPLAY_SIMULATION.md`'s own flagged Open
+Question, not resolved by this catalog. `op_1280` mirrors the `world`-channel flag (§9.12): a proposed
+addition, not a shipped one, per the "flag, don't guess" law.
+
+`op_1219`–`op_1269` and `op_1282`–`op_1299` remain **unminted/reserved** in this block.
 
 ---
 
@@ -390,8 +603,10 @@ that cannot prove a `server` truth refuses the action, never fabricates it.
   keyframes or delta-encoded against the last acknowledged snapshot, and whether a crowded population
   channel needs per-client area-of-interest filtering, is a capacity question owned by
   `70_integrations/WORLD_CHANNELS.md` (its own Open Question) and `70_integrations/GAMEPLAY_SIMULATION.md`
-  §1.1; the envelope (§3) and the reliable-ordered transport (§1) support either encoding. Confirm at
-  their authoring and before the stage-2 §9.5 rows are minted.
+  §1.1; the envelope (§3) and the reliable-ordered transport (§1) support either encoding. §9.5's
+  `entity_snapshot` (`op_0400`) is authored as whole-visible-state per broadcast; revisit that row (not
+  its opcode — minted opcodes are immutable) if delta-encoding or area-of-interest filtering is adopted
+  at those docs' next revision.
 - **Max-message-size and compression tuning.** The max payload cap (§10), the ~512-byte compression
   threshold, and the DEFLATE level (§5) are ops-tunable numbers with a fixed shape; exact values want a
   coding-pass bandwidth/CPU measurement against real Godot 4.3 client packing, not a design guess.
@@ -402,7 +617,12 @@ that cannot prove a `server` truth refuses the action, never fabricates it.
 - **QUIC/WebTransport transport revision** (§1) is kept in reserve behind the `protocol_version`
   handshake; if Godot's and Phoenix's support matures, revisiting the transport is a `protocol_version`
   bump, not a redesign — flagged, not scheduled.
-- **Stage-2 catalog authoring** (§9) is the remaining deliverable: a Sonnet sub-agent fills every
-  domain table against the §9.0 template, minting opcodes into `docs/ID_REGISTRY.md`'s blocks and citing
-  each mutating packet's `70_integrations/GAMEPLAY_SIMULATION.md` validating section. This is a fixed-scope
-  fill inside this contract, not an open design question.
+- **Stage-2 catalog authoring** (§9) is **complete** — 102 opcodes minted across the 13 domain blocks
+  against the §9.0 template, each citing its `70_integrations/GAMEPLAY_SIMULATION.md` (or domain-owning
+  doc) validating section. Residue surfaced during the fill, now flagged at its own domain row rather
+  than here: no `70_integrations/GAMEPLAY_SIMULATION.md` section owns shop pricing or coach-fare
+  validation (§9.3/§9.10 cite `10_systems/ECONOMY.md` instead); the `world` chat channel (§9.12) and the
+  party/guild `presence_update` (§9.13) are proposed additions awaiting promotion by their owning docs,
+  not shipped enum/opcode members; and the world-process↔party-service reward-arbitration wire boundary
+  (§9.8/§9.13) stays `70_integrations/GAMEPLAY_SIMULATION.md`'s own open item, not resolved by this
+  catalog.
