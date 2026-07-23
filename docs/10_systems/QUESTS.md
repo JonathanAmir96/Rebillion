@@ -180,15 +180,17 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 
 ## Open Questions
 
-- Party quest-credit sharing (does a party member's kill/collect count for everyone nearby?) is
-  deferred to `10_systems/social/PARTY.md`, not yet authored; default until then is **unshared** —
-  each member individually needs the kill tag / the collect item.
+- Party quest-credit sharing is resolved in `10_systems/social/PARTY.md` §4: a `kill`-type step's
+  credit follows the same same-map eligibility as `exp` (every same-map party member with the step
+  active gets credit), while a `collect`-type step does not share (credit requires actually
+  receiving the item).
 - Exact per-quest `pct` within the §4 bands, and the regional ≈25% reconciliation, is Phase D
   authoring work per `10_systems/LEVELING.md` §4's own Open Question; not resolved to the exact
   quest here.
-- `quest_object` full mechanics (respawn timer, whether non-questers can see/interact with it) are
-  owned by `15_maps_system/MAP_INTERACTABLES.md`, not yet authored; this doc only fixes the
-  grant-on-interact contract (§3.1).
+- `quest_object` full mechanics are owned by `15_maps_system/MAP_INTERACTABLES.md` §10: default
+  `respawn_timer_s` is 60 s, and `required_quest_flag` gates visibility/interaction so the object
+  is invisible and non-interactable to characters whose quest state does not satisfy it. This doc
+  fixes only the grant-on-interact contract (§3.1).
 - The `reach`-step trigger-zone declaration (map-side schema shape) is pending
   `15_maps_system/MAPS_SYSTEM.md`; assumed analogous to `10_systems/SPAWN.md` §1's `spawn_zones`
   rect pattern but not confirmed.

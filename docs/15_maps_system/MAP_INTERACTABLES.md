@@ -10,8 +10,8 @@ docs/WORLD_PLAN.md, 10_systems/DEATH_PENALTY.md, 10_systems/HUD.md, 10_systems/P
 Owner doc for the 10 interactable object **types** a map YAML may place, and each type's param
 shape. Portal *rules* (which kinds connect which maps, spawn-point targeting, coach rides) are
 `15_maps_system/MAP_CONNECTIONS.md`'s; the climbing mechanic ropes/ladders invoke is
-`15_maps_system/MAP_TRAVERSAL.md` §4; drop-table math and loot ownership windows are the future
-`10_systems/DROPS.md`. This doc owns only the object shapes themselves.
+`15_maps_system/MAP_TRAVERSAL.md` §4; drop-table math and loot ownership windows are
+`10_systems/DROPS.md`'s. This doc owns only the object shapes themselves.
 
 ## 1. Shared fields
 
@@ -85,7 +85,7 @@ The physical item entity spawned by a monster death or a `reactor` harvest. Laye
 |---|---|---|
 | `item_ref` | `item_equip_*` \| `item_use_*` \| `item_etc_*` | `docs/ID_REGISTRY.md` |
 | `rarity` | GLOSSARY rarity token | Drives the tint ramp, `40_assets/ART_BIBLE.yaml` `rarity_code` |
-| `owner_window` | — | Temporary kill/harvest-credit ownership before it becomes free-for-all; exact duration and party-sharing rule is the future `10_systems/DROPS.md`'s, not fixed here |
+| `owner_window` | — | Temporary kill/harvest-credit ownership before it becomes free-for-all; duration and party-sharing rule are `10_systems/DROPS.md` §7's (60 s exclusive tagger window, then free-for-all until despawn at 120 s), not restated here |
 
 **Bounce-settle behavior** (this doc's own mechanic): on spawn, the drop pops with a small random
 impulse — **0.5–1.5 tiles** horizontal (random direction) and a **0.5-tile** upward hop — falls
@@ -149,16 +149,16 @@ interactability gate.
 |---|---|---|
 | `drop_table_ref` | id | As §4 |
 | `respawn_timer_s` | float | As §4 |
-| `required_quest_flag` | quest stage ref | Object is invisible/non-interactable unless the owning character's quest state satisfies this; exact quest-state vocabulary is the future `10_systems/QUESTS.md`'s, not fixed here |
+| `required_quest_flag` | quest stage ref | Object is invisible/non-interactable unless the owning character's quest state satisfies this; exact quest-state vocabulary is not yet defined — `10_systems/QUESTS.md`'s Open Questions delegate the `quest_object` gate back to this doc, not fixed here |
 
 ## Open Questions
 
 - Whether `reactor`/`quest_object` drop references need their own `docs/ID_REGISTRY.md` prefix
   (e.g. a `reactor_drop_NNN` block) or reuse the existing `drop_mob_NNN`/pool space is unresolved —
   flagged for `docs/ID_REGISTRY.md` at the C gate, not decided here.
-- `owner_window` (§5) duration and party-sharing rules are entirely `10_systems/DROPS.md`'s once
-  authored; this doc only asserts the concept exists.
-- `required_quest_flag`'s exact syntax (§10) depends on `10_systems/QUESTS.md`, not yet authored.
+- `required_quest_flag`'s exact syntax (§10) depends on a quest-state/flag vocabulary that
+  `10_systems/QUESTS.md` does not yet define (its Open Questions delegate `quest_object` gating
+  back to this doc).
 - `storage_chest` `scope` (§8) — per-character or account-wide banks — is an open design call for
   `10_systems/ECONOMY.md`/`10_systems/PERSISTENCE.md`.
 - `reactor`/`quest_object` default `respawn_timer_s` (60 s) is a first-pass number; may need per-

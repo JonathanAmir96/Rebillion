@@ -11,7 +11,7 @@ values in `00_vision/GLOSSARY.md`. Movement physics is `15_maps_system/MAP_TRAVE
 interactable object types are `15_maps_system/MAP_INTERACTABLES.md`; the depth/collision layer
 stack is `15_maps_system/MAP_LAYERS.md`; portal, spawn-naming, and paid-transport rules between maps are
 `15_maps_system/MAP_CONNECTIONS.md`. This doc consumes those and never restates them. Exact YAML
-field typing/validation is the future `20_schemas/map.schema.md` (Phase C); this doc defines the
+field typing/validation is `20_schemas/map.schema.md` (Phase C); this doc defines the
 conceptual anatomy that schema will formalize. 1 screen = the locked render base 640×360 px ≈
 40×22.5 tiles at the 16 px tile grid (`40_assets/ART_BIBLE.yaml`, Phase C) — used throughout §2's
 size guidance.
@@ -63,7 +63,7 @@ Patterns below are authoring law for the *shape* of a name; the specific name fo
 
 | `map_type` | Pattern | Rationale |
 |---|---|---|
-| `town` | `<Place name> <Settlement noun>` (Village/Township/Port/Sanctum) | Matches the 4 towns already named in `docs/WORLD_PLAN.md` |
+| `town` | `<Place name> <Settlement noun>` (Village/Township/Port/Sanctum) | Matches the 6 towns already named in `docs/WORLD_PLAN.md` |
 | `field` | `<Region descriptor>` + a directional/progression qualifier, never a new place-name | A field chain must read as one place, not a new zone (P3 — world map drawable from memory) |
 | `dungeon` | `<Place> <Tunnels\|Warrens\|Caves\|Vault(s)\|Spires\|…>` or `The <Adjective> <Noun>` | Evokes the crawl itself |
 | `interior` | `<Function>` (Inn, Smithy, Market Hall, …), optionally `<Town> <Function>` when cross-region UI needs disambiguation | Matches the building's purpose |

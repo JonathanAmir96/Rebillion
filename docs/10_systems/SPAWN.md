@@ -14,8 +14,8 @@ where, and how many.
 ## 1. Spawn zones (declared per map)
 
 Each map that permits combat declares zero or more named **spawn zones** in its content file.
-Exact field typing is owned by the map schema (`20_schemas/`, filename not yet fixed — see Open
-Questions); this doc specifies the required contents:
+Exact field typing is owned by the map schema (`20_schemas/map.schema.md`); this doc specifies
+the required contents:
 
 | Field | Meaning |
 |---|---|
@@ -44,17 +44,17 @@ zone may mix `normal` and `elite` entries in one `mob_pool`.
 ## 2. Density budgets by map type
 
 Budgeted as **mobs per screen-width** rather than a fixed per-map total, so a longer map is denser
-only in proportion to its length rather than needing a separate size tier. Working assumption:
-**1 screen-width ≈ 20 tiles** at default camera zoom — provisional pending the real viewport spec
-in `30_engineering/ENGINEERING_STANDARDS.md` (Open Questions). A map's total zone population,
-summed across its `target_count`s, should land near `width_screens × per-screen budget` below.
+only in proportion to its length rather than needing a separate size tier. **1 screen-width ≈ 40
+tiles** — the locked render base is 640×360 px ≈ 40×22.5 tiles at the 16 px tile grid
+(`15_maps_system/MAPS_SYSTEM.md` §1). A map's total zone population, summed across its
+`target_count`s, should land near `width_screens × per-screen budget` below.
 
 | Map type | Normal / screen-width | Elite presence | Rationale |
 |---|---|---|---|
 | `field` | 3 | Rare — 1 elite per 3–4 screens, own small zone | Open exploration; the player chooses engagements (P1) |
 | `dungeon` | 4 | Common — 1 elite zone per 2 screens | Corridor gauntlet; more committed combat |
 | `secret` | 2 | Elevated `mob_pool` weight toward elite entries | Bonus content — sparser overall, but richer per encounter |
-| `town` / `interior` | 0 | 0 | Combat-free (`docs/WORLD_PLAN.md` open item; assumed pending `15_maps_system/MAPS_SYSTEM.md` confirmation) |
+| `town` / `interior` | 0 | 0 | Combat-free (confirmed by `15_maps_system/MAPS_SYSTEM.md` §6) |
 | `arena` | n/a — exempt | n/a | Boss/wave-scripted, not zone-density-budgeted (`15_maps_system/MAPS_SYSTEM.md`) |
 
 ## 3. Respawn timers by tier
@@ -71,9 +71,10 @@ than a long real-world timer: the boss is always available and resets to full li
 a player/party properly enters and triggers the arena, consistent with
 `10_systems/DEATH_PENALTY.md` §5.2/§5.3's "walk back in, fresh attempt" model. This was chosen
 over a long fixed timer to avoid a dead, waiting boss (`00_vision/PILLARS.md` P2) and because a
-solo/small-party regional boss needs no server clock to stay fair. The literal mechanism — a true
-per-party instance vs. a shared arena that resets on empty — is `15_maps_system/MAPS_SYSTEM.md`'s
-to define; this doc fixes only the intent (no long timer).
+solo/small-party regional boss needs no server clock to stay fair. The literal mechanism is fixed
+by `15_maps_system/MAPS_SYSTEM.md` §8: a regional arena is a single **shared** map instance (not
+per-party) that resets to phase 1 at full life once empty of players for `arena_reset_grace_s` =
+30 s; this doc fixes only the intent (no long timer) and defers the mechanism's definition there.
 
 ## 4. Max concurrent per zone
 
@@ -132,17 +133,19 @@ A party's instance persists across individual member deaths/releases
 run dissolving (`10_systems/social/PARTY_QUEST.md` §5), per the boss respawn decision in §3.
 
 ## Open Questions
-- The `1 screen-width ≈ 20 tiles` assumption (§2) is provisional pending the real camera/viewport
-  spec in `30_engineering/ENGINEERING_STANDARDS.md`; every density number in §2/§4 scales directly
-  if that changes.
-- The map schema's filename (§1) is assumed but not confirmed — likely
-  `20_schemas/map.schema.md`, authored at Phase C.
 - `target_count`/`max_concurrent` defaults (§2, §4) are first-pass and tunable per region once
   Phase D populates real zones.
-- The town/interior combat-free assumption (§2) inherits `docs/WORLD_PLAN.md`'s open item; if
-  `15_maps_system/MAPS_SYSTEM.md` later allows interior combat, this table needs a row.
-- Whether the regional-boss "arena-entry instanced" mechanism (§3) is a true per-player instance
-  or a shared arena that resets on empty is left to `15_maps_system/MAPS_SYSTEM.md`; both satisfy
-  this doc's "no long timer" intent.
 - Boss add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
   data, not a SPAWN.md rule.
+
+Resolved:
+- The `1 screen-width ≈ 20 tiles` assumption (§2) is resolved — `15_maps_system/MAPS_SYSTEM.md`
+  §1 locks 1 screen ≈ 40×22.5 tiles (640×360 px render base); density numbers in §2/§4 are
+  authored per-screen and need no renumbering.
+- The map schema's filename (§1) is resolved — `docs/20_schemas/map.schema.md` exists.
+- The town/interior combat-free assumption (§2) is resolved — `15_maps_system/MAPS_SYSTEM.md` §6
+  confirms town and interior maps are combat-free, no per-map toggle.
+- Whether the regional-boss "arena-entry instanced" mechanism (§3) is a true per-player instance
+  or a shared arena that resets on empty is resolved — `15_maps_system/MAPS_SYSTEM.md` §8: a
+  single shared arena instance that resets to phase 1 at full life after being empty of players
+  for `arena_reset_grace_s` = 30 s, satisfying this doc's "no long timer" intent.

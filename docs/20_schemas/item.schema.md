@@ -8,8 +8,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 
 ## Purpose
 
-Defines the content shape of the **item batch tables** — the `equip` (~144), `use` (~36), and
-`etc` (~197) items in `00_vision/SCOPE.md` / `10_systems/ITEMS.md` §1. Unlike monsters/skills,
+Defines the content shape of the **item batch tables** — the `equip` (~98), `use` (~48), and
+`etc` (~133) items in `00_vision/SCOPE.md` / `10_systems/ITEMS.md` §1. Unlike monsters/skills,
 items are authored many-rows-per-file (`10_systems/ITEMS.md` §12's batch-table convention): a
 table file carries front-matter plus an `items:` list, each row one `item_equip_NNNN` /
 `item_use_NNNN` / `item_etc_NNNN`. A row is the base/affix stat-line budget copied from

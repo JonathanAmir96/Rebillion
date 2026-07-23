@@ -81,9 +81,11 @@ fee; this doc owns the number:
 reallocation_fee(L) = round( 50 · L )       # full respec of the free pool
 ```
 
-Lv 30 → 1,500; Lv 50 → 2,500; Lv 100 → 5,000. Scales with `level` so it stays a meaningful choice
-without ever locking a build (P2 — no trap builds; the pool is always reallocatable). First-pass;
-`10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
+Lv 10 → 500; Lv 30 → 1,500; Lv 42 (authored arc's top, `docs/00_vision/SCOPE.md`) → 2,100. The
+formula is designed to keep scaling unchanged over the full climb to the Lv 300 cap
+(`10_systems/LEVELING.md` §6) as future arcs land. Scales with `level` so it stays a meaningful
+choice without ever locking a build (P2 — no trap builds; the pool is always reallocatable).
+First-pass; `10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
 
 ## 4. Vendor price bands
 

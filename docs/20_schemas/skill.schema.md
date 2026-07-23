@@ -8,7 +8,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/JOBS.md,
 
 ## Purpose
 
-Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 84
+Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 52
 line skills + 4 novice skills in `00_vision/SCOPE.md` / `10_systems/JOBS.md`. A skill file is the
 data a Phase D author fills and the coding pass loads: an identity that must match a
 `10_systems/JOBS.md` roster row exactly, a targeting shape from `10_systems/SKILL_SYSTEM.md` §6, an
@@ -25,8 +25,9 @@ math, the op parameter schemas, cost/cooldown bands, or status rules — it cite
   {`bulwark`, `keeneye`, `weaver`, `flicker`, `novice`} and the folder name equals the line. Novice
   skills live in `50_content/skills/novice/skill_novice_NNN.yaml`.
 - **ID ranges** (`docs/ID_REGISTRY.md` Skills; `10_systems/JOBS.md` §1): per line
-  `skill_<line>_001`–`021` authored (`022`–`030` reserved), in tier order — `001`–`006` first-job,
-  `007`–`013` second-job, `014`–`021` third-job. Novice: `skill_novice_001`–`010` reserved, `001`–
+  `skill_<line>_001`–`013` authored this arc, in tier order — `001`–`006` first-job, `007`–`013`
+  second-job. `014`–`021` is the third-job tier, **named-and-reserved** for future arcs (not Phase D
+  content); `022`–`030` stays reserved growth. Novice: `skill_novice_001`–`010` reserved, `001`–
   `004` authored. The file's `id` is its filename stem; both immutable.
 - **`line` field naming note.** The master-brief format anchor wrote this identity field as `job`;
   this schema names it **`line`** to match the task's explicit field list and the `00_vision/GLOSSARY.md`
@@ -138,7 +139,8 @@ Passive pattern (illustrative, `skill_weaver_005` "Attunement"): `kind: passive`
 `cost: { essence: 0 }`, `cooldown: 0`, a single `level_data[].effects` row of one
 `{ op: passive_stat_bonus, stats: { spellpower: ..., essence: ... } }` scaled across ranks; no
 `animation`. Proc passives use one `on_hit_proc` op instead; hybrid passives (e.g.
-`skill_flicker_021`) use `passive_stat_bonus` + `on_hit_proc`.
+`skill_flicker_021` — third-job tier, named-and-reserved for a future arc, illustrative only) use
+`passive_stat_bonus` + `on_hit_proc`.
 
 ## Validation rules
 
@@ -146,8 +148,10 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4, §6).
 
 1. **Identity ↔ roster (hard).** `line`, `tier`, `kind`, and `name` must match the
    `10_systems/JOBS.md` §2–§6 roster row for this `id` **exactly** (name string included). The tier
-   must agree with the ID sub-block (`001`–`006`→`first`, `007`–`013`→`second`, `014`–`021`→`third`,
-   `skill_novice_*`→`novice`; `10_systems/JOBS.md` §1). `id` in-range (`docs/VALIDATION.md` §4).
+   must agree with the ID sub-block (`001`–`006`→`first`, `007`–`013`→`second`;
+   `skill_novice_*`→`novice`; `10_systems/JOBS.md` §1). `014`–`021` is the third-job tier,
+   named-and-reserved for future arcs — **not a valid `id` in authored v2 content**. `id` in-range
+   (`docs/VALIDATION.md` §4).
 2. **Ops validate (hard).** Every `effects[]` op token is one of the 14
    (`10_systems/SKILL_EFFECTS.md`) and every param validates against that op's schema (§3–§16):
    required params present, enums from their owners, values in the op's authoring bounds.
@@ -161,7 +165,8 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4, §6).
 5. **Passive shape (hard).** `kind: passive` ⇒ `cost.essence: 0`, `cooldown: 0` (or omitted),
    `targeting` ∈ {`self`, `party`}, and `effects[]` uses only `passive_stat_bonus` and/or
    `on_hit_proc` (no direct offensive ops); `party` targeting requires the `passive_stat_bonus`
-   `scope: party_aura` (`10_systems/SKILL_EFFECTS.md` §13, e.g. `skill_bulwark_019`).
+   `scope: party_aura` (`10_systems/SKILL_EFFECTS.md` §13, e.g. `skill_bulwark_019` — third-job
+   tier, named-and-reserved for a future arc, illustrative only).
 6. **`max_level` (hard).** If present, `max_level == 10` (`10_systems/SKILL_SYSTEM.md` §2).
 7. **Prerequisites (hard).** Each `prerequisites[].skill` is a **same-line** skill id that exists,
    with `min_rank` 1–10; no self-reference; no cycles (`10_systems/SKILL_SYSTEM.md` §2).

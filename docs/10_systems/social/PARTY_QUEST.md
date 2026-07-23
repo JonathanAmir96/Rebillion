@@ -102,6 +102,13 @@ the open arena entry (§4).
   (§3).
 - Whether the 3-member floor should drop to 2 if live telemetry shows the party-forming funnel is
   too tight at the 15–22 band; default holds at 3.
+- **`pq_undervault`'s level band starts above its finale boss's native level.** The band is
+  Lv 15–22 (`docs/WORLD_PLAN.md` "Party quests", table in §1), but `mob_027` The Cellar King is
+  R2's Lv 14 boss (`docs/WORLD_PLAN.md` R2 section); `10_systems/COMBAT_FORMULA.md` §13.3's
+  `pq_life(N, L)` formula does not fix which `L` a PQ-band boss uses. Whether the higher band is
+  a deliberate easier, front-loaded co-op target or a documentation gap is unresolved by any
+  existing source; flagged, not guessed at. `pq_mainspring`'s band (32–40) aligns with its boss's
+  native level (`mob_150`, Lv 40).
 - A PQ-completion collection/`title` hook (`10_systems/COLLECTIONS.md`) is deliberately not wired
   in this pass; flag for that doc's owner if PQ completion should feed a milestone.
 - The disconnect grace (60 s, §5) is first-pass; confirm against `10_systems/PERSISTENCE.md`'s

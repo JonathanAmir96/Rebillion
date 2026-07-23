@@ -190,9 +190,10 @@ sets a forced-target override for a duration).
 | `radius` | float tiles | no | for `aoe_circle` taunts (0 = single target) | Area taunt (e.g. `skill_bulwark_002`). |
 
 **Targets:** hostiles (AI monsters only). **Composition:** honored per `10_systems/AI_BEHAVIOR.md`;
-`boss`/`boss_scripted` and raid entities may flag **taunt-immune** in `20_schemas/monster.schema.md`
-(consistent with their CC immunity, `10_systems/STATUS_EFFECTS.md` §3). No PvP in scope, so `taunt`
-never targets players. **Scales:** none (duration is flat/`level_data`).
+`boss`/`boss_scripted` entities may flag **taunt-immune** in `20_schemas/monster.schema.md`
+(consistent with their CC immunity, `10_systems/STATUS_EFFECTS.md` §3; a full-immunity raid tier is
+reserved for a future arc and does not exist in this arc). No PvP in scope, so `taunt` never targets
+players. **Scales:** none (duration is flat/`level_data`).
 
 ## 12. `summon_entity`
 
@@ -315,9 +316,9 @@ it only declares ops and parameters.
 - **`on_hit_proc` trigger set** (`on_deal`/`on_take`/`on_crit`/`on_kill`/`on_dodge`/`on_cast`) is
   the current vocabulary; if a passive design needs another hook (e.g. `on_status_applied`), add it
   here rather than inventing a new op. Flagged.
-- **`taunt` immunity flag** for `boss`/raid entities lives in `20_schemas/monster.schema.md`;
-  confirm the flag name when that schema is authored (default: bosses taunt-immune, matching CC
-  immunity).
+- **`taunt` immunity flag** for `boss` entities lives in `20_schemas/monster.schema.md`; confirm
+  the flag name when that schema is authored (default: bosses taunt-immune, matching CC immunity;
+  a raid tier is reserved for a future arc and does not exist in this arc).
 - ~~`condition` enum open-ended~~ **Frozen at the C gate** to exactly four values:
   `below_life_pct:X` (X an integer percent) · `while_veiled` · `vs_marked` · `while_stance`.
   `docs/VALIDATION.md` §2/§3 enum-checks against this list; a new condition is added here first,

@@ -24,6 +24,11 @@ skill_<line>_NNN_cast        # e.g. skill_bulwark_003_cast, skill_novice_001_cas
   a mismatched stem fails `docs/VALIDATION.md` §6.
 - **Passives declare no anchor** (`20_schemas/skill.schema.md`: `animation` optional/absent for
   passives); a passive may still own a `_proc` fx clip (§2).
+- The anchor id is a deterministic function of its owning skill's already-registered `id`, not an
+  independently allocated identifier, so it carries no `docs/ID_REGISTRY.md` block of its own —
+  the same sidecar-to-an-already-registered-entity logic `40_assets/SPRITESHEET_SPEC.md` §7 applies
+  to its atlas-manifest `id`. It inherits the skill id's immutability (`CLAUDE.md` law 3): renaming
+  or renumbering a `skill_<line>_NNN` id renumbers its anchor in lockstep, in the same commit.
 
 ## 2. Derived clip suffixes (the multi-clip rule)
 
@@ -74,3 +79,9 @@ question, not granted here.
 - Exact fx canvas sizes per clip family (vs the entity `size_class` cells,
   `40_assets/SPRITESHEET_SPEC.md` §4) are an art-pass decision; nothing in this doc fixes pixel
   dimensions.
+- **Player atlas linkage.** `40_assets/SPRITESHEET_SPEC.md` and `40_assets/ANIMATION_STATES.md`
+  both flag that the player has no registered `entity_id` and no `player.schema.md`.
+  Consequently it is unresolved whether/how a `skill_<line>_NNN_cast` anchor (or its derived
+  clips, §2) ever resolves to a row in a player atlas manifest
+  (`40_assets/SPRITESHEET_SPEC.md` §7) — this doc names the clip ids but cannot bind them to an
+  atlas contract that does not yet exist for the player.

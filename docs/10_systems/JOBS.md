@@ -14,12 +14,12 @@ effect-op parameters are `10_systems/SKILL_EFFECTS.md`, stat growth is `10_syste
 elements are `10_systems/ELEMENTS.md`, statuses are `10_systems/STATUS_EFFECTS.md`. Job
 advancement is **linear** (no branching, `00_vision/SCOPE.md`).
 
-## 0. Token proposals (GLOSSARY Provisional → promote at the B gate)
+## 0. Line/job tokens (promoted to GLOSSARY at the B gate)
 
-The four line tokens, `novice`, and the twelve advancement job names are proposed here for
-promotion into `00_vision/GLOSSARY.md` (`00_vision/GLOSSARY.md` Provisional; `docs/ID_REGISTRY.md`
-reserves `skill_<line>_001`–`030` per line). Line tokens are `snake_case`, one word, and used
-verbatim in skill IDs.
+The four line tokens, `novice`, and the twelve advancement job names are canonical in
+`00_vision/GLOSSARY.md` §Job lines, promoted at the B gate (`docs/ID_REGISTRY.md` reserves
+`skill_<line>_001`–`030` per line). Line tokens are `snake_case`, one word, and used verbatim
+in skill IDs.
 
 | Line token | Primary (`10_systems/STATS.md`) | Weapon (GLOSSARY) | Playstyle | `novice` | 1st job (Lv 8) | 2nd job (Lv 40) | 3rd job (future arcs, name reserved) |
 |---|---|---|---|---|---|---|---|
@@ -271,15 +271,16 @@ op rules as line skills (`10_systems/SKILL_SYSTEM.md`, `10_systems/SKILL_EFFECTS
 
 Every line hits **6 / 7** by authored tier — **52 line skills + 4 novice = 56 authored**
 (`00_vision/SCOPE.md` v2). The reserved 3rd-tier plans keep each line's eventual 21-skill shape.
-Across the 56 authored skills, all 14 effect ops (`10_systems/SKILL_EFFECTS.md`) and all 6
-targeting shapes (`10_systems/SKILL_SYSTEM.md`) must appear at least once, so the roster
-exercises the full primitive set (`00_vision/PILLARS.md` P4) without the 3rd tier.
+Across the 56 authored skills, 13 of the 14 effect ops (`10_systems/SKILL_EFFECTS.md`) appear at
+least once; `leap` is reserved for the deferred 3rd-job tier (`Seismic Leap`, `Umbral Leap`) and
+does not appear in this run's authored roster. All 6 targeting shapes
+(`10_systems/SKILL_SYSTEM.md`) appear at least once, so the roster exercises the full primitive
+set short of `leap` (`00_vision/PILLARS.md` P4).
 
 ## Open Questions
 
-- The four line tokens (`bulwark`/`keeneye`/`weaver`/`flicker`), `novice`, and the twelve job
-  names are proposed for `00_vision/GLOSSARY.md` promotion at the B gate (§0); until promoted they
-  live here as their sole definition. Flag if any collides with a later-authored token.
+- ~~The four line tokens, `novice`, and the twelve job names' GLOSSARY promotion.~~ **Resolved:**
+  promoted at the B gate; canonical in `00_vision/GLOSSARY.md` §Job lines (§0).
 - Job-trainer NPC IDs and the two advancement quest IDs per line are **Phase D** content
   (`10_systems/QUESTS.md`, `docs/ID_REGISTRY.md`); §1 fixes only the level gates (8/40) and the
   home-town pattern. Confirm each instructor NPC fits its home town's `npc` block when quests are

@@ -21,7 +21,7 @@ map data into Godot scenes (`60_agents/`, not yet authored).
 ## File conventions
 
 One file per map at `50_content/maps/map_NNN.yaml` — `NNN` zero-padded to 3 digits, matching the
-map's reserved slot in `docs/ID_REGISTRY.md`'s 12 region blocks (`map_001`–`map_200`). No batch
+map's reserved slot in `docs/ID_REGISTRY.md`'s 8 region blocks (`map_001`–`map_200`). No batch
 tables (contrast `10_systems/ITEMS.md` §12's category tables) — every map is distinct enough to
 own its file. The file's `id` field and its filename's `NNN` must agree.
 
@@ -143,8 +143,8 @@ ability (`15_maps_system/MAPS_SYSTEM.md` §8), authored on the boss's own monste
 | Enum | Owner | Members (do not redefine — cite only) |
 |---|---|---|
 | `map_type` | `00_vision/GLOSSARY.md` / `15_maps_system/MAPS_SYSTEM.md` §2 | `field` · `dungeon` · `town` · `interior` · `arena` · `secret` |
-| `region` | `docs/WORLD_PLAN.md` | The 12 GLOSSARY region slugs |
-| `biome` | `40_assets/ART_BIBLE.yaml` `environment.biome_identity` / `15_maps_system/MAP_LAYERS.md` §4 | The 12 biome-identity keys (one per region; note Millbrook = `old_town`, Sunken = `tidewatch_dark`, not the region slug) |
+| `region` | `docs/WORLD_PLAN.md` | The 8 GLOSSARY region slugs |
+| `biome` | `40_assets/ART_BIBLE.yaml` `environment.biome_identity` / `15_maps_system/MAP_LAYERS.md` §4 | The 8 biome-identity keys used this run (one per region; note Millbrook = `old_town`, Sunken = `tidewatch_dark`, not the region slug) — `ART_BIBLE.yaml` also carries 4 future-expansion keys not valid in this run's content |
 | `portals[].kind` | `15_maps_system/MAP_INTERACTABLES.md` §2 / `15_maps_system/MAP_CONNECTIONS.md` §1 | `edge` · `door` · `coach` |
 | `interactables[].type` | `15_maps_system/MAP_INTERACTABLES.md` | `climbable` · `reactor` · `sign` · `lore_marker` · `inn_bed` · `storage_chest` · `coach_station` · `quest_object` (8 of its registry's types; `portal` and `loot_drop` are excluded here, see Fields) |
 | `interactables[].params.scope` (`storage_chest`) | `15_maps_system/MAP_INTERACTABLES.md` §8 | `character` · `account` |
@@ -238,7 +238,8 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
    inside this map's `region`'s mob block (`docs/ID_REGISTRY.md`). A `boss`-tier id may never
    appear in `spawn_zones` (`10_systems/SPAWN.md` §1).
 7. **Arena boss match.** `arena_config.boss_mob_id` must be the boss `docs/WORLD_PLAN.md` names for
-   this map's region.
+   this map's region — per `docs/ID_REGISTRY.md`'s stated convention, that boss's arena is always
+   the last `map_NNN` of the region's block (e.g. `map_176` for Sunken, `map_200` for Clockwork).
 8. **Combat-free map types.** `spawn_zones` must be empty/absent on `town` and `interior` maps
    (`15_maps_system/MAPS_SYSTEM.md` §6, `10_systems/SPAWN.md` §2). `spawn_zones` must also be
    empty/absent on `arena` maps (boss-scripted only, no zone spawner). `arena_config` must be

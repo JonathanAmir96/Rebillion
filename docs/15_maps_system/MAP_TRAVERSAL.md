@@ -132,7 +132,7 @@ attack that could fling the player into more danger.
 
 ## 7. Swim: `water_physics` map flag
 
-Sunken Depths (`docs/WORLD_PLAN.md` R5) uses a **modified-jump flag**, not a separate stat or a new
+Sunken Depths (`docs/WORLD_PLAN.md` R7) uses a **modified-jump flag**, not a separate stat or a new
 movement mode: a boolean `water_physics: true` authored per map (Sunken Depths' field/dungeon
 maps; false/omitted everywhere else). It applies one scalar to the §1 jump/fall gravity and
 nothing else:

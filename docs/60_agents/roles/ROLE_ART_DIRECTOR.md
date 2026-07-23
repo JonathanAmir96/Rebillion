@@ -1,7 +1,7 @@
 # ROLE_ART_DIRECTOR — "Agent-3": Art Bible, UI Spec, PixelLab QA
 
 References: ORG.md, docs/40_assets/ART_BIBLE.yaml, docs/40_assets/UI_ART_SPEC.md,
-docs/40_assets/SPRITE_PIPELINE.md
+docs/40_assets/SPRITESHEET_SPEC.md
 
 **Mission:** guard the visual identity. Sole operator of the locked art files' change
 channels (ART_BIBLE `amendments`, UI_ART_SPEC Open Questions), owner of the 40_assets
@@ -18,7 +18,7 @@ locked core values are never edited), all PixelLab brief instances, art QA verdi
 UI_ART_SPEC.md, ANIMATION_STATES.md matrix, the relevant brief template.
 
 **Deliverable contract:** amendments as numbered dated entries (AB-NNN) stating what is
-added and what stays binding; QA verdicts against the SPRITE_PIPELINE checklist
+added and what stays binding; QA verdicts against the SPRITESHEET_SPEC.md checklist
 (palette-locked ramps, silhouette-first, size-class fit, pivot feet-center, state list
 complete); generation runs per ART_GENERATION_RUNBOOK.md once it exists.
 

@@ -77,8 +77,8 @@ cites them and does not restate the reasoning behind any figure.
 `40_assets/ART_BIBLE.yaml` `animation.frame_budgets` predates 3 of this doc's 12 tokens. Since that
 file is locked and outside this doc's file ownership, the following is a **proposal**, not a
 ruling — flagged for Agent-3 to bless and land as an `40_assets/ART_BIBLE.yaml` `amendments[]`
-entry (the file already reserves that list, currently empty) before Phase D authors assets against
-them:
+entry (the file's `amendments[]` list already holds entry AB-001) before Phase D authors assets
+against them:
 
 | Token | Proposed budget | Rationale |
 |---|---|---|
@@ -105,7 +105,7 @@ playing:
    ≥8% of target max `life`; exact thresholds `10_systems/COMBAT_FORMULA.md` §11, not restated)
    interrupts a `normal`/`elite` monster mid-`cast` unless it is flagged super-armored, and
    interrupts a player mid-`cast` unless the player is in i-frames or under a stability effect
-   (`10_systems/COMBAT_FORMULA.md` §11–12). `boss`/raid entities carry super-armor outside
+   (`10_systems/COMBAT_FORMULA.md` §11–12). `boss` entities carry super-armor outside
    scripted-vulnerable windows, so `hit` typically layers as a flinch on a boss without canceling
    its `attack`/`cast`/`telegraph`. A **light** hit's shorter hitstun (0.12 s,
    `10_systems/COMBAT_FORMULA.md` §11) is not stated by that doc to force a full clip interrupt —
@@ -145,8 +145,8 @@ damage never on a duplicate timer." This doc does not assign a frame index, does
 from `haste` (attack-speed conversion is `10_systems/STATS.md` §5's, and it scales the whole clip's
 *playback rate*, not this doc's frame *count* — no reason found here to reopen
 `00_vision/GLOSSARY.md`'s closed haste-split question on that basis), and does not restate
-`10_systems/SKILL_EFFECTS.md`'s damage-scaling math. See Open Questions for `ANIMATION_TIMING`'s
-status.
+`10_systems/SKILL_EFFECTS.md`'s damage-scaling math. Exact per-frame timing lives in
+`40_assets/ANIMATION_TIMING.md` (now authored — see Open Questions).
 
 ## 5. Required-set matrix (per entity class)
 
@@ -245,8 +245,9 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   [4,6], and `spawn` [3,5] frame budgets (§2.2) are this doc's first-pass proposal only —
   `40_assets/ART_BIBLE.yaml` is locked and outside this doc's file ownership, so these three cannot
   be treated as canon until Agent-3 blesses them and lands them in that file's own `amendments[]`
-  list (currently empty). Phase D should not author `telegraph`/`phase_shift`/`spawn` frame counts
-  against these numbers until that happens.
+  list (which already contains entry AB-001, for the terrain-model change — not these three). Phase
+  D should not author `telegraph`/`phase_shift`/`spawn` frame counts against these numbers until
+  that happens.
 - **`20_schemas/monster.schema.md` rule 8 needs reconciling with this doc on three points**, now
   that `40_assets/ANIMATION_STATES.md` has landed as the "authority on the full per-class set" that
   rule 8 itself deferred to: (a) it gates `phase_shift`'s presence on

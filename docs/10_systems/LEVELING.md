@@ -200,7 +200,7 @@ consideration, not an in-scope item).
 - The ≈ 480 kills/hour pacing assumption folds in travel/aggro downtime that has not been measured;
   if real spawn density (`docs/WORLD_PLAN.md`, map spawn data) diverges, the `/played` estimates
   shift while the `exp_to_next` curve stays fixed. Flagged for the Phase D content pass.
-- Quest `exp` totalling exactly 25% per region depends on `10_systems/QUESTS.md` honoring this
+- Quest `exp` totaling exactly 25% per region depends on `10_systems/QUESTS.md` honoring this
   budget; if quest counts per region (`docs/ID_REGISTRY.md`) can't hit 25% cleanly at a given band,
   the residual shifts to hunting (higher `kills_per_level` in practice). Owner: QUESTS.md.
 - `exp` at the true cap (Lv 300) is currently discarded (§6); if a "mastery `exp` →

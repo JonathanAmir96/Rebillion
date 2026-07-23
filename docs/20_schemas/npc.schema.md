@@ -180,3 +180,9 @@ flavor: "{≤2 sentences}"
   flavor standing near a self-service interactable) is not settled by any system doc; this schema
   treats both roles as optional — a bind town's bank/coach station can function per
   `15_maps_system/MAP_INTERACTABLES.md` with no NPC present at all.
+- `coachman` is not itself a `00_vision/GLOSSARY.md` token — GLOSSARY's Transport section (v2.2)
+  defines `coach`/`coach_stop` as object/spawn tokens only, with no npc-role token for the coach
+  operator. `coachman` is borrowed as prose from `docs/WORLD_PLAN.md`'s "Harthmoor Coachworks"
+  section (the "Rosen Harbor coachman" free-pilgrimage rule); it rides on this schema's existing
+  `role` promotion proposal (see `role` field Notes) rather than being separately GLOSSARY-promoted
+  here. Flagged for confirmation at the C gate alongside the rest of the `role` enum.

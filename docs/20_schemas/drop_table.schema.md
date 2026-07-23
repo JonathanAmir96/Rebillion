@@ -88,15 +88,15 @@ the schema's other controlled vocabularies): `owner`/`rows[].ref` mob and item p
 ## Example
 
 ```yaml
-# illustrative — real instances land in Phase D. mob_010 (Cinder Houndmaster, elite, Lv10) is the
+# illustrative — real instances land in Phase D. mob_011 (Cinder Houndmaster, elite, Lv10) is the
 # same worked mob as 20_schemas/monster.schema.md's own example. Shards row: mean_shards_normal(10)
 # = round(1.5*10+3) = 18 (DROPS §3); elite x4 = 72; +-20% range = [round(0.8*72), round(1.2*72)]
 # = [58, 86]. Elite shape per DROPS §5.2: guaranteed shards, 2-3 materials, one emberstone
 # (uncommon), one guaranteed pool roll (rarity_source: elite), one use item (uncommon).
-id: drop_mob_010
+id: drop_mob_011
 schema: 20_schemas/drop_table.schema.md
 references: [DROPS, ITEMS, ENHANCEMENT]
-owner: mob_010
+owner: mob_011
 rows:
   - { ref: shards, chance: guaranteed, qty_min: 58, qty_max: 86 }
   - { ref: item_etc_0001, chance: common, qty_min: 1, qty_max: 2 }
@@ -106,7 +106,7 @@ rows:
   - { ref: item_use_0001, chance: uncommon, qty_min: 1, qty_max: 1 }
 ```
 
-**Boss unique rows pattern** (illustrative fragment, `drop_mob_011`, Cindermaw — region-order boss
+**Boss unique rows pattern** (illustrative fragment, `drop_mob_012`, Cindermaw — region-order boss
 `n=1`, owning `item_equip_0201`/`0202` per `docs/ID_REGISTRY.md`'s boss-unique mapping):
 
 ```yaml
@@ -162,23 +162,24 @@ referential integrity, §3 schema conformance/front-matter, §4 ID uniqueness+ra
    (`10_systems/DROPS.md` §5.4); no raid-shaped table may exist in this arc's content.
 5. **`rarity_source` gating (hard).** Present if and only if `ref` is a pool id; value matches the
    owner tier's expected source (`elite`/`boss` per rule 4).
-6. **Boss unique refs (hard).** An `item_equip` ref inside the `0201`–`0230` `docs/ID_REGISTRY.md`
+6. **Boss unique refs (hard).** An `item_equip` ref inside the `0201`–`0216` `docs/ID_REGISTRY.md`
    block may appear **only** in a `boss`-tier owner's table (task's explicit "boss
    uniques only in boss tables"), and must be one of the two IDs that doc's boss-unique mapping
    assigns to this owner's region-order number `n` (region order = `docs/WORLD_PLAN.md` Region
-   overview R1–R8 — the same derivation
-   `20_schemas/item.schema.md`'s `unique_of` rule uses, cited once, not restated twice).
+   overview R1–R8, boss #n = the region's boss — `mob_012`/`027`/`047`/`067`/`087`/`107`/`128`/`150`
+   — the same derivation `20_schemas/item.schema.md`'s `unique_of` rule uses, cited once, not
+   restated twice).
 7. **Equip `qty` (hard).** `qty_min == qty_max == 1` whenever `ref` is an `item_equip_*` id
    (unstacked, `10_systems/DROPS.md` §1).
 8. **`shards` row math (hard).** For the `guaranteed` `shards` row, `[qty_min, qty_max]` equals
    `[round(0.8·mean), round(1.2·mean)]` where `mean = mean_shards_normal(owner.level) ·
    tier_mult` (`10_systems/DROPS.md` §3: `tier_mult` = 1/4/15 for `normal`/`elite`/`boss`).
-9. **`pools.yaml` shape (hard).** Exactly 12 `pools[]` entries; `id` = `pool_equip_r<NN>` where
+9. **`pools.yaml` shape (hard).** Exactly 8 `pools[]` entries; `id` = `pool_equip_r<NN>` where
    `NN` matches `region`'s order number; `entries[].item` resolves to an existing `item_equip` id
    (`20_schemas/item.schema.md`). **Tier fit (warn):** each entry's item `tier` should sit in the
    region's level band (`10_systems/ITEMS.md` §4, `docs/WORLD_PLAN.md`).
 10. **Boss uniques excluded from pools (hard).** No `pools[].entries[].item` falls in the
-    `item_equip_0201`–`0230` block (`10_systems/DROPS.md` §6: "Boss uniques are not in pools").
+    `item_equip_0201`–`0216` block (`10_systems/DROPS.md` §6: "Boss uniques are not in pools").
 11. **`first_clear_guaranteed` cardinality (warn).** At most one row per boss table carries
     it `true` (§5.3 guarantees "one of the two," not both).
 
@@ -212,7 +213,7 @@ pools:
     entries:
       - { item: item_equip_{NNNN} }          # weight optional, defaults uniform
       - { item: item_equip_{NNNN}, weight: {n} }
-  # repeat for all 12 regions
+  # repeat for all 8 regions
 ```
 
 ## Open Questions
@@ -228,9 +229,10 @@ pools:
   (`10_systems/PERSISTENCE.md`, parallel to `10_systems/DROPS.md` §8's one-time first-clear `exp`
   grants) — this field only marks *which row*, not *whether granted*. Confirm the field name/shape
   with the orchestrator before Phase D authors all 8 region-boss tables.
-- **Boss-order table isn't tabulated anywhere.** Same gap `20_schemas/item.schema.md` flags: rule 6
-  requires computing "boss #n" from `docs/WORLD_PLAN.md`'s region order; correct today but brittle.
-  Flag for `docs/ID_REGISTRY.md` to consider tabulating the 8 boss-order→`mob_NNN`/table pairs.
+- **Boss-order table — resolved.** Now tabulated: `docs/WORLD_PLAN.md` enumerates Boss #1
+  (`mob_012`) through Boss #8 (`mob_150`) explicitly (Region overview), and `docs/ID_REGISTRY.md`
+  Items section tabulates the boss #n → unique-id mapping by name (Cindermaw `0201`–`0202` …
+  Custodian `0215`–`0216`). Rule 6 above cites both directly.
 - **Per-slot pool weighting.** `10_systems/DROPS.md` §6's own Open Question (uniform-across-slots
   vs. weighting toward a player's line weapon) is unresolved; `entries[].weight` supports either
   resolution without a schema change, so this schema takes no position.

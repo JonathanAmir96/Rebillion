@@ -35,8 +35,9 @@ fixed here.
 ## 2. The enhancement track
 
 Any single equip (every equip slot, `10_systems/ITEMS.md` §2) carries an `enhance_level` from `0`
-(base) to `9`, stored per item (`20_schemas/item.schema.md` `enhance_level` field, server-
-authoritative §6). Each attempt targets the next `+`:
+(base) to `9`. The static `0`–`9` ceiling is the `enhance_max` field in `20_schemas/item.schema.md`;
+the per-item runtime `enhance_level` is server-authoritative persisted state per §6 and
+`10_systems/PERSISTENCE.md`. Each attempt targets the next `+`:
 
 | Target `+` | Success | On failure |
 |---|---|---|

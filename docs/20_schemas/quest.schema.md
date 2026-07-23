@@ -25,7 +25,7 @@ tag-eligibility rule, or the zone-declaration mechanism — it cites them.
   `quest_001`–`quest_090` authored (`091`–`120` reserved, `docs/ID_REGISTRY.md` Quests block).
   The file's `id` is its filename stem; both immutable.
 - **Region ↔ ID block.** A quest's `id` must fall inside its `region`'s sub-range in
-  `docs/ID_REGISTRY.md`'s Quests table (e.g. Emberfoot `quest_001`–`008`); this schema does not
+  `docs/ID_REGISTRY.md`'s Quests table (e.g. Emberfoot `quest_001`–`010`); this schema does not
   restate the eight per-region ranges.
 - Job-advancement trainer quests are **ordinary quest files** — `10_systems/QUESTS.md` §2 fixes
   that no separate "job-gate" field exists; the trainer relationship is expressed entirely through
@@ -56,7 +56,7 @@ gates, step progress, and turn-in grants are **server-authoritative**
 | `steps` | list[step] | yes (≥1) | `10_systems/QUESTS.md` §3 | Guideline 1–3, up to 4 for a chain-establisher. Default parallel (any order); see `requires_step`. Sub-fields below. `server`. |
 | `steps[].type` | enum | yes | `10_systems/QUESTS.md` §3 (this doc's own fixed 4-value set, not a GLOSSARY family) | `kill`\|`collect`\|`talk`\|`reach`. |
 | `steps[].target` | id \| list[id] | yes | type-dependent, below | `kill`: one `mob_NNN` **or a short explicit list** (§3 — count applies across the list, see Open Questions); `collect`: one `item_etc_NNNN` **or** `item_use_NNNN` (§3.1 — task's compressed prefix list omitted the `item_use` case, added here); `talk`: one `npc_NNN`; `reach`: one `map_NNN` (paired with `steps[].zone` below). |
-| `steps[].zone` | string | `reach` only | `10_systems/QUESTS.md` §3; `15_maps_system/MAPS_SYSTEM.md` (pending) | The named trigger zone/waypoint on `target` (§3: "map_NNN + a named trigger zone/waypoint"). **Added by this schema** — a bare map id alone under-specifies a `reach` step per QUESTS.md's own anatomy. Format unresolved pending `MAPS_SYSTEM.md` (Open Questions). |
+| `steps[].zone` | string | `reach` only | `10_systems/QUESTS.md` §3; `15_maps_system/MAPS_SYSTEM.md` | The named trigger zone/waypoint on `target` (§3: "map_NNN + a named trigger zone/waypoint"). **Added by this schema** — a bare map id alone under-specifies a `reach` step per QUESTS.md's own anatomy. `MAPS_SYSTEM.md` is now authored but its §1 map anatomy defines no reach-trigger-zone shape (only `spawn_points`/`spawn_zones`); format remains unresolved (Open Questions). |
 | `steps[].count` | int ≥1 | `kill`/`collect`: yes; `talk`/`reach`: no — default `1` | `10_systems/QUESTS.md` §3 | Repeat count. |
 | `steps[].requires_step` | int (1-based index into this quest's own `steps`) | no | `10_systems/QUESTS.md` §3 | Forces sequencing (same prereq-linking pattern as quest-level `prereqs`, §2/§3). Default: all steps open in parallel. Indexing scheme is this schema's own choice — QUESTS.md names the feature but not an addressing mechanism (Open Questions). `server`. |
 | `rewards` | map | yes | `10_systems/QUESTS.md` §4–§5 | Sub-fields below. No reward *numbers* are authored by this schema (cited, not restated). |
@@ -110,7 +110,7 @@ flavor: "The last hound of the old kiln still smolders in the tunnels. Emberfoot
   easy until it's put out for good."
 offer_text: "One more ember to snuff, then Emberfoot's yours to leave behind. Bring me its
   claw and I'll vouch for you at the gate."
-complete_text: "Cold to the touch — good. Verdant Hollow's waiting for you now."
+complete_text: "Cold to the touch — good. Rosen Harbor's waiting for you now."
 ```
 
 ## Validation rules
@@ -195,10 +195,12 @@ complete_text: "{<=2 sentences, turn-in's dialog voice}"
   (a Phase D author reading both files should see one vocabulary). Flagged, not guessed.
 - **`steps[].zone` is this schema's addition.** `10_systems/QUESTS.md` §3 requires a `reach` step
   to carry both a `map_NNN` and a named trigger zone/waypoint, but that doc explicitly defers the
-  zone's declaration shape to `15_maps_system/MAPS_SYSTEM.md` (not yet authored), "assumed
-  analogous to `10_systems/SPAWN.md` §1's `spawn_zones` rect pattern but not confirmed" (QUESTS.md's
-  own OQ). This schema types `zone` as a bare string placeholder pending that doc; format may
-  change.
+  zone's declaration shape to `15_maps_system/MAPS_SYSTEM.md`, "assumed analogous to
+  `10_systems/SPAWN.md` §1's `spawn_zones` rect pattern but not confirmed" (QUESTS.md's own OQ).
+  `MAPS_SYSTEM.md` is now authored, but its §1 map anatomy only defines `spawn_points` and
+  `spawn_zones` (owned by `SPAWN.md`/`MAP_CONNECTIONS.md`) — it defines no reach-trigger-zone
+  shape, so this gap remains genuinely open and should escalate to ROLE_SYSTEMS_ARCHITECT. This
+  schema types `zone` as a bare string placeholder pending that resolution; format may change.
 - **`requires_step` addressing.** `10_systems/QUESTS.md` §3 names the feature but not how one step
   references another. This schema picks a 1-based index into the quest's own `steps` list as the
   simplest self-contained scheme; confirm before Phase D authors sequenced (non-parallel) quests.
@@ -216,6 +218,8 @@ complete_text: "{<=2 sentences, turn-in's dialog voice}"
   data (`15_maps_system/MAP_INTERACTABLES.md` §10's `required_quest_flag`), not by anything in this
   quest file — this schema cannot and does not distinguish the two mechanisms; validation rule 5
   is warn-only for exactly this reason.
-- **Party quest-credit sharing** is explicitly deferred to `10_systems/social/PARTY.md` (not yet
-  authored, `10_systems/QUESTS.md` OQ); this schema assumes unshared (each character needs their
-  own kill tag/collect item) and carries no field for it.
+- **Party quest-credit sharing** is resolved by `10_systems/social/PARTY.md` §4 ("Quest
+  kill-credit"): a `kill`-type step's credit is shared among same-map party members with that
+  step active (mirroring `10_systems/DROPS.md` §7's shared-tag model), while a `collect`-type
+  step is not shared (credit requires actually receiving/holding the item). This is runtime
+  behavior owned by `PARTY.md`, not a quest-file field — this schema carries no field for it.

@@ -187,7 +187,7 @@ contract).
    flourish, `10_systems/SPAWN.md` §6); `boss_scripted` must additionally include `phase_shift`
    (`10_systems/AI_BEHAVIOR.md` §14–§15) when any phase sets `enter_telegraph: true`; every animated
    monster includes `idle` and `die`. `40_assets/ANIMATION_STATES.md` is the authority on the full
-   per-class set (it lands this phase).
+   per-class set (§5 Required-set matrix).
 9. **Drop-table pairing (hard).** `drop_table` equals `drop_mob_<this mob's NNN>` and resolves to a
    file/entry under `50_content/drop_tables/` (`10_systems/DROPS.md` §1, `docs/VALIDATION.md` §2).
 10. **Size ↔ knockback (advisory).** `size_class: boss` implies knockback/CC immunity
@@ -203,7 +203,7 @@ references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS]   # a
 name: "{Display Name}"
 tier: {normal|elite|boss}
 element: {neutral|fire|frost|nature|arcane|shadow}
-level: {1..105}
+level: {1..42}
 size_class: {tiny|small|medium|large|boss}
 stats:
   life: {int}
@@ -265,10 +265,16 @@ flavor: "{<=2 sentences}"
 - **Monster crit/haste/essence.** The §13 budget names no `crit_rate`/`crit_power`/`haste`/`essence`
   for monsters, so this schema authors none (system defaults; monster abilities are cooldown-gated,
   not `essence`-gated). Flag if a specific boss needs authored crit or haste.
-- **`animation_states` required-set finalization.** `40_assets/ANIMATION_STATES.md` is cited as the
-  owner of the per-class required set but lands in this same phase; the known-required subset in
-  Validation §8 is drawn from `docs/VALIDATION.md` §6, `10_systems/SPAWN.md` §6, and
-  `10_systems/AI_BEHAVIOR.md`. Reconcile once that asset doc is authored.
+- **`animation_states` required-set — resolved by `40_assets/ANIMATION_STATES.md` §5.** The
+  Required-set matrix (§5) is now authored and owns the per-class required set: normal mob =
+  `idle`/`walk`/`attack`/`hit`/`die` (+`cast` per §5.1, +`telegraph` for `kamikaze_burster` per
+  §5.2); elite = normal mob's set + `telegraph` + `spawn`; boss = elite's set + `phase_shift`;
+  summon = normal mob's set + `spawn`. Validation rule 8 above now defers to that matrix as the
+  authority; note its prior abbreviated "known-required" list omitted `walk`/`attack`/`hit` for
+  normal mobs, which §5 requires. **Still open:** §5 requires `phase_shift` on every `boss`
+  unconditionally, while this schema's rule 8 only requires it when a phase sets
+  `enter_telegraph: true` — that gating conflict is not resolved here
+  (`40_assets/ANIMATION_STATES.md` §5.4 itself flags the same conflict as open).
 - **`size_class` default.** This schema requires `size_class` (it drives knockback §11 and art); it
   is intentionally not defaulted so a physics-relevant value is never silently assumed. Confirm no
   batch process wants a `medium` default.

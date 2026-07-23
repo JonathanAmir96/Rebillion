@@ -140,5 +140,5 @@ may mint items or `shards` or self-assign a drop it was not tagged for
   ground-clutter at high kill rates) is floated but **off by default** (§5's never-take-without-
   input rule). Flag if high-level farming proves too slot-pressured.
 - Account-shared vault tab and cross-character mail-based item transfer are deferred to the social
-  pass; if added, mail item-attachment limits belong to a future `10_systems/social/MAIL.md`, not
-  here.
+  pass; if added, mail item-attachment limits belong to `10_systems/social/MAIL.md` (which already
+  owns mail attachment policy), not here.

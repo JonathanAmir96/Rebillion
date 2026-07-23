@@ -141,8 +141,8 @@ Solo players still fight both bosses via the arena's open (non-PQ) entry at redu
 Role coverage rule for monster batches: each region's normals must span ≥6 distinct role
 archetypes (melee, ranged/caster, aerial, lurker/ambush, pack/swarm, tank/guard, support,
 burster) — no stat-recolor rosters. Elites are flourished variants with stronger AI and
-silhouettes. Boss uniques: boss #n owns `item_equip_{0199+2n}`/`{0200+2n}` (Cindermaw
-0201–0202 … Custodian 0215–0216) per ID_REGISTRY.md.
+silhouettes. Boss uniques are allocated in ID_REGISTRY.md (boss-unique mapping); not
+restated here.
 
 ### R1 · Emberfoot Isle (Lv 1–8) — `emberfoot`
 Cinder-warmed training island around the starter village. Tone: warm, safe, first-steps.

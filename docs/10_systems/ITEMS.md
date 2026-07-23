@@ -96,7 +96,8 @@ not permanent bans**:
 
 One weapon type per job line (`10_systems/JOBS.md` §0). A weapon of a given type is equippable
 only by its line; before the 1st advancement (Lv 8) a `novice` wields a **granted starter weapon**
-(`power` `W`≈4, `neutral`; not one of the 40 line weapons — see `10_systems/JOBS.md` §6).
+(`power` `W`≈4, `neutral`; not one of the 24 authored line weapons (`docs/ID_REGISTRY.md`
+§Items) — see `10_systems/JOBS.md` §6).
 
 | Type | Line (`10_systems/JOBS.md`) | Governing primary | Feeds |
 |---|---|---|---|
@@ -395,11 +396,17 @@ and required/optional flags; this doc owns only the table wrapper and the meanin
 
 ## Open Questions
 
-- SCOPE (`00_vision/SCOPE.md`) lists "~80 armor" and "~24 accessories"; the §4 clean grid yields 50
-  core armor (5 slots × 10 tiers) + reserved growth and 30 core accessories. Phase D fills toward
-  the SCOPE counts using the reserved `item_equip` ranges (intermediate/region-variant pieces on
-  the same §8/§9 value curve, interpolated by `req_level`); exact per-slot SKU count is a Phase D
-  call bounded by `docs/ID_REGISTRY.md`. Flagged for the content pass.
+- Resolved (v2): core armor = 30 (5 slots × 6 tiers) and core accessories = 16, landing directly
+  on the six-tier grid (§4) with no fill-toward-SCOPE gap remaining; `shield` (6) and `overall` (6)
+  are separate equipment-v2 sub-blocks layered on top (§4, `docs/ID_REGISTRY.md` §Items). Matches
+  `00_vision/SCOPE.md` line 19 (`~98` total equip: 24 weapons / 30 armor / 16 accessories / 16 boss
+  uniques / 6 shields / 6 overalls) exactly.
+- §7 (`W` by tier), §8 (armor/warding by tier), §9 (accessory by tier), and §10 (affix menu /
+  rarity budget) still key their tier rows/columns to the retired ten-tier grid (Lv
+  1/10/20/30/40/50/60/70/80/90) rather than the six in-arc tier levels (Lv 1/8/15/22/29/36, §4;
+  `docs/ID_REGISTRY.md` §Items). The underlying numbers are formula-derived (each table's header
+  formula), so regenerating them is a `ROLE_SYSTEMS_ARCHITECT` retune, not a mechanical edit —
+  flagged for the next systems pass, not resolved here.
 - `W` and the §10 affix budgets assume the `power_ref`/`mult m` reference of
   `10_systems/COMBAT_FORMULA.md` §15; if the balance pass finds an at-level geared character lands
   far off `power_ref`, retune `mult m` there (never `normal_life`), and revisit the staff +10%

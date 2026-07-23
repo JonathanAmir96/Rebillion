@@ -193,8 +193,8 @@ client/server boundary are owned by `10_systems/PERSISTENCE.md`.
   `10_systems/LEVELING.md` / `ECONOMY.md` may tune.
 - Passive out-of-combat `life`/`essence` regeneration (resting) is not defined here; propose
   ownership by `10_systems/COMBAT_FORMULA.md` or a dedicated rest rule. Flagged.
-- Exact `armor`/`warding` → damage-reduction curve and `precision`-vs-`evasion` hit resolution
-  are `10_systems/COMBAT_FORMULA.md`'s; confirm the boundary at the B gate.
+- Resolved: `armor`/`warding` → damage-reduction curve owned by `10_systems/COMBAT_FORMULA.md`
+  §5 (mitigation curve); `precision`-vs-`evasion` hit resolution owned by §3 (hit check).
 - Primary growth beyond Lv 100 (toward the 300 cap) is unspecified — future arcs decide whether
   §4.2's +3/+1 continues, tapers, or hands off to gear-only; nothing in the authored Lv 1–42 arc
   depends on the answer. Owner: this doc with `10_systems/LEVELING.md`.
