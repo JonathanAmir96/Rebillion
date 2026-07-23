@@ -70,7 +70,21 @@ contracts others consume, Sonnet where judgment fills a fixed contract):
    state deltas — the client never asserts a gained item, stat, or `shards` amount.
    Packet opcodes need a new immutable ID block: extend docs/ID_REGISTRY.md in its own
    commit BEFORE minting any opcode.
-6. CHAT_SOCIAL_BACKEND.md — Sonnet. Chat channels (map/local, party, guild, whisper,
+6. GAMEPLAY_SIMULATION.md — Opus. The server-side game-logic layer: where each
+   `authority: server` rule actually EXECUTES. Cover, citing the owning system doc for
+   every formula rather than restating it: combat resolution (COMBAT_FORMULA.md —
+   hit/crit/damage rolls run server-side), skill use (SKILL_SYSTEM.md — rank/prereq/
+   `essence_cost`/cooldown checks, SKILL_EFFECTS.md application), stats (STATS.md —
+   free-point allocation validation and derived-stat recompute as the single truth),
+   exp gain and level-up (LEVELING.md), status effects (STATUS_EFFECTS.md — timers and
+   stacks ticked server-side), enhancement attempts and soft-pity (ENHANCEMENT.md —
+   no reroll-until-success), drop rolls and loot ownership tags (DROPS.md), death and
+   bind point (DEATH_PENALTY.md), and spawn/AI tick ownership (SPAWN.md,
+   AI_BEHAVIOR.md — what simulates on the server vs. what the client only animates).
+   Fix the tick model: what runs per server tick, per channel, per map. This doc is
+   the bridge between the system docs and docs 4–5: every packet in NETWORK_PROTOCOL.md
+   that mutates server state must name the section here that validates it.
+7. CHAT_SOCIAL_BACKEND.md — Sonnet. Chat channels (map/local, party, guild, whisper,
    world), rate limits and moderation hooks, and how the server-deferred social docs
    (PARTY/GUILD/MARKET stubs) attach to the topology of doc 1.
 
@@ -79,8 +93,9 @@ ROLE_INTEGRATION_ENGINEER per docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md.
 Model tier: <per routing above>. Task/Inputs/Deliverables/Report back." After each doc:
 one ROLE_SYSTEMS_ARCHITECT review pass (consistency with the systems docs it cites) and
 one ROLE_QA_VALIDATOR gate (VALIDATION.md: tokens, banned terms, ID ranges, link
-integrity, US spelling) before you commit it. Docs 2–6 may run as parallel sub-agents
-once doc 1 is gated. Update ROLE_INTEGRATION_ENGINEER.md's "Owns" list to name the new
+integrity, US spelling) before you commit it. Docs 2–7 may run as parallel sub-agents
+once doc 1 is gated, but land doc 6 (GAMEPLAY_SIMULATION.md) before finalizing doc 5's
+packet catalog — packets cite their validating simulation section. Update ROLE_INTEGRATION_ENGINEER.md's "Owns" list to name the new
 files (that role file is not locked).
 
 LAWS (from CLAUDE.md, restated because they bind every sub-agent):
@@ -95,7 +110,7 @@ LAWS (from CLAUDE.md, restated because they bind every sub-agent):
   gates and push to this session's designated feature branch with
   `git push -u origin <branch>`.
 
-DONE WHEN: all six docs are gated and pushed; a phase report lands in
+DONE WHEN: all seven docs are gated and pushed; a phase report lands in
 docs/phase_reports/ (routing used, gate results, open questions rolled up); and
 memory.md is updated with the decisions taken. Definition of done for each doc is the
 role's: a coding-pass engineer could estimate the work from the doc alone.
@@ -104,7 +119,10 @@ role's: a coding-pass engineer could estimate the work from the doc alone.
 ## Notes for the owner
 
 - The prompt deliberately makes `BACKEND_ARCHITECTURE.md` a hard gate before the other
-  five documents fan out — the same exemplar-first pattern the content phases used.
+  six documents fan out — the same exemplar-first pattern the content phases used.
+- `GAMEPLAY_SIMULATION.md` is the doc that pulls skills, stats, exp, status effects,
+  enhancement, drops, and spawn/AI onto the server: it names where each rule executes
+  and cites the owning system doc for the rule itself (single source of truth).
 - Telemetry, build/distribution, and the PixelLab runbook (also owned by
   ROLE_INTEGRATION_ENGINEER) are **out of this kickoff's scope** on purpose; they don't
   block the server design and can be a later, cheaper session.
