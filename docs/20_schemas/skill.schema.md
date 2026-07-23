@@ -204,17 +204,15 @@ flavor: "{<=2 sentences}"
   this schema uses **`line`** (the task's explicit field list + `00_vision/GLOSSARY.md` "Line token"
   vocabulary). If the orchestrator intends the literal anchor key `job`, rename here — flagged rather
   than guessed. Whichever is chosen, the value is a GLOSSARY line token.
-- **`condition` enum for `passive_stat_bonus`/`on_hit_proc`.** `10_systems/SKILL_EFFECTS.md` §16 (OQ)
-  leaves the `condition` vocabulary (`below_life_pct:X`, `while_veiled`, `vs_marked`, …) open-ended
-  and asks that it be frozen at the C gate so `docs/VALIDATION.md` can enum-check it. Until frozen,
-  authors use only the examples named there; this schema cannot enum-validate `condition` yet.
+- ~~`condition` enum open-ended~~ **Resolved:** `10_systems/SKILL_EFFECTS.md` froze the set at
+  the C gate (`below_life_pct:X` · `while_veiled` · `vs_marked` · `while_stance`); `condition`
+  is now enum-validated against it.
 - ~~`40_assets/SKILL_ANIMATION.md` lands this phase~~ **Resolved:** it exists; the anchor form
   `skill_<line>_NNN_cast` is confirmed as the validated id, and multi-clip skills derive further
   clips by fixed suffix (`_proj`/`_impact`/`_loop`/`_proc`, its §2) with no schema change here.
-- **Summon `entity_ref` targets.** Skills with `summon_entity` (`skill_keeneye_010`,
-  `skill_weaver_017`, `skill_flicker_015`) reference a summon-template entity whose ID block is the
-  open `20_schemas/monster.schema.md` / `docs/ID_REGISTRY.md` question; confirm the ref format at the
-  C gate (`10_systems/SKILL_EFFECTS.md` §12 OQ).
+- ~~Summon `entity_ref` block unresolved~~ **Resolved at the C gate:** summon templates live in
+  `docs/ID_REGISTRY.md`'s reserved `mob_151`–`mob_160` block; `summon_entity.entity_ref` is an
+  ordinary `mob_NNN` id inside it.
 - **Per-skill cast/recovery window.** `10_systems/SKILL_SYSTEM.md` §5 describes a per-skill
   cast+recovery input-lock separate from `cooldown`; whether it is authored as a field here or
   derived from the `animation` clip length is unresolved (SKILL_SYSTEM §5 / COMBAT_FORMULA §10 OQ).

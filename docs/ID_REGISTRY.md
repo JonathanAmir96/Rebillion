@@ -110,6 +110,20 @@ Line tokens (owner 10_systems/JOBS.md): `bulwark` (might), `keeneye` (finesse), 
 `007`–`013` second-job); `014`–`021` reserved for the deferred 3rd-job tier; `022`–`030`
 reserved growth. `skill_novice_001`–`010` reserved for the novice kit (up to 4 authored).
 
+## Monster abilities — `mob_ability_<mob_NNN>_01`–`_08`
+
+Boss/elite ability references (`10_systems/AI_BEHAVIOR.md` §15 `added_abilities`,
+`20_schemas/monster.schema.md` `abilities[]`) are namespaced **per owning monster**: up to 8 per
+monster, authored inside that monster's own file, never in the player `skill_*` space. The
+`<mob_NNN>` stem must equal the owning monster's ID (validator-derivable, no central list).
+
+## Summon templates — `mob_151`–`mob_160` (reserved)
+
+Non-world entities spawned by `summon_entity` (`10_systems/SKILL_EFFECTS.md` §12 — player summons
+and boss adds). Authored as ordinary monster files (`20_schemas/monster.schema.md`) but exempt
+from region blocks, the world-graph, and the 118/24/8 count; they may not appear in any map's
+`spawn_zones` or drop-table ownership (no `drop_mob` twin required).
+
 ## NPCs — `npc_001`–`npc_120`
 
 | Region | Block | Count | Region | Block | Count |

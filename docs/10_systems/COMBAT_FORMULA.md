@@ -165,11 +165,13 @@ to are owned here:
 | Base | Value | Applied |
 |---|---|---|
 | `base_attack_interval` | 0.90 s (≈1.11 basic attacks/s) | `effective = 0.90 / (1 + attack_speed%)` |
-| `base_move_speed` | 200 px/s (reference) | `effective = 200 · (1 + move_speed%)` |
+| `base_move_speed` | **128 px/s** (= 8 tiles/s at the locked 16 px grid) | `effective = 128 · (1 + move_speed%)` |
 
 Skill cast/recovery times override `base_attack_interval` per skill (`10_systems/SKILL_SYSTEM.md`).
-`base_move_speed` in px/s is a placeholder pending the tile scale locked by `40_assets/ART_BIBLE.yaml`
-(Open Question).
+`base_move_speed` is **locked at the C gate**: `40_assets/ART_BIBLE.yaml` (AB-001) fixes the
+16 px grid, and `15_maps_system/MAP_TRAVERSAL.md` §1's `run_speed` (8 tiles/s — the figure every
+authored jump/gap derives from) is adopted as the one ground-speed number; the old 200 px/s
+placeholder is retired.
 
 ## 11. Knockback & hitstun
 
@@ -343,9 +345,9 @@ intended tutorial pacing (P2) and stays inside the "snappy" spirit of the band.
 
 ## Open Questions
 
-- `base_move_speed` (200 px/s) and `base_attack_interval` (0.90 s) are placeholders until the tile
-  scale is locked in `40_assets/ART_BIBLE.yaml`; the `haste` percentages (STATS §5) are scale-free,
-  but the px value is not. Owner: COMBAT_FORMULA at the C gate.
+- ~~`base_move_speed` placeholder pending the tile-scale lock~~ **Resolved at the C gate:**
+  128 px/s (§10), reconciled with `15_maps_system/MAP_TRAVERSAL.md` §1. `base_attack_interval`
+  (0.90 s) stays first-pass feel, retunable after playtesting.
 - ~~Mid-party size for the §14 party target pending `10_systems/social/PARTY.md`~~ **Resolved at
   the v2 straggler wave:** the legal range is 3–6 (`10_systems/social/PARTY_QUEST.md` §2) and `N`
   counting is `10_systems/social/PARTY.md` §6's; the §13.3 reference table spans the full range.

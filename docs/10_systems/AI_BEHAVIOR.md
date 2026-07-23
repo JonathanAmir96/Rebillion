@@ -282,10 +282,9 @@ combat resumes), `phase_transition_lock` true (life-threshold crossings always i
 above; set false only if a specific boss needs a softer transition — flag it in that boss's data).
 
 ## Open Questions
-- Boss/monster ability IDs (§15 `added_abilities`) have no reserved prefix in
-  `docs/ID_REGISTRY.md` today (only `skill_<line>_NNN` for player job-line skills). Needs an
-  ID_REGISTRY decision before Phase D authors boss kits — proposing a
-  `mob_ability_<mob_NNN>_NN` convention or similar; flagged, not decided here.
+- ~~Boss/monster ability IDs have no reserved prefix~~ **Resolved at the C gate:**
+  `docs/ID_REGISTRY.md` now reserves `mob_ability_<mob_NNN>_01`–`_08` (per-monster namespace)
+  and `mob_151`–`mob_160` for summon templates.
 - An on-death-detonate variant of `kamikaze_burster` (explodes even if killed before its windup
   completes) is not defined; if a later design wants it, it should be a monster-authored
   `on_hit_proc`/death effect (`10_systems/SKILL_EFFECTS.md`), not a change to this profile's base
