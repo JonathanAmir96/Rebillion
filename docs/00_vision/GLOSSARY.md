@@ -129,7 +129,10 @@ reserved for future expansions — invalid in this run's content.
 "waygate" mechanism is retired — that token is invalid in content.
 
 ## Provisional (pending promotion at a phase gate)
-- None currently. (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)
+- `gleam` — premium cosmetic-only currency (real money; account-bound; never converts to or
+  from `shards`). Owner: 10_systems/MONETIZATION.md (MON-001). OQ: promote or rename at the
+  next phase gate.
+- (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)
 
 ## Open Questions
 - ~~Split `haste` into move/attack tokens?~~ **Resolved at B gate:** kept combined; conversion

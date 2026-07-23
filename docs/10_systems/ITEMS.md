@@ -316,3 +316,8 @@ and required/optional flags; this doc owns only the table wrapper and the meanin
 - Set bonuses (wearing N pieces of a themed group) are **not** in this pass; if wanted they attach
   to boss-unique groups (§11) via `passive_stat_bonus` and need a `set_id` field in
   `20_schemas/item.schema.md`. Flagged, not designed.
+- (MON-001) A zero-stat cosmetic appearance layer (overlay slots rendered above the equipment
+  slots) is reserved by `10_systems/MONETIZATION.md` §3.1. Slot list and
+  `20_schemas/item.schema.md` fields land in a future amendment — settle before the Phase E
+  coding pass fixes the character render/paper-doll layering. No cosmetic items are authored
+  this run.

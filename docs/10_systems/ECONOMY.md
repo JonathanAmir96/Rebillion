@@ -186,3 +186,7 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
   balanced against §2.
 - Whether stat reallocation should be cheaper/free below some level (to lower the early
   experimentation barrier) is open; default is the flat `50·L` curve (§3.1).
+- (MON-001) A billboard-rental `shards` sink in town maps is reserved by
+  `10_systems/MONETIZATION.md` §3.2; if adopted it lands as a §2 sink row in a future
+  amendment. The premium currency (`gleam`, GLOSSARY Provisional) never converts to or from
+  `shards` in either direction — no monetization faucet or sink may ever appear in this doc.

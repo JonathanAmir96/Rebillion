@@ -47,9 +47,15 @@ would read as another game's asset, term, or map is out — homage yes, clone ne
 
 ## Anti-pillars (never do)
 - No photoreal or HD-2D rendering; pixel identity is locked in ART_BIBLE.yaml.
-- No pay-style economy design (shards are earned in-world; ECONOMY.md).
+- No pay-to-win (amended MON-001): real-money purchases may never grant stats, power,
+  progression speed, or market-tradable advantage. Cosmetic-only monetization and in-world
+  sponsor placements are permitted per 10_systems/MONETIZATION.md; shards remain earned
+  in-world only (ECONOMY.md).
 - No rule text inside content files; content holds values and references only.
 - No silent invention: unknown token, rule, or number → Open Question, not a guess.
 
 ## Open Questions
-- None. (Pillars locked at Phase A; changes require an orchestrator amendment.)
+- None. (Pillars locked at Phase A; changes require an orchestrator amendment. Amendment
+  log: **MON-001**, owner, 2026-07-23 — anti-pillar "no pay-style economy" refined to
+  "no pay-to-win"; cosmetic-only monetization direction fixed in
+  10_systems/MONETIZATION.md.)
