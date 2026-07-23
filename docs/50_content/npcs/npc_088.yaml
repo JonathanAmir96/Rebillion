@@ -1,0 +1,12 @@
+id: npc_088
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, MAP_CONNECTIONS]
+name: Deckhand Ressa
+region: frostpeak
+map: map_207
+role: flavor
+dialog:
+  greeting: "Mind the rail. She rides smooth, but the Tidewatch swell still catches folks by surprise."
+  idle: "Two seasons crewing the Frostwake and I still get seasick past the strait."
+portrait: portrait_npc_088
+flavor: "Ressa coils rope and swaps sea stories with anyone who'll stand still long enough to listen."

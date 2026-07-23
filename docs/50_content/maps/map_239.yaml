@@ -1,0 +1,40 @@
+id: map_239
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Frozen Cache
+region: frostpeak
+map_type: secret
+level_band: { min: 57, max: 57 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 46, h: 22 }
+bgm: bgm_frostpeak
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 16] }
+portals:
+  - id: to_herald_landing
+    kind: door
+    at: { tile: [4, 16] }
+    target_map: map_238
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: frozen_cache_zone
+    rect_tiles: { x: 12, y: 12, w: 26, h: 8 }
+    mobs:
+      - { mob: mob_177, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_frozen_cache
+    at_tile: [26, 14]
+    params:
+      text: "A muster-cache the raid crews stocked and forgot -- or never came back for."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A single reward pocket beside the herald's staging ground, sparse and quiet
+  (SPAWN §2 secret budget). No verticality gimmick.
+flavor: "A supply nook the Deepfrost musters stocked long ago, tucked just off the herald's landing."

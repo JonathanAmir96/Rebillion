@@ -1,0 +1,22 @@
+id: quest_098
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Frozen Maw's Elite
+region: frostpeak
+quest_type: side
+giver_npc: npc_096
+level_requirement: 55
+recommended_level: 55
+steps:
+  - type: kill
+    target: mob_172
+    count: 4
+  - type: collect
+    target: item_etc_0142
+    count: 4
+rewards:
+  exp: 45750  # round(0.10*457,500) (LEVELING §1 Lv55 table row)
+  shards: 344  # mean_shards_normal(55)*4 = 86*4 (round(1.5*55+3)=85.5 -> 86)
+flavor: "Something bigger than the usual den-pack has moved into the Frozen Maw, and Guld's trap-lines keep coming back empty."
+offer_text: "My trap-lines through the Maw have gone quiet -- something's eating the game and the traps both. Handle it and bring proof."
+complete_text: "That explains the empty lines. Handled clean, too -- I'll not forget it."

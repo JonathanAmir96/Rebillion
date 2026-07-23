@@ -1,0 +1,12 @@
+id: npc_096
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Trapper Guld
+region: frostpeak
+map: map_234
+role: quest_giver
+dialog:
+  greeting: "The Frozen Maw's crawling with something meaner than the usual pack. Bring me proof and I'll pay well for it."
+  farewell: "Watch the ceiling ice up there. It drops when you least want it to."
+portrait: portrait_npc_096
+flavor: "Guld has run trap-lines through the Glacier Caverns longer than Wyrmcrag Hold has kept written records of him."
