@@ -67,5 +67,6 @@ full curve to 300 (formula-first) with detail tables for the authored range.
 
 ## Open Questions
 - Should secret maps count toward region completion metrics used by quests? Default: no.
-- v2 revision arrived after Phase B: system docs written for the Lv 100 world are patched by
-  the B-revision wave (tracked in docs/phase_reports/); flag any straggler references.
+- v2 revision arrived after Phase B: system docs written for the Lv 100 world were patched by
+  the B-revision wave on 2026-07-23 (audit + remediation tracked in
+  docs/phase_reports/SYNC_AUDIT_v2_2026-07-23.md); flag any straggler references there.
