@@ -1,0 +1,12 @@
+id: npc_055
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Yarrow Hollow-Ward
+region: gloomwood
+map: map_098
+role: quest_giver
+dialog:
+  greeting: "Verdant's light doesn't reach this far. Mind the shadow-things at the eaves before you go further in."
+  farewell: "Keep the sun at your back as long as it lasts you."
+portrait: portrait_npc_055
+flavor: "Yarrow left Verdant Hollow years ago and has watched the wood's edge ever since, half hermit and half sentry."

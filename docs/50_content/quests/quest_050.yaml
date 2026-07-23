@@ -1,0 +1,23 @@
+id: quest_050
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Deeper Than the Eaves
+region: gloomwood
+quest_type: side
+giver_npc: npc_055
+level_requirement: 21
+recommended_level: 21
+prereqs: [quest_049]
+steps:
+  - type: kill
+    target: mob_070
+    count: 8
+  - type: collect
+    target: item_etc_0066
+    count: 5
+rewards:
+  exp: 1806   # round(0.08 * 22,572); side band 5-10% of exp_to_next(21)=22,572 (LEVELING §1); pct=0.08
+  shards: 140  # side = mean_shards_normal(21)*4 = 35*4 (QUESTS §5 / DROPS §3)
+flavor: "Whatever answered the eaves watch's call lives further in than Yarrow's charms can reach."
+offer_text: "You cleared the eaves, but the wood's still watching from deeper in. Bring me what you find there."
+complete_text: "So it's spreading further than I thought. Watch yourself past the last light."

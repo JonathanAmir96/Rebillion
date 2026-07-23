@@ -1,0 +1,56 @@
+id: map_121
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Silkbound Vault, The Last Loom Gate
+region: gloomwood
+map_type: dungeon
+level_band: { min: 28, max: 28 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 80, h: 55 }
+bgm: bgm_gloomwood
+ambience: [amb_web_creak, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 46] }
+  - { id: from_clockwork, tile: [70, 10] }    # WORLD_PLAN cross-region edge: Clockwork west gate (map_188) -> here
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_120
+    target_spawn: main
+    dead_end: false
+  - id: to_clockwork_ruins
+    kind: edge
+    at: { edge: right }
+    target_map: map_188                      # forward-ref: Clockwork Ruins (R8, not yet authored)
+    target_spawn: from_gloomwood
+    dead_end: false
+  - id: to_broodloom
+    kind: door
+    at: { tile: [40, 44] }
+    target_map: map_124
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: lore_marker
+    id: marker_last_loom_gate
+    at_tile: [36, 44]
+    params:
+      text: "A brass-cold draft slips in from the east; a torn silk archway opens south into deeper dark."
+      interact_prompt: Read
+spawn_zones:
+  - id: silkbound_vault_last_loom_gate
+    rect_tiles: { x: 20, y: 36, w: 34, h: 12 }
+    mobs:
+      - { mob: mob_085, count: 1 }
+      - { mob: mob_086, count: 2 }
+    max_concurrent: 8
+npcs: [npc_061]
+platform_brief: |
+  A wide antechamber where the vault forks three ways: back into the warrens, east through
+  a rough brass-lined gap toward Clockwork, and south through the arena's silk archway.
+  Ledges stay within the standard jump budget (MAP_TRAVERSAL §1.1). Heaviest elite density
+  in the region (SPAWN §2).
+flavor: "Three ways out of the dark meet here -- the way you came, a cold brass draft east, and a torn archway that hums."
