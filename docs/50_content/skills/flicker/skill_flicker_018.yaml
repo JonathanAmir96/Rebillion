@@ -1,0 +1,38 @@
+id: skill_flicker_018
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Gambit                        # exact JOBS.md §5.3 Wildcard roster name
+line: flicker
+tier: second
+kind: active
+targeting: self
+cost: { essence: 12 }
+cooldown: 14.0
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 12
+    cooldown: 14.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 10 }    # all-in bet on the next few exchanges (STATUS_EFFECTS §4.2 base durations)
+      - { op: apply_status, status: swiftness, chance: 1.0, dur: 10 }
+  - level: 4
+    essence_cost: 15
+    cooldown: 13.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 11 }
+      - { op: apply_status, status: swiftness, chance: 1.0, dur: 11 }
+  - level: 7
+    essence_cost: 19
+    cooldown: 12.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 12 }
+      - { op: apply_status, status: swiftness, chance: 1.0, dur: 12 }
+  - level: 10
+    essence_cost: 22
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 14 }
+      - { op: apply_status, status: swiftness, chance: 1.0, dur: 14 }
+animation: skill_flicker_018_cast
+flavor: "A Wildcard throws every chip on the table at once — faster, harder, and betting fortune covers the difference."

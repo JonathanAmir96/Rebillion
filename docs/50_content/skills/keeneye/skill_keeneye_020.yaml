@@ -1,0 +1,25 @@
+id: skill_keeneye_020
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Executioner's Eye             # exact JOBS.md §3.3 Sureshot roster name
+line: keeneye
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+max_level: 10
+level_data:
+  - level: 1
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, condition: "below_life_pct:25", effect: { op: deal_damage, element: neutral, mult: 0.3, can_crit: true }, icd: 1.0 }   # execute-flavor bonus (condition example per SKILL_EFFECTS §16 / skill.schema OQ)
+  - level: 4
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, condition: "below_life_pct:25", effect: { op: deal_damage, element: neutral, mult: 0.5, can_crit: true }, icd: 1.0 }
+  - level: 7
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, condition: "below_life_pct:25", effect: { op: deal_damage, element: neutral, mult: 0.7, can_crit: true }, icd: 1.0 }
+  - level: 10
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, condition: "below_life_pct:25", effect: { op: deal_damage, element: neutral, mult: 0.9, can_crit: true }, icd: 1.0 }
+flavor: "A Sureshot never lets a wounded target limp away — every hit against the badly hurt carries an extra, unspoken promise of a finish."

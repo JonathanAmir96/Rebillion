@@ -1,0 +1,38 @@
+id: skill_flicker_008
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Smoke Bomb                    # exact JOBS.md §5.2 Duskstep roster name
+line: flicker
+tier: second
+kind: active
+targeting: { shape: aoe_circle, radius: 3, origin: self }   # bomb dropped at the caster's feet (SKILL_SYSTEM §6)
+cost: { essence: 16 }
+cooldown: 14.0
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 16
+    cooldown: 14.0
+    effects:
+      - { op: apply_status, status: blind, element: shadow, chance: 0.60, dur: 3 }   # hits hostiles in the cloud (STATUS_EFFECTS §4.1 sense_type)
+      - { op: apply_status, status: veil, chance: 1.0, dur: 5 }                       # grants the caster (support class) stealth (STATUS_EFFECTS §4.2)
+  - level: 4
+    essence_cost: 19
+    cooldown: 13.0
+    effects:
+      - { op: apply_status, status: blind, element: shadow, chance: 0.70, dur: 3 }
+      - { op: apply_status, status: veil, chance: 1.0, dur: 5 }
+  - level: 7
+    essence_cost: 23
+    cooldown: 12.0
+    effects:
+      - { op: apply_status, status: blind, element: shadow, chance: 0.80, dur: 4 }
+      - { op: apply_status, status: veil, chance: 1.0, dur: 6 }
+  - level: 10
+    essence_cost: 26
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: blind, element: shadow, chance: 0.90, dur: 4 }
+      - { op: apply_status, status: veil, chance: 1.0, dur: 6 }
+animation: skill_flicker_008_cast
+flavor: "A dropped vial of choking shadow-smoke — the pursuers left coughing and blind while the Duskstep who threw it simply isn't there anymore."

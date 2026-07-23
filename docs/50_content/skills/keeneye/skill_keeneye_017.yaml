@@ -1,0 +1,44 @@
+id: skill_keeneye_017
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Kill Shot                     # exact JOBS.md §3.3 Sureshot roster name
+line: keeneye
+tier: second
+kind: active
+targeting: { shape: line, length: 12, width: 0.8, pierce: 0 }
+cost: { essence: 20 }
+cooldown: 14.0                      # the spec's single-target finisher — top-heavy cost/CD within the §5 spec band
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 20
+    cooldown: 14.0
+    effects:
+      # OPEN QUESTION (flag, don't guess): JOBS.md calls this "guaranteed crit, execute". deal_damage
+      # (SKILL_EFFECTS §3) only exposes `can_crit` as a bool gate — there is no "force-crit" param in
+      # the 14-op registry, so a literal 100%-crit-chance cannot be authored here. Approximated below
+      # as a high-`can_crit` base hit plus an `on_hit_proc` "execute" bonus using the `below_life_pct`
+      # condition example named in SKILL_EFFECTS §16 / skill.schema Open Questions. Flagged for the
+      # SKILL_EFFECTS owner rather than inventing a new param.
+      - { op: deal_damage, element: neutral, mult: 1.8, can_crit: true }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, condition: "below_life_pct:30", effect: { op: deal_damage, element: neutral, mult: 0.8, can_crit: true }, icd: 0.0 }
+  - level: 4
+    essence_cost: 23
+    cooldown: 13.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.2, can_crit: true }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, condition: "below_life_pct:30", effect: { op: deal_damage, element: neutral, mult: 1.1, can_crit: true }, icd: 0.0 }
+  - level: 7
+    essence_cost: 26
+    cooldown: 12.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.6, can_crit: true }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, condition: "below_life_pct:30", effect: { op: deal_damage, element: neutral, mult: 1.3, can_crit: true }, icd: 0.0 }
+  - level: 10
+    essence_cost: 28
+    cooldown: 11.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 3.0, can_crit: true }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, condition: "below_life_pct:30", effect: { op: deal_damage, element: neutral, mult: 1.5, can_crit: true }, icd: 0.0 }
+animation: skill_keeneye_017_cast
+flavor: "One shot, held past comfort, loosed the instant the target's guard drops. A wounded enemy doesn't get back up from a Sureshot's Kill Shot."
