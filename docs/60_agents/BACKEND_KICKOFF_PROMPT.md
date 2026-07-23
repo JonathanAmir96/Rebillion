@@ -35,8 +35,13 @@ MISSION: author the authoritative-server design suite under docs/70_integrations
 no game or server code this run. Every document maps PERSISTENCE.md authority tags onto
 concrete components, lists failure modes for every external dependency, keeps secrets
 environment-managed, and states its "implemented when" trigger (the role's deliverable
-contract). Target stack context: Godot 4.3+ client; server technology choices are yours
-to propose but must be filed as owner-priced Open Questions, not fixed silently.
+contract). Target stack context: Godot 4.3+ client. DECISION AUTHORITY: technical
+design choices — server stack, tick model, network protocol, database technology,
+topology — are YOURS to decide from best practice for this genre; commit to concrete
+choices with a one-paragraph rationale and rejected alternatives, and treat "flag,
+don't guess" as applying to game-design values owned by other docs, not to your own
+engineering calls. Only decisions with a real price tag (hosting, vendor contracts,
+third-party services) are filed as owner-priced Open Questions.
 
 DELIVERABLES AND ROUTING (route by blast radius per ORG.md — Opus where the doc defines
 contracts others consume, Sonnet where judgment fills a fixed contract):
@@ -59,11 +64,14 @@ contracts others consume, Sonnet where judgment fills a fixed contract):
    autosave-trigger table (PERSISTENCE.md §6), `save_version` migration (§8), backup
    and recovery.
 5. NETWORK_PROTOCOL.md — Opus for the envelope/contract sections, then a Sonnet
-   sub-agent may fill the packet catalog inside that fixed contract. Contents: message
-   envelope, serialization, versioning, and a full packet catalog — auth/handshake,
-   movement + reconciliation cadence (`shared` fields, PERSISTENCE.md §4), combat
-   actions, loot pickup, inventory ops, `shards` and item-acquisition flows, quest
-   progress, skill use, chat, party/social. For every packet: direction, payload
+   sub-agent may fill the packet catalog inside that fixed contract. DECIDE the
+   protocol concretely from best practice for this genre (2D side-scrolling MMORPG,
+   Godot 4.3+ client) — transport, serialization format, message envelope, versioning,
+   compression, keep-alive/timeout values — with a short rationale per choice and
+   rejected alternatives noted. Do not defer these to the owner. Contents beyond that:
+   a full packet catalog — auth/handshake, movement + reconciliation cadence (`shared`
+   fields, PERSISTENCE.md §4), combat actions, loot pickup, inventory ops, `shards`
+   and item-acquisition flows, quest progress, skill use, chat, party/social. For every packet: direction, payload
    fields with authority tags, and server-side validation. The acquisition rule is
    non-negotiable: the client only ever REQUESTS (attack, pick up, buy, enhance);
    the server rolls/validates per PERSISTENCE.md §7 and responds with authoritative
@@ -81,7 +89,10 @@ contracts others consume, Sonnet where judgment fills a fixed contract):
    no reroll-until-success), drop rolls and loot ownership tags (DROPS.md), death and
    bind point (DEATH_PENALTY.md), and spawn/AI tick ownership (SPAWN.md,
    AI_BEHAVIOR.md — what simulates on the server vs. what the client only animates).
-   Fix the tick model: what runs per server tick, per channel, per map. This doc is
+   DECIDE the tick model concretely from best practice for this genre: server tick
+   rate(s), what runs per tick vs. event-driven, per-channel vs. per-map scheduling,
+   status-effect/cooldown timer resolution, and the movement-reconciliation cadence —
+   concrete numbers with rationale, not options. Do not defer these to the owner. This doc is
    the bridge between the system docs and docs 4–5: every packet in NETWORK_PROTOCOL.md
    that mutates server state must name the section here that validates it.
 7. CHAT_SOCIAL_BACKEND.md — Sonnet. Chat channels (map/local, party, guild, whisper,
