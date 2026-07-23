@@ -59,7 +59,9 @@ Three states per `mob_NNN`, per character, strictly one-way (never regresses):
 - **`unseen`** — default. The entry does not appear by name in the log; only its tier/region
   are counted toward the "undiscovered" tally (§5) so a player can see *how much* of a region is
   still unknown without spoiling *what*.
-- **`sighted`** — set the first time the monster enters the player's aggro/render range, whether
+- **`sighted`** — set the first time the monster comes within **`max(aggro_radius, 6)` tiles**
+  of the player (same vertical-band gate as aggro, `10_systems/AI_BEHAVIOR.md` §2 — the floor
+  covers `on_hit`-only/0-radius profiles like `passive_wanderer`), whether
   or not the player deals or takes damage. Reveals `name`, `tier`, `element`, and `level` only —
   a silhouette-and-label preview, not the full card. Sighting a species does not require combat
   and is not gated by kill credit; it exists so exploring a region ahead of hunting it still
@@ -77,7 +79,7 @@ partial credit.
 
 A `logged` entry's drop-row list starts with every row **masked** except the `guaranteed`
 `shards` row (every kill drops it, so there is nothing to discover there). Each other row —
-material, use item, emberstone, pool roll, boss/raid unique — flips from masked to **revealed**
+material, use item, emberstone, pool roll, boss unique — flips from masked to **revealed**
 the first time the character personally receives that exact `ref` from that specific
 `mob_NNN`'s table (an ordinary loot grant already recorded by `10_systems/DROPS.md` §7/§9 and
 `10_systems/INVENTORY.md`; this doc adds no new grant, only a per-row "have I ever gotten this"
@@ -193,11 +195,9 @@ row treatment for §4) goes through `UI_ART_SPEC.md`'s amendment channel, not th
 - **Boss/region/global title display strings** are unauthored placeholders (§7); Phase D names
   all 17 alongside each region's flavor-text pass. Which doc/role owns naming them (region
   content batch vs. a dedicated title-flavor pass) is unresolved.
-- **Sighting range definition.** §3's `sighted` state keys off "aggro/render range," but the
-  exact radius/trigger (aggro radius per `10_systems/AI_BEHAVIOR.md` vs. a separate always-on
-  sight radius) is not fixed here; default assumption is the monster's own aggro radius, so no
-  new per-monster field is needed, but this should be confirmed against
-  `10_systems/AI_BEHAVIOR.md` before Phase D relies on it.
+- ~~Sighting range definition~~ **Resolved at the F/G reconciliation:** `sighted` triggers at
+  `max(aggro_radius, 6)` tiles with the standard vertical band (§3) — reuses
+  `10_systems/AI_BEHAVIOR.md` §2's existing tunables, no new per-monster field.
 - **Save-data shape for the three progress flags (§8)** — discovery state, revealed-drop flags,
   and claimed-reward flags need a concrete field layout inside the `GameState` facade; that
   layout is `30_engineering/ENGINEERING_STANDARDS.md`'s once authored (per

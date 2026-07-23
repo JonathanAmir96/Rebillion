@@ -3,17 +3,20 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/COMBAT_FORMULA.md, 10_systems/STATS.md, 10_systems/SKILL_SYSTEM.md,
 10_systems/QUESTS.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
-10_systems/social/PARTY.md, 10_systems/PERSISTENCE.md, docs/WORLD_PLAN.md,
-docs/ID_REGISTRY.md
+10_systems/social/PARTY.md, 10_systems/social/PARTY_QUEST.md, 10_systems/ITEMS.md,
+10_systems/ENHANCEMENT.md, 10_systems/SCROLLS.md, 10_systems/PERSISTENCE.md,
+docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
 
 Owner doc for the `exp`→`level` curve, the per-kill `exp` reward guideline, the `exp` source split
 policy, and what a level-up grants. Combat math, monster stat budgets, and the **level-difference
 dampener curve** live in `10_systems/COMBAT_FORMULA.md`; primary/derived stat growth lives in
 `10_systems/STATS.md`; skill-point spending in `10_systems/SKILL_SYSTEM.md`. This doc consumes
-those and never restates them. Level cap is **100** (`00_vision/SCOPE.md`); Rift monsters reach
-`level` 105 but players do not (§6).
+those and never restates them. The game cap is **300 (initial design, `00_vision/SCOPE.md`)**;
+the curve is formula-first and extends to any level. This run authors content to **Lv 42**
+(`docs/WORLD_PLAN.md`) — no monster in this arc exceeds `level` 42, and leveling past the arc is
+a deliberately slow grind (§6).
 
-## 1. The `exp` curve (Lv 1 → 100)
+## 1. The `exp` curve (formula-first; detail table for Lv 1–100)
 
 Two coupled formulas define pacing. The first is the per-level requirement; the second (§3) is the
 per-kill reward. They are bound so that **`exp_to_next(L) = exp_per_kill_normal(L) × kills_per_level(L)`**
@@ -65,9 +68,10 @@ including travel/aggro, `10_systems/COMBAT_FORMULA.md` §14) and that **hunting 
 | 99 | 3,112,560 | 70,745,051 | 1,980 | 5.89 h |
 | 100 | — (cap) | 73,857,611 | — | — |
 
-**Total to cap: ≈ 73.86 M `exp`, ≈ 201 `/played` hours** (target ≈ 200 h, `00_vision/SCOPE.md`
-Open Question resolved in §6). Intermediate levels: compute from the formula, or linearly
-interpolate between rows.
+**Total to Lv 100: ≈ 73.86 M `exp`, ≈ 201 `/played` hours** — a reference milestone; the curve
+continues past 100 by formula toward the 300 cap (future arcs own any retune of that stretch,
+see Open Questions). The authored arc's top (Lv 42) sits at ≈ 1.75 M cumulative `exp`.
+Intermediate levels: compute from the formula, or linearly interpolate between rows.
 
 ### 1.1 Time distribution by band
 
@@ -94,15 +98,19 @@ up, and a crater toward ×0.05 for over-leveled ("gray") kills (anti-boost). It 
 
 Base reward is by **monster** `level`, `exp_per_kill_normal(L) = round(4·L^1.3)`, scaled by tier.
 Because reward and the §1 curve share this term, `exp/hour` stays smooth across regions: at-level
-`exp/hour ≈ 480 · exp_per_kill_normal(L)`, rising steadily (≈ 1.9 K/h at Lv 1 → ≈ 764 K/h at Lv
-100) with no region-boundary jumps.
+`exp/hour ≈ 480 · exp_per_kill_normal(L)`, rising steadily (≈ 1.9 K/h at Lv 1 → ≈ 248 K/h at
+Lv 42, the arc top) with no region-boundary jumps.
 
 | `tier` | multiplier | Notes |
 |---|---|---|
 | `normal` | ×1 | The pacing anchor. |
 | `elite` | ×5 | ×6 `life` (COMBAT_FORMULA §13.2) for ×5 `exp` → marginally less `exp/hour` than normals; elites are speed-bumps and drop-density, not `exp` farms. |
 | `boss` | ×25 | ×35 `life`; a region `boss` is a progression/loot event, not an `exp/hour` play. |
-| raid boss | party-shared, **150× base total** | Total = `150 · exp_per_kill_normal(mob.level)`, split among the party per `10_systems/social/PARTY.md`; raids reward gear/prestige, `exp` is secondary. |
+
+A **PQ-instanced finale boss** (`10_systems/social/PARTY_QUEST.md` §4) pays this same `boss` ×25
+row, split among the party per `10_systems/social/PARTY.md` §4 — party quests reward loot and
+story, `exp` is secondary. A future-arc raid tier may mint its own party-shared multiplier; none
+exists in this arc.
 
 | Mob Lv | `normal` ×1 | `elite` ×5 | `boss` ×25 |
 |---|---|---|---|
@@ -119,10 +127,6 @@ Because reward and the §1 curve share this term, `exp/hour` stays smooth across
 | 90 | 1,389 | 6,945 | 34,725 |
 | 100 | 1,592 | 7,960 | 39,800 |
 | 105 | 1,697 | 8,485 | 42,425 |
-
-Raid-boss total `exp` (Lv 105) = `150 · 1697 ≈ 254,550`, split per party — ≈ 51 K per member at
-`N` = 5. Compared with ≈ 8 min of hunting (≈ 64 kills × 1697 ≈ 109 K), a raid clear is deliberately
-**not** the fast `exp` path; it is the loot path.
 
 ## 4. `exp` source split policy
 
@@ -155,30 +159,34 @@ points, and skill points are owned by STATS and SKILL_SYSTEM. The level-differen
 that gates how much a kill contributes toward the next level is `10_systems/COMBAT_FORMULA.md` §9
 (§2 above).
 
-## 6. Post-cap policy — gear-only at launch (SCOPE Open Question, RESOLVED)
+## 6. Beyond the arc — Lv 42 toward the 300 cap (v2)
 
-`00_vision/SCOPE.md`'s open question ("post-cap progression: paragon trickle, gear-only, or nothing
-at launch? — owner LEVELING.md") is **resolved here: gear-only at launch.** At `level` 100:
+The game cap is **300 (initial design)**; this arc's authored content tops at Lv 42
+(`docs/WORLD_PLAN.md` — Clockwork elites). Between the two there is **no wall**, only a soft
+asymptote:
 
-- **No further character `level`s and no paragon/overflow track.** `exp` gain stops applying to
-  `level`; kill rewards remain meaningful only for drops and `shards`
-  (`10_systems/DROPS.md`, `10_systems/ECONOMY.md`), not `exp`.
-- **Primary auto-growth stops** (`10_systems/STATS.md` §4.2 already ends at 100). The `10_systems/STATS.md`
-  post-cap OQ is resolved-by-reference: post-cap primaries change through **gear and enhancement
-  only** (`10_systems/ITEMS.md`, `10_systems/ENHANCEMENT.md`), not growth.
-- **Endgame is the gear chase + the Rift.** Rift monsters at `level` 100–105
-  (`docs/WORLD_PLAN.md` R12) are fought by a capped Lv 100 player as a **gear check**: the
-  level-difference dampener (`10_systems/COMBAT_FORMULA.md` §9) throttles a Lv 100 player's damage
-  against a Lv 105 target to ×0.74, which endgame gear (higher `power`/`spellpower`) is designed to
-  overcome. You out-gear the Rift, you do not out-level it.
+- **The §1 curve keeps applying by formula past the authored range** — nothing special happens at
+  Lv 42; there is no arc-level cap flag anywhere in the data.
+- **Out-leveling the arc is deliberately slow.** Past ≈ 42 the player out-levels every authored
+  monster, so the level-difference dampener (`10_systems/COMBAT_FORMULA.md` §9, applied in §2)
+  progressively craters per-kill `exp`. Leveling continues as a slow grind on the Clockwork
+  endgame maps and party quests (`10_systems/social/PARTY_QUEST.md`) until future arcs add higher
+  bands — the v2 replacement for v1's hard-cap "gear-only" wall.
+- **Arc endgame is the gear chase**: T6 weapons at +9 (`10_systems/ENHANCEMENT.md`), boss uniques
+  (`10_systems/ITEMS.md` §11), scroll lines (`10_systems/SCROLLS.md`), and the Mainspring Trial.
+  You out-gear the arc's endgame; out-leveling it is possible but never the efficient path.
+- **Growth systems are specified through Lv 100 today** (`10_systems/STATS.md` §4.2 auto-growth,
+  `10_systems/SKILL_SYSTEM.md` point accrual); their extension toward 300 is future-arc design,
+  flagged in those docs' Open Questions. At `level` 300 itself `exp` gain simply stops.
 
-Argument for gear-only over a paragon trickle: a paragon stat drip would inflate primaries past the
-`10_systems/STATS.md` §4 model that every monster budget (`10_systems/COMBAT_FORMULA.md` §13) and
-all 84 skills are balanced against, forcing perpetual re-tuning and the exact power-creep economy
-`00_vision/PILLARS.md` anti-pillars forbid. Gear-only keeps the balance surface fixed, routes
-endgame ambition into the loot loop and Rift progression, and matches "the grind is cozy, not
-cruel" (P2). A paragon-style system is explicitly **deferred to post-launch and is not a launch
-promise** (tracked in Open Questions as a future consideration, not an in-scope item).
+Argument against a paragon trickle (unchanged from v1): a paragon stat drip would inflate
+primaries past the `10_systems/STATS.md` §4 model that every monster budget
+(`10_systems/COMBAT_FORMULA.md` §13) and the authored skill roster are balanced against, forcing
+perpetual re-tuning and the exact power-creep economy `00_vision/PILLARS.md` anti-pillars forbid.
+Gear-plus-slow-levels keeps the balance surface fixed, routes endgame ambition into the loot loop,
+and matches "the grind is cozy, not cruel" (P2). A paragon-style system is explicitly **deferred
+to post-launch and is not a launch promise** (tracked in Open Questions as a future
+consideration, not an in-scope item).
 
 ## Open Questions
 
@@ -186,14 +194,15 @@ promise** (tracked in Open Questions as a future consideration, not an in-scope 
   §1 base curve or the primary model; a bounded, mostly-horizontal system (cosmetic/`shards`/
   account-wide unlocks) is the only shape compatible with the fixed balance surface. Owner:
   LEVELING.md, post-launch — **not** an in-scope launch item.
-- Raid `exp` split mechanics (even vs contribution-weighted) and the party `exp`-share radius are
-  owned by `10_systems/social/PARTY.md`; the 150× total here assumes an even split among a mid
-  party. Confirm at the B gate.
+- The §1 curve past Lv 100 is a pure formula extension today; when future arcs approach higher
+  bands (toward cap 300), this doc owns any retune of that stretch — the authored-arc rows
+  (Lv 1–42) stay fixed.
 - The ≈ 480 kills/hour pacing assumption folds in travel/aggro downtime that has not been measured;
   if real spawn density (`docs/WORLD_PLAN.md`, map spawn data) diverges, the `/played` estimates
   shift while the `exp_to_next` curve stays fixed. Flagged for the Phase D content pass.
 - Quest `exp` totalling exactly 25% per region depends on `10_systems/QUESTS.md` honoring this
   budget; if quest counts per region (`docs/ID_REGISTRY.md`) can't hit 25% cleanly at a given band,
   the residual shifts to hunting (higher `kills_per_level` in practice). Owner: QUESTS.md.
-- `exp` at cap is currently discarded (§6); if a "mastery `exp` → `shards`/material" conversion is
-  ever wanted as a soft sink, it belongs to `10_systems/ECONOMY.md`, not here. Default: discarded.
+- `exp` at the true cap (Lv 300) is currently discarded (§6); if a "mastery `exp` →
+  `shards`/material" conversion is ever wanted as a soft sink, it belongs to
+  `10_systems/ECONOMY.md`, not here. Default: discarded (moot until future arcs near the cap).

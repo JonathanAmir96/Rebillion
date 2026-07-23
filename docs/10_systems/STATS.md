@@ -95,11 +95,12 @@ Applied on each level-up. `novice` (Lv 1–7) grows evenly; from the 1st advance
 | Tier | Applies on reaching | Main primary | Each off-primary |
 |---|---|---|---|
 | `novice` | Lv 2–8 | +1 (all four equal) | +1 |
-| advanced | Lv 9–100 | +3 | +1 |
+| advanced | Lv 9–100 (specified range) | +3 | +1 |
 
 Cumulative auto-growth for a main primary at level `L≥9`: `5 + 7 + 3*(L-8)`. For an off-primary:
-`5 + 7 + 1*(L-8)`. Growth stops at the level cap (100); post-cap growth is an Open Question
-(`10_systems/LEVELING.md`, default gear-only per `00_vision/SCOPE.md`).
+`5 + 7 + 1*(L-8)`. The growth table is specified through Lv 100 today; its extension toward the
+300 cap (`00_vision/SCOPE.md` v2) is future-arc design (Open Questions) — the authored arc tops
+at Lv 42 and is unaffected.
 
 ### 4.3 Free allocation pool (hybrid model)
 
@@ -194,5 +195,6 @@ client/server boundary are owned by `10_systems/PERSISTENCE.md`.
   ownership by `10_systems/COMBAT_FORMULA.md` or a dedicated rest rule. Flagged.
 - Exact `armor`/`warding` → damage-reduction curve and `precision`-vs-`evasion` hit resolution
   are `10_systems/COMBAT_FORMULA.md`'s; confirm the boundary at the B gate.
-- Post-cap (Lv 100+) primary growth interaction once auto-growth stops (inherits
-  `00_vision/SCOPE.md` OQ; default gear-only). Owner: `10_systems/LEVELING.md`.
+- Primary growth beyond Lv 100 (toward the 300 cap) is unspecified — future arcs decide whether
+  §4.2's +3/+1 continues, tapers, or hands off to gear-only; nothing in the authored Lv 1–42 arc
+  depends on the answer. Owner: this doc with `10_systems/LEVELING.md`.

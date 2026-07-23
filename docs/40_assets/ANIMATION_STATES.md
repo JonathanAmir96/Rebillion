@@ -19,9 +19,9 @@ numbers themselves (`40_assets/ART_BIBLE.yaml`, cited in §2, never re-derived);
 `ai_profile` enters `windup`/`chase`/`flee`/etc., or which profile does what
 (`10_systems/AI_BEHAVIOR.md`, cited throughout); jump/fall/climb kinematics and platforming physics
 (`15_maps_system/MAP_TRAVERSAL.md`, cited in §1/§3); exact per-frame hit-frame indices and
-clip-length timing (owned by `ANIMATION_TIMING`, §4 — not yet authored in this tree); and per-skill
+clip-length timing (owned by `40_assets/ANIMATION_TIMING.md`); and per-skill
 animation clip **IDs** (owned by `40_assets/SKILL_ANIMATION.md`, cited by
-`20_schemas/skill.schema.md`, also not yet authored — a different namespace than the state tokens
+`20_schemas/skill.schema.md` — a different namespace than the state tokens
 this doc owns).
 
 ## 1. The 12-state registry
@@ -287,14 +287,9 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   assumed either way here.
 - **`ANIMATION_TIMING` does not exist in the tree yet.** This doc's hit-frame boundary (§4) defers
   exact per-frame damage timing to `ANIMATION_TIMING`, per
-  `30_engineering/ENGINEERING_STANDARDS.md`'s existing citation of it — but no
-  `40_assets/ANIMATION_TIMING.md` (or equivalent) file exists today, the same forward-reference
-  situation as `40_assets/SKILL_ANIMATION.md` (cited by `20_schemas/skill.schema.md`, also
-  unauthored). Both need to land before hit-frame-accurate combat can be implemented.
-- **Monster tier-count discrepancy (not this doc's to fix, but touches the boss/elite rows
-  above).** `docs/ID_REGISTRY.md` and `00_vision/SCOPE.md` both total the 150 monsters as 118
-  `normal`/24 `elite`/8 `boss`; `20_schemas/monster.schema.md`'s own Purpose section states
-  112/23/15 for the same 150. This doc's per-class rules apply uniformly regardless of the true
-  split, but the `boss` count specifically (8 vs. 15) changes how many
-  `phase_shift`/`telegraph`/`spawn` asset sets Phase D budgets for — flagged for those docs' owners
-  to reconcile.
+  `30_engineering/ENGINEERING_STANDARDS.md`'s existing citation of it — **resolved:** both
+  `40_assets/ANIMATION_TIMING.md` and `40_assets/SKILL_ANIMATION.md` now exist (Phase C
+  checkpoint + the consistency wave); hit-frame-accurate combat has its contracts.
+- ~~Monster tier-count discrepancy (112/23/15 vs 118/24/8)~~ **Resolved at the v2 straggler
+  wave:** `20_schemas/monster.schema.md`'s Purpose section now matches `docs/ID_REGISTRY.md`'s
+  118/24/8; Phase D budgets 8 `boss` asset sets.

@@ -141,30 +141,29 @@ not decided here.
 
 ## 4. Tier bands and level requirements
 
-Ten gear tiers **T1–T10**, each keyed to a required level aligned to region entry
-(`docs/WORLD_PLAN.md`). Weapons and armor share the tier grid; accessories use the same grid
-(Phase D may author accessories at fewer bands, §12). The **Lv 8 first advancement**
-(`10_systems/JOBS.md`) is the gate at which a character can first equip a line weapon (it will be
-past T1's `req_level` 1 by then). There is **no T11**: at Lv 100 the endgame power source is
-**T10 + enhancement (`10_systems/ENHANCEMENT.md`) + boss uniques (§11)**, matching the gear-only
-post-cap policy (`10_systems/LEVELING.md` §6).
+The tier grid runs **T1–T10**; **this arc authors T1–T6** (v2, `docs/ID_REGISTRY.md`: 6 tiers at
+`req_level` 1/8/15/22/29/36), with **T7–T10 reserved for future arcs** on the road to cap 300.
+Each authored tier keys to region entry (`docs/WORLD_PLAN.md`). Weapons and armor share the tier
+grid; accessories use the same grid (Phase D may author accessories at fewer bands, §12). The
+**Lv 8 first advancement** (`10_systems/JOBS.md`) is the gate at which a character can first
+equip a line weapon (it will be past T1's `req_level` 1 by then). The **arc endgame** power
+source is **T6 + enhancement (`10_systems/ENHANCEMENT.md`) + scrolls (`10_systems/SCROLLS.md`) +
+boss uniques (§11)** (`10_systems/LEVELING.md` §6).
 
-| Tier | `req_level` | Region context (`docs/WORLD_PLAN.md`) |
+| Tier | `req_level` | Region context (`docs/WORLD_PLAN.md` v2) |
 |---|---|---|
 | T1 | 1 | Emberfoot (starter) |
-| T2 | 10 | Verdant |
-| T3 | 20 | Tidewatch |
-| T4 | 30 | Sunken |
-| T5 | 40 | Ashfall |
-| T6 | 50 | Frostpeak |
-| T7 | 60 | Gloomwood |
-| T8 | 70 | Clockwork |
-| T9 | 80 | Arcane Reach |
-| T10 | 90 | Voidshore / Rift-ready |
+| T2 | 8 | Millbrook / Verdant entry |
+| T3 | 15 | Verdant deep / Tidewatch entry |
+| T4 | 22 | Tidewatch deep / Gloomwood entry |
+| T5 | 29 | Gloomwood deep / Ashfall |
+| T6 | 36 | Sunken Depths / Clockwork (arc endgame) |
+| T7–T10 | reserved | Future arcs (`00_vision/SCOPE.md` reserved biomes) |
 
 **ID-block layout** within `item_equip` (`docs/ID_REGISTRY.md` owns the ranges; this is the
-intra-block convention): weapons `0001`–`0040` = 10 tiers × 4 types in line order
-(`blade 0001`–`0010`, `bow 0011`–`0020`, `staff 0021`–`0030`, `dirk 0031`–`0040`); armor
+intra-block convention): weapons `0001`–`0040` = 4 types in line order, one decade per type
+(`blade 0001`–`0010`, `bow 0011`–`0020`, `staff 0021`–`0030`, `dirk 0031`–`0040`), tiers
+ascending within the decade — T1–T6 authored, the decade's tail reserved for T7–T10; armor
 `0041`–`0140` = 5 slots × tiers (`head 0041`–, `body`, `legs`, `boots`, `gloves`, then reserved
 growth for intermediate/region-variant pieces); accessories `0141`–`0180` = `cape`/`ring`/`amulet`
 × tiers; boss uniques `0201`–`0230` (§11). **New this wave:** `shield` gear `item_equip_0231`–`0240`
@@ -185,7 +184,7 @@ piece's base defense — it adds **affix lines** (§10). Colors are locked in
 | `uncommon` | 1 | `normal`/`elite` drops, region pools |
 | `rare` | 2 | `elite`/`boss` pools |
 | `epic` | 3 | `boss` pools, boss uniques (§11) |
-| `legendary` | 4 (+1 flourish on uniques) | `boss`/raid pools, boss uniques (§11) |
+| `legendary` | 4 (+1 flourish on uniques) | `boss` pools, boss uniques (§11) |
 
 ## 6. Stat model: base lines + affix lines
 
@@ -338,14 +337,15 @@ pe cap; total = count × cap):
 `shield`/`overall`) rolling a primary is the "stat lean" (§2). An `overall` rolls **one** item's set
 of affix lines despite covering two positions — not double (§2.1 balance identity).
 
-**Worked example** — `rare` T6 (Lv 50) `body` armor: base 98 `armor` / 69 `warding`
+**Worked example** — `rare` T6 (Lv 36, arc top tier) `body` armor: base 98 `armor` / 69 `warding`
 (16.7 pe); affixes = 2 lines, budget 34 pe: e.g. +12 `might` (12 pe) + +132 `life` (3.96 pe) =
 16 pe ≤ 34, per-line cap 17 not exceeded. Total item pe ≈ 32.7.
 
 ## 11. Boss unique gear
 
-Each of the 15 bosses (`docs/WORLD_PLAN.md`, 11 region + 4 raid) owns **two** uniques at
-`item_equip_0201`–`0230` (mapping owned by `docs/ID_REGISTRY.md`: boss #n → `0199+2n`, `0200+2n`).
+Each of the 8 region bosses (`docs/WORLD_PLAN.md` v2) owns **two** uniques at
+`item_equip_0201`–`0216` (mapping owned by `docs/ID_REGISTRY.md`: boss #n → `0199+2n`, `0200+2n`;
+`0217`–`0230` reserved for future bosses).
 Rules:
 
 - **Rarity `epic` or `legendary`.** `req_level` = the boss's level band; slot/type is the unique's
@@ -357,7 +357,7 @@ Rules:
   — no new rules, P4).
 - Total item pe ≤ the `legendary` budget (§10) × 1.5 for uniques. No unique introduces a
   per-element resistance or any token outside GLOSSARY (`10_systems/ELEMENTS.md` OQ).
-- Dropped from their boss's table (`10_systems/DROPS.md` boss/raid shape); first regional-boss
+- Dropped from their boss's table (`10_systems/DROPS.md` §5.3 boss shape); the first-ever
   clear grants one of its uniques (bad-luck protection, `10_systems/DROPS.md`).
 
 ## 12. Batch-table file convention (formalized by `20_schemas/item.schema.md`)

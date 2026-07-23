@@ -222,7 +222,7 @@ An always-on stat modifier from a learned **passive** (`10_systems/JOBS.md` mark
 | `stats` | map | yes | `{<GLOSSARY stat>: value}` | Each value flat or `pct` (see `mode`). Stat tokens from `10_systems/STATS.md`. |
 | `mode` | enum | no | `flat`\|`pct` (default `flat`) | Per-entry mode may be given as `{value, mode}`. |
 | `scope` | enum | no | `self`\|`party_aura` (default `self`) | `party_aura` grants to nearby party (`10_systems/social/PARTY.md`), e.g. `skill_bulwark_019`. |
-| `condition` | enum | no | e.g. `while_veiled`, `below_life_pct:X`, `while_stance` | Optional gate; the bonus applies only while true. |
+| `condition` | enum | no | frozen set (§16): `below_life_pct:X` · `while_veiled` · `vs_marked` · `while_stance` | Optional gate; the bonus applies only while true. |
 
 **Targets:** `self` (or party for auras). **Stacking:** multiple passives **add**; folded into the
 `10_systems/STATS.md` §7 compute order exactly like gear — flat primary bonuses at step 1, flat/pct
@@ -273,7 +273,7 @@ Used by passives (thorns, lifesteal, crit-refund) and by actives that grant a pr
 | `chance` | float | no | 0.0–1.0, default 1.0 | Proc probability. |
 | `effect` | op | yes | any of §3–§15 (**not** another `on_hit_proc`) | The payload; nesting depth = 1 (no recursion). |
 | `icd` | float s | no | internal cooldown | Rate-limits high-frequency triggers (`10_systems/SKILL_SYSTEM.md` §5). |
-| `condition` | enum | no | e.g. `below_life_pct:X`, `vs_marked`, `while_veiled` | Optional gate on top of the trigger. |
+| `condition` | enum | no | frozen set (§16): `below_life_pct:X` · `while_veiled` · `vs_marked` · `while_stance` | Optional gate on top of the trigger. |
 
 **Targets:** inherited from the wrapped `effect`'s class (payload `deal_damage` → the triggering
 hostile; payload `heal`/`restore_essence` → the caster). **Composition:** the sole branching
@@ -318,6 +318,7 @@ it only declares ops and parameters.
 - **`taunt` immunity flag** for `boss`/raid entities lives in `20_schemas/monster.schema.md`;
   confirm the flag name when that schema is authored (default: bosses taunt-immune, matching CC
   immunity).
-- **`condition` enum** for `passive_stat_bonus`/`on_hit_proc` (`below_life_pct`, `while_veiled`,
-  `vs_marked`, …) is open-ended; the concrete list should be frozen at the C gate so
-  `docs/VALIDATION.md` can enum-check it. Until then, authors use only the examples named here.
+- ~~`condition` enum open-ended~~ **Frozen at the C gate** to exactly four values:
+  `below_life_pct:X` (X an integer percent) · `while_veiled` · `vs_marked` · `while_stance`.
+  `docs/VALIDATION.md` §2/§3 enum-checks against this list; a new condition is added here first,
+  never invented in content.

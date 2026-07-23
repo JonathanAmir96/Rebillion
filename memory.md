@@ -4,7 +4,7 @@ State file for future sessions. Read after `README.md` → `docs/00_vision/GLOSS
 `docs/WORLD_PLAN.md` (per CLAUDE.md). Newest entries last. This file records *state and
 decisions*; rules live in their owner docs — never restate them here.
 
-## Current state (as of 2026-07-22)
+## Current state (as of 2026-07-23)
 
 - **World:** v2 two-island design (Emberfoot Isle Lv 1–8, Harthmoor ring Lv 8–40+2);
   200 maps / 150 monsters (118/24/8) / 8 bosses / 2 PQs; first arc Lv 1–42, cap 300.
@@ -24,11 +24,26 @@ decisions*; rules live in their owner docs — never restate them here.
   is now eleven tokens / ten worn positions (`shield`, `overall` added); `10_systems/SCROLLS.md`
   (new) owns affix-line gear modification; ITEMS §8 weights rebalanced to six armor slots;
   ID_REGISTRY extended (equip `0231`–`0250`, use → `0100`).
+- **H (consistency wave) ✅** — see `docs/phase_reports/PHASE_H_CONSISTENCY_REPORT.md`. The
+  v2 straggler (B-revision) wave finally ran: Rift/raid → future arcs (PQ finales carry the
+  party-instance machinery), waygates → paid Coachworks end-to-end, v2 numbers propagated
+  (job gates 8/40, 56 skills, T1–T6, 5 bind towns, 8 pools). New docs:
+  `10_systems/social/PARTY_QUEST.md`, `40_assets/SKILL_ANIMATION.md`. C-gate closed:
+  `base_move_speed` 128 px/s, `mob_ability_*`/summon-template ID blocks, frozen `condition`
+  enum, VALIDATION §5 edge-set wording. **`tools/validate.py` exists and the tree validates
+  clean (80 files, 0 fails)** — run it on every batch per VALIDATION's protocol.
 - **GLOSSARY Provisional:** `title` (from COLLECTIONS §7); `shield` / `overall` / `req_line`
   and the scroll vocabulary (`aspect`/`temper`, `steady`/`bold`/`perilous`,
   `scroll_kind`/`scroll_tier`/`slot_family`) from the G wave — all pending promotion.
 
 ## Decisions log
+
+- **H wave (2026-07-23, consistency):** raid tier explicitly future-arc (PQ finales own
+  party-instancing; `pq_life = normal_life·70·N`, boss-row damage, 10-min enrage); coach fares
+  `100×hops` + 25-shard ferry (ECONOMY §4.3); Sunken drop chute `map_176`→`map_094` replaces
+  the v1 termini; `base_move_speed` 128 px/s; `mob_ability_<mob>_NN` + `mob_151`–`160` summon
+  blocks; `condition` enum frozen at 4 values; `sighted` = `max(aggro_radius, 6)` tiles;
+  tonic bands re-split across Lv 1–42; `steady` scroll shelf priced.
 
 - **B gate:** job lines/cleanse tags/crest shapes promoted into GLOSSARY; `haste` kept
   combined; GUILD's proposed guild.schema deferred to the backend pass.
@@ -68,18 +83,18 @@ decisions*; rules live in their owner docs — never restate them here.
 
 ## Next session pointers
 
-- Phase D content generation: region-scoped batches per the phase-report pattern
-  (exemplar-first, validator-gated), staffed via `docs/60_agents/roles/ORG.md`. Start with
-  R1 Emberfoot; ONBOARDING_FTUE.md now constrains R1's quest/NPC shape, WRITING_STYLE.md +
-  WORLD_LORE.md constrain all flavor text.
-- Before/while landing D: resolve the F-wave cross-doc items — ECONOMY faucet amendment
-  (COLLECTIONS), MAPS_SYSTEM §5 governance pointer (AUDIO_DESIGN), `sighted` radius
-  confirmation (AI_BEHAVIOR).
+- Phase D content generation is **unblocked**: region-scoped batches per the phase-report
+  pattern (exemplar-first, validator-gated — `python3 tools/validate.py <batch>`), staffed via
+  `docs/60_agents/roles/ORG.md`. Start with R1 Emberfoot; ONBOARDING_FTUE.md constrains R1's
+  quest/NPC shape, WRITING_STYLE.md + WORLD_LORE.md constrain all flavor text,
+  PARTY_QUEST.md constrains the R2/R8 PQ maps + handler quests.
+- Remaining pre-D owner items: COLLECTIONS set-completion `shards` faucet amendment (ECONOMY —
+  titles-only until then); COMBAT_FORMULA §15 `mult m` retune check (tenth affix slot,
+  ~+11% affix pe, flagged in PHASE_G_EQUIPMENT_REPORT.md).
 - Owner-priced questions (hosting, storefronts, SSO, retention, signing) are collected in
   PHASE_F_INTEGRATIONS_REPORT.md's rollup — none block Phase D.
-- G-wave cross-doc items to resolve at/before the D gate: COMBAT_FORMULA §15 `mult m` retune
-  check (tenth affix slot, ~+11% affix pe); ECONOMY §4.1 scroll price rows; SCOPE count bumps
-  (equip ~86 → ~98, use ~30 → ~48) — owner edits, flagged in PHASE_G_EQUIPMENT_REPORT.md.
+- Phase E (coding-pass briefs in `60_agents/`, VALIDATION Open-Questions rollup) is still
+  unstarted; validator checks 5–6 land with the Phase D world-graph reconciler.
 
 ## Open Questions
 - Should this file also index per-doc Open Questions between phase gates, or stay a

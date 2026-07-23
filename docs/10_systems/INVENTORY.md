@@ -91,9 +91,9 @@ Eligibility and timing are **owned by `10_systems/DROPS.md` §7** and consumed h
 ## 7. Bank storage (inn, designed now, server-flagged)
 
 A **bank** lets a character stash items beyond the carried inventory, accessed at an **inn interior
-in any of the four bind towns** (Emberfoot Village `map_001`, Millbrook Central `map_029`,
-Tidewatch Port `map_041`, Arcane Sanctum `map_145` — `10_systems/DEATH_PENALTY.md` §4,
-`docs/WORLD_PLAN.md`). The bank mirrors the three tabs:
+in any of the five bind towns** (Emberfoot Village `map_001`, Millbrook Central `map_018`,
+Mossmere `map_043`, Tidewatch Port `map_071`, Cindershelf `map_125` —
+`10_systems/DEATH_PENALTY.md` §4, `docs/WORLD_PLAN.md` v2). The bank mirrors the three tabs:
 
 | Bank tab | Holds | Base slots | Stack size |
 |---|---|---|---|

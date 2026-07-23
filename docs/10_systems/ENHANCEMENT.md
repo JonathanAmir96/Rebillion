@@ -100,7 +100,8 @@ gamble):
 
 Worked: a T6 `blade` (base `W` 246, `10_systems/ITEMS.md` §7) at +9 adds +62% = +153 `power`
 (total 399), exceeding a +0 T7 `blade` (327) — the enhancement chase leapfrogs one tier at the
-top end, which is the intended endgame at Lv 100 (T10 +9 + uniques, `10_systems/LEVELING.md` §6).
+top end. T6 is this arc's top authored tier, so **T6 +9 + boss uniques is the arc endgame**
+(`10_systems/LEVELING.md` §6); the leapfrog principle carries to future-arc tiers unchanged.
 The added value enters `power`/`armor`/… as `Σ*_gear` per `10_systems/STATS.md` §2 and is subject
 to that doc's soft caps (§6) for the percentage lines. This enhancement headroom is part of the
 at-level `power_ref` assumption in `10_systems/COMBAT_FORMULA.md` §15.
@@ -117,7 +118,7 @@ progression behind luck (pity, §3, bounds the material and fee cost).
 
 ## 6. Emberstone acquisition & authority
 
-- **Drops.** Emberstones drop from `elite` and `boss` monsters (and raid bosses); the drop rates
+- **Drops.** Emberstones drop from `elite` and `boss` monsters; the drop rates
   and which tier drops in which region are owned by `10_systems/DROPS.md` (§5 elite/boss table
   shapes) and keyed to the region's level band (`docs/WORLD_PLAN.md`). Emberstones are **not**
   vendor-purchasable at launch (they are a hunt reward, keeping the enhancement loop tied to play
@@ -139,9 +140,8 @@ progression behind luck (pity, §3, bounds the material and fee cost).
 - Emberstone vendor purchase / crafting from region materials (`item_etc` per region) is deferred;
   if added it belongs to `10_systems/ECONOMY.md` (a `shards`/material sink) referencing this doc's
   tier mapping (§1), not a new drop rule.
-- Whether raid bosses drop a distinct high-tier emberstone or reuse Emberstone V is a
-  `10_systems/DROPS.md` R12 call; default reuses V (§1 covers T9–T10 and the Rift is out-gear, not
-  out-tier, per `10_systems/LEVELING.md` §6).
+- Whether a future-arc raid tier drops a distinct high-tier emberstone or reuses Emberstone V is
+  deferred with that tier (`10_systems/DROPS.md`); default reuses V.
 - Enhancement above +9 (e.g., a +10..+12 "starforce" extension) is explicitly **not** in scope this
   pass; if ever added it must not break the `10_systems/COMBAT_FORMULA.md` §13/§15 balance surface
   (the anti-power-creep concern of `00_vision/PILLARS.md`).

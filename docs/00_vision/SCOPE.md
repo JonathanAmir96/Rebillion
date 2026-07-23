@@ -16,8 +16,8 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Drop tables | 150 + 8 pools | One per monster, plus one equip pool per region |
 | Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40); 3rd+ tiers deferred to future arcs |
 | Skills | 56 | 13 per job line (6 first / 7 second, passives included) + 4 novice |
-| Items — equip | ~86 | 24 weapons, 30 armor, 16 accessories, 16 boss uniques (batched tables) |
-| Items — use | ~30 | Tonics, cleanses, scrolls, foods (batched table) |
+| Items — equip | ~98 | 24 weapons, 30 armor, 16 accessories, 16 boss uniques, 6 shields, 6 overalls (equipment-v2; batched tables) |
+| Items — use | ~48 | Tonics, cleanses, foods + 18 scroll SKUs (SCROLLS.md; batched table) |
 | Items — etc | ~133 | 16 materials per region + 5 emberstone tiers (batched tables) |
 | NPCs | 84 | Town-weighted; see ID_REGISTRY.md |
 | Quests | 90 | Region-banded kill/collect/talk/reach chains, incl. 4 PQ handler quests |
@@ -67,5 +67,7 @@ full curve to 300 (formula-first) with detail tables for the authored range.
 
 ## Open Questions
 - Should secret maps count toward region completion metrics used by quests? Default: no.
-- v2 revision arrived after Phase B: system docs written for the Lv 100 world are patched by
-  the B-revision wave (tracked in docs/phase_reports/); flag any straggler references.
+- ~~v2 straggler references in Phase B system docs~~ **Resolved by the v2 straggler wave
+  (2026-07-23, docs/phase_reports/PHASE_H_CONSISTENCY_REPORT.md):** all Lv-100-world remnants
+  (Rift/raid tiers, waygate network, old town/quest/map IDs, job gates) re-anchored to v2; the
+  v1 raid-tier machinery is explicitly reserved for future arcs.

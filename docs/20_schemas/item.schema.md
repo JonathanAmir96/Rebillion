@@ -41,7 +41,7 @@ table wrapper" — binding the names here is this schema's job, not a restatemen
 | `equip/accessories.yaml` | `item_table_accessories` | `item_equip_0141`–`0180` (+ its share of reserved growth, same OQ) | one batch |
 | `equip/uniques.yaml` | `item_table_uniques` | `item_equip_0201`–`0230` | one batch |
 | `use/consumables.yaml` | `item_table_consumables` | `item_use_0001`–`0100` | one batch (`0001`–`0016` well-known, `docs/ID_REGISTRY.md`; `0061`–`0078` are the `10_systems/SCROLLS.md` gear-mod scroll SKUs, names Phase D) |
-| `etc/materials_r01.yaml` … `materials_r12.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
+| `etc/materials_r01.yaml` … `materials_r08.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
 | `etc/enhancement.yaml` | `item_table_enhancement` | `item_etc_0193`–`0197` (Emberstone I–V; `0198`–`0200` reserved, unauthored) | one batch |
 
 - The **armor/accessories reserved-growth split** (`0181`–`0200`) is not fixed by this schema —
@@ -103,7 +103,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].stats.affixes[].op` | enum | flourish lines only | `ITEMS` §11; `10_systems/SKILL_EFFECTS.md` §13 (`passive_stat_bonus`)/§16 (`on_hit_proc`) | A flourish may be a small effect instead of a stat line ("expressed only through existing ops," §11) — params per that op's own schema (`SKILL_EFFECTS`). |
 | `items[].stats.affixes[].flourish` | bool | flourish lines only | `ITEMS` §11 | `true` marks this line eligible for the §11 **×1.5 per-line pe-cap exception**; absent/false = ordinary §10 rules apply. Uniques only (Validation). |
 | `items[].enhance_max` | int | yes | `10_systems/ENHANCEMENT.md` §2 | The top of this item's `+` track. Every equip slot uses the same uniform `0`–`9` track (`ENHANCEMENT` §2, "any single equip \[...] every equip slot") — this field must equal `9` (Validation, hard). Authored explicitly for forward-compatibility/tooling rather than assumed; see Open Questions. `server`. |
-| `items[].unique_of` | string `mob_NNN` | `uniques.yaml` only | `docs/ID_REGISTRY.md` Monsters + Items (boss-unique mapping); `10_systems/ITEMS.md` §11 | The boss this unique belongs to. Must resolve to a `tier: boss` mob (`20_schemas/monster.schema.md`) whose region-order boss number `n` (region order = `docs/WORLD_PLAN.md` Region overview R1–R11, then the four Rift raid bosses as `n`=12–15) makes this row's own `id` one of `item_equip_{0199+2n}` / `{0200+2n}` (`docs/ID_REGISTRY.md`). Forbidden outside `uniques.yaml` (Validation). `server`. |
+| `items[].unique_of` | string `mob_NNN` | `uniques.yaml` only | `docs/ID_REGISTRY.md` Monsters + Items (boss-unique mapping); `10_systems/ITEMS.md` §11 | The boss this unique belongs to. Must resolve to a `tier: boss` mob (`20_schemas/monster.schema.md`) whose region-order boss number `n` (region order = `docs/WORLD_PLAN.md` Region overview R1–R8) makes this row's own `id` one of `item_equip_{0199+2n}` / `{0200+2n}` (`docs/ID_REGISTRY.md`). Forbidden outside `uniques.yaml` (Validation). `server`. |
 
 ### Row — `use` only
 
