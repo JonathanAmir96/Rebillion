@@ -9,8 +9,8 @@ docs/ID_REGISTRY.md, docs/VALIDATION.md, 10_systems/SPAWN.md, 10_systems/DEATH_P
 Owner doc for a map's anatomy — the fields every map file carries — and for the 6 `map_type`
 values in `00_vision/GLOSSARY.md`. Movement physics is `15_maps_system/MAP_TRAVERSAL.md`;
 interactable object types are `15_maps_system/MAP_INTERACTABLES.md`; the depth/collision layer
-stack is `15_maps_system/MAP_LAYERS.md`; portal, spawn-naming, and waygate rules between maps are
-`15_maps_system/MAP_CONNECTIONS.md`. This doc consumes those and never restates them. Exact YAML
+stack is `15_maps_system/MAP_LAYERS.md`; portal, spawn-naming, and coach/longship transport rules
+between maps are `15_maps_system/MAP_CONNECTIONS.md`. This doc consumes those and never restates them. Exact YAML
 field typing/validation is the future `20_schemas/map.schema.md` (Phase C); this doc defines the
 conceptual anatomy that schema will formalize. 1 screen = the locked render base 640×360 px ≈
 40×22.5 tiles at the 16 px tile grid (`40_assets/ART_BIBLE.yaml`, Phase C) — used throughout §2's
@@ -30,8 +30,8 @@ Every map file carries:
 | `bgm` | Single music tag | §5 |
 | `ambience` | List of 0+ ambience tags | §5 |
 | `bounds` | `{width, height}` in tiles | §2 per-type guidance |
-| `spawn_points` | Named entry points (`main`, `from_<slug>`, `waygate`, …) | `MAP_CONNECTIONS.md` |
-| `portals` | Edge/door/waygate exits | `MAP_INTERACTABLES.md` (params) + `MAP_CONNECTIONS.md` (rules) |
+| `spawn_points` | Named entry points (`main`, `from_<slug>`, `coach_stop`, …) | `MAP_CONNECTIONS.md` |
+| `portals` | Edge/door/coach/longship exits | `MAP_INTERACTABLES.md` (params) + `MAP_CONNECTIONS.md` (rules) |
 | `spawn_zones` | Monster population zones | `10_systems/SPAWN.md` |
 | `interactables` | Non-portal, non-mob objects | `MAP_INTERACTABLES.md` |
 | `layers` | Depth/TileMapLayer/tileset declarations | `MAP_LAYERS.md` |
@@ -48,7 +48,7 @@ Size guidance is authoring guidance for Phase D, not a `docs/VALIDATION.md` hard
 |---|---|---|---|---|
 | `field` | Open overworld exploration/hunting; the world-graph's connective tissue | 3–6 screens (~120–240 tiles) | 1–3 screens (~23–68 tiles) | Yes — `10_systems/SPAWN.md` zone-spawned |
 | `dungeon` | Compact-vertical combat gauntlet; corridor/room loops denser than a field | 1–2 screens (~40–80 tiles) | 2–5 screens (~45–113 tiles) | Yes — denser budget, `10_systems/SPAWN.md` §2 |
-| `town` | Social hub: vendors, trainers, waygate, hosts interiors | 2–4 screens (~80–160 tiles) | 1 screen (~23 tiles) | No — combat-free (§6) |
+| `town` | Social hub: vendors, trainers, coach station, hosts interiors | 2–4 screens (~80–160 tiles) | 1 screen (~23 tiles) | No — combat-free (§6) |
 | `interior` | Single indoor room (inn/shop/hall/etc.) reached via a `door` portal from a town | ≤1 screen (~≤40 tiles) | ≤1 screen (~≤23 tiles) | No — combat-free (§6) |
 | `arena` | Gated boss encounter | 1–2 screens (~40–80 tiles) | 1 screen (~23 tiles), up to 2 for a vertical fight | Yes — boss-scripted only, no zone spawner (§7) |
 | `secret` | Bonus/reward pocket off the main path | ≤2 screens any dimension (~≤80 tiles) | ≤2 screens (~≤45 tiles) | Optional, sparse — `10_systems/SPAWN.md` §2 |

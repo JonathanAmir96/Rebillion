@@ -65,9 +65,10 @@ travel, or level-up.
 
 On defeat, the character respawns at its bound town's `main` spawn point (`docs/WORLD_PLAN.md`
 "Spawn-point convention"). Getting from the bind town back to wherever the character died is
-ordinary travel — the waygate network and its unlock rules belong to
-`15_maps_system/MAP_CONNECTIONS.md` and are not redefined here; this doc names only the
-respawn destination, never the route back.
+ordinary travel — the transport network (the paid Harthmoor Coachworks, the Harborwind Ferry,
+arc-2 longships) and its fares belong to `15_maps_system/MAP_CONNECTIONS.md` and are not redefined
+here; death grants no free or discounted transit (`15_maps_system/MAP_CONNECTIONS.md` §4). This doc
+names only the respawn destination, never the route back.
 
 Regions without their own town (Verdant, Sunken, Ashfall, Frostpeak, Gloomwood, Clockwork,
 Voidshore, Rift) have no local bind option — a character leveling there simply respawns at

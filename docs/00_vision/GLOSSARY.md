@@ -136,6 +136,9 @@ The earlier free-warp "waygate" mechanism is retired — that token is invalid i
 ## Provisional (pending promotion at a phase gate)
 - `raid_herald` — NPC archetype: the staging-area NPC that fronts a raid's entry
   (10_systems/social/RAID.md). Promote if Phase D NPC content uses it as a field value.
+- `coach_station` (interactable) · `coach_clerk` / `pier_officer` (NPC roles) — the coach
+  kiosk and transport-staff tokens from the waygate→coach reconciliation
+  (15_maps_system/MAP_INTERACTABLES.md, 20_schemas/npc.schema.md). Promote at the C gate.
 
 ## Open Questions
 - ~~Split `haste` into move/attack tokens?~~ **Resolved at B gate:** kept combined; conversion
