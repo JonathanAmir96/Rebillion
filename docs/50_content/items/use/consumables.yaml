@@ -19,3 +19,55 @@ items:
     use_cooldown: 1.0               # first-pass; no owning pacing doc (item.schema OQ)
     stack: 100                      # use tab fixed stack (INVENTORY §2)
     flavor: "A resinous cordial brewed against the deep cold; one pull and the ache of the ice lets go."
+
+  # --- item_use_0018-0020: completes the seven-tier tonic ladder (ITEMS §1.1) with the
+  # Sovereign essence pair-mate and the Mythic (tier-7) pair. Names/IDs exact per ID_REGISTRY.
+  # Prices continue the ECONOMY §4.1 rising-sink curve above Prime (1000): each pair-mate shares
+  # its counterpart's buy/sell (ECONOMY §4.1's own rows are one price per life/essence pair, not
+  # two); Sovereign = Prime x2 (2000/500, matching item_use_0017 above); Mythic = Sovereign x2
+  # (4000/1000), continuing the same doubling step. Restore magnitudes are Phase D use-item data
+  # (ITEMS §1): Mythic life keeps Sovereign's ~life-pool-fraction approach at the higher band;
+  # essence restores are set at half their life-pair-mate's magnitude for both tiers (300/600 =
+  # 0.5, 500/1000 = 0.5), a first-pass ratio reflecting essence's smaller pool (STATS §2:
+  # essence = 40+4L+3*focus vs life = 120+18L+3*might) -- first-pass, tunable at the balance gate.
+  - id: item_use_0018
+    name: Sovereign Essence Tonic     # exact ID_REGISTRY name (well-known 0017-0020, arc-2 tonics)
+    category: use
+    rarity: common                   # cosmetic on use rows (ITEMS §5)
+    req_level: 40                    # tier-6 band start, Lv 40-61 (ITEMS §1.1), same as 0017
+    price:
+      buy: 2000                      # pair-mate of item_use_0017 (ECONOMY §4.1: one price/pair)
+      sell: 500                      # round(0.25 * 2000) (ECONOMY §4)
+    effects:
+      - { op: restore_essence, scaling: flat, amount: 300 }  # ~0.5x the life pair-mate (see header)
+    use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                       # use tab fixed stack (INVENTORY §2)
+    flavor: "The same resinous cordial, cut instead for the mind -- a pull clears the fog the deep cold leaves on a caster's focus."
+
+  - id: item_use_0019
+    name: Mythic Life Tonic          # exact ID_REGISTRY name (well-known 0017-0020, arc-2 tonics)
+    category: use
+    rarity: common                   # cosmetic on use rows (ITEMS §5)
+    req_level: 62                    # tier-7 band start, Lv 62-80+ (ITEMS §1.1)
+    price:
+      buy: 4000                      # continues the Prime(1000)->Sovereign(2000) doubling step
+      sell: 1000                     # round(0.25 * 4000) (ECONOMY §4)
+    effects:
+      - { op: heal, scaling: flat, amount: 1000 }   # first-pass magnitude for the Lv62-80+ band
+    use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                       # use tab fixed stack (INVENTORY §2)
+    flavor: "Distilled past Sovereign's own recipe with a splinter of arcane rune-glass; the ache doesn't just fade, it forgets it was ever there."
+
+  - id: item_use_0020
+    name: Mythic Essence Tonic       # exact ID_REGISTRY name (well-known 0017-0020, arc-2 tonics)
+    category: use
+    rarity: common                   # cosmetic on use rows (ITEMS §5)
+    req_level: 62                    # tier-7 band start, Lv 62-80+ (ITEMS §1.1), same as 0019
+    price:
+      buy: 4000                      # pair-mate of item_use_0019 (ECONOMY §4.1: one price/pair)
+      sell: 1000                     # round(0.25 * 4000) (ECONOMY §4)
+    effects:
+      - { op: restore_essence, scaling: flat, amount: 500 }  # ~0.5x the life pair-mate (see header)
+    use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                       # use tab fixed stack (INVENTORY §2)
+    flavor: "The same rune-glass distillation, bent instead toward the mind -- essence returns as fast as the cordial goes down."

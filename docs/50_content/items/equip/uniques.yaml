@@ -1,0 +1,191 @@
+id: item_table_uniques
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, ENHANCEMENT, DROPS, WORLD_PLAN]
+# This batch authors only the arc-2 rows, item_equip_0217-0222 (bosses #9-#11: Skoldir, Aetheron,
+# Nyxaris; docs/ID_REGISTRY.md boss-unique mapping, formula item_equip_{0199+2n}/{0200+2n}). Arc-1
+# uniques (item_equip_0201-0216, bosses #1-#8) land with the arc-1 batch later -- this file holds
+# both blocks once that batch lands (one shared uniques.yaml, item.schema File conventions).
+#
+# Each boss owns one weapon unique (legendary) + one non-weapon unique (epic), per ITEMS §11's
+# "a boss may own e.g. one weapon + one amulet." req_level = the boss's own level (ITEMS §11,
+# not the ladder's per-tier req_level -- Skoldir 55/Aetheron 68/Nyxaris 80 fall between two
+# official T-tiers). Base lines are computed directly from the ITEMS §7-§9 closed-form formulas
+# at that exact level (the per-tier tables in those sections are themselves just the formula's
+# checksum at canonical tier levels, per ITEMS §7's own note) rather than snapped to the nearest
+# tier row; `tier` records the nearest official ladder tier for categorization/tooling only
+# (Skoldir T9, Aetheron T11, Nyxaris T12 -- see Open Questions for the tier-field convention).
+#
+# Affix eligibility per slot is ITEMS §10. Legendary (4 lines) = 3 ordinary + 1 flourish
+# (on_hit_proc, SKILL_EFFECTS §16; ITEMS §11 allows 1-2 flourish lines). Epic (3 lines) = 3
+# ordinary, no flourish (not mandatory). Price: buy = round(base_buy(tier) * 30) (ECONOMY §4.2
+# epic/legendary multiplier, suppressed to the same x30 for both -- "legendary and boss-unique
+# vendor value is suppressed to the epic multiplier"), sell = round(0.25*buy); base_buy by tier
+# from weapons.yaml's table (T9=6000, T11=10000 extrap, T12=12000 extrap).
+items:
+  # --- Skoldir, the Rimewyrm (mob_178, Frostpeak boss #9, Lv55, arena map_244) ---
+  - id: item_equip_0217
+    name: Rimewyrm's Frostbite Warblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 9
+    req_level: 55
+    rarity: legendary
+    stats:
+      base: { power: 285 }            # ITEMS §7 W_phys(55) = round(0.055*55^2 + 2.05*55 + 6)
+      affixes:
+        - { stat: might, value: 14 }    # u(55)=14 pe; well under cap(55)=20
+        - { stat: crit_rate, value: 2.0 }   # affix menu, nearest anchor Lv50; pe 6.0
+        - { stat: haste, value: 4 }      # round(1+0.05*55)=4; pe 6.0
+        - op: on_hit_proc               # flourish (ITEMS §11): signature frost proc
+          trigger: on_deal
+          chance: 0.15
+          effect: { op: apply_status, status: chill, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_178
+    price:
+      buy: 180000                     # base_buy(T9)=6000 * legendary(suppressed to epic x30)
+      sell: 45000
+    flavor: "Broken from the ice that entombed the Rimewyrm itself, this blade never fully warms -- swing it long enough and frost climbs the guard toward your hand."
+
+  - id: item_equip_0218
+    name: Rimewyrm's Frozen Heart
+    category: equip
+    slot: amulet
+    tier: 9
+    req_level: 55
+    rarity: epic
+    stats:
+      base: { might: 21, crit_power: 0.12 }   # ITEMS §9 primary_base(55)=round(2+0.35*55)=21;
+                                               # crit_power nearest tier pair T9 (+0.12)
+      affixes:
+        - { stat: fortune, value: 14 }        # u(55)=14 pe
+        - { stat: crit_rate, value: 2.0 }     # affix menu, nearest anchor Lv50; pe 6.0
+        - { stat: crit_power, value: 0.05 }   # affix menu, nearest anchor Lv50; pe 1.5
+    enhance_max: 9
+    unique_of: mob_178
+    price:
+      buy: 180000
+      sell: 45000
+    flavor: "A shard of the summit ice that never left the Rimewyrm's chest. It beats faintly, once, whenever its wearer takes a wound."
+
+  # --- Aetheron, the Unmoored (mob_206, Arcane Reach boss #10, Lv68, arena map_284) ---
+  - id: item_equip_0219
+    name: Aetheron's Unmoored Sceptre
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 11
+    req_level: 68
+    rarity: legendary
+    stats:
+      base: { spellpower: 440 }        # ITEMS §7 W_staff(68) = round(1.10 * W_phys(68)=400)
+      affixes:
+        - { stat: focus, value: 16 }     # u(68)=16 pe; well under cap(68)=22
+        - { stat: crit_rate, value: 2.5 }    # affix menu, nearest anchor Lv64; pe 7.5
+        - { stat: haste, value: 4 }       # round(1+0.05*68)=4; pe 6.0
+        - op: on_hit_proc                # flourish: the golem's own unbinding energy
+          trigger: on_crit
+          chance: 0.20
+          effect: { op: apply_status, status: sunder, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_206
+    price:
+      buy: 300000                      # base_buy(T11, extrap)=10000 * legendary(x30)
+      sell: 75000
+    flavor: "Snapped from the golem's own anchor-spar as it spun free. Cast with it, and the air keeps humming after the spell lands."
+
+  - id: item_equip_0220
+    name: Aetheron's Anchor Shard
+    category: equip
+    slot: ring
+    tier: 11
+    req_level: 68
+    rarity: epic
+    stats:
+      base: { focus: 26, crit_rate: 3.5 }    # ITEMS §9 primary_base(68)=round(2+0.35*68)=26;
+                                              # ring crit_rate nearest tier pair T11 (3.5%)
+      affixes:
+        - { stat: focus, value: 16 }         # u(68)=16 pe
+        - { stat: spellpower, value: 35 }    # affix menu 2.2*u(68)=35.2 -> 35; pe 17.5
+        - { stat: crit_power, value: 0.07 }  # affix menu, nearest anchor Lv64; pe 2.1
+    enhance_max: 9
+    unique_of: mob_206
+    price:
+      buy: 300000
+      sell: 75000
+    flavor: "A moored shard's own anchor-stone, no bigger than a knuckle. It still tugs faintly skyward when worn."
+
+  # --- Nyxaris, the Tidesunder (mob_234, Voidshore boss #11, Lv80, arena map_324) ---
+  - id: item_equip_0221
+    name: Tidesunder's Drowned Kris
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 12
+    req_level: 80
+    rarity: legendary
+    stats:
+      base: { power: 522 }             # ITEMS §7 W_phys(80) = round(0.055*80^2 + 2.05*80 + 6)
+      affixes:
+        - { stat: fortune, value: 19 }   # u(80)=19 pe; well under cap(80)=27
+        - { stat: crit_rate, value: 3.0 }    # affix menu, nearest anchor Lv78; pe 9.0
+        - { stat: haste, value: 5 }       # round(1+0.05*80)=5; pe 7.5
+        - op: on_hit_proc                # flourish: the leviathan's own undertow
+          trigger: on_deal
+          chance: 0.12
+          effect: { op: apply_status, status: weaken, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_234
+    price:
+      buy: 360000                      # base_buy(T12, extrap)=12000 * legendary(x30)
+      sell: 90000
+    flavor: "Drawn from Nyxaris's own drowned hoard, its wave-pattern edge never dries. Every cut drags a little of the wielder's balance out with it."
+
+  - id: item_equip_0222
+    name: Nyxaris's Void Shroud
+    category: equip
+    slot: cape
+    tier: 12
+    req_level: 80
+    rarity: epic
+    stats:
+      base: { warding: 82, evasion: 3.5 }   # ITEMS §9 cape_warding(80)=round(0.15*K(80)/3)=82;
+                                             # evasion nearest tier pair T12 (3.5%)
+      affixes:
+        - { stat: evasion, value: 2.0 }      # affix menu, nearest anchor Lv78; pe 5.0
+        - { stat: warding, value: 76 }       # affix menu 4*u(80)=76; pe 7.6
+        - { stat: haste, value: 5 }          # round(1+0.05*80)=5; pe 7.5
+    enhance_max: 9
+    unique_of: mob_234
+    price:
+      buy: 360000
+      sell: 90000
+    flavor: "Cut from the tide-shadow that follows Nyxaris everywhere it surfaces. It never quite settles flat against the back."
+
+# Open Questions (flagged for the owning docs, not resolved here -- content files carry no
+# ## Open Questions section of their own, per 50_content/README.md's exemplar convention):
+# - Unique `tier` field vs. boss level: ITEMS §11 fixes a boss unique's `req_level` to "the boss's
+#   level band" (55/68/80 here), which does not land on any of the six official T7-T12 req_level
+#   anchors (43/50/57/64/71/78). This batch computes base lines directly from the ITEMS §7-§9
+#   closed-form formulas at the boss's exact level (those formulas are the source of the per-tier
+#   checksum tables, not the other way around) and records `tier` as the nearest official ladder
+#   tier purely for categorization -- item.schema.md rule 7 ("tier corresponds to req_level per
+#   the ITEMS §4 tier table") reads as written for standard drop-table equip, not one-off boss
+#   uniques whose level is fixed by their boss; flagging this reading for the schema owner to
+#   confirm or add an explicit uniques exception.
+# - Total-pe ceiling (item.schema rule 4) is not meaningfully checkable for weapon-slot uniques: a
+#   weapon's base power/spellpower alone (e.g. 285 pe-equivalent at Lv55, power pe weight
+#   0.50/unit) already exceeds the legendary budget x1.5 ceiling (4*cap(L)*1.5) before any affix is
+#   added, since that ceiling was sized against armor/accessory base lines (a few pe) in the §10
+#   worked example, not weapon W (hundreds of pe). This batch keeps affix lines modest and
+#   documents the math per line rather than forcing the base+affix sum under a ceiling that appears
+#   never to have been calibrated against weapon W; flagged for ITEMS.md §11 / item.schema.md
+#   rule 4 to clarify whether weapon uniques are exempt from the combined base+affix total, or
+#   whether the x1.5 ceiling needs its own weapon-specific form.
