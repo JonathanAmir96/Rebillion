@@ -1,11 +1,24 @@
 id: item_table_accessories
 schema: 20_schemas/item.schema.md
 references: [ITEMS, ECONOMY, ENHANCEMENT]
-# This batch authors only the arc-2 block, item_equip_0285-0300 (16 rows, ITEMS §4 v3 re-block).
-# Arc-1 rows (item_equip_0141-0180) land with the arc-1 batch later -- this file will hold both
-# blocks once that batch lands (item.schema File conventions: one shared file).
+# This file holds both arc blocks (item.schema File conventions: one shared accessories.yaml):
+# arc-1 item_equip_0141-0156 (this batch: 16 rows, ITEMS §4 v3 re-block) and arc-2
+# item_equip_0285-0300 (16 rows). Arc-1's own range is also exactly 16 IDs (no growth tail),
+# mirroring the arc-2 file's convention exactly: ring x6 (T1-T6, 0141-0146) + amulet x6 (T1-T6,
+# 0147-0152) + cape x4 (0153-0156). Cape skips the same relative tiers as the arc-2 block (there:
+# T9/T11 of 12; here, mirrored onto the 6-tier arc-1 ladder: T3/T5, i.e. cape is authored at
+# T1/T2/T4/T6 only) -- same first-pass judgment call the arc-2 block already flagged, not
+# re-litigated here. Arc-1's 0157-0180 stays reserved (growth, ITEMS §4 OQ).
 #
-# The arc-2 range is exactly 16 IDs (no reserved-growth tail), so it cannot fit 3 slots x 6 tiers
+# Arc-1 rows: base values are ITEMS §9's own table (all 6 arc-1 tiers T1-T6 are tabulated there
+# directly -- no formula interpolation needed, unlike weapons.yaml/armor.yaml). Rarity uncommon
+# (1 affix line, ITEMS §5); enhance_max 9 (ENHANCEMENT §2). Price buy=round(base_buy(tier)*2.5)/
+# sell=round(0.25*buy) (ECONOMY §4/§4.2; base_buy T1-T6 = 30/120/300/600/1050/1800, the table's
+# own tier column). Same ring->fortune / amulet->focus / cape->haste authoring convention as the
+# arc-2 block below. u(L) by tier: T1(1)=2, T2(8)=3, T3(15)=5, T4(22)=6, T5(29)=8, T6(36)=9
+# (ITEMS §10, same formula as weapons.yaml/armor.yaml).
+#
+# Arc-2 rows (landed earlier batch): the arc-2 range is exactly 16 IDs (no reserved-growth tail), so it cannot fit 3 slots x 6 tiers
 # (18). Authored split: ring x6 (T7-T12, 0285-0290) + amulet x6 (T7-T12, 0291-0296) + cape x4
 # (0297-0300). Cape is authored at only 4 of the 6 tiers (T7/T8/T10/T12, skipping T9/T11) --
 # a Phase D first-pass choice with no owning-doc tiebreak for which 2 tiers to drop; flagged
@@ -27,6 +40,252 @@ references: [ITEMS, ECONOMY, ENHANCEMENT]
 # T7(43)=11, T8(50)=12, T9(57)=14, T10(64)=16, T11(71)=17, T12(78)=19 (ITEMS §10, same as
 # weapons.yaml/armor.yaml).
 items:
+  # --- ring, item_equip_0141-0146 ---
+  - id: item_equip_0141
+    name: Kilnward Ring
+    category: equip
+    slot: ring
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { fortune: 2, crit_rate: 1.0 }   # ITEMS §9 ring T1 (table row)
+      affixes:
+        - { stat: fortune, value: 2 }        # +fortune u(1)=2 pe 2.0 <= cap(1)=3
+    enhance_max: 9
+    price: { buy: 75, sell: 19 }
+    flavor: "A bent nail off the village smithy, polished until it passed for a ring."
+
+  - id: item_equip_0142
+    name: Harborwind Ring
+    category: equip
+    slot: ring
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { fortune: 5, crit_rate: 1.0 }   # ITEMS §9 ring T2 (table row)
+      affixes:
+        - { stat: fortune, value: 3 }        # +fortune u(8)=3 pe 3.0 <= cap(8)=4
+    enhance_max: 9
+    price: { buy: 300, sell: 75 }
+    flavor: "Ferry-brass, tarnished green at the edge from the crossing's salt air."
+
+  - id: item_equip_0143
+    name: Mossmere Ring
+    category: equip
+    slot: ring
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { fortune: 7, crit_rate: 1.5 }   # ITEMS §9 ring T3 (table row)
+      affixes:
+        - { stat: fortune, value: 5 }        # +fortune u(15)=5 pe 5.0 <= cap(15)=7
+    enhance_max: 9
+    price: { buy: 750, sell: 188 }
+    flavor: "Root-grown band, still faintly warm from Mossmere's athenaeum kiln."
+
+  - id: item_equip_0144
+    name: Brinewatch Ring
+    category: equip
+    slot: ring
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { fortune: 10, crit_rate: 1.5 }   # ITEMS §9 ring T4 (table row)
+      affixes:
+        - { stat: fortune, value: 6 }        # +fortune u(22)=6 pe 6.0 <= cap(22)=8
+    enhance_max: 9
+    price: { buy: 1500, sell: 375 }
+    flavor: "Tide-worn silver, smoothed by years in the coast's undertow."
+
+  - id: item_equip_0145
+    name: Cinderreach Ring
+    category: equip
+    slot: ring
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { fortune: 12, crit_rate: 2.0 }   # ITEMS §9 ring T5 (table row)
+      affixes:
+        - { stat: fortune, value: 8 }        # +fortune u(29)=8 pe 8.0 <= cap(29)=11
+    enhance_max: 9
+    price: { buy: 2625, sell: 656 }
+    flavor: "Cinder-forged and still faintly hot to the touch."
+
+  - id: item_equip_0146
+    name: Ironspring Ring
+    category: equip
+    slot: ring
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { fortune: 15, crit_rate: 2.0 }   # ITEMS §9 ring T6 (table row)
+      affixes:
+        - { stat: fortune, value: 9 }        # +fortune u(36)=9 pe 9.0 <= cap(36)=13
+    enhance_max: 9
+    price: { buy: 4500, sell: 1125 }
+    flavor: "Ring-forged in Millbrook's own workshops, geared like a tiny cog."
+
+
+  # --- amulet, item_equip_0147-0152 ---
+  - id: item_equip_0147
+    name: Kilnward Amulet
+    category: equip
+    slot: amulet
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { focus: 2, crit_power: 0.03 }   # ITEMS §9 amulet T1 (table row)
+      affixes:
+        - { stat: focus, value: 2 }          # +focus u(1)=2 pe 2.0 <= cap(1)=3
+    enhance_max: 9
+    price: { buy: 75, sell: 19 }
+    flavor: "A river pebble on a cord, given by the village elder for luck."
+
+  - id: item_equip_0148
+    name: Harborwind Amulet
+    category: equip
+    slot: amulet
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { focus: 5, crit_power: 0.03 }   # ITEMS §9 amulet T2 (table row)
+      affixes:
+        - { stat: focus, value: 3 }          # +focus u(8)=3 pe 3.0 <= cap(8)=4
+    enhance_max: 9
+    price: { buy: 300, sell: 75 }
+    flavor: "A harbor charm, carved from driftwood the ferry never claimed."
+
+  - id: item_equip_0149
+    name: Mossmere Amulet
+    category: equip
+    slot: amulet
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { focus: 7, crit_power: 0.05 }   # ITEMS §9 amulet T3 (table row)
+      affixes:
+        - { stat: focus, value: 5 }          # +focus u(15)=5 pe 5.0 <= cap(15)=7
+    enhance_max: 9
+    price: { buy: 750, sell: 188 }
+    flavor: "Mossmere rootwood, grown around a seed that never sprouted."
+
+  - id: item_equip_0150
+    name: Brinewatch Amulet
+    category: equip
+    slot: amulet
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { focus: 10, crit_power: 0.05 }   # ITEMS §9 amulet T4 (table row)
+      affixes:
+        - { stat: focus, value: 6 }          # +focus u(22)=6 pe 6.0 <= cap(22)=8
+    enhance_max: 9
+    price: { buy: 1500, sell: 375 }
+    flavor: "A cliffside pendant strung with cord that never quite dries."
+
+  - id: item_equip_0151
+    name: Cinderreach Amulet
+    category: equip
+    slot: amulet
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { focus: 12, crit_power: 0.07 }   # ITEMS §9 amulet T5 (table row)
+      affixes:
+        - { stat: focus, value: 8 }          # +focus u(29)=8 pe 8.0 <= cap(29)=11
+    enhance_max: 9
+    price: { buy: 2625, sell: 656 }
+    flavor: "A cinder-glass teardrop, cool at the edges and warm at the core."
+
+  - id: item_equip_0152
+    name: Ironspring Amulet
+    category: equip
+    slot: amulet
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { focus: 15, crit_power: 0.07 }   # ITEMS §9 amulet T6 (table row)
+      affixes:
+        - { stat: focus, value: 9 }          # +focus u(36)=9 pe 9.0 <= cap(36)=13
+    enhance_max: 9
+    price: { buy: 4500, sell: 1125 }
+    flavor: "A gearwork locket that ticks once for every heartbeat it's worn."
+
+
+  # --- cape, item_equip_0153-0156 (authored at T1/T2/T4/T6 only -- mirrors accessories.yaml's arc-2 uneven split) ---
+  - id: item_equip_0153
+    name: Kilnward Cape
+    category: equip
+    slot: cape
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { warding: 4, evasion: 1.0 }     # ITEMS §9 cape T1 (table row)
+      affixes:
+        - { stat: haste, value: 1 }           # round(1+0.05*1)=1 pe 1.5 <= cap(1)=3
+    enhance_max: 9
+    price: { buy: 75, sell: 19 }
+    flavor: "Patched wool, barely long enough to call a cape."
+
+  - id: item_equip_0154
+    name: Harborwind Cape
+    category: equip
+    slot: cape
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { warding: 11, evasion: 1.0 }     # ITEMS §9 cape T2 (table row)
+      affixes:
+        - { stat: haste, value: 1 }           # round(1+0.05*8)=1 pe 1.5 <= cap(8)=4
+    enhance_max: 9
+    price: { buy: 300, sell: 75 }
+    flavor: "Oiled canvas off the ferry's own sailcloth stores."
+
+  - id: item_equip_0155
+    name: Brinewatch Cape
+    category: equip
+    slot: cape
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { warding: 25, evasion: 1.5 }     # ITEMS §9 cape T4 (table row)
+      affixes:
+        - { stat: haste, value: 2 }           # round(1+0.05*22)=2 pe 3.0 <= cap(22)=8
+    enhance_max: 9
+    price: { buy: 1500, sell: 375 }
+    flavor: "Cliffside oilskin, cut short against the coastal wind."
+
+  - id: item_equip_0156
+    name: Ironspring Cape
+    category: equip
+    slot: cape
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { warding: 39, evasion: 2.0 }     # ITEMS §9 cape T6 (table row)
+      affixes:
+        - { stat: haste, value: 3 }           # round(1+0.05*36)=3 pe 4.5 <= cap(36)=13
+    enhance_max: 9
+    price: { buy: 4500, sell: 1125 }
+    flavor: "Ring-forged mesh-weave, ticking faintly at the hem near the gearworks."
+
+
   # --- ring, item_equip_0285-0290 ---
   - id: item_equip_0285
     name: Rimesteel Ring

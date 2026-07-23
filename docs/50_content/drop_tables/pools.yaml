@@ -2,10 +2,200 @@ id: drop_pools
 schema: 20_schemas/drop_table.schema.md
 references: [DROPS, ITEMS, WORLD_PLAN]
 # The single shared region-pools file (drop_table.schema §File conventions). The schema requires
-# exactly 12 pools[] (pool_equip_r01..r11 + reserved) -- rule 9 is a GLOBAL/final check, like the
-# world-graph check (VALIDATION §5): this exemplar seeds the R9 pool; each region batch APPENDS its
-# own pool entry here (it does NOT create a per-region pool file).
+# exactly 11 pools[] (pool_equip_r01..r11, docs/ID_REGISTRY.md's 11-region world) -- rule 9 is a
+# GLOBAL/final check, like the world-graph check (VALIDATION §5): each region batch APPENDS its
+# own pool entry here (it does NOT create a per-region pool file). This batch adds the arc-1
+# pools pool_equip_r01-r08.
+#
+# Arc-1 tier-fit rule (DROPS §6: "whose tier matches that region's level band"; item.schema rule
+# 9 warn): each region pool includes every gear tier T1-T6 (ITEMS §4) whose req_level falls
+# inside that region's own Lv band (docs/WORLD_PLAN.md Region overview), computed directly
+# rather than assigned by eye -- tiers land in more than one region where WORLD_PLAN's bands
+# themselves overlap (by design, MapleStory-style zone overlap), so some tiers legitimately
+# appear in two adjacent pools (T2 in R1/R2/R3, T3 in R3/R4, T4 in R4/R5) while T5/T6 land in
+# exactly one region each since their req_level (29/36) falls outside the next region's own
+# band. R7/R8 share the same T6 set (both bands only fit the arc-1-top tier) rather than
+# leaving either region without a pool. Full per-region set: R1 T1+T2, R2 T2, R3 T2+T3, R4
+# T3+T4, R5 T4, R6 T5, R7 T6, R8 T6. Composition per DROPS §6: weapons(4)+armor(5)+
+# accessories(2-3, cape authored only at T1/T2/T4/T6 per accessories.yaml) per included tier.
 pools:
+  - id: pool_equip_r01                 # region order matches DROPS §6 / ITEMS §4 tier-fit rule below
+    region: emberfoot
+    entries:                            # R1 Emberfoot (Lv1-8): T1 (req_level 1, within band) + T2 (req_level 8, band's own boundary/ferry-entry tier)
+      - { item: item_equip_0001 }       # T1 blade (weapons.yaml)
+      - { item: item_equip_0007 }       # T1 bow (weapons.yaml)
+      - { item: item_equip_0013 }       # T1 staff (weapons.yaml)
+      - { item: item_equip_0019 }       # T1 dirk (weapons.yaml)
+      - { item: item_equip_0041 }       # T1 head (armor.yaml)
+      - { item: item_equip_0047 }       # T1 body (armor.yaml)
+      - { item: item_equip_0053 }       # T1 legs (armor.yaml)
+      - { item: item_equip_0059 }       # T1 boots (armor.yaml)
+      - { item: item_equip_0065 }       # T1 gloves (armor.yaml)
+      - { item: item_equip_0141 }       # T1 ring (accessories.yaml)
+      - { item: item_equip_0147 }       # T1 amulet (accessories.yaml)
+      - { item: item_equip_0153 }       # T1 cape (accessories.yaml)
+      - { item: item_equip_0002 }       # T2 blade (weapons.yaml)
+      - { item: item_equip_0008 }       # T2 bow (weapons.yaml)
+      - { item: item_equip_0014 }       # T2 staff (weapons.yaml)
+      - { item: item_equip_0020 }       # T2 dirk (weapons.yaml)
+      - { item: item_equip_0042 }       # T2 head (armor.yaml)
+      - { item: item_equip_0048 }       # T2 body (armor.yaml)
+      - { item: item_equip_0054 }       # T2 legs (armor.yaml)
+      - { item: item_equip_0060 }       # T2 boots (armor.yaml)
+      - { item: item_equip_0066 }       # T2 gloves (armor.yaml)
+      - { item: item_equip_0142 }       # T2 ring (accessories.yaml)
+      - { item: item_equip_0148 }       # T2 amulet (accessories.yaml)
+      - { item: item_equip_0154 }       # T2 cape (accessories.yaml)
+    # Boss uniques (item_equip_0201-0216) are NOT in pools (DROPS §6, rule 10). Weight omitted =
+    # uniform across all entries.
+
+  - id: pool_equip_r02                 # region order matches DROPS §6 / ITEMS §4 tier-fit rule below
+    region: millbrook
+    entries:                            # R2 Millbrook (Lv8-14): T2 (req_level 8, ring entry -- ITEMS §4 'Harthmoor ring entry (ferry, 1st advancement)')
+      - { item: item_equip_0002 }       # T2 blade (weapons.yaml)
+      - { item: item_equip_0008 }       # T2 bow (weapons.yaml)
+      - { item: item_equip_0014 }       # T2 staff (weapons.yaml)
+      - { item: item_equip_0020 }       # T2 dirk (weapons.yaml)
+      - { item: item_equip_0042 }       # T2 head (armor.yaml)
+      - { item: item_equip_0048 }       # T2 body (armor.yaml)
+      - { item: item_equip_0054 }       # T2 legs (armor.yaml)
+      - { item: item_equip_0060 }       # T2 boots (armor.yaml)
+      - { item: item_equip_0066 }       # T2 gloves (armor.yaml)
+      - { item: item_equip_0142 }       # T2 ring (accessories.yaml)
+      - { item: item_equip_0148 }       # T2 amulet (accessories.yaml)
+      - { item: item_equip_0154 }       # T2 cape (accessories.yaml)
+    # Boss uniques (item_equip_0201-0216) are NOT in pools (DROPS §6, rule 10). Weight omitted =
+    # uniform across all entries.
+
+  - id: pool_equip_r03                 # region order matches DROPS §6 / ITEMS §4 tier-fit rule below
+    region: verdant
+    entries:                            # R3 Verdant (Lv8-16): T2 (req_level 8) + T3 (req_level 15, both within band)
+      - { item: item_equip_0002 }       # T2 blade (weapons.yaml)
+      - { item: item_equip_0008 }       # T2 bow (weapons.yaml)
+      - { item: item_equip_0014 }       # T2 staff (weapons.yaml)
+      - { item: item_equip_0020 }       # T2 dirk (weapons.yaml)
+      - { item: item_equip_0042 }       # T2 head (armor.yaml)
+      - { item: item_equip_0048 }       # T2 body (armor.yaml)
+      - { item: item_equip_0054 }       # T2 legs (armor.yaml)
+      - { item: item_equip_0060 }       # T2 boots (armor.yaml)
+      - { item: item_equip_0066 }       # T2 gloves (armor.yaml)
+      - { item: item_equip_0142 }       # T2 ring (accessories.yaml)
+      - { item: item_equip_0148 }       # T2 amulet (accessories.yaml)
+      - { item: item_equip_0154 }       # T2 cape (accessories.yaml)
+      - { item: item_equip_0003 }       # T3 blade (weapons.yaml)
+      - { item: item_equip_0009 }       # T3 bow (weapons.yaml)
+      - { item: item_equip_0015 }       # T3 staff (weapons.yaml)
+      - { item: item_equip_0021 }       # T3 dirk (weapons.yaml)
+      - { item: item_equip_0043 }       # T3 head (armor.yaml)
+      - { item: item_equip_0049 }       # T3 body (armor.yaml)
+      - { item: item_equip_0055 }       # T3 legs (armor.yaml)
+      - { item: item_equip_0061 }       # T3 boots (armor.yaml)
+      - { item: item_equip_0067 }       # T3 gloves (armor.yaml)
+      - { item: item_equip_0143 }       # T3 ring (accessories.yaml)
+      - { item: item_equip_0149 }       # T3 amulet (accessories.yaml)
+    # Boss uniques (item_equip_0201-0216) are NOT in pools (DROPS §6, rule 10). Weight omitted =
+    # uniform across all entries.
+
+  - id: pool_equip_r04                 # region order matches DROPS §6 / ITEMS §4 tier-fit rule below
+    region: tidewatch
+    entries:                            # R4 Tidewatch (Lv14-22): T3 (req_level 15) + T4 (req_level 22, band's own boundary)
+      - { item: item_equip_0003 }       # T3 blade (weapons.yaml)
+      - { item: item_equip_0009 }       # T3 bow (weapons.yaml)
+      - { item: item_equip_0015 }       # T3 staff (weapons.yaml)
+      - { item: item_equip_0021 }       # T3 dirk (weapons.yaml)
+      - { item: item_equip_0043 }       # T3 head (armor.yaml)
+      - { item: item_equip_0049 }       # T3 body (armor.yaml)
+      - { item: item_equip_0055 }       # T3 legs (armor.yaml)
+      - { item: item_equip_0061 }       # T3 boots (armor.yaml)
+      - { item: item_equip_0067 }       # T3 gloves (armor.yaml)
+      - { item: item_equip_0143 }       # T3 ring (accessories.yaml)
+      - { item: item_equip_0149 }       # T3 amulet (accessories.yaml)
+      - { item: item_equip_0004 }       # T4 blade (weapons.yaml)
+      - { item: item_equip_0010 }       # T4 bow (weapons.yaml)
+      - { item: item_equip_0016 }       # T4 staff (weapons.yaml)
+      - { item: item_equip_0022 }       # T4 dirk (weapons.yaml)
+      - { item: item_equip_0044 }       # T4 head (armor.yaml)
+      - { item: item_equip_0050 }       # T4 body (armor.yaml)
+      - { item: item_equip_0056 }       # T4 legs (armor.yaml)
+      - { item: item_equip_0062 }       # T4 boots (armor.yaml)
+      - { item: item_equip_0068 }       # T4 gloves (armor.yaml)
+      - { item: item_equip_0144 }       # T4 ring (accessories.yaml)
+      - { item: item_equip_0150 }       # T4 amulet (accessories.yaml)
+      - { item: item_equip_0155 }       # T4 cape (accessories.yaml)
+    # Boss uniques (item_equip_0201-0216) are NOT in pools (DROPS §6, rule 10). Weight omitted =
+    # uniform across all entries.
+
+  - id: pool_equip_r05                 # region order matches DROPS §6 / ITEMS §4 tier-fit rule below
+    region: gloomwood
+    entries:                            # R5 Gloomwood (Lv20-28): T4 (req_level 22, within band; T5's req_level 29 falls just outside)
+      - { item: item_equip_0004 }       # T4 blade (weapons.yaml)
+      - { item: item_equip_0010 }       # T4 bow (weapons.yaml)
+      - { item: item_equip_0016 }       # T4 staff (weapons.yaml)
+      - { item: item_equip_0022 }       # T4 dirk (weapons.yaml)
+      - { item: item_equip_0044 }       # T4 head (armor.yaml)
+      - { item: item_equip_0050 }       # T4 body (armor.yaml)
+      - { item: item_equip_0056 }       # T4 legs (armor.yaml)
+      - { item: item_equip_0062 }       # T4 boots (armor.yaml)
+      - { item: item_equip_0068 }       # T4 gloves (armor.yaml)
+      - { item: item_equip_0144 }       # T4 ring (accessories.yaml)
+      - { item: item_equip_0150 }       # T4 amulet (accessories.yaml)
+      - { item: item_equip_0155 }       # T4 cape (accessories.yaml)
+    # Boss uniques (item_equip_0201-0216) are NOT in pools (DROPS §6, rule 10). Weight omitted =
+    # uniform across all entries.
+
+  - id: pool_equip_r06                 # region order matches DROPS §6 / ITEMS §4 tier-fit rule below
+    region: ashfall
+    entries:                            # R6 Ashfall (Lv26-34): T5 (req_level 29, within band; T6's req_level 36 falls just outside)
+      - { item: item_equip_0005 }       # T5 blade (weapons.yaml)
+      - { item: item_equip_0011 }       # T5 bow (weapons.yaml)
+      - { item: item_equip_0017 }       # T5 staff (weapons.yaml)
+      - { item: item_equip_0023 }       # T5 dirk (weapons.yaml)
+      - { item: item_equip_0045 }       # T5 head (armor.yaml)
+      - { item: item_equip_0051 }       # T5 body (armor.yaml)
+      - { item: item_equip_0057 }       # T5 legs (armor.yaml)
+      - { item: item_equip_0063 }       # T5 boots (armor.yaml)
+      - { item: item_equip_0069 }       # T5 gloves (armor.yaml)
+      - { item: item_equip_0145 }       # T5 ring (accessories.yaml)
+      - { item: item_equip_0151 }       # T5 amulet (accessories.yaml)
+    # Boss uniques (item_equip_0201-0216) are NOT in pools (DROPS §6, rule 10). Weight omitted =
+    # uniform across all entries.
+
+  - id: pool_equip_r07                 # region order matches DROPS §6 / ITEMS §4 tier-fit rule below
+    region: sunken
+    entries:                            # R7 Sunken (Lv30-38): T6 (req_level 36, within band; arc-1's top tier)
+      - { item: item_equip_0006 }       # T6 blade (weapons.yaml)
+      - { item: item_equip_0012 }       # T6 bow (weapons.yaml)
+      - { item: item_equip_0018 }       # T6 staff (weapons.yaml)
+      - { item: item_equip_0024 }       # T6 dirk (weapons.yaml)
+      - { item: item_equip_0046 }       # T6 head (armor.yaml)
+      - { item: item_equip_0052 }       # T6 body (armor.yaml)
+      - { item: item_equip_0058 }       # T6 legs (armor.yaml)
+      - { item: item_equip_0064 }       # T6 boots (armor.yaml)
+      - { item: item_equip_0070 }       # T6 gloves (armor.yaml)
+      - { item: item_equip_0146 }       # T6 ring (accessories.yaml)
+      - { item: item_equip_0152 }       # T6 amulet (accessories.yaml)
+      - { item: item_equip_0156 }       # T6 cape (accessories.yaml)
+    # Boss uniques (item_equip_0201-0216) are NOT in pools (DROPS §6, rule 10). Weight omitted =
+    # uniform across all entries.
+
+  - id: pool_equip_r08                 # region order matches DROPS §6 / ITEMS §4 tier-fit rule below
+    region: clockwork
+    entries:                            # R8 Clockwork (Lv34-40, endgame): T6 (req_level 36, within band; same top-tier set as R7 -- Clockwork is the arc-1 capstone, sharing the top gear tier rather than introducing a new one)
+      - { item: item_equip_0006 }       # T6 blade (weapons.yaml)
+      - { item: item_equip_0012 }       # T6 bow (weapons.yaml)
+      - { item: item_equip_0018 }       # T6 staff (weapons.yaml)
+      - { item: item_equip_0024 }       # T6 dirk (weapons.yaml)
+      - { item: item_equip_0046 }       # T6 head (armor.yaml)
+      - { item: item_equip_0052 }       # T6 body (armor.yaml)
+      - { item: item_equip_0058 }       # T6 legs (armor.yaml)
+      - { item: item_equip_0064 }       # T6 boots (armor.yaml)
+      - { item: item_equip_0070 }       # T6 gloves (armor.yaml)
+      - { item: item_equip_0146 }       # T6 ring (accessories.yaml)
+      - { item: item_equip_0152 }       # T6 amulet (accessories.yaml)
+      - { item: item_equip_0156 }       # T6 cape (accessories.yaml)
+    # Boss uniques (item_equip_0201-0216) are NOT in pools (DROPS §6, rule 10). Weight omitted =
+    # uniform across all entries.
+
   - id: pool_equip_r09                 # NN=09 matches region order R9 (DROPS §6)
     region: frostpeak
     entries:                            # base equips whose tier sits in R9's band (T7-T8, Lv 40-55; DROPS §6, ITEMS §4)

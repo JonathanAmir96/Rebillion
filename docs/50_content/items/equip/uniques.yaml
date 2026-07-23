@@ -1,27 +1,444 @@
 id: item_table_uniques
 schema: 20_schemas/item.schema.md
 references: [ITEMS, ECONOMY, ENHANCEMENT, DROPS, WORLD_PLAN]
-# This batch authors only the arc-2 rows, item_equip_0217-0222 (bosses #9-#11: Skoldir, Aetheron,
-# Nyxaris; docs/ID_REGISTRY.md boss-unique mapping, formula item_equip_{0199+2n}/{0200+2n}). Arc-1
-# uniques (item_equip_0201-0216, bosses #1-#8) land with the arc-1 batch later -- this file holds
-# both blocks once that batch lands (one shared uniques.yaml, item.schema File conventions).
+# This file holds both arc blocks (item.schema File conventions: one shared uniques.yaml): arc-1
+# item_equip_0201-0216 (this batch: bosses #1-#8, WORLD_PLAN's 8 region bosses) and arc-2
+# item_equip_0217-0222 (bosses #9-#11: Skoldir, Aetheron, Nyxaris). Boss-unique mapping (formula
+# item_equip_{0199+2n}/{0200+2n}, docs/ID_REGISTRY.md): Cindermaw(n=1) 0201-0202, Cellar King(n=2)
+# 0203-0204, Thornback Sovereign(n=3) 0205-0206, Tidecaller Morva(n=4) 0207-0208, Mother Gloam(n=5)
+# 0209-0210, Karnothal(n=6) 0211-0212, The Drowned Warden(n=7) 0213-0214, The Custodian(n=8)
+# 0215-0216.
 #
 # Each boss owns one weapon unique (legendary) + one non-weapon unique (epic), per ITEMS §11's
-# "a boss may own e.g. one weapon + one amulet." req_level = the boss's own level (ITEMS §11,
-# not the ladder's per-tier req_level -- Skoldir 55/Aetheron 68/Nyxaris 80 fall between two
-# official T-tiers). Base lines are computed directly from the ITEMS §7-§9 closed-form formulas
-# at that exact level (the per-tier tables in those sections are themselves just the formula's
-# checksum at canonical tier levels, per ITEMS §7's own note) rather than snapped to the nearest
+# "a boss may own e.g. one weapon + one amulet." req_level = the boss's own level (ITEMS §11, not
+# the ladder's per-tier req_level -- Lv8/14/16/22/28/34/38/40 fall between or on official T-tiers,
+# same convention the arc-2 block below already established). Base lines are computed directly
+# from the ITEMS §7-§9 closed-form formulas at that exact level rather than snapped to the nearest
 # tier row; `tier` records the nearest official ladder tier for categorization/tooling only
-# (Skoldir T9, Aetheron T11, Nyxaris T12 -- see Open Questions for the tier-field convention).
+# (Cindermaw T2 exact, Cellar King/Thornback T3, Morva T4 exact, Gloam T5, Karnothal/Warden/
+# Custodian T6 -- same Open Question as the arc-2 block on this field's convention).
+#
+# Non-weapon slot is chosen so the 8 arc-1 bosses cover the 8 non-weapon equip slots once each
+# (head/body/legs/boots/gloves/cape/ring/amulet) -- a Phase D authoring convention, not an
+# ITEMS.md rule. Weapon type mirrors each home-ring-town job line where the boss's region is a
+# job-line home (CLAUDE.md: Bulwark->Cindershelf/Ashfall, Keeneye->Tidewatch Port, Weaver->
+# Mossmere/Verdant, Flicker->Millbrook), doubled up across the remaining bosses for an even
+# 2-per-type split: Karnothal(Ashfall, home)+Cindermaw = blade; Morva(Tidewatch, home)+
+# Custodian = bow; Thornback(Verdant, home)+Drowned Warden = staff; Cellar King(Millbrook,
+# home)+Gloam = dirk.
 #
 # Affix eligibility per slot is ITEMS §10. Legendary (4 lines) = 3 ordinary + 1 flourish
-# (on_hit_proc, SKILL_EFFECTS §16; ITEMS §11 allows 1-2 flourish lines). Epic (3 lines) = 3
-# ordinary, no flourish (not mandatory). Price: buy = round(base_buy(tier) * 30) (ECONOMY §4.2
-# epic/legendary multiplier, suppressed to the same x30 for both -- "legendary and boss-unique
-# vendor value is suppressed to the epic multiplier"), sell = round(0.25*buy); base_buy by tier
-# from weapons.yaml's table (T9=6000, T11=10000 extrap, T12=12000 extrap).
+# (on_hit_proc, SKILL_EFFECTS §16; ITEMS §11 allows 1-2 flourish lines) themed to the boss's
+# WORLD_PLAN element (Cindermaw/Karnothal fire->burn, Cellar King/Gloam shadow->poison,
+# Thornback nature->root, Morva/Warden frost->chill/freeze, Custodian arcane->sunder). Epic
+# (3 lines) = 3 ordinary, no flourish. crit_rate/crit_power/evasion affix lines use the ITEMS
+# §10 affix-menu nearest-anchor convention (only Lv1/22/36 tabulated in the arc-1 range) --
+# same method the arc-2 block already established for Skoldir/Aetheron/Nyxaris. Price:
+# buy = round(base_buy(tier) * 30) (ECONOMY §4.2 epic/legendary multiplier, suppressed to x30
+# for both); sell = round(0.25*buy); base_buy by tier from weapons.yaml's table (T2=120, T3=300,
+# T4=600, T5=1050, T6=1800 -- all directly tabulated, no extrapolation needed unlike the arc-2
+# block's T9/T11/T12).
 items:
+  # --- Cindermaw (mob_012, Emberfoot boss #1, Lv8, arena map_016) ---
+  - id: item_equip_0201
+    name: Cindermaw's Cinderfang Warblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 2
+    req_level: 8
+    rarity: legendary
+    stats:
+      base: { power: 26 }            # ITEMS §7 W_phys(8) = round(0.055*8^2 + 2.05*8 + 6)
+      affixes:
+        - { stat: might, value: 3 }    # u(8)=3 pe; well under cap(8)=4
+        - { stat: crit_rate, value: 1.0 }   # affix menu, nearest anchor Lv1; pe 3.0
+        - { stat: haste, value: 1 }      # round(1+0.05*8)=1; pe 1.5
+        - op: on_hit_proc               # flourish (ITEMS §11): signature burn proc
+          trigger: on_deal
+          chance: 0.15
+          effect: { op: apply_status, status: burn, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_012
+    price:
+      buy: 3600
+      sell: 900
+    flavor: "Broken from the furnace-hound's own fang, it still radiates kiln-heat long after the kill."
+
+
+  - id: item_equip_0202
+    name: Cindermaw's Cinderskull Helm
+    category: equip
+    slot: head
+    tier: 2
+    req_level: 8
+    rarity: epic
+    stats:
+      base: { armor: 13, warding: 9 }   # ITEMS §8 head L8 (w=0.18, K(8)=210)
+      affixes:
+        - { stat: life, value: 33 }   # pe 0.99 <= cap(8)=4
+        - { stat: armor, value: 12 }   # pe 1.2 <= cap(8)=4
+        - { stat: haste, value: 1 }   # pe 1.5 <= cap(8)=4
+    enhance_max: 9
+    unique_of: mob_012
+    price:
+      buy: 3600
+      sell: 900
+    flavor: "Cast from the slumbering hound's own brow-plate; the kiln's heat never quite left it."
+
+
+  # --- The Cellar King (mob_027, Millbrook boss #2, Lv14, arena map_042) ---
+  - id: item_equip_0203
+    name: Cellar King's Ratfang Dirk
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 3
+    req_level: 14
+    rarity: legendary
+    stats:
+      base: { power: 45 }            # ITEMS §7 W_phys(14) = round(0.055*14^2 + 2.05*14 + 6)
+      affixes:
+        - { stat: fortune, value: 5 }    # u(14)=5 pe; well under cap(14)=7
+        - { stat: crit_rate, value: 1.5 }   # affix menu, nearest anchor Lv22; pe 4.5
+        - { stat: haste, value: 2 }      # round(1+0.05*14)=2; pe 3.0
+        - op: on_hit_proc               # flourish (ITEMS §11): signature poison proc
+          trigger: on_deal
+          chance: 0.15
+          effect: { op: apply_status, status: poison, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_027
+    price:
+      buy: 9000
+      sell: 2250
+    flavor: "A gnawed rib-bone sharpened to a killing edge, still slick with the drowned grain stores' rot."
+
+
+  - id: item_equip_0204
+    name: Cellar King's Ratbone Grips
+    category: equip
+    slot: gloves
+    tier: 3
+    req_level: 14
+    rarity: epic
+    stats:
+      base: { armor: 17, warding: 12 }   # ITEMS §8 gloves L14 (w=0.15, K(14)=330)
+      affixes:
+        - { stat: precision, value: 15 }   # pe 3.0 <= cap(14)=7
+        - { stat: crit_rate, value: 1.5 }   # pe 4.5 <= cap(14)=7
+        - { stat: haste, value: 2 }   # pe 3.0 <= cap(14)=7
+    enhance_max: 9
+    unique_of: mob_027
+    price:
+      buy: 9000
+      sell: 2250
+    flavor: "Stitched from vermin-hide, clawed at every knuckle. It scuttles faintly when the wearer makes a fist."
+
+
+  # --- Thornback Sovereign (mob_047, Verdant boss #3, Lv16, arena map_070) ---
+  - id: item_equip_0205
+    name: Thornback's Rootbound Staff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 3
+    req_level: 16
+    rarity: legendary
+    stats:
+      base: { spellpower: 58 }            # ITEMS §7 W_staff(16) = round(1.10 * W_phys(16)=53)
+      affixes:
+        - { stat: focus, value: 5 }    # u(16)=5 pe; well under cap(16)=7
+        - { stat: crit_rate, value: 1.5 }   # affix menu, nearest anchor Lv22; pe 4.5
+        - { stat: haste, value: 2 }      # round(1+0.05*16)=2; pe 3.0
+        - op: on_hit_proc               # flourish (ITEMS §11): signature root proc
+          trigger: on_deal
+          chance: 0.15
+          effect: { op: apply_status, status: root, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_047
+    price:
+      buy: 9000
+      sell: 2250
+    flavor: "Grown, not carved, from the sovereign beetle-stag's own cracked shell-plate."
+
+
+  - id: item_equip_0206
+    name: Thornback's Cracked Shellguard
+    category: equip
+    slot: legs
+    tier: 3
+    req_level: 16
+    rarity: epic
+    stats:
+      base: { armor: 30, warding: 21 }   # ITEMS §8 legs L16 (w=0.24, K(16)=370)
+      affixes:
+        - { stat: armor, value: 20 }   # pe 2.0 <= cap(16)=7
+        - { stat: life, value: 55 }   # pe 1.65 <= cap(16)=7
+        - { stat: haste, value: 2 }   # pe 3.0 <= cap(16)=7
+    enhance_max: 9
+    unique_of: mob_047
+    price:
+      buy: 9000
+      sell: 2250
+    flavor: "Moss-grown plate off the sovereign's own back, still knitting closed at the seams."
+
+
+  # --- Tidecaller Morva (mob_067, Tidewatch boss #4, Lv22, arena map_097) ---
+  - id: item_equip_0207
+    name: Morva's Siren Longbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 4
+    req_level: 22
+    rarity: legendary
+    stats:
+      base: { power: 78 }            # ITEMS §7 W_phys(22) = round(0.055*22^2 + 2.05*22 + 6)
+      affixes:
+        - { stat: finesse, value: 6 }    # u(22)=6 pe; well under cap(22)=8
+        - { stat: crit_rate, value: 1.5 }   # affix menu, nearest anchor Lv22; pe 4.5
+        - { stat: haste, value: 2 }      # round(1+0.05*22)=2; pe 3.0
+        - op: on_hit_proc               # flourish (ITEMS §11): signature chill proc
+          trigger: on_crit
+          chance: 0.2
+          effect: { op: apply_status, status: chill, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_067
+    price:
+      buy: 18000
+      sell: 4500
+    flavor: "Strung with a strand of the siren-priestess's own hair; it hums a half-note before every loose."
+
+
+  - id: item_equip_0208
+    name: Morva's Siren Locket
+    category: equip
+    slot: amulet
+    tier: 4
+    req_level: 22
+    rarity: epic
+    stats:
+      base: { focus: 10, crit_power: 0.05 }   # ITEMS §9 amulet T4 (table row, exact anchor Lv22)
+      affixes:
+        - { stat: focus, value: 6 }   # pe 6.0 <= cap(22)=8
+        - { stat: spellpower, value: 13 }   # pe 6.5 <= cap(22)=8
+        - { stat: crit_power, value: 0.05 }   # pe 1.5 <= cap(22)=8
+    enhance_max: 9
+    unique_of: mob_067
+    price:
+      buy: 18000
+      sell: 4500
+    flavor: "A locket that hums the same drowning song Morva sang the ships onto the rocks with."
+
+
+  # --- Mother Gloam (mob_087, Gloomwood boss #5, Lv28, arena map_124) ---
+  - id: item_equip_0209
+    name: Gloam's Broodmother Fang
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 5
+    req_level: 28
+    rarity: legendary
+    stats:
+      base: { power: 107 }            # ITEMS §7 W_phys(28) = round(0.055*28^2 + 2.05*28 + 6)
+      affixes:
+        - { stat: fortune, value: 8 }    # u(28)=8 pe; well under cap(28)=11
+        - { stat: crit_rate, value: 1.5 }   # affix menu, nearest anchor Lv22; pe 4.5
+        - { stat: haste, value: 2 }      # round(1+0.05*28)=2; pe 3.0
+        - op: on_hit_proc               # flourish (ITEMS §11): signature poison proc
+          trigger: on_deal
+          chance: 0.15
+          effect: { op: apply_status, status: poison, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_087
+    price:
+      buy: 31500
+      sell: 7875
+    flavor: "One of the spider-matron's own fangs, hollow still, and it never runs dry."
+
+
+  - id: item_equip_0210
+    name: Gloam's Broodsilk Shroud
+    category: equip
+    slot: cape
+    tier: 5
+    req_level: 28
+    rarity: epic
+    stats:
+      base: { warding: 31, evasion: 2.0 }   # ITEMS §9 cape_warding(28)=round(0.15*K(28)/3)=31; evasion nearest tier T5 (2.0%)
+      affixes:
+        - { stat: evasion, value: 1.0 }   # pe 2.5 <= cap(28)=11
+        - { stat: warding, value: 32 }   # pe 3.2 <= cap(28)=11
+        - { stat: haste, value: 2 }   # pe 3.0 <= cap(28)=11
+    enhance_max: 9
+    unique_of: mob_087
+    price:
+      buy: 31500
+      sell: 7875
+    flavor: "Web-silk shrugged off the matron's own loom; it clings a little tighter than a cape should."
+
+
+  # --- Karnothal, the Stoker (mob_107, Ashfall boss #6, Lv34, arena map_151) ---
+  - id: item_equip_0211
+    name: Karnothal's Cinderforge Warblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 6
+    req_level: 34
+    rarity: legendary
+    stats:
+      base: { power: 139 }            # ITEMS §7 W_phys(34) = round(0.055*34^2 + 2.05*34 + 6)
+      affixes:
+        - { stat: might, value: 9 }    # u(34)=9 pe; well under cap(34)=13
+        - { stat: crit_rate, value: 1.5 }   # affix menu, nearest anchor Lv36; pe 4.5
+        - { stat: haste, value: 3 }      # round(1+0.05*34)=3; pe 4.5
+        - op: on_hit_proc               # flourish (ITEMS §11): signature burn proc
+          trigger: on_deal
+          chance: 0.15
+          effect: { op: apply_status, status: burn, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_107
+    price:
+      buy: 54000
+      sell: 13500
+    flavor: "Quenched in the colossus's own molten core; the edge never fully cools."
+
+
+  - id: item_equip_0212
+    name: Karnothal's Molten Core Plate
+    category: equip
+    slot: body
+    tier: 6
+    req_level: 34
+    rarity: epic
+    stats:
+      base: { armor: 68, warding: 48 }   # ITEMS §8 body L34 (w=0.28, K(34)=730)
+      affixes:
+        - { stat: life, value: 99 }   # pe 2.97 <= cap(34)=13
+        - { stat: armor, value: 36 }   # pe 3.6 <= cap(34)=13
+        - { stat: haste, value: 3 }   # pe 4.5 <= cap(34)=13
+    enhance_max: 9
+    unique_of: mob_107
+    price:
+      buy: 54000
+      sell: 13500
+    flavor: "A slab of the colossus's own chestplate, still ember-warm at the rivets."
+
+
+  # --- The Drowned Warden (mob_128, Sunken boss #7, Lv38, arena map_176) ---
+  - id: item_equip_0213
+    name: Warden's Sunken Rune-Staff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 6
+    req_level: 38
+    rarity: legendary
+    stats:
+      base: { spellpower: 179 }            # ITEMS §7 W_staff(38) = round(1.10 * W_phys(38)=163)
+      affixes:
+        - { stat: focus, value: 10 }    # u(38)=10 pe; well under cap(38)=14
+        - { stat: crit_rate, value: 1.5 }   # affix menu, nearest anchor Lv36; pe 4.5
+        - { stat: haste, value: 3 }      # round(1+0.05*38)=3; pe 4.5
+        - op: on_hit_proc               # flourish (ITEMS §11): signature freeze proc
+          trigger: on_crit
+          chance: 0.2
+          effect: { op: apply_status, status: freeze, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_128
+    price:
+      buy: 54000
+      sell: 13500
+    flavor: "Carved from the last door's own frame-beam; it drips brine that never fully dries."
+
+
+  - id: item_equip_0214
+    name: Warden's Sunken Treads
+    category: equip
+    slot: boots
+    tier: 6
+    req_level: 38
+    rarity: epic
+    stats:
+      base: { armor: 41, warding: 29 }   # ITEMS §8 boots L38 (w=0.15, K(38)=810)
+      affixes:
+        - { stat: haste, value: 3 }   # pe 4.5 <= cap(38)=14
+        - { stat: life, value: 110 }   # pe 3.3 <= cap(38)=14
+        - { stat: armor, value: 40 }   # pe 4.0 <= cap(38)=14
+    enhance_max: 9
+    unique_of: mob_128
+    price:
+      buy: 54000
+      sell: 13500
+    flavor: "Boots pried off a husk that hadn't moved in a dead kingdom's lifetime. They still remember the door."
+
+
+  # --- The Custodian (mob_150, Clockwork boss #8, Lv40, arena map_200) ---
+  - id: item_equip_0215
+    name: Custodian's Arcane Targeting Bow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 6
+    req_level: 40
+    rarity: legendary
+    stats:
+      base: { power: 176 }            # ITEMS §7 W_phys(40) = round(0.055*40^2 + 2.05*40 + 6)
+      affixes:
+        - { stat: finesse, value: 10 }    # u(40)=10 pe; well under cap(40)=14
+        - { stat: crit_rate, value: 1.5 }   # affix menu, nearest anchor Lv36; pe 4.5
+        - { stat: haste, value: 3 }      # round(1+0.05*40)=3; pe 4.5
+        - op: on_hit_proc               # flourish (ITEMS §11): signature sunder proc
+          trigger: on_crit
+          chance: 0.2
+          effect: { op: apply_status, status: sunder, chance: 1.0 }
+          flourish: true
+    enhance_max: 9
+    unique_of: mob_150
+    price:
+      buy: 54000
+      sell: 13500
+    flavor: "Salvaged from the haywire engine's own aiming array; it still tracks a mark on its own."
+
+
+  - id: item_equip_0216
+    name: Custodian's Clockwork Band
+    category: equip
+    slot: ring
+    tier: 6
+    req_level: 40
+    rarity: epic
+    stats:
+      base: { fortune: 16, crit_rate: 1.5 }   # ITEMS §9 primary_base(40)=round(2+0.35*40)=16; crit_rate nearest tier T6
+      affixes:
+        - { stat: fortune, value: 10 }   # pe 10.0 <= cap(40)=14
+        - { stat: crit_rate, value: 1.5 }   # pe 4.5 <= cap(40)=14
+        - { stat: power, value: 22 }   # pe 11.0 <= cap(40)=14
+    enhance_max: 9
+    unique_of: mob_150
+    price:
+      buy: 54000
+      sell: 13500
+    flavor: "A gear-tooth ring pried from the engine's own wrist-joint. It still ticks, off by one beat."
+
+
   # --- Skoldir, the Rimewyrm (mob_178, Frostpeak boss #9, Lv55, arena map_244) ---
   - id: item_equip_0217
     name: Rimewyrm's Frostbite Warblade
