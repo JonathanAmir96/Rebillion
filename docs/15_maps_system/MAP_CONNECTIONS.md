@@ -244,6 +244,15 @@ edges, and the Frostpeak-side allocation are owned by `docs/WORLD_PLAN.md`'s arc
 `docs/ID_REGISTRY.md`'s arc-2 block (cited, not minted here). Being a two-way walking `door` into
 new content, it needs no `dead_end` marking (a reverse door returns from `map_201` to `map_125`).
 
+### 9.2 Gates are per-portal-side — backtracking is never gated (v3.1)
+A `level_gate` sits on **one portal**, i.e. one direction of a crossing; the reverse portal
+carries no gate unless separately authored. Standing rule (owner directive, WORLD_PLAN
+"Backtracking law"): progression gates guard **entry into higher content only** — returning
+to earlier islands/regions is always ungated, at any level. Future cross-arc shortcuts
+(WORLD_PLAN's reserved boss-connectivity hook: high-level boss access placed inside
+low-level islands) reuse exactly this primitive — an additive gated portal on an existing
+map, no new mechanism.
+
 ## Map-level edge table
 
 Authored by the Phase D world-graph reconciler after all 200 maps exist.

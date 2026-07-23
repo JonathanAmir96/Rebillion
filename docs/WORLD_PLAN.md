@@ -175,6 +175,19 @@ returning — `map_125`); every longship arrival targets spawn `longship_dock` o
 destination port town (and boarding lands on the deck's `longship_deck` spawn), per
 15_maps_system/MAP_CONNECTIONS.md §8.
 
+**Backtracking law (v3.1, owner directive):** every arc crossing is two-way and the old
+world never closes. A Lv 40+ character freely returns to Arc-1 islands — the Deepway's
+`level_gate` guards **entry into the passage at Cindershelf only**; the southbound return
+and all longship legs carry no gate (a returning character trivially satisfies it anyway).
+Classic-style: low-level islands stay live social/economy space at every level.
+
+**Reserved hook — cross-arc boss connectivity (future arcs):** MapleStory-style hidden
+links that place access to high-level boss content inside low-level islands (e.g. a sealed
+door on Emberfoot or a Millbrook undervault shaft leading to a far-isle or Rift boss).
+Reserved as a design hook only — no map IDs minted; each future link lands as an additive
+portal + `level_gate` on an existing map, exactly like the Deepway pattern. Owner: this
+file (edge table) + 15_maps_system/MAP_CONNECTIONS.md §9 (gating).
+
 ## Job instructors (v2.3 — every line has a home city, classic-style)
 
 | Line | Home town | Instructor seed |
