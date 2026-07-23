@@ -1,0 +1,26 @@
+id: mob_138
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Arc-Caster
+tier: normal                     # ID_REGISTRY: mob_138 in R8 normals block 129-144
+element: arcane                   # WORLD_PLAN R8 split = neutral/arcane
+weak_to: [neutral]                 # ELEMENTS §2 (mutually exclusive lists)
+resists: [arcane]
+level: 38
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 38
+  life: 6724                     # 4*(38+3)^2
+  power: 120                      # 6+3*38 (touch = round(0.5*power), §13.1)
+  armor: 228                      # 6*38  (armor+warding sum = 456 = 12*38)
+  warding: 228                    # 6*38
+  precision: 152                  # 4*38
+  evasion: 4.14                   # 3 + 0.03*38 (%)
+  exp: 453                      # exp_per_kill_normal(38)=round(4*38^1.3) (LEVELING §3)
+ai_profile: ranged_skirmisher
+ai_params:
+  preferred_range_min: 5
+  preferred_range_max: 9
+  attack_cooldown_s: 1.4
+animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; +cast (caster); no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_138
+flavor: "A tall rune-frame that gathers loose current between its prongs and hurls it in a snapping lance. It gives ground to hold its distance, trailing sparks the whole retreat."

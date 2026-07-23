@@ -1,0 +1,26 @@
+id: mob_132
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Glyph-Slinger
+tier: normal                     # ID_REGISTRY: mob_132 in R8 normals block 129-144
+element: arcane                   # WORLD_PLAN R8 split = neutral/arcane
+weak_to: [neutral]                 # ELEMENTS §2 (mutually exclusive lists)
+resists: [arcane]
+level: 35
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 35
+  life: 5776                     # 4*(35+3)^2
+  power: 111                      # 6+3*35 (touch = round(0.5*power), §13.1)
+  armor: 210                      # 6*35  (armor+warding sum = 420 = 12*35)
+  warding: 210                    # 6*35
+  precision: 140                  # 4*35
+  evasion: 4.05                   # 3 + 0.03*35 (%)
+  exp: 407                      # exp_per_kill_normal(35)=round(4*35^1.3) (LEVELING §3)
+ai_profile: ranged_skirmisher
+ai_params:
+  preferred_range_min: 4
+  preferred_range_max: 9
+  attack_cooldown_s: 1.5
+animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; +cast (caster); no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_132
+flavor: "A hovering caster-frame that flings the ruin's etched rote-glyphs like thrown knives. It backs away as precisely as it fires, keeping the gap it was built to hold."

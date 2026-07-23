@@ -1,0 +1,20 @@
+id: drop_mob_150
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN, PARTY]   # boss: emberstone + region-boss uniques; raid_mainspring finale -> PARTY loot-split
+owner: mob_150
+rows:
+  # shards guaranteed, boss x15. mean=round(1.5*40+3)=63; x15=945 (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 756, qty_max: 1134 }
+  # region materials guaranteed (crafting/quest mats, DROPS §5.3)
+  - { ref: item_etc_0128, chance: guaranteed, qty_min: 1, qty_max: 2 }
+  - { ref: item_etc_0127, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  # emberstone: 1 guaranteed + 1 uncommon (DROPS §5.3, ENHANCEMENT §1). R8 gear = T5-T6 -> Emberstone III
+  - { ref: item_etc_0195, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0195, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5). A raid-entry kill instead rolls the
+  # §5.5 'raid' row at runtime (DROPS §5.4, RAID §6) -- the static table is the region-boss/open-arena shape.
+  - { ref: pool_equip_r08, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss uniques: The Custodian owns item_equip_0215/0216 (ID_REGISTRY boss #8 = 0199+2*8). Parallel items batch.
+  # first-ever clear guarantees one of the two (DROPS §5.3 bad-luck protection).
+  - { ref: item_equip_0215, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0216, chance: legendary, qty_min: 1, qty_max: 1 }

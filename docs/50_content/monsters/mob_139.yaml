@@ -1,0 +1,25 @@
+id: mob_139
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Brass Sweeper
+tier: normal                     # ID_REGISTRY: mob_139 in R8 normals block 129-144
+element: neutral                   # WORLD_PLAN R8 split = neutral/arcane
+weak_to: [arcane]                 # ELEMENTS §2 (mutually exclusive lists)
+level: 38
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 38
+  life: 6724                     # 4*(38+3)^2
+  power: 120                      # 6+3*38 (touch = round(0.5*power), §13.1)
+  armor: 228                      # 6*38  (armor+warding sum = 456 = 12*38)
+  warding: 228                    # 6*38
+  precision: 152                  # 4*38
+  evasion: 4.14                   # 3 + 0.03*38 (%)
+  exp: 453                      # exp_per_kill_normal(38)=round(4*38^1.3) (LEVELING §3)
+ai_profile: passive_wanderer
+ai_params:
+  wander_radius: 6
+  flee_duration_s: 4
+  corner_wait_s: 2
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_139
+flavor: "A low disc-bodied cleaner still pushing centuries of dust down corridors no one walks. It ignores you utterly until struck, then trundles off in blind, mindless alarm."
