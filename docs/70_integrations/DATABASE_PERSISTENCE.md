@@ -361,7 +361,7 @@ guarantee.
 | Level-up | Level-up transaction | Immediate |
 | Quest turn-in | Turn-in transaction | Immediate |
 | Map/zone transition | Checkpoint flush of `session_snapshot` at the transition | Checkpoint (natural low-risk point) |
-| Periodic timer, every 60 s | Per-active-character periodic checkpoint flush (interval is `70_integrations/GAMEPLAY_SIMULATION.md`'s to tune; 60 s inherited as the design default) | Checkpoint (backstop) |
+| Periodic timer, every 60 s | Per-active-character periodic checkpoint flush — the interval is THIS doc's write-cadence value (per `70_integrations/GAMEPLAY_SIMULATION.md`'s own boundary statement): **60 s**, matching `10_systems/PERSISTENCE.md` §6's solo backstop; retune on load telemetry | Checkpoint (backstop) |
 | Clean application quit | Clean logout: final checkpoint flush + session release | Checkpoint + immediate |
 | *(no solo analog)* | Trade swap / market / mail / enhancement / guild op | Immediate (value transfer; solo has no second party) |
 | *(no solo analog)* | Scheduled sweep: mail/market expiry return | Immediate transaction per expired row |
@@ -459,12 +459,14 @@ table's stances (fail-loud in dev, fail-safe in prod; refuse rather than fabrica
 - **Market-proceeds delivery** (wallet credit vs `10_systems/social/MAIL.md`) is unresolved in the
   `10_systems/social/MARKET.md`/`MAIL.md` stubs; §4 supports either as a same-commit Postgres write and
   does not force the choice.
-- **Solo→online import validation** (`10_systems/PERSISTENCE.md` §9) — the re-derive/range-check/
-  restrict decision — remains that doc's open item; §6 only fixes that import runs the schema-version
-  migration and refuses a forward-version save. Not re-decided here.
-- **Checkpoint interval (60 s default) and what exactly a checkpoint flushes** are shared with
-  `70_integrations/GAMEPLAY_SIMULATION.md` (timer resolution / reconciliation cadence owner); §5 fixes
-  the two write classes and the trigger mapping, that sibling may tune the interval.
+- **Solo→online import validation** (`10_systems/PERSISTENCE.md` §9) — the re-derive/range-check
+  pass is now designed in `70_integrations/ACCOUNTS_AUTH.md` §2.4 (this wave); §6 only fixes that
+  import runs the schema-version migration and refuses a forward-version save. Not re-decided here.
+- **Per-role connection-pool caps.** The schemas-in-one-database design (§2) preserves write
+  isolation, not resource isolation — WAL, checkpointer, autovacuum, and the connection budget are
+  shared. The mitigation is per-role connection-pool limits at the pooling layer (e.g. per-role
+  PgBouncer pools); which pooler and what caps is an ops/owner-priced item alongside the
+  `70_integrations/BACKEND_ARCHITECTURE.md` hosting decision.
 - **Account/credential store placement.** The password hash and account root
   (`70_integrations/ACCOUNTS_AUTH.md` §8) are grouped under the character DB by
   `70_integrations/BACKEND_ARCHITECTURE.md` §5; whether they sit in the `char` schema or a dedicated

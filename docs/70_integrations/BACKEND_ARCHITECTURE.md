@@ -92,8 +92,10 @@ processes on world nodes — only entry through a PQ gate allocates a true insta
   `10_systems/social/PARTY.md` §6.
 - **Social services** — one relay/state tier hosting the server-deferred systems (§7); internals
   are `70_integrations/CHAT_SOCIAL_BACKEND.md`'s.
-- **Persistence tier** — the durable truth ledger, separated by concern so a market outage cannot
-  corrupt character saves (§3). Storage schema, transaction boundaries, and write cadence are
+- **Persistence tier** — the durable truth ledger, partitioned by concern (schema +
+  least-privilege role, §3) so an application-level fault in one concern cannot write or read into
+  another's data; the storage engine and cluster are shared, so a whole-engine outage still takes
+  down all three by design. Storage schema, transaction boundaries, and write cadence are
   `70_integrations/DATABASE_PERSISTENCE.md`'s.
 
 **Scaling units — what you add one more of, and when:**
@@ -157,19 +159,25 @@ doc fixes only the **technology** each component runs on and why.
 
 | Component (from §5) | Technology | Why |
 |---|---|---|
-| Character DB | **PostgreSQL** (own logical database/schema) | Relational, ACID; a character save is a set of related rows that must commit together |
-| Wallet / economy ledger | **PostgreSQL** (own logical database/schema) | Account-to-account `shards`/item transfers (`MARKET`/`MAIL`/`TRADING`) must be **atomic** — no minting, no loss; multi-row transactions are the whole point of the single-world ledger (§1) |
-| Social / market DB | **PostgreSQL** (own logical database/schema) | Guild/party/trade/mail/market state; relational, and shares transactions with the wallet on value transfer |
+| Character DB | **PostgreSQL** (own schema + role, one database) | Relational, ACID; a character save is a set of related rows that must commit together |
+| Wallet / economy ledger | **PostgreSQL** (own schema + role, one database) | Account-to-account `shards`/item transfers (`MARKET`/`MAIL`/`TRADING`) must be **atomic** — no minting, no loss; multi-row transactions are the whole point of the single-world ledger (§1) |
+| Social / market DB | **PostgreSQL** (own schema + role, one database) | Guild/party/trade/mail/market state; relational, and shares transactions with the wallet on value transfer |
 | Seeded-RNG audit log | **Append-only log store** (partitioned object storage / log-structured stream), off Postgres | High-write, write-once, read-rarely (forensic/replay). Keeping it off the transactional DB protects the ledger's write budget (§8) |
 | Session / presence / cooldown / escrow-in-flight cache | **Redis** for cross-node coordination + **BEAM-native ETS / Phoenix.Presence** for in-node ephemeral state | Fast, TTL-native, not a source of truth — Postgres stays truth. BEAM holds in-node ephemeral state itself, so Redis is a smaller dependency than in a stateless-server design |
 
-**Chosen: PostgreSQL for all three transactional stores, one engine, separated by logical
-database.** Rationale: the wallet/market ledger is a money ledger — the single-world choice (§1)
-exists precisely to keep it one coherent, transactionally-consistent authority, and Postgres's
-ACID multi-row transactions are what make an account-to-account transfer atomic. Character and
-social DBs share the same engine (operational simplicity, one backup/replication story) but sit in
-separate logical databases so a market-DB outage cannot corrupt character saves (the §1 "separated
-by concern" invariant). Rejected: a document/NoSQL store (MongoDB/DynamoDB) for the wallet or
+**Chosen: PostgreSQL for all three transactional stores, one engine, separated by schema and
+least-privilege database role within one database on one cluster
+(`70_integrations/DATABASE_PERSISTENCE.md` §2 owns the boundary detail) — not three
+`CREATE DATABASE` databases, so cross-concern transactions (trade, market buy, mail COD) commit as
+ordinary single-database transactions, no two-phase commit.** Rationale: the wallet/market ledger
+is a money ledger — the single-world choice (§1) exists precisely to keep it one coherent,
+transactionally-consistent authority, and Postgres's ACID multi-row transactions are what make an
+account-to-account transfer atomic. Character and social stores share the same engine
+(operational simplicity, one backup/replication story) behind per-schema roles so a market-code
+fault cannot write into character or wallet data (the §1 partition-by-concern invariant). This
+preserves write isolation between concerns, not full resource isolation — WAL, checkpointer,
+autovacuum, and the connection budget are shared across schemas in one instance unless paired with
+per-role connection-pool limits at the pooling layer (owner-priced, Open Questions). Rejected: a document/NoSQL store (MongoDB/DynamoDB) for the wallet or
 character data — its eventual consistency and weak cross-row transactions are wrong for a ledger
 that must never mint or lose value; the RNG audit log's write-once stream is the only place that
 access pattern fits, and it goes to the append-only store, not Postgres. Rejected: a
