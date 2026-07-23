@@ -208,10 +208,9 @@ flavor: "{<=2 sentences}"
   leaves the `condition` vocabulary (`below_life_pct:X`, `while_veiled`, `vs_marked`, …) open-ended
   and asks that it be frozen at the C gate so `docs/VALIDATION.md` can enum-check it. Until frozen,
   authors use only the examples named there; this schema cannot enum-validate `condition` yet.
-- **`40_assets/SKILL_ANIMATION.md` lands this phase.** The `animation` field cites it as the naming
-  owner, but that asset doc is a sibling Phase C deliverable not yet authored; the anchor form
-  `skill_<line>_NNN_cast` is the interim pattern. Reconcile the naming rule (and any multi-clip skills
-  needing more than one animation id) once it exists.
+- ~~`40_assets/SKILL_ANIMATION.md` lands this phase~~ **Resolved:** it exists; the anchor form
+  `skill_<line>_NNN_cast` is confirmed as the validated id, and multi-clip skills derive further
+  clips by fixed suffix (`_proj`/`_impact`/`_loop`/`_proc`, its §2) with no schema change here.
 - **Summon `entity_ref` targets.** Skills with `summon_entity` (`skill_keeneye_010`,
   `skill_weaver_017`, `skill_flicker_015`) reference a summon-template entity whose ID block is the
   open `20_schemas/monster.schema.md` / `docs/ID_REGISTRY.md` question; confirm the ref format at the

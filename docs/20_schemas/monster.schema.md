@@ -10,7 +10,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/COMBAT_FORMU
 ## Purpose
 
 Defines the content shape of one **monster** (`mob_NNN`) — the 150 designs in `00_vision/SCOPE.md`
-(112 `normal` + 23 `elite` + 15 `boss`, including summon templates authored the same way). A
+(118 `normal` + 24 `elite` + 8 `boss`, `docs/ID_REGISTRY.md` v2; summon templates are authored the same way outside those counts). A
 monster file is the data a Phase D author fills and the coding pass loads: a stat block copied from
 the `10_systems/COMBAT_FORMULA.md` §13 budget, an `ai_profile` from `10_systems/AI_BEHAVIOR.md`, an
 element affinity set from `10_systems/ELEMENTS.md`, elite/boss abilities composed from the
