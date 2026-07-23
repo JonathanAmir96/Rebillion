@@ -655,8 +655,9 @@ def validate_item(rep, path, ln, data):
             if row["line_hint"] not in REGISTRY["weapon_line"]:
                 rep.fail(3, path, ln, "items[%s].line_hint '%s' not a job line" % (rid, row["line_hint"]))
         t = row.get("tier")
-        if cat == "equip" and not (isinstance(t, int) and 1 <= t <= 10):
-            rep.fail(3, path, ln, "items[%s].tier must be int 1-10" % rid)
+        if cat == "equip" and not (isinstance(t, int) and 1 <= t <= 12):
+            # T1-T12 per ITEMS.md v3 §4 (arc 1 T1-T6, arc 2 T7-T12)
+            rep.fail(3, path, ln, "items[%s].tier must be int 1-12" % rid)
         # required-by-category
         if cat == "equip":
             for f in ("slot", "tier", "stats", "enhance_max"):
