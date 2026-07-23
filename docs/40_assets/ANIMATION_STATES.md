@@ -291,6 +291,6 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   `30_engineering/ENGINEERING_STANDARDS.md`'s existing citation of it — **resolved:** both
   `40_assets/ANIMATION_TIMING.md` and `40_assets/SKILL_ANIMATION.md` now exist (Phase C
   checkpoint + the consistency wave); hit-frame-accurate combat has its contracts.
-- ~~Monster tier-count discrepancy (112/23/15 vs 118/24/8)~~ **Resolved at the v2 straggler
+- **Monster tier-count discrepancy (112/23/15 vs 118/24/8) — resolved at the v2 straggler
   wave:** `20_schemas/monster.schema.md`'s Purpose section now matches `docs/ID_REGISTRY.md`'s
   118/24/8; Phase D budgets 8 `boss` asset sets.

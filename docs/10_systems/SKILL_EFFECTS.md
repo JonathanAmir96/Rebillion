@@ -319,7 +319,7 @@ it only declares ops and parameters.
 - **`taunt` immunity flag** for `boss` entities lives in `20_schemas/monster.schema.md`; confirm
   the flag name when that schema is authored (default: bosses taunt-immune, matching CC immunity;
   a raid tier is reserved for a future arc and does not exist in this arc).
-- ~~`condition` enum open-ended~~ **Frozen at the C gate** to exactly four values:
+- **`condition` enum — frozen at the C gate** to exactly four values:
   `below_life_pct:X` (X an integer percent) · `while_veiled` · `vs_marked` · `while_stance`.
   `docs/VALIDATION.md` §2/§3 enum-checks against this list; a new condition is added here first,
   never invented in content.

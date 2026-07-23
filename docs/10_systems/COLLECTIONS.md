@@ -195,7 +195,7 @@ row treatment for §4) goes through `UI_ART_SPEC.md`'s amendment channel, not th
 - **Boss/region/global title display strings** are unauthored placeholders (§7); Phase D names
   all 17 alongside each region's flavor-text pass. Which doc/role owns naming them (region
   content batch vs. a dedicated title-flavor pass) is unresolved.
-- ~~Sighting range definition~~ **Resolved at the F/G reconciliation:** `sighted` triggers at
+- **Sighting range definition — resolved at the F/G reconciliation:** `sighted` triggers at
   `max(aggro_radius, 6)` tiles with the standard vertical band (§3) — reuses
   `10_systems/AI_BEHAVIOR.md` §2's existing tunables, no new per-monster field.
 - **Save-data shape for the three progress flags (§8)** — discovery state, revealed-drop flags,

@@ -280,7 +280,7 @@ Authored by the Phase D world-graph reconciler after all 200 maps exist.
   kind through §§1–3, made it paid-per-ride (fares `10_systems/ECONOMY.md` §7.1) with no unlock set,
   and re-derived §4 death-return routing off ordinary travel rather than free warp-home. The debt is
   closed; recorded here only as a change marker.
-- ~~`from_longship` vs `longship_dock` (cross-doc)~~ — **resolved at the v3 gate:**
+- **`from_longship` vs `longship_dock` (cross-doc) — resolved at the v3 gate:**
   `docs/WORLD_PLAN.md`'s arc-2 spawn convention now targets `longship_dock` (with
   `longship_deck` for boarding), matching this doc's §2/§8.
 - **Coach/longship token promotion:** the interactable and NPC tokens this reconciliation relies on —

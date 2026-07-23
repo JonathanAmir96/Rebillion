@@ -147,20 +147,18 @@ apply to DoT ticks exactly as to direct hits.
 
 ## Open Questions
 
-- ~~Cleanse-group tags (`burn_type`, `poison_type`, `chill_type`, `control_type`, `sense_type`,
-  `curse_type`) are new classification tokens; propose promoting them to GLOSSARY Provisional at
-  the B gate~~ **Resolved:** `00_vision/GLOSSARY.md` §Status effects lists all six as canonical,
-  promoted at the B gate (§2).
+- **Cleanse-group tags — resolved:** `00_vision/GLOSSARY.md` §Status effects lists all six
+  classification tokens (`burn_type`, `poison_type`, `chill_type`, `control_type`, `sense_type`,
+  `curse_type`) as canonical, promoted at the B gate (§2).
 - Buff removal: is a monster **dispel/purge** op needed? `00_vision/GLOSSARY.md`'s skill-effect
   ops have no `purge`. Default: buffs only expire (no purge); flag if a boss design needs to strip
   player buffs. Owner: `10_systems/SKILL_EFFECTS.md`.
 - Hard-CC DR window (10 s) and immunity duration (8 s) are first-pass; may need retuning for
   party-instanced finales. Owner: `10_systems/COMBAT_FORMULA.md` / `10_systems/social/PARTY.md`.
-- ~~Whether Rift raid bosses use full CC-immunity or the `boss` soft-CC row~~ **Resolved at the
+- **Raid-boss CC-immunity — resolved at the
   v2 straggler wave:** no raid tier exists this arc; PQ-instanced finale bosses use the `boss`
   row (§3). A future-arc raid tier re-opens the full-immunity question.
-- ~~Max simultaneous statuses (12) is tied to the HUD icon budget; confirm against
-  `40_assets/UI_ART_SPEC.md` when the HUD is specced~~ **Resolved:** `10_systems/HUD.md` §8 specs
+- **Max simultaneous statuses vs the HUD icon budget — resolved:** `10_systems/HUD.md` §8 specs
   the status icon row at exactly 12 and states it equals this doc's §1 per-entity cap.
 - `regen` and healing scaling: currently % of receiver max `life`; if healer output should scale
   on the applier's `spellpower` instead, that is a `10_systems/COMBAT_FORMULA.md` decision.

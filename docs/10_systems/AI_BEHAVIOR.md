@@ -282,7 +282,7 @@ combat resumes), `phase_transition_lock` true (life-threshold crossings always i
 above; set false only if a specific boss needs a softer transition — flag it in that boss's data).
 
 ## Open Questions
-- ~~Boss/monster ability IDs have no reserved prefix~~ **Resolved at the C gate:**
+- **Boss/monster ability ID prefix — resolved at the C gate:**
   `docs/ID_REGISTRY.md` now reserves `mob_ability_<mob_NNN>_01`–`_08` (per-monster namespace)
   and `mob_151`–`mob_160` for summon templates.
 - An on-death-detonate variant of `kamikaze_burster` (explodes even if killed before its windup
