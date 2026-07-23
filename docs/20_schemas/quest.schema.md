@@ -217,6 +217,6 @@ complete_text: "{<=2 sentences, turn-in's dialog voice}"
   data (`15_maps_system/MAP_INTERACTABLES.md` §10's `required_quest_flag`), not by anything in this
   quest file — this schema cannot and does not distinguish the two mechanisms; validation rule 5
   is warn-only for exactly this reason.
-- **Party quest-credit sharing** is explicitly deferred to `10_systems/social/PARTY.md` (not yet
+- **Raid/party quest-credit sharing** is explicitly deferred to `10_systems/social/PARTY.md` (not yet
   authored, `10_systems/QUESTS.md` OQ); this schema assumes unshared (each character needs their
   own kill tag/collect item) and carries no field for it.

@@ -171,8 +171,9 @@ chain and its `203`↔`204` surface exit are intra-region portals carried in the
 
 **Arc-2 spawn-point convention** (extends the Arc-1 law): a portal emerging from the Deepway
 onto either surface end targets spawn `from_deepway` on the destination map (`map_204`, and —
-returning — `map_125`); every longship arrival targets spawn `from_longship` on the
-destination port town.
+returning — `map_125`); every longship arrival targets spawn `longship_dock` on the
+destination port town (and boarding lands on the deck's `longship_deck` spawn), per
+15_maps_system/MAP_CONNECTIONS.md §8.
 
 ## Job instructors (v2.3 — every line has a home city, classic-style)
 
