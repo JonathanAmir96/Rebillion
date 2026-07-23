@@ -62,7 +62,7 @@ both sides to their normal inventory state untouched.
 
 | Category | Tradeable? |
 |---|---|
-| Boss unique equipment (`item_equip_0201`–`0230`, `10_systems/ITEMS.md` §11) | **Yes** — no special-case removal; enhancement level and affixes travel with the item (Open Questions). |
+| Boss unique equipment (`item_equip_0201`–`0222`, `10_systems/ITEMS.md` §11) | **Yes** — no special-case removal; enhancement level and affixes travel with the item (Open Questions). |
 | A one-off `item_etc` minted solely for a quest's `collect` step (`10_systems/QUESTS.md` §3.1, first bullet) | **No** — hardcoded, never offerable, regardless of any other flag. |
 | An ordinary shared regional material a quest also targets (`10_systems/QUESTS.md` §3.1, first bullet) | Tradeable — it is an ordinary `etc` item with independent vendor/trade value; a quest wanting some of it does not revoke that (`10_systems/QUESTS.md` §3.1 already confirms non-questers loot/use the same material normally). |
 | Other ordinary `equip`/`use`/`etc` items | Tradeable by default. |

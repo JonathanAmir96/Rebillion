@@ -163,14 +163,12 @@ timers) so the live server swap changes no calling code.
   `CLAUDE.md`, and the phase reports. Siblings are revising several of these in parallel; run
   `docs/VALIDATION.md` §1–§2 across the tree after all v3 edits land to confirm no legacy
   phrasing survives. Owner: orchestrator, with this doc as the reference.
-- **Pre-existing "Rift raid" concept collision.** `10_systems/social/PARTY.md` §6,
-  `10_systems/SPAWN.md` §7, `10_systems/DROPS.md` §5.4, and `10_systems/COMBAT_FORMULA.md` §13.3
-  describe an endgame "Rift raid" (party 4–6, `map_197`–`map_200`, WORLD_PLAN "R12", raid
-  tokens in a Rift etc block) that predates both the v2 world plan and this rename — their map
-  refs are stale and their **4–6 party floor contradicts §2/§3's binding 3–6**. Those docs must
-  reconcile to this doc's roster and party size (and §13.3's scaling should state whether `N=3`
-  is inside its tuned range). Owner: this doc with `10_systems/social/PARTY.md` and the
-  architect's combat pass.
+- **Resolved — v1 "Rift raid" collision reconciled.** `10_systems/social/PARTY.md` §6 now
+  describes exactly this doc's roster — party-instanced runs across the four v3 finale arenas
+  (`map_042`/`map_200`/`map_244`/`map_324`) at the binding **3–6** party size, fixing
+  `10_systems/COMBAT_FORMULA.md` §13.3's assumed `N` range at 3–6 — and the stale Rift-era
+  references (party 4–6, `map_197`–`map_200`, "R12") are gone from PARTY/SPAWN/COMBAT_FORMULA.
+  The remaining DROPS-side question is tracked in its own entry below.
 - **Lockout tuning.** The 30-minute clear cooldown (§5) is a first-pass default serving one
   target — raid-clear chaining must not beat at-level field play as a loot/`shards` faucet
   (`10_systems/DROPS.md` / `10_systems/ECONOMY.md` faucet balance). Retune with telemetry;
@@ -190,12 +188,11 @@ timers) so the live server swap changes no calling code.
   `10_systems/DROPS.md`.
 - **Entry fee.** Whether raid entry charges a `shards` fee (a sink lever) is deliberately left
   open; default none (§3). Owner: `10_systems/ECONOMY.md` with this doc.
-- **Arc-2 ID ranges.** `map_240`–`244`, `map_320`–`324`, `mob_178`, `mob_234`, the arc-2 herald
-  NPCs, and the arc-2 intro/handler quest slots all sit outside `docs/ID_REGISTRY.md`'s current
-  reserved blocks, and the `frostpeak`/`voidshore` region slugs are still marked
-  reserved-invalid in `00_vision/GLOSSARY.md` — the parallel WORLD_PLAN/registry revision must
-  extend the ranges and unlock the slugs before any arc-2 content lands. Owner:
-  `docs/ID_REGISTRY.md` / `docs/WORLD_PLAN.md` siblings.
+- **Resolved — arc-2 ID ranges minted.** `map_240`–`244`, `map_320`–`324`, `mob_178`,
+  `mob_234`, the arc-2 herald NPCs, and the arc-2 intro/handler quest slots all sit inside
+  `docs/ID_REGISTRY.md`'s extended blocks, and the `frostpeak`/`arcane_reach`/`voidshore`
+  slugs are live in `00_vision/GLOSSARY.md` (only `rift` stays reserved-future). Phase D
+  landed the content and `docs/VALIDATION.md`'s checks pass — nothing remains open here.
 - **"Raid herald" term.** Coined here as the entry-NPC role name; needs a Provisional entry in
   `00_vision/GLOSSARY.md` if it is to appear in content files (NPC `role` fields) rather than
   prose only. Owner: GLOSSARY gatekeeper at the next phase gate.

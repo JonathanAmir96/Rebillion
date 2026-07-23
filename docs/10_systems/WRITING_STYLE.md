@@ -5,7 +5,7 @@ docs/10_systems/WORLD_LORE.md, docs/10_systems/QUESTS.md, docs/20_schemas/npc.sc
 docs/20_schemas/quest.schema.md, docs/00_vision/GLOSSARY.md, docs/VALIDATION.md
 
 Owner doc for the words players read: NPC dialog/flavor, quest flavor/offer/complete text,
-item flavor. One voice across the 84-NPC cast and 90 quests
+item flavor. One voice across the 120-NPC cast and 120 quests
 (`docs/60_agents/roles/ROLE_NARRATIVE_WRITER.md`). Never restates length limits or lore
 facts — cites their owners.
 

@@ -163,7 +163,9 @@ Harthmoor:
   (`10_systems/ECONOMY.md` §3.1) — both real `shards` sinks meant for a character with a build to
   refine, which a `novice` does not yet have (`10_systems/STATS.md` §4.1's undifferentiated 5/5/5/5
   start).
-- **Raids** (`raid_undervault`, `raid_mainspring`) — both live entirely on Harthmoor.
+- **Raids** — the two Harthmoor raids (`raid_undervault`, `raid_mainspring`) live entirely on
+  Harthmoor; the arc-2 raids (`raid_deepfrost`, `raid_voidtide`) live farther still, on the far
+  isles (`10_systems/social/RAID.md` §2).
 - **The rest of the world map.** Emberfoot's sixteen maps are the whole of the player's world for
   this hour; the ring's geography (`docs/WORLD_PLAN.md` "World graph") is not previewed beyond the
   ferry's destination name.

@@ -96,16 +96,17 @@ for revealing a row, it is pure bookkeeping over drops the character already ear
 Completion is measured in three nested scopes, always as **`logged` / total**, never counting
 `sighted`:
 
-- **Per-tier, per-region.** Each `docs/WORLD_PLAN.md` region block (R1 Emberfoot … R8 Clockwork)
-  is split into its `normal` / `elite` / `boss` subsets exactly as `docs/ID_REGISTRY.md`'s
+- **Per-tier, per-region.** Each `docs/WORLD_PLAN.md` region block (R1 Emberfoot … R11
+  Voidshore, eleven blocks) is split into its `normal` / `elite` / `boss` subsets exactly as `docs/ID_REGISTRY.md`'s
   Monsters table slots them (e.g., R3 Verdant: 16 `normal`, 3 `elite`, 1 `boss`). A region's
   three tier percentages are shown separately so a player can see "all bosses down, elites still
   thin" at a glance.
 - **Per-region overall.** The region's three tiers combined (e.g., Verdant 20/20 once every
   `mob_028`–`047` is `logged`).
-- **Global.** All 150 across both islands, further broken out by tier: 118 `normal` / 24 `elite`
-  / 8 `boss` (`docs/ID_REGISTRY.md` Monsters totals, `docs/WORLD_PLAN.md` region table) — the
-  same three numbers CLAUDE.md's current design state already cites, not re-derived here.
+- **Global.** All 234 across the five islands, further broken out by tier: 178 `normal` /
+  45 `elite` / 11 `boss` (`docs/ID_REGISTRY.md` Monsters totals, `docs/WORLD_PLAN.md` region
+  table) — the same three numbers CLAUDE.md's current design state already cites, not
+  re-derived here.
 
 Region ordering and boundaries are `docs/WORLD_PLAN.md`'s alone; this doc never restates a
 region's map/level-band details, only which `mob_NNN` range fills its bucket.
@@ -124,7 +125,7 @@ Two reward kinds, deliberately unequal in how settled they are:
     triggered (on the `unseen→logged` transition, §3) and tracked (§7) so DROPS §8's promise has
     an owner. Magnitude stays LEVELING §4's, not re-derived here.
   - *Set-completion grants* (a region's tier fully `logged`, a region fully `logged`, or the
-    global 150/150 capstone) — modest one-time `shards`, styled on
+    global 234/234 capstone) — modest one-time `shards`, styled on
     `10_systems/QUESTS.md` §5's `side`-quest budget (the `elite`-kill `shards` mean at the
     set's top level, per `10_systems/DROPS.md` §3) so a full-region clear pays roughly one good
     side quest's worth, not a windfall. **This is a genuinely new line item against
@@ -144,12 +145,12 @@ character-sheet/social display doc — not yet authored) equip for others to see
 strings themselves (Phase D content/flavor pass names them, exactly as monster `flavor` text is
 authored, not this doc) nor how/where a title renders (HUD/`UI_ART_SPEC.md`'s, §9).
 
-Title slots (17 total, all one-time):
-- **8 boss titles** — one per region boss, granted on that boss's first `logged` kill (e.g., a
+Title slots (23 total, all one-time):
+- **11 boss titles** — one per region boss, granted on that boss's first `logged` kill (e.g., a
   title tied to defeating Cindermaw). Named by Phase D alongside that boss's flavor text.
-- **8 region-capstone titles** — one per region, granted when every `mob_NNN` in that region's
+- **11 region-capstone titles** — one per region, granted when every `mob_NNN` in that region's
   block (all tiers) reaches `logged`.
-- **1 global capstone title** — granted at 150/150 `logged` across both islands.
+- **1 global capstone title** — granted at 234/234 `logged` across the five islands.
 
 No GLOSSARY token exists yet for "title" as a shared vocabulary family (it is currently scoped
 entirely to this doc); if a future doc needs to reference "the player's currently equipped
@@ -193,7 +194,7 @@ row treatment for §4) goes through `UI_ART_SPEC.md`'s amendment channel, not th
   or social-display doc needs to reference "equipped title" as shared vocabulary. Not resolved
   here per CLAUDE.md Law 4/5 (this doc may propose, not silently add to GLOSSARY).
 - **Boss/region/global title display strings** are unauthored placeholders (§7); Phase D names
-  all 17 alongside each region's flavor-text pass. Which doc/role owns naming them (region
+  all 23 alongside each region's flavor-text pass. Which doc/role owns naming them (region
   content batch vs. a dedicated title-flavor pass) is unresolved.
 - **Sighting range definition — resolved at the F/G reconciliation:** `sighted` triggers at
   `max(aggro_radius, 6)` tiles with the standard vertical band (§3) — reuses

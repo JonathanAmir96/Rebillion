@@ -51,6 +51,9 @@ cited not restated); ambience textures are reused verbatim across regions that s
 | Ashfall Barrens (`ashfall`) | `ashfall` | `bgm_ashfall` · `bgm_town_ashfall` · `bgm_boss_ashfall` | `amb_wind`, `amb_embers` | Oppressive-heat theme: a droning low-brass/percussion ostinato, steady and unrelenting — matches "oppressive heat, endurance"; shares the ember ramp with R1, harsher timbre. |
 | Sunken Depths (`sunken`) | `tidewatch_dark` | `bgm_tidewatch_dark` · *(no town)* · `bgm_boss_sunken` | `amb_drip`, `amb_surf` | Drowned-terminus theme: submerged and reverberant, a slow descending motif with bioluminescent chime accents — matches the region's bioluminescent-gloom description; shares the tide ramp with R4, darker and slower. |
 | Clockwork Ruins (`clockwork`) | `clockwork` | `bgm_clockwork` · *(no town)* · `bgm_boss_clockwork` | `amb_gears`, `amb_wind` | Awe-and-precision theme: a ticking mechanical ostinato under brass swells, tension tightening toward the endgame — matches "awe, trespass, precision" and clockwork's gears/brass motif. |
+| Frostpeak Isle (`frostpeak`) | `frostpeak` | `bgm_frostpeak` · `bgm_town_frostpeak` · `bgm_boss_frostpeak` | `amb_wind`, `amb_drip` | Thin-air ascent theme (first-pass): sparse high strings and lone horn calls over a slow climbing figure, cold and wide — matches "thin air, a hard climb" and frostpeak's snow/blue-ice/frozen-cliffs brief; shares the tide ramp with R4/R7, pitched glassier and colder. |
+| Arcane Reach (`arcane_reach`) | `arcane_reach` | `bgm_arcane_reach` · `bgm_town_arcane_reach` · `bgm_boss_arcane_reach` | `amb_wind`, `amb_arcane_hum` | Wonder-and-wrongness theme (first-pass): shimmering bell/celesta arpeggios drifting over an unresolved harmonic bed, the meter kept deliberately unsteady — matches "wonder and wrongness, gravity you can't trust" and arcane_reach's glowing-glyphs/drifting-stone/prismatic-haze brief. |
+| Voidshore (`voidshore`) | `voidshore` | `bgm_voidshore` · `bgm_town_voidshore` · `bgm_boss_voidshore` | `amb_wind`, `amb_void_hum` | Endgame-dread theme (first-pass): a low tidal drone under a drowned, fading motif, long silences where the surf pulls back — matches "dread, finality, the edge of the known map" and voidshore's torn-sky/umbral-surf brief; shares the arcane ramp with R10, gone dark and slower. |
 
 `bgm_town_*`/`bgm_boss_*` use the region **slug**; field/dungeon/secret `bgm` uses the region's
 **`biome_key`** — the two differ for Millbrook (`old_town`) and Sunken (`tidewatch_dark`), per
@@ -123,6 +126,17 @@ Every `bgm`/`amb` tag loops seamlessly (no audible seam or hard restart). Crossi
 - **Island crossing** (the paid Harborwind Ferry, `docs/WORLD_PLAN.md`): treated as a town-grade
   `bgm` change like any other region boundary, with its own brief ambience texture during the
   crossing itself (e.g., a gulls/surf texture) rather than either island's field `bgm`.
+- **The Deepway passage** (free, Lv-40 gated, `map_201`–`203`, `docs/WORLD_PLAN.md` Arc 2): a
+  walked crossing, not a transit cutaway (first-pass, tags only). The passage carries Frostpeak's
+  dungeon identity (`bgm_frostpeak` with a cavern texture, e.g. `amb_drip`), so the Cindershelf
+  door is an ordinary region-boundary crossfade and surfacing at Frosthaven is a town-grade
+  change onto `bgm_town_frostpeak`, per this section's normal rules.
+- **Longship sailings** (the paid, scheduled Harthmoor Longship Line; the three combat-free
+  longship-deck interiors `map_207`/`map_247`/`map_287`, `docs/WORLD_PLAN.md` Arc 2): the ferry
+  treatment applies per deck (first-pass, tags only) — a town-grade `bgm` change onto the deck's
+  interior identity (its home port's `bgm_town_*` tag or a hushed interior variant, §4) with a
+  sea-crossing ambience texture during the sail (e.g., `amb_wind` plus the port's own texture)
+  rather than either port's field `bgm`.
 
 ## 10. Death & respawn audio
 
@@ -152,7 +166,8 @@ enforcement shape as GLOSSARY tokens even though `bgm`/`amb`/`sfx` tags are not 
 - Footstep/movement SFX (material-dependent, tied to `terrain_chunk`/foothold surface) is not
   scoped in this pass — flag for a future revision once `15_maps_system/MAP_TRAVERSAL.md`'s
   foothold-material vocabulary is finalized; no family name is assumed here.
-- Do the two raids (`raid_undervault`, `raid_mainspring`) need bespoke instance `bgm` distinct
+- Do the four raids (`raid_undervault`, `raid_mainspring`, `raid_deepfrost`, `raid_voidtide`)
+  need bespoke instance `bgm` distinct
   from their host region's dungeon/arena tags, or do they simply reuse the host region's identity
   per §3/§8? Default assumed here: reuse host-region tags; flag for
   `10_systems/social/RAID.md` to confirm or override.
@@ -162,3 +177,9 @@ enforcement shape as GLOSSARY tokens even though `bgm`/`amb`/`sfx` tags are not 
 - Whether `sfx_ui_navigate` needs a distinct cue per `10_systems/HUD.md` frame variant (e.g.
   `frame_slot` grid nav vs. chat input) or one shared cue for all UI navigation — default assumed
   here is one shared cue; flag for a HUD.md-side confirmation if playtesting disagrees.
+- The three arc-2 region rows in §3 (R9–R11, mood words marked first-pass) and §9's
+  Deepway/longship crossing beats are first-pass identities authored against
+  `docs/WORLD_PLAN.md`'s Arc-2 region briefs; the tags match the minted Phase D map files
+  (incl. the `amb_arcane_hum`/`amb_void_hum` textures those files introduced), but the musical
+  descriptions await the `40_assets/` catalog pass — and MAP_CONNECTIONS.md's transit-model
+  answer — before being treated as settled.

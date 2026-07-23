@@ -62,9 +62,15 @@ cinders that keep the dunes hot and the spires charred.
 - Where the Clockwork citizens' descendants ended up after the long walk to the coast.
 - The drowned kingdom's name, and what lies behind the Warden's last door.
 - Whether Mother Gloam caused Gloomwood's dark or was drawn to it.
-- What sits beyond Harthmoor's shores — the `frostpeak`/`arcane_reach`/`voidshore`/`rift`
-  biomes are reserved (`GLOSSARY.md` Region slugs; `WORLD_PLAN.md` Open Questions) and this
-  file does not name what, if anything, connects them to Harthmoor's story.
+- What lies beyond the five charted islands — only the `rift` biome (and the four 3rd jobs)
+  remains reserved future-space (`GLOSSARY.md`; `WORLD_PLAN.md` Open Questions), and this
+  file does not name what, if anything, waits there.
+
+**Note (factual, v3.1):** Frostpeak Isle (`frostpeak`), Arcane Reach (`arcane_reach`), and
+Voidshore (`voidshore`) are built Arc-2 isles, no longer unanswered space — but their lore,
+along with the Deepway passage's and the Harthmoor Longship Line's, is not yet written in
+this primer. Until it is, Arc-2 flavor text may reference only `docs/WORLD_PLAN.md`'s
+region-section facts (see Open Questions).
 
 ## Open Questions
 - Whether the Drowned Kingdom and the Clockwork civilization are the same people at two
@@ -73,3 +79,7 @@ cinders that keep the dunes hot and the spires charred.
 - Whether `raid_undervault`'s flooded stores are literally connected to Sunken Depths' water
   table (one drowning, one system) or merely a thematic echo is unresolved; content should
   not assert a literal tunnel between them without this being settled.
+- Arc-2 lore is unwritten (§7's note): this primer needs sections for Frostpeak Isle, Arcane
+  Reach, Voidshore, the Deepway, and the longship line before their flavor text can reference
+  anything beyond `docs/WORLD_PLAN.md`'s region-section facts. Owner: this doc's owner
+  (`docs/60_agents/roles/ROLE_NARRATIVE_WRITER.md`).
