@@ -90,7 +90,7 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 ## Size classes (locked by 40_assets/ART_BIBLE.yaml `sizing.size_classes`)
 `tiny` · `small` · `medium` · `large` · `boss`
 
-## Job lines (owner: 10_systems/JOBS.md; promoted at B gate, revised v3 — branching 2nd jobs)
+## Job lines (owner: 10_systems/JOBS.md; branching 2nd jobs)
 
 | Stat | Line token | 1st job (Lv 8) | 2nd-job specializations (Lv 40, choose one) | 3rd tier (future arc) |
 |---|---|---|---|---|
@@ -111,17 +111,17 @@ this run authors the Lv 1–82 arcs; the game cap is 300 (initial design; see SC
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
 `skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN`
 
-## Region slugs (owner: docs/WORLD_PLAN.md; v3 five-island world)
+## Region slugs (owner: docs/WORLD_PLAN.md; five-island world)
 `emberfoot` · `millbrook` · `verdant` · `tidewatch` · `gloomwood` · `ashfall` · `sunken` ·
 `clockwork` · `frostpeak` · `arcane_reach` · `voidshore` (shorthand `r01`–`r11`, in that
 order). Islands: **Emberfoot Isle** (r01), **Harthmoor Isle** (r02–r08), and the Arc-2 far
 isles **Frostpeak Isle** (r09), **Arcane Reach** (r10), **Voidshore** (r11). Slug `rift` is
 reserved for future expansions — invalid in this run's content.
 
-## Raids (owner: 10_systems/social/RAID.md; v3 — replaces the retired "party quest"/`pq_*` family)
+## Raids (owner: 10_systems/social/RAID.md; replaces the retired "party quest"/`pq_*` family)
 `raid_undervault` · `raid_mainspring` · `raid_deepfrost` · `raid_voidtide`
 
-## Terrain (owner: 15_maps_system/MAP_TRAVERSAL.md; v2.4 foothold model)
+## Terrain (owner: 15_maps_system/MAP_TRAVERSAL.md; foothold model)
 `foothold` (walkable segment, arbitrary angle; the ground truth of platforming) ·
 `terrain_chunk` (hand-painted ground art snapped to footholds; ART_BIBLE amendment AB-001)
 

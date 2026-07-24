@@ -16,7 +16,7 @@ structure, failure/re-entry model, lockout, and rewards policy. Map/boss **place
 doc consumes all of those and restates none — it owns only what a raid *is* and the rules that
 bind its pieces together.
 
-## 1. Terminology law (v3 owner revision, 2026-07-23)
+## 1. Terminology law
 
 **"Raid" fully replaces the legacy "party quest" / "PQ" phrasing across the tree.** The token
 family is `raid_<name>` (replacing the retired `pq_<name>` family); the legacy tokens and
@@ -28,7 +28,7 @@ Token minting: `raid_<name>` tokens are **minted in `docs/ID_REGISTRY.md`** (the
 same pattern as every other ID family); this doc is the concept owner. A raid that is not in the
 registry does not exist.
 
-## 2. The raid roster (v3 — four raids, two arcs)
+## 2. The raid roster (four raids, two arcs)
 
 Placement (which maps, which region, which boss slot) is owned by `docs/WORLD_PLAN.md`; this
 table lists the roster by reference and fixes the **rule-side** columns (band, party size):

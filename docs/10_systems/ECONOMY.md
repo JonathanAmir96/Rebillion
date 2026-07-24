@@ -135,7 +135,7 @@ stops keeping pace) — the upgrade cadence is itself a rising sink (§6).
 | Accessory-family `aspect` | 600 | 150 |
 | Accessory-family `temper` | 900 | 225 |
 
-### 4.3 Travel fares (`docs/WORLD_PLAN.md` v2.2 — Harborwind Ferry & Harthmoor Coachworks)
+### 4.3 Travel fares (`docs/WORLD_PLAN.md` — Harborwind Ferry & Harthmoor Coachworks)
 
 | Ride | Fare (`shards`) |
 |---|---|
@@ -216,7 +216,7 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
 - **Bounded worst-case costs.** Enhancement pity (`10_systems/ENHANCEMENT.md` §3) caps the fee a
   single upgrade can demand, so no sink is an infinite `shards` pit (P2).
 
-## 7. Transport fares (v3 — coach, ferry, longship)
+## 7. Transport fares (coach, ferry, longship)
 
 Records the paid-transport `shards` fares that `docs/WORLD_PLAN.md` delegates to this doc (its
 Coachworks and ferry paragraphs point here; the numbers were previously unwritten — this section

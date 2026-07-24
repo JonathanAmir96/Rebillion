@@ -4,7 +4,7 @@ This run produces the **design-documentation tree only**: prose system docs, sch
 machine-loadable YAML content. No game code, no generated art, no backend. A later coding pass
 (briefed in `60_agents/`) implements against these docs in Godot 4.3+.
 
-## Content totals (authoritative counts — v3, owner revision 2026-07-23)
+## Content totals (authoritative counts)
 
 | Category | Count | Notes |
 |---|---|---|

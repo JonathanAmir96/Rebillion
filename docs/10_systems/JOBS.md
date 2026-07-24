@@ -418,7 +418,7 @@ Lv 8; because skill points are freely respec'd at any town trainer (`10_systems/
 points sunk into the novice kit are never stranded. Novice skills use the same `level_data` /
 op rules as line skills (`10_systems/SKILL_SYSTEM.md`, `10_systems/SKILL_EFFECTS.md`).
 
-## 7. Roster budget check (per `docs/ID_REGISTRY.md`, v3 re-block)
+## 7. Roster budget check (per `docs/ID_REGISTRY.md`)
 
 | Line | 1st-job (`001`–`006`) | Spec #1 (`007`–`013`) | Spec #2 (`014`–`020`) | Spec #3 (`021`–`027`) | Passives | Actives | Authored |
 |---|---|---|---|---|---|---|---|

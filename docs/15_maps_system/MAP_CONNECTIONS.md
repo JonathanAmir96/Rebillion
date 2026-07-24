@@ -14,7 +14,7 @@ region-progression gate policy, the arc-2 longship and `level_gate` primitives (
 records the v3 retirement of the old terminus drop chutes (§7). Portal object params are
 `15_maps_system/MAP_INTERACTABLES.md` §2's; this doc owns only the rules governing them.
 
-## Transport taxonomy (v3)
+## Transport taxonomy
 
 Every way a character moves between maps, and where each mode is owned. The kinds are fixed by two
 axes — **paid vs free** and **instant vs scheduled**:
@@ -144,7 +144,7 @@ signposted** requirement (the player sees the door and the level it wants), not 
 so it honors the same P2 intent this section serves; it gates a single authored arc-1→arc-2
 threshold, not the emergent region curve, which §6 still governs everywhere else.
 
-## 7. The authorized cross-region edge set — drop chutes retired (v3)
+## 7. The authorized cross-region edge set — drop chutes retired
 
 **The complete authorized cross-region connection set is exactly `docs/WORLD_PLAN.md`'s edge
 tables**: the arc-1 "Cross-region walk edges" table plus the arc-2 edge table (the Deepway door
@@ -162,7 +162,7 @@ deep heart) are deliberate, served by the Millbrook Return Scroll and ordinary t
 cross-arc shortcut, if any, lands via `docs/WORLD_PLAN.md`'s reserved boss-connectivity hook using
 §9's `level_gate` primitive — not by reviving chutes here.
 
-## 8. `longship` — paid scheduled island transport (v3)
+## 8. `longship` — paid scheduled island transport
 
 The arc-2 inter-island network, and the taxonomy's only **scheduled** mode. Unlike the ferry (paid,
 instant) and coaches (paid, instant), a longship is a real-time deck ride on a fixed cadence
@@ -219,7 +219,7 @@ build): departure timing, in-transit state, and arrival placement resolve server
 carries no monster spawns and no `10_systems/SPAWN.md` zones at launch — it is a social interlude,
 not a combat map.
 
-## 9. Level-gated portals (`level_gate`) — v3
+## 9. Level-gated portals (`level_gate`)
 
 A portal may carry an optional integer property **`level_gate: N`** — the minimum character `level`
 required to pass. It extends the `portal` field model (`15_maps_system/MAP_INTERACTABLES.md` §2)
@@ -241,7 +241,7 @@ edges, and the Frostpeak-side allocation are owned by `docs/WORLD_PLAN.md`'s arc
 `docs/ID_REGISTRY.md`'s arc-2 block (cited, not minted here). Being a two-way walking `door` into
 new content, it needs no `dead_end` marking (a reverse door returns from `map_201` to `map_125`).
 
-### 9.2 Gates are per-portal-side — backtracking is never gated (v3.1)
+### 9.2 Gates are per-portal-side — backtracking is never gated
 A `level_gate` sits on **one portal**, i.e. one direction of a crossing; the reverse portal
 carries no gate unless separately authored. Standing rule (owner directive, WORLD_PLAN
 "Backtracking law"): progression gates guard **entry into higher content only** — returning

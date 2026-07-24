@@ -1,9 +1,9 @@
-# WORLD_PLAN.md — Authoritative Region / Map / Monster Allocation (v3)
+# WORLD_PLAN.md — Authoritative Region / Map / Monster Allocation
 
-Source of truth for world structure. **v3 (owner revision 2026-07-23):** the world is **five
-islands across two arcs, 11 bosses, 4 raids**; the game's level cap is **300 (initial
-design)** and this run now authors **two arcs — Arc 1 (Lv 1–42) and Arc 2 (Lv 40–80; elite
-overshoot to 82)**. Arc 2 opens at Lv 40 on three far isles reached from Harthmoor. Every map
+Source of truth for world structure. The world is **five islands across two arcs, 11 bosses,
+4 raids**; the game's level cap is **300 (initial design)** and this run authors **two arcs —
+Arc 1 (Lv 1–42) and Arc 2 (Lv 40–80; elite overshoot to 82)**. Arc 2 opens at Lv 40 on three
+far isles reached from Harthmoor. Every map
 and monster inherits its region's biome identity (palette ramp + motif per
 `40_assets/ART_BIBLE.yaml` `environment.biome_identity`) and level band. ID blocks are owned
 by `ID_REGISTRY.md`; this file allocates **what each ID is**. Phase D region batches treat
@@ -62,7 +62,7 @@ future arcs land. ART_BIBLE biome keys `frostpeak` / `arcane_reach` / `voidshore
 **built (Arc 2, R9–R11)**; `rift` and the four 3rd jobs stay **reserved for a future arc** —
 do not use `rift` in this run's content.
 
-## World graph — the Harthmoor Ring (v2.2, Victoria-circle layout)
+## World graph — the Harthmoor Ring (Victoria-circle layout)
 
 ```
 EMBERFOOT ISLE (1–8)
@@ -105,7 +105,7 @@ each ring town hosts a job instructor (see Job instructors below).
 | Ashfall (char ridge) → Clockwork | `map_141` | `map_177` |
 | **Gloomwood (web vaults) → Clockwork (west gate)** | `map_121` | `map_188` |
 
-### Harthmoor Coachworks (paid town transport — v2.2 replaces the free warp network)
+### Harthmoor Coachworks (paid town transport)
 Coach stations sit in all five Harthmoor towns: **Rosen Harbor** (`map_017`), **Millbrook
 Central** (`map_018`), **Mossmere** (`map_043`), **Cindershelf** (`map_125`), **Tidewatch
 Port** (`map_071`). A ride between any two stations costs **shards** (fares owned by
@@ -120,7 +120,7 @@ fares hook per 15_maps_system/MAP_CONNECTIONS.md.
 spawn `from_<origin_slug>` on the destination map; ferry doors target `from_ferry`; coach
 arrivals target `coach_stop`.
 
-## Arc 2 — the far isles (v3, Lv 40–82)
+## Arc 2 — the far isles (Lv 40–82)
 
 Arc 2 opens at Lv 40. There are two ways across the open sea from Harthmoor — one free, one
 paid:
@@ -188,7 +188,7 @@ Reserved as a design hook only — no map IDs minted; each future link lands as 
 portal + `level_gate` on an existing map, exactly like the Deepway pattern. Owner: this
 file (edge table) + 15_maps_system/MAP_CONNECTIONS.md §9 (gating).
 
-## Job instructors (v2.3 — every line has a home city, classic-style)
+## Job instructors (every line has a home city, classic-style)
 
 | Line | Home town | Instructor seed |
 |---|---|---|
@@ -204,7 +204,7 @@ the Clockwork Ruins. Rules owned by 10_systems/JOBS.md; instructor NPCs are auth
 Phase D inside each region's NPC block. A novice guide lives in Emberfoot Village's elder's
 hall.
 
-## Map order & monster gradient law (v2.3)
+## Map order & monster gradient law
 Classic legibility, enforced jointly by D-map and D-mob batches:
 1. Each region's **main path** runs town/entrance → deep end, and field map IDs ascend
    along it; monster levels rise **monotonically** along that same order (+1/+2 per map).

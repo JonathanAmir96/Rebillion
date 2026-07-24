@@ -2,6 +2,29 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-24 — single-canon consolidation + pacing retune (owner-directed)
+
+`main` is the single source of truth: the **five-island / two-arc world** (11 regions,
+324 maps, 234 monsters, 11 bosses, 4 raids, branching 2nd-job specializations, cap 300) is
+the one design. A parallel two-island reconciliation had briefly been merged in and is now
+**reverted** — its docs, decision-contract framing, and phase report were removed so the
+tree no longer carries competing "versions." Owner rulings this session:
+
+1. **Pacing retune.** Too fast before. New ratified `/played` anchors: **Lv 40 ≈ 30 h ·
+   Lv 80 ≈ 166 h · Lv 100 ≈ 300 h**. Curve: `exp_per_kill_normal(L) = round(4·L^1.3)`
+   (unchanged) · `kills_per_level(L) = round(20 + 6.6·L + 0.20·L²)` frozen through Lv 100,
+   provisional linear softcap past 100 · `/played = kills_per_level / (480×0.70)`. Owner doc
+   `10_systems/LEVELING.md`. Per-kill exp, monster stats, economy, drops, and TTK are
+   curve-invariant. **Follow-up owed:** the authored `50_content/quests/*.yaml` `exp` rewards
+   (pct × exp_to_next) are now stale and need a mechanical regen pass (Phase D); FTUE Lv-8
+   gate now lands ≈1.1 h, flagged for the intro owner.
+2. **Raid naming** stays as the tree already had it: "raid" / `raid_<name>` / `social/RAID.md`
+   for the instanced co-op runs; "party quest" / `pq_*` is retired notation. (The mode remains
+   MapleStory-inspired; only the term differs.)
+3. **De-labeled** the version-soup: stripped "(v2)/(v3)/(v2.2)/(v3.1)" tags from doc
+   titles/headers and the WORLD_PLAN/ID_REGISTRY version intros so the tree reads as one
+   design. Dated amendment logs and this history remain.
+
 ## 2026-07-24 — markdown connectivity graph + BFS audit (session: markdown-connectivity-graph)
 
 New tool `tools/md_graph.py` (stdlib) builds the whole-tree link graph — edges from markdown

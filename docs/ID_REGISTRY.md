@@ -1,13 +1,11 @@
-# ID_REGISTRY.md — Reserved ID Ranges (Immutable) — v3
+# ID_REGISTRY.md — Reserved ID Ranges (Immutable)
 
 IDs are semantic + zero-padded, immutable once assigned, and must fall inside their reserved
 block. Collisions or out-of-range IDs fail VALIDATION.md §4. Region composition detail lives
-in WORLD_PLAN.md; this file owns **who may mint which IDs**. **v2 note:** re-blocked for the
-two-island / first-arc (Lv 1–42) / 8-boss world before any content IDs were minted (Phase D had not
-started); this is the only permitted kind of re-blocking — never renumber minted IDs.
-**v3 note (owner revision 2026-07-23):** extended for Arc 2 (Lv 40–80, regions R9–R11) and
-re-blocked the never-minted growth reserves (arc-2 equips, branched-spec skill blocks) —
-again before any Phase D minting, so the same legality applies.
+in WORLD_PLAN.md; this file owns **who may mint which IDs**. The blocks below cover the
+five-island / two-arc world (Lv 1–80, 11 bosses, regions R1–R11): all ID ranges were laid out
+**before any content IDs were minted** (Phase D authored them afterward), which is the only
+permitted kind of re-blocking — never renumber minted IDs.
 
 ## Maps — `map_001`–`map_324` (11 region blocks)
 
@@ -125,7 +123,7 @@ Enhancement materials: `item_etc_0193`–`0197` = Emberstone I–V (band mapping
 10_systems/ENHANCEMENT.md); `0198`–`0200` reserved (`0198` proposed as Emberstone VI for the
 arc-2 bands — pending the ENHANCEMENT.md mapping decision, see Open Questions).
 
-## Skills — `skill_<line>_001`–`060` per job line (v3 re-block for branched 2nd jobs)
+## Skills — `skill_<line>_001`–`060` per job line (blocks for branched 2nd jobs)
 Line tokens (owner 10_systems/JOBS.md): `bulwark` (might), `keeneye` (finesse), `weaver`
 (focus), `flicker` (fortune). Per-line layout: `001`–`006` first-job (shared by the line's
 specs) · `007`–`013` specialization #1 · `014`–`020` specialization #2 · `021`–`027`
