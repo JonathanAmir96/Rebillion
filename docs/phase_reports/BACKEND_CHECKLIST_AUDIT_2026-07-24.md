@@ -66,7 +66,7 @@ repointed to `70_integrations/GAMEPLAY_SIMULATION.md` §2 in the same merge.
 
 ## Open Questions
 
-- **Stack naming discrepancy (owner to confirm).** The 2026-07-24 checklist names
+- ~~**Stack naming discrepancy (owner to confirm).** The 2026-07-24 checklist names
   Supabase/PostgreSQL, a Colyseus-style room server, and Redis as its reference technologies. The
   gated suite decides PostgreSQL and Redis (matching) but **Elixir/OTP + Phoenix** rather than a
   Node/Colyseus room layer (`70_integrations/BACKEND_ARCHITECTURE.md` §2, with Node-adjacent
@@ -75,7 +75,14 @@ repointed to `70_integrations/GAMEPLAY_SIMULATION.md` §2 in the same merge.
   checklist *requirement* is satisfied technology-agnostically. If Supabase or Colyseus is a hard
   owner constraint rather than an illustrative reference, that reopens
   `70_integrations/BACKEND_ARCHITECTURE.md` §2/§3 through its amendment channel — the default
-  assumption here is that the suite's gated decision stands.
+  assumption here is that the suite's gated decision stands.~~ **Resolved 2026-07-24 (owner):**
+  the suite's Elixir/OTP + Phoenix decision **stands**, owner-confirmed. The owner prioritizes
+  reliability over build speed ("develop will take time but use the more reliable method even if
+  a little more complex") and set the end-state as an **autonomously maintained** live game —
+  incidents trigger agents that diagnose and fix (`docs/60_agents/AUTONOMOUS_MAINTENANCE.md`).
+  OTP's supervision/crash-report model doubles as that loop's structured trigger source, which
+  strengthens the original rationale. The checklist's Colyseus/Supabase names are confirmed as
+  illustrative references only.
 - The three flags filed above (S4 interest filtering, S6/S9 concurrency + SQL discipline, P9
   APM ownership) resolve in their owning docs, not here; this report only tracks that they were
   filed.
