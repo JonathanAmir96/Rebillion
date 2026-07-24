@@ -191,11 +191,12 @@ Questions). Job lines share the one base body — job identity is worn equipment
 ## 7. Character creation choices
 
 At creation the player picks exactly: `style_hair_NN`, `style_face_NN`, `style_haircolor_NN`,
-`style_skin_NN` (base body is fixed at `style_base_00` this arc). Choices persist on the
-character record (server-authoritative, `10_systems/PERSISTENCE.md`; field addition flagged
-in Open Questions) and are freely re-stylable later only through systems a future doc may add
-— nothing in this run sells or drops appearance (`00_vision/SCOPE.md`: no vanity shop, no
-monetization).
+`style_skin_NN` (base body is fixed at `style_base_00` this arc). The creation flow, the
+roster it lands in, and the character-record fields these choices persist to are
+`10_systems/ACCOUNT.md`'s (§3/§5 there; server-authoritative per
+`10_systems/PERSISTENCE.md`). Appearance is re-stylable later only through systems a future
+doc may add — nothing in this run sells or drops appearance (`00_vision/SCOPE.md`: no vanity
+shop, no monetization).
 
 ## 8. Style catalog (content file shape)
 
@@ -274,10 +275,11 @@ nearest/no-mipmap/pixel-snap all inherit unchanged.
 - **`20_schemas/item.schema.md` needs the visual fields.** `covers`/`hides` (§2) and an
   implicit "this equip has a sprite part" marker are not in the item schema today; flagged
   for that schema's owner. Until then, Phase D equip content must not author these fields.
-- **Player schema half of the `entity_id` question stays open.** §6 settles export naming
-  (part IDs), but whether a `player.schema.md` / character-record schema should exist — and
-  where appearance fields (§7) land in `10_systems/PERSISTENCE.md`'s character record — is
-  still the cross-doc question `ANIMATION_STATES.md` flagged; not resolved here.
+- **Player schema half of the `entity_id` question stays open (narrowed 2026-07-24).** §6
+  settles export naming (part IDs), and the appearance fields now land on
+  `10_systems/ACCOUNT.md` §3's character record — what remains of the cross-doc question
+  `ANIMATION_STATES.md` flagged is only whether a formal `player.schema.md` should exist for
+  the coding pass; not resolved here.
 - **Validator extensions.** `docs/VALIDATION.md` has no checks yet for: `style_*` IDs in
   registry range (check 4 should cover once the block exists — confirm), anchor-map presence/
   arity on the base-body manifest (one `[x,y]` per authored frame), anchored-part rows drawn

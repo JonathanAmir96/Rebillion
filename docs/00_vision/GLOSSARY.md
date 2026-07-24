@@ -43,6 +43,7 @@ anywhere else in the tree is a validation failure.
 | `exp` | Experience points token |
 | `level` | Character/monster level |
 | `emberstone` | Enhancement material (10_systems/ENHANCEMENT.md); visual flavor may be reskinned by ART_BIBLE amendment |
+| `nickname` | Player-chosen unique character name (format + uniqueness law: 10_systems/ACCOUNT.md) |
 
 ## Entity tiers (owner: 20_schemas/monster.schema.md)
 `normal` · `elite` · `boss`
