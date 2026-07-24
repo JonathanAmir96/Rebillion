@@ -74,6 +74,7 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `abilities[].cooldown` | float s | yes | — | Per-ability real-time cooldown. AI pacing/telegraph feel is the `ai_profile`'s (`10_systems/AI_BEHAVIOR.md`). `server`. |
 | `abilities[].telegraph_s` | float s | yes | `10_systems/AI_BEHAVIOR.md` §2 | Wind-up duration; elite/boss abilities **must** play the `telegraph` animation state (`docs/VALIDATION.md` §6), which must appear in `animation_states`. |
 | `abilities[].effects` | list[op] | yes | `10_systems/SKILL_EFFECTS.md` §3–§16 | Ordered effect list (same composition rules as skills, §2 there). Magnitudes scale on this mob's `power`/`spellpower` per `10_systems/SKILL_EFFECTS.md` §1 — **never restated in-file**. |
+| `abilities[].animation_note` | string | no — recommended | `40_assets/ANIMATION_STATES.md` | One sentence describing this ability's wind-up ("tell") and release *read* — the visual the player learns to dodge. Prose only: the wind-up **duration** stays in `telegraph_s`, frame budgets/timing stay with `40_assets/ANIMATION_TIMING.md`. `client`. |
 | `phases` | list | **`boss_scripted` only** | `10_systems/AI_BEHAVIOR.md` §15 | The boss phase contract. Forbidden unless `ai_profile: boss_scripted` (Validation). `server`. Sub-fields below. |
 | `phases[].phase_id` | int | yes | `AI_BEHAVIOR` §15 | 1-based, ascending. |
 | `phases[].life_threshold_pct` | number | yes | `AI_BEHAVIOR` §15 | Enter when boss `life` first drops ≤ this % of max. `phase_id: 1` must be `100`. |
@@ -82,6 +83,7 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `phases[].added_abilities` | list[ability id] | no | `AI_BEHAVIOR` §15 | Ability keys (into `abilities[]`) unlocked this phase (the task's "abilities_added"). |
 | `phases[].enter_telegraph` | bool | no — default `false` | `AI_BEHAVIOR` §15 | If true, entering plays the `phase_shift` state before combat resumes. |
 | `animation_states` | list[state] | yes | `40_assets/ANIMATION_STATES.md`; `00_vision/GLOSSARY.md` | Subset of the 12 GLOSSARY states. Must include every state its entity class requires (Validation). `client`. |
+| `animation_notes` | map[state → string] | no — recommended | `40_assets/ANIMATION_STATES.md`; `40_assets/ART_BIBLE.yaml` | Per-state **visual description** (≤1 sentence each, US spelling): what this monster's silhouette does in that clip — the per-monster brief the art pass generates from. Keys must be a subset of this file's `animation_states` (rule 11). Describes motion/silhouette only: palette/ramp is `40_assets/ART_BIBLE.yaml`'s (elemental tint via `10_systems/ELEMENTS.md` §4.1), frame counts/timing are `40_assets/ANIMATION_TIMING.md`'s — never restated here. Note there is **no evade/dodge state**: the 12-state set is closed, so a successful `evasion` roll has no dedicated clip (see `40_assets/ANIMATION_STATES.md` Open Questions). `client`. |
 | `drop_table` | string `drop_mob_NNN` | yes | `10_systems/DROPS.md` §1; `20_schemas/drop_table.schema.md` | Must equal `drop_mob_<this mob's NNN>` (one table per monster). `server` (rolls, DROPS §9). |
 | `respawn_override` | float s | no | `10_systems/SPAWN.md` §3 | Overrides the tier respawn default that `10_systems/SPAWN.md` §3 owns (its `respawn_timer_s`). Omit to inherit. `server`. |
 | `summon_owner` | enum/tag | no | `10_systems/SKILL_EFFECTS.md` §12; `10_systems/AI_BEHAVIOR.md` §15 | Present only on a **summon template / transient** entity; marks it summoned and records the owner relation (`player` \| `mob`). The concrete owning instance is bound at runtime by the `summon_entity` op. `server`. See Open Questions (no reserved ID block yet). |
@@ -152,6 +154,12 @@ abilities:
       - { op: deal_damage, element: fire, mult: 1.2 }
       - { op: knockback, distance: 2 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+animation_notes:                   # per-state visual brief (rule 11; keys ⊆ animation_states)
+  idle: "Paces a tight circle, smoldering mane flaring with each slow breath."
+  walk: "A heavy wolfish lope, head low, loose cinders trailing off the mane."
+  attack: "A snapping lunge-bite that rakes one body length forward."
+  telegraph: "Rears back and drags a forepaw, scoring an ember line along the ground."
+  die: "Buckles at the shoulders and collapses; the mane gutters out to smoke."
 drop_table: drop_mob_011
 respawn_override: 120
 flavor: "A scarred pack-leader whose mane smolders when its blood is up, herding the field's
@@ -203,6 +211,10 @@ contract).
 10. **Size ↔ knockback (advisory).** `size_class: boss` implies knockback/CC immunity
     (`10_systems/COMBAT_FORMULA.md` §11, `10_systems/STATUS_EFFECTS.md` §3); the validator may warn if
     a non-`boss` tier monster is given `size_class: boss`, since that grants CC immunity to a normal.
+11. **Animation notes (hard when present).** Every `animation_notes` key is a state token that
+    appears in this file's `animation_states`; every value is a non-empty string
+    (`docs/VALIDATION.md` §6). Length (≤1 sentence) and the motion-only scope (no palette, no
+    frame counts, no durations) are advisory authoring rules, reviewed not machine-checked.
 
 ## Template
 
@@ -230,6 +242,8 @@ drop_table: drop_mob_{NNN}
 flavor: "{<=2 sentences}"
 
 # --- optional fields (omit if unused): ---
+# animation_notes:              # per-state visual brief (rule 11; keys ⊆ animation_states; motion only)
+#   {state}: "{<=1 sentence: what the silhouette does in this clip}"
 # weak_to: [{element}]          # default []
 # resists: [{element}]          # default []
 # immune_to: [{element}]        # default []
@@ -244,6 +258,7 @@ flavor: "{<=2 sentences}"
 #     targeting: {shape token, or { shape: {token}, <geometry per SKILL_SYSTEM §6> }}
 #     cooldown: {float_s}
 #     telegraph_s: {float_s}
+#     animation_note: "{<=1 sentence: the wind-up tell + release read}"   # optional
 #     effects:
 #       - { op: {SKILL_EFFECTS op}, {params per that op} }
 

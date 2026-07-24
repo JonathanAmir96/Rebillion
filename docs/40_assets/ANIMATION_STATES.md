@@ -295,3 +295,12 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   wave, and the counts have since moved again with v3:** `20_schemas/monster.schema.md`'s
   Purpose section matches `docs/ID_REGISTRY.md`; the current v3 split is **178/45/11**
   (normal/elite/boss), and Phase D budgets **11** `boss` asset sets.
+- **No evade/dodge visual (owner request, 2026-07-24).** A monster's successful `evasion` roll
+  (`10_systems/COMBAT_FORMULA.md` §13 stat; the owner's "monsters have a % to dodge") currently
+  has **no dedicated clip** — the 12-state set is closed, so the miss is presentation-only
+  (floating-text feedback is `10_systems/HUD.md`'s domain). If evasive monsters (e.g. high-`evasion`
+  Flicker-flavored mobs) should visibly sidestep, that is a 13th state (`evade`) or a reuse rule
+  (e.g. play `hit` mirrored without flinch frames) — either way it is this doc's closure to amend,
+  with a frame budget needing Agent-3's ART_BIBLE blessing like the other extension states. Not
+  decided here; `animation_notes` (`20_schemas/monster.schema.md` rule 11) must not describe an
+  evade clip until it is.

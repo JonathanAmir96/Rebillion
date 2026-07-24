@@ -44,7 +44,9 @@ warns, never fails.
 ## 6. Asset contract
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
 every state required for their entity class (e.g., elites/bosses must include `telegraph`).
-Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming.
+Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming. When a monster file carries
+`animation_notes`, every key must be a state token present in that same file's
+`animation_states`, and every value a non-empty string (20_schemas/monster.schema.md rule 11).
 
 ## 7. Open Questions rollup
 Every doc ends with `## Open Questions`. Phase E collects every entry into the index at the
