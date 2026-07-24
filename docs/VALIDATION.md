@@ -5,6 +5,11 @@ coding pass later implements this same contract as a CI validator (see
 30_engineering/ENGINEERING_STANDARDS.md). Seeded at Phase A; finalized at Phase E with the
 Open Questions rollup.
 
+**Ownership:** this file is **producer-owned**. Any role that needs a check added or reworded
+(most often ROLE_SYSTEMS_ARCHITECT, whose Definition-of-Done implies validation rules)
+**proposes the wording to the producer for sign-off** — the producer is the only role that
+edits VALIDATION.md. This resolves the earlier producer-vs-architect ownership tangle.
+
 ## 1. No forbidden tokens
 The legacy-genre terms below may appear **in this file only** (it is the canonical banned
 list; the validator exempts `VALIDATION.md` and nothing else). Anywhere else — docs, schemas,
