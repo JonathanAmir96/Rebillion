@@ -33,6 +33,7 @@ Every map file carries:
 | `spawn_points` | Named entry points (`main`, `from_<slug>`, `coach_stop`, …) | `MAP_CONNECTIONS.md` |
 | `portals` | Edge/door/coach/longship exits | `MAP_INTERACTABLES.md` (params) + `MAP_CONNECTIONS.md` (rules) |
 | `spawn_zones` | Monster population zones | `10_systems/SPAWN.md` |
+| `trigger_zones` | Optional named quest-`reach` zones — `{zone_id, rect}` list, rect shape as `10_systems/SPAWN.md` §1's zone rect (owner ruling 2026-07-24) | consumer `10_systems/QUESTS.md` §3 |
 | `interactables` | Non-portal, non-mob objects | `MAP_INTERACTABLES.md` |
 | `layers` | Depth/TileMapLayer/tileset declarations | `MAP_LAYERS.md` |
 | `dead_end` | Per-portal flag (not map-level) | `docs/VALIDATION.md` §5, `MAP_CONNECTIONS.md` |
@@ -168,9 +169,10 @@ owned by `15_maps_system/MAP_TRAVERSAL.md` §6) and phase-triggered `camera_lock
   `amb_wind` vs. `amb_windy`) is unowned; flag for `40_assets/` at the C gate.
 - Whether `interior` should ever allow a scripted, non-zone-spawned combat beat (a forced NPC
   fight) is out of scope here; default holds strictly combat-free per §6.
-- **`reach`-step trigger zones (handoff from `10_systems/QUESTS.md` §3, still owed).** QUESTS
-  assigns this doc the map-side declaration for a quest `reach` step's named trigger zone/waypoint;
-  §1's anatomy table has no such field yet. QUESTS assumes a `10_systems/SPAWN.md` §1
-  `spawn_zones`-like rect. Confirm the shape (and whether the validator must resolve reach targets
-  against it) before the coding pass. Owner: this doc. (Raised by the 2026-07-24 md audit.)
+- **Resolved (2026-07-24, owner ruling): `reach`-step trigger zones declared.** §1 now carries
+  the optional `trigger_zones` field (named `{zone_id, rect}` list, SPAWN-style rect — exactly
+  what `10_systems/QUESTS.md` §3 assumed). Still deferred to Phase E: wiring validator
+  resolution of quest `reach` targets against declared zones, and backfilling `trigger_zones`
+  onto the minted maps whose quests reference named zones. Owner: this doc + validator/tools at
+  Phase E.
 - Secret-map size guidance (§2) has no WORLD_PLAN precedent to anchor against; first-pass only.
