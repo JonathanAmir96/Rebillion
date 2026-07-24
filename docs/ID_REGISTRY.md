@@ -119,6 +119,23 @@ reserved growth. `skill_novice_001`–`010` reserved for the novice kit (up to 4
 Party-quest intro/handler quests: `quest_087`–`090` (2 per PQ; owner region R2/R8 casts).
 `quest_091`–`120` reserved. Total authored: 90.
 
+## Appearance styles — `style_<category>_NN`
+
+Owner: 40_assets/CHARACTER_COMPOSITING.md (owner directive 2026-07-24). Character-creation
+appearance parts and palette swatches only — a worn equip's sprite part reuses its own
+`item_equip_NNNN` and mints nothing here.
+
+| Category | Block | Authored (first-arc plan) |
+|---|---|---|
+| Base body | `style_base_00`–`style_base_04` | 1 (`style_base_00`, the canonical skeleton); rest reserved |
+| Hair | `style_hair_01`–`style_hair_40` | 12; rest reserved |
+| Face | `style_face_01`–`style_face_20` | 8; rest reserved |
+| Skin swatches | `style_skin_00`–`style_skin_09` | 5 (palette-remap data only, no art); rest reserved |
+| Hair-color swatches | `style_haircolor_00`–`style_haircolor_09` | 6 (palette-remap data only, no art); rest reserved |
+
+Swatch color values are not canon until the ART_BIBLE skin/hair ramp amendment lands
+(CHARACTER_COMPOSITING.md §5 / Open Questions).
+
 ## Party quests — `pq_undervault` · `pq_mainspring`
 Owner: 10_systems/social/PARTY_QUEST.md. Future PQs mint `pq_<name>` tokens here first.
 

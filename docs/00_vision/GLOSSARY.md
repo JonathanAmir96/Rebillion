@@ -106,9 +106,16 @@ arc; the game cap is 300 (initial design; see SCOPE.md).
 ## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in social/GUILD.md)
 `heater` · `round` · `banner` · `diamond` · `crest_ornate`
 
+## Player sprite layers (owner: 40_assets/CHARACTER_COMPOSITING.md; owner directive 2026-07-24)
+`base` · `face` · `hair`, plus the seven visible equipment-slot tokens (`weapon` · `head` ·
+`body` · `legs` · `boots` · `gloves` · `cape`) reused verbatim as layer names; `ring`/`amulet`
+render no layer. Z-order and part classes live in the owner doc, never restated.
+
 ## ID prefixes (ranges owned by docs/ID_REGISTRY.md)
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
-`skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN`
+`skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN` ·
+`style_<category>_NN` (category ∈ `base`/`hair`/`face`/`skin`/`haircolor`;
+40_assets/CHARACTER_COMPOSITING.md)
 
 ## Region slugs (owner: docs/WORLD_PLAN.md; v2 two-island world)
 `emberfoot` · `millbrook` · `verdant` · `tidewatch` · `gloomwood` · `ashfall` · `sunken` ·

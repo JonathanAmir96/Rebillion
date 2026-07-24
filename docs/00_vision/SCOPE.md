@@ -42,7 +42,9 @@ full curve to 300 (formula-first) with detail tables for the authored range.
 ## Out of scope (this run)
 - GDScript/scenes/engine work of any kind; art or audio asset generation (PixelLab briefs are
   templates only); networking/backend; balancing beyond first-pass budget tables; localization
-  (US English only); monetization (none planned); character cosmetics beyond equipment.
+  (US English only); monetization (none planned); character cosmetics beyond equipment and
+  the character-creation appearance set (base/hair/face/skin — owner directive 2026-07-24,
+  design in 40_assets/CHARACTER_COMPOSITING.md; no vanity shop, no monetized cosmetics).
 
 ## Deliberate scope limits
 - One weapon type per job line (4 total). Armor is class-agnostic with stat leans.
