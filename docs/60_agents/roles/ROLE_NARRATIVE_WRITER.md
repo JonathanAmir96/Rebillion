@@ -14,8 +14,9 @@ across 84 NPCs and 90 quests.
 within one region's blocks.
 
 **Reads first:** WRITING_STYLE.md if it exists (else PILLARS mood + ART_BIBLE identity),
-the region's WORLD_PLAN section, its mob + map manifests (real names for kill/reach
-targets), QUESTS.md reward budgets, the instructor table (WORLD_PLAN v2.3).
+the region's WORLD_PLAN section, its mob manifest (real names for kill targets, from
+ROLE_MONSTER_DESIGNER) + map manifest (reach targets), QUESTS.md reward budgets, the
+instructor table (WORLD_PLAN v2.3).
 
 **Deliverable contract:** quest steps that target only region-appropriate IDs; rewards
 inside the QUESTS.md envelope; dialog ≤2 sentences per field; collect targets whose

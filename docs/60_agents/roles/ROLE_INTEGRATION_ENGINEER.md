@@ -13,7 +13,11 @@ pipeline documentation → **Sonnet**.
 
 **Owns:** docs/70_integrations/* (BACKEND_ARCHITECTURE, ACCOUNTS_AUTH,
 TELEMETRY_ANALYTICS, BUILD_DISTRIBUTION, ART_GENERATION_RUNBOOK, WIKI_EXPORT and
-successors).
+successors). The canonical path for the art-generation runbook is
+`docs/70_integrations/ART_GENERATION_RUNBOOK.md` (future file — not created yet); this role
+authors it. **ROLE_ART_DIRECTOR holds a QA veto over the runbook's outputs** — the workflow
+is owned here, but every asset it produces passes the art director's checklist before
+landing (org decision 2026-07-24, resolves the earlier double-claim).
 
 **Reads first:** PERSISTENCE.md (the authority taxonomy is the contract to satisfy),
 ENGINEERING_STANDARDS.md (locked — cite, never edit), social/ docs (server-deferred

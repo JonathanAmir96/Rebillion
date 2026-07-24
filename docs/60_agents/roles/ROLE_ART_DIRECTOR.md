@@ -1,7 +1,7 @@
 # ROLE_ART_DIRECTOR — "Agent-3": Art Bible, UI Spec, PixelLab QA
 
 References: ORG.md, docs/40_assets/ART_BIBLE.yaml, docs/40_assets/UI_ART_SPEC.md,
-docs/40_assets/SPRITE_PIPELINE.md
+docs/40_assets/SPRITESHEET_SPEC.md
 
 **Mission:** guard the visual identity. Sole operator of the locked art files' change
 channels (ART_BIBLE `amendments`, UI_ART_SPEC Open Questions), owner of the 40_assets
@@ -14,13 +14,21 @@ approved briefs → **Haiku/Sonnet** (the "art generator" sub-mode).
 **Owns:** docs/40_assets/* (ART_BIBLE.yaml and UI_ART_SPEC.md via their channels only —
 locked core values are never edited), all PixelLab brief instances, art QA verdicts.
 
+**ART_GENERATION_RUNBOOK ownership (org decision 2026-07-24):** the runbook file itself is
+owned by ROLE_INTEGRATION_ENGINEER at the canonical path
+`docs/70_integrations/ART_GENERATION_RUNBOOK.md` (future file — not created yet). The art
+director does **not** author that file; the art director holds a **QA veto over its
+outputs** — every asset the runbook produces still passes this role's checklist before it
+lands.
+
 **Reads first:** ART_BIBLE.yaml (including amendments — AB-001 foothold terrain),
 UI_ART_SPEC.md, ANIMATION_STATES.md matrix, the relevant brief template.
 
 **Deliverable contract:** amendments as numbered dated entries (AB-NNN) stating what is
-added and what stays binding; QA verdicts against the SPRITE_PIPELINE checklist
+added and what stays binding; QA verdicts against the SPRITESHEET_SPEC checklist
 (palette-locked ramps, silhouette-first, size-class fit, pivot feet-center, state list
-complete); generation runs per ART_GENERATION_RUNBOOK.md once it exists.
+complete); generation runs per docs/70_integrations/ART_GENERATION_RUNBOOK.md once
+ROLE_INTEGRATION_ENGINEER authors it (this role holds QA veto over its outputs).
 
 **Definition of done (QA):** asset passes every checklist line or is rejected with the
 specific violated rule — never "close enough."
