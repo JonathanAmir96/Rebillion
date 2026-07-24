@@ -15,6 +15,9 @@ Start here:
   (conventions in `docs/50_content/README.md`)
 - `docs/30_engineering/` + `docs/40_assets/` — engineering standards and art/UI bible
   (change-controlled, `CLAUDE.md` Law 5)
+- `docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md` — the per-asset-class PixelLab MCP call recipes
+  (tool + parameters + description shape) the art pass generates from, entered through the
+  `.claude/skills/pixellab-art-pass/SKILL.md` skill (not change-controlled)
 - `docs/60_agents/` — coding-pass phase briefs, role charters, and the autonomous-maintenance
   loop (`AUTONOMOUS_MAINTENANCE.md`) · `docs/VALIDATION.md` — pass/fail rules
 - `docs/70_integrations/` — platform & pipeline design (backend, accounts/auth, telemetry,

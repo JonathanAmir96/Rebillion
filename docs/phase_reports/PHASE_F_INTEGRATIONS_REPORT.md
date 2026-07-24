@@ -47,6 +47,9 @@ and `10_systems/PERSISTENCE.md` §6's local-save slot count was raised to match.
     the future PixelLab pass; brief-template map onto locked 40_assets specs (incl. AB-001
     terrain chunks); QA gate + bounded rejection loop; `PIXELLAB_SECRET` env-only, value
     never committed or logged.
+    *(Superseded 2026-07-24: no `PIXELLAB_SECRET` ever existed — PixelLab authorizes through the
+    claude.ai connector. See `70_integrations/ART_GENERATION_RUNBOOK.md` §2. Recorded here as
+    what was decided then; the runbook is what is true now.)*
 - **F-wiki (ROLE_INTEGRATION_ENGINEER, Haiku with producer-precomputed outline, per
   ORG.md's demotion rule):**
   - `70_integrations/WIKI_EXPORT.md` — static wiki as a build artifact generated from

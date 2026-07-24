@@ -325,8 +325,8 @@ this doc deliberately does not decide. Each is cited above where its boundary is
 ## 10. Secrets & implemented-when
 
 - **Secrets are environment-managed, never committed** (`docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md`;
-  matches `70_integrations/ACCOUNTS_AUTH.md` §3's password-hashing-parameter stance and the
-  `PIXELLAB_SECRET` precedent). Database credentials, the Redis auth, session-signing keys, and any
+  matches `70_integrations/ACCOUNTS_AUTH.md` §3's password-hashing-parameter stance).
+  Database credentials, the Redis auth, session-signing keys, and any
   storefront/SSO secrets live in environment-managed configuration and are set/rotated in ops, never
   in this tree.
 - **Implemented when:** a live authoritative server exists — i.e. after the interim solo build

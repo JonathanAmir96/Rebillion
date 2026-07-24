@@ -17,7 +17,9 @@ change-controlled core values move only by owner-directed amendment), all PixelL
 instances, art QA verdicts.
 
 **Reads first:** ART_BIBLE.yaml (including amendments — AB-001 foothold terrain),
-UI_ART_SPEC.md, ANIMATION_STATES.md matrix, the relevant brief template.
+UI_ART_SPEC.md, ANIMATION_STATES.md matrix, the relevant brief template, and
+docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md (the concrete call recipes, its blocked-recipe list,
+and the Open Questions it routes to this role).
 
 **Deliverable contract:** amendments as numbered dated entries (AB-NNN) stating what is
 added and what stays binding; QA verdicts against the SPRITESHEET_SPEC.md checklist
@@ -31,7 +33,8 @@ specific violated rule — never "close enough."
 
 **Never:** edit change-controlled values without explicit owner direction; accept off-palette
 colors without an amendment; let
-credentials (PixelLab token) into the repo — environment secret only.
+PixelLab credentials into the repo — the connector is authorized interactively by the owner
+and there is no token to hold (`docs/70_integrations/ART_GENERATION_RUNBOOK.md` §2).
 
 **Escalation:** owner (the human) for identity-level changes.
 

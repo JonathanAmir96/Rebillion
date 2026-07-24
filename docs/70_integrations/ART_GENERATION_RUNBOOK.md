@@ -2,7 +2,7 @@
 
 References: docs/00_vision/GLOSSARY.md, docs/VALIDATION.md, docs/40_assets/ART_BIBLE.yaml,
 docs/40_assets/UI_ART_SPEC.md, docs/40_assets/SPRITESHEET_SPEC.md,
-docs/40_assets/CHARACTER_COMPOSITING.md,
+docs/40_assets/CHARACTER_COMPOSITING.md, docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md,
 docs/40_assets/ANIMATION_STATES.md, docs/40_assets/ANIMATION_TIMING.md,
 docs/15_maps_system/MAP_TRAVERSAL.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md,
 docs/60_agents/roles/ORG.md, docs/60_agents/roles/ROLE_ART_DIRECTOR.md,
@@ -31,21 +31,43 @@ binaries have no home here.
 
 ## 2. Credentials
 
-PixelLab is reached exclusively through the PixelLab MCP tools, authenticated by the
-`PIXELLAB_SECRET` environment secret configured in the Claude Code environment settings
-(the repo root `CLAUDE.md`). Rules, no exceptions:
+PixelLab is reached exclusively through the PixelLab MCP tools, authorized as the **claude.ai
+PixelLab connector** — the owner authenticates it interactively (`/mcp` → *claude.ai Pixellab
+AI* → authorize) against their own claude.ai login. **No API token is consumed by any PixelLab
+MCP tool** — verified 2026-07-24 across the whole tool surface, so there is none to hold: not in
+the repo, not in an environment variable, not in Claude Code settings
+(verified 2026-07-24 against the live MCP; the `PIXELLAB_SECRET` env-var plan this section
+previously described was a forward guess that never materialized). Rules, no exceptions:
 
-- The token value is **never** committed to this repo, never pasted into a doc, a commit message,
-  a log line, a generation prompt, or a chat transcript that could be persisted as an artifact.
-- Nothing in this doc, an amendment, or a QA verdict may name the secret's value — only the
-  variable name `PIXELLAB_SECRET` may appear, as it does here.
-- **If `PIXELLAB_SECRET` is absent or the MCP tools reject it**, the runbook halts before any
-  generation call — no batch starts, no exemplar is requested. Escalate to the producer or the
-  owner (`docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md`'s escalation path); do not substitute
-  a hardcoded value or a placeholder credential to "keep moving."
-- **Rotation on suspicion of exposure**: if the token is ever suspected leaked (pasted somewhere
-  persisted, shown in a shared log, etc.), stop the pass immediately, notify the owner, and do not
-  resume generation until a rotated secret is confirmed in the environment settings.
+- **Never ask the owner to paste a PixelLab token**, and never accept one if offered — there is
+  no field that consumes it, so a pasted token is pure exposure with zero benefit. If a token
+  reaches a transcript, treat it as leaked (final rule below).
+- No credential value is **ever** committed to this repo, pasted into a doc, a commit message, a
+  log line, a generation prompt, or a chat transcript that could be persisted as an artifact.
+  This survives the auth-model change unchanged — it now covers the connector's OAuth
+  credentials rather than an API key.
+- **If the connector is not authorized, or the MCP tools reject the session**, the runbook halts
+  before any generation call — no batch starts, no exemplar is requested. Ask the owner to
+  re-authorize via `/mcp`; escalate on the
+  `docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md` path if that fails. Never substitute a
+  hardcoded value or a placeholder credential to "keep moving."
+- **The batch-opening `get_balance` is the authorization check** — it is authenticated, takes no
+  arguments, and costs nothing, so the balance reading
+  `docs/60_agents/roles/ROLE_ART_QUARTERMASTER.md`'s protocol already requires at the start of
+  every batch doubles as proof the connector is live. Run it before the exemplar, so the halt rule
+  above fires ahead of any spend rather than after a failed generation call.
+- **`list_projects` returns git clone URLs that may embed a push credential.** Never paste its raw
+  output into a doc, a batch run log (§6), a commit message, or anywhere else persisted — the
+  no-credential-in-artifacts rule above covers it, and this is the one read-only call that can
+  produce a live credential as ordinary output.
+- **Revocation on suspicion of exposure**: if the connector authorization is ever suspected
+  compromised, stop the pass immediately, notify the owner, and do not resume generation until
+  the owner has revoked and re-authorized the connector. **Note the blast radius**: the connector
+  grant sits downstream of the owner's whole claude.ai login, not a vendor-scoped key. If the
+  login itself is what is suspected, revoking the connector is *not* sufficient remediation — the
+  owner rotates claude.ai credentials and invalidates active sessions first, then re-authorizes;
+  otherwise an attacker holding a live session satisfies the resume condition as easily as the
+  owner does.
 
 ## 3. Batch order — region-scoped, exemplar-first
 
@@ -88,7 +110,9 @@ a rejected exemplar's brief.
 ## 4. Brief-template mapping
 
 Every generation job cites exactly one `40_assets/*` doc as its brief and QA contract; this doc
-mints no new visual rules, only points at the owner:
+mints no new visual rules, only points at the owner. **The concrete call for every row below —
+tool, parameters, and `description` shape — is `docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md`**;
+that doc also records which recipes are currently blocked and must not be batch-generated.
 
 | Asset type | Generation brief / QA contract (owner, cited not restated) |
 |---|---|
@@ -138,18 +162,21 @@ only their owner's channel may land a change.
 entities, the atlas manifest sidecar (`40_assets/SPRITESHEET_SPEC.md` §7, `<entity_id>.atlas.yaml`
 beside `<entity_id>.png`). `entity_id` is always the entity's own registered ID
 (`mob_NNN`/`npc_NNN`/`item_equip_NNNN`/etc. per `docs/ID_REGISTRY.md`) — no ad hoc naming. A batch
-run log records, per job: content ID, brief doc + version cited, PixelLab job ID, and the QA
-verdict (§5) — enough for anyone to trace a shipped asset back to the exact brief it was generated
+run log records, per job: content ID, brief doc + version cited, PixelLab job ID, the QA
+verdict (§5), and — where the tool accepts one — the `seed` plus the tool-surface verification date
+from `40_assets/PIXELLAB_PROMPT_LIBRARY.md` §0, so a rejected asset can be re-rolled
+deterministically against a corrected prompt and anyone can tell which schema revision a call was
+written against. Enough for anyone to trace a shipped asset back to the exact brief it was generated
 against.
 
 **Failure modes and retry stance:**
 
 | Failure | Response |
 |---|---|
-| API quota / rate limit exhausted | Pause the batch at the current asset; resume in the next available window. Never fall back to a manual, QA-bypassing asset to "unblock" the batch. |
+| Generation quota / rate limit exhausted | Pause the batch at the current asset; resume in the next available window. Never fall back to a manual, QA-bypassing asset to "unblock" the batch. |
 | Generation drift (output ignores palette/silhouette/state brief after 2 regeneration attempts) | Stop retrying; escalate per §5's rejection loop — this is a brief/spec question, not a prompt-tuning one. |
 | MCP/service outage | Halt the batch entirely; retry once the service is confirmed healthy. No partial-batch "best effort" landing. |
-| Credential rejected mid-batch | Halt immediately per §2; do not continue on cached/previously-successful auth state. |
+| Connector unauthorized or session rejected — at batch start **or** mid-batch | Halt immediately per §2; do not continue on cached/previously-successful auth state. The start-of-batch case is caught by §2's `get_balance` probe before any spend; the mid-batch case surfaces on a failing call. |
 
 Bounded retries only (2 regeneration attempts per asset before escalation, per §5); an asset is
 never shipped "close enough" to a failed checklist line.
@@ -165,6 +192,12 @@ never shipped "close enough" to a failed checklist line.
 - **No brief exists yet for projectiles/fx** (§4's last row) — flagged for
   `docs/60_agents/roles/ROLE_ART_DIRECTOR.md` to either author a dedicated spec or confirm the
   general `ART_BIBLE.yaml` rules suffice.
+- **Headless/scheduled runs may have no connector (§2).** The claude.ai PixelLab connector is
+  authorized interactively against the owner's login; an unattended run (cron, CI, a background
+  agent) may find the MCP absent, and there is no token fallback to substitute. Whether the art
+  pass is therefore attended-only, or needs a separate unattended credential path from PixelLab,
+  is unresolved — flagged for `docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md`. Until settled,
+  treat every batch as attended and let §2's halt rule fire rather than seeking a workaround.
 - **PixelLab job concurrency/credit-cost model** is unknown at doc-authoring time (no owner
   pricing data was available for this task); regional batch sizing may need revisiting once real
   quota/cost figures are known.
