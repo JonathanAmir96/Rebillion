@@ -2,6 +2,22 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-24 — full-tree contradiction sweep (post social/cosmetics merge)
+
+Six-cluster parallel review of `main` (commit `0b1a632`), every finding hand-verified; report:
+`docs/phase_reports/DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`. Mechanical gates clean
+(`validate.py` 0/0, `md_graph.py` 1 component / 0 orphans); **27 semantic contradictions found**
+(C-01…C-27): 15 high (two live ECONOMY fare tables; tonic + T11/T12 prices vs minted content;
+`mob_151`–`160` summon-template claim colliding with the Frostpeak block; COMBAT_FORMULA `life`
+formula vs its checksum table; schema worked examples off-registry/off-curve in all four schemas;
+GUILD weekly +10% vs DROPS ×2.73 hard ceiling; guild hall `map_022`→`map_024`; stale
+day-boundary and tile-scale-lock claims; ITEMS §4 weapon-ID layout vs minted; ferry/Millbrook
+spawn-target defects) + 12 low (citation/label/pointer drift). Resolutions are **owner-directed**
+(law 4) — nothing was changed in owning docs; the report routes each finding and proposes a
+landing order (registry facts → schema exemplars → ECONOMY → ceiling call → drift batches).
+Also confirmed consistent: all 2026-07-24 social-balance numbers, cosmetics blocks, world
+arithmetic, LEVELING curves, banned-term sweep, UI/animation numbers (report §3).
+
 ## 2026-07-24 — social-package balance pass + cosmetics system (owner-directed follow-ups)
 
 The two follow-ups left open by the social package (below) are done; all first-pass magnitudes are
