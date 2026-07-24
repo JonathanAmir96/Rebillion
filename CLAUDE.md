@@ -23,7 +23,7 @@ code, no generated art. Read `README.md` for the tree map and
 6. **Validate before landing:** the checks in `docs/VALIDATION.md` run on every content
    batch (see `tools/` once the validator lands). US spelling everywhere.
 
-## Current design state (v2, owner revision 2026-07-21)
+## Current design state (v2, owner revisions 2026-07-21 / 2026-07-24)
 
 - Two islands: Emberfoot Isle (training, maps 001–016) → Harborwind Ferry (paid) →
   Harthmoor Isle, a Victoria-style **ring** (Millbrook south hub ↔ Verdant ↔ Gloomwood ↔
@@ -39,6 +39,14 @@ code, no generated art. Read `README.md` for the tree map and
   3rd jobs named-and-reserved for future arcs.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
+- Player sprite is **composited** (Maple-style paper-doll), never one baked sheet:
+  layer stack + anchor map in `docs/40_assets/CHARACTER_COMPOSITING.md`, appearance palette
+  via ART_BIBLE amendment AB-002, `style_*` IDs in ID_REGISTRY. Generation cost is linear in
+  parts, not combinations (owner revision 2026-07-24).
+- Account layer (`docs/10_systems/ACCOUNT.md`): 4 character slots per account, creation flow
+  with globally-unique nicknames (server-checked, Maple-style), all through the `GameState`
+  facade. Game launches borderless fullscreen at integer scale
+  (`docs/10_systems/DISPLAY.md`).
 
 ## Git & generation workflow
 
