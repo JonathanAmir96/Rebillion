@@ -17,23 +17,29 @@ pipeline or cadence bases (`10_systems/COMBAT_FORMULA.md`), or status behavior
 
 Level-up grants skill points; `10_systems/LEVELING.md` §5 delegates the **magnitude** here.
 
-- **+1 skill point per level gained**, levels 2→100 = **99 lifetime points**. None at Lv 1.
+- **+1 skill point per level gained.** None at Lv 1. Over the full game cap (300,
+  `00_vision/SCOPE.md`) that is 299 lifetime points; this run authors the **first arc, Lv 1–42**, so
+  an arc-end character has **41 points**.
 - Points are granted atomically with the level-up (server-authoritative,
   `10_systems/PERSISTENCE.md`; `10_systems/LEVELING.md` §5 owns the trigger).
 - A job **advancement** (`10_systems/JOBS.md` §1) grants **no** extra points — it unlocks the next
   skill **tier** (§2). Keeping points on the flat +1/level curve makes total availability legible.
-- By Lv 7 (end of `novice`) a character has 6 points for the four novice skills; by Lv 100, 99
-  points against 21 line skills × `max_level` 10 = 210 possible ranks, so **you specialize** — no
-  character maxes everything (`00_vision/PILLARS.md` P4 depth). This is intended, not a shortfall.
+- By Lv 7 (end of `novice`) a character has 6 points for the four novice skills; by Lv 42 (arc end),
+  41 points against **13 authored line skills** × `max_level` 10 = 130 possible line ranks (plus the
+  4 novice skills), so **you specialize** — no character maxes even one tier fully at arc end
+  (`00_vision/PILLARS.md` P4 depth). This is intended, not a shortfall. Points earned past Lv 42 (up
+  toward the Lv 80 3rd-job gate and cap 300) spend into the reserved higher tiers as future arcs
+  author them.
 
 ## 2. Spending rules
 
 - **`max_level` per skill = 10.** Each rank costs **1 point**. A skill's per-rank effect is defined
   by its `level_data` (§5).
 - **Rank 1 = "learn."** Spending the first point learns the skill (must meet its gates below).
-- **Tier gate.** A skill's tier (`10_systems/JOBS.md`: 1st `001`–`006`, 2nd `007`–`013`, 3rd
-  `014`–`021`) is locked until the matching job advancement: 1st at Lv 8, 2nd at Lv 30, 3rd at
-  Lv 60. Novice skills (`skill_novice_*`) are learnable from Lv 1.
+- **Tier gate.** A skill's tier (`10_systems/JOBS.md`: 1st `001`–`006`, 2nd `007`–`013`) is locked
+  until the matching job advancement: **1st at Lv 8, 2nd at Lv 40**. The **3rd tier (`014`–`021`)
+  gates at Lv 80** but is **reserved** — not authored this run (`10_systems/JOBS.md` §8,
+  `memory.md` C2). Novice skills (`skill_novice_*`) are learnable from Lv 1.
 - **Line gate.** You may only put points into your own line's skills (chosen at the Lv 8
   advancement) plus the shared novice kit. Equip/weapon proficiency is `10_systems/ITEMS.md`'s.
 - **Prerequisite chains (policy).** A skill may declare a prerequisite: another skill in the same
@@ -94,8 +100,11 @@ the bracketing rows. This keeps skill files to four authored rows instead of ten
   |---|---|---|
   | 1st (`001`–`006`) | 5 → 12 | 0–8 s (core attacks often 0–3 s, `essence`-gated) |
   | 2nd (`007`–`013`) | 12 → 28 | 4–20 s |
-  | 3rd (`014`–`021`) | 25 → 55 | 8–120 s (ultimates high end) |
   | novice | 4 → 10 | 2–10 s |
+
+  The 3rd tier (`014`–`021`) is reserved (`10_systems/JOBS.md` §8) and not costed this run; its
+  future-arc band sketch (`essence_cost` ≈ 25 → 55, `cooldown` 8–120 s for ultimates) lives with
+  that reserved roster, not in this run's in-scope cost model.
 
   Utility skills may hold `essence_cost` flat across ranks; damage skills typically rise with rank
   as `mult` rises. `clarity` reduces `essence` cost at cast time (`10_systems/STATUS_EFFECTS.md`
@@ -163,9 +172,10 @@ content file recomputes interpolation or cost — it declares rows and constants
 - **Skill-bar slot count** (first-pass 8) and input layout are owned by `10_systems/CONTROLS.md` /
   `10_systems/HUD.md`; if the platform button budget forces fewer, content that assumes 8 usable
   actives at once may need review. Flagged for the B/C gate.
-- **Skill-point total** (99 lifetime, +1/level) is first-pass; if playtesting shows characters feel
-  starved or over-flush against 21 skills, `10_systems/LEVELING.md` (owner of the trigger) and this
-  doc jointly retune (e.g., a small advancement lump). Default holds at flat +1/level.
+- **Skill-point total** (+1/level; 41 by the Lv 42 arc end, 299 at cap 300) is first-pass; if
+  playtesting shows characters feel starved or over-flush against the 13 authored line skills,
+  `10_systems/LEVELING.md` (owner of the trigger) and this doc jointly retune (e.g., a small
+  advancement lump). Default holds at flat +1/level.
 - **Tile → pixel scale** for all §6 ranges inherits `10_systems/COMBAT_FORMULA.md` §10's open scale
   lock (`40_assets/ART_BIBLE.yaml`); numbers here are tile-relative and unaffected by the eventual
   px value, but reticle/aim feel can't be tuned until it lands.
