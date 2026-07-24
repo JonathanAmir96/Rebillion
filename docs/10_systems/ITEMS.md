@@ -435,8 +435,8 @@ stays viable).
 - Set bonuses (wearing N pieces of a themed group) are **not** in this pass; if wanted they attach
   to boss-unique groups (§11) via `passive_stat_bonus` and need a `set_id` field in
   `20_schemas/item.schema.md`. Flagged, not designed.
-- (MON-001) A zero-stat cosmetic appearance layer (overlay slots rendered above the equipment
-  slots) is reserved by `10_systems/MONETIZATION.md` §3.1. Slot list and
-  `20_schemas/item.schema.md` fields land in a future amendment — settle before the Phase E
-  coding pass fixes the character render/paper-doll layering. No cosmetic items are authored
-  this run.
+- (MON-001) **Resolved owner (2026-07-24):** the zero-stat cosmetic appearance layer reserved by
+  `10_systems/MONETIZATION.md` §3.1 is now owned by `10_systems/COSMETICS.md` — its §5 fixes the
+  loadout slot list (title / weapon skin / outfit skin / dye / crest flourish) rendered above this
+  doc's §2 equipment slots. Still open here: the paper-doll layer *ordering* must be settled with
+  the Phase E render-stack pass. No cosmetic items are authored this run.

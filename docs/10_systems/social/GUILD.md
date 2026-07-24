@@ -285,6 +285,8 @@ resolves.
 - **Week/day boundary (§11)** is owned by `10_systems/PERSISTENCE.md` — the weekly goal anchors to
   the same day boundary `10_systems/social/RAID.md` §6.D already defers there (fixed UTC rollover vs
   per-account local vs rolling window). Owner: `10_systems/PERSISTENCE.md`; this doc consumes.
-- **Guild cosmetics** draw on the `item_cosmetic_0009`–`0064` guild reserve (`docs/ID_REGISTRY.md`);
-  that block's cosmetic-system owner and earn/equip rules are unassigned until cosmetic content is
-  authored (`10_systems/MONETIZATION.md` holds the charter). Owner: TBD at the cosmetic-content pass.
+- **Guild cosmetics — owner assigned 2026-07-24:** the guild sub-block is `item_cosmetic_0009`–
+  `0032` (`docs/ID_REGISTRY.md`) and the cosmetic system + earn/equip rules are
+  `10_systems/COSMETICS.md`'s (its §4 keys guild unlocks to §9's guild-level ladder;
+  `10_systems/MONETIZATION.md` still holds the no-stats charter). Concrete guild-cosmetic SKUs
+  remain a cosmetic-content-pass deliverable.

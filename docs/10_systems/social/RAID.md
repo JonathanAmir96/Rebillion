@@ -158,7 +158,8 @@ that raid's `raid_token`, and they exist nowhere else in the game. Per raid:
   - **One raid-exclusive cosmetic + title** (`item_cosmetic_0001`–`0008`, one per raid,
     `docs/ID_REGISTRY.md`). **No stats**, per the cosmetic-only charter
     (`10_systems/MONETIZATION.md`, `00_vision/PILLARS.md` anti-pay-to-win) — pure prestige a grouped
-    player wears to show the clear. Catalog and price are `10_systems/ITEMS.md`'s.
+    player wears to show the clear. Catalog and price are `10_systems/ITEMS.md`'s; equip/display
+    rules are `10_systems/COSMETICS.md`'s.
 
 **D. First-clear-of-the-day bonus (the daily social beat).** The **first successful clear of a given
 raid, per character, per day** (the day boundary is `10_systems/PERSISTENCE.md`'s — see Open

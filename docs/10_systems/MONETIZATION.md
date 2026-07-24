@@ -45,11 +45,11 @@ one of them is out, regardless of revenue.
 A separate **appearance layer** of zero-stat cosmetic slots rendered above the equipment
 slots (`10_systems/ITEMS.md` equipment-slot tokens). Wearing a cosmetic changes look only;
 the equipped gear keeps supplying all stats. Ownership is server-authoritative; rendering is
-`client`. The exact slot list and item-schema fields are **not** designed here — they land as
-a future amendment to `10_systems/ITEMS.md` / `10_systems/INVENTORY.md` /
-`20_schemas/item.schema.md`, flagged in those docs' Open Questions, and should be settled
-before the Phase E coding pass fixes the character render pipeline so the layer is reserved
-in the paper-doll ordering.
+`client`. The slot list is **not** designed here — it landed (2026-07-24) in
+`10_systems/COSMETICS.md` §5, the owner doc for the earned cosmetic system; a future premium
+store sells into that same layer under this doc's charter, minting its own reserved ID block
+(never `10_systems/COSMETICS.md`'s earned blocks). The paper-doll layer ordering must still be
+settled before the Phase E coding pass fixes the character render pipeline.
 
 ### 3.2 Sponsor & supporter billboards
 
@@ -90,10 +90,10 @@ told about and asserts nothing. The solo interim build ships **none** of this.
 ## Open Questions
 
 - `gleam` token name is Provisional (GLOSSARY) — promote or rename at the next phase gate.
-- Exact cosmetic slot list (e.g., outfit / headwear / face accessory / weapon skin / aura
-  effect) and their paper-doll layer order — owner: future `10_systems/ITEMS.md` /
-  `10_systems/INVENTORY.md` amendment; must land before Phase E fixes the character render
-  stack.
+- ~~Exact cosmetic slot list~~ **resolved 2026-07-24:** the slot list is owned by
+  `10_systems/COSMETICS.md` §5 (title / weapon skin / outfit skin / dye / crest flourish).
+  Still open: the paper-doll layer *order*, which must land before Phase E fixes the character
+  render stack — owner: `10_systems/COSMETICS.md` with the render-stack pass.
 - Are any convenience purchases (e.g., cosmetic-adjacent quality-of-life like extra character
   slots) acceptable under the charter? Default: character slots yes (no in-world power),
   everything touching `exp`/drops/inventory no (§2.3).

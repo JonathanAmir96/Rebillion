@@ -155,9 +155,12 @@ The earlier free-warp "waygate" mechanism is retired — that token is invalid i
 - `coach_station` (interactable) · `coach_clerk` / `pier_officer` (NPC roles) — the coach
   kiosk and transport-staff tokens from the waygate→coach reconciliation
   (15_maps_system/MAP_INTERACTABLES.md, 20_schemas/npc.schema.md). Promote at the C gate.
-- `title` — cosmetic display string earned from collection milestones
-  (10_systems/COLLECTIONS.md §7). Promote when a character-sheet/social-display doc
-  consumes it. (Ported from the equipment-v2/F-gate wave at the v3 merge.)
+- Cosmetic categories — `title` (cosmetic display string; grants from collection milestones,
+  10_systems/COLLECTIONS.md §7, and raid SKUs) · `dye` · `skin` · `crest_flourish`; owner
+  10_systems/COSMETICS.md (§2), which is the character-display consumer `title`'s original
+  promotion condition waited on. Promote all four at the next phase gate once the first
+  cosmetic content batch consumes them. (`title` originally ported from the
+  equipment-v2/F-gate wave at the v3 merge.)
 - `shield` / `overall` — equipment slot tokens from the equipment-v2 wave (off-hand
   defensive piece; body+legs single piece). Semantics: 10_systems/SCROLLS.md's companion
   ITEMS §2 revision, **not yet integrated with the v3 T1–T12 content** — IDs re-homed to

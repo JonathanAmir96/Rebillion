@@ -139,8 +139,8 @@ character per milestone, same non-repeatable posture as `10_systems/QUESTS.md` �
 
 ## 7. Titles — a cosmetic concept owned by this doc
 
-A **title** is a short cosmetic display string a character can hold and (per a future
-character-sheet/social display doc — not yet authored) equip for others to see. This doc fixes
+A **title** is a short cosmetic display string a character can hold and equip for others to see
+(the equipped-title slot and display surfaces are `10_systems/COSMETICS.md` §5–§6's). This doc fixes
 **which milestones grant a title slot and how many slots exist**; it does not fix the display
 strings themselves (Phase D content/flavor pass names them, exactly as monster `flavor` text is
 authored, not this doc) nor how/where a title renders (HUD/`UI_ART_SPEC.md`'s, §9).
@@ -189,10 +189,11 @@ row treatment for §4) goes through `UI_ART_SPEC.md`'s amendment channel, not th
   the reallocation-fee treatment) before Phase D wires it. Until then, ship titles only for set
   completion; the per-species first-kill `exp` grant is unaffected (it is already budgeted inside
   LEVELING §4's existing Other-5% bucket, not a new faucet).
-- **No shared GLOSSARY token for "title" yet.** This doc scopes the concept locally (§7);
-  propose `title` (or similarly-named) as a GLOSSARY Provisional entry if/when a character-sheet
-  or social-display doc needs to reference "equipped title" as shared vocabulary. Not resolved
-  here per CLAUDE.md Law 4/5 (this doc may propose, not silently add to GLOSSARY).
+- **"Title" as shared vocabulary — consumer landed (2026-07-24).** `title` sits in GLOSSARY
+  Provisional (cosmetic categories, owner `10_systems/COSMETICS.md`), and that doc is the
+  character-display consumer this entry waited on: this doc keeps owning **which milestones grant**
+  the 23 titles (§7, as server grant flags), COSMETICS owns the equipped-title slot and display.
+  Remaining: the GLOSSARY promotion itself is a phase-gate call.
 - **Boss/region/global title display strings** are unauthored placeholders (§7); Phase D names
   all 23 alongside each region's flavor-text pass. Which doc/role owns naming them (region
   content batch vs. a dedicated title-flavor pass) is unresolved.
