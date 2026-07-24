@@ -228,8 +228,8 @@ sail (`15_maps_system/MAP_CONNECTIONS.md` §8), not the shards, is the trip's tr
 |---|---|---|
 | Harborwind Ferry (Emberfoot ↔ Rosen Harbor, `map_015`) | 40 | Flat; the small crossing fare `docs/WORLD_PLAN.md` previews (Lv ~8 band — ≈ 30 s of Lv 10 income, §5). |
 | Coach — 1 ring segment | 120 | Adjacent Harthmoor Coachworks stations. |
-| Coach — 2 ring segments | 220 | |
-| Coach — 3+ ring segments | 320 | Longest ring hop (e.g. Cindershelf ↔ Tidewatch Port). |
+| Coach — 2 ring segments | 220 | Longest current hop (e.g. Mossmere ↔ Tidewatch Port, either way around). |
+| Coach — 3+ ring segments | 320 | **Future headroom — no current station pair spans 3+ segments** (owner ruling 2026-07-24: `docs/WORLD_PLAN.md`'s ring closure makes Cindershelf ↔ Tidewatch Port adjacent; row kept for future stations). |
 
 Coach ring-distance = number of ring-road segments between the two stations (station adjacency per
 `docs/WORLD_PLAN.md`). The one free Rosen Harbor→instructor-town ride (the advancement pilgrimage)
@@ -297,9 +297,7 @@ server-authoritative flag (`10_systems/PERSISTENCE.md`); every later crossing pa
   differently, align the flag. Whether the waiver should instead attach to the Deepway
   (`15_maps_system/MAP_CONNECTIONS.md` §9, the free walking route) rather than the paid longship is
   a minor call — default keeps it on the longship (the paid mode, where a waiver is meaningful).
-- **§7.1's 3+-segment coach tier may be unreachable on the real ring (2026-07-24 md audit).**
-  The tier's example pair ("longest ring hop — Cindershelf ↔ Tidewatch Port") is topologically
-  wrong: `docs/WORLD_PLAN.md`'s ring-closure edge (`map_088` ↔ `map_140`) makes Ashfall and
-  Tidewatch adjacent, so that pair is a 1-segment hop, and on the five-station ring no pair
-  appears to need 3+ segments at all. Either re-example and keep the tier as future headroom, or
-  drop the 320-shard row; fares are this doc's call, topology is WORLD_PLAN's. Owner: this doc.
+- **Resolved (2026-07-24, owner ruling): the 3+-segment coach tier stays as explicit future
+  headroom.** §7.1's row now says so (no current station pair spans 3+ segments — WORLD_PLAN's
+  ring closure makes the old example pair adjacent), and the 2-segment row carries the real
+  longest-hop example (Mossmere ↔ Tidewatch Port).
