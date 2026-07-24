@@ -30,7 +30,11 @@ The battle-pass genre pattern is usually a monetization device; Rebillion's is d
   play (existing tonics, emberstone tiers, drop-pool equipment). Gilt-lane exclusives are
   **cosmetics only** — zero stats, per `10_systems/COSMETICS.md` §1's laws (§5).
 - **No purchasable progress.** Charter levels and `charter_mark`s can never be bought, with
-  `shards` or anything else. The gilt fee unlocks a reward *lane*, never progress.
+  `shards` or anything else. The gilt fee unlocks a reward *lane*, never progress. The fee is
+  **bracketed by the buyer's `level` band** (`10_systems/ECONOMY.md` §4.4) so it stays a real
+  slice of playtime at every level instead of decaying into nothing; the bracket sets the
+  **price only** — the gilt lane's contents are identical in every bracket, so paying a higher
+  bracket never buys more (§5).
 - **No `shards` faucet.** Neither lane ever rewards `shards`, and reward-lane vendor value is
   budget-capped (§5.3), preserving `10_systems/ECONOMY.md` §1's "no other faucet exists."
 - **Cozy, not FOMO** (P2). All dailies alone — ≈ 15–20 minutes a day — complete the charter with
@@ -86,8 +90,8 @@ the quest log.
 - Each season file authors a **daily pool** (~10 task templates) and a **weekly list** (12
   trials). The day's 3 stamps are drawn from the pool by deterministic rotation
   (`(day_index · 3 + slot) mod pool_size`) — no RNG, no reroll mechanic. Weekly trials are
-  bigger, at most one per week keyed to group content (a raid clear — `raid_undervault` /
-  `raid_mainspring` / `raid_deepfrost` / `raid_voidtide`, `10_systems/social/RAID.md`) and
+  bigger, at most one per week keyed to group content (a raid clear — any token on
+  `10_systems/social/RAID.md` §2's roster) and
   always with a solo-viable alternative in the same week (server-deferred group content must
   never gate the charter; `00_vision/SCOPE.md`).
 - Task progress follows quest-step completion criteria exactly and is server-authoritative (§7).
@@ -143,8 +147,11 @@ earned is ever forfeited (P2).
 ## 6. The gilt unlock
 
 - Purchased any time during a season from the **Charterhouse clerk** in Millbrook (an ordinary
-  town NPC; ID minted in Phase D from the Millbrook or reserved `npc` block) for a flat `shards`
-  fee — the number is owned by `10_systems/ECONOMY.md` §4.4 (first-pass **6,000**).
+  town NPC; ID minted in Phase D from the Millbrook or reserved `npc` block) for a `shards` fee
+  **bracketed by the character's `level` band** — the bracket table, its derivation, and the
+  charge rule are `10_systems/ECONOMY.md` §4.4's (owner directive 2026-07-24; never restated here).
+  The clerk quotes the character's current bracket; the fee is charged once, at purchase, and is
+  never re-assessed if the character levels into a higher bracket later in the season.
 - Purchase is retroactive: all gilt-lane rewards up to the character's current charter level
   become claimable immediately.
 - Per character, per season; it never carries into the next season. There is no gilt-lane
@@ -185,8 +192,18 @@ launch.
   `10_systems/LEVELING.md`; that doc should own it (suggested: the same window that grants full
   `exp`). Flagged there in spirit — resolve at the next gate.
 - All numbers (70 marks/level, 25/70 mark values, 3+3 task cadence, the 1,500-`shards` vendor
-  budget, the 6,000 gilt fee in ECONOMY §4.4) are first-pass; retune at the D gate alongside the
-  economy pass.
+  budget) are first-pass; retune at the D gate alongside the economy pass.
+- ~~The gilt fee (`10_systems/ECONOMY.md` §4.4) is not merely first-pass but structurally
+  load-bearing: at a flat price it is ≈ 1.3% of a month's net income by Lv 50, which makes §5's
+  free/gilt split a formality while still costing a `charter_gilt` token, retroactive-purchase
+  rules, §5.2's parity clause, per-character season state, and claim UI.~~ **Resolved 2026-07-24
+  (owner directive, "fee like maple story … when amount increase the tax increased"):** the fee is
+  now **progressive by `level` band** — a rising share of a season's modeled income, so the split
+  is a real monthly decision at every band and the sink obeys ECONOMY §6's "sinks scale with level"
+  guardrail. §1 and §6 cite the rule; ECONOMY §4.4 owns every number, and the share ladder itself
+  stays open there pending the D-gate balance pass. Note for §5.1/`season_001` authoring: the
+  gilt lane is now a **priced choice at every band**, so its contents must justify the bracket fee
+  the buyer actually pays — the §5.2 parity rule is what keeps that from becoming power.
 - Season-end overflow (§5.4): claim-queue default is unconfirmed; interacts with
   `10_systems/INVENTORY.md` slot caps.
 - Marks past level 30 are discarded (§3); a post-30 repeat crate was considered and deferred

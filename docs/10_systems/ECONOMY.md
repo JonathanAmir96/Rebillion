@@ -34,7 +34,7 @@ handful of Lesser tonics; §4).
 | Travel (Harborwind Ferry + Harthmoor Coachworks fares) | §7 (this doc) | ring distance |
 | Enhancement fee | §3 (this doc) | gear tier × target `+` |
 | Stat free-point reallocation | §3.1 (this doc) | `level` |
-| Gilded Charter unlock (seasonal battle pass) | §4.4 (this doc) | flat, per 30-day season |
+| Gilded Charter unlock (seasonal battle pass) | §4.4 (this doc) | `level` band (bracketed), per 30-day season |
 | Guild creation | `10_systems/social/GUILD.md` (fee reserved here) | flat, endgame |
 | Market transaction fee | `10_systems/social/MARKET.md` (future) | % of sale |
 | **Repairs** | — | **none: no durability system exists** |
@@ -167,15 +167,52 @@ gear is used or traded on the future market (`10_systems/social/MARKET.md`), nev
 `round(0.25 · 1800 · 8)` = **3,600** `shards` (≈ 8 min of Lv 36 income) — a satisfying but
 non-dominant faucet.
 
-### 4.4 Gilded Charter price (cited by `10_systems/BATTLE_PASS.md` §6)
+### 4.4 Gilded Charter price — progressive by `level` band (cited by `10_systems/BATTLE_PASS.md` §6)
 
-Unlocking a season's gilt reward lane costs a flat **6,000 `shards`**, per character, per
-30-day season — ≈ 16 minutes of Lv 30 at-level income (§5), ≈ 42 minutes at Lv 10: a real
-monthly sink that stays cozy (P2). Mechanics, guardrails, and everything else about the
-charter are `10_systems/BATTLE_PASS.md`'s; this doc owns only the number. The charter adds
-**no faucet**: neither lane ever rewards `shards`, and the season reward lanes' total vendor
-value is capped at 1,500 `shards` (`10_systems/BATTLE_PASS.md` §5.3), so §1's faucet list is
-unchanged. First-pass number; retune at the D gate.
+Unlocking a season's gilt reward lane costs a **`shards` fee bracketed by the buyer's `level`
+band**, MapleStory-tax style: as the band rises, so do both the fee and the *share of income* it
+takes (**owner directive 2026-07-24** — "you can do fee like maple story (in section 3) that when
+amount increase the tax increased"; supersedes the earlier flat 6,000). Per character, per 30-day
+season. Brackets are `10_systems/ITEMS.md` §1.1's tonic bands — the ladder §4.1 already prices —
+with the Lv 40–42 Prime/Sovereign handoff resolved **down** to Prime, so the brackets partition
+cleanly and the overlap always charges the cheaper side.
+
+**Derivation.** A *season's modeled net income* = 30 days at the charter's own ≈ 20 min/day
+dailies cadence (`10_systems/BATTLE_PASS.md` §1/§3) = **10 h × net/hr**, with net/hr from §5's net
+column — anchor level = the §5 row inside the band, else the band midpoint interpolated between §5
+rows (as §4.2 interpolates `base_buy`); Lv 5 is below §5's first row so it uses §5's model
+directly, `480 · mean_shards_normal(5) − 18 · 15` = `480 · 11 − 270`. The fee is a **rising share**
+of that season figure, rounded to legible numbers:
+
+| Band (`level`) | Anchor Lv | Net/hr (§5) | Season net (×10 h) | Share | **Fee** | ≈ at-band net income |
+|---|---|---|---|---|---|---|
+| 1–9 | 5 | 5,010 | 50,100 | 5% | **2,500** | ≈ 30 min |
+| 10–18 | 10 | 7,560 | 75,600 | 6.5% | **5,000** | ≈ 40 min |
+| 19–27 | 23 | 11,772 | 117,720 | 8.5% | **10,000** | ≈ 51 min |
+| 28–36 | 30 | 14,040 | 140,400 | 11% | **15,000** | ≈ 1 h 4 min |
+| 37–42 | 40 | 14,940 | 149,400 | 14% | **21,000** | ≈ 1 h 24 min |
+| 43–61 | 50 | 15,840 | 158,400 | 18% | **28,000** | ≈ 1 h 46 min |
+| 62+ | 70 | 24,840 | 248,400 | 24% | **60,000** | ≈ 2 h 25 min |
+
+Cozy at the bottom — the Lv 10 bracket is cheaper than the old flat fee in both `shards` and
+minutes (≈ 40 min of net vs ≈ 48; ≈ 35 min of gross vs ≈ 42, P2) — and a real monthly decision at
+the top, where ≈ 2½ h of at-band net income is a sum a Lv-70 player weighs. Because the *share*
+rises with the band rather than decaying, the sink now obeys §6's first guardrail.
+
+**Charged once, at purchase, against the character's `level` at that moment; never re-assessed** —
+crossing into a higher bracket mid-season costs nothing extra and leaves the retroactive claim
+(`10_systems/BATTLE_PASS.md` §6) untouched. This is the rule that cannot be gamed: `level` never
+goes down (de-leveling is structurally impossible, `10_systems/DEATH_PENALTY.md` §2), so the only
+way to pay a lower bracket is to *be* in that band and so to have that band's income, and any
+discount dies with the season since the charter never carries over. The alternative — top up on
+band-up — bills a player for progressing, which P2 and BATTLE_PASS §6's "the fee is the entire
+transaction" both forbid.
+
+Mechanics, guardrails, and everything else about the charter are `10_systems/BATTLE_PASS.md`'s;
+this doc owns only the number. The charter adds **no faucet**: neither lane ever rewards `shards`,
+and the season reward lanes' total vendor value is capped at 1,500 `shards`
+(`10_systems/BATTLE_PASS.md` §5.3), so §1's faucet list is unchanged. First-pass share ladder;
+retune at the D gate (Open Questions).
 
 ## 5. Potion economics vs hunting income
 
@@ -209,20 +246,29 @@ the ~40%-of-band-`life` assumption here, drinks/hour shifts and the bite with it
 Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.md` P6):
 
 - **Sinks scale with level.** Enhancement fee (§3, ∝ tier × `+`), tonic price (§4.1, ∝ band),
-  reallocation fee (§3.1, ∝ `level`) all rise, so a high-level player's `shards` outflow grows with
-  their income — no late-game surplus with nothing to spend on.
+  reallocation fee (§3.1, ∝ `level`), Gilded Charter fee (§4.4, bracketed by band) all rise, so a
+  high-level player's `shards` outflow grows with their income — no late-game surplus with nothing
+  to spend on. **No unscaled sink remains** except guild creation, which is a one-time endgame
+  charge, not a recurring one.
 - **Suppressed high-rarity vendor value** (§4.2) keeps the best gear out of the vendor faucet,
   routing it to the future player market (a `shards` **transfer**, not a faucet) whose transaction
   fee (`10_systems/social/MARKET.md`) is a further sink.
 - **No faucet from nothing.** `shards` come only from in-world play (§1); defeat, idling, and
   logging in grant none (`10_systems/DEATH_PENALTY.md` §3).
 - **The Cogwork Capsule never mints `shards`** (`10_systems/GACHAPON.md` §1/§7, pillar
-  amendment PA-001): capsule tickets cannot be bought or sold for `shards`, and every
-  dispensed prize carries vendor value 0 — the game's one real-money product has no path into
-  the `shards` supply, so §1's faucet list is unchanged.
-- **The Gilded Charter is a recurring sink, not a faucet** (§4.4): a flat monthly `shards`
-  outflow per participating character, with the reward lanes' vendor value budget-capped
-  (`10_systems/BATTLE_PASS.md` §5.3) so claiming rewards never becomes a `shards` entry point.
+  amendment PA-001): capsule tickets cannot be bought or sold for `shards`, and every dispensed
+  prize is **bind-on-dispense — vendor value 0 *and* never tradable or market-listable**, which is
+  PA-001's own wording (`10_systems/MONETIZATION.md`: "prizes vendor at 0 and are never tradable").
+  Vendor-0 alone would not close the path: scrolls, emberstones and equip rolls are otherwise
+  ordinary tradable items, so a paying player could list them on the future market
+  (`10_systems/social/MARKET.md`) and convert real money into `shards` by transfer. With both
+  properties the game's one real-money product has no path into the `shards` supply, so §1's
+  faucet list is unchanged.
+- **The Gilded Charter is a recurring sink, not a faucet** (§4.4): a monthly `shards` outflow per
+  participating character, **bracketed by `level` band** (owner directive 2026-07-24) so it obeys
+  the first guardrail above — its share of a season's income *rises* with the band (5% → 24%)
+  instead of decaying as income grows, which a flat fee did. Reward-lane vendor value stays
+  budget-capped (`10_systems/BATTLE_PASS.md` §5.3) so claiming never becomes a `shards` entry point.
 - **Guild creation** reserves a large flat sink (placeholder ~100,000 `shards`, owner
   `10_systems/social/GUILD.md`) to soak endgame surplus.
 - **Bounded worst-case costs.** Enhancement pity (`10_systems/ENHANCEMENT.md` §3) caps the fee a
@@ -315,6 +361,19 @@ server-authoritative flag (`10_systems/PERSISTENCE.md`); every later crossing pa
   differently, align the flag. Whether the waiver should instead attach to the Deepway
   (`15_maps_system/MAP_CONNECTIONS.md` §9, the free walking route) rather than the paid longship is
   a minor call — default keeps it on the longship (the paid mode, where a waiver is meaningful).
+- **Resolved (2026-07-24, owner directive): the Gilded Charter fee is progressive, not flat.**
+  The old flat 6,000 decayed from ≈ 48 min of net income at Lv 10 to ≈ 14 min at Lv 70 (§5 net
+  column) — exactly the drift §6's first guardrail exists to prevent — so `BATTLE_PASS.md`'s
+  free/gilt split carried no decision. §4.4 now brackets the fee by `level` band on the §4.1 /
+  `10_systems/ITEMS.md` §1.1 tonic ladder, 5% → 24% of a season's modeled net income.
+- **Still open on §4.4: the share ladder (5 / 6.5 / 8.5 / 11 / 14 / 18 / 24%) is first-pass.** Both
+  of its inputs are provisional — §5's net column (flagged above for the tonic-bite overshoot, so
+  every anchor moves at the D-gate retune) and `10_systems/BATTLE_PASS.md` §1/§3's ≈ 20 min/day
+  cadence, which fixes the 10 h season. If either moves, **re-derive the fees from the same
+  shares**; that is the point of the bracket shape. Separately the top bracket is open-ended
+  (`62+`), so its share decays above ≈ Lv 82 the way the flat fee did — it needs a new row when
+  arc 3 lands a tonic band above Mythic (§4.1 carries the same open top). Owner: this doc with
+  `10_systems/BATTLE_PASS.md`.
 - **Resolved (2026-07-24, owner ruling): the 3+-segment coach tier stays as explicit future
   headroom.** §7.1's row now says so (no current station pair spans 3+ segments — WORLD_PLAN's
   ring closure makes the old example pair adjacent), and the 2-segment row carries the real
