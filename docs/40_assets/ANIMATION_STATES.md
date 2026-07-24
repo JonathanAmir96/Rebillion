@@ -105,7 +105,7 @@ playing:
    ≥8% of target max `life`; exact thresholds `10_systems/COMBAT_FORMULA.md` §11, not restated)
    interrupts a `normal`/`elite` monster mid-`cast` unless it is flagged super-armored, and
    interrupts a player mid-`cast` unless the player is in i-frames or under a stability effect
-   (`10_systems/COMBAT_FORMULA.md` §11–12). `boss`/raid entities carry super-armor outside
+   (`10_systems/COMBAT_FORMULA.md` §11–12). `boss` entities carry super-armor outside
    scripted-vulnerable windows, so `hit` typically layers as a flinch on a boss without canceling
    its `attack`/`cast`/`telegraph`. A **light** hit's shorter hitstun (0.12 s,
    `10_systems/COMBAT_FORMULA.md` §11) is not stated by that doc to force a full clip interrupt —

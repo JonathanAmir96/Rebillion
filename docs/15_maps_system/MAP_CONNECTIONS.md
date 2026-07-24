@@ -156,12 +156,11 @@ Authored by the Phase D world-graph reconciler after all 200 maps exist, directl
 
 ## Open Questions
 
-- `docs/VALIDATION.md` §5 currently says cross-region edges "must match `docs/WORLD_PLAN.md`'s edge
-  table exactly" **and** "no dead-end portals," which reads as a tree check and can falsely fail the
-  legitimate ring-closure edge (`map_088`→`map_140`), the second Clockwork gate (`map_121`→
-  `map_188`), and a one-way Sunken spur terminus. This doc's §7 classifies all three as authorized.
-  Recommended rewording is handed to `docs/VALIDATION.md`'s owner (see this run's report) — not
-  resolved by editing that file here (out of scope for this doc).
+- ~~`docs/VALIDATION.md` §5 could falsely fail the legitimate ring-closure edge
+  (`map_088`→`map_140`), the second Clockwork gate (`map_121`→`map_188`), and the one-way Sunken
+  spur terminus.~~ **Resolved 2026-07-24:** VALIDATION.md §5 now tests reachability (not
+  acyclicity), carves out `dead_end: true` portals, and excludes `coach` portals from the
+  walk-edge match — exactly the rewording this doc's §7 required.
 - **Coach fare table.** `10_systems/ECONOMY.md` owns the `shards` fare per ride (scaling with ring
   distance) and the ferry fare. As of this revision ECONOMY has no published coach fare table
   (it is being retabled concurrently); this doc references the model only. Handed to ECONOMY's
