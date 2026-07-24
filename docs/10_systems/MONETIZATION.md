@@ -12,6 +12,17 @@ and no schema fields — everything here waits for a live-service arc with real 
 (`10_systems/PERSISTENCE.md`). The doc exists so every other system reserves the right seams
 now instead of retrofitting them later.
 
+**Amendment PA-001 (owner, 2026-07-24).** One bounded exception to §2's charter: the
+**Cogwork Capsule** gacha SKU (`10_systems/GACHAPON.md`) — real-money capsule-ticket packs
+whose random prizes may include limited, ordinary-play-obtainable power (equip rolls ≤
+`rare`, gear-modification scrolls, emberstones) alongside capsule cosmetics. PA-001
+overrides, for this single SKU only, §2.1 (in-play-obtainable power, never exclusive), §2.3
+(consumable prizes), and §2.4 (paid randomness — with published odds and pity); §2.2 and
+§2.5 apply to the capsule unchanged (prizes vendor at 0 and are never tradable; no
+real-money↔`shards` path). The full cap set lives in `10_systems/GACHAPON.md` §1; changing
+any cap — or adding any second SKU under this exception — is a new owner amendment, not a
+tune. Everything else in this doc stands as written.
+
 ## 1. Owner intent
 
 Community health outranks revenue. The game's draw is the social, cozy-grind loop

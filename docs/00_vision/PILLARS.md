@@ -52,7 +52,12 @@ would read as another game's asset, term, or map is out — homage yes, clone ne
 - No pay-to-win (amended MON-001): real-money purchases may never grant stats, power,
   progression speed, or market-tradable advantage. Cosmetic-only monetization and in-world
   sponsor placements are permitted per 10_systems/MONETIZATION.md; shards remain earned
-  in-world only (10_systems/ECONOMY.md).
+  in-world only (10_systems/ECONOMY.md). **Further amended by PA-001** (owner, 2026-07-24):
+  one bounded exception — the Cogwork Capsule gacha SKU (10_systems/GACHAPON.md §1) may
+  dispense limited, ordinary-play-obtainable power (equip rolls ≤ `rare`, gear-modification
+  scrolls, emberstones) under hard caps: tickets earnable free, weekly purchase cap,
+  published odds with pity, and no real-money→`shards` bridge. Everything else in MON-001
+  stands, including no purchased exclusive power.
 - No rule text inside content files; content holds values and references only.
 - No silent invention: unknown token, rule, or number → Open Question, not a guess.
 
@@ -60,4 +65,6 @@ would read as another game's asset, term, or map is out — homage yes, clone ne
 - None. (Pillars locked at Phase A; changes require an orchestrator amendment. Amendment
   log: **MON-001**, owner, 2026-07-23 — anti-pillar "no pay-style economy" refined to
   "no pay-to-win"; cosmetic-only monetization direction fixed in
-  10_systems/MONETIZATION.md.)
+  10_systems/MONETIZATION.md. **PA-001**, owner, 2026-07-24 — one bounded exception to
+  MON-001 §2.1/§2.3/§2.4 for the Cogwork Capsule gacha SKU; caps live in
+  10_systems/GACHAPON.md §1, and changing any cap is a new amendment, not a tune.)

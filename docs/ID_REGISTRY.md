@@ -51,7 +51,7 @@ Exactly one per monster, number matching its `mob_NNN`. Region equip pools:
 `pool_equip_r01`–`pool_equip_r11` (semantics in 10_systems/DROPS.md; contents authored in
 `50_content/drop_tables/pools.yaml`).
 
-## Items — `item_equip_0001`–`0300`
+## Items — `item_equip_0001`–`0340`
 
 | Sub-block | Range | Authored (v3 plan) |
 |---|---|---|
@@ -95,10 +95,11 @@ reference them before item files exist (stats authored in Phase D):
 | 0008 | Greater Essence Tonic | 0016 | Ironhide Draught |
 | 0017 | Sovereign Life Tonic | 0019 | Mythic Life Tonic |
 | 0018 | Sovereign Essence Tonic | 0020 | Mythic Essence Tonic |
+| 0021 | Capsule Ticket (10_systems/GACHAPON.md §3; vendor value 0; minted 2026-07-24) | | |
 
 Tonic tiers bind to level bands per 10_systems/ITEMS.md (v3: seven tiers across the
 authored Lv 1–80+ arcs).
-`0021`–`0060` reserved for Phase D (region specialties, raid consumables, quest consumables).
+`0022`–`0060` reserved for Phase D (region specialties, raid consumables, quest consumables).
 
 **Gear-modification scrolls (equipment-v2 wave; semantics 10_systems/SCROLLS.md):**
 `0061`–`0078` = 18 SKUs, 3 slot families × 2 kinds × 3 tiers, laid out `0061`–`0066`
@@ -137,8 +138,8 @@ of re-blocking):
 |---|---|---|
 | Raid-exclusive | `0001`–`0008` | One title + one cosmetic effect per raid, Quartermaster-bought with `raid_token`s |
 | Guild | `0009`–`0032` | Guild-level unlocks + crest options (`10_systems/social/GUILD.md` §9) |
-| Event | `0033`–`0048` | Live-ops/seasonal (future live-service arc) |
-| Growth | `0049`–`0064` | Reserved, unassigned |
+| Event / charter | `0033`–`0048` | Live-ops/seasonal — assigned 2026-07-24 to the Wayfarer's Charter season cosmetics (up to 6 per season; rule owner `10_systems/BATTLE_PASS.md` §5) |
+| Capsule | `0049`–`0064` | Cogwork Capsule gacha exclusives (rule owner `10_systems/GACHAPON.md` §5; PA-001) — reassigned 2026-07-24 from unassigned growth, no IDs minted |
 
 No cosmetic content is authored this run beyond these reservations; the 23 collection titles
 (`10_systems/COLLECTIONS.md` §7) are server grant flags, not IDs, and deliberately sit outside
@@ -270,6 +271,13 @@ never registry ids (70_integrations/ACCOUNTS_AUTH.md §2.1) — nothing here ove
 Swatch color values are canon per ART_BIBLE.yaml amendment AB-002 (`skin_NN` / `hair_*`
 ramp keys; binding in CHARACTER_COMPOSITING.md §5).
 
+## Seasons — `season_001`–`season_050`
+Owner: 10_systems/BATTLE_PASS.md (the Wayfarer's Charter). One ID per 30-day season, minted in
+chronological order; season content files land under `50_content/seasons/` (schema
+`20_schemas/season.schema.md`, Phase C). `season_001` is the launch season (authored at Phase D);
+`002`–`050` reserved. Charter tasks carry no global IDs — they are per-season keys inside the
+season file. (Block added 2026-07-24, before any season IDs were minted.)
+
 ## Open Questions
 - Reserved-growth blocks assume no category outgrows its range before the coding pass; if
   one does, extend the range here in a new commit — never renumber existing IDs.
@@ -278,6 +286,9 @@ ramp keys; binding in CHARACTER_COMPOSITING.md §5).
   prefixes only. Confirm at reconciliation whether GLOSSARY should note the opcode family for completeness,
   or whether engineering IDs stay out of the content-token glossary by design (this file remains their owner
   either way).
+- The Event/charter cosmetic sub-block (`item_cosmetic_0033`–`0048`, 16 IDs) covers ≈ 2.5
+  seasons at the charter's up-to-6-per-season budget; extend the cosmetic block past `0064`
+  in a new commit before `season_003` content is authored.
 - `item_etc_0198` is proposed as Emberstone VI for the arc-2 enhancement bands; the band
   mapping decision belongs to 10_systems/ENHANCEMENT.md (see ITEMS.md Open Questions). Mint
   only once that doc lands the mapping.

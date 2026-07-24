@@ -220,8 +220,11 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 - **Resolved (2026-07-24, owner ruling): the `reach`-step trigger-zone declaration landed** —
   `15_maps_system/MAPS_SYSTEM.md` §1 `trigger_zones`, exactly the SPAWN-style named rect this
   doc assumed. Validator wiring + map backfill are Phase E items tracked there.
-- Daily/weekly/repeatable quests are explicitly **not** a launch feature (§7); if added later it
-  is a new system referencing this doc's anatomy, not a change to it.
+- ~~Daily/weekly/repeatable quests are explicitly **not** a launch feature (§7); if added later it
+  is a new system referencing this doc's anatomy, not a change to it.~~ **Resolved 2026-07-24:**
+  the Wayfarer's Charter (`10_systems/BATTLE_PASS.md`) is that system — its daily/weekly tasks
+  reuse this doc's §3 step grammar and credit rules unchanged; quests themselves remain one-time
+  (§7) and charter tasks never appear in the quest log (§8).
 - Whether a quest may ever require an equipped item level / job line beyond `level_requirement`
   (e.g., a line-specific side quest) is not modeled; default is any character meeting the level +
   prereqs may accept any quest.

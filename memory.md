@@ -241,6 +241,50 @@ the `life` token). **CLAUDE.md law 5 updated (owner-directed):** "Locked files �
 owner direction and are logged in the file's `amendments` section (`AB-`/`UA-`/`ES-` ids).
 Post-fix gates clean (`validate.py` 0/0; `md_graph.py` 1 component / 0 orphans).
 
+## 2026-07-24 — Wayfarer's Charter battle pass + Cogwork Capsule gacha (PA-001), merged with main
+
+Owner-requested live-ops pair, designed on `claude/battle-pass-design-y4ierq` and reconciled
+with main's v3 world (arcs 1–2, raids, cosmetics system, MON-001) at this merge.
+
+**The Wayfarer's Charter** (`10_systems/BATTLE_PASS.md`, new owner doc): 30-day seasons
+(`season_001`–`050` reserved), 30 charter levels × 70 `charter_mark`s (2,100). Marks come only
+from tasks reusing QUESTS.md §3 step grammar: 3 daily stamps × 25 (expire daily) + 3 weekly
+trials × 70 (unlock days 1/8/15/22, never expire); max 3,090 ⇒ ≈68% participation completes,
+all-dailies-only finishes day 28. Two lanes: free, and gilt bought with **shards** (6,000 flat,
+ECONOMY §4.3 — a monthly sink; real money never touches the charter). **Cosmetics are the gilt
+lane's headline offer** (owner): up to 6 `item_cosmetic` IDs per season from the Event/charter
+sub-block (`0033`–`0048`), granted through COSMETICS.md's appearance layer. No purchasable
+levels/marks; no `shards` rewards; item-lane vendor value capped 1,500; unclaimed rewards
+auto-claim at season end. Charter state server-authoritative (PERSISTENCE §2), excluded from
+the offline→online import; solo build runs a per-install season calendar. Resolves QUESTS.md's
+daily/weekly Open Question. Owed: `season.schema.md` (C), `season_001.yaml` (D), HUD panel row.
+
+**PA-001 + the Cogwork Capsule** (`10_systems/GACHAPON.md`, new owner doc): owner explicitly
+chose "small pay2win" — twice: once pre-merge, and again when shown the direct conflict with
+main's MON-001 §2.4 ("no paid randomness"). **PA-001** is therefore a bounded exception to
+MON-001 §2.1/§2.3/§2.4, logged in PILLARS.md and MONETIZATION.md, for this single SKU. Caps
+(amendment-locked, not tunable): power ≤ ordinary-play items — equip `pool_equip_rNN` rolls
+≤ `rare`, gear-modification scrolls (SCROLLS.md `aspect`/`temper` — the owner's "chaos-scroll
+equivalent"), emberstones; never epics/legendaries/boss uniques or capsule-only stat items.
+Tickets (`item_use_0021` Capsule Ticket, minted) earnable free: charter 4 free / +8 gilt per
+season + world drop ≈ 1 per 6–8 h at-level (owner-set band); real-money packs (1/5/10+1)
+live-build-only, ≤ 10/week/character. Odds 55/20/10/12/3 (consumables/emberstones/scrolls/
+equip-roll/cosmetic), 40-pull cosmetic pity, odds always displayed. Capsule-exclusive
+cosmetics: `item_cosmetic_0049`–`0064` (reassigned from growth). No real-money↔`shards`
+bridge: tickets never shards-priced, all prizes vendor 0 (needs per-instance `no_vendor`
+flag — Phase C). Capsule state server-authoritative, excluded from import; solo build has no
+store. Owed: `capsule_pool.schema.md` (C), pool content + ticket drop rows (D), `capsule`
+interactable kind (MAP_INTERACTABLES), compliance/legal review + real-currency pricing before
+live-ops.
+
+**Merge reconciliation notes:** pre-merge branch history had charter/capsule vanity as
+`item_equip_0231`–`0340` vanity equipment — invalid against main (arc-2 minted `0231`–`0300`)
+and superseded by the cosmetics system; re-homed as above. Pre-merge `item_use_0017` ticket
+collided with Sovereign Life Tonic; re-minted at `0021`. Provisional tokens: charter family
+(`charter` / `charter_free` / `charter_gilt` / `charter_mark` / `season`) + capsule family
+(`capsule` / `capsule_ticket` / `capsule_pity`) — promote at the next gate.
+
+
 ## 2026-07-24 — social-package balance pass + cosmetics system (owner-directed follow-ups)
 
 The two follow-ups left open by the social package (below) are done; all first-pass magnitudes are
