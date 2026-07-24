@@ -25,8 +25,9 @@ permitted kind of re-blocking — never renumber minted IDs.
 
 **Convention:** the last ID of each block is the region's boss arena. Raid stage maps are
 `map_038`–`map_040` (`raid_undervault`), `map_195`–`map_197` (`raid_mainspring`),
-`map_240`–`map_242` (`raid_deepfrost`), and `map_320`–`map_322` (`raid_voidtide`). The
-Deepway passage dungeons are `map_201`–`map_203` (Frostpeak block).
+`map_240`–`map_242` (`raid_deepfrost`), `map_277`–`map_279` (`raid_orrery`, **shared** with
+R10's open Shattered Orrery chain — 10_systems/social/RAID.md §4), and `map_320`–`map_322`
+(`raid_voidtide`). The Deepway passage dungeons are `map_201`–`map_203` (Frostpeak block).
 
 ### Raid-bonus extension range — `map_325`–`map_328`
 
@@ -86,10 +87,18 @@ Exactly one per monster, number matching its `mob_NNN`. Region equip pools:
 | Shield (`shield` slot, equipment-v2 wave; re-homed at the v3 merge) | `0181`–`0190` | 6 planned |
 | Overall (`overall` slot, equipment-v2 wave; re-homed at the v3 merge) | `0191`–`0200` | 6 planned |
 | Boss uniques (2 per boss, boss order #1–#11) | `0201`–`0222` | 22 |
-| Raid-exclusive equipment (2 per raid, token-bought; undervault 0223–24 · mainspring 0225–26 · deepfrost 0227–28 · voidtide 0229–30) | `0223`–`0230` | 8 |
+| Raid-exclusive equipment, first four raids (2 per raid, token-bought; undervault 0223–24 · mainspring 0225–26 · deepfrost 0227–28 · voidtide 0229–30) | `0223`–`0230` | 8 |
 | Weapons, arc 2 (4 lines × T7–T12: Lv 43/50/57/64/71/78) | `0231`–`0254` | 24 |
 | Armor, arc 2 (5 slots × T7–T12) | `0255`–`0284` | 30 |
 | Accessories, arc 2 | `0285`–`0300` | 16 |
+| Raid-exclusive equipment, fifth raid (`raid_orrery`, 2 token-bought) | `0301`–`0302` | 2 |
+
+**Fifth-raid equip append (2026-07-24):** the raid-exclusive sub-block `0223`–`0230` was
+exactly full at 2 per raid × 4 raids, and `0231`–`0300` are **minted** arc-2 content, so
+`raid_orrery`'s pair was appended into the never-minted `0301`–`0340` growth reserve rather
+than renumbering anything (Law 3: extend, never renumber). The raid-exclusive family is
+therefore deliberately discontiguous — `0223`–`0230` + `0301`–`0302`. `0303`–`0340` stay
+reserved growth.
 
 Boss unique mapping: boss #n (region order) owns `item_equip_{0199+2n}` and `{0200+2n}`
 (Cindermaw 0201–0202, Cellar King 0203–0204, Thornback 0205–0206, Morva 0207–0208, Gloam
@@ -145,14 +154,15 @@ appended past the former `0060` cap in a new commit; `0001`–`0060` are unmoved
 | 11 Voidshore | `0161`–`0176` | | |
 
 **Raid tokens** (`10_systems/DROPS.md` §5.4, `10_systems/social/RAID.md`): `0177` Undervault
-Seal · `0178` Mainspring Cog · `0179` Deepfrost Shard · `0180` Voidtide Pearl — one per raid,
+Seal · `0178` Mainspring Cog · `0179` Deepfrost Shard · `0180` Voidtide Pearl · `0181` Orrery
+Bearing (`raid_orrery`, minted 2026-07-24 from the reserved growth below) — one per raid,
 guaranteed to each eligible member on a finale clear, spent at the Raid Quartermaster.
-`0181`–`0192` reserved (future raid tokens / growth).
+`0182`–`0192` reserved (future raid tokens / growth).
 Enhancement materials: `item_etc_0193`–`0197` = Emberstone I–V (band mapping per
 10_systems/ENHANCEMENT.md); `0198`–`0200` reserved (`0198` proposed as Emberstone VI for the
 arc-2 bands — pending the ENHANCEMENT.md mapping decision, see Open Questions).
 
-## Cosmetics — `item_cosmetic_0001`–`0064`
+## Cosmetics — `item_cosmetic_0001`–`0080`
 Cosmetic-only rewards (titles, dyes, crest flourishes, weapon/armor skins) per the
 cosmetic-only charter (`10_systems/MONETIZATION.md`); they carry no stats (`00_vision/PILLARS.md`
 anti-pay-to-win). **Owner of the cosmetic system + earn/equip rules: `10_systems/COSMETICS.md`**
@@ -161,11 +171,13 @@ of re-blocking):
 
 | Sub-block | Range | Channel (`10_systems/COSMETICS.md` §4) |
 |---|---|---|
-| Raid-exclusive | `0001`–`0008` | One title + one cosmetic effect per raid, Quartermaster-bought with `raid_token`s |
+| Raid-exclusive | `0001`–`0008` | One title + one cosmetic effect per raid, Quartermaster-bought with `raid_token`s (the first four raids; `raid_orrery`'s pair is the appended row below) |
 | Guild | `0009`–`0032` | Guild-level unlocks + crest options (`10_systems/social/GUILD.md` §9) |
 | Event / charter | `0033`–`0048` | Live-ops/seasonal — assigned 2026-07-24 to the Wayfarer's Charter season cosmetics (up to 6 per season; rule owner `10_systems/BATTLE_PASS.md` §5) |
 | Capsule | `0049`–`0064` | Cogwork Capsule gacha exclusives (rule owner `10_systems/GACHAPON.md` §5; PA-001) — reassigned 2026-07-24 from unassigned growth, no IDs minted |
+| Raid-exclusive, fifth raid | `0065`–`0066` | One title + one cosmetic effect for `raid_orrery`; **range extension** appended past the former `0064` cap in this commit, `0001`–`0064` unmoved (Law 3) |
 
+`0067`–`0080` are reserved growth inside the extended block.
 No cosmetic content is authored this run beyond these reservations; the 23 collection titles
 (`10_systems/COLLECTIONS.md` §7) are server grant flags, not IDs, and deliberately sit outside
 this block.
@@ -207,6 +219,14 @@ Raid intro/handler quests: `quest_087`–`090` (arc 1, 2 per raid; owner region 
 `quest_099`–`100` (`raid_deepfrost`), `quest_119`–`120` (`raid_voidtide`).
 Total authored: 120.
 
+**`raid_orrery` intro/handler — `quest_133`–`quest_134` (reserved, unauthored).** R10's
+`101`–`110` block reserved no raid slots and all ten are minted content, so the fifth raid's
+pair is a **range extension** appended past the former `quest_132` cap in this commit;
+`001`–`132` are unmoved and no authored quest is repurposed (Law 3). `133` = intro (unlocks
+the herald dialog), `134` = one-time first-clear handler, matching the `099`/`100` and
+`119`/`120` pattern. Authoring is a Phase-D follow-up (see 10_systems/social/RAID.md Open
+Questions); nothing in this run's content references them yet.
+
 **Job-advancement, 3rd tier — `quest_121`–`quest_132` (reserved, unauthored; future arc).**
 Range extension appended past the former `quest_120` cap in a new commit; `001`–`120` are
 unmoved. Three quests per line, line order: `bulwark` `121`–`123` · `keeneye` `124`–`126` ·
@@ -214,9 +234,13 @@ unmoved. Three quests per line, line order: `bulwark` `121`–`123` · `keeneye`
 Mint only with the future 3rd-tier arc, alongside `skill_<line>_028`–`045`; nothing in this
 run's content may reference these IDs.
 
-## Raids — `raid_undervault` · `raid_mainspring` · `raid_deepfrost` · `raid_voidtide`
+## Raids — `raid_undervault` · `raid_mainspring` · `raid_deepfrost` · `raid_orrery` · `raid_voidtide`
 Owner: 10_systems/social/RAID.md. Future raids mint `raid_<name>` tokens here first (the
-legacy `pq_<name>` family is retired and must not appear in content).
+legacy `pq_<name>` family is retired and must not appear in content). `raid_orrery` (R10
+Arcane Reach, band 56–69) was minted 2026-07-24 and reuses existing maps and the existing
+region boss — it mints **no** `map_NNN` and **no** `mob_NNN`; its per-raid IDs are
+`item_etc_0181`, `item_equip_0301`–`0302`, `item_cosmetic_0065`–`0066`, and
+`quest_133`–`134` (reserved).
 
 ## Packet opcodes — `op_0001`–`op_9999` (13 domain blocks)
 
@@ -312,8 +336,13 @@ season file. (Block added 2026-07-24, before any season IDs were minted.)
   or whether engineering IDs stay out of the content-token glossary by design (this file remains their owner
   either way).
 - The Event/charter cosmetic sub-block (`item_cosmetic_0033`–`0048`, 16 IDs) covers ≈ 2.5
-  seasons at the charter's up-to-6-per-season budget; extend the cosmetic block past `0064`
-  in a new commit before `season_003` content is authored.
+  seasons at the charter's up-to-6-per-season budget. The block cap moved `0064` → `0080`
+  with the `raid_orrery` append (2026-07-24), so `0067`–`0080` are the growth the charter
+  extension can draw on; carve the Event/charter widening there in a new commit before
+  `season_003` content is authored. Owner: 10_systems/BATTLE_PASS.md with this file.
+- `raid_orrery`'s intro/handler quests (`quest_133`–`134`) and its `item_equip_0301`–`0302` /
+  `item_cosmetic_0065`–`0066` SKUs are **reserved but unauthored** — Phase-D follow-up
+  tracked in 10_systems/social/RAID.md's Open Questions.
 - `item_etc_0198` is proposed as Emberstone VI for the arc-2 enhancement bands; the band
   mapping decision belongs to 10_systems/ENHANCEMENT.md (see ITEMS.md Open Questions). Mint
   only once that doc lands the mapping.

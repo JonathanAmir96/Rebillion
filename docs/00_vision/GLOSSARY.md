@@ -132,7 +132,8 @@ isles **Frostpeak Isle** (r09), **Arcane Reach** (r10), **Voidshore** (r11). Slu
 reserved for future expansions — invalid in this run's content.
 
 ## Raids (owner: 10_systems/social/RAID.md; replaces the retired "party quest"/`pq_*` family)
-`raid_undervault` · `raid_mainspring` · `raid_deepfrost` · `raid_voidtide`
+`raid_undervault` · `raid_mainspring` · `raid_deepfrost` · `raid_orrery` · `raid_voidtide`
+(listed in band order; `raid_orrery` added 2026-07-24 to close the Lv 56–69 raid gap)
 
 ## Party-finder activity (owner: 10_systems/social/PARTY_FINDER.md)
 `field_hunt` · `raid` · `quest` · `boss` · `social` — the listing categories on the

@@ -28,7 +28,9 @@ Start here:
   `PHASE_H_CONSISTENCY_REPORT.md`, `PHASE_I_BACKEND_REPORT.md`,
   `SYNC_AUDIT_v3_2026-07-23.md`, `MD_CONNECTIVITY_REPORT.md`,
   `BACKEND_CHECKLIST_AUDIT_2026-07-24.md`, `DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`,
-  `GAMEPLAY_LOOP_REVIEW_2026-07-24.md`, `MD_AUDIT_REPORT_2026-07-24.md`) ·
+  `GAMEPLAY_LOOP_REVIEW_2026-07-24.md`, `MD_AUDIT_REPORT_2026-07-24.md`), plus
+  `docs/phase_reports/design_reviews/` — the standing Design Critic passes
+  (`REVIEW_2026-07-24_01.md`) ·
   `tools/validate.py` — the
   batch validator, usage in `tools/README.md` (VALIDATION checks 1–6);
   `tools/md_graph.py` — the doc connectivity graph; `tools/wiki_gen.py` — static reference

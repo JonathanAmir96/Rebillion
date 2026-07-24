@@ -1,7 +1,7 @@
 # WORLD_PLAN.md — Authoritative Region / Map / Monster Allocation
 
 Source of truth for world structure. The world is **five islands across two arcs, 11 bosses,
-4 raids**; the game's level cap is **300 (initial design)** and this run authors **two arcs —
+5 raids**; the game's level cap is **300 (initial design)** and this run authors **two arcs —
 Arc 1 (Lv 1–42) and Arc 2 (Lv 40–80; elite overshoot to 82)**. Arc 2 opens at Lv 40 on three
 far isles reached from Harthmoor. Every map
 and monster inherits its region's biome identity (palette ramp + motif per
@@ -59,8 +59,10 @@ extension range because every region block is full. Region totals above include 
 Rows 1–8 are Arc 1 (Lv 1–42); rows 9–11 are Arc 2 (Lv 40–82).
 
 Map-type totals (all 11 regions): 12 towns · 30 interiors (incl. ferry + 3 longship decks) ·
-153 fields · 95 dungeons (incl. 12 raid-stage maps + the 3-map Deepway) · 27 secrets (incl. the
-4 raid bonus rooms `map_325`–`map_328`, `10_systems/social/RAID.md` §6.E) ·
+153 fields · 95 dungeons (incl. 12 **dedicated** raid-stage maps, 3 more shared with
+`raid_orrery` — `map_277`–`map_279`, which stay open-world dungeons too, 10_systems/social/RAID.md
+§4 — and the 3-map Deepway) · 27 secrets (incl. the 4 raid bonus rooms `map_325`–`map_328`,
+`10_systems/social/RAID.md` §6.E) ·
 11 arenas. Authored content spans Lv 1–82 (Voidshore elites top out at 82); the game cap is
 300 (initial design), so leveling past Arc 2 is a slow grind on endgame maps/raids until
 future arcs land. ART_BIBLE biome keys `frostpeak` / `arcane_reach` / `voidshore` are now
@@ -226,7 +228,7 @@ The validator warns when spawn levels are non-monotonic along ID order (VALIDATI
 scope; encoded in 10_systems/SPAWN.md at the B-revision).
 
 ## Raids (concept owner: 10_systems/social/RAID.md)
-Four instanced co-op runs; each ends at an existing boss arena (no extra boss slots). Solo
+Five instanced co-op runs; each ends at an existing boss arena (no extra boss slots). Solo
 players may still fight every raid boss via the arena's open (non-raid) entry at reduced
 reward. Raid rules/rewards are owned by RAID.md (reference, never restated here).
 - **`raid_undervault` — Undervault Heist** (Lv 15–22, party 3–6): stages `map_038`–`map_040`
@@ -235,6 +237,12 @@ reward. Raid rules/rewards are owned by RAID.md (reference, never restated here)
   → finale arena `map_200` (The Custodian) → bonus room `map_326` (The Mainspring Treasury).
 - **`raid_deepfrost` — the Deepfrost** (Lv 45–55, party 3–6): stages `map_240`–`map_242`
   → finale arena `map_244` (Skoldir, the Rimewyrm; `mob_178`) → bonus room `map_327` (The Deepfrost Hoard).
+- **`raid_orrery` — the Shattered Orrery** (Lv 56–69, party 3–6): stages `map_277`–`map_279`
+  → finale arena `map_284` (Aetheron, the Unmoored; `mob_206`) → bonus room `map_329` (The
+  Orrery Reliquary). Added 2026-07-24 to close the Lv 56–69 raid gap; it mints **no** *stage*
+  map or mob IDs — its stage maps are R10's existing open Shattered Orrery dungeons, instanced
+  on raid entry (RAID.md §4), and its finale is the region's own boss arena. Only its bonus
+  room is a new map, in the `map_325`+ raid-bonus extension range (`docs/ID_REGISTRY.md`).
 - **`raid_voidtide` — the Voidtide** (Lv 70–80, party 3–6): stages `map_320`–`map_322`
   → finale arena `map_324` (Nyxaris, the Tidesunder; `mob_234`) → bonus room `map_328` (The Voidtide Trove).
 
@@ -400,16 +408,22 @@ trust. `arcane` monsters live here and in Clockwork Ruins only.
 - Maps `245`–`284`: `245` town **Spirehaven** (port town, longship pier; built on the lowest
   moored shard) · `246` interior (inn) · `247` interior **the *Runewake*** (combat-free
   longship deck) · `248`–`265` fields (ascending 53→68) · `266` town **Highrune Sanctum**
-  (a floating scholar-hold) · `267` interior (sanctum hall) · `268`–`275` dungeons (the Rune
-  Vaults) · `276` secret · `277`–`279` dungeons (the Shattered Orrery) · `280` secret ·
-  `281`–`282` dungeons (the Unmoored Stair) · `283` secret · `284` arena (the Anchor Vault).
+  (a floating scholar-hold; the `raid_orrery` herald posts here) · `267` interior (sanctum hall) ·
+  `268`–`275` dungeons (the Rune Vaults) · `276` secret · `277`–`279` dungeons (the Shattered
+  Orrery — also the **`raid_orrery` stages**, party-instanced; unlike the other raids' dedicated
+  stages these stay walkable as ordinary open dungeons, RAID.md §4) · `280` secret ·
+  `281`–`282` dungeons (the Unmoored Stair) · `283` secret · `284` arena (the Anchor Vault —
+  also the `raid_orrery` finale instance).
 - Mobs `179`–`206`: normals `179`–`198` (12 `arcane`, 4 `shadow`, 4 `neutral`; Lv 53–68) ·
   elites `199`–`205` (Lv 65–70) · boss `206`.
 - Boss #10 (`mob_206`, Lv 68, arena `map_284`): **Aetheron, the Unmoored** — a vast rune-golem
   built to hold the shards in orbit, now flinging them loose as it spins free of its anchor.
-  Arcane, `boss` size, 3 phases (bound / unbound / collapse).
-- Blocks: NPC `097`–`108` · quests `101`–`110` · etc `0145`–`0160` · equip pool
-  `pool_equip_r10` · boss uniques `item_equip_0219`–`0220`.
+  Arcane, `boss` size, 3 phases (bound / unbound / collapse); party-recommended (`raid_orrery`
+  finale), soloable via open arena entry at reduced reward.
+- Blocks: NPC `097`–`108` · quests `101`–`110` (+ `raid_orrery` intro/handler `133`–`134`,
+  reserved unauthored — this block reserved no raid slots, ID_REGISTRY.md) · etc `0145`–`0160`
+  · equip pool `pool_equip_r10` · boss uniques `item_equip_0219`–`0220` · `raid_orrery` SKUs
+  `item_etc_0181` / `item_equip_0301`–`0302` / `item_cosmetic_0065`–`0066`.
 
 ### R11 · Voidshore (Lv 66–80) — `voidshore`
 The last isle, where the sky is torn open and black void-tides climb the beaches — the arc's
