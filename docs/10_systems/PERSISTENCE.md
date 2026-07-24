@@ -44,6 +44,7 @@ tags. There is no fourth tag; a field that seems to need one is a modeling error
 | Combat resolution (hit/crit/damage/mitigation) | `10_systems/COMBAT_FORMULA.md` §1 |
 | Bind point | `10_systems/DEATH_PENALTY.md` §4 |
 | Guild / party / trade / mail / market state | `10_systems/social/GUILD.md`, `10_systems/social/PARTY.md`, `10_systems/social/MARKET.md` (stubs) |
+| Cosmetic ownership + appearance loadout | `10_systems/COSMETICS.md` §7 |
 | Time-gated counters (daily/weekly resets) | this doc §2.1 |
 
 Every entry above already reads (in its owning doc) "server-authoritative... solo client

@@ -116,34 +116,49 @@ perks below. It is the owner-directed social package's guild carrot (`memory.md`
 reason to log in *with* the guild, layered on the launch surfaces (§1–§7) and, like all guild state,
 server-deferred (§Server Dependency).
 
-**Earning (first-pass, flagged).** Contribution accrues from the two grouped activities the package
-rewards, both consumed by reference — this doc mints no new play mechanic:
+**Earning (set at the 2026-07-24 balance pass).** Contribution accrues from the two grouped
+activities the package rewards, both consumed by reference — this doc mints no new play mechanic:
 
-- **Raid clears** — each successful finale-boss clear (`10_systems/social/RAID.md` §5–§6) by a
-  member grants the guild a first-pass contribution amount. Reuses RAID's existing clear event; no
+- **Raid clears — +10 `guild_contribution` each.** Every successful finale-boss clear
+  (`10_systems/social/RAID.md` §5–§6) by a member credits the guild a flat **10**, any raid (flat
+  so no raid band is the "right" one to farm for the guild). Reuses RAID's existing clear event; no
   new raid state.
-- **Same-map party-hunt milestones** — grouped hunting (`10_systems/social/PARTY.md` §4's same-map
-  eligibility) accrues contribution in milestone batches (e.g., every **N** same-map party-eligible
-  kills logs one milestone's worth). The milestone unit is keyed off `10_systems/social/PARTY.md`
-  §4's eligibility; this doc only credits the guild when one lands. N and the per-event amounts are
-  first-pass (Open Questions).
+- **Same-map party-hunt milestones — +5 per milestone; a milestone = 100 kills.** Grouped hunting
+  (`10_systems/social/PARTY.md` §4's same-map eligibility) logs one milestone per member per
+  **100** same-map party-eligible kills, crediting the guild **5**. The milestone unit is keyed off
+  `10_systems/social/PARTY.md` §4's eligibility; this doc only credits the guild when one lands.
+
+The two rates are deliberately comparable so neither activity dominates: grouped hunting at
+≈ 480 kills/hour logs ≈ 4.8 milestones ≈ **24 points/hour** per member; a raid run at the modeled
+≈ 25–30 minutes pays ≈ **20–24 points/hour** per member.
 
 Contribution is **monotonic** — it accrues and never decays; a member leaving or being kicked does
-not claw back what their play earned (`00_vision/PILLARS.md` P1, no hidden state) — and rolls into a
-**guild level** at first-pass thresholds (flagged). Guild-level unlocks are **additive perks only**,
-never anything that gates content for solo or non-guild players (P2/P3):
+not claw back what their play earned (`00_vision/PILLARS.md` P1, no hidden state) — and rolls into
+a **guild level** (1–5 at launch) at the cumulative thresholds below. Guild-level unlocks are
+**additive perks only**, never anything that gates content for solo or non-guild players (P2/P3):
 
-| Guild-level perk | What it grants | Ties into |
+| Guild level | Cumulative `guild_contribution` | Unlocks |
 |---|---|---|
-| Roster headroom | Unlocks **further** paid roster-growth steps above §4's launch ceiling of 60 (each still a `shards` purchase at the guild hall, `map_022`) — **extends** the §4 ladder, does not replace it | §4 |
-| Crest / cosmetic options | Additional crest symbols and shapes (§5) and guild cosmetics drawn from the reserved `item_cosmetic_0009`–`0064` guild block (`docs/ID_REGISTRY.md`; cosmetic-only, carry no stats — `10_systems/MONETIZATION.md`, `00_vision/PILLARS.md` anti-pay-to-win) | §5 |
-| Buff scale | May raise the §10 grouping-buff magnitude and/or the §11 weekly-goal reward tier at higher guild levels (flagged) | §10, §11 |
+| 1 | 0 (founding) | the launch surfaces (§1–§7) |
+| 2 | 2,000 | roster step 5 (paid +10 → cap **70**) · additional crest symbols (§5) |
+| 3 | 6,000 | roster step 6 (paid +10 → cap **80**) · first guild cosmetic unlock (`item_cosmetic_0009`–`0064` guild block, `docs/ID_REGISTRY.md`) |
+| 4 | 15,000 | roster step 7 (paid +10 → cap **90**) · additional crest shape + further guild cosmetics |
+| 5 | 30,000 | roster step 8 (paid +10 → cap **100**, the launch ceiling) · prestige guild cosmetic |
+
+Pacing model behind the thresholds: a modestly active guild (≈ 15 active members averaging
+≈ 5 grouped hours/week at ≈ 22 points/hour) earns ≈ 1,650/week — guild level 2 inside the first
+two weeks, level 3 in about a month, level 5 in four to five months of sustained play; a small or
+casual guild climbs slower but never loses ground (monotonic). All guild cosmetics are
+cosmetic-only, carry no stats (`10_systems/MONETIZATION.md`, `00_vision/PILLARS.md`
+anti-pay-to-win). The §10 grouping buff does **not** scale with guild level (decided at the same
+pass — the buff stays flat so the stacked grouping ceiling stays fixed; see §10).
 
 The roster-headroom perk **extends** §4 rather than contradicting it: §4's base **20** and its four
-paid **+10** steps to **60** stand unchanged as the launch ladder; guild levels only unlock
-additional steps above that, still paid per step (amounts reserved to `10_systems/ECONOMY.md`
-exactly as §4's are). Whether a guild level should instead raise the ceiling directly (no purchase)
-is flagged (Open Questions).
+paid **+10** steps to **60** stand unchanged as the launch ladder; guild levels 2–5 each unlock one
+further paid step (still a `shards` purchase at the guild hall, amounts reserved to
+`10_systems/ECONOMY.md` exactly as §4's are), taking the ceiling to **100** at guild level 5.
+Direct (unpaid) ceiling raises were considered and rejected — the paid step keeps the `shards` sink
+and makes growth a guild decision, not an automatic drip.
 
 ## 10. Guild grouping buff
 
@@ -167,26 +182,36 @@ guild member, or two guildmates on different maps, gets nothing.
   to own (reference, never restated); this doc supplies only the +5% factor and the "2+ same-guild,
   same-map" trigger. See Handoffs.
 
-Magnitude (+5% / +5%), and whether it scales with guild level (§9), are first-pass and tunable
-(Open Questions). Encourage-not-mandate: solo and non-guild players are never blocked from any
-content by this — it is an additive carrot on grouped guild play (`00_vision/PILLARS.md` P2/P3).
+**Magnitude locked at the 2026-07-24 balance pass: +5% / +5%, flat — no guild-level scaling.**
+The buff is deliberately small next to the party bonuses it stacks with (each added party member is
+worth +10–30% `exp`; the full-party pool is ×2.00), so it reads as "the guild tag matters," never
+as a second progression axis; keeping it flat fixes the stacked grouping ceiling
+(`exp` pool ≤ 2.00 × 1.05 = ×2.10; drop factor per `10_systems/DROPS.md` §4.1's locked ceiling).
+The §11 weekly-goal reward temporarily lifts this buff (that lift is §11's, time-boxed, and also
+flat across guild levels). Encourage-not-mandate: solo and non-guild players are never blocked from
+any content by this — it is an additive carrot on grouped guild play (`00_vision/PILLARS.md`
+P2/P3).
 
 ## 11. Weekly guild goal
 
 A **rotating weekly guild objective** — the guild's recurring coordination beat, the social
-heartbeat that gives the roster a shared reason to log in each week. Each week the guild is set one
-first-pass objective drawn from the same grouped activities §9 counts, for example:
+heartbeat that gives the roster a shared reason to log in each week. **Set at the 2026-07-24
+balance pass:** the objective alternates weekly between the two grouped activities §9 counts, sized
+to roughly equal member-hours (≈ 12–13 across the guild — about half a modestly active guild's
+weekly grouped play under §9's pacing model, so an engaged guild comfortably clears it and a small
+guild has a real but reachable stretch):
 
-- "Guild members clear **N** raids this week" (`10_systems/social/RAID.md` clears), or
-- "Guild logs **N** same-map party-hunt milestones this week" (`10_systems/social/PARTY.md` §4).
+- odd weeks — "guild members clear **25** raids this week" (`10_systems/social/RAID.md` clears,
+  any raid; ≈ 25 modeled half-hour runs), and
+- even weeks — "guild logs **60** same-map party-hunt milestones this week"
+  (`10_systems/social/PARTY.md` §4; = 6,000 party-eligible kills ≈ 12.5 grouped hunting hours).
 
-Meeting the objective grants a **guild-wide reward**, first-pass one of: a **temporary guild-wide
-buff** (a time-boxed lift to the §10 grouping buff or a small flat party lift), a **cosmetic
-unlock** (a guild cosmetic from the `item_cosmetic_0009`–`0064` block, `docs/ID_REGISTRY.md` — no
-stats, `00_vision/PILLARS.md` anti-pay-to-win), or **`shards` to the guild** — the last of which
-requires the guild purse deferred by §8 and is therefore contingent on that feature landing (Open
-Questions). Default reward at this pass is the temporary buff or the cosmetic unlock, neither of
-which needs a purse.
+Meeting the objective grants the **guild-wide reward**: for the **following week, the §10 grouping
+buff runs at +10% / +10%** (a time-boxed doubling; same trigger, same composition, same caps —
+`10_systems/DROPS.md` §4.1's clamp still binds). One reward, always earnable, no purse needed.
+Guild cosmetics stay §9's guild-level ladder rather than a weekly payout (a missable weekly
+cosmetic would punish small guilds — P2); **`shards` to the guild** remains a rejected-for-now
+variant contingent on the guild purse deferred by §8 (Open Questions).
 
 - **Week boundary.** The week rolls on a fixed weekday anchored to `10_systems/PERSISTENCE.md`'s
   **day boundary** — the same boundary `10_systems/social/RAID.md` §6.D defers to PERSISTENCE for
@@ -233,28 +258,35 @@ resolves.
 - Guild-hop cooldown: none at launch (§1) since there is no bank/reward to farm by hopping (§8);
   revisit if that changes.
 - Guild bank and a per-member guild-quest board (§8) are deferred future features, not designed here.
-- **`guild_contribution` earn rates and guild-level thresholds (§9) are first-pass.** The raid-clear
-  amount, the same-map party-hunt milestone size **N** and per-event amount, and the contribution →
-  guild-level curve all need a balance pass (they pace guild-level unlocks, including the paid roster
-  headroom). Owner: this doc with `10_systems/ECONOMY.md` at the arc-1/arc-2 balance pass.
+- **`guild_contribution` earn rates and guild-level thresholds (§9) — set 2026-07-24.** Raid clear
+  +10 · milestone (100 kills) +5 · levels 1–5 at 0/2,000/6,000/15,000/30,000, paced to the §9 model
+  (≈ 24 points/hour/member either activity; a modestly active guild reaches level 5 in ≈ 4–5
+  months). Remaining open only for telemetry: real grouped-hours distributions may shift the
+  thresholds; retune thresholds, not the earn events. Owner: this doc with `10_systems/ECONOMY.md`.
 - **`guild_level` needs a `00_vision/GLOSSARY.md` Provisional entry** — it is a derived guild
   quantity like `guild_contribution` (already canonical) but is only described in prose here.
   Whether the §10 grouping buff and §11 weekly-goal reward also need their own tokens is open. Owner:
   GLOSSARY gatekeeper at the next phase gate (this doc cannot mint tokens).
-- **Roster headroom above 60 via guild level (§9/§4):** whether guild levels unlock further **paid**
-  +10 steps (default) or raise the ceiling directly; step `shards` amounts are reserved to
-  `10_systems/ECONOMY.md` exactly as §4's are. Owner: this doc with `10_systems/ECONOMY.md`.
-- **Grouping-buff magnitude (+5% `exp` / +5% drop, §10) is first-pass.** The drop side's composition
-  order with `fortune`'s `m` and the same-map `party_drop_bonus`, and the combined `≤ 0.95` cap, are
-  `10_systems/DROPS.md`'s to own and tune (see Handoffs); the `exp` side is a source
-  `10_systems/LEVELING.md` §4 must acknowledge (see Handoffs). Whether the buff scales with guild
-  level is open. Owner: this doc, consumed by DROPS / LEVELING.
-- **Weekly guild goal (§11) is first-pass:** the objective rotation, the target **N**, the reward
-  table, and the `shards`-to-guild reward's dependency on the deferred guild bank (§8) all need
-  tuning. Owner: this doc with `10_systems/ECONOMY.md`.
+- **Roster headroom above 60 — resolved 2026-07-24:** guild levels 2–5 each unlock one further
+  **paid** +10 step (ceiling **100** at level 5); direct unpaid raises rejected (§9). Step `shards`
+  amounts remain reserved to `10_systems/ECONOMY.md` exactly as §4's are. Owner: this doc with
+  `10_systems/ECONOMY.md` (amounts only).
+- **Grouping-buff magnitude (§10) — locked 2026-07-24 at +5% `exp` / +5% drop, flat (no
+  guild-level scaling).** The drop side's composition and the combined ceiling are settled in
+  `10_systems/DROPS.md` §4.1 (locked the same day); the `exp` side stays acknowledged by
+  `10_systems/LEVELING.md` §4 as an elective accelerator. The only sanctioned variation is §11's
+  time-boxed weekly-goal lift to +10% / +10%. Owner: this doc, consumed by DROPS / LEVELING.
+- **Weekly guild goal (§11) — set 2026-07-24:** two-week rotation (25 raid clears / 60 party-hunt
+  milestones, ≈ 12–13 guild member-hours each); reward = next week's grouping buff at
+  +10% / +10%. Remaining open: whether the targets should eventually scale with roster size (flat
+  targets favor big guilds; default stays flat for legibility, P1), and the `shards`-to-guild
+  variant stays contingent on the deferred guild bank (§8). Owner: this doc with
+  `10_systems/ECONOMY.md`.
 - **Week/day boundary (§11)** is owned by `10_systems/PERSISTENCE.md` — the weekly goal anchors to
   the same day boundary `10_systems/social/RAID.md` §6.D already defers there (fixed UTC rollover vs
   per-account local vs rolling window). Owner: `10_systems/PERSISTENCE.md`; this doc consumes.
-- **Guild cosmetics** draw on the `item_cosmetic_0009`–`0064` guild reserve (`docs/ID_REGISTRY.md`);
-  that block's cosmetic-system owner and earn/equip rules are unassigned until cosmetic content is
-  authored (`10_systems/MONETIZATION.md` holds the charter). Owner: TBD at the cosmetic-content pass.
+- **Guild cosmetics — owner assigned 2026-07-24:** the guild sub-block is `item_cosmetic_0009`–
+  `0032` (`docs/ID_REGISTRY.md`) and the cosmetic system + earn/equip rules are
+  `10_systems/COSMETICS.md`'s (its §4 keys guild unlocks to §9's guild-level ladder;
+  `10_systems/MONETIZATION.md` still holds the no-stats charter). Concrete guild-cosmetic SKUs
+  remain a cosmetic-content-pass deliverable.

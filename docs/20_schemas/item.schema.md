@@ -44,6 +44,7 @@ table wrapper" — binding the names here is this schema's job, not a restatemen
 | `use/consumables.yaml` | `item_table_consumables` | `item_use_0001`–`0060` | one batch (`0001`–`0016` well-known, `docs/ID_REGISTRY.md`) |
 | `etc/materials_r01.yaml` … `materials_r11.yaml` | `item_table_materials_r<NN>` | that region's 16-item `item_etc` block (`docs/ID_REGISTRY.md`) | **one file per region batch** — lands with that region's `drop_mob_*` files (`20_schemas/drop_table.schema.md` batch-order rule, since region drop tables `ref` these materials) |
 | `etc/enhancement.yaml` | `item_table_enhancement` | `item_etc_0193`–`0197` (Emberstone I–V; `0198`–`0200` reserved, unauthored) | one batch |
+| `cosmetics.yaml` | `item_table_cosmetics` | `item_cosmetic_0001`–`0064` (`docs/ID_REGISTRY.md` cosmetic sub-blocks) | **reserved — no batch this run**; row shape owned by `10_systems/COSMETICS.md` §3 (no `price`/`stats`/`effects`/`stack`), to be formalized here when the first cosmetic batch is authored (Open Questions) |
 
 - The **reserved-growth split** (`0181`–`0200`) is not fixed by this schema —
   `10_systems/ITEMS.md` §4's own Open Question leaves the per-slot SKU count to Phase D
@@ -329,6 +330,13 @@ items:
   every row, but `10_systems/ITEMS.md` §5 defines its mechanical meaning (affix-line count) only
   for `equip`. For `use`/`etc` this schema treats `rarity` as cosmetic-only; confirm this is
   intended, or whether those categories should omit it.
+- **`item_cosmetic` rows are registered but not yet formalized.** `10_systems/COSMETICS.md` §3
+  owns the row shape (`id`/`name`/`category`/`applies_to`/`source`/`flavor` — deliberately no
+  `price`, `stats`, `effects`, or `stack`: a cosmetic is an unlock entry, not an inventory
+  object). When the first cosmetic content batch is authored, this schema adds the `cosmetic`
+  row section (field table + validation, including COSMETICS §1's proposed zero-stat check)
+  citing that doc; until then `cosmetics.yaml` stays reserved in the file list above. Owner:
+  this schema with `10_systems/COSMETICS.md`.
 - **Boss-unique region-order table — resolved (v3).** `docs/ID_REGISTRY.md` now tabulates the 11
   boss-order→unique pairs by name (Cindermaw `0201`–`0202` … Nyxaris `0221`–`0222`), so
   `unique_of` validation reads the mapping directly instead of recomputing it from
