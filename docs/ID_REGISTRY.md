@@ -181,6 +181,13 @@ Raid intro/handler quests: `quest_087`–`090` (arc 1, 2 per raid; owner region 
 `quest_099`–`100` (`raid_deepfrost`), `quest_119`–`120` (`raid_voidtide`).
 Total authored: 120.
 
+**Job-advancement, 3rd tier — `quest_121`–`quest_132` (reserved, unauthored; future arc).**
+Range extension appended past the former `quest_120` cap in a new commit; `001`–`120` are
+unmoved. Three quests per line, line order: `bulwark` `121`–`123` · `keeneye` `124`–`126` ·
+`weaver` `127`–`129` · `flicker` `130`–`132` (quest-line anatomy: 10_systems/JOBS.md §1.1).
+Mint only with the future 3rd-tier arc, alongside `skill_<line>_028`–`045`; nothing in this
+run's content may reference these IDs.
+
 ## Raids — `raid_undervault` · `raid_mainspring` · `raid_deepfrost` · `raid_voidtide`
 Owner: 10_systems/social/RAID.md. Future raids mint `raid_<name>` tokens here first (the
 legacy `pq_<name>` family is retired and must not appear in content).

@@ -27,6 +27,8 @@ tag-eligibility rule, or the zone-declaration mechanism — it cites them.
   blocks plus the 8 raid intro/handler quests — `quest_087`–`090` (arc-1 raids),
   `quest_099`–`100` (`raid_deepfrost`), `quest_119`–`120` (`raid_voidtide`) — which are ordinary
   quest files serving `10_systems/social/RAID.md` §3's intro/handler pattern.
+  `quest_121`–`132` are **reserved, unauthored** (the 3rd-advancement quest lines,
+  `10_systems/JOBS.md` §1.1 / `docs/ID_REGISTRY.md`) — no file exists for them this run.
   The file's `id` is its filename stem; both immutable.
 - **Region ↔ ID block.** A quest's `id` must fall inside its `region`'s sub-range in
   `docs/ID_REGISTRY.md`'s Quests table (e.g. Emberfoot `quest_001`–`010`); this schema does not

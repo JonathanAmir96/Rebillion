@@ -200,9 +200,13 @@ file (edge table) + 15_maps_system/MAP_CONNECTIONS.md §9 (gating).
 Novices take the ferry at ~Lv 8 and make an **advancement pilgrimage** to their line's town
 (one free coach ride from Rosen Harbor; Cindershelf is deliberately the boldest trip). The
 Lv 40 **2nd advancement** is issued by the same instructor and routes through a trial in
-the Clockwork Ruins. Rules owned by 10_systems/JOBS.md; instructor NPCs are authored in
-Phase D inside each region's NPC block. A novice guide lives in Emberfoot Village's elder's
-hall.
+the Clockwork Ruins: each line keeps its own **trial ground** there (zone
+`<line>_trial_ground` — quest-line anatomy 10_systems/JOBS.md §1.1) — `bulwark` map_186
+(The Last Archive) · `keeneye` map_190 (Flywheel Hall) · `weaver` map_177 (East Gate) ·
+`flicker` map_180 (Brassvein Terraces). 3rd-advancement geography (the far-isle pilgrimage,
+JOBS §1.1) is reserved for the future arc — no map IDs assigned. Rules owned by
+10_systems/JOBS.md; instructor NPCs are authored in Phase D inside each region's NPC block.
+A novice guide lives in Emberfoot Village's elder's hall.
 
 ## Map order & monster gradient law
 Classic legibility, enforced jointly by D-map and D-mob batches:
