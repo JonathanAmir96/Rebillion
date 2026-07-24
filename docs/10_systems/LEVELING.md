@@ -13,8 +13,9 @@ dampener curve** live in `10_systems/COMBAT_FORMULA.md`; primary/derived stat gr
 `10_systems/social/RAID.md`. This doc consumes those and never restates them. The game `level` cap
 is **300** (initial design, `00_vision/SCOPE.md`). This doc is **formula-first**: the closed-form
 curve holds to 300, with detail tables for the **authored range** — Lv 1–80, spanning arc 1
-(Lv 1–42) and arc 2 (Lv 40–80) — plus a provisional softcap continuation past Lv 80 (§1.2) until
-future arcs author Lv 80+ content. The between-arcs plateau policy is §6.
+(Lv 1–42) and arc 2 (Lv 40–80) — with the frozen curve extended to the owner-ratified Lv-100
+`/played` anchor and a provisional softcap continuation only past Lv 100 (§1.2) until future arcs
+author Lv 100+ content. The between-arcs plateau policy is §6.
 
 ## 1. The `exp` curve (Lv 1 → 80 authored; formula to 300)
 
@@ -26,102 +27,113 @@ per-kill reward. They are bound so that **`exp_to_next(L) = exp_per_kill_normal(
 
 ```
 exp_to_next(L)       = exp_per_kill_normal(L) · kills_per_level(L)      # exp to go L -> L+1
-kills_per_level(L)   = round(20 + 0.20 · L²)     # at-level normal kills to level (100% hunting); L ≤ 80, see §1.2
+kills_per_level(L)   = round(20 + 6.6 · L + 0.20 · L²)   # at-level normal kills to level (100% hunting); L ≤ 100, see §1.2
 exp_per_kill_normal(L) = round(4 · L^1.3)        # §3, base per-kill reward (all levels)
 cumulative_total(L)  = Σ exp_to_next(i), i = 1..L-1
 ```
 
+**Ratified pacing anchors (owner, 2026-07-24):** **Lv 40 ≈ 30 h · Lv 80 ≈ 166 h · Lv 100 ≈ 300 h**
+of `/played`. The two coupled formulas keep their shape and coupling; only `kills_per_level` sets the
+pace, and it is **frozen through Lv 100** (the Lv-100 anchor is owner-ratified; §1.2).
+
 `kills_per_level` grows quadratically through the authored range, so **early levels are minutes and
 the top of arc 2 (Lv 70–80) is multi-hour sessions per level** (P2); the quadratic is softened past
-Lv 80 (§1.2). The `/played` estimate charges each level's **full** `kills_per_level` against an
+Lv 100 (§1.2). The `/played` estimate charges each level's **full** `kills_per_level` against an
 effective **≈ 336 at-level-kill-equivalents/hour**: 480 raw kills/hour of peak hunting (one kill per
 ≈ 7.5 s, `10_systems/COMBAT_FORMULA.md` §14), discounted by the **0.70 hunting duty-cycle** — the
 30% of a level that arrives from quests/first-clears (§4) plus travel, aggro, and turn-in downtime
 clears at a slower blended rate. So `/played(L) = kills_per_level(L) / 336` (= `/ (480 · 0.70)`).
 
-| Lv→+1 | `exp_to_next` | `cumulative_total` @ Lv | kills/level | est. `/played` |
-|---|---|---|---|---|
-| 1 | 80 | 0 | 20 | 0.06 h |
-| 2 | 210 | 80 | 21 | 0.06 h |
-| 3 | 374 | 290 | 22 | 0.07 h |
-| 4 | 552 | 664 | 23 | 0.07 h |
-| 5 | 800 | 1,216 | 25 | 0.07 h |
-| 6 | 1,107 | 2,016 | 27 | 0.08 h |
-| 7 | 1,500 | 3,123 | 30 | 0.09 h |
-| 8 | 1,980 | 4,623 | 33 | 0.10 h |
-| 9 | 2,520 | 6,603 | 36 | 0.11 h |
-| 10 | 3,200 | 9,123 | 40 | 0.12 h |
-| 15 | 8,775 | 34,596 | 65 | 0.19 h |
-| 20 | 19,700 | 97,673 | 100 | 0.30 h |
-| 25 | 38,135 | 229,270 | 145 | 0.43 h |
-| 30 | 66,600 | 472,105 | 200 | 0.60 h |
-| 35 | 107,855 | 881,837 | 265 | 0.79 h |
-| 40 | 164,560 | 1,527,517 | 340 | 1.01 h |
-| 45 | 239,700 | 2,493,061 | 425 | 1.26 h |
-| 50 | 336,440 | 3,875,368 | 520 | 1.55 h |
-| 55 | 457,500 | 5,789,790 | 625 | 1.86 h |
-| 60 | 606,800 | 8,363,327 | 740 | 2.20 h |
-| 65 | 787,150 | 11,743,125 | 865 | 2.57 h |
-| 70 | 1,002,000 | 16,092,952 | 1,000 | 2.98 h |
-| 75 | 1,254,920 | 21,591,578 | 1,145 | 3.41 h |
-| 80 | 1,548,300 | 28,436,584 | 1,300 | 3.87 h |
+| Lv→+1 | `exp_to_next` | `cumulative_total` @ Lv | kills/level | est. `/played` (level) | cum `/played` @ Lv |
+|---|---|---|---|---|---|
+| 1 | 108 | 0 | 27 | 0.08 h | 0.0 h |
+| 2 | 340 | 108 | 34 | 0.10 h | 0.1 h |
+| 3 | 714 | 448 | 42 | 0.12 h | 0.2 h |
+| 4 | 1,200 | 1,162 | 50 | 0.15 h | 0.3 h |
+| 5 | 1,856 | 2,362 | 58 | 0.17 h | 0.5 h |
+| 6 | 2,747 | 4,218 | 67 | 0.20 h | 0.6 h |
+| 7 | 3,800 | 6,965 | 76 | 0.23 h | 0.8 h |
+| 8 | 5,160 | 10,765 | 86 | 0.26 h | 1.1 h |
+| 9 | 6,720 | 15,925 | 96 | 0.29 h | 1.3 h |
+| 10 | 8,480 | 22,645 | 106 | 0.32 h | 1.6 h |
+| 15 | 22,140 | 89,111 | 164 | 0.49 h | 3.5 h |
+| 20 | 45,704 | 242,476 | 232 | 0.69 h | 6.3 h |
+| 25 | 81,530 | 536,781 | 310 | 0.92 h | 10.3 h |
+| 30 | 132,534 | 1,039,591 | 398 | 1.18 h | 15.4 h |
+| 35 | 201,872 | 1,833,160 | 496 | 1.48 h | 21.9 h |
+| 40 | 292,336 | 3,014,368 | 604 | 1.80 h | 29.9 h |
+| 45 | 407,208 | 4,696,676 | 722 | 2.15 h | 39.6 h |
+| 50 | 549,950 | 7,006,322 | 850 | 2.53 h | 51.1 h |
+| 55 | 723,216 | 10,091,160 | 988 | 2.94 h | 64.5 h |
+| 60 | 931,520 | 14,108,987 | 1136 | 3.38 h | 80.1 h |
+| 65 | 1,177,540 | 19,240,975 | 1294 | 3.85 h | 97.9 h |
+| 70 | 1,464,924 | 25,685,465 | 1462 | 4.35 h | 118.2 h |
+| 75 | 1,797,440 | 33,655,529 | 1640 | 4.88 h | 141.0 h |
+| 80 | 2,177,148 | 43,384,436 | 1828 | 5.44 h | 166.5 h |
 
 Rows Lv 1–80 are **frozen**: arc-1 (Lv 1–42) and arc-2 (Lv 40–80) content is balanced against these
-exact values. **Authored total (Lv 1 → 80): 28,436,584 `exp`, ≈ 104 `/played` hours.** Intermediate
-levels: compute from the formula, or linearly interpolate between rows. For Lv > 80 see the
-provisional continuation in §1.2.
+exact values. **Authored total: ≈ 166 `/played` hours to reach Lv 80 (≈ 172 h to complete it);
+authored total `exp` to reach Lv 80 = 43,384,436.** Intermediate levels: compute from the formula,
+or linearly interpolate between rows. For Lv > 100 see the provisional continuation in §1.2.
 
 ### 1.1 Time distribution by band
 
-The front ten levels are a single evening; each subsequent level is a smooth **≈ 1.04–1.08×** step
-in `exp` over the previous (`exp_to_next(41)/(40) ≈ 1.08`, `(80)/(79) ≈ 1.04`) — a long steady ramp,
+The front ten levels are a single evening; each subsequent level is a smooth **≈ 1.04–1.07×** step
+in `exp` over the previous (`exp_to_next(41)/(40) ≈ 1.07`, `(80)/(79) ≈ 1.04`) — a long steady ramp,
 never a spike (P2). By arc:
 
-**Arc 1 — Emberfoot + Harthmoor (Lv 1 → 42):** ≈ 16.6 `/played` hours to reach Lv 42.
+**Arc 1 — Emberfoot + Harthmoor (Lv 1 → 42):** ≈ 33.6 `/played` hours to reach Lv 42.
 
 | Band | Lv 1–10 | Lv 10–20 | Lv 20–30 | Lv 30–42 |
 |---|---|---|---|---|
-| `/played` | 0.7 h | 1.9 h | 4.2 h | 9.8 h |
+| `/played` | 1.6 h | 4.8 h | 9.0 h | 18.2 h |
 
-**Arc 2 — Frostpeak → Arcane Reach → Voidshore (Lv 40 → 80):** ≈ 89.8 `/played` hours across the
-band (per-level cost climbs from ≈ 1.01 h at Lv 40 to ≈ 3.87 h at Lv 79→80).
+**Arc 2 — Frostpeak → Arcane Reach → Voidshore (Lv 40 → 80):** ≈ 136.6 `/played` hours across the
+contiguous band (per-level cost climbs from ≈ 1.80 h at Lv 40 to ≈ 5.44 h at Lv 79→80). The
+per-island bands below are each measured over that island's **own** level range, so they **overlap
+by design** (Frostpeak's 53–55 is also Arcane Reach's floor, etc.) and do not sum to the contiguous
+total:
 
 | Band (island) | Frostpeak 40–55 | Arcane Reach 53–68 | Voidshore 66–80 |
 |---|---|---|---|
-| `/played` | 20.8 h | 33.2 h | 44.8 h |
+| `/played` | 34.6 h | 50.9 h | 64.7 h |
 
 **Pacing (owner directive, v3):** every arc-2 level is a **full session or more** — a significant,
 session-scale climb per level in the classic-MMO tradition, yet each level is only a few percent
 heavier than the last (no spikes) and the level-up refill (§5) plus the Lv-40 job-advancement beat
-(Open Questions) keep it fair, not cruel (P2). The reachable authored climb is ≈ 104 `/played` hours to the top of arc 2; the
-full curve to cap 300 is formula-driven and provisional past Lv 80 (§1.2, §6).
+(Open Questions) keep it fair, not cruel (P2). The reachable authored climb is ≈ 166 `/played` hours
+to reach the top of arc 2 (≈ 172 h to complete Lv 80); the full curve to cap 300 is formula-driven
+and provisional past Lv 100 (§1.2, §6).
 
-### 1.2 Past the authored arcs (Lv > 80) — provisional softcap continuation
+### 1.2 Past the ratified anchors (Lv > 100) — provisional softcap continuation
 
-**Why a softcap.** The §1 quadratic is frozen and correct through the authored arcs, but continued
-unbroken it reaches `kills_per_level ≈ 18,020` at Lv 300 — a single level of ≈ 54 `/played` hours and
-≈ 5,350 h to cap, a wall the "cozy, not cruel" pillar forbids (P2). No Lv 80+ content is authored
-yet, so the true > 80 curve is **future-arc design**; as a placeholder that keeps the formula from
-emitting absurd values, `kills_per_level` continues **linearly** past Lv 80 — value and slope matched
-at the boundary (`kills_per_level(80) = 1,300`, slope `0.4·80 = 32`):
+**Why the boundary is Lv 100.** Lv 100 is now an owner-ratified `/played` anchor (≈ 300 h), so the
+real quadratic is **kept and frozen all the way through Lv 100** — Lv 81–100 are the ratified
+extension to that anchor (still pre-content: arc-2 authors only to ≈ Lv 82). Only **past** Lv 100 is
+the curve provisional. Continued unbroken, the §1 quadratic reaches `kills_per_level ≈ 20,000` at
+Lv 300 — a single level of ≈ 60 `/played` hours and a punishing multi-thousand-hour tail, the wall
+the "cozy, not cruel" pillar forbids (P2). No Lv 100+ content is authored yet, so the true > 100
+curve is **future-arc design**; as a placeholder that keeps the formula from emitting absurd values,
+`kills_per_level` continues **linearly** past Lv 100 — value and slope matched at the boundary
+(`kills_per_level(100) = 2,680`, slope `6.6 + 0.4·100 = 46.6`):
 
 ```
-kills_per_level(L) = round(20 + 0.20 · L²)        for L ≤ 80      # frozen
-                   = round(1300 + 32 · (L − 80))   for L > 80      # provisional linear continuation
+kills_per_level(L) = round(20 + 6.6 · L + 0.20 · L²)   for L ≤ 100     # frozen (Lv 81–100 = ratified extension to the Lv-100 anchor)
+                   = round(2680 + 46.6 · (L − 100))     for L > 100     # provisional linear softcap
 exp_per_kill_normal(L) = round(4 · L^1.3)          # unchanged, all levels (stays bound to COMBAT_FORMULA TTK/reward)
 ```
 
-This is C1-continuous (no kink at Lv 80), preserves every Lv 1–80 value exactly, and bounds a
-near-cap level to ≈ 25 `/played` hours with ≈ 3,250 h to cap 300 — a heavy classic-MMO tail, not a
-wall. Checksums (all **provisional**, future arcs will re-tune with content-balanced pacing):
+This is C1-continuous (no kink at Lv 100), preserves every Lv 1–100 value exactly, and bounds a
+near-cap level to ≈ 36 `/played` hours with ≈ 4,690 h to cap 300 — still a heavy classic-MMO tail,
+not a wall, and explicitly **provisional/future-arc** (content authored only through ≈ Lv 82).
+Checksums (all **provisional** past Lv 100; future arcs will re-tune with content-balanced pacing):
 
-| Lv | `kills_per_level` | `exp_to_next` | est. `/played` per level |
-|---|---|---|---|
-| 80 (boundary) | 1,300 | 1,548,300 | 3.87 h |
-| 100 | 1,940 | 3,088,480 | 5.8 h |
-| 150 | 3,540 | 9,550,920 | 10.5 h |
-| 200 | 5,140 | 20,153,940 | 15.3 h |
-| 300 (cap) | 8,340 | 55,394,280 | 24.8 h |
+| Lv | `kills_per_level` | `exp_to_next` | est. `/played` per level | cum `/played` @ Lv |
+|---|---|---|---|---|
+| 100 (boundary) | 2,680 | 4,266,560 | 8.0 h | ≈ 299 h |
+| 150 | 5,010 | 13,516,980 | 14.9 h | ≈ 867 h |
+| 200 | 7,340 | 28,780,140 | 21.8 h | ≈ 1,783 h |
+| 300 (cap) | 12,000 | 79,704,000 | 35.7 h | ≈ 4,690 h |
 
 ## 2. Applying rewards: base × dampener
 
@@ -241,9 +253,9 @@ The game `level` cap is **300** (`00_vision/SCOPE.md`), so `exp` never stops mat
 **no post-cap state to design here yet** — the authored world simply **runs out** at the top of
 arc 2. Voidshore endgame maps top out at Lv 80 and `raid_voidtide`'s boss is Lv 80
 (`docs/WORLD_PLAN.md`, `10_systems/social/RAID.md`); the highest authored elites reach ≈ Lv 82. Past
-≈ Lv 82 a character keeps leveling on the §1.2 continuation, but with no higher-band content the pace
-is a deliberate **slow grind** on the top Voidshore maps and the two arc-2 raids until arc 3 authors
-Lv 80+ regions.
+≈ Lv 82 a character keeps leveling on the §1 curve (frozen through the ratified Lv-100 anchor, then
+the §1.2 softcap), but with no higher-band content the pace is a deliberate **slow grind** on the top
+Voidshore maps and the two arc-2 raids until arc 3 authors Lv 80+ regions.
 
 - **The plateau chase is gear, not levels.** Between arcs, the meaningful power gains come from
   **gear and enhancement** (`10_systems/ITEMS.md`, `10_systems/ENHANCEMENT.md`) — chasing raid
@@ -257,17 +269,32 @@ Lv 80+ regions.
   routes endgame ambition into the loot loop and the raids, matching "the grind is cozy, not cruel"
   (P2). A paragon-style system stays **deferred to post-launch and is not a launch promise** (Open
   Questions).
-- **The true cap-300 endgame is future-arc design.** The Lv ~80–300 curve is provisional (§1.2); the
+- **The true cap-300 endgame is future-arc design.** The frozen curve now reaches the owner-ratified
+  Lv-100 anchor; the Lv 100–300 curve is provisional (§1.2); the
   high-level regions, any late-cap or post-cap progression policy, and the endgame gear-check that
   the level-difference dampener (`10_systems/COMBAT_FORMULA.md` §9) is meant to gate all ship with
   future arcs and are **out of scope for this run** (`00_vision/SCOPE.md`).
 
 ## Open Questions
 
-- **Lv > 80 softcap is provisional (§1.2).** The linear continuation is a placeholder to stop the
-  quadratic from emitting absurd near-cap values; the real Lv 80–300 pacing is future-arc design and
-  must be re-tabled per arc against that arc's content, quests, and any rested-`exp` system, without
-  touching the frozen Lv 1–80 curve. Owner: LEVELING.md, future arcs.
+- **Lv > 100 softcap is provisional (§1.2).** The frozen quadratic now holds through the
+  owner-ratified Lv-100 `/played` anchor; the linear continuation past Lv 100 is a placeholder to stop
+  the quadratic from emitting absurd near-cap values. The real Lv 100–300 pacing is future-arc design
+  and must be re-tabled per arc against that arc's content, quests, and any rested-`exp` system,
+  without touching the frozen Lv 1–100 curve. Owner: LEVELING.md, future arcs.
+- **Authored quest-content `exp` rewards are now stale against this curve (regen handoff).** The
+  `docs/50_content/quests/*.yaml` files store computed `exp` reward integers (= `pct · exp_to_next`,
+  §4 / `10_systems/QUESTS.md` §4). Because `exp_to_next` changed, those integers must be
+  mechanically regenerated in a **Phase-D content pass** against the new curve — do **not** hand-edit
+  them here. Monster `stats.exp` (per-kill `exp_per_kill_normal`, §3) is **unchanged** and not stale.
+  Owner: Phase-D content / producer.
+- **`10_systems/ONBOARDING_FTUE.md` Lv 1→8 plausibility check is stale against the new curve**
+  (out-of-scope doc, flag-only). That doc restates §1's old per-level `/played` rows to argue Lv 8 is
+  reachable in ≈ 0.50 h of at-level exp, inside its 60-minute FTUE budget. Under the ratified curve
+  the cumulative `/played` to **reach** Lv 8 is ≈ 1.1 h (per-level rows 0.08 … 0.23), which now
+  **overshoots** that 60-minute budget on pure at-level pacing — so the FTUE either leans harder on
+  scripted first-clear/quest grants (§4 "other") in the intro or its "Lv 8 by end of first hour"
+  target needs revisiting. Reconcile with the FTUE owner. Owner: ONBOARDING_FTUE.md + this doc.
 - **Branching 2nd-job advancement at Lv 40** (owner `10_systems/JOBS.md`, patched in parallel): the
   advancement lands at the arc-1→arc-2 seam (Lv 40), exactly where per-level cost first exceeds an
   hour. If pacing wants a **beat** there — an advancement quest granting a one-time `exp` bump or

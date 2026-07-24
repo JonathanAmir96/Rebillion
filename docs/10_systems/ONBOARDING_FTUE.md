@@ -38,13 +38,15 @@ player real progress. The hour's job is confidence, not challenge.
 | 7 | Cindermaw, the graduation fight | `map_016` | 42–52 min | 52 min |
 | 8 | Ferry boarding | `map_015` → `map_017` | 52–60 min | 60 min |
 
-**Lv 8 by end of hour — plausibility check.** `10_systems/LEVELING.md` §1's own table gives
-cumulative `/played` for Lv 1→8 as the sum of its per-level rows: 0.06+0.06+0.07+0.07+0.07+0.08+
-0.09 ≈ **0.50 h (≈30 min)** of at-level hunting-plus-quest exp, already assuming the doc's ≈70%
-hunting / ≈25% quest split (§4 of that doc). That is well inside the 60-minute budget above, so
-Lv 8 by the boss fight is comfortably achievable, not a squeeze — the remaining ~30 minutes of
-budget is free for dialogue, traversal, and the boss encounter itself. See Open Questions for the
-one assumption this plausibility check leans on.
+**Lv 8 by end of hour — plausibility check.** `10_systems/LEVELING.md` §1's table gives
+cumulative `/played` for Lv 1→8 as the sum of its per-level rows: 0.08+0.10+0.12+0.15+0.17+0.20+
+0.23 ≈ **1.1 h** of at-level hunting-plus-quest exp, already assuming the doc's ≈70% hunting /
+≈30% quest-and-downtime blend. On **pure at-level pacing that lands Lv 8 just past the
+60-minute intro budget**, not inside it — so the intro must close the gap with **scripted
+first-clear and guided-quest `exp` beats** front-loaded into the tutorial island (Emberfoot's
+guided path is denser than open pacing), or the Lv-8 ferry gate is treated as "≈first hour,"
+not a hard 60-minute promise. Which lever the intro leans on is a design decision for this
+doc's owner (Open Questions), reopened by the 2026-07-24 pacing retune.
 
 ## 3. Beat 1 — Wake and first steps (`map_001`, Emberfoot Village)
 
@@ -196,12 +198,14 @@ system already uses. This keeps the FTUE fully inside the authority model
 
 ## Open Questions
 
-- The Lv 8-by-hour-end plausibility check (§2) leans on `10_systems/LEVELING.md` §1's own
-  ≈480-kills/hour and ≈70%-hunting assumptions, which that doc already flags as unmeasured
-  (its own Open Questions). If Emberfoot's actual authored spawn density or its 10-quest budget
-  under- or over-shoots those assumptions, the 30-minute estimate in §2 could stretch — there is
-  slack in the 60-minute target to absorb some drift, but Phase D's Emberfoot content pass should
-  sanity-check real kills-to-Lv8 against this doc's estimate once mob/quest data exists.
+- **Lv-8 gate vs the 60-minute intro (reopened by the 2026-07-24 pacing retune).** On the
+  retuned curve, cumulative `/played` to reach Lv 8 is ≈ 1.1 h (`10_systems/LEVELING.md` §1),
+  which lands the Lv-8 ferry gate **just past** the 60-minute budget on pure at-level pacing.
+  The owner must pick the lever: front-load scripted first-clear/guided-quest `exp` into the
+  Emberfoot tutorial path so Lv 8 fits the hour, or relax the gate to "≈first hour." Also leans
+  on §1's ≈480-kills/hour and ≈70%-hunting assumptions, which that doc flags as unmeasured;
+  Phase D's Emberfoot content pass should sanity-check real kills-to-Lv-8 once mob/quest data
+  exists.
 - Whether the Kiln Heart arena portal (`map_016`) should carry a soft level-suggestion gate (a
   sign/dialogue warning, not a hard block) for a player who rushes there under-leveled is undecided
   (§12); default per this doc is no gate, consistent with the no-invisible-walls stance, but flagged

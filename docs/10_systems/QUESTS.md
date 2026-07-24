@@ -93,14 +93,14 @@ quest_exp = round( pct · exp_to_next(quest_level) )     # exp_to_next per 10_sy
 
 | `quest_level` | `exp_to_next` (`10_systems/LEVELING.md` §1) | `main` reward (15–30%) | `side` reward (5–10%) |
 |---|---|---|---|
-| 1 | 80 | 12–24 | 4–8 |
-| 10 | 3,200 | 480–960 | 160–320 |
-| 20 | 19,700 | 2,955–5,910 | 985–1,970 |
-| 30 | 66,600 | 9,990–19,980 | 3,330–6,660 |
-| 50 | 336,440 | 50,466–100,932 | 16,822–33,644 |
-| 70 | 1,002,000 | 150,300–300,600 | 50,100–100,200 |
-| 90 | 2,277,960 | 341,694–683,388 | 113,898–227,796 |
-| 99 | 3,112,560 | 466,884–933,768 | 155,628–311,256 |
+| 1 | 108 | 16–32 | 5–11 |
+| 10 | 8,480 | 1,272–2,544 | 424–848 |
+| 20 | 45,704 | 6,856–13,711 | 2,285–4,570 |
+| 30 | 132,534 | 19,880–39,760 | 6,627–13,253 |
+| 50 | 549,950 | 82,492–164,985 | 27,498–54,995 |
+| 70 | 1,464,924 | 219,739–439,477 | 73,246–146,492 |
+| 90 | 3,103,026 | 465,454–930,908 | 155,151–310,303 |
+| 99 | 4,140,648 | 621,097–1,242,194 | 207,032–414,065 |
 
 A region's total quest `exp` should land near **≈25%** of the `exp` needed to clear that region's
 level band (`10_systems/LEVELING.md` §4 — cited, not restated); Phase D sums each region's
@@ -203,6 +203,14 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 - Exact per-quest `pct` within the §4 bands, and the regional ≈25% reconciliation, is Phase D
   authoring work per `10_systems/LEVELING.md` §4's own Open Question; not resolved to the exact
   quest here.
+- **Authored quest `exp` rewards need a mechanical regen pass (stale against the new curve).** The
+  §4 reward is `pct · exp_to_next(quest_level)`, and `exp_to_next` changed with the ratified pacing
+  curve (`10_systems/LEVELING.md` §1). The computed `exp` integers already stored in
+  `docs/50_content/quests/*.yaml` are therefore stale and must be **regenerated mechanically** in a
+  Phase-D content pass against the new `exp_to_next` (the `pct` bands and every rule here are
+  unchanged) — do not hand-edit the content files. `shards` rewards (§5, income-indexed) and monster
+  `stats.exp` (per-kill, `10_systems/LEVELING.md` §3) are **not** stale. Owner: Phase-D content /
+  producer.
 - `quest_object` full mechanics (respawn timer, whether non-questers can see/interact with it) are
   owned by `15_maps_system/MAP_INTERACTABLES.md`, not yet authored; this doc only fixes the
   grant-on-interact contract (§3.1).
