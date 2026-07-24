@@ -14,14 +14,15 @@ and MOTD only** — no guild bank, no guild quests (§8).
 
 ## 1. Creation
 
-- **Requirement: founder `level` ≥ 30** — the 2nd job advancement (`10_systems/JOBS.md` §1), a
+- **Requirement: founder `level` ≥ 40** — the 2nd job advancement (`10_systems/JOBS.md` §1), a
   meaningful but not endgame milestone.
 - **Fee: 100,000 `shards`**, paid by the founder alone (no guild bank exists to split it, §8).
   This adopts `10_systems/ECONOMY.md` §6's placeholder as authoritative — that doc reserves the
   exact number to this one.
-- Creation happens at the **guild hall** interior, Millbrook Township (`map_033`,
-  `docs/WORLD_PLAN.md` R3) — the only guild hall in the world, matching Millbrook's role as the
-  social heart (`00_vision/PILLARS.md` P3). The panel is toggled with `G`
+- Creation happens at the **guild hall** interior in Millbrook Central (`map_022`,
+  `docs/WORLD_PLAN.md` R2 interior block `map_019`–`map_026`) — the only guild hall in the
+  world, matching Millbrook's role as the social heart (`00_vision/PILLARS.md` P3). The panel
+  is toggled with `G`
   (`10_systems/CONTROLS.md` §1) and rendered in `frame_window` (`10_systems/HUD.md` §1), both
   already reserved for Guild by those docs.
 - One guild membership per character. The fee is only charged once the chosen name (§2) is
@@ -50,7 +51,7 @@ Leadership transfer is leader-initiated only (no auto-succession like
 
 ## 4. Roster cap & growth
 
-Base cap **20**. The leader may purchase **+10** per step at the guild hall (`map_033`), up to
+Base cap **20**. The leader may purchase **+10** per step at the guild hall (`map_022`), up to
 **4 purchases** (cap **60**), paid personally (§8 — no guild bank). The `shards` cost per step is
 reserved to `10_systems/ECONOMY.md`, mirroring how that doc reserves the creation fee here (§1);
 not fixed in this doc (Open Questions).
@@ -122,3 +123,6 @@ character has no one else to recruit, so no guild ever meaningfully forms.
 - Guild-hop cooldown: none at launch (§1) since there is no bank/reward to farm by hopping (§8);
   revisit if that changes.
 - Guild bank and guild quests (§8) are deferred future features, not designed here.
+- The guild-hall interior is placed at `map_022` by position in `docs/WORLD_PLAN.md` R2's
+  `map_019`–`map_026` interior list (inn/smithy/market hall/**guild hall**/…); Phase D
+  confirms the exact interior ID within that block when the R2 interiors are authored.
