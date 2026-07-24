@@ -230,8 +230,29 @@ the docs don't give:
 | 3.9 | Kills/hour falsification plan | Medium | LEVELING.md + SPAWN.md |
 | 4.2–4.7 | HUD/controls/climb spec gaps | Low–Medium | HUD.md, CONTROLS.md, MAP_TRAVERSAL.md, AI_BEHAVIOR.md |
 
+## 6. Resolution log (owner-directed fix pass, 2026-07-24)
+
+The owner reviewed this report and directed a same-day fix pass. Landed:
+
+| Finding | Resolution |
+|---|---|
+| 2.1 move speed | `COMBAT_FORMULA.md` §10 synced to MAP_TRAVERSAL's 8 tiles/s (128 px/s); 200 px/s retired. |
+| 2.2 spawn density | `SPAWN.md` §2 re-anchored to **per 20 tiles of walkable extent** — zoom-independent, scales linearly across dynamic map sizes (3-screen to 10-screen maps, tall shafts) with a per-zone floor. |
+| 2.3 FTUE hour | Decision in `ONBOARDING_FTUE.md` §2: front-loaded scripted first-clear/top-band quest grants; the Lv-8 ferry gate stays a real ≈60-minute promise. LEVELING OQ synced. |
+| 2.4 handler quests | Decision: handler quests are **one-time** (`QUESTS.md` §7 keeps zero exceptions); repeat-clear rewards route through `RAID.md` §5–§6's own mechanics. Both docs synced. |
+| 4.1 monster `life` feedback | Owner decision: non-boss monsters show a `life` bar **beneath the sprite** — show-on-damage, 4 s fade, elite trim, bosses excluded. New `HUD.md` §6.1. |
+| 4.2 wallet | `HUD.md` §3 places the `shards` wallet right-aligned in the bottom bar, mirrored in the Inventory window footer — matching what `INVENTORY.md` §3 already assumed. |
+| 4.4 party frames | New `HUD.md` §4.1 reserves the region below the player plate (≤5 plates, % bars, fallen state) — the region `PARTY.md` §3 already forward-referenced; dormant in solo. |
+| — (new) | `10_systems/UI_WINDOWS.md` authored: layout anatomy for the Inventory, Character/Equipment (paper-doll), Party, and Guild toggle windows in the classic framed-window family, original identity (P7). Mock-ups added to `docs/mockups/gameplay_scene_mockup.html` §4–§5. |
+
+Still open (design work, not contradictions): 3.1 out-of-combat recovery, 3.2 `essence` sustain,
+3.3 spec permanence, 3.4 Lv-40 seam beat, 3.5 arc-2 session beat, 3.6 death travel budget,
+3.7 raid disconnect grace, 3.8 carry-meta reconciliation, 3.9 kills/hour falsification plan,
+4.3 minimap contents, 4.5 gamepad reticle aim, 4.6 climb-state combat rules, 4.7 elite-flag
+vocabulary.
+
 ## Open Questions
 
-- None owned here — this is a review report. Every finding above is addressed to its owning
-  doc's Open Questions channel per CLAUDE.md law 4; the owning docs adopt or reject them at the
-  next gate.
+- None owned here — this is a review report. Every remaining finding above is addressed to its
+  owning doc's Open Questions channel per CLAUDE.md law 4; the owning docs adopt or reject them
+  at the next gate.

@@ -128,13 +128,15 @@ Sprites/hex values are illustrative placeholders — art identity is owned by <c
   <rect x="180" y="248" width="60" height="11" rx="2" fill="#241726" opacity="0.82"/>
   <text x="210" y="256.5" font-family="ui-monospace,monospace" font-size="7.5" fill="#fbf7ef" text-anchor="middle">Ember · Lv 6</text>
 
-  <!-- normal mob A (being hit) -->
+  <!-- normal mob A (being hit) + show-on-damage life bar beneath the sprite (HUD §6.1) -->
   <g class="px">
     <rect x="288" y="278" width="22" height="14" fill="#a65f38"/>
     <rect x="284" y="282" width="6" height="8" fill="#a65f38"/>
     <rect x="306" y="272" width="8" height="10" fill="#a65f38"/>
     <rect x="308" y="275" width="2" height="2" fill="#f6c34b"/>
     <rect x="290" y="292" width="4" height="4" fill="#7a4630"/><rect x="302" y="292" width="4" height="4" fill="#7a4630"/>
+    <rect x="284" y="298" width="30" height="3" fill="#241726"/>
+    <rect x="285" y="299" width="17" height="1.5" fill="#c8461f"/>
   </g>
   <rect x="272" y="260" width="58" height="10" rx="2" fill="#241726" opacity="0.82"/>
   <text x="301" y="267.5" font-family="ui-monospace,monospace" font-size="7" fill="#b8aeb8" text-anchor="middle">mob_005 · Lv 5</text>
@@ -151,14 +153,15 @@ Sprites/hex values are illustrative placeholders — art identity is owned by <c
   <rect x="521" y="264" width="58" height="10" rx="2" fill="#241726" opacity="0.82"/>
   <text x="550" y="271.5" font-family="ui-monospace,monospace" font-size="7" fill="#b8aeb8" text-anchor="middle">mob_006 · Lv 6</text>
 
-  <!-- elite on ledge, with review-placeholder recent-hit life sliver (see review §4.1) -->
+  <!-- elite on ledge; elite life bar beneath the sprite, framed trim (HUD §6.1) -->
   <g class="px">
     <rect x="478" y="156" width="30" height="20" fill="#8a3a2c"/>
     <rect x="472" y="161" width="8" height="11" fill="#8a3a2c"/>
     <rect x="508" y="150" width="10" height="13" fill="#8a3a2c"/>
     <rect x="511" y="154" width="3" height="3" fill="#f6c34b"/>
     <rect x="481" y="176" width="5" height="4" fill="#5a241c"/><rect x="499" y="176" width="5" height="4" fill="#5a241c"/>
-    <rect x="478" y="151" width="30" height="2" fill="#241726"/><rect x="478" y="151" width="19" height="2" fill="#c8461f"/>
+    <rect x="476" y="182" width="34" height="5" fill="#241726" stroke="#8a7a92" stroke-width="0.5"/>
+    <rect x="477" y="183" width="21" height="3" fill="#c8461f"/><rect x="477" y="183" width="21" height="1.5" fill="#e8642c"/>
   </g>
   <rect x="458" y="136" width="72" height="10" rx="2" fill="#241726" opacity="0.85"/>
   <text x="494" y="143.5" font-family="ui-monospace,monospace" font-size="7" fill="#f0955f" text-anchor="middle">mob_011 · Elite Lv 7</text>
@@ -267,9 +270,9 @@ Sprites/hex values are illustrative placeholders — art identity is owned by <c
       <g><rect x="448" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="450" y="332" font-size="5" fill="#5a4a62">F3</text></g>
       <g><rect x="472" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="474" y="332" font-size="5" fill="#5a4a62">F4</text></g>
     </g>
-    <!-- review §4.2: no wallet region exists in HUD.md — shown as a gap -->
-    <rect x="540" y="325" width="88" height="21" fill="none" stroke="#c8461f" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
-    <text x="584" y="338.5" font-family="ui-monospace,monospace" font-size="6" fill="#c8461f" text-anchor="middle" opacity="0.9">shards wallet: unspecified</text>
+    <!-- shards wallet, right-aligned in the bottom bar (HUD §3, INVENTORY §3) -->
+    <path d="M549,335 l5,-7 5,7 -5,7 Z" fill="#f6c34b"/><path d="M549,335 l5,-7 5,7 Z" fill="#fbe49a"/>
+    <text x="563" y="338.5" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#fbf7ef">12,480</text>
   </g>
   <!-- exp strip: full-width, thin, arcane ramp, very bottom -->
   <rect x="0" y="355" width="640" height="5" fill="#171020"/>
@@ -297,7 +300,8 @@ Sprites/hex values are illustrative placeholders — art identity is owned by <c
     <g><circle cx="612" cy="232" r="6.5" fill="#f6c34b"/><text x="612" y="235" fill="#241726" text-anchor="middle">17</text></g>
     <g><circle cx="264" cy="297" r="6.5" fill="#f6c34b"/><text x="264" y="300" fill="#241726" text-anchor="middle">18</text></g>
     <g><circle cx="356" cy="264" r="6.5" fill="#f6c34b"/><text x="356" y="267" fill="#241726" text-anchor="middle">19</text></g>
-    <g><circle cx="530" cy="150" r="6.5" fill="#f6c34b"/><text x="530" y="153" fill="#241726" text-anchor="middle">20</text></g>
+    <g><circle cx="522" cy="192" r="6.5" fill="#f6c34b"/><text x="522" y="195" fill="#241726" text-anchor="middle">20</text></g>
+    <g><circle cx="600" cy="335" r="6.5" fill="#f6c34b"/><text x="600" y="338" fill="#241726" text-anchor="middle">21</text></g>
   </g>
 </svg>
 
@@ -321,10 +325,11 @@ Sprites/hex values are illustrative placeholders — art identity is owned by <c
   <div><b>17</b> Portal → map_006 (world-graph edge) <span class="doc">MAP_CONNECTIONS</span></div>
   <div><b>18</b> Elite <code>aoe_circle</code> telegraph disc <span class="doc">SKILL_SYSTEM §6, P1</span></div>
   <div><b>19</b> <code>shards</code> drop, auto-loot on contact <span class="doc">DROPS §3, INVENTORY §4</span></div>
-  <div><b>20</b> Elite recent-hit <code>life</code> sliver — <b>review placeholder</b>, no doc owns mob health feedback <span class="doc">review §4.1</span></div>
+  <div><b>20</b> Monster <code>life</code> bar <b>beneath</b> the sprite — non-boss, show-on-damage, 4&nbsp;s fade; elite gets framed trim; untouched mobs (right) show none <span class="doc">HUD §6.1</span></div>
+  <div><b>21</b> <code>shards</code> wallet, right-aligned in the bottom bar; mirrored in the Inventory window footer <span class="doc">HUD §3, INVENTORY §3, UI_WINDOWS §2</span></div>
 </div>
-<p class="note">Dashed cyan rectangle = spawn-zone authoring annotation (SPAWN.md §1), and the dashed red box bottom-right marks the missing wallet
-readout (review §4.2) — neither is game UI. Camera: player sits inside the 6×3-tile deadzone with rightward lookahead easing in (CAMERA §1–§2).</p>
+<p class="note">Dashed cyan rectangle = spawn-zone authoring annotation (SPAWN.md §1) — not game UI. Camera: player sits inside the
+6×3-tile deadzone with rightward lookahead easing in (CAMERA §1–§2). Party frames (HUD §4.1) stack under the player plate when grouped — solo here, so hidden (see §4 below).</p>
 </div>
 
 <h2>2 · Contextual variant — boss arena (<code>boss_bar</code> + camera lock)</h2>
@@ -378,6 +383,214 @@ readout (review §4.2) — neither is game UI. Camera: player sits inside the 6�
   </div>
   <p class="note" style="border-color:var(--link)">Playfield draw order per MAP_LAYERS §2; lighting is a single scene-wide <code>ambient_tint</code> modulate — no dynamic lights (MAP_LAYERS §5).
   Camera renders at integer zoom on whole pixels (CAMERA §5); parallax scales against the camera's final tracked position (CAMERA §8).</p>
+</div>
+
+<h2>4 · Toggle windows — Inventory &amp; Character/Equipment (<code>UI_WINDOWS.md</code> §2–§3)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 250" role="img" aria-label="Inventory and Character window mock-ups">
+  <rect x="0" y="0" width="640" height="250" fill="#171020" class="px"/>
+  <!-- ================= INVENTORY WINDOW (I) ================= -->
+  <g>
+    <rect x="30" y="14" width="242" height="220" rx="3" fill="#241726" stroke="#8a7a92" stroke-width="1.5"/>
+    <rect x="30" y="14" width="242" height="18" fill="#2d2340"/>
+    <text x="40" y="27" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef">Inventory</text>
+    <text x="260" y="27" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8" text-anchor="middle">✕</text>
+    <!-- tabs -->
+    <rect x="40" y="38" width="44" height="14" rx="2" fill="#3a2f48" stroke="#f6c34b" stroke-width="1"/>
+    <text x="62" y="48" font-family="ui-monospace,monospace" font-size="7.5" fill="#f6c34b" text-anchor="middle">equip</text>
+    <rect x="88" y="38" width="36" height="14" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+    <text x="106" y="48" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0" text-anchor="middle">use</text>
+    <rect x="128" y="38" width="36" height="14" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+    <text x="146" y="48" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0" text-anchor="middle">etc</text>
+    <!-- 6x4 grid, base 24 slots -->
+    <g class="px">
+      <!-- row template: y 58,84,110,136 ; x 44 + col*26 -->
+      <g fill="#171020" stroke="#5a4a62" stroke-width="1">
+        <rect x="44" y="58" width="24" height="24"/><rect x="70" y="58" width="24" height="24"/><rect x="96" y="58" width="24" height="24"/><rect x="122" y="58" width="24" height="24"/><rect x="148" y="58" width="24" height="24"/><rect x="174" y="58" width="24" height="24"/>
+        <rect x="44" y="84" width="24" height="24"/><rect x="70" y="84" width="24" height="24"/><rect x="96" y="84" width="24" height="24"/><rect x="122" y="84" width="24" height="24"/><rect x="148" y="84" width="24" height="24"/><rect x="174" y="84" width="24" height="24"/>
+        <rect x="44" y="110" width="24" height="24"/><rect x="70" y="110" width="24" height="24"/><rect x="96" y="110" width="24" height="24"/><rect x="122" y="110" width="24" height="24"/><rect x="148" y="110" width="24" height="24"/><rect x="174" y="110" width="24" height="24"/>
+        <rect x="44" y="136" width="24" height="24"/><rect x="70" y="136" width="24" height="24"/><rect x="96" y="136" width="24" height="24"/><rect x="122" y="136" width="24" height="24"/><rect x="148" y="136" width="24" height="24"/><rect x="174" y="136" width="24" height="24"/>
+      </g>
+      <!-- item: rare blade (rarity ring) -->
+      <rect x="44" y="58" width="24" height="24" fill="none" stroke="#54b0c6" stroke-width="1.5"/>
+      <path d="M49,77 L62,64 M60,64 h3 v3" stroke="#e8e8f0" stroke-width="2" fill="none"/>
+      <!-- item: uncommon head -->
+      <rect x="70" y="58" width="24" height="24" fill="none" stroke="#3f9a45" stroke-width="1.5"/>
+      <path d="M75,72 a7,6 0 0 1 14,0 v3 h-14 Z" fill="#8a7a92"/>
+      <!-- item: epic ring -->
+      <rect x="96" y="58" width="24" height="24" fill="none" stroke="#a678d4" stroke-width="1.5"/>
+      <circle cx="108" cy="71" r="5" fill="none" stroke="#f6c34b" stroke-width="2"/>
+      <!-- selected empty slot -->
+      <rect x="122" y="58" width="24" height="24" fill="none" stroke="#f6c34b" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <!-- locked slot glyph -->
+      <rect x="174" y="136" width="24" height="24" fill="#100a18"/>
+      <text x="186" y="152" font-family="ui-monospace,monospace" font-size="9" fill="#5a4a62" text-anchor="middle">🔒</text>
+    </g>
+    <text x="151" y="172" font-family="ui-monospace,monospace" font-size="6.5" fill="#8d7fa0" text-anchor="middle">base 24 slots · +8 rows to 48 (INVENTORY §1)</text>
+    <!-- footer: wallet + buttons -->
+    <rect x="30" y="204" width="242" height="30" fill="#2d2340"/>
+    <path d="M44,219 l5,-7 5,7 -5,7 Z" fill="#f6c34b"/><path d="M44,219 l5,-7 5,7 Z" fill="#fbe49a"/>
+    <text x="58" y="222.5" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#fbf7ef">12,480</text>
+    <rect x="164" y="211" width="42" height="16" rx="2" fill="#3a2f48" stroke="#8a7a92" stroke-width="1"/>
+    <text x="185" y="222" font-family="ui-monospace,monospace" font-size="7.5" fill="#fbf7ef" text-anchor="middle">Sort</text>
+    <rect x="212" y="211" width="42" height="16" rx="2" fill="#3a2f48" stroke="#5a4a62" stroke-width="1"/>
+    <text x="233" y="222" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0" text-anchor="middle">Sell</text>
+  </g>
+  <!-- ================= CHARACTER WINDOW (K) ================= -->
+  <g>
+    <rect x="322" y="8" width="288" height="232" rx="3" fill="#241726" stroke="#8a7a92" stroke-width="1.5"/>
+    <rect x="322" y="8" width="288" height="18" fill="#2d2340"/>
+    <text x="332" y="21" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef">Character</text>
+    <text x="598" y="21" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8" text-anchor="middle">✕</text>
+    <rect x="332" y="32" width="64" height="14" rx="2" fill="#3a2f48" stroke="#f6c34b" stroke-width="1"/>
+    <text x="364" y="42" font-family="ui-monospace,monospace" font-size="7.5" fill="#f6c34b" text-anchor="middle">Character</text>
+    <rect x="400" y="32" width="44" height="14" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+    <text x="422" y="42" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0" text-anchor="middle">Skills</text>
+    <!-- paper-doll: slots ringed around idle preview -->
+    <g font-family="ui-monospace,monospace" font-size="5.5" fill="#8d7fa0">
+      <g class="px" fill="#171020" stroke="#5a4a62" stroke-width="1">
+        <rect x="336" y="54" width="20" height="20"/><rect x="336" y="82" width="20" height="20"/><rect x="336" y="110" width="20" height="20"/><rect x="336" y="138" width="20" height="20"/>
+        <rect x="452" y="54" width="20" height="20"/><rect x="452" y="82" width="20" height="20"/><rect x="452" y="110" width="20" height="20"/><rect x="452" y="138" width="20" height="20"/><rect x="452" y="166" width="20" height="20"/>
+      </g>
+      <text x="346" y="82" text-anchor="middle">head</text><text x="346" y="110" text-anchor="middle">cape</text><text x="346" y="138" text-anchor="middle">weapon</text><text x="346" y="166" text-anchor="middle">gloves</text>
+      <text x="462" y="82" text-anchor="middle">amulet</text><text x="462" y="110" text-anchor="middle">ring</text><text x="462" y="138" text-anchor="middle">body</text><text x="462" y="166" text-anchor="middle">legs</text><text x="462" y="194" text-anchor="middle">boots</text>
+      <!-- equipped: weapon + body filled -->
+      <path d="M340,126 L352,114 M350,114 h3 v3" stroke="#e8e8f0" stroke-width="2" fill="none"/>
+      <rect x="452" y="110" width="20" height="20" fill="none" stroke="#3f9a45" stroke-width="1.5"/>
+      <rect x="457" y="115" width="10" height="11" fill="#3f9a45"/>
+    </g>
+    <!-- idle preview -->
+    <rect x="366" y="54" width="80" height="132" fill="#171020" stroke="#3a2f48" stroke-width="1"/>
+    <g class="px">
+      <rect x="396" y="106" width="16" height="20" fill="#3f9a45"/>
+      <rect x="396" y="96" width="16" height="11" fill="#e8b98a"/>
+      <rect x="394" y="92" width="20" height="6" fill="#5a3a28"/>
+      <rect x="396" y="126" width="7" height="14" fill="#4a3020"/><rect x="405" y="126" width="7" height="14" fill="#4a3020"/>
+    </g>
+    <text x="406" y="180" font-family="ui-monospace,monospace" font-size="6" fill="#5a4a62" text-anchor="middle">idle preview</text>
+    <!-- stats column -->
+    <g font-family="ui-monospace,monospace" font-size="7.5">
+      <text x="486" y="62" fill="#f6c34b">might</text><text x="560" y="62" fill="#fbf7ef">12</text><text x="576" y="62" fill="#3f9a45">[+]</text>
+      <text x="486" y="76" fill="#b8aeb8">finesse</text><text x="560" y="76" fill="#fbf7ef">12</text><text x="576" y="76" fill="#3f9a45">[+]</text>
+      <text x="486" y="90" fill="#b8aeb8">focus</text><text x="560" y="90" fill="#fbf7ef">12</text><text x="576" y="90" fill="#3f9a45">[+]</text>
+      <text x="486" y="104" fill="#b8aeb8">fortune</text><text x="560" y="104" fill="#fbf7ef">12</text><text x="576" y="104" fill="#3f9a45">[+]</text>
+      <text x="486" y="115" fill="#5a4a62">— free points: 4 —</text>
+      <text x="486" y="130" fill="#b8aeb8">life</text><text x="560" y="130" fill="#fbf7ef">153</text>
+      <text x="486" y="143" fill="#b8aeb8">essence</text><text x="560" y="143" fill="#fbf7ef">59</text>
+      <text x="486" y="156" fill="#b8aeb8">power</text><text x="560" y="156" fill="#fbf7ef">24</text>
+      <text x="486" y="169" fill="#b8aeb8">armor</text><text x="560" y="169" fill="#fbf7ef">8</text>
+      <text x="486" y="182" fill="#b8aeb8">crit_rate</text><text x="560" y="182" fill="#fbf7ef">6.2%</text>
+      <text x="486" y="195" fill="#b8aeb8">haste</text><text x="560" y="195" fill="#fbf7ef">0</text>
+    </g>
+    <!-- footer -->
+    <rect x="322" y="212" width="288" height="28" fill="#2d2340"/>
+    <text x="332" y="229" font-family="ui-monospace,monospace" font-size="8" fill="#fbf7ef">Ember · Lv 6 · Novice</text>
+    <rect x="470" y="222" width="120" height="6" fill="#171020" stroke="#5a4a62" stroke-width="0.5"/>
+    <rect x="471" y="223" width="41" height="4" fill="#7b4fa6"/>
+    <text x="596" y="229" font-family="ui-monospace,monospace" font-size="7" fill="#a678d4" text-anchor="end">34%</text>
+  </g>
+</svg>
+<p class="note" style="border-color:var(--link)">Open <code>K</code> (left-anchored) beside <code>I</code> (right-anchored) and drag between doll and bag — the classic loop (UI_WINDOWS §2–§3).
+Slot construction, rarity rings, and tooltips are the locked UI_ART_SPEC constructions; provisional <code>shield</code>/<code>overall</code> doll positions are reserved, not shown.
+The wallet here mirrors the bottom-bar wallet — one value, two readouts.</p>
+</div>
+
+<h2>5 · Toggle windows — Party &amp; Guild (<code>UI_WINDOWS.md</code> §4–§5) + HUD party frames</h2>
+<div class="frame">
+<svg viewBox="0 0 640 210" role="img" aria-label="Party and Guild window mock-ups">
+  <rect x="0" y="0" width="640" height="210" fill="#171020" class="px"/>
+  <!-- HUD party frames sample (in-world, under player plate) -->
+  <g>
+    <text x="24" y="24" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0">HUD party frames (HUD §4.1)</text>
+    <g>
+      <rect x="24" y="32" width="118" height="24" rx="2" fill="#241726" opacity="0.92" stroke="#6b5a6e" stroke-width="1"/>
+      <text x="30" y="42" font-family="ui-monospace,monospace" font-size="7" fill="#fbf7ef">Marrow · 7 ♛</text>
+      <circle cx="134" cy="40" r="2.5" fill="#3f9a45"/>
+      <rect x="30" y="46" width="84" height="3.5" fill="#171020"/><rect x="30" y="46" width="63" height="3.5" fill="#c8461f"/>
+      <rect x="30" y="51" width="84" height="3" fill="#171020"/><rect x="30" y="51" width="34" height="3" fill="#2e7f96"/>
+    </g>
+    <g>
+      <rect x="24" y="60" width="118" height="24" rx="2" fill="#241726" opacity="0.92" stroke="#6b5a6e" stroke-width="1"/>
+      <text x="30" y="70" font-family="ui-monospace,monospace" font-size="7" fill="#fbf7ef">Tansy · 6</text>
+      <circle cx="134" cy="68" r="2.5" fill="#3f9a45"/>
+      <rect x="30" y="74" width="84" height="3.5" fill="#171020"/><rect x="30" y="74" width="80" height="3.5" fill="#c8461f"/>
+      <rect x="30" y="79" width="84" height="3" fill="#171020"/><rect x="30" y="79" width="70" height="3" fill="#2e7f96"/>
+    </g>
+    <g opacity="0.55">
+      <rect x="24" y="88" width="118" height="24" rx="2" fill="#241726" stroke="#6b5a6e" stroke-width="1"/>
+      <text x="30" y="98" font-family="ui-monospace,monospace" font-size="7" fill="#b8aeb8">Rook · 7 ☠ fallen</text>
+      <circle cx="134" cy="96" r="2.5" fill="#5a4a62"/>
+      <rect x="30" y="102" width="84" height="3.5" fill="#171020"/>
+      <rect x="30" y="107" width="84" height="3" fill="#171020"/>
+    </g>
+    <text x="24" y="126" font-family="ui-monospace,monospace" font-size="6" fill="#5a4a62">% bars only · same-map dot · fallen stays rendered</text>
+  </g>
+  <!-- PARTY WINDOW (P) -->
+  <g>
+    <rect x="180" y="10" width="216" height="190" rx="3" fill="#241726" stroke="#8a7a92" stroke-width="1.5"/>
+    <rect x="180" y="10" width="216" height="18" fill="#2d2340"/>
+    <text x="190" y="23" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef">Party</text>
+    <text x="384" y="23" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8" text-anchor="middle">✕</text>
+    <rect x="190" y="34" width="44" height="13" rx="2" fill="#3a2f48" stroke="#f6c34b" stroke-width="1"/>
+    <text x="212" y="43.5" font-family="ui-monospace,monospace" font-size="7" fill="#f6c34b" text-anchor="middle">Party</text>
+    <rect x="238" y="34" width="44" height="13" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+    <text x="260" y="43.5" font-family="ui-monospace,monospace" font-size="7" fill="#8d7fa0" text-anchor="middle">Board</text>
+    <g font-family="ui-monospace,monospace" font-size="7.5">
+      <text x="192" y="62" fill="#f6c34b">♛ Marrow</text><text x="290" y="62" fill="#b8aeb8">Lv 7 · Bulwark</text>
+      <text x="192" y="78" fill="#fbf7ef">Ember (you)</text><text x="290" y="78" fill="#b8aeb8">Lv 6 · Novice</text>
+      <text x="192" y="94" fill="#fbf7ef">Tansy</text><text x="290" y="94" fill="#b8aeb8">Lv 6 · Weaver</text>
+      <text x="192" y="110" fill="#5a4a62">Rook ☠</text><text x="290" y="110" fill="#5a4a62">Lv 7 · Keeneye</text>
+    </g>
+    <line x1="190" y1="120" x2="386" y2="120" stroke="#3a2f48" stroke-width="1"/>
+    <g font-family="ui-monospace,monospace" font-size="7">
+      <text x="192" y="134" fill="#8d7fa0">loot:</text>
+      <rect x="220" y="126" width="76" height="12" rx="2" fill="#3a2f48" stroke="#8a7a92" stroke-width="1"/>
+      <text x="258" y="135" fill="#fbf7ef" text-anchor="middle">round_robin ▾</text>
+      <text x="192" y="152" fill="#8d7fa0">leader: [Invite] [Kick] [Promote]</text>
+    </g>
+    <rect x="180" y="164" width="216" height="36" fill="#2d2340"/>
+    <text x="190" y="178" font-family="ui-monospace,monospace" font-size="7" fill="#3f9a45">4 same-map · exp pool bonus active</text>
+    <text x="190" y="190" font-family="ui-monospace,monospace" font-size="7" fill="#3f9a45">party_drop_bonus ×1.16 (DROPS §4.1)</text>
+  </g>
+  <!-- GUILD WINDOW (G) -->
+  <g>
+    <rect x="416" y="4" width="208" height="200" rx="3" fill="#241726" stroke="#8a7a92" stroke-width="1.5"/>
+    <rect x="416" y="4" width="208" height="18" fill="#2d2340"/>
+    <text x="426" y="17" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef">Guild — Kilnkeepers</text>
+    <text x="612" y="17" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8" text-anchor="middle">✕</text>
+    <g font-family="ui-monospace,monospace" font-size="7">
+      <rect x="426" y="28" width="44" height="13" rx="2" fill="#3a2f48" stroke="#f6c34b" stroke-width="1"/>
+      <text x="448" y="37.5" fill="#f6c34b" text-anchor="middle">Roster</text>
+      <rect x="474" y="28" width="40" height="13" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+      <text x="494" y="37.5" fill="#8d7fa0" text-anchor="middle">Crest</text>
+      <rect x="518" y="28" width="36" height="13" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+      <text x="536" y="37.5" fill="#8d7fa0" text-anchor="middle">Info</text>
+    </g>
+    <!-- crest preview: heater shield + symbol -->
+    <g class="px">
+      <path d="M566,50 h40 v22 q0,14 -20,20 q-20,-6 -20,-20 Z" fill="#7d4152" stroke="#241726" stroke-width="2"/>
+      <path d="M578,62 l8,-8 8,8 -8,14 Z" fill="#f6c34b" stroke="#241726" stroke-width="1"/>
+    </g>
+    <text x="586" y="102" font-family="ui-monospace,monospace" font-size="6" fill="#8d7fa0" text-anchor="middle">crest (data)</text>
+    <g font-family="ui-monospace,monospace" font-size="7.5">
+      <text x="426" y="58" fill="#f6c34b">Marrow</text><text x="500" y="58" fill="#b8aeb8">leader</text>
+      <text x="426" y="72" fill="#fbf7ef">Ember</text><text x="500" y="72" fill="#b8aeb8">officer</text>
+      <text x="426" y="86" fill="#fbf7ef">Tansy</text><text x="500" y="86" fill="#b8aeb8">member</text>
+      <text x="426" y="100" fill="#fbf7ef">Rook</text><text x="500" y="100" fill="#b8aeb8">member</text>
+    </g>
+    <line x1="426" y1="112" x2="614" y2="112" stroke="#3a2f48" stroke-width="1"/>
+    <g font-family="ui-monospace,monospace" font-size="7">
+      <text x="426" y="126" fill="#8d7fa0">MOTD: "raid_undervault at dusk"</text>
+      <text x="426" y="142" fill="#8d7fa0">members 4 / 20 · guild_level 1</text>
+      <text x="426" y="158" fill="#5a4a62">contribution — server-live only</text>
+    </g>
+    <rect x="416" y="172" width="208" height="32" fill="#2d2340"/>
+    <text x="426" y="186" font-family="ui-monospace,monospace" font-size="7" fill="#8d7fa0">roster · chat · crest · MOTD live in solo;</text>
+    <text x="426" y="196" font-family="ui-monospace,monospace" font-size="7" fill="#8d7fa0">levels/goals dormant (GUILD §0, P6)</text>
+  </g>
+</svg>
+<p class="note" style="border-color:var(--link)">All mechanics shown belong to PARTY.md / GUILD.md / DROPS.md — the windows are pure views (UI_WINDOWS §6).
+Names shown are illustrative player names, not content tokens.</p>
 </div>
 
 <p class="sub" style="margin-top:20px">Companion critical review: <code>docs/phase_reports/GAMEPLAY_LOOP_REVIEW_2026-07-24.md</code>.
