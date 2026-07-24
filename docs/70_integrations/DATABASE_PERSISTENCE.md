@@ -224,8 +224,26 @@ Reset semantics (day/week boundaries) stay `10_systems/PERSISTENCE.md` §2.1's; 
 weekly-goal counters key on the guild instead and live in the `social` schema (§3.3) with the
 rest of the guild registry (`10_systems/social/GUILD.md` §11). The **capsule weekly purchase-cap
 counter** is a third scope — **account**, not character (`10_systems/GACHAPON.md` §1.3/§7, owner
-amendment PA-002) — so it cannot key on `character_id` here; its placement rides on the
-account-root store decision (Open Questions).
+amendment PA-002) — so it cannot key on `character_id`; it gets the account analogue of the same
+shape (shown here beside its sibling; its *schema* is the account root's, below):
+
+```
+account_time_gate(account_id FK → the account root, gate_key text, window_start_ts timestamptz,
+                  count_in_window int)
+                  -- PK (account_id, gate_key); one row per gate per account
+```
+
+`account_time_gate` **follows the account root**: it holds no game state, only a counter keyed on
+`account_id`, so it lands in whichever schema owns `70_integrations/ACCOUNTS_AUTH.md` §2.1's account
+row — the dedicated `account` schema under this doc's default, or `char` if the root lands there
+instead (Open Questions). Either way the FK stays inside one schema and §2's cross-schema story is
+unchanged; under the `account`-schema outcome that schema's write grant widens past auth-service-only
+to the purchase path, settled with the same placement bullet. The cap value, what counts against it,
+and its account scope stay `10_systems/GACHAPON.md` §1.3/§7's (`authority: server` there, per
+`10_systems/PERSISTENCE.md` §2) — this table holds only the count and the window it opened in, and
+that window is that doc's §2.1 week boundary, the same one every weekly counter above resets on. No
+solo-build analog exists: the interim build ships no store (`10_systems/GACHAPON.md` §6), so this row
+is dormant until the live one (§9).
 
 ### 3.2 `wallet` schema — wallet / economy ledger
 
@@ -504,10 +522,13 @@ table's stances (fail-loud in dev, fail-safe in prod; refuse rather than fabrica
   (`70_integrations/ACCOUNTS_AUTH.md` §8) are grouped under the character DB by
   `70_integrations/BACKEND_ARCHITECTURE.md` §5; whether they sit in the `char` schema or a dedicated
   `account` schema owned solely by the auth-service role is a hardening detail to settle jointly with
-  that doc's revision — default: a separate `account` schema, auth-service-write-only.
-- **Account-scoped time-gate row (§3.1).** Owner amendment PA-002 makes the capsule weekly
+  that doc's revision — default: a separate `account` schema, auth-service-write-only. This same
+  decision now carries §3.1's `account_time_gate` (it follows the root) and, under the separate-schema
+  outcome, whether that schema's write grant widens past auth-service-only to the purchase path.
+- ~~**Account-scoped time-gate row (§3.1).** Owner amendment PA-002 makes the capsule weekly
   purchase-cap counter account-scoped (`10_systems/GACHAPON.md` §1.3/§7), and
-  `character_time_gate`'s PK is `(character_id, gate_key)` — it cannot hold it. The row belongs
-  wherever the account root lands (bullet above); the shape mirrors the existing one
-  (`account_id`, `gate_key`, `window_start_ts`, counter). Flagged, not designed here — settle it
-  with the account-store decision, before the capsule store is implemented.
+  `character_time_gate`'s PK is `(character_id, gate_key)` — it cannot hold it.~~ **Resolved
+  2026-07-24:** §3.1 adds `account_time_gate(account_id, gate_key, window_start_ts,
+  count_in_window)`, PK `(account_id, gate_key)` — the account analogue of `character_time_gate`,
+  resetting on `10_systems/PERSISTENCE.md` §2.1's week boundary. It settles no schema question of its
+  own: it follows the account root wherever the bullet above lands it.

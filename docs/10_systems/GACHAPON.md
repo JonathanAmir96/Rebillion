@@ -131,7 +131,9 @@ Equipment prizes reuse the existing `pool_equip_rNN` roll of the character's cur
   (`10_systems/ECONOMY.md` §6) and no player-run route from real money into `shards`.
 - All capsule state is `authority: server` (`10_systems/PERSISTENCE.md` §2): pull rolls, pity
   counter, weekly purchase-cap counter (**account-scoped** per §1.3, unlike the per-character
-  `capsule_pity` counter), and SKU entitlements/receipts. The client never rolls a
+  `capsule_pity` counter; stored as an `account_time_gate` row,
+  `70_integrations/DATABASE_PERSISTENCE.md` §3.1, resetting on `10_systems/PERSISTENCE.md` §2.1's
+  week boundary), and SKU entitlements/receipts. The client never rolls a
   prize (PERSISTENCE §7's "no self-assigned drop" rule applies verbatim). Ticket counts live in
   ordinary server-authoritative inventory.
 - Capsule state (pity, cap counters, receipts) is **excluded from the offline→online import**
