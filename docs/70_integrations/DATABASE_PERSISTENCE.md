@@ -222,7 +222,10 @@ character_time_gate(character_id FK → character, gate_key text, window_start_t
 
 Reset semantics (day/week boundaries) stay `10_systems/PERSISTENCE.md` §2.1's; guild-scoped
 weekly-goal counters key on the guild instead and live in the `social` schema (§3.3) with the
-rest of the guild registry (`10_systems/social/GUILD.md` §11).
+rest of the guild registry (`10_systems/social/GUILD.md` §11). The **capsule weekly purchase-cap
+counter** is a third scope — **account**, not character (`10_systems/GACHAPON.md` §1.3/§7, owner
+amendment PA-002) — so it cannot key on `character_id` here; its placement rides on the
+account-root store decision (Open Questions).
 
 ### 3.2 `wallet` schema — wallet / economy ledger
 
@@ -502,3 +505,9 @@ table's stances (fail-loud in dev, fail-safe in prod; refuse rather than fabrica
   `70_integrations/BACKEND_ARCHITECTURE.md` §5; whether they sit in the `char` schema or a dedicated
   `account` schema owned solely by the auth-service role is a hardening detail to settle jointly with
   that doc's revision — default: a separate `account` schema, auth-service-write-only.
+- **Account-scoped time-gate row (§3.1).** Owner amendment PA-002 makes the capsule weekly
+  purchase-cap counter account-scoped (`10_systems/GACHAPON.md` §1.3/§7), and
+  `character_time_gate`'s PK is `(character_id, gate_key)` — it cannot hold it. The row belongs
+  wherever the account root lands (bullet above); the shape mirrors the existing one
+  (`account_id`, `gate_key`, `window_start_ts`, counter). Flagged, not designed here — settle it
+  with the account-store decision, before the capsule store is implemented.

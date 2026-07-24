@@ -17,8 +17,9 @@ and any player may buy it without both being online together — the asynchronou
   price.
 - **Buy**: buyer pays `ask_price`; item transfers; proceeds (minus fee) reach the seller.
 - **Delist**: seller cancels an unsold listing any time; item returns to inventory.
-- Reuses `10_systems/social/TRADING.md`'s untradeable policy: quest items never list; boss
-  uniques can.
+- Reuses `10_systems/social/TRADING.md`'s untradeable policy: quest items never list; capsule
+  prizes and capsule tickets never list (bound on dispense, `10_systems/GACHAPON.md` §7 — this
+  is what keeps real money from reaching `shards` by listing, GACHAPON §1.5); boss uniques can.
 
 ## Dependencies
 Untradeable policy is `10_systems/social/TRADING.md`'s; fees/price bands are

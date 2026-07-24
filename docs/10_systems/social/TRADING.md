@@ -65,6 +65,7 @@ both sides to their normal inventory state untouched.
 | Boss unique equipment (`item_equip_0201`–`0222`, `10_systems/ITEMS.md` §11) | **Yes** — no special-case removal; enhancement level and affixes travel with the item (Open Questions). |
 | A one-off `item_etc` minted solely for a quest's `collect` step (`10_systems/QUESTS.md` §3.1, first bullet) | **No** — hardcoded, never offerable, regardless of any other flag. |
 | An ordinary shared regional material a quest also targets (`10_systems/QUESTS.md` §3.1, first bullet) | Tradeable — it is an ordinary `etc` item with independent vendor/trade value; a quest wanting some of it does not revoke that (`10_systems/QUESTS.md` §3.1 already confirms non-questers loot/use the same material normally). |
+| Any item dispensed by the Cogwork Capsule, and capsule tickets (`10_systems/GACHAPON.md` §3/§7) | **No** — bound on dispense by owner amendment PA-001 (`10_systems/MONETIZATION.md`). The same SKU obtained from an ordinary drop stays tradeable, so this is a per-instance mark, not an item-definition rule (Open Questions). |
 | Other ordinary `equip`/`use`/`etc` items | Tradeable by default. |
 | `shards` | Always tradeable, subject to the receiving wallet cap (§3). |
 
@@ -103,6 +104,9 @@ there is no second character ever present to trade with, so no session ever open
   `10_systems/ECONOMY.md`.
 - The `tradeable`/`untradeable` field's exact name/type has no schema home yet (§4); proposed for
   `20_schemas/item.schema.md` at Phase C.
+- Capsule prizes (`10_systems/GACHAPON.md` §7) are a named consumer of this field: PA-001
+  requires them untradeable/unlistable at dispense, so the field must support a per-instance
+  (not per-item-definition) value.
 - Phase D needs a concrete way to mark a one-off quest-minted `etc` item as untradeable (§4) — no
   ID sub-range distinguishes it from an ordinary regional material (`docs/ID_REGISTRY.md`,
   `10_systems/QUESTS.md` §3.1); it must be a per-item authoring flag, not an ID-range rule.
