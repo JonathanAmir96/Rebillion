@@ -229,12 +229,15 @@ first-clear-of-the-day flags, cooldown timers) so the live server swap changes n
   `10_systems/COMBAT_FORMULA.md` §13.3's assumed `N` range at 3–6 — and the stale Rift-era
   references (party 4–6, `map_197`–`map_200`, "R12") are gone from PARTY/SPAWN/COMBAT_FORMULA.
   The remaining DROPS-side question is tracked in its own entry below.
-- **Lockout tuning.** The 15-minute clear cooldown (§5) is a first-pass default serving one
-  target — raid-clear chaining must not beat at-level field play as a loot/`shards` faucet
-  (`10_systems/DROPS.md` / `10_systems/ECONOMY.md` faucet balance). The daily pacing pull now lives
-  in the **first-clear-of-the-day bonus** (§6.D), not the cooldown, so the cooldown itself can stay
-  short; retune both together with telemetry (alternatives — a longer cooldown, a daily clear count,
-  no cooldown at all — stay open). Owner: this doc with `10_systems/ECONOMY.md`.
+- **Lockout tuning — 15-minute cooldown confirmed at the 2026-07-24 balance pass.** With the
+  retuned `10_systems/LEVELING.md` §3.1 grants, even back-to-back clear-chaining pays less `exp`/hour
+  than at-level field hunting (arithmetic in that doc's Open Questions), and the token faucet is
+  bounded at 1/clear regardless of pace — so the short cooldown holds its one target (chaining must
+  not beat field play as a loot/`shards` faucet) without needing to be longer. The daily pacing pull
+  stays with the **first-clear-of-the-day bonus** (§6.D), not the cooldown. Remaining open only for
+  telemetry: if live runs clear much faster than the modeled ≈ 25 minutes, revisit the cooldown and
+  the LEVELING §3.1 amounts together (alternatives — a longer cooldown, a daily clear count, no
+  cooldown at all — stay available). Owner: this doc with `10_systems/ECONOMY.md`.
 - **Day-boundary definition for the first-clear-of-the-day bonus (§6.D).** The daily bonus keys on a
   per-character, per-raid "first clear this day" flag, and this doc defers the **day-boundary rule**
   (fixed UTC rollover vs per-account local reset vs rolling-24h) to `10_systems/PERSISTENCE.md`, which
