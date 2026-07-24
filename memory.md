@@ -50,6 +50,33 @@ per-character, and prize containment is **bind on dispense** — non-vendorable 
 tradable *and* never listable — not vendor-value-0 alone. Worth remembering as a pattern: a
 mock-up is a *rendering* of canon, so it inherits every canon change during a long branch and
 has to be re-diffed against the owning docs at rebase time, not just at authoring time.
+## 2026-07-25 — World Map / Island Map view (owner-requested, MapleStory-style)
+
+Branch `worktree-island-world-map` (PR pending). New owner doc **`docs/10_systems/WORLD_MAP.md`**
+for the zoom-out spatial UI: three tiers — the always-on in-map **minimap** (unchanged, `HUD.md`
+§5), a new **Island Map** (every non-hidden map of the current island as a node-link graph, "you
+are here"), and a new **World Map** (all five islands, current island highlighted). Rebased onto
+`origin/main` (picked up `raid_orrery`/PA-002; the raid set is now **5**, bonus rooms
+`map_325`–`map_329`, five finale arenas `map_042/200/244/284/324`).
+
+- **Visibility = derived from `map_type`, not authored** (owner choice: derive + override). Show
+  `field`/`town`/`arena`; hide `dungeon`/`interior`/`secret` — this exactly encodes the owner's
+  exclusion list (no raid/hidden/dungeon/"home in city") with **zero per-map authoring**, since raid
+  stages are `dungeon` and bonus rooms `secret` already. Optional per-map `world_map: hide|show`
+  escape hatch added to `map.schema.md` (schema-local enum, `client` authority, like
+  `layers_preset`). `MAPS_SYSTEM.md` §2 + `HUD.md` §5 gained pointers (no rule restated — Law 2).
+- **View-only, no teleport** — the map never travels (no free warps, `WORLD_PLAN.md`); travel stays
+  paid Coachworks/longship/ferry + free gated Deepway. **No fog-of-war, no new persistence** — all
+  derived from static map data + live `map_id`.
+- **Roast (owner-requested `grill:roast`) found two CRITICAL flaws, both fixed in-doc.** (1) The
+  naive "link between two *shown* maps" fragments every island — 10/11 boss arenas and the whole
+  12-map Sunken spur reach the overworld only *through* hidden dungeons → **hidden-contracted graph**
+  (link shown maps across all-hidden intermediates; §5) + a proposed VALIDATION §5 connectivity
+  invariant. (2) "nearest shown neighbor" was undefined → a **defined BFS** (all portal kinds,
+  same-island guard, lowest-`map_id` tiebreak, fallback; §4). Also: bridging maps take their
+  authored `region`'s island (§3); `world_map: hide` is validator-**rejected** on travel/instructor
+  hubs (§2); World-Map island adjacency comes from WORLD_PLAN transit tables, not the visibility
+  graph. Gates: `validate.py` **0/0**; `md_graph.py` **1 component / 0 orphans / 0 unreferenced**.
 
 ## 2026-07-24 — first standing design-critic pass + the three fixes it landed (owner-directed)
 

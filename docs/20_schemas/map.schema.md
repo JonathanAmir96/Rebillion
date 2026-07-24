@@ -4,7 +4,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/SCOPE.md, docs/WORLD_PLAN.md, docs/
 docs/VALIDATION.md, 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_CONNECTIONS.md,
 15_maps_system/MAP_INTERACTABLES.md, 15_maps_system/MAP_LAYERS.md, 15_maps_system/MAP_TRAVERSAL.md,
 10_systems/SPAWN.md, 10_systems/AI_BEHAVIOR.md, 10_systems/QUESTS.md, 10_systems/social/RAID.md,
-40_assets/ART_BIBLE.yaml, 20_schemas/npc.schema.md, 20_schemas/monster.schema.md
+10_systems/WORLD_MAP.md, 40_assets/ART_BIBLE.yaml, 20_schemas/npc.schema.md, 20_schemas/monster.schema.md
 
 ## Purpose
 
@@ -63,6 +63,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `platform_brief` | string, ≤6 lines | yes | `15_maps_system/MAP_TRAVERSAL.md` §1.1, §7; `00_vision/SCOPE.md` | The one descriptive/geometry-adjacent field (bands, verticality, gimmick) — not tile-exact; may assert traversal legality, engine-checked later. `client` (design-communication prose; see Open Questions on whether it even ships to the runtime client). |
 | `arena_config` | object | required iff `map_type: arena`; must be absent otherwise | `15_maps_system/MAPS_SYSTEM.md` §8 | See §"arena_config" below. `server` (boss identity, gate rules). |
 | `flavor` | string, ≤2 sentences | yes | `docs/VALIDATION.md` §7 | General player-facing blurb (proposed flavor-length lint). `client`. |
+| `world_map` | enum: `hide`, `show` | no | `10_systems/WORLD_MAP.md` §2 | Optional Island-Map visibility override; **absent = derived from `map_type`** per the visibility rule owned by `10_systems/WORLD_MAP.md` §2 (not restated here). `hide` drops a normally-shown map (validator-rejected on travel/instructor-hub maps, `WORLD_MAP.md` §2); `show` surfaces a normally-hidden one. `client` (map-browsing UI only; never a mechanic). |
 
 ### `portals`
 
@@ -160,6 +161,7 @@ ability (`15_maps_system/MAPS_SYSTEM.md` §8), authored on the boss's own monste
 | `portals[].at.edge` (screen side) | **this schema** (no other doc owns edge-side vocabulary) | `left` · `right` · `top` · `bottom` |
 | `layers_preset` | **this schema**, reflecting `15_maps_system/MAP_LAYERS.md` §1–§2 | `standard` (the full 6-entry depth/`TileMapLayer` stack — only one value exists today, see Open Questions) |
 | `arena_config.gate.type` | **this schema**, reflecting `15_maps_system/MAPS_SYSTEM.md` §8 | `open` · `quest_flag` |
+| `world_map` | **this schema**, reflecting `10_systems/WORLD_MAP.md` §2 | `hide` · `show` (omit the field to use the `map_type`-derived default) |
 
 ## Example
 
@@ -315,6 +317,7 @@ platform_brief: |
 #   boss_mob_id: mob_{NNN}
 #   gate: { type: open }
 flavor: "{≤2 sentences}"
+# world_map: hide                 # optional — override Island-Map visibility (10_systems/WORLD_MAP.md §2); omit = map_type default
 ```
 
 ## Open Questions
