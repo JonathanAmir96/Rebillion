@@ -12,8 +12,9 @@ dampener curve** live in `10_systems/COMBAT_FORMULA.md`; primary/derived stat gr
 `10_systems/STATS.md`; skill-point spending in `10_systems/SKILL_SYSTEM.md`. This doc consumes
 those and never restates them. The game's level cap is **300 (initial design, `00_vision/SCOPE.md`)**;
 this run authors the **first arc, Lv 1–42**, and publishes the curve through Lv 100 (owner-ratified
-pacing anchors, `memory.md` Decision Contract C3). The Lv 100–300 tail segment law is a future-arc
-Open Question (§6).
+pacing anchors, `memory.md` Decision Contract C3 as amended by the **C3′ pacing amendment** — the
+owner ruled C3's pace too fast and re-tabled `kills_per_level`; C3′ is binding and supersedes C3's
+anchors). The Lv 100–300 tail segment law is a future-arc Open Question (§6).
 
 ## 1. The `exp` curve (arc Lv 1 → 42; published anchors through Lv 100)
 
@@ -24,13 +25,14 @@ tying the curve directly to the time-to-kill contract (`10_systems/COMBAT_FORMUL
 
 ```
 exp_to_next(L)         = exp_per_kill_normal(L) · kills_per_level(L)    # exp to go L -> L+1
-kills_per_level(L)     = round(20 + 0.26 · L²)   # at-level normal kills to level
+kills_per_level(L)     = round(20 + 6.6 · L + 0.2 · L²)   # at-level normal kills to level (C3′)
 exp_per_kill_normal(L) = round(4 · L^1.3)        # §3, base per-kill reward
 cumulative_total(L)    = Σ exp_to_next(i), i = 1..L-1
 ```
 
-`kills_per_level` grows quadratically, so **early levels are minutes and the high levels are days of
-sessions** (P2). The **canonical played-time model** (`memory.md` C3): a level's `/played` hours =
+`kills_per_level` grows with a linear-plus-quadratic term (C3′), so **early levels are minutes and the
+high levels are days of sessions** (P2). The **canonical played-time model** (`memory.md` C3, kills
+coefficient amended by C3′): a level's `/played` hours =
 `kills_per_level(L) / (480 × 0.70)`, i.e. `kills_per_level(L) / 336`. This assumes ≈ 480 at-level
 kills/hour (one kill per ≈ 7.5 s including travel/aggro, `10_systems/COMBAT_FORMULA.md` §14) and
 that **hunting occupies ≈ 70% of playtime** (the other ≈ 30% is questing, shopping, travel, and
@@ -39,50 +41,50 @@ levels `1..L−1`. Both the table below and the prose use this one model; there 
 
 | Lv→+1 | `exp_to_next` | kills/level | `/played` this lvl | cum `/played` @ Lv | `cumulative_total` @ Lv |
 |---|---|---|---|---|---|
-| 1 | 80 | 20 | 0.06 h | 0.0 h | 0 |
-| 2 | 210 | 21 | 0.06 h | 0.1 h | 80 |
-| 3 | 374 | 22 | 0.07 h | 0.1 h | 290 |
-| 4 | 576 | 24 | 0.07 h | 0.2 h | 664 |
-| 5 | 832 | 26 | 0.08 h | 0.3 h | 1,240 |
-| 6 | 1,189 | 29 | 0.09 h | 0.3 h | 2,072 |
-| 7 | 1,650 | 33 | 0.10 h | 0.4 h | 3,261 |
-| 8 | 2,220 | 37 | 0.11 h | 0.5 h | 4,911 |
-| 9 | 2,870 | 41 | 0.12 h | 0.6 h | 7,131 |
-| 10 | 3,680 | 46 | 0.14 h | 0.8 h | 10,001 |
-| 11 | 4,590 | 51 | 0.15 h | 0.9 h | 13,681 |
-| 12 | 5,757 | 57 | 0.17 h | 1.0 h | 18,271 |
-| 13 | 7,168 | 64 | 0.19 h | 1.2 h | 24,028 |
-| 14 | 8,804 | 71 | 0.21 h | 1.4 h | 31,196 |
-| 15 | 10,530 | 78 | 0.23 h | 1.6 h | 40,000 |
-| 16 | 12,789 | 87 | 0.26 h | 1.8 h | 50,530 |
-| 17 | 15,105 | 95 | 0.28 h | 2.1 h | 63,319 |
-| 18 | 17,784 | 104 | 0.31 h | 2.4 h | 78,424 |
-| 19 | 20,976 | 114 | 0.34 h | 2.7 h | 96,208 |
-| 20 | 24,428 | 124 | 0.37 h | 3.0 h | 117,184 |
-| 21 | 28,215 | 135 | 0.40 h | 3.4 h | 141,612 |
-| 22 | 32,412 | 146 | 0.43 h | 3.8 h | 169,827 |
-| 23 | 37,288 | 158 | 0.47 h | 4.2 h | 202,239 |
-| 24 | 42,330 | 170 | 0.51 h | 4.7 h | 239,527 |
-| 25 | 47,866 | 182 | 0.54 h | 5.2 h | 281,857 |
-| 26 | 54,096 | 196 | 0.58 h | 5.8 h | 329,723 |
-| 27 | 60,900 | 210 | 0.62 h | 6.3 h | 383,819 |
-| 28 | 68,096 | 224 | 0.67 h | 7.0 h | 444,719 |
-| 29 | 76,241 | 239 | 0.71 h | 7.6 h | 512,815 |
-| 30 | 84,582 | 254 | 0.76 h | 8.3 h | 589,056 |
-| 31 | 93,690 | 270 | 0.80 h | 9.1 h | 673,638 |
-| 32 | 103,532 | 286 | 0.85 h | 9.9 h | 767,328 |
-| 33 | 114,231 | 303 | 0.90 h | 10.8 h | 870,860 |
-| 34 | 125,832 | 321 | 0.96 h | 11.7 h | 985,091 |
-| 35 | 137,566 | 338 | 1.01 h | 12.6 h | 1,110,923 |
-| 36 | 150,654 | 357 | 1.06 h | 13.6 h | 1,248,489 |
-| 37 | 164,312 | 376 | 1.12 h | 14.7 h | 1,399,143 |
-| 38 | 178,935 | 395 | 1.18 h | 15.8 h | 1,563,455 |
-| 39 | 194,220 | 415 | 1.24 h | 17.0 h | 1,742,390 |
-| **40** | **211,024** | **436** | **1.30 h** | **18.2 h** | **1,936,610** |
-| 41 | 228,500 | 457 | 1.36 h | 19.5 h | 2,147,634 |
-| **42** (arc end) | **247,164** | **479** | **1.43 h** | **20.9 h** | **2,376,134** |
+| 1 | 108 | 27 | 0.08 h | 0.0 h | 0 |
+| 2 | 340 | 34 | 0.10 h | 0.1 h | 108 |
+| 3 | 714 | 42 | 0.12 h | 0.2 h | 448 |
+| 4 | 1,200 | 50 | 0.15 h | 0.3 h | 1,162 |
+| 5 | 1,856 | 58 | 0.17 h | 0.5 h | 2,362 |
+| 6 | 2,747 | 67 | 0.20 h | 0.6 h | 4,218 |
+| 7 | 3,800 | 76 | 0.23 h | 0.8 h | 6,965 |
+| 8 | 5,160 | 86 | 0.26 h | 1.1 h | 10,765 |
+| 9 | 6,720 | 96 | 0.29 h | 1.3 h | 15,925 |
+| 10 | 8,480 | 106 | 0.32 h | 1.6 h | 22,645 |
+| 11 | 10,530 | 117 | 0.35 h | 1.9 h | 31,125 |
+| 12 | 12,928 | 128 | 0.38 h | 2.3 h | 41,655 |
+| 13 | 15,680 | 140 | 0.42 h | 2.6 h | 54,583 |
+| 14 | 18,848 | 152 | 0.45 h | 3.1 h | 70,263 |
+| 15 | 22,140 | 164 | 0.49 h | 3.5 h | 89,111 |
+| 16 | 26,019 | 177 | 0.53 h | 4.0 h | 111,251 |
+| 17 | 30,210 | 190 | 0.57 h | 4.5 h | 137,270 |
+| 18 | 34,884 | 204 | 0.61 h | 5.1 h | 167,480 |
+| 19 | 40,112 | 218 | 0.65 h | 5.7 h | 202,364 |
+| 20 | 45,704 | 232 | 0.69 h | 6.3 h | 242,476 |
+| 21 | 51,623 | 247 | 0.74 h | 7.0 h | 288,180 |
+| 22 | 58,164 | 262 | 0.78 h | 7.8 h | 339,803 |
+| 23 | 65,608 | 278 | 0.83 h | 8.6 h | 397,967 |
+| 24 | 73,206 | 294 | 0.88 h | 9.4 h | 463,575 |
+| 25 | 81,530 | 310 | 0.92 h | 10.3 h | 536,781 |
+| 26 | 90,252 | 327 | 0.97 h | 11.2 h | 618,311 |
+| 27 | 99,760 | 344 | 1.02 h | 12.1 h | 708,563 |
+| 28 | 110,048 | 362 | 1.08 h | 13.2 h | 808,323 |
+| 29 | 121,220 | 380 | 1.13 h | 14.2 h | 918,371 |
+| 30 | 132,534 | 398 | 1.18 h | 15.4 h | 1,039,591 |
+| 31 | 144,699 | 417 | 1.24 h | 16.6 h | 1,172,125 |
+| 32 | 157,832 | 436 | 1.30 h | 17.8 h | 1,316,824 |
+| 33 | 171,912 | 456 | 1.36 h | 19.1 h | 1,474,656 |
+| 34 | 186,592 | 476 | 1.42 h | 20.5 h | 1,646,568 |
+| 35 | 201,872 | 496 | 1.48 h | 21.9 h | 1,833,160 |
+| 36 | 218,174 | 517 | 1.54 h | 23.4 h | 2,035,032 |
+| 37 | 235,106 | 538 | 1.60 h | 24.9 h | 2,253,206 |
+| 38 | 253,680 | 560 | 1.67 h | 26.5 h | 2,488,312 |
+| 39 | 272,376 | 582 | 1.73 h | 28.2 h | 2,741,992 |
+| **40** | **292,336** | **604** | **1.80 h** | **29.9 h** | **3,014,368** |
+| 41 | 313,500 | 627 | 1.87 h | 31.7 h | 3,306,704 |
+| **42** (arc end) | **335,400** | **650** | **1.93 h** | **33.6 h** | **3,620,204** |
 
-**Arc 1 (Lv 1 → 42): ≈ 2.38 M `exp`, ≈ 21 `/played` hours.** Intermediate values come from the
+**Arc 1 (Lv 1 → 42): ≈ 3.62 M `exp`, ≈ 34 `/played` hours.** Intermediate values come from the
 formula; the table is a checksum.
 
 ### 1.1 Published anchors beyond the arc (reference only — not authored this run)
@@ -92,24 +94,26 @@ Lv 100–300 tail is a future-arc segment law (§6). Rows below are reference, n
 
 | Lv→+1 | `exp_to_next` | kills/level | `/played` this lvl | cum `/played` @ Lv | `cumulative_total` @ Lv |
 |---|---|---|---|---|---|
-| 50 | 433,490 | 670 | 1.99 h | 34 h | 4,954,763 |
-| 60 | 783,920 | 956 | 2.85 h | **58 h** | 10,744,922 |
-| 70 | 1,296,588 | 1,294 | 3.85 h | 91 h | 20,739,344 |
-| 80 (3rd-job gate) | 2,005,644 | 1,684 | 5.01 h | **134 h** | 36,722,952 |
-| 90 | 2,953,014 | 2,126 | 6.33 h | 190 h | 60,833,085 |
-| 100 | 4,171,040 | 2,620 | 7.80 h | **260 h** | 95,602,828 |
+| 50 | 549,950 | 850 | 2.53 h | 51.1 h | 7,006,322 |
+| 60 | 931,520 | 1,136 | 3.38 h | **80.1 h** | 14,108,987 |
+| 70 | 1,464,924 | 1,462 | 4.35 h | 118.2 h | 25,685,465 |
+| 80 (3rd-job gate) | 2,177,148 | 1,828 | 5.44 h | **166.5 h** | 43,384,436 |
+| 90 | 3,103,026 | 2,234 | 6.65 h | 226.3 h | 69,139,582 |
+| 100 | 4,266,560 | 2,680 | 7.98 h | **298.6 h** | 105,199,357 |
 
-Anchors: **Lv 40 ≈ 18 h · Lv 42 ≈ 21 h · Lv 60 ≈ 58 h · Lv 80 ≈ 134 h (≈ 1 month at 4–5 h/day) ·
-Lv 100 ≈ 260 h.** These are the pacing contract every economy/quest/TTK table cites.
+Anchors (C3′ ratified): **Lv 8 ≈ 1 h · Lv 40 ≈ 30 h · Lv 42 ≈ 33.5 h · Lv 60 ≈ 80 h · Lv 80 ≈ 166 h
+(≈ 5–6 weeks at 4–5 h/day) · Lv 100 ≈ 300 h.** These are the pacing contract every economy/quest/TTK
+table cites. (C3′ superseded the earlier, faster C3 anchors — Lv 80 moved from ≈ 1 month to ≈ 5–6
+weeks; the change was flagged to the owner at amendment time and not objected to.)
 
 ### 1.2 Time distribution by band (cumulative `/played`)
 
 | Band | Lv 1–8 | Lv 8–20 | Lv 20–30 | Lv 30–40 | Lv 40–42 | Lv 42–60 | Lv 60–80 | Lv 80–100 |
 |---|---|---|---|---|---|---|---|---|
-| `/played` | 0.5 h | 2.5 h | 5.3 h | 9.9 h | 2.7 h | 37 h | 77 h | 126 h |
+| `/played` | 1.1 h | 5.3 h | 9.0 h | 14.5 h | 3.7 h | 47 h | 86 h | 132 h |
 
-The whole authored arc (Lv 1–42) is a legible ≈ 21 h — about 4–5 play-days — front-loaded so the
-first job (Lv 8) is a single evening. The steep back half (Lv 42→100) is the intended long-tail
+The whole authored arc (Lv 1–42) is a legible ≈ 34 h — about a week of evenings — front-loaded so the
+first job (Lv 8) is ≈ 1 h, a single evening. The steep back half (Lv 42→100) is the intended long-tail
 climb to the 3rd-job gate, not a wall (each level stays a legible multiple of the previous).
 
 ## 2. Applying rewards: base × dampener
@@ -200,8 +204,8 @@ design)**. Within the arc:
   the Lv-40 band (`10_systems/ITEMS.md`, C7) all cover the arc.
 - **Past Lv 42**, arc-1 content runs out: leveling toward the Lv 80 3rd-job gate and beyond is a
   slow grind on the endgame Clockwork maps and the two party quests
-  (`10_systems/social/PARTY_QUEST.md`) until future arcs add content. The §1 anchors (Lv 60 ≈ 58 h,
-  Lv 80 ≈ 134 h, Lv 100 ≈ 260 h) are the ratified pacing target for that tail.
+  (`10_systems/social/PARTY_QUEST.md`) until future arcs add content. The §1 anchors (Lv 60 ≈ 80 h,
+  Lv 80 ≈ 166 h, Lv 100 ≈ 300 h) are the ratified pacing target for that tail.
 
 **The Lv 100–300 tail segment law is an explicit Open Question, deferred to a future arc.** The
 owner ratified the ≤ 100 anchors only (`memory.md` C3); a steeper piecewise segment or exponent
@@ -213,9 +217,9 @@ only when a future arc approaches Lv 300.
 ## Open Questions
 
 - **Lv 100–300 curve tail (segment law):** deferred to a future arc (§6). Only the Lv ≤ 100 anchors
-  are ratified (Lv 40 ≈ 18 h · Lv 42 ≈ 21 h · Lv 60 ≈ 58 h · Lv 80 ≈ 134 h · Lv 100 ≈ 260 h). A
-  future owner sets the tail; it must keep those anchors and not touch the §1 arc curve. Owner:
-  LEVELING.md, future arc.
+  are ratified (C3′: Lv 8 ≈ 1 h · Lv 40 ≈ 30 h · Lv 42 ≈ 33.5 h · Lv 60 ≈ 80 h · Lv 80 ≈ 166 h ·
+  Lv 100 ≈ 300 h). A future owner sets the tail; it must keep those anchors and not touch the §1 arc
+  curve. Owner: LEVELING.md, future arc.
 - The ≈ 480 kills/hour pacing assumption folds in travel/aggro downtime that has not been measured;
   if real spawn density (`docs/WORLD_PLAN.md`, map spawn data) diverges, the `/played` estimates
   shift while the `exp_to_next` curve stays fixed. Flagged for the Phase D content pass.
