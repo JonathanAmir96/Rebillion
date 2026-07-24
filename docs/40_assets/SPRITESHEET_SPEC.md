@@ -248,12 +248,20 @@ contract is specifically for **animated entities** — the classes `40_assets/AN
 defines (player, monster tiers, summon, npc) — not for tiles/props/projectiles/fx/ui, whose atlas
 shapes (if any) are a different, not-yet-authored contract (Open Questions).
 
+**Player exception (composited entity):** the player is never one baked sheet — it renders as
+a layer stack per `40_assets/CHARACTER_COMPOSITING.md`, and **each part** (base body, hair,
+face, visible-equip visual) is packed as its own entity under this doc's full contract, with
+the part's ID (`style_*` / `item_equip_NNNN`) standing in the `{entity_id}` position. That doc
+also owns the two manifest extensions its parts carry (`anchors` on the base body, `origin_px`
+on anchored parts); everything else in §1–§8 applies to player parts unchanged.
+
 ```
 assets/
   characters/
     player/
-      <entity_id>.png            # entity_id placeholder pending ID decision — see Open Questions
-      <entity_id>.atlas.yaml
+      <layer>/<part_id>/         # composited parts — see 40_assets/CHARACTER_COMPOSITING.md §6
+        <part_id>.png
+        <part_id>.atlas.yaml
     monsters/
       mob_NNN/
         mob_NNN.png
