@@ -222,6 +222,28 @@ growth (each domain expects roughly 5–20 opcodes against its 99-slot block); t
 block, the catalog owns the mint. Opcode IDs are minted only in NETWORK_PROTOCOL.md and are immutable
 once minted — a retired packet's opcode is never re-used for a different message.
 
+## Log event codes — `010`–`599` (6 channel blocks)
+
+Engineering-side IDs for the server audit-log line format (the backend wave, not player content) —
+same posture as the `op_NNNN` family above. This block reserves the **channel ranges**; the
+individual codes (and their `log_*` event-type names) are minted **only** in
+`70_integrations/SERVER_LOGGING_SPEC.md` §4, one per record shape, and are immutable once minted:
+a retired code is never reused, and a new event takes the next free slot in its block in a new
+commit — never a renumber. The code also fixes the record's verbosity level (level is
+code-intrinsic, not stored per line — SERVER_LOGGING_SPEC.md §1/§3).
+
+| # | Channel block | Range | Owner / semantics |
+|---|---|---|---|
+| 1 | Session & context | `010`–`099` | SERVER_LOGGING_SPEC.md §4.0 (session open/close, map-enter context) |
+| 2 | `CHAT` | `100`–`199` | SERVER_LOGGING_SPEC.md §4.1 |
+| 3 | `PLAYER_PROGRESSION` | `200`–`299` | SERVER_LOGGING_SPEC.md §4.2 |
+| 4 | `ECONOMY` | `300`–`399` | SERVER_LOGGING_SPEC.md §4.3 |
+| 5 | `COMBAT` | `400`–`499` | SERVER_LOGGING_SPEC.md §4.4 |
+| 6 | `SECURITY_ALERTS` | `500`–`599` | SERVER_LOGGING_SPEC.md §4.5 (validation records, detector flags, GM audit) |
+
+`600`–`999` are **reserved (future channels)** — a new channel claims the next free 100-wide block
+in a new commit; existing blocks never move.
+
 ## Open Questions
 - Reserved-growth blocks assume no category outgrows its range before the coding pass; if
   one does, extend the range here in a new commit — never renumber existing IDs.
