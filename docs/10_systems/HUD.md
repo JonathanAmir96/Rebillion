@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md,
 10_systems/COMBAT_FORMULA.md, 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md,
-10_systems/SKILL_SYSTEM.md, 10_systems/INVENTORY.md, 10_systems/QUESTS.md,
+10_systems/SKILL_SYSTEM.md, 10_systems/COMBO_SYSTEM.md, 10_systems/INVENTORY.md, 10_systems/QUESTS.md,
 10_systems/CONTROLS.md, 10_systems/JOBS.md, 10_systems/AI_BEHAVIOR.md, 10_systems/DEATH_PENALTY.md,
 10_systems/PERSISTENCE.md, 10_systems/social/CHAT.md, 10_systems/social/PARTY.md,
 10_systems/UI_WINDOWS.md, 40_assets/UI_ART_SPEC.md
@@ -14,6 +14,23 @@ elsewhere (`10_systems/STATS.md`, `10_systems/SKILL_SYSTEM.md`, `10_systems/STAT
 this doc owns only what is drawn, where, and in what always-on/toggle state. Exact pixel
 metrics/hex values are `40_assets/UI_ART_SPEC.md`'s (Phase C); this doc fixes layout regions and
 which locked token (frame/color/font) each element uses.
+
+## 0. Design stance — classic-inspired, original identity
+
+The shell speaks the familiar **classic side-scroller MMO grammar** — a bottom bar carrying the
+pool gauges, skill slots, and quickslots; a thin always-visible `exp` strip along the screen's
+bottom edge; a top-right minimap; floating damage numbers — because that grammar is instantly
+legible to the genre's audience (the working visual reference is
+`docs/mockups/gameplay_scene_mockup.html`). It is **inspiration, never reproduction**: no
+layout, proportion, icon, frame art, or asset is copied or traced from MapleStory or any other
+title. Every concrete element resolves through this tree's own locked identity — the
+`frame_*`/font/color tokens of `40_assets/UI_ART_SPEC.md` and `40_assets/ART_BIBLE.yaml`
+(change-controlled) — and this game's own vocabulary (`life`/`essence` gauges, `shards` wallet,
+ember/tide/arcane ramps), matching the original-identity stance `10_systems/UI_WINDOWS.md`
+already fixes for the framed-window family. Divergences are deliberate, not accidental: a
+dedicated Dodge slot beside the skill bar (§3), phase-pip boss bars (§6), show-on-damage monster
+`life` bars (§6.1), the combo counter (§7.1), and the party-frame column (§4.1) are this game's
+own HUD, not a clone's.
 
 ## 1. Frame-variant usage mapping (locked tokens, this doc's authoritative table)
 
@@ -151,6 +168,19 @@ the animation, non-boss tiers only).
 | Miss / Immune | Text `"Miss"`/`"Immune"` (`10_systems/COMBAT_FORMULA.md` §2 steps 1–2), neutral color, no element tint |
 | Heal | `+`-prefixed number, tinted with `hud_colors life` (ember) rather than an element, associating it with the `life` gauge |
 
+## 7.1 Combo counter (`10_systems/COMBO_SYSTEM.md` state; this doc owns the drawing)
+
+Right of screen center, vertically about a third down — clear of the top-center `boss_bar`/toast
+stack, the top-right minimap column, and the bottom bar. Contextual: appears at **2+ links**,
+hidden otherwise; fades ≈0.5 s after the chain resets. Shows the link count in the `dmg_number`
+font with a small `ui_small` label, plus up to three momentum-tier pips that fill as tiers I–III
+engage (tiers gated by advancement — `10_systems/COMBO_SYSTEM.md` §3; a locked tier's pip renders
+as an empty socket). A `combo_burst` (`10_systems/COMBO_SYSTEM.md` §4) plays a brief punch-scale
+flash on the counter, reusing §7's crit punch-scale language. No `frame_*` chrome — like damage
+numbers, it is combat feedback, not a window. `combo_momentum` is **not** a status and never
+appears in the §8 status icon row. Exact pixel metrics/animation are `40_assets/UI_ART_SPEC.md`'s
+(Phase C amendment channel).
+
 ## 8. Status icon row
 
 Centered, directly above the bottom bar. One icon per active status, each with a radial duration
@@ -187,6 +217,7 @@ position and the always-on-collapsed default (§11).
 | Quest tracker | Always-on **while ≥1 quest is tracked**; auto-hidden otherwise; player may also manually collapse it |
 | `boss_bar` | Contextual/automatic — shows on boss/flagged-elite aggro, hides on death/exit; not player-toggled |
 | Damage numbers | Always-on; player preference to disable exists (client pref, `10_systems/PERSISTENCE.md`) |
+| Combo counter (§7.1) | Contextual — shows at 2+ links, hides on chain reset; not player-toggled (momentum changes real damage, so the state stays visible) |
 | Status icon row | Always-on while ≥1 status is active; auto-hidden otherwise |
 | Toasts | Always-on (not disable-able — some carry important state, e.g. inventory-full) |
 | Chat dock | Always-on, collapsed; cannot be fully hidden at launch (Open Questions) |
