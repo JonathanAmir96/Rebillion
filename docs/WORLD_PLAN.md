@@ -85,7 +85,7 @@ Ring order: **Millbrook ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔ 
 loop, walkable both directions). **Clockwork Ruins is the island's dead brass heart** —
 Sleepywood-style center with two gates (from Ashfall's char ridge and Gloomwood's web
 vaults). Sunken Depths is a depth spur under the coast and a deliberate terminus.
-Towns on the ring (v2.3): **Rosen Harbor + Millbrook Central** (south), **Mossmere**
+Towns on the ring: **Rosen Harbor + Millbrook Central** (south), **Mossmere**
 (west, in Verdant), **Cindershelf** (north, in Ashfall), **Tidewatch Port** (east) —
 each ring town hosts a job instructor (see Job instructors below).
 
@@ -175,7 +175,7 @@ returning — `map_125`); every longship arrival targets spawn `longship_dock` o
 destination port town (and boarding lands on the deck's `longship_deck` spawn), per
 15_maps_system/MAP_CONNECTIONS.md §8.
 
-**Backtracking law (v3.1, owner directive):** every arc crossing is two-way and the old
+**Backtracking law (owner directive):** every arc crossing is two-way and the old
 world never closes. A Lv 40+ character freely returns to Arc-1 islands — the Deepway's
 `level_gate` guards **entry into the passage at Cindershelf only**; the southbound return
 and all longship legs carry no gate (a returning character trivially satisfies it anyway).

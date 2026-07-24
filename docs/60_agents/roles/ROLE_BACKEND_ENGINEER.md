@@ -27,7 +27,7 @@ yet** — future ops docs land wherever ROLE_PRODUCER assigns them. It owns **no
 `CombatMath` test vectors this role's Elixir port must pass); NETWORK_PROTOCOL.md (§3 envelope,
 §9 packet catalog — the wire to implement); DATABASE_PERSISTENCE.md (§2–§5 schema, transaction
 boundaries, write cadence); PERSISTENCE.md (authority tags — the client/server boundary that is
-the contract with ROLE_GAMEPLAY_DEVELOPER); ENGINEERING_STANDARDS.md (locked — cite, never
+the contract with ROLE_GAMEPLAY_DEVELOPER); ENGINEERING_STANDARDS.md (change-controlled — cite, never
 edit); AUTONOMOUS_MAINTENANCE.md (§3 loop, §4 autonomy ladder, §5 guardrails).
 
 **Deliverable contract:** code realizes the design doc without diverging from it — a
@@ -49,7 +49,7 @@ let the next operator (human or agent) run the fix from the doc alone.
 the owner greenlights the live server (BACKEND_ARCHITECTURE §6 "implemented when"). Until then
 its scope is limited to test-vector / CI scaffolding prep only when explicitly tasked.
 
-**Never:** edit any 70_integrations design doc or a locked file (ENGINEERING_STANDARDS.md,
+**Never:** edit any 70_integrations design doc or a change-controlled file (ENGINEERING_STANDARDS.md,
 ART_BIBLE.yaml, UI_ART_SPEC.md); mutate production ledger data directly (AUTONOMOUS_MAINTENANCE
 §4 hard floor); commit secrets; land a tier-C change autonomously; contradict the client/server
 authority boundary; weaken or special-case a gate to make its own fix pass.

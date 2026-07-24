@@ -13,7 +13,8 @@ Start here:
 - `docs/10_systems/` + `docs/15_maps_system/` — game rules (prose)
 - `docs/20_schemas/` — entity shapes · `docs/50_content/` — values only, referencing the above
   (conventions in `docs/50_content/README.md`)
-- `docs/30_engineering/` + `docs/40_assets/` — engineering standards and art/UI bible (locked)
+- `docs/30_engineering/` + `docs/40_assets/` — engineering standards and art/UI bible
+  (change-controlled, `CLAUDE.md` Law 5)
 - `docs/60_agents/` — coding-pass phase briefs, role charters, and the autonomous-maintenance
   loop (`AUTONOMOUS_MAINTENANCE.md`) · `docs/VALIDATION.md` — pass/fail rules
 - `docs/70_integrations/` — platform & pipeline design (backend, accounts/auth, telemetry,
@@ -23,9 +24,16 @@ Start here:
   `PHASE_F_INTEGRATIONS_REPORT.md`, `PHASE_G_EQUIPMENT_REPORT.md`,
   `PHASE_H_CONSISTENCY_REPORT.md`, `PHASE_I_BACKEND_REPORT.md`,
   `SYNC_AUDIT_v3_2026-07-23.md`, `MD_CONNECTIVITY_REPORT.md`,
-  `BACKEND_CHECKLIST_AUDIT_2026-07-24.md`) · `tools/validate.py` — the
+  `BACKEND_CHECKLIST_AUDIT_2026-07-24.md`, `DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`,
+  `GAMEPLAY_LOOP_REVIEW_2026-07-24.md`) · `tools/validate.py` — the
   batch validator, usage in `tools/README.md` (VALIDATION checks 1–6);
-  `tools/md_graph.py` — the doc connectivity graph
+  `tools/md_graph.py` — the doc connectivity graph; `tools/wiki_gen.py` — static reference
+  wiki built from `docs/50_content/` (gitignored `wiki/` output)
+- `docs/mockups/` — non-binding HTML wireframe mock-ups (gameplay scene; referenced from
+  `docs/40_assets/UI_ART_SPEC.md`)
+- `memory.md` — generation state & decisions log (newest-first) · `memory/` — Memory Bank
+  (`projectbrief` → `systemPatterns` → `techContext` → `activeContext` → `progress`),
+  distilled current-state context for future sessions
 
 Rules of the tree: `CLAUDE.md` Laws 1–6 (glossary tokens · single source of truth · immutable
 IDs · flag-don't-guess · change-controlled files · validate before landing).

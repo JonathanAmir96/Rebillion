@@ -22,7 +22,7 @@ reports after each gate; commit-per-concern history.
 **Definition of done (per phase):** all files landed, VALIDATION checks pass, open
 questions rolled up, GLOSSARY promotions applied, committed and pushed.
 
-**Never:** bulk-generate content batches; edit locked files (route through
+**Never:** bulk-generate content batches; edit change-controlled files (route through
 ROLE_ART_DIRECTOR's amendment channel); let a failing file land "to fix later."
 
 **Escalation:** owner (the human) — via chat for scope decisions; everything else is the

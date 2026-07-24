@@ -31,7 +31,7 @@ Only the **playfield** carries collision; the other three are pure parallax dres
 | `TileMapLayer` | Purpose | Collision layer | Notes |
 |---|---|---|---|
 | `decor_back` | Playfield-depth decor drawn behind terrain | None | Same 1.0× parallax as the rest of the playfield — a draw-order choice, not a separate depth layer |
-| `terrain` | Solid ground/walls | 1 `world` | Standard solid collision |
+| `terrain` | Solid ground/walls | 1 `world` | Solid collision; organic ground is AB-001 terrain chunks snapped to arbitrary-angle footholds (`15_maps_system/MAP_TRAVERSAL.md` §1), not axis-aligned tiles — the 16 px grid still governs built structures |
 | `one_way` | Drop-through platforms | 2 `one_way` | Mechanic owned by `15_maps_system/MAP_TRAVERSAL.md` §3 |
 | `climbable` | Ropes/ladders | 8 `climbable` | Mechanic owned by `15_maps_system/MAP_TRAVERSAL.md` §4 |
 | *(entities)* | Player, monsters, hitboxes, pickups, interactables | 3–7, 9 (below) | Not `TileMapLayer`s — see §3 |

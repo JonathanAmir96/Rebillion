@@ -90,7 +90,8 @@ only) · `coach` (`15_maps_system/MAP_INTERACTABLES.md` §9, `15_maps_system/MAP
 
 ## Example
 
-Illustrative — real instances land in Phase D.
+Illustrative shape only — **not a mirror of the minted npc_002.yaml** (Phase D landed; see
+`docs/50_content/npcs/npc_002.yaml` for a real instance).
 
 ```yaml
 id: npc_002

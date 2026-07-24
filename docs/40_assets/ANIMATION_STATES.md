@@ -1,6 +1,7 @@
 # ANIMATION_STATES.md — The 12-State Animation Registry
 
 References: 00_vision/GLOSSARY.md, 00_vision/SCOPE.md, 40_assets/ART_BIBLE.yaml,
+40_assets/ANIMATION_TIMING.md, 40_assets/SKILL_ANIMATION.md,
 10_systems/AI_BEHAVIOR.md, 15_maps_system/MAP_TRAVERSAL.md, 10_systems/COMBAT_FORMULA.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/SPAWN.md, 10_systems/DEATH_PENALTY.md, 10_systems/STATS.md,
 20_schemas/monster.schema.md, 20_schemas/npc.schema.md, 20_schemas/skill.schema.md,

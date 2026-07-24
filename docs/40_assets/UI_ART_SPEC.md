@@ -62,7 +62,11 @@ ART_BIBLE defaults and inject only variant/motif, ramp accent, size, patch margi
 **Amendments:** UA-001 (2026-07-24, owner-directed contradiction fix C-17,
 `docs/phase_reports/DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`): icon grids narrowed 16/24/32 →
 16/24 to match ART_BIBLE's locked `iconography` ("16x16 or 24x24 icons"); no authored asset or
-doc used a 32px icon grid.
+doc used a 32px icon grid. · UA-002 (2026-07-24, owner-directed md audit): converted the trailing
+Open-Questions paragraph to the `## Open Questions` heading every doc must end with
+(CLAUDE.md Law 4 / `docs/VALIDATION.md` §7) — structural conformance only, no spec changed.
 
-**Open Questions:** original vs licensed pixel font (check shipping license); lock guild
+## Open Questions
+
+Original vs licensed pixel font (check shipping license); lock guild
 shape/symbol counts; window title-bar draggable vs fixed; which HUD elements always-on vs toggle.

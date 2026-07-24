@@ -67,7 +67,14 @@ Open Question; never edit ART_BIBLE (Agent-3 only) or read-only docs (copy local
 **Amendments:** ES-001 (2026-07-24, owner-directed contradiction fix C-27c,
 `docs/phase_reports/DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`): the survival-pool component is
 named `Life` (was `Health`), per prime directive 6's stat-names-from-GLOSSARY rule and the `life`
-token.
+token. · ES-002 (2026-07-24, owner-directed md audit): added the closing `## Open Questions`
+section required of every doc (CLAUDE.md Law 4 / `docs/VALIDATION.md` §7) — structural
+conformance only, no standard changed.
 
 **Definition of Done:** data-driven, typed, tested, validates, respects client/server boundary,
 uses only GLOSSARY tokens, no `push_error` on load, Open Questions resolved or logged.
+
+## Open Questions
+
+- None currently. Standards questions route through this file's amendment channel
+  (CLAUDE.md Law 5); every landed change is logged above as an `ES-` amendment.

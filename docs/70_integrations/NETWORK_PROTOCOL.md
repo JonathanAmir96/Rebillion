@@ -630,7 +630,8 @@ that cannot prove a `server` truth refuses the action, never fabricates it.
 - **QUIC/WebTransport transport revision** (§1) is kept in reserve behind the `protocol_version`
   handshake; if Godot's and Phoenix's support matures, revisiting the transport is a `protocol_version`
   bump, not a redesign — flagged, not scheduled.
-- **Stage-2 catalog authoring** (§9) is **complete** — 103 opcodes minted across the 13 domain blocks
+- **Stage-2 catalog authoring** (§9) is **complete** — 106 opcodes minted across the 13 domain blocks
+  (103 at Phase I + the 2026-07-24 entry-flow wave's `op_0105`/`op_0194`/`op_0406`)
   against the §9.0 template, each citing its `70_integrations/GAMEPLAY_SIMULATION.md` (or domain-owning
   doc) validating section. Residue surfaced during the fill, now flagged at its own domain row rather
   than here: no `70_integrations/GAMEPLAY_SIMULATION.md` section owns shop pricing or coach-fare

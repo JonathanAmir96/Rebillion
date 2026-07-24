@@ -40,16 +40,17 @@ player real progress. The hour's job is confidence, not challenge.
 
 **Lv 8 by end of hour — decision (2026-07-24): front-loaded scripted grants.** `10_systems/LEVELING.md`
 §1's table gives cumulative `/played` for Lv 1→8 as the sum of its per-level rows: 0.08+0.10+0.12+
-0.15+0.17+0.20+0.23 ≈ **1.1 h** on open at-level pacing — just past the 60-minute budget. The
-intro closes that ≈10-minute gap with **scripted first-clear and guided-quest `exp` beats
-front-loaded into the Emberfoot path**: the `quest_001`–`010` block authors its `pct` values at
+0.15+0.17+0.20+0.23 ≈ **1.1 h** on open at-level pacing — ≈6 minutes past the 60-minute budget.
+The intro closes that overage with margin by budgeting a full Lv 7→8 level of **scripted
+first-clear and guided-quest `exp` beats front-loaded into the Emberfoot path**: the `quest_001`–`010` block authors its `pct` values at
 the **top** of the `10_systems/QUESTS.md` §4 bands, and the island's one-time first-clear grants
 (dungeon first-entry, the secret map, the Cindermaw kill) are budgeted from `10_systems/LEVELING.md`
 §4's "other" (≈5%) slice. Emberfoot's guided density is deliberately richer than open-world
 pacing — the grace-band island is exactly where a compressed curve is safe (0% death loss, §1) —
 so the **Lv-8 ferry gate stays a real ≈60-minute promise**, not a soft "≈first hour." Phase D's
-Emberfoot content pass must sum quest + first-clear `exp` to ≥ the ≈10-minute equivalent
-(≈ 3,800 `exp`, the Lv 7→8 shortfall at the blended rate) and sanity-check real kills-to-Lv-8.
+Emberfoot content pass must sum quest + first-clear `exp` to ≥ `exp_to_next(7)` = **3,800 `exp`**
+(a full Lv 7→8 level — comfortably more than the ≈6-minute overage requires) and sanity-check
+real kills-to-Lv-8.
 
 ## 3. Beat 1 — Wake and first steps (`map_001`, Emberfoot Village)
 

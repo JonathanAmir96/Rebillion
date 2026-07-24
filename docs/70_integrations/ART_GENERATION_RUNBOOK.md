@@ -2,6 +2,7 @@
 
 References: docs/00_vision/GLOSSARY.md, docs/VALIDATION.md, docs/40_assets/ART_BIBLE.yaml,
 docs/40_assets/UI_ART_SPEC.md, docs/40_assets/SPRITESHEET_SPEC.md,
+docs/40_assets/CHARACTER_COMPOSITING.md,
 docs/40_assets/ANIMATION_STATES.md, docs/40_assets/ANIMATION_TIMING.md,
 docs/15_maps_system/MAP_TRAVERSAL.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md,
 docs/60_agents/roles/ORG.md, docs/60_agents/roles/ROLE_ART_DIRECTOR.md,
@@ -10,8 +11,8 @@ docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md, docs/70_integrations/BUILD_DI
 Owner doc for **operating** the PixelLab MCP generation pass once Phase D content lands — batch
 order, credential handling, brief sourcing, and the QA/rejection loop. It does not restate any
 visual law: palette ramps, size classes, biome identity, and the AB-001 terrain model stay
-`docs/40_assets/ART_BIBLE.yaml`'s (locked); 9-slice/font/window geometry stays
-`docs/40_assets/UI_ART_SPEC.md`'s (locked); atlas/frame/pivot shape and hit-frame/fps law stay
+`docs/40_assets/ART_BIBLE.yaml`'s (change-controlled); 9-slice/font/window geometry stays
+`docs/40_assets/UI_ART_SPEC.md`'s (change-controlled); atlas/frame/pivot shape and hit-frame/fps law stay
 `docs/40_assets/SPRITESHEET_SPEC.md` and `docs/40_assets/ANIMATION_TIMING.md`'s. This doc only
 sequences the work and gates it, per this role's runbook remit
 (`docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md`).
@@ -57,6 +58,12 @@ R1) first (it is the training island; its assets set the palette/silhouette base
 anything harder), then Millbrook, Verdant, Tidewatch, Gloomwood, Ashfall, Sunken, Clockwork,
 Frostpeak Isle (R9), Arcane Reach (R10), Voidshore (R11) in that order. A later region never
 generates ahead of an earlier one still failing QA.
+
+**Global batch — the composited player wardrobe** runs once, before R1's monster batch (the
+player is on screen everywhere): per-part generation per
+`docs/40_assets/CHARACTER_COMPOSITING.md` §9 — its spike gate first (base body + 1 outfit +
+2 hairs to validate pose-guided part alignment), then the arc-1 wardrobe — exported per
+`docs/40_assets/SPRITESHEET_SPEC.md`'s Player exception (part ID in the `{entity_id}` position).
 
 **Within one region**, asset classes run in this order:
 

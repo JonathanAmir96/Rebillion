@@ -35,7 +35,7 @@ target (`10_systems/HUD.md` chrome included), so nothing ever draws at a mixed p
 | Aspect | Rule |
 |---|---|
 | Setting | `display_mode`: `fullscreen` (default) \| `windowed` |
-| Where | System menu (`10_systems/HUD.md` `frame_system`) + `Alt+Enter` toggle (joins the reserved bindings in `10_systems/CONTROLS.md` §5's client keybind map) |
+| Where | System menu (`10_systems/HUD.md` `frame_system`) + `Alt+Enter` toggle (listed in `10_systems/CONTROLS.md` §1's default keyboard map) |
 | Authority | `client` (`10_systems/PERSISTENCE.md` §3) — pure local preference, stored in the account-level client config alongside keybinds/UI prefs (`10_systems/PERSISTENCE.md` §6), never per-character |
 
 ## Open Questions

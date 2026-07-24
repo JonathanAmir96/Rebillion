@@ -33,6 +33,7 @@ forward reference `10_systems/SKILL_SYSTEM.md` §7 leaves to this doc.
 | Toggle Party (the party-finder Board tab lives inside it — `10_systems/UI_WINDOWS.md` §4, `10_systems/social/PARTY_FINDER.md`) | `P` | — |
 | Chat focus | `Enter` | — |
 | Close / back (topmost framed window) | `Escape` | — |
+| Toggle fullscreen (`display_mode`, `10_systems/DISPLAY.md` §3) | `Alt+Enter` | — |
 
 Facing (which way the character/attacks/aim point) follows the mouse-cursor side of the
 character when a mouse is present; absent horizontal aim input, facing follows the last-pressed

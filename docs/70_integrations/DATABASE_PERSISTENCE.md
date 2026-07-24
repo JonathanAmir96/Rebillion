@@ -48,7 +48,7 @@ facade's local-file store becomes, dormant by design and blocking nothing in the
 
 All DDL below is a **design-level sketch** — field lists and key choices a coding-pass engineer can
 estimate from. Concrete column types, index tuning, and the migration framework itself are coding-pass
-work (`30_engineering/ENGINEERING_STANDARDS.md`, locked — cited, never edited).
+work (`30_engineering/ENGINEERING_STANDARDS.md`, change-controlled — cited, never edited).
 
 ## 2. Storage topology — one database, three schemas, one audit stream, one cache
 
@@ -209,6 +209,20 @@ session_snapshot(
 -- Position / velocity are authority:shared and NEVER persisted mid-run (PERSISTENCE §4;
 -- BACKEND_ARCHITECTURE §5/§8 — disposable). A restart resumes at bind/last-transition, not last pixel.
 ```
+
+**Time-gated counters** (`10_systems/PERSISTENCE.md` §2.1 — the raid first-clear-of-the-day flag
+and 15-minute clear cooldown per `10_systems/social/RAID.md` §5–§6, and per-character weekly
+counters):
+
+```
+character_time_gate(character_id FK → character, gate_key text, window_start_ts timestamptz,
+                    cleared_in_window bool, last_clear_ts timestamptz)
+                    -- PK (character_id, gate_key); one row per gate per character
+```
+
+Reset semantics (day/week boundaries) stay `10_systems/PERSISTENCE.md` §2.1's; guild-scoped
+weekly-goal counters key on the guild instead and live in the `social` schema (§3.3) with the
+rest of the guild registry (`10_systems/social/GUILD.md` §11).
 
 ### 3.2 `wallet` schema — wallet / economy ledger
 

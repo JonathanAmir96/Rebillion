@@ -142,9 +142,12 @@ reserved for future expansions — invalid in this run's content.
 `foothold` (walkable segment, arbitrary angle; the ground truth of platforming) ·
 `terrain_chunk` (hand-painted ground art snapped to footholds; ART_BIBLE amendment AB-001)
 
-## Transport (owner: 15_maps_system/MAP_CONNECTIONS.md; v3)
+## Transport (owner: 15_maps_system/MAP_CONNECTIONS.md)
 `coach` (paid town-to-town portal kind, fares in shards per ECONOMY.md) · `coach_stop`
-(arrival spawn id) · the Harborwind Ferry (paid instant island crossing) · the Deepway (free
+(arrival spawn id) · `coach_station` (the coach kiosk interactable;
+15_maps_system/MAP_INTERACTABLES.md) · `coach_clerk` / `pier_officer` (transport-staff NPC
+roles; 20_schemas/npc.schema.md) · the Harborwind Ferry (paid instant island crossing) ·
+`from_ferry` (ferry arrival spawn id; MAP_CONNECTIONS.md §2) · the Deepway (free
 Lv-40-gated underground passage, Cindershelf `map_125` → `map_201`–`203` → Frosthaven; owner
 WORLD_PLAN.md/MAP_CONNECTIONS.md) · `longship` (paid
 **scheduled** Arc-2 inter-island portal kind, 2–3 min real-time sail on a deck map) ·
@@ -165,9 +168,6 @@ The earlier free-warp "waygate" mechanism is retired — that token is invalid i
   (10_systems/social/RAID.md). Promote if Phase D NPC content uses it as a field value.
 - `guild_level` — a guild's progression tier, raised by `guild_contribution`
   (10_systems/social/GUILD.md §9). Promote if it becomes a field value in guild content/schemas.
-- `coach_station` (interactable) · `coach_clerk` / `pier_officer` (NPC roles) — the coach
-  kiosk and transport-staff tokens from the waygate→coach reconciliation
-  (15_maps_system/MAP_INTERACTABLES.md, 20_schemas/npc.schema.md). Promote at the C gate.
 - Cosmetic categories — `title` (cosmetic display string; grants from collection milestones,
   10_systems/COLLECTIONS.md §7, and raid SKUs) · `dye` · `skin` · `crest_flourish`; owner
   10_systems/COSMETICS.md (§2), which is the character-display consumer `title`'s original

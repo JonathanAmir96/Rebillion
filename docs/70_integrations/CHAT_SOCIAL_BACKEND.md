@@ -280,6 +280,19 @@ degradation-stance table respectively.
   destroyed" invariant (`00_vision/PILLARS.md` P2) under an infrastructure fault as well as the
   ordinary expiry path.
 
+### 3.7 PARTY_FINDER — listings/matchmaking board (stub)
+
+- **Process shape.** A listings-board service on the social tier — the `party_finder` board
+  `10_systems/social/PARTY_FINDER.md` designs (post/browse by activity/region/level band,
+  request-join → leader accept routed through the `PARTY` service in §3.2).
+- **State store.** Listings are `server`-owned social state like party/guild rosters
+  (`10_systems/social/PARTY_FINDER.md` §7); nothing of value is escrowed, so no wallet-ledger
+  involvement.
+- **Failure mode.** Board unavailable → browse/post/request disabled; existing parties are
+  untouched (the board is a discovery surface, never the party authority — that stays §3.2).
+- Full internals (listing TTLs, filters, pagination) elaborate here when the backend pass
+  reaches the board; `10_systems/social/PARTY_FINDER.md`'s Open Questions track that handoff.
+
 ## 4. Chat relay topology (detail)
 
 The chat relay (§3.1) sits on the social-services tier as a set of stateless, horizontally-scaled

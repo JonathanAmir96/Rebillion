@@ -179,7 +179,7 @@ restore `amount` is Phase D's):
     req_level: 1
     price: { buy: 15, sell: 4 }         # ECONOMY §4.1 exact (well-known ID, hard-checked)
     effects:
-      - { op: heal, scaling: flat, amount: 120 }   # magnitude: Phase D tunes vs Lv1-9 life band
+      - { op: heal, scaling: flat, amount: 60 }    # matches the minted item_use_0001 (Phase D landed)
     use_cooldown: 1.0                    # first-pass; see Open Questions
     stack: 100
     icon: ui_icon_item_use_0001

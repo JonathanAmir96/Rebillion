@@ -168,4 +168,9 @@ owned by `15_maps_system/MAP_TRAVERSAL.md` §6) and phase-triggered `camera_lock
   `amb_wind` vs. `amb_windy`) is unowned; flag for `40_assets/` at the C gate.
 - Whether `interior` should ever allow a scripted, non-zone-spawned combat beat (a forced NPC
   fight) is out of scope here; default holds strictly combat-free per §6.
+- **`reach`-step trigger zones (handoff from `10_systems/QUESTS.md` §3, still owed).** QUESTS
+  assigns this doc the map-side declaration for a quest `reach` step's named trigger zone/waypoint;
+  §1's anatomy table has no such field yet. QUESTS assumes a `10_systems/SPAWN.md` §1
+  `spawn_zones`-like rect. Confirm the shape (and whether the validator must resolve reach targets
+  against it) before the coding pass. Owner: this doc. (Raised by the 2026-07-24 md audit.)
 - Secret-map size guidance (§2) has no WORLD_PLAN precedent to anchor against; first-pass only.

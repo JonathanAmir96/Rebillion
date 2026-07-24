@@ -1,6 +1,9 @@
 # memory.md — Generation State & Decisions Log
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
+Companion Memory Bank (distilled current state, coding-pass context):
+`memory/projectbrief.md` → `memory/systemPatterns.md` → `memory/techContext.md` →
+`memory/activeContext.md` → `memory/progress.md`.
 
 ## 2026-07-24 — wiki generator + per-monster animation notes (owner-directed)
 

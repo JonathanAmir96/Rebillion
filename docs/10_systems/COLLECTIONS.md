@@ -176,7 +176,7 @@ The log opens as a `frame_window` toggle window, the same family as Inventory/Sk
 (`10_systems/HUD.md` §1's frame-usage table already lists `frame_window` for exactly that class
 of window; this doc does not add a new frame). Visual layout, list/grid choice, per-entry card
 art, and exact colors for `sighted` vs `logged` states are `40_assets/UI_ART_SPEC.md`'s —
-**locked** (CLAUDE.md Law 5) — and `10_systems/HUD.md`'s toggle-window conventions; this doc
+**change-controlled** (CLAUDE.md Law 5) — and `10_systems/HUD.md`'s toggle-window conventions; this doc
 cites both and designs neither. Any new UI token the log needs (e.g., a distinct locked/masked
 row treatment for §4) goes through `UI_ART_SPEC.md`'s amendment channel, not this file.
 

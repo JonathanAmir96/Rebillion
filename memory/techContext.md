@@ -94,7 +94,8 @@ triggers, `docs/60_agents/AUTONOMOUS_MAINTENANCE.md`).
   envelope ±½ tile + speed-cap displacement margin.
 - Capacity (launch targets, sized pre-v3 — re-check at balance pass): channel caps 5
   per map, 150 town / 60 field occupancy, ~2,000 players/node.
-- Daily reset 00:00 UTC, weekly Monday 00:00 UTC. Character slots: 3.
+- Daily reset 00:00 UTC, weekly Monday 00:00 UTC. Character slots: 4 (raised 3→4 by owner
+  directive 2026-07-24; owner `ACCOUNTS_AUTH.md` §2.2).
 - Authored-content ceiling: import/validation caps re-derived level at **Lv 82
   authored / 300 game** (`ACCOUNTS_AUTH.md` §2.4).
 - Telemetry: pseudonymous player_id, no PII, fire-and-forget, 90-day proposed

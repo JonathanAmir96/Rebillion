@@ -130,13 +130,15 @@ synced or validated by a server, even once the game is server-authoritative for 
   scale. The §7 shake-amplitude px values are first-pass for the same reason and should be
   revisited alongside them.
 - Default integer zoom multiplier (§5) is not chosen here — `40_assets/ART_BIBLE.yaml`'s
-  `resolution_policy` permits 2×/3×/4× without naming a default; the choice is an
-  ART_BIBLE/engineering call (the tile-scale lock is resolved and no longer blocks it).
+  `resolution_policy` permits 2×/3×/4× without naming a default; `10_systems/DISPLAY.md` §2 now
+  fixes the window-level answer (largest integer factor per monitor, `ink` letterbox), so what
+  remains is only whether an in-world camera zoom distinct from the window scale ever ships.
 - The "boss slam" screen-shake flag's exact field name/location is not yet defined in
   `10_systems/SKILL_EFFECTS.md` or `10_systems/AI_BEHAVIOR.md`; flagged for whichever doc adds
   ability-presentation metadata.
 - Whether non-arena "mini-lock" zones (e.g., a tough elite pack in a dungeon corridor) are used in
   Phase D content, beyond the 11 boss arenas (one per region block; `docs/ID_REGISTRY.md`,
   `docs/WORLD_PLAN.md`), is undecided — the mechanism (§6) supports it either way.
-- Ultrawide/uncommon aspect ratios and any camera safe-area guarantee are not addressed; likely an
-  `40_assets/ART_BIBLE.yaml`/engineering concern once a target resolution is fixed.
+- Ultrawide/uncommon aspect ratios and any camera safe-area guarantee are not addressed; the
+  target resolution is now fixed (`10_systems/DISPLAY.md` — 640x360, integer scale, letterbox),
+  so what remains is an `40_assets/ART_BIBLE.yaml`/engineering safe-area call inside that frame.

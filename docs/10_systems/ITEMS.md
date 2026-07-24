@@ -403,6 +403,12 @@ stays viable).
   (Lv 1–14), II → T3–T4 (15–28), III → T5–T6 (29–42), IV → T7–T8 (43–56), V → T9–T10 (57–70),
   VI → T11–T12 (71–80). Owner ENHANCEMENT; do not edit from here. (The stale worked-example
   clause once flagged here was fixed in ENHANCEMENT §4 — T6 `W` = 151 is cited correctly there.)
+- **`shield` / `overall` slot integration (pending wave).** `docs/ID_REGISTRY.md` reserves
+  `item_equip_0181`–`0200` for the equipment-v2 `shield`/`overall` pieces (GLOSSARY Provisional;
+  semantics in `10_systems/SCROLLS.md`'s companion ITEMS revision), and this doc's §2 nine-slot
+  table does not yet carry them — the §2/§10 roster integration with the v3 T1–T12 ladder is the
+  follow-up wave ID_REGISTRY's own Open Questions name. Owner: this doc + SCROLLS wave. (Made
+  discoverable from here by the 2026-07-24 md audit.)
 - **ECONOMY tonic re-band + new price rows — owner `10_systems/ECONOMY.md` §4.1.** That table still
   carries pre-v2 Lv-100 tonic bands and stops at Prime. It should adopt the seven-tier tier→band
   binding in §1.1 (arc-1 tiers compressed to Lv 1–42) and add `shards` price rows for the two arc-2

@@ -61,8 +61,10 @@ below can execute mechanically; that is the preferred way to make cheap generati
 ## Standing laws for every role
 - GLOSSARY tokens only; banned legacy terms per VALIDATION.md §1. US spelling.
 - Reference, never restate; one source of truth per rule/field/term.
-- Locked files (ART_BIBLE.yaml, UI_ART_SPEC.md, ENGINEERING_STANDARDS.md) are touched by
-  no one; ROLE_ART_DIRECTOR alone operates their amendment channels.
+- Change-controlled files (ART_BIBLE.yaml, UI_ART_SPEC.md, ENGINEERING_STANDARDS.md —
+  CLAUDE.md Law 5) are edited only on **explicit owner direction**, each edit logged in the
+  file's `amendments` ledger (`AB-`/`UA-`/`ES-` ids); ROLE_ART_DIRECTOR operates the amendment
+  channels but never self-authorizes an edit.
 - Every doc ends with `## Open Questions`. Every batch passes VALIDATION.md before landing.
 - No PixelLab MCP call without a same-batch `get_balance` check routed through
   ROLE_ART_QUARTERMASTER — simple assets are self-generated, generations are spent only
