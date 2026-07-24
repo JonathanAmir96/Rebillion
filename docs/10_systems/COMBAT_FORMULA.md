@@ -166,11 +166,13 @@ to are owned here:
 | Base | Value | Applied |
 |---|---|---|
 | `base_attack_interval` | 0.90 s (≈1.11 basic attacks/s) | `effective = 0.90 / (1 + attack_speed%)` |
-| `base_move_speed` | 200 px/s (reference) | `effective = 200 · (1 + move_speed%)` |
+| `base_move_speed` | **8 tiles/s = 128 px/s** (16 px grid) | `effective = 8 · (1 + move_speed%)` tiles/s |
 
 Skill cast/recovery times override `base_attack_interval` per skill (`10_systems/SKILL_SYSTEM.md`).
-`base_move_speed` in px/s is a placeholder pending the tile scale locked by `40_assets/ART_BIBLE.yaml`
-(Open Question).
+`base_move_speed` adopts `15_maps_system/MAP_TRAVERSAL.md` §1's authoritative 8 tiles/s verbatim
+(= 128 px/s at the AB-001 16 px grid locked by `40_assets/ART_BIBLE.yaml` /
+`30_engineering/ENGINEERING_STANDARDS.md`) — that doc owns the platforming figure; this doc only
+applies `haste` to it. The earlier 200 px/s reference value is retired.
 
 ## 11. Knockback & hitstun
 
@@ -352,9 +354,10 @@ intended tutorial pacing (P2) and stays inside the "snappy" spirit of the band.
 
 ## Open Questions
 
-- `base_move_speed` (200 px/s) and `base_attack_interval` (0.90 s) are placeholders until the tile
-  scale is locked in `40_assets/ART_BIBLE.yaml`; the `haste` percentages (STATS §5) are scale-free,
-  but the px value is not. Owner: COMBAT_FORMULA at the C gate.
+- **Resolved (2026-07-24 contradiction fix):** `base_move_speed` = 8 tiles/s (128 px/s), synced to
+  `15_maps_system/MAP_TRAVERSAL.md` §1 at the locked 16 px grid — §10's stale 200 px/s placeholder
+  is retired. `base_attack_interval` (0.90 s) is time-based/scale-free and stands as first-pass;
+  retune only from playtesting.
 - The legal raid party range is confirmed `3–6` (`10_systems/social/PARTY.md` §6,
   `10_systems/social/RAID.md` §3); the §13.3 `raid_life`/DPS model is linear in `N`, so TTK is
   ≈`N`-independent and holds at the §14 midpoint (≈8 min) across the whole 3–6 range (worked in

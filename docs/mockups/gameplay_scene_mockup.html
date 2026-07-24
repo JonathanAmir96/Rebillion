@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Main Gameplay Scene Mock-up</title>
+<style>
+  :root{
+    --ink:#241726; --paper:#fbf7ef; --link:#54b0c6; --emph:#f6c34b;
+    --warn:#c8461f; --good:#3f9a45; --bg:#161020; --panel:#221a2e; --line:#3a2f48;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#e8e2d8;font:14px/1.55 ui-sans-serif,system-ui,sans-serif;padding:24px}
+  .wrap{max-width:1320px;margin:0 auto}
+  h1{font-size:20px;color:var(--emph);margin:0 0 4px}
+  h2{font-size:15px;color:var(--link);margin:28px 0 8px}
+  p.sub{margin:0 0 18px;color:#a99cb8;font-size:13px}
+  .frame{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px;overflow-x:auto}
+  svg{display:block;width:100%;height:auto;image-rendering:pixelated}
+  .px{shape-rendering:crispEdges}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 18px;margin-top:12px;font-size:12.5px;color:#c6bad4}
+  .legend b{color:var(--emph);font-weight:700;margin-right:4px}
+  .legend .doc{color:#8d7fa0}
+  .note{font-size:12px;color:#a99cb8;margin-top:10px;border-left:3px solid var(--warn);padding-left:10px}
+  .stack{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+  .band{border:1px solid var(--line);border-radius:4px;padding:8px 12px;font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .band .f{color:var(--emph);font-family:ui-monospace,monospace}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .chip{background:#2d2340;border:1px solid var(--line);border-radius:3px;padding:2px 8px;font-size:12px;font-family:ui-monospace,monospace}
+  .arrow{color:#8d7fa0;align-self:center}
+  code{font-family:ui-monospace,monospace;color:var(--link);font-size:0.92em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — Main Gameplay Scene Mock-up</h1>
+<p class="sub">Field-hunting scene at native render base <code>640×360</code> (16&nbsp;px grid, 40×22.5 tiles — MAP_TRAVERSAL.md), shown 2×.
+Layout per <code>HUD.md §2–§11</code>; frames/fonts per <code>UI_ART_SPEC.md</code>; scene: an Emberfoot ascending field (map_005-like, WORLD_PLAN.md §R1).
+Sprites/hex values are illustrative placeholders — art identity is owned by <code>ART_BIBLE.yaml</code>. Gold numbered pins are design annotations, not game UI.</p>
+
+<h2>1 · Field play + always-on HUD</h2>
+<div class="frame">
+<svg viewBox="0 0 640 360" role="img" aria-label="Mock-up of the main gameplay scene">
+  <!-- ============ SKY / FAR PARALLAX (0.1x) ============ -->
+  <g class="px">
+    <rect x="0" y="0" width="640" height="120" fill="#46283f"/>
+    <rect x="0" y="120" width="640" height="70" fill="#7d4152"/>
+    <rect x="0" y="190" width="640" height="45" fill="#b5674c"/>
+    <rect x="0" y="235" width="640" height="125" fill="#e0995c"/>
+    <circle cx="520" cy="96" r="26" fill="#f2c17f"/>
+    <circle cx="520" cy="96" r="18" fill="#f8dca4"/>
+    <rect x="60" y="88" width="70" height="8" fill="#8a4c58" opacity="0.7"/>
+    <rect x="120" y="70" width="46" height="7" fill="#8a4c58" opacity="0.6"/>
+    <rect x="380" y="120" width="60" height="8" fill="#96545c" opacity="0.6"/>
+  </g>
+  <!-- ============ MID PARALLAX (0.4–0.6x): kiln hills ============ -->
+  <g class="px">
+    <path d="M0,258 L60,214 L120,246 L190,204 L260,250 L330,222 L420,256 L640,240 L640,300 L0,300 Z" fill="#5d3347"/>
+    <rect x="196" y="168" width="14" height="46" fill="#4a2839"/>
+    <rect x="193" y="162" width="20" height="8" fill="#4a2839"/>
+    <rect x="199" y="150" width="6" height="12" fill="#7d4152" opacity="0.8"/>
+    <path d="M0,286 L90,254 L180,290 L300,258 L430,292 L560,266 L640,286 L640,320 L0,320 Z" fill="#4a2839"/>
+  </g>
+
+  <!-- ============ PLAYFIELD (1.0x) ============ -->
+  <!-- ground footholds: painted terrain chunks snapped to footholds (AB-001) -->
+  <g class="px">
+    <!-- main ground, slight step at x=330 -->
+    <rect x="0" y="296" width="380" height="64" fill="#4a2c22"/>
+    <rect x="0" y="296" width="380" height="5" fill="#c9713d"/>
+    <rect x="0" y="301" width="380" height="2" fill="#7a4630"/>
+    <!-- hazard pit -->
+    <rect x="380" y="332" width="52" height="28" fill="#3a2119"/>
+    <g fill="#8a4c40"><path d="M384,332 l5,-9 5,9 Z"/><path d="M395,332 l5,-9 5,9 Z"/><path d="M406,332 l5,-9 5,9 Z"/><path d="M417,332 l5,-9 5,9 Z"/></g>
+    <rect x="380" y="330" width="52" height="2" fill="#c8461f" opacity="0.55"/>
+    <!-- right ground -->
+    <rect x="432" y="296" width="208" height="64" fill="#4a2c22"/>
+    <rect x="432" y="296" width="208" height="5" fill="#c9713d"/>
+    <rect x="432" y="301" width="208" height="2" fill="#7a4630"/>
+    <!-- angled foothold (Maple-style slope) -->
+    <path d="M96,246 L200,226 L200,240 L96,260 Z" fill="#4a2c22"/>
+    <path d="M96,246 L200,226 L200,231 L96,251 Z" fill="#c9713d"/>
+    <!-- one-way platform -->
+    <rect x="316" y="220" width="104" height="6" fill="#8a5a38"/>
+    <rect x="316" y="220" width="104" height="2" fill="#d99a55"/>
+    <line x1="318" y1="229" x2="418" y2="229" stroke="#d99a55" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+    <!-- elite ledge -->
+    <rect x="452" y="180" width="92" height="10" fill="#4a2c22"/>
+    <rect x="452" y="180" width="92" height="4" fill="#c9713d"/>
+    <!-- climbable rope: ledge -> ground -->
+    <line x1="500" y1="190" x2="500" y2="296" stroke="#caa26a" stroke-width="2"/>
+    <g stroke="#8a6a42" stroke-width="1">
+      <line x1="496" y1="202" x2="504" y2="202"/><line x1="496" y1="218" x2="504" y2="218"/>
+      <line x1="496" y1="234" x2="504" y2="234"/><line x1="496" y1="250" x2="504" y2="250"/>
+      <line x1="496" y1="266" x2="504" y2="266"/><line x1="496" y1="282" x2="504" y2="282"/>
+    </g>
+    <!-- portal to next map -->
+    <path d="M596,296 L596,246 Q612,232 628,246 L628,296 Z" fill="#3a2450"/>
+    <path d="M601,296 L601,250 Q612,240 623,250 L623,296 Z" fill="#7b4fa6"/>
+    <path d="M605,296 L605,253 Q612,246 619,253 L619,296 Z" fill="#a678d4" opacity="0.85"/>
+    <!-- ember grass tufts -->
+    <g fill="#d97f42"><rect x="40" y="292" width="3" height="4"/><rect x="150" y="292" width="3" height="4"/><rect x="255" y="292" width="3" height="4"/><rect x="466" y="292" width="3" height="4"/><rect x="560" y="292" width="3" height="4"/></g>
+  </g>
+
+  <!-- loot drop: shards on the ground (auto-loot on contact, INVENTORY §4) -->
+  <g class="px">
+    <path d="M352,286 l5,-7 5,7 -5,7 Z" fill="#f6c34b"/>
+    <path d="M352,286 l5,-7 5,7 Z" fill="#fbe49a"/>
+    <rect x="356" y="268" width="2" height="8" fill="#f6c34b" opacity="0.5"/>
+  </g>
+
+  <!-- elite telegraph: aoe_circle disc shown before it lands (SKILL_SYSTEM §6, P1) -->
+  <ellipse cx="300" cy="297" rx="34" ry="7" fill="#c8461f" opacity="0.18"/>
+  <ellipse cx="300" cy="297" rx="34" ry="7" fill="none" stroke="#c8461f" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- ============ ENTITIES ============ -->
+  <!-- player (feet-center pivot on foothold y=296) -->
+  <g class="px">
+    <rect x="204" y="272" width="12" height="14" fill="#3f9a45"/>
+    <rect x="204" y="266" width="12" height="8" fill="#e8b98a"/>
+    <rect x="203" y="263" width="14" height="5" fill="#5a3a28"/>
+    <rect x="212" y="269" width="2" height="2" fill="#241726"/>
+    <rect x="200" y="274" width="5" height="10" fill="#2e7f96"/>
+    <rect x="204" y="286" width="5" height="10" fill="#4a3020"/><rect x="211" y="286" width="5" height="10" fill="#4a3020"/>
+    <rect x="216" y="274" width="10" height="3" fill="#c8c8d0"/><rect x="226" y="273" width="4" height="5" fill="#e8e8f0"/>
+  </g>
+  <rect x="180" y="248" width="60" height="11" rx="2" fill="#241726" opacity="0.82"/>
+  <text x="210" y="256.5" font-family="ui-monospace,monospace" font-size="7.5" fill="#fbf7ef" text-anchor="middle">Ember · Lv 6</text>
+
+  <!-- normal mob A (being hit) + show-on-damage life bar beneath the sprite (HUD §6.1) -->
+  <g class="px">
+    <rect x="288" y="278" width="22" height="14" fill="#a65f38"/>
+    <rect x="284" y="282" width="6" height="8" fill="#a65f38"/>
+    <rect x="306" y="272" width="8" height="10" fill="#a65f38"/>
+    <rect x="308" y="275" width="2" height="2" fill="#f6c34b"/>
+    <rect x="290" y="292" width="4" height="4" fill="#7a4630"/><rect x="302" y="292" width="4" height="4" fill="#7a4630"/>
+    <rect x="284" y="298" width="30" height="3" fill="#241726"/>
+    <rect x="285" y="299" width="17" height="1.5" fill="#c8461f"/>
+  </g>
+  <rect x="272" y="260" width="58" height="10" rx="2" fill="#241726" opacity="0.82"/>
+  <text x="301" y="267.5" font-family="ui-monospace,monospace" font-size="7" fill="#b8aeb8" text-anchor="middle">mob_005 · Lv 5</text>
+  <!-- damage numbers: fire tint, crit larger (HUD §7) -->
+  <text x="316" y="252" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#e8642c" stroke="#241726" stroke-width="0.6" paint-order="stroke">27</text>
+  <text x="330" y="238" font-family="ui-monospace,monospace" font-size="15" font-weight="700" fill="#f6c34b" stroke="#241726" stroke-width="0.8" paint-order="stroke">54</text>
+
+  <!-- normal mob B (wandering) -->
+  <g class="px">
+    <rect x="540" y="280" width="20" height="12" fill="#a65f38"/>
+    <rect x="536" y="283" width="6" height="7" fill="#a65f38"/>
+    <rect x="541" y="292" width="4" height="4" fill="#7a4630"/><rect x="552" y="292" width="4" height="4" fill="#7a4630"/>
+  </g>
+  <rect x="521" y="264" width="58" height="10" rx="2" fill="#241726" opacity="0.82"/>
+  <text x="550" y="271.5" font-family="ui-monospace,monospace" font-size="7" fill="#b8aeb8" text-anchor="middle">mob_006 · Lv 6</text>
+
+  <!-- elite on ledge; elite life bar beneath the sprite, framed trim (HUD §6.1) -->
+  <g class="px">
+    <rect x="478" y="156" width="30" height="20" fill="#8a3a2c"/>
+    <rect x="472" y="161" width="8" height="11" fill="#8a3a2c"/>
+    <rect x="508" y="150" width="10" height="13" fill="#8a3a2c"/>
+    <rect x="511" y="154" width="3" height="3" fill="#f6c34b"/>
+    <rect x="481" y="176" width="5" height="4" fill="#5a241c"/><rect x="499" y="176" width="5" height="4" fill="#5a241c"/>
+    <rect x="476" y="182" width="34" height="5" fill="#241726" stroke="#8a7a92" stroke-width="0.5"/>
+    <rect x="477" y="183" width="21" height="3" fill="#c8461f"/><rect x="477" y="183" width="21" height="1.5" fill="#e8642c"/>
+  </g>
+  <rect x="458" y="136" width="72" height="10" rx="2" fill="#241726" opacity="0.85"/>
+  <text x="494" y="143.5" font-family="ui-monospace,monospace" font-size="7" fill="#f0955f" text-anchor="middle">mob_011 · Elite Lv 7</text>
+
+  <!-- ============ DESIGN ANNOTATION: spawn zone (not game UI) ============ -->
+  <rect x="262" y="238" width="316" height="58" fill="none" stroke="#54b0c6" stroke-width="1" stroke-dasharray="5 4" opacity="0.65"/>
+  <text x="266" y="247" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" opacity="0.9">spawn_zone field_east · target_count 4 · max 6 (SPAWN.md §1)</text>
+
+  <!-- ============ HUD (always-on shell, HUD.md §2/§11) ============ -->
+  <!-- player plate, top-left -->
+  <g>
+    <rect x="6" y="6" width="132" height="20" rx="2" fill="#241726" opacity="0.92" stroke="#6b5a6e" stroke-width="1"/>
+    <text x="13" y="19.5" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#fbf7ef">Ember</text>
+    <text x="56" y="19.5" font-family="ui-monospace,monospace" font-size="9" fill="#f6c34b">Lv 6</text>
+    <text x="86" y="19.5" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8">Novice</text>
+  </g>
+  <!-- toast, top-center -->
+  <g>
+    <rect x="262" y="10" width="116" height="16" rx="2" fill="#241726" opacity="0.92" stroke="#6b5a6e" stroke-width="1"/>
+    <rect x="262" y="10" width="3" height="16" fill="#3f9a45"/>
+    <text x="320" y="21.5" font-family="ui-monospace,monospace" font-size="8" fill="#fbf7ef" text-anchor="middle">Level Up! — Lv 6</text>
+  </g>
+  <!-- minimap + quest tracker, top-right -->
+  <g>
+    <rect x="552" y="6" width="82" height="54" rx="2" fill="#241726" opacity="0.92" stroke="#6b5a6e" stroke-width="1"/>
+    <rect x="557" y="11" width="72" height="38" fill="#171020"/>
+    <rect x="560" y="38" width="30" height="3" fill="#5d3347"/><rect x="594" y="34" width="24" height="3" fill="#5d3347"/>
+    <rect x="572" y="30" width="3" height="3" fill="#f6c34b"/>
+    <rect x="620" y="30" width="3" height="3" fill="#a678d4"/>
+    <text x="593" y="57" font-family="ui-monospace,monospace" font-size="6.5" fill="#8d7fa0" text-anchor="middle">Emberfoot Rise</text>
+    <rect x="552" y="64" width="82" height="34" rx="2" fill="#241726" opacity="0.88" stroke="#6b5a6e" stroke-width="1"/>
+    <text x="558" y="74" font-family="ui-monospace,monospace" font-size="7" fill="#f6c34b">▸ Kiln Scraps</text>
+    <text x="566" y="82.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#b8aeb8">gather scraps 4/8</text>
+    <text x="558" y="93" font-family="ui-monospace,monospace" font-size="7" fill="#f6c34b">▸ The Old Tunnels</text>
+  </g>
+  <!-- chat dock, bottom-left, collapsed -->
+  <g opacity="0.75">
+    <rect x="6" y="272" width="148" height="34" rx="2" fill="#241726" opacity="0.7"/>
+    <text x="11" y="282" font-family="ui-monospace,monospace" font-size="6.5" fill="#8d7fa0">[system] Welcome to Emberfoot Isle.</text>
+    <text x="11" y="291" font-family="ui-monospace,monospace" font-size="6.5" fill="#b8aeb8">[area] anyone selling kiln scraps?</text>
+    <text x="11" y="300" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6">[whisper] nice cape</text>
+  </g>
+  <!-- status icon row (12-cap, STATUS_EFFECTS §1) -->
+  <g>
+    <rect x="299" y="300" width="13" height="13" rx="2" fill="#241726" stroke="#3f9a45" stroke-width="1.5"/>
+    <path d="M302,309 l3,-5 l1.5,3 l2,-3" stroke="#3f9a45" stroke-width="1.2" fill="none"/>
+    <rect x="317" y="300" width="13" height="13" rx="2" fill="#241726" stroke="#c8461f" stroke-width="1.5"/>
+    <path d="M323.5,303 q3,3 0,7 q-3,-4 0,-7" fill="#e8642c"/>
+  </g>
+  <!-- bottom bar -->
+  <g>
+    <rect x="0" y="318" width="640" height="36" fill="#241726" opacity="0.88"/>
+    <rect x="0" y="318" width="640" height="1" fill="#6b5a6e"/>
+    <!-- life / essence gauges -->
+    <rect x="8" y="323" width="140" height="11" rx="2" fill="#171020" stroke="#6b5a6e" stroke-width="1"/>
+    <rect x="9" y="324" width="84" height="9" fill="#c8461f"/><rect x="9" y="324" width="84" height="4" fill="#e8642c"/>
+    <text x="78" y="331.5" font-family="ui-monospace,monospace" font-size="7.5" font-weight="700" fill="#fbf7ef" text-anchor="middle">92 / 153</text>
+    <rect x="8" y="337" width="140" height="11" rx="2" fill="#171020" stroke="#6b5a6e" stroke-width="1"/>
+    <rect x="9" y="338" width="89" height="9" fill="#2e7f96"/><rect x="9" y="338" width="89" height="4" fill="#54b0c6"/>
+    <text x="78" y="345.5" font-family="ui-monospace,monospace" font-size="7.5" font-weight="700" fill="#fbf7ef" text-anchor="middle">38 / 59</text>
+    <!-- 8 skill slots -->
+    <g font-family="ui-monospace,monospace">
+      <g>
+        <rect x="170" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#8a7a92" stroke-width="1"/>
+        <path d="M174,341 L186,329 M183,329 h3 v3" stroke="#e8e8f0" stroke-width="2" fill="none"/>
+        <text x="172.5" y="332" font-size="5.5" fill="#8d7fa0">1</text>
+      </g>
+      <g>
+        <rect x="194" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#8a7a92" stroke-width="1"/>
+        <circle cx="204.5" cy="335.5" r="6" fill="none" stroke="#e8642c" stroke-width="2"/>
+        <text x="196.5" y="332" font-size="5.5" fill="#8d7fa0">2</text>
+      </g>
+      <g><!-- cooldown wipe + countdown (HUD §3) -->
+        <rect x="218" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#8a7a92" stroke-width="1"/>
+        <rect x="220" y="327" width="17" height="17" fill="#54b0c6" opacity="0.5"/>
+        <path d="M228.5,335.5 L228.5,327 A8.5,8.5 0 0 1 237,335.5 Z" fill="#241726" opacity="0.85"/>
+        <text x="228.5" y="339" font-size="8" font-weight="700" fill="#fbf7ef" text-anchor="middle">3</text>
+        <text x="220.5" y="332" font-size="5.5" fill="#8d7fa0">3</text>
+      </g>
+      <g><!-- unaffordable: essence_cost > current essence -->
+        <rect x="242" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#8a7a92" stroke-width="1"/>
+        <path d="M246,343 q6,-12 13,-1" stroke="#6a5a72" stroke-width="2" fill="none"/>
+        <rect x="243" y="326" width="19" height="19" fill="#c8461f" opacity="0.28"/>
+        <text x="244.5" y="332" font-size="5.5" fill="#8d7fa0">4</text>
+      </g>
+      <g><rect x="266" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="268.5" y="332" font-size="5.5" fill="#5a4a62">5</text></g>
+      <g><rect x="290" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="292.5" y="332" font-size="5.5" fill="#5a4a62">6</text></g>
+      <g><rect x="314" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="316.5" y="332" font-size="5.5" fill="#5a4a62">7</text></g>
+      <g><rect x="338" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="340.5" y="332" font-size="5.5" fill="#5a4a62">8</text></g>
+      <!-- Dodge: 9th, visually distinct slot (CONTROLS §3) -->
+      <g>
+        <rect x="366" y="324" width="23" height="23" rx="5" fill="#171020" stroke="#f6c34b" stroke-width="1.5"/>
+        <path d="M371,341 q3,-9 8,-9 q4,0 5,4" stroke="#f6c34b" stroke-width="1.5" fill="none"/>
+        <path d="M382,333 l3,2 -3,2" stroke="#f6c34b" stroke-width="1.5" fill="none"/>
+        <text x="377.5" y="353" font-size="5.5" fill="#8d7fa0" text-anchor="middle">SHIFT</text>
+      </g>
+      <!-- 4 quickslots -->
+      <g>
+        <rect x="400" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#8a7a92" stroke-width="1"/>
+        <rect x="407" y="331" width="7" height="10" rx="2" fill="#c8461f"/><rect x="408.5" y="329" width="4" height="3" fill="#8a7a92"/>
+        <rect x="412" y="338" width="8" height="7" rx="1" fill="#241726" stroke="#8a7a92" stroke-width="0.5"/>
+        <text x="416" y="343.5" font-size="5.5" fill="#fbf7ef" text-anchor="middle">12</text>
+        <text x="402" y="332" font-size="5" fill="#8d7fa0">F1</text>
+      </g>
+      <g><rect x="424" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="426" y="332" font-size="5" fill="#5a4a62">F2</text></g>
+      <g><rect x="448" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="450" y="332" font-size="5" fill="#5a4a62">F3</text></g>
+      <g><rect x="472" y="325" width="21" height="21" rx="2" fill="#171020" stroke="#5a4a62" stroke-width="1"/><text x="474" y="332" font-size="5" fill="#5a4a62">F4</text></g>
+    </g>
+    <!-- shards wallet, right-aligned in the bottom bar (HUD §3, INVENTORY §3) -->
+    <path d="M549,335 l5,-7 5,7 -5,7 Z" fill="#f6c34b"/><path d="M549,335 l5,-7 5,7 Z" fill="#fbe49a"/>
+    <text x="563" y="338.5" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#fbf7ef">12,480</text>
+  </g>
+  <!-- exp strip: full-width, thin, arcane ramp, very bottom -->
+  <rect x="0" y="355" width="640" height="5" fill="#171020"/>
+  <rect x="0" y="355" width="218" height="5" fill="#7b4fa6"/>
+  <rect x="0" y="355" width="218" height="2" fill="#a678d4"/>
+
+  <!-- ============ annotation pins ============ -->
+  <g font-family="ui-monospace,monospace" font-size="8" font-weight="700">
+    <g><circle cx="146" cy="16" r="7" fill="#f6c34b"/><text x="146" y="19" fill="#241726" text-anchor="middle">1</text></g>
+    <g><circle cx="386" cy="18" r="7" fill="#f6c34b"/><text x="386" y="21" fill="#241726" text-anchor="middle">2</text></g>
+    <g><circle cx="544" cy="16" r="7" fill="#f6c34b"/><text x="544" y="19" fill="#241726" text-anchor="middle">3</text></g>
+    <g><circle cx="544" cy="80" r="7" fill="#f6c34b"/><text x="544" y="83" fill="#241726" text-anchor="middle">4</text></g>
+    <g><circle cx="290" cy="306" r="7" fill="#f6c34b"/><text x="290" y="309" fill="#241726" text-anchor="middle">5</text></g>
+    <g><circle cx="157" cy="330" r="7" fill="#f6c34b"/><text x="157" y="333" fill="#241726" text-anchor="middle">6</text></g>
+    <g><circle cx="252" cy="316" r="7" fill="#f6c34b"/><text x="252" y="319" fill="#241726" text-anchor="middle">7</text></g>
+    <g><circle cx="377" cy="316" r="7" fill="#f6c34b"/><text x="377" y="319" fill="#241726" text-anchor="middle">8</text></g>
+    <g><circle cx="446" cy="316" r="7" fill="#f6c34b"/><text x="446" y="319" fill="#241726" text-anchor="middle">9</text></g>
+    <g><circle cx="235" cy="356" r="6.5" fill="#f6c34b"/><text x="235" y="359" fill="#241726" text-anchor="middle">10</text></g>
+    <g><circle cx="162" cy="278" r="6.5" fill="#f6c34b"/><text x="162" y="281" fill="#241726" text-anchor="middle">11</text></g>
+    <g><circle cx="343" cy="228" r="6.5" fill="#f6c34b"/><text x="343" y="231" fill="#241726" text-anchor="middle">12</text></g>
+    <g><circle cx="148" cy="240" r="6.5" fill="#f6c34b"/><text x="148" y="243" fill="#241726" text-anchor="middle">13</text></g>
+    <g><circle cx="422" cy="212" r="6.5" fill="#f6c34b"/><text x="422" y="215" fill="#241726" text-anchor="middle">14</text></g>
+    <g><circle cx="512" cy="240" r="6.5" fill="#f6c34b"/><text x="512" y="243" fill="#241726" text-anchor="middle">15</text></g>
+    <g><circle cx="406" cy="320" r="6.5" fill="#f6c34b"/><text x="406" y="323" fill="#241726" text-anchor="middle">16</text></g>
+    <g><circle cx="612" cy="232" r="6.5" fill="#f6c34b"/><text x="612" y="235" fill="#241726" text-anchor="middle">17</text></g>
+    <g><circle cx="264" cy="297" r="6.5" fill="#f6c34b"/><text x="264" y="300" fill="#241726" text-anchor="middle">18</text></g>
+    <g><circle cx="356" cy="264" r="6.5" fill="#f6c34b"/><text x="356" y="267" fill="#241726" text-anchor="middle">19</text></g>
+    <g><circle cx="522" cy="192" r="6.5" fill="#f6c34b"/><text x="522" y="195" fill="#241726" text-anchor="middle">20</text></g>
+    <g><circle cx="600" cy="335" r="6.5" fill="#f6c34b"/><text x="600" y="338" fill="#241726" text-anchor="middle">21</text></g>
+  </g>
+</svg>
+
+<div class="legend">
+  <div><b>1</b> Player plate: name / Lv / job <span class="doc">HUD §4</span></div>
+  <div><b>2</b> Toast stack (success/warn/info) <span class="doc">HUD §9</span></div>
+  <div><b>3</b> Minimap (contents unspecified — review §4.3) <span class="doc">HUD §5</span></div>
+  <div><b>4</b> Compact quest tracker, ≤3 tracked <span class="doc">QUESTS §8</span></div>
+  <div><b>5</b> Status icon row: verdant buff / red debuff rings <span class="doc">HUD §8</span></div>
+  <div><b>6</b> <code>life</code> (ember) over <code>essence</code> (tide) gauges <span class="doc">HUD §3</span></div>
+  <div><b>7</b> 8 skill slots: cooldown wipe + count, unaffordable red tint <span class="doc">HUD §3, SKILL_SYSTEM §7</span></div>
+  <div><b>8</b> Dodge — 9th distinct slot, own binding <span class="doc">CONTROLS §3</span></div>
+  <div><b>9</b> Quickslots F1–F4, qty badge <span class="doc">INVENTORY / UI_ART_SPEC</span></div>
+  <div><b>10</b> Full-width thin <code>exp</code> strip (arcane ramp) <span class="doc">HUD §3</span></div>
+  <div><b>11</b> Chat dock, collapsed, 3–4 lines <span class="doc">HUD §10</span></div>
+  <div><b>12</b> One-way platform (drop-through: Down+Jump) <span class="doc">MAP_TRAVERSAL §3</span></div>
+  <div><b>13</b> Angled foothold + painted terrain chunk <span class="doc">MAP_TRAVERSAL, AB-001</span></div>
+  <div><b>14</b> Climbable (rope=ladder, one state; no attacking) <span class="doc">MAP_TRAVERSAL §4</span></div>
+  <div><b>15</b> Elite ledge; elite name tag in ember.light <span class="doc">UI_ART_SPEC</span></div>
+  <div><b>16</b> Hazard pit: % max-<code>life</code> touch damage <span class="doc">MAP_TRAVERSAL §6</span></div>
+  <div><b>17</b> Portal → map_006 (world-graph edge) <span class="doc">MAP_CONNECTIONS</span></div>
+  <div><b>18</b> Elite <code>aoe_circle</code> telegraph disc <span class="doc">SKILL_SYSTEM §6, P1</span></div>
+  <div><b>19</b> <code>shards</code> drop, auto-loot on contact <span class="doc">DROPS §3, INVENTORY §4</span></div>
+  <div><b>20</b> Monster <code>life</code> bar <b>beneath</b> the sprite — non-boss, show-on-damage, 4&nbsp;s fade; elite gets framed trim; untouched mobs (right) show none <span class="doc">HUD §6.1</span></div>
+  <div><b>21</b> <code>shards</code> wallet, right-aligned in the bottom bar; mirrored in the Inventory window footer <span class="doc">HUD §3, INVENTORY §3, UI_WINDOWS §2</span></div>
+</div>
+<p class="note">Dashed cyan rectangle = spawn-zone authoring annotation (SPAWN.md §1) — not game UI. Camera: player sits inside the
+6×3-tile deadzone with rightward lookahead easing in (CAMERA §1–§2). Party frames (HUD §4.1) stack under the player plate when grouped — solo here, so hidden (see §4 below).</p>
+</div>
+
+<h2>2 · Contextual variant — boss arena (<code>boss_bar</code> + camera lock)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 150" role="img" aria-label="Boss arena HUD variant">
+  <rect x="0" y="0" width="640" height="150" fill="#241a14" class="px"/>
+  <rect x="0" y="120" width="640" height="30" fill="#3a241c" class="px"/>
+  <rect x="0" y="120" width="640" height="4" fill="#7a4630" class="px"/>
+  <g class="px" opacity="0.5"><rect x="60" y="40" width="18" height="80" fill="#171008"/><rect x="560" y="40" width="18" height="80" fill="#171008"/></g>
+  <!-- boss_bar: top-center, ember ramp, phase pips, no numeric readout (HUD §6) -->
+  <g>
+    <rect x="170" y="10" width="300" height="30" rx="3" fill="#241726" opacity="0.94" stroke="#6b5a6e" stroke-width="1"/>
+    <text x="320" y="22" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef" text-anchor="middle">Thornback Sovereign</text>
+    <rect x="180" y="26" width="280" height="9" fill="#171020" stroke="#6b5a6e" stroke-width="0.5"/>
+    <rect x="181" y="27" width="186" height="7" fill="#c8461f"/><rect x="181" y="27" width="186" height="3" fill="#e8642c"/>
+    <rect x="320" y="25" width="2" height="11" fill="#f6c34b"/>
+    <text x="320" y="48" font-family="ui-monospace,monospace" font-size="6.5" fill="#8d7fa0" text-anchor="middle">phase pip @ life_threshold_pct (2-phase boss — AI_BEHAVIOR §15)</text>
+  </g>
+  <!-- boss -->
+  <g class="px">
+    <rect x="404" y="76" width="70" height="44" fill="#3f5a2e"/>
+    <rect x="392" y="90" width="16" height="22" fill="#3f5a2e"/>
+    <rect x="410" y="62" width="20" height="18" fill="#5a7a3a"/><rect x="440" y="58" width="16" height="22" fill="#5a7a3a"/>
+    <rect x="396" y="96" width="4" height="4" fill="#f6c34b"/>
+    <rect x="410" y="118" width="10" height="4" fill="#2c401f"/><rect x="452" y="118" width="10" height="4" fill="#2c401f"/>
+  </g>
+  <ellipse cx="250" cy="121" rx="40" ry="8" fill="#c8461f" opacity="0.16"/>
+  <ellipse cx="250" cy="121" rx="40" ry="8" fill="none" stroke="#c8461f" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <g class="px">
+    <rect x="204" y="96" width="12" height="14" fill="#3f9a45"/><rect x="204" y="90" width="12" height="8" fill="#e8b98a"/>
+    <rect x="203" y="87" width="14" height="5" fill="#5a3a28"/>
+    <rect x="204" y="110" width="5" height="10" fill="#4a3020"/><rect x="211" y="110" width="5" height="10" fill="#4a3020"/>
+  </g>
+  <text x="12" y="142" font-family="ui-monospace,monospace" font-size="7" fill="#8d7fa0">arena lock: bounds = arena rect · lookahead off · instant vertical tracking (CAMERA §6) · boss knockback-immune, super-armor outside scripted windows (COMBAT_FORMULA §11)</text>
+</svg>
+</div>
+
+<h2>3 · Scene depth stack (what the engine builds, MAP_LAYERS.md)</h2>
+<div class="frame">
+  <div class="stack">
+    <div class="band"><span>☁ Sky / far parallax — sky, clouds, distant silhouettes</span><span class="f">~0.1× · no collision</span></div>
+    <div class="band"><span>⛰ Mid parallax — hills, kiln chimneys, structures</span><span class="f">~0.4–0.6× · no collision</span></div>
+    <div class="band" style="border-color:#f6c34b"><span><b>▶ Playfield — all gameplay</b> (terrain, entities, interactables)</span><span class="f">1.0× · full collision</span></div>
+    <div class="band"><span>🌿 Foreground occluders — foliage/pillars the player passes behind</span><span class="f">~1.1–1.3× · no collision</span></div>
+  </div>
+  <div class="chips">
+    <span class="chip">decor_back</span><span class="arrow">→</span>
+    <span class="chip">terrain (1 world)</span><span class="chip">one_way (2)</span><span class="chip">climbable (8)</span><span class="arrow">→</span>
+    <span class="chip">entities (3–7, 9)</span><span class="arrow">→</span>
+    <span class="chip">decor_front</span>
+  </div>
+  <p class="note" style="border-color:var(--link)">Playfield draw order per MAP_LAYERS §2; lighting is a single scene-wide <code>ambient_tint</code> modulate — no dynamic lights (MAP_LAYERS §5).
+  Camera renders at integer zoom on whole pixels (CAMERA §5); parallax scales against the camera's final tracked position (CAMERA §8).</p>
+</div>
+
+<h2>4 · Toggle windows — Inventory &amp; Character/Equipment (<code>UI_WINDOWS.md</code> §2–§3)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 250" role="img" aria-label="Inventory and Character window mock-ups">
+  <rect x="0" y="0" width="640" height="250" fill="#171020" class="px"/>
+  <!-- ================= INVENTORY WINDOW (I) ================= -->
+  <g>
+    <rect x="30" y="14" width="242" height="220" rx="3" fill="#241726" stroke="#8a7a92" stroke-width="1.5"/>
+    <rect x="30" y="14" width="242" height="18" fill="#2d2340"/>
+    <text x="40" y="27" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef">Inventory</text>
+    <text x="260" y="27" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8" text-anchor="middle">✕</text>
+    <!-- tabs -->
+    <rect x="40" y="38" width="44" height="14" rx="2" fill="#3a2f48" stroke="#f6c34b" stroke-width="1"/>
+    <text x="62" y="48" font-family="ui-monospace,monospace" font-size="7.5" fill="#f6c34b" text-anchor="middle">equip</text>
+    <rect x="88" y="38" width="36" height="14" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+    <text x="106" y="48" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0" text-anchor="middle">use</text>
+    <rect x="128" y="38" width="36" height="14" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+    <text x="146" y="48" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0" text-anchor="middle">etc</text>
+    <!-- 6x4 grid, base 24 slots -->
+    <g class="px">
+      <!-- row template: y 58,84,110,136 ; x 44 + col*26 -->
+      <g fill="#171020" stroke="#5a4a62" stroke-width="1">
+        <rect x="44" y="58" width="24" height="24"/><rect x="70" y="58" width="24" height="24"/><rect x="96" y="58" width="24" height="24"/><rect x="122" y="58" width="24" height="24"/><rect x="148" y="58" width="24" height="24"/><rect x="174" y="58" width="24" height="24"/>
+        <rect x="44" y="84" width="24" height="24"/><rect x="70" y="84" width="24" height="24"/><rect x="96" y="84" width="24" height="24"/><rect x="122" y="84" width="24" height="24"/><rect x="148" y="84" width="24" height="24"/><rect x="174" y="84" width="24" height="24"/>
+        <rect x="44" y="110" width="24" height="24"/><rect x="70" y="110" width="24" height="24"/><rect x="96" y="110" width="24" height="24"/><rect x="122" y="110" width="24" height="24"/><rect x="148" y="110" width="24" height="24"/><rect x="174" y="110" width="24" height="24"/>
+        <rect x="44" y="136" width="24" height="24"/><rect x="70" y="136" width="24" height="24"/><rect x="96" y="136" width="24" height="24"/><rect x="122" y="136" width="24" height="24"/><rect x="148" y="136" width="24" height="24"/><rect x="174" y="136" width="24" height="24"/>
+      </g>
+      <!-- item: rare blade (rarity ring) -->
+      <rect x="44" y="58" width="24" height="24" fill="none" stroke="#54b0c6" stroke-width="1.5"/>
+      <path d="M49,77 L62,64 M60,64 h3 v3" stroke="#e8e8f0" stroke-width="2" fill="none"/>
+      <!-- item: uncommon head -->
+      <rect x="70" y="58" width="24" height="24" fill="none" stroke="#3f9a45" stroke-width="1.5"/>
+      <path d="M75,72 a7,6 0 0 1 14,0 v3 h-14 Z" fill="#8a7a92"/>
+      <!-- item: epic ring -->
+      <rect x="96" y="58" width="24" height="24" fill="none" stroke="#a678d4" stroke-width="1.5"/>
+      <circle cx="108" cy="71" r="5" fill="none" stroke="#f6c34b" stroke-width="2"/>
+      <!-- selected empty slot -->
+      <rect x="122" y="58" width="24" height="24" fill="none" stroke="#f6c34b" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <!-- locked slot glyph -->
+      <rect x="174" y="136" width="24" height="24" fill="#100a18"/>
+      <text x="186" y="152" font-family="ui-monospace,monospace" font-size="9" fill="#5a4a62" text-anchor="middle">🔒</text>
+    </g>
+    <text x="151" y="172" font-family="ui-monospace,monospace" font-size="6.5" fill="#8d7fa0" text-anchor="middle">base 24 slots · +8 rows to 48 (INVENTORY §1)</text>
+    <!-- footer: wallet + buttons -->
+    <rect x="30" y="204" width="242" height="30" fill="#2d2340"/>
+    <path d="M44,219 l5,-7 5,7 -5,7 Z" fill="#f6c34b"/><path d="M44,219 l5,-7 5,7 Z" fill="#fbe49a"/>
+    <text x="58" y="222.5" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#fbf7ef">12,480</text>
+    <rect x="164" y="211" width="42" height="16" rx="2" fill="#3a2f48" stroke="#8a7a92" stroke-width="1"/>
+    <text x="185" y="222" font-family="ui-monospace,monospace" font-size="7.5" fill="#fbf7ef" text-anchor="middle">Sort</text>
+    <rect x="212" y="211" width="42" height="16" rx="2" fill="#3a2f48" stroke="#5a4a62" stroke-width="1"/>
+    <text x="233" y="222" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0" text-anchor="middle">Sell</text>
+  </g>
+  <!-- ================= CHARACTER WINDOW (K) ================= -->
+  <g>
+    <rect x="322" y="8" width="288" height="232" rx="3" fill="#241726" stroke="#8a7a92" stroke-width="1.5"/>
+    <rect x="322" y="8" width="288" height="18" fill="#2d2340"/>
+    <text x="332" y="21" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef">Character</text>
+    <text x="598" y="21" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8" text-anchor="middle">✕</text>
+    <rect x="332" y="32" width="64" height="14" rx="2" fill="#3a2f48" stroke="#f6c34b" stroke-width="1"/>
+    <text x="364" y="42" font-family="ui-monospace,monospace" font-size="7.5" fill="#f6c34b" text-anchor="middle">Character</text>
+    <rect x="400" y="32" width="44" height="14" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+    <text x="422" y="42" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0" text-anchor="middle">Skills</text>
+    <!-- paper-doll: slots ringed around idle preview -->
+    <g font-family="ui-monospace,monospace" font-size="5.5" fill="#8d7fa0">
+      <g class="px" fill="#171020" stroke="#5a4a62" stroke-width="1">
+        <rect x="336" y="54" width="20" height="20"/><rect x="336" y="82" width="20" height="20"/><rect x="336" y="110" width="20" height="20"/><rect x="336" y="138" width="20" height="20"/>
+        <rect x="452" y="54" width="20" height="20"/><rect x="452" y="82" width="20" height="20"/><rect x="452" y="110" width="20" height="20"/><rect x="452" y="138" width="20" height="20"/><rect x="452" y="166" width="20" height="20"/>
+      </g>
+      <text x="346" y="82" text-anchor="middle">head</text><text x="346" y="110" text-anchor="middle">cape</text><text x="346" y="138" text-anchor="middle">weapon</text><text x="346" y="166" text-anchor="middle">gloves</text>
+      <text x="462" y="82" text-anchor="middle">amulet</text><text x="462" y="110" text-anchor="middle">ring</text><text x="462" y="138" text-anchor="middle">body</text><text x="462" y="166" text-anchor="middle">legs</text><text x="462" y="194" text-anchor="middle">boots</text>
+      <!-- equipped: weapon + body filled -->
+      <path d="M340,126 L352,114 M350,114 h3 v3" stroke="#e8e8f0" stroke-width="2" fill="none"/>
+      <rect x="452" y="110" width="20" height="20" fill="none" stroke="#3f9a45" stroke-width="1.5"/>
+      <rect x="457" y="115" width="10" height="11" fill="#3f9a45"/>
+    </g>
+    <!-- idle preview -->
+    <rect x="366" y="54" width="80" height="132" fill="#171020" stroke="#3a2f48" stroke-width="1"/>
+    <g class="px">
+      <rect x="396" y="106" width="16" height="20" fill="#3f9a45"/>
+      <rect x="396" y="96" width="16" height="11" fill="#e8b98a"/>
+      <rect x="394" y="92" width="20" height="6" fill="#5a3a28"/>
+      <rect x="396" y="126" width="7" height="14" fill="#4a3020"/><rect x="405" y="126" width="7" height="14" fill="#4a3020"/>
+    </g>
+    <text x="406" y="180" font-family="ui-monospace,monospace" font-size="6" fill="#5a4a62" text-anchor="middle">idle preview</text>
+    <!-- stats column -->
+    <g font-family="ui-monospace,monospace" font-size="7.5">
+      <text x="486" y="62" fill="#f6c34b">might</text><text x="560" y="62" fill="#fbf7ef">12</text><text x="576" y="62" fill="#3f9a45">[+]</text>
+      <text x="486" y="76" fill="#b8aeb8">finesse</text><text x="560" y="76" fill="#fbf7ef">12</text><text x="576" y="76" fill="#3f9a45">[+]</text>
+      <text x="486" y="90" fill="#b8aeb8">focus</text><text x="560" y="90" fill="#fbf7ef">12</text><text x="576" y="90" fill="#3f9a45">[+]</text>
+      <text x="486" y="104" fill="#b8aeb8">fortune</text><text x="560" y="104" fill="#fbf7ef">12</text><text x="576" y="104" fill="#3f9a45">[+]</text>
+      <text x="486" y="115" fill="#5a4a62">— free points: 4 —</text>
+      <text x="486" y="130" fill="#b8aeb8">life</text><text x="560" y="130" fill="#fbf7ef">153</text>
+      <text x="486" y="143" fill="#b8aeb8">essence</text><text x="560" y="143" fill="#fbf7ef">59</text>
+      <text x="486" y="156" fill="#b8aeb8">power</text><text x="560" y="156" fill="#fbf7ef">24</text>
+      <text x="486" y="169" fill="#b8aeb8">armor</text><text x="560" y="169" fill="#fbf7ef">8</text>
+      <text x="486" y="182" fill="#b8aeb8">crit_rate</text><text x="560" y="182" fill="#fbf7ef">6.2%</text>
+      <text x="486" y="195" fill="#b8aeb8">haste</text><text x="560" y="195" fill="#fbf7ef">0</text>
+    </g>
+    <!-- footer -->
+    <rect x="322" y="212" width="288" height="28" fill="#2d2340"/>
+    <text x="332" y="229" font-family="ui-monospace,monospace" font-size="8" fill="#fbf7ef">Ember · Lv 6 · Novice</text>
+    <rect x="470" y="222" width="120" height="6" fill="#171020" stroke="#5a4a62" stroke-width="0.5"/>
+    <rect x="471" y="223" width="41" height="4" fill="#7b4fa6"/>
+    <text x="596" y="229" font-family="ui-monospace,monospace" font-size="7" fill="#a678d4" text-anchor="end">34%</text>
+  </g>
+</svg>
+<p class="note" style="border-color:var(--link)">Open <code>K</code> (left-anchored) beside <code>I</code> (right-anchored) and drag between doll and bag — the classic loop (UI_WINDOWS §2–§3).
+Slot construction, rarity rings, and tooltips are the locked UI_ART_SPEC constructions; provisional <code>shield</code>/<code>overall</code> doll positions are reserved, not shown.
+The wallet here mirrors the bottom-bar wallet — one value, two readouts.</p>
+</div>
+
+<h2>5 · Toggle windows — Party &amp; Guild (<code>UI_WINDOWS.md</code> §4–§5) + HUD party frames</h2>
+<div class="frame">
+<svg viewBox="0 0 640 210" role="img" aria-label="Party and Guild window mock-ups">
+  <rect x="0" y="0" width="640" height="210" fill="#171020" class="px"/>
+  <!-- HUD party frames sample (in-world, under player plate) -->
+  <g>
+    <text x="24" y="24" font-family="ui-monospace,monospace" font-size="7.5" fill="#8d7fa0">HUD party frames (HUD §4.1)</text>
+    <g>
+      <rect x="24" y="32" width="118" height="24" rx="2" fill="#241726" opacity="0.92" stroke="#6b5a6e" stroke-width="1"/>
+      <text x="30" y="42" font-family="ui-monospace,monospace" font-size="7" fill="#fbf7ef">Marrow · 7 ♛</text>
+      <circle cx="134" cy="40" r="2.5" fill="#3f9a45"/>
+      <rect x="30" y="46" width="84" height="3.5" fill="#171020"/><rect x="30" y="46" width="63" height="3.5" fill="#c8461f"/>
+      <rect x="30" y="51" width="84" height="3" fill="#171020"/><rect x="30" y="51" width="34" height="3" fill="#2e7f96"/>
+    </g>
+    <g>
+      <rect x="24" y="60" width="118" height="24" rx="2" fill="#241726" opacity="0.92" stroke="#6b5a6e" stroke-width="1"/>
+      <text x="30" y="70" font-family="ui-monospace,monospace" font-size="7" fill="#fbf7ef">Tansy · 6</text>
+      <circle cx="134" cy="68" r="2.5" fill="#3f9a45"/>
+      <rect x="30" y="74" width="84" height="3.5" fill="#171020"/><rect x="30" y="74" width="80" height="3.5" fill="#c8461f"/>
+      <rect x="30" y="79" width="84" height="3" fill="#171020"/><rect x="30" y="79" width="70" height="3" fill="#2e7f96"/>
+    </g>
+    <g opacity="0.55">
+      <rect x="24" y="88" width="118" height="24" rx="2" fill="#241726" stroke="#6b5a6e" stroke-width="1"/>
+      <text x="30" y="98" font-family="ui-monospace,monospace" font-size="7" fill="#b8aeb8">Rook · 7 ☠ fallen</text>
+      <circle cx="134" cy="96" r="2.5" fill="#5a4a62"/>
+      <rect x="30" y="102" width="84" height="3.5" fill="#171020"/>
+      <rect x="30" y="107" width="84" height="3" fill="#171020"/>
+    </g>
+    <text x="24" y="126" font-family="ui-monospace,monospace" font-size="6" fill="#5a4a62">% bars only · same-map dot · fallen stays rendered</text>
+  </g>
+  <!-- PARTY WINDOW (P) -->
+  <g>
+    <rect x="180" y="10" width="216" height="190" rx="3" fill="#241726" stroke="#8a7a92" stroke-width="1.5"/>
+    <rect x="180" y="10" width="216" height="18" fill="#2d2340"/>
+    <text x="190" y="23" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef">Party</text>
+    <text x="384" y="23" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8" text-anchor="middle">✕</text>
+    <rect x="190" y="34" width="44" height="13" rx="2" fill="#3a2f48" stroke="#f6c34b" stroke-width="1"/>
+    <text x="212" y="43.5" font-family="ui-monospace,monospace" font-size="7" fill="#f6c34b" text-anchor="middle">Party</text>
+    <rect x="238" y="34" width="44" height="13" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+    <text x="260" y="43.5" font-family="ui-monospace,monospace" font-size="7" fill="#8d7fa0" text-anchor="middle">Board</text>
+    <g font-family="ui-monospace,monospace" font-size="7.5">
+      <text x="192" y="62" fill="#f6c34b">♛ Marrow</text><text x="290" y="62" fill="#b8aeb8">Lv 7 · Bulwark</text>
+      <text x="192" y="78" fill="#fbf7ef">Ember (you)</text><text x="290" y="78" fill="#b8aeb8">Lv 6 · Novice</text>
+      <text x="192" y="94" fill="#fbf7ef">Tansy</text><text x="290" y="94" fill="#b8aeb8">Lv 6 · Weaver</text>
+      <text x="192" y="110" fill="#5a4a62">Rook ☠</text><text x="290" y="110" fill="#5a4a62">Lv 7 · Keeneye</text>
+    </g>
+    <line x1="190" y1="120" x2="386" y2="120" stroke="#3a2f48" stroke-width="1"/>
+    <g font-family="ui-monospace,monospace" font-size="7">
+      <text x="192" y="134" fill="#8d7fa0">loot:</text>
+      <rect x="220" y="126" width="76" height="12" rx="2" fill="#3a2f48" stroke="#8a7a92" stroke-width="1"/>
+      <text x="258" y="135" fill="#fbf7ef" text-anchor="middle">round_robin ▾</text>
+      <text x="192" y="152" fill="#8d7fa0">leader: [Invite] [Kick] [Promote]</text>
+    </g>
+    <rect x="180" y="164" width="216" height="36" fill="#2d2340"/>
+    <text x="190" y="178" font-family="ui-monospace,monospace" font-size="7" fill="#3f9a45">4 same-map · exp pool bonus active</text>
+    <text x="190" y="190" font-family="ui-monospace,monospace" font-size="7" fill="#3f9a45">party_drop_bonus ×1.16 (DROPS §4.1)</text>
+  </g>
+  <!-- GUILD WINDOW (G) -->
+  <g>
+    <rect x="416" y="4" width="208" height="200" rx="3" fill="#241726" stroke="#8a7a92" stroke-width="1.5"/>
+    <rect x="416" y="4" width="208" height="18" fill="#2d2340"/>
+    <text x="426" y="17" font-family="ui-monospace,monospace" font-size="10" font-weight="700" fill="#fbf7ef">Guild — Kilnkeepers</text>
+    <text x="612" y="17" font-family="ui-monospace,monospace" font-size="9" fill="#b8aeb8" text-anchor="middle">✕</text>
+    <g font-family="ui-monospace,monospace" font-size="7">
+      <rect x="426" y="28" width="44" height="13" rx="2" fill="#3a2f48" stroke="#f6c34b" stroke-width="1"/>
+      <text x="448" y="37.5" fill="#f6c34b" text-anchor="middle">Roster</text>
+      <rect x="474" y="28" width="40" height="13" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+      <text x="494" y="37.5" fill="#8d7fa0" text-anchor="middle">Crest</text>
+      <rect x="518" y="28" width="36" height="13" rx="2" fill="#2d2340" stroke="#5a4a62" stroke-width="1"/>
+      <text x="536" y="37.5" fill="#8d7fa0" text-anchor="middle">Info</text>
+    </g>
+    <!-- crest preview: heater shield + symbol -->
+    <g class="px">
+      <path d="M566,50 h40 v22 q0,14 -20,20 q-20,-6 -20,-20 Z" fill="#7d4152" stroke="#241726" stroke-width="2"/>
+      <path d="M578,62 l8,-8 8,8 -8,14 Z" fill="#f6c34b" stroke="#241726" stroke-width="1"/>
+    </g>
+    <text x="586" y="102" font-family="ui-monospace,monospace" font-size="6" fill="#8d7fa0" text-anchor="middle">crest (data)</text>
+    <g font-family="ui-monospace,monospace" font-size="7.5">
+      <text x="426" y="58" fill="#f6c34b">Marrow</text><text x="500" y="58" fill="#b8aeb8">leader</text>
+      <text x="426" y="72" fill="#fbf7ef">Ember</text><text x="500" y="72" fill="#b8aeb8">officer</text>
+      <text x="426" y="86" fill="#fbf7ef">Tansy</text><text x="500" y="86" fill="#b8aeb8">member</text>
+      <text x="426" y="100" fill="#fbf7ef">Rook</text><text x="500" y="100" fill="#b8aeb8">member</text>
+    </g>
+    <line x1="426" y1="112" x2="614" y2="112" stroke="#3a2f48" stroke-width="1"/>
+    <g font-family="ui-monospace,monospace" font-size="7">
+      <text x="426" y="126" fill="#8d7fa0">MOTD: "raid_undervault at dusk"</text>
+      <text x="426" y="142" fill="#8d7fa0">members 4 / 20 · guild_level 1</text>
+      <text x="426" y="158" fill="#5a4a62">contribution — server-live only</text>
+    </g>
+    <rect x="416" y="172" width="208" height="32" fill="#2d2340"/>
+    <text x="426" y="186" font-family="ui-monospace,monospace" font-size="7" fill="#8d7fa0">roster · chat · crest · MOTD live in solo;</text>
+    <text x="426" y="196" font-family="ui-monospace,monospace" font-size="7" fill="#8d7fa0">levels/goals dormant (GUILD §0, P6)</text>
+  </g>
+</svg>
+<p class="note" style="border-color:var(--link)">All mechanics shown belong to PARTY.md / GUILD.md / DROPS.md — the windows are pure views (UI_WINDOWS §6).
+Names shown are illustrative player names, not content tokens.</p>
+</div>
+
+<p class="sub" style="margin-top:20px">Companion critical review: <code>docs/phase_reports/GAMEPLAY_LOOP_REVIEW_2026-07-24.md</code>.
+Mob labels use registry IDs (<code>mob_005</code>…) rather than invented names — monster naming is Phase D content (CLAUDE.md law 4: flag, don't guess).</p>
+
+</div>
+</body>
+</html>

@@ -231,3 +231,16 @@ map/quest/NPC batches to Sonnet-tier, per `docs/60_agents/roles/ORG.md`.
 pools r01–r08, novice/first-job/spec-#1-era skills 001–006. Open Questions live in the
 owning docs; rollups in `docs/phase_reports/ARC2_PLAN_REPORT.md` and
 `PHASE_D_ARC2_REPORT.md`.
+
+**2026-07-24 gameplay-loop review + owner-directed fix pass** (branch
+`claude/game-design-review-mockup-yemsgl`): critical review in
+`docs/phase_reports/GAMEPLAY_LOOP_REVIEW_2026-07-24.md`; visual mock-up (field HUD, boss
+variant, depth stack, windows) in `docs/mockups/gameplay_scene_mockup.html`. Owner decisions
+landed: COMBAT_FORMULA §10 move speed synced to 8 tiles/s (128 px/s); SPAWN §2 density
+re-anchored to per-20-walkable-tiles (zoom-independent, dynamic map sizes); FTUE keeps the
+60-min Lv-8 promise via front-loaded scripted grants; raid handler quests are one-time
+(repeat rewards via RAID's clear mechanics); new HUD §6.1 non-boss life bars beneath the
+sprite; HUD wallet placed bottom-bar-right; HUD §4.1 party-frame region reserved; new
+`10_systems/UI_WINDOWS.md` (Inventory / Character paper-doll / Party / Guild window
+layouts, classic framed-window family, original identity). Still-open design items are
+listed in the review's §6 resolution log.

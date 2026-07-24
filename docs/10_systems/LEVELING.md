@@ -313,13 +313,12 @@ Voidshore maps and the two arc-2 raids until arc 3 authors Lv 80+ regions.
   mechanically regenerated in a **Phase-D content pass** against the new curve — do **not** hand-edit
   them here. Monster `stats.exp` (per-kill `exp_per_kill_normal`, §3) is **unchanged** and not stale.
   Owner: Phase-D content / producer.
-- **`10_systems/ONBOARDING_FTUE.md` Lv 1→8 plausibility check is stale against the new curve**
-  (out-of-scope doc, flag-only). That doc restates §1's old per-level `/played` rows to argue Lv 8 is
-  reachable in ≈ 0.50 h of at-level exp, inside its 60-minute FTUE budget. Under the ratified curve
-  the cumulative `/played` to **reach** Lv 8 is ≈ 1.1 h (per-level rows 0.08 … 0.23), which now
-  **overshoots** that 60-minute budget on pure at-level pacing — so the FTUE either leans harder on
-  scripted first-clear/quest grants (§4 "other") in the intro or its "Lv 8 by end of first hour"
-  target needs revisiting. Reconcile with the FTUE owner. Owner: ONBOARDING_FTUE.md + this doc.
+- **Resolved (2026-07-24 contradiction fix): the FTUE Lv 1→8 reconciliation.**
+  `10_systems/ONBOARDING_FTUE.md` §2 now fixes the lever: the Emberfoot intro front-loads scripted
+  first-clear/guided-quest `exp` — top-of-band quest `pct`s plus one-time grants budgeted from this
+  doc's §4 "other" (≈5%) slice — so Lv 8 lands inside the 60-minute FTUE budget despite the
+  ratified curve's ≈ 1.1 h open-pacing cost. Nothing in §1 changes; the compressed pace is scoped
+  to the grace-band island only. Phase D verifies the sum when Emberfoot content is authored.
 - **Branching 2nd-job advancement at Lv 40** (owner `10_systems/JOBS.md`, patched in parallel): the
   advancement lands at the arc-1→arc-2 seam (Lv 40), exactly where per-level cost first exceeds an
   hour. If pacing wants a **beat** there — an advancement quest granting a one-time `exp` bump or

@@ -111,9 +111,10 @@ authored quests against that target and tunes individual `pct` within the bands 
 `exp`** for their band (§4 above, `10_systems/LEVELING.md` §4) — the authored arcs top out at Lv 80
 and there is **no post-cap zero-`exp` band** in scope (the `level` cap is 300,
 `10_systems/LEVELING.md` §1/§6). The raid **clear** reward itself is the finale-boss `exp` and loot
-(`10_systems/LEVELING.md` §3, `10_systems/social/RAID.md` §6), separate from these quests
-(handler-quest **repeatability** vs §7's one-time-per-character launch policy is flagged in Open
-Questions).
+(`10_systems/LEVELING.md` §3, `10_systems/social/RAID.md` §6), separate from these quests —
+handler quests are **one-time** like every quest (§7); repeat-clear rewards route through the
+raid's own clear mechanics, never a re-acceptable quest (`10_systems/social/RAID.md` §3, resolved
+2026-07-24).
 
 ## 5. Reward budget — `shards`
 
@@ -194,12 +195,11 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
   tag), while a `collect`-step does **not** share — credit requires the item in hand. Raids inherit
   this same model for stage objectives (`10_systems/social/RAID.md` §4). This doc's §3 `kill` step
   defers there; no separate quest-side rule.
-- **Raid handler-quest repeatability.** `10_systems/social/RAID.md` §3 describes the raid handler
-  quest as a **repeatable** clear turn-in wrapper, but §7 above sets the launch policy at
-  one-time-per-character with no repeatable-quest system. Reconcile before Phase D authors the
-  handler quests: either the raid clear-reward loop routes through `10_systems/social/RAID.md`'s own
-  clear/cooldown mechanics (not a re-acceptable quest), or the handler is the first sanctioned
-  exception to §7. Owner: this doc with `10_systems/social/RAID.md`.
+- **Resolved (2026-07-24 contradiction fix): raid handler-quest repeatability.** The handler quest
+  is **one-time per character** — an ordinary §7 quest closing the raid's intro arc; all
+  repeat-clear rewards flow through `10_systems/social/RAID.md`'s own clear/cooldown mechanics
+  (its §5–§6 and `10_systems/LEVELING.md` §3.1), never a re-acceptable quest. §7 keeps zero
+  exceptions; RAID §3's wording is synced.
 - Exact per-quest `pct` within the §4 bands, and the regional ≈25% reconciliation, is Phase D
   authoring work per `10_systems/LEVELING.md` §4's own Open Question; not resolved to the exact
   quest here.
