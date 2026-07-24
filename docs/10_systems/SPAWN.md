@@ -151,7 +151,7 @@ own** set, banded to the raid rather than to the open map — the spawner is the
 `spawn_zones` it is handed differ by entry context. Those instanced sets are Phase-D content owed
 per `RAID.md`'s Open Questions; nothing here fixes their values.
 
-A raid's **bonus room** (`10_systems/social/RAID.md` §6.E, `map_325`–`map_328`) runs **no spawner
+A raid's **bonus room** (`10_systems/social/RAID.md` §6.E, `map_325`–`map_329`) runs **no spawner
 at all** — no zone, no mobs, no boss. Its only contents are `reactor` interactables
 (`15_maps_system/MAP_INTERACTABLES.md` §4), whose one-shot behavior is that doc's `respawn_timer_s`
 and not a `SPAWN.md` concept. It is named here only so the exemption is explicit alongside the

@@ -143,13 +143,13 @@ Phase D content against DROPS.md's shapes): `normal` mobs carry scroll rows at t
 bucket (`10_systems/DROPS.md` §2); `elite` mobs at `uncommon`; bosses may carry `bold`/`perilous`
 rows. Exact rows and which SKU sits where are Phase D drop-table content.
 
-**Raid bonus rooms.** The four raid bonus rooms (`10_systems/social/RAID.md` §6.E, `map_325`–
-`map_328`) are a named scroll source: every `reactor` there rolls its raid's bonus table, which
+**Raid bonus rooms.** The five raid bonus rooms (`10_systems/social/RAID.md` §6.E, `map_325`–
+`map_329`) are a named scroll source: every `reactor` there rolls its raid's bonus table, which
 carries `steady` at `uncommon`, `bold` at `rare`, and `perilous` at `epic`. The `slot_family` (§3)
 stocked is banded to that raid's level band. This is a better *rate* than the field, never an
 exclusive — the same SKUs drop and vendor elsewhere (§4.1–§4.2), so a solo player is never locked
 out of a scroll tier (`00_vision/PILLARS.md` P2). The rates are RAID.md §6.E's; the node count is
-**6 per room**, authored on `map_325`–`map_328`. That makes the faucet computable and it has not
+**6 per room**, authored on `map_325`–`map_329`. That makes the faucet computable and it has not
 been checked against §4.4's sink-dominant requirement — per clear, per member, 6 nodes pay ≈0.9
 `steady` · 0.24 `bold` · 0.048 `perilous`, and if the per-member-copy reading of
 `10_systems/social/PARTY.md` §5 holds, a 6-member party multiplies that by 6. A repeatable run

@@ -7,7 +7,7 @@ five-island / two-arc world (Lv 1–80, 11 bosses, regions R1–R11): all ID ran
 **before any content IDs were minted** (Phase D authored them afterward), which is the only
 permitted kind of re-blocking — never renumber minted IDs.
 
-## Maps — `map_001`–`map_328` (11 region blocks + the raid-bonus extension)
+## Maps — `map_001`–`map_329` (11 region blocks + the raid-bonus extension)
 
 | Region (slug) | Block |
 |---|---|
@@ -29,9 +29,9 @@ permitted kind of re-blocking — never renumber minted IDs.
 R10's open Shattered Orrery chain — 10_systems/social/RAID.md §4), and `map_320`–`map_322`
 (`raid_voidtide`). The Deepway passage dungeons are `map_201`–`map_203` (Frostpeak block).
 
-### Raid-bonus extension range — `map_325`–`map_328`
+### Raid-bonus extension range — `map_325`–`map_329`
 
-The four raid **bonus rooms** (`10_systems/social/RAID.md` §6.E), one per raid. Each belongs to
+The five raid **bonus rooms** (`10_systems/social/RAID.md` §6.E), one per raid. Each belongs to
 its raid's own region — biome, tileset, and level band all follow that region exactly — but its ID
 sits in an **appended extension range** rather than inside the region's contiguous block, because
 every block above is full and Law 3 forbids renumbering minted IDs. A region may therefore own two
@@ -43,14 +43,17 @@ disjoint map ranges; `tools/validate.py`'s `MAP_EXT_BLOCKS` carries the same fac
 | `map_326` The Mainspring Treasury | `clockwork` | `raid_mainspring` | `map_200` on a raid-entry kill |
 | `map_327` The Deepfrost Hoard | `frostpeak` | `raid_deepfrost` | `map_244` on a raid-entry kill |
 | `map_328` The Voidtide Trove | `voidshore` | `raid_voidtide` | `map_324` on a raid-entry kill |
+| `map_329` The Orrery Reliquary | `arcane_reach` | `raid_orrery` | `map_284` on a raid-entry kill |
 
-All four are `map_type: secret`. This is the **only** extension range in the map category; new
-regions still take new contiguous blocks.
+All five are `map_type: secret`. This is the **only** extension range in the map category; new
+regions still take new contiguous blocks. `map_329` was appended 2026-07-24 with `raid_orrery` —
+the fifth raid's one new map ID (`10_systems/social/RAID.md` §2); `map_325`–`map_328` are
+untouched (Law 3).
 
 ### Raid bonus drop tables — `drop_raid_bonus_<raid>`
 
-Four non-numeric drop-table IDs (`drop_raid_bonus_undervault` / `_mainspring` / `_deepfrost` /
-`_voidtide`), the third drop-table shape alongside `drop_mob_NNN` and `pools.yaml`
+Five non-numeric drop-table IDs (`drop_raid_bonus_undervault` / `_mainspring` / `_deepfrost` /
+`_orrery` / `_voidtide`), the third drop-table shape alongside `drop_mob_NNN` and `pools.yaml`
 (`20_schemas/drop_table.schema.md`). Their `owner` is a `raid_<name>` token, not a `mob_NNN`; each
 is rolled independently by every `reactor` in its bonus room (`10_systems/social/RAID.md` §6.E).
 

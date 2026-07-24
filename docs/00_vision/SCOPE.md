@@ -10,10 +10,10 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 |---|---|---|
 | Islands | 5 | Emberfoot Isle (Lv 1–8) → ferry → Harthmoor Isle (Lv 8–40) → Deepway/longship → Frostpeak Isle (40–55), Arcane Reach (53–68), Voidshore (66–80) |
 | Regions | 11 | Level-banded Lv 1 → 82 (authored arcs 1–2); see WORLD_PLAN.md |
-| Maps | 328 | 12 towns, 30 interiors (incl. ferry + 3 longship decks), 153 fields, 95 dungeons (incl. 12 **dedicated** raid stage maps + 3 shared with `raid_orrery` + 3 Deepway), 27 secrets (incl. 4 raid bonus rooms, `10_systems/social/RAID.md` §6.E), 11 boss arenas |
+| Maps | 329 | 12 towns, 30 interiors (incl. ferry + 3 longship decks), 153 fields, 95 dungeons (incl. 12 **dedicated** raid stage maps + 3 shared with `raid_orrery` + 3 Deepway), 28 secrets (incl. 5 raid bonus rooms, `10_systems/social/RAID.md` §6.E), 11 boss arenas |
 | Monsters | 234 | 178 normal + 45 elite + 11 boss |
-| Raids | 5 | `raid_undervault` (15–22), `raid_mainspring` (32–40), `raid_deepfrost` (45–55), `raid_orrery` (56–69), `raid_voidtide` (70–80); social/RAID.md. `raid_orrery` (2026-07-24) reuses existing R10 maps and its region boss — no map/mob IDs minted |
-| Drop tables | 234 + 4 + 11 pools | One per monster, 4 raid bonus-room tables (`10_systems/social/RAID.md` §6.E), plus one equip pool per region |
+| Raids | 5 | `raid_undervault` (15–22), `raid_mainspring` (32–40), `raid_deepfrost` (45–55), `raid_orrery` (56–69), `raid_voidtide` (70–80); social/RAID.md. `raid_orrery` (2026-07-24) reuses existing R10 stage maps and its region boss — its bonus room `map_329` is its only minted ID, no mob IDs |
+| Drop tables | 234 + 5 + 11 pools | One per monster, 5 raid bonus-room tables (`10_systems/social/RAID.md` §6.E), plus one equip pool per region |
 | Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40, **branching: choose 1 of 2–3 specializations**, 10 specs total); 3rd tier deferred to future arcs |
 | Skills | 98 | Per line: 6 first-job + 7 per specialization (bulwark/weaver ×3, keeneye/flicker ×2) + 4 novice |
 | Items — equip | ~170 | 48 weapons, 60 armor, 32 accessories (T1–T12, Lv 1–78), 22 boss uniques, 8 raid exclusives + 2 reserved for `raid_orrery` (batched tables) |

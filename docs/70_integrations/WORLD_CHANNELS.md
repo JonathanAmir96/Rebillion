@@ -80,7 +80,7 @@ occupancy-capped the way §7's channels are:
 | `raid_orrery` | `map_277`–`map_279` (shared with the open world) | `map_284` | `mob_206` (Aetheron) |
 | `raid_voidtide` | `map_320`–`map_322` | `map_324` | `mob_234` |
 
-Each raid's **bonus room** (`map_325` / `map_326` / `map_327` / `map_328`,
+Each raid's **bonus room** (`map_325` / `map_326` / `map_327` / `map_328` / `map_329`,
 `10_systems/social/RAID.md` §6.E) is part of the same instance and is covered by every rule in this
 section — it is never a channel of itself, despite being `map_type: secret`.
 
@@ -103,7 +103,7 @@ claimed no other party on that channel may enter that raid.
 
 - **The key is `(channel, raid_token)`** — not `(channel, map_NNN)`. A claim on `raid_undervault`
   leaves `raid_mainspring` free on the same channel, and one claim covers that raid's whole stage
-  chain, finale arena, and bonus room (`map_325`–`map_328`) as a single unit.
+  chain, finale arena, and bonus room (`map_325`–`map_329`) as a single unit.
 - **Held by the world node, not the instance worker.** The claim is taken at instance-creation
   request time — *before* a worker is allocated — and released when that worker is torn down. It is
   node-local state, not a distributed lock: a channel lives on exactly one world node (§7), so a

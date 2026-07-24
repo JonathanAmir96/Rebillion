@@ -58,7 +58,7 @@ code, no generated art. Read `README.md` for the tree map and
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
 - Raids are staged co-op runs (owner-directed 2026-07-24,
   `docs/10_systems/social/RAID.md`): three stages → finale arena → **bonus room**, each raid
-  carrying a distinct *signature* mechanic (haul/beat/thaw/tide) and three different stage
+  carrying a distinct *signature* mechanic (haul/beat/thaw/orbit/tide) and three different stage
   patterns. One **30-min run clock** covers the whole run with the boss's 12-min enrage nested
   inside it; the bonus room runs a separate 90-s clock over one-shot `reactor` nodes rolling a
   chance table (gear-mod scrolls, consumables, an extra `raid_token`). **One party per raid per
@@ -103,8 +103,8 @@ code, no generated art. Read `README.md` for the tree map and
 - Generation is phased A→E with hard gates (vision → systems → schemas/assets → content →
   coding-pass briefs); each phase emits a report in `docs/phase_reports/`.
 - **Phase status (2026-07-24):** A (vision), B (systems), C (schemas/assets gate), D (content —
-  all 324 maps / 234 monsters / drops / NPCs / quests / skills / items; the 4 raid bonus rooms
-  `map_325`–`map_328` were added later by the raid-stage wave), plus the post-plan
+  all 324 maps / 234 monsters / drops / NPCs / quests / skills / items; the 5 raid bonus rooms
+  `map_325`–`map_329` were added later by the raid-stage wave), plus the post-plan
   waves **F** (integrations), **G** (equipment), **H** (consistency), and **I** (backend design)
   are complete — see their phase reports and `docs/phase_reports/SYNC_AUDIT_v3_2026-07-23.md`.
   The **pacing curve was

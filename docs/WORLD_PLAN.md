@@ -48,12 +48,12 @@ Line** — see *Arc 2 — the far isles* below.
 | 7 | Sunken Depths | `sunken` | 30–38 | tidewatch_dark (tide) | 25 | 16 | 4 | 1 |
 | 8 | Clockwork Ruins (endgame) | `clockwork` | 34–40(+2) | clockwork (earth/stone) | 25 | 16 | 5 | 1 |
 | 9 | Frostpeak Isle | `frostpeak` | 40–55(+2) | frostpeak (tide) | 45 | 20 | 7 | 1 |
-| 10 | Arcane Reach | `arcane_reach` | 53–68(+2) | arcane_reach (arcane) | 40 | 20 | 7 | 1 |
+| 10 | Arcane Reach | `arcane_reach` | 53–68(+2) | arcane_reach (arcane) | 41 | 20 | 7 | 1 |
 | 11 | Voidshore | `voidshore` | 66–80(+2) | voidshore (arcane, dark) | 41 | 20 | 7 | 1 |
-| — | **TOTAL** | | | | **328** | **178** | **45** | **11** |
+| — | **TOTAL** | | | | **329** | **178** | **45** | **11** |
 
-Each of the four raid regions carries one extra map over its contiguous block: the raid **bonus
-room** (`10_systems/social/RAID.md` §6.E), minted in `docs/ID_REGISTRY.md`'s `map_325`–`map_328`
+Each of the five raid regions carries one extra map over its contiguous block: the raid **bonus
+room** (`10_systems/social/RAID.md` §6.E), minted in `docs/ID_REGISTRY.md`'s `map_325`–`map_329`
 extension range because every region block is full. Region totals above include them.
 
 Rows 1–8 are Arc 1 (Lv 1–42); rows 9–11 are Arc 2 (Lv 40–82).
@@ -61,7 +61,7 @@ Rows 1–8 are Arc 1 (Lv 1–42); rows 9–11 are Arc 2 (Lv 40–82).
 Map-type totals (all 11 regions): 12 towns · 30 interiors (incl. ferry + 3 longship decks) ·
 153 fields · 95 dungeons (incl. 12 **dedicated** raid-stage maps, 3 more shared with
 `raid_orrery` — `map_277`–`map_279`, which stay open-world dungeons too, 10_systems/social/RAID.md
-§4 — and the 3-map Deepway) · 27 secrets (incl. the 4 raid bonus rooms `map_325`–`map_328`,
+§4 — and the 3-map Deepway) · 28 secrets (incl. the 5 raid bonus rooms `map_325`–`map_329`,
 `10_systems/social/RAID.md` §6.E) ·
 11 arenas. Authored content spans Lv 1–82 (Voidshore elites top out at 82); the game cap is
 300 (initial design), so leveling past Arc 2 is a slow grind on endgame maps/raids until

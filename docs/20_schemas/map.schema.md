@@ -22,7 +22,7 @@ map data into Godot scenes (`60_agents/`, not yet authored).
 
 One file per map at `50_content/maps/map_NNN.yaml` — `NNN` zero-padded to 3 digits, matching the
 map's reserved slot in `docs/ID_REGISTRY.md`'s 11 region blocks, or in that doc's raid-bonus
-extension range (`map_325`–`map_328`, `10_systems/social/RAID.md` §6.E) — a region may own two
+extension range (`map_325`–`map_329`, `10_systems/social/RAID.md` §6.E) — a region may own two
 disjoint map ranges. No batch
 tables (contrast `10_systems/ITEMS.md` §12's category tables) — every map is distinct enough to
 own its file. The file's `id` field and its filename's `NNN` must agree.
