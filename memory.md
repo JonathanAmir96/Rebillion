@@ -2,6 +2,23 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-24 — markdown connectivity graph + BFS audit (session: markdown-connectivity-graph)
+
+New tool `tools/md_graph.py` (stdlib) builds the whole-tree link graph — edges from markdown
+links *and* inline `path/FILE.md` mentions (how this tree actually cross-links) — and BFS-checks
+it. Report: `docs/phase_reports/MD_CONNECTIVITY_REPORT.md`. **Undirected graph was already one
+connected component, 0 orphans** (98 files after adding the report; ~1,208 edges). The real gap
+was **directed reachability**: 10 files linked out but nothing linked *to* them, so a reader
+following links from `README`/`CLAUDE`/`memory` could never reach them — the 5 role charters
+`ROLE_PRODUCER/WORLD_BUILDER/CONTENT_AUTHOR/GAMEPLAY_DEVELOPER/ART_QUARTERMASTER`, the F/G/H phase
+reports (merged in from parallel sessions, never indexed), `50_content/README.md`, and
+`tools/README.md`. Closed by adding a "Role files (index)" to `ORG.md` and enumerating the
+phase-reports / tools / content-README paths in `README.md` — no content restated (law §2). After:
+**1 component, 0 orphans, 98/98 directed-reachable.** Also refreshed `CLAUDE.md` with a phase-status
+line and a re-run-`md_graph.py`-after-merges note. **Phase check (owner asked "need re-run?"):**
+A/B/C/D + F/G/H/I are all complete and reconciled to v3.1 (SYNC_AUDIT 0/0) — nothing to re-run;
+only forward work remains — Phase E (coding-pass briefs), the art pass, and the balance pass.
+
 ## 2026-07-23 — full-tree markdown sync vs v3.1 (session: markdown-sync-check)
 
 Audited every markdown doc against v3.1 canon and fixed the stragglers the merge waves

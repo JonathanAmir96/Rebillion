@@ -22,6 +22,21 @@ ROLE_PRODUCER (orchestrator, top tier)
 └── ROLE_GAMEPLAY_DEVELOPER   (future coding pass, Godot)
 ```
 
+## Role files (index)
+
+Every role above has a charter file in this directory — read it before staffing that role:
+
+- `docs/60_agents/roles/ROLE_PRODUCER.md`
+- `docs/60_agents/roles/ROLE_SYSTEMS_ARCHITECT.md`
+- `docs/60_agents/roles/ROLE_WORLD_BUILDER.md`
+- `docs/60_agents/roles/ROLE_NARRATIVE_WRITER.md`
+- `docs/60_agents/roles/ROLE_CONTENT_AUTHOR.md`
+- `docs/60_agents/roles/ROLE_ART_DIRECTOR.md`
+- `docs/60_agents/roles/ROLE_ART_QUARTERMASTER.md`
+- `docs/60_agents/roles/ROLE_QA_VALIDATOR.md`
+- `docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md`
+- `docs/60_agents/roles/ROLE_GAMEPLAY_DEVELOPER.md`
+
 ## Model routing law
 
 Route by **blast radius, not volume** (a task is "hard" when others depend on its output

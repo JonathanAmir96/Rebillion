@@ -57,6 +57,13 @@ code, no generated art. Read `README.md` for the tree map and
   per commit; content commits separate from doc/rule commits.
 - Generation is phased A→E with hard gates (vision → systems → schemas/assets → content →
   coding-pass briefs); each phase emits a report in `docs/phase_reports/`.
+- **Phase status (2026-07-24):** A (vision), B (systems), C (schemas/assets gate), D (content —
+  all 324 maps / 234 monsters / drops / NPCs / quests / skills / items, strict `validate.py`
+  0/0), plus the post-plan waves **F** (integrations), **G** (equipment v2), **H** (consistency),
+  and **I** (backend design) are all **complete and reconciled to v3.1** — see their reports and
+  `SYNC_AUDIT_v3_2026-07-23.md`. **Nothing needs re-running.** Not yet started (forward work, not
+  re-runs): **Phase E** (coding-pass briefs — the A→E tail), the **art pass** (PixelLab briefs),
+  and the **arc-1/arc-2 balance pass**. `memory.md` (newest-first) is the authoritative live log.
 - PixelLab (art generation, later pass): MCP tools + owner's API token. The token is
   **deliberately not stored in this repo** — ask the owner or use the environment secret
   (suggested var: `PIXELLAB_SECRET`) configured in the Claude Code environment settings.
@@ -67,6 +74,12 @@ Start by reading: `README.md` → `docs/00_vision/GLOSSARY.md` → `docs/WORLD_P
 `memory.md` (state + decisions log, written at the end of the generation run). When
 continuing content generation, follow the batch pattern in the phase reports: region-scoped
 sub-agents, exemplar-first, validator-gated.
+
+**Doc connectivity:** the tree is one connected, top-down-navigable web of markdown — run
+`python3 tools/md_graph.py` to rebuild the link graph and BFS-check it (report:
+`docs/phase_reports/MD_CONNECTIVITY_REPORT.md`). After any wave that adds docs — especially a
+parallel-session merge — re-run it and link any new "unreferenced" file from its natural index
+(that is exactly how the F/G/H reports and the role files first slipped in undiscoverable).
 
 **Staffing sub-agents:** use the virtual-studio role charter in `docs/60_agents/roles/`
 (`ORG.md` = org chart + model routing: easy→Haiku, medium→Sonnet, hard→Opus, route by
