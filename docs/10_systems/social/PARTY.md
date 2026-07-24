@@ -60,15 +60,18 @@ eligible members. Each eligible member's share is scaled by their `level` gap fr
 
 | `level` gap from anchor (`abs(member.level − anchor_level)`) | `range_mult` |
 |---|---|
-| 0–10 | 1.00 |
-| 11–15 | 0.66 |
-| 16–20 | 0.33 |
-| 21+ | 0 (ineligible — excluded from the pool and its `n_eligible` count below) |
+| 0–15 | 1.00 |
+| 16–20 | 0.66 |
+| 21–25 | 0.33 |
+| 26+ | 0 (ineligible — excluded from the pool and its `n_eligible` count below) |
 
-This is a party-specific anti-power-leveling gate distinct from `10_systems/COMBAT_FORMULA.md`
+The full-credit band is deliberately **wide** (a 15-level gap still earns full share) so a veteran
+can hunt with lower-level friends without dragging either party member's earnings — grouping across
+levels is a social pull, not a tax (`00_vision/PILLARS.md` P2/P3). It stays **bounded**, though:
+this is a party-specific anti-power-leveling gate distinct from `10_systems/COMBAT_FORMULA.md`
 §9's own solo level-difference dampener (which still applies once inside the pool, via
-`exp_diff_mult` below) — without it, a low-level character parked beside a far higher-level
-partner would draw that dampener's flat "killing up" bonus indefinitely.
+`exp_diff_mult` below) — without the outer band, a low-level character parked beside a far
+higher-level partner would draw that dampener's flat "killing up" bonus indefinitely.
 
 **Party exp bonus — MapleStory-inspired (the "Party Bonus EXP").** Being grouped **multiplies the
 shared pool**, and the bonus climbs **steeply** with party size so a full party genuinely out-earns
@@ -110,6 +113,21 @@ same-map eligibility as `exp` above — every same-map member with that step act
 the tag lands, mirroring `10_systems/DROPS.md` §7's shared-tag model. A `collect`-type step does
 **not** share — credit requires actually receiving the item (§5), since it is tied to holding the
 item, not to presence.
+
+**Party drop bonus — the loot twin of the party exp bonus.** Grouping raises **drop chances** as
+well as `exp`: the same same-map eligibility rule (above) that pools a kill's `exp` also feeds a
+`party_drop_bonus`, a per-kill multiplier on drop chances that climbs with same-map eligible party
+size, so a fuller party loots better as well as levels faster. The two carrots are twins — the §4
+party exp bonus (climbing to `×2.00` at 6) and this drop bonus are the paired reasons to hunt
+together (`00_vision/PILLARS.md` P2/P3, encourage-not-mandate). **This doc owns only who is
+eligible** — the same-map, in-range membership resolved by §4's eligibility rules. The
+`party_drop_bonus` **table and the roll it multiplies are `10_systems/DROPS.md`'s** (reference,
+never restated here): same-map eligible members `1→1.00 · 2→1.05 · 3→1.10 · 4→1.16 · 5→1.22 ·
+6→1.30`, applied to the same drop `chance` roll `10_systems/DROPS.md` §4 governs. It **stacks with
+`fortune`'s own drop multiplier** (`10_systems/DROPS.md` §4's `m`), and both are subject to
+`10_systems/DROPS.md`'s caps (the §4 `≤ 0.95` chance clamp still binds) — grouping and a
+`fortune` build compound, but neither makes a drop certain. A solo-in-party member (everyone else
+off-map) draws `1.00`, exactly like the exp bonus — no loot lift without company.
 
 ## 5. Loot share modes
 
@@ -176,6 +194,11 @@ character to reach, so no party ever forms, and raids stay unreachable
   accelerates grouped pacing past `10_systems/LEVELING.md` §1's solo `/played` estimates — reconcile
   grouped pace against the solo curve at the next gate. Owner: this doc with `10_systems/LEVELING.md`
   / `10_systems/ECONOMY.md`.
+- The **party drop bonus** (§4) is the loot twin of the party exp bonus and is first-pass like it:
+  the `party_drop_bonus` curve and its interaction/cap with `fortune` are `10_systems/DROPS.md`'s to
+  own and tune — this doc supplies only the same-map eligibility that keys it. Reconcile the combined
+  grouping+`fortune` drop ceiling against the faucet at the next gate. Owner: `10_systems/DROPS.md`
+  with `10_systems/ECONOMY.md`; this doc consumes.
 - This doc's §4 contribution-weighted split is the arbiter of `10_systems/LEVELING.md` §3's
   raid-boss **150× total** (`10_systems/social/RAID.md` §6 routes the finale-boss `exp` pool here);
   LEVELING §3's per-member figures assume the even-split degenerate case (`N` = 5), which this split

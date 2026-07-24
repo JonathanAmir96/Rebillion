@@ -29,6 +29,7 @@ forward reference `10_systems/SKILL_SYSTEM.md` §7 leaves to this doc.
 | Toggle Quest Log (`frame_quest`) | `L` | — |
 | Toggle Map | `M` | — |
 | Toggle Guild | `G` | — |
+| Toggle Party-finder (`10_systems/social/PARTY_FINDER.md`) | `P` | — |
 | Chat focus | `Enter` | — |
 | Close / back (topmost framed window) | `Escape` | — |
 
@@ -51,7 +52,7 @@ separate keys are bound for these context-sensitive actions.
 | Skill slots 5–8 | `LB`/`L1` held + D-Pad |
 | Quickslots 1–4 | `RB`/`R1` held + D-Pad |
 | Aim / reticle | Right Stick |
-| Menu hub (Inventory/Skills/Quests/Map/Guild) | `Start`/`Options` |
+| Menu hub (Inventory/Skills/Quests/Map/Guild/Party-finder) | `Start`/`Options` |
 | Tab-switch within an open menu | `LB`/`RB` |
 | Confirm / select (in menu) | `A` |
 | Back / close (in menu) | `B` |

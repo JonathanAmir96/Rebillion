@@ -195,20 +195,29 @@ member** (not a pool to split, so the whole party is rewarded for finishing). Ea
 
 | Raid (band) | `raid_stage_exp` (each stage cleared) | `raid_clear_exp` (finale completion) |
 |---|---|---|
-| `raid_undervault` (Lv 15–22) | 2,000 | 12,000 |
-| `raid_mainspring` (Lv 32–40) | 4,000 | 24,000 |
-| `raid_deepfrost` (Lv 45–55) | 6,000 | 36,000 |
-| `raid_voidtide` (Lv 70–80) | 10,000 | 60,000 |
+| `raid_undervault` (Lv 15–22) | 3,000 | 20,000 |
+| `raid_mainspring` (Lv 32–40) | 6,000 | 40,000 |
+| `raid_deepfrost` (Lv 45–55) | 10,000 | 60,000 |
+| `raid_voidtide` (Lv 70–80) | 16,000 | 100,000 |
 
-Values are **fixed and predictable**: a `raid_voidtide` stage always pays 10,000 on clear, every run,
-to each member; its finale always pays the 60,000 completion bonus — the run's **best single `exp`
-reward**. Each stage grants its `raid_stage_exp` the moment that stage's objective
-(`10_systems/social/RAID.md` §4) completes. The numbers rise across the bands only because each raid
-is authored with its own fixed values — there is no per-level scaling formula. The boss's own kill
-`exp` (§3's 150× row, split per `10_systems/social/PARTY.md` §4) is separate and on top. The
-**per-character clear cooldown** (`10_systems/social/RAID.md` §5) keeps clear-chaining from beating
-hunting as the pacing anchor — raiding accelerates a grouped player without becoming mandatory (P2).
-These grants sit **outside** the §4 mandatory source-split.
+Values are **fixed and predictable**: a `raid_voidtide` stage always pays 16,000 on clear, every run,
+to each member; its finale always pays the 100,000 completion bonus — the run's **best single `exp`
+reward**. A full clear (all stages + finale) is worth roughly **10–15% of a band-level to each
+member** — a genuinely great grouped session, deliberately more rewarding than the same wall-clock
+spent hunting solo, so raids are something a group *wants* to run (`00_vision/PILLARS.md` P3), while
+solo leveling stays fully viable (P2, encourage-not-mandate). Each stage grants its
+`raid_stage_exp` the moment that stage's objective (`10_systems/social/RAID.md` §4) completes. The
+numbers rise across the bands only because each raid is authored with its own fixed values — there
+is no per-level scaling formula.
+
+**First-clear-of-the-day bonus.** The first successful clear of a given raid, per character, per day
+(day boundary per `10_systems/PERSISTENCE.md`), pays **2× that raid's `raid_clear_exp`** plus one
+bonus `raid_token` (`10_systems/social/RAID.md`). Later same-day clears pay the normal grants. This
+daily beat — not a cap — is the "log in and raid with the guild" social rhythm; there is **no weekly
+lockout**, and the 15-minute per-character clear cooldown (`10_systems/social/RAID.md` §5) only stops
+back-to-back clear-chaining from replacing field play as the `/played` pacing anchor. The boss's own
+kill `exp` (§3's 150× row, split per `10_systems/social/PARTY.md` §4) is separate and on top. All raid
+grants sit **outside** the §4 mandatory source-split.
 
 ## 4. `exp` source split policy
 

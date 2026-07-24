@@ -101,25 +101,29 @@ counts, spawn sets) are Phase D content authored against these three patterns.
 - **Failure is free:** no lockout, no cooldown, no penalty beyond
   `10_systems/DEATH_PENALTY.md`'s ordinary death costs. Retry immediately from the herald.
 - **Clear cooldown (default):** after a successful finale-boss kill, each participating
-  character carries a **30-minute per-character, per-raid cooldown** before entering a new
-  instance of that raid. No daily or weekly lockout — raids are meant to be re-runnable loot
-  runs, and the cooldown exists only to keep clear-chaining from beating field play as a
-  `shards`/loot faucet. The timer is server-tracked (§8). Tuning is flagged, not settled (Open
-  Questions).
+  character carries a **15-minute per-character, per-raid cooldown** before entering a new
+  instance of that raid. No daily or weekly lockout — raids are meant to be re-runnable social
+  loot runs, and the cooldown exists only to keep clear-chaining from beating field play as a
+  `shards`/loot faucet. The pull that actually paces the social rhythm is the **first-clear-of-the-day
+  bonus** (§6), not this cooldown — the cooldown is short (down from a prior 30-minute default) so a
+  group that wants to keep running together can, while the daily beat is what rewards logging in to
+  raid each day. The timer is server-tracked (§8). Tuning is flagged, not settled (Open Questions).
 - Disbanding the party or the leader leaving mid-run does not dissolve the instance by itself;
   the instance dissolves when it is empty. Leadership succession inside a run is
   `10_systems/social/PARTY.md` §2's.
 
-## 6. Rewards — raids are the loot path
+## 6. Rewards — raids are the social centerpiece
 
-Design intent (v3.1): **a raid clear is both a strong `exp` event and the loot path.** In the
-MapleStory-inspired shape, `exp` arrives on **each stage cleared** and peaks in a headline
-**completion bonus** on the finale kill; `10_systems/LEVELING.md` §3/§3.1 owns and sizes every raid
-`exp` grant (cited, not restated) so a clear is excellent for its band without letting
-cooldown-gated raiding beat hunting as the mandatory pacing path (`00_vision/PILLARS.md` P2).
+Design intent: **a raid clear is the social centerpiece — a strong `exp` event, the loot path, and
+the only source of `raid_token`-gated exclusive rewards.** The reward package is built to pull
+players into grouping **by desire, not by taxing solos** (`00_vision/PILLARS.md` P2/P3): every reward
+here is a carrot for the grouped player, and the solo path to every finale boss stays open at reduced
+reward (§7). Nothing in a raid is strictly required to progress solo — the exclusive equips are
+aspirational side-grades, and the cosmetics carry no stats — so grouping is the **better**, not the
+**only**, path. The four reward streams a clear pays:
 
-- **`exp` — per stage, then a headline clear bonus.** A raid pays `exp` at three moments, all
-  budgeted by `10_systems/LEVELING.md` §3/§3.1 (magnitudes there, not restated here):
+**A. `exp` — per stage, then a headline clear bonus.** A raid pays `exp` at three moments, all
+budgeted and sized by `10_systems/LEVELING.md` §3/§3.1 (magnitudes there, not restated here):
   1. **Stage mobs** pay ordinary per-kill `exp` as the party clears them
      (`10_systems/LEVELING.md` §2–§3), shared per `10_systems/social/PARTY.md` §4.
   2. **Each stage clear** grants a flat `raid_stage_exp` to **every eligible member** (not split)
@@ -128,23 +132,63 @@ cooldown-gated raiding beat hunting as the mandatory pacing path (`00_vision/PIL
      eligible member (not split) — deliberately the run's **best `exp`** — *on top of* the boss's
      own kill `exp` (`10_systems/LEVELING.md` §3's raid-boss row, split per
      `10_systems/social/PARTY.md` §4).
-  The stage and clear grants are **flat per-member** (the whole party is rewarded for finishing, not
-  a pool to divide) — the MapleStory-inspired feel. This makes a raid an `exp` **event**, not a
-  farm: the per-character clear cooldown (§5) keeps clear-chaining from displacing hunting as the
-  pacing anchor.
+The stage and clear grants are **flat per-member** (the whole party is rewarded for finishing, not
+a pool to divide) — the MapleStory-inspired feel. These grants are an **elective accelerator** that
+sits outside `10_systems/LEVELING.md` §4's mandatory source-split, so a raid is an `exp` **event**
+that never becomes the mandatory pacing path (P2).
+
+**B. Raid tokens (`raid_token`).** On a **finale-boss clear**, every eligible raid member is
+**guaranteed** their raid's `raid_token` (`00_vision/GLOSSARY.md`; per-raid variants
+`item_etc_0177` Undervault Seal · `item_etc_0178` Mainspring Cog · `item_etc_0179` Deepfrost Shard ·
+`item_etc_0180` Voidtide Pearl, `docs/ID_REGISTRY.md`). The guaranteed drop itself is authored in the
+raid-finale drop table (`10_systems/DROPS.md` §5.4 — one per participating member, raid entry only)
+and is consumed here, not restated. Tokens are spent at the **Raid Quartermaster** — a vendor NPC
+whose item catalog and prices are `10_systems/ITEMS.md`'s and whose placement (the raid staging
+towns / Millbrook) is `docs/WORLD_PLAN.md`'s. This doc owns only that the token is guaranteed per
+member on a finale clear and that the Quartermaster's exclusive stock is `raid_token`-gated.
+
+**C. Raid-exclusive rewards (the desire pull).** Only the Raid Quartermaster sells these, only for
+that raid's `raid_token`, and they exist nowhere else in the game. Per raid:
+  - **Two raid-exclusive equips** (`item_equip_0223`–`0230`, two per raid — undervault 0223–24 ·
+    mainspring 0225–26 · deepfrost 0227–28 · voidtide 0229–30, `docs/ID_REGISTRY.md`). These are
+    **aspirational side-grades, not strictly-required best-in-slot** — the field and boss-unique gear
+    (`10_systems/ITEMS.md`, `10_systems/DROPS.md` §5.3) keeps solo play fully viable, and the raid
+    equips are a lateral flavor of power, not a gate (P2). Their stats and token prices are
+    `10_systems/ITEMS.md`'s; this doc owns only that they are `raid_token`-gated and raid-exclusive.
+  - **One raid-exclusive cosmetic + title** (`item_cosmetic_0001`–`0008`, one per raid,
+    `docs/ID_REGISTRY.md`). **No stats**, per the cosmetic-only charter
+    (`10_systems/MONETIZATION.md`, `00_vision/PILLARS.md` anti-pay-to-win) — pure prestige a grouped
+    player wears to show the clear. Catalog and price are `10_systems/ITEMS.md`'s.
+
+**D. First-clear-of-the-day bonus (the daily social beat).** The **first successful clear of a given
+raid, per character, per day** (the day boundary is `10_systems/PERSISTENCE.md`'s — see Open
+Questions) pays a bonus **on top of** the ordinary A/B grants:
+  - **2× that raid's `raid_clear_exp`** completion bonus (the doubled value is
+    `10_systems/LEVELING.md` §3.1's — referenced, not restated), and
+  - **one bonus `raid_token`** (the same per-raid token as B).
+Subsequent same-day clears of that raid pay the normal grants (single `raid_clear_exp`, single
+token). There is **no weekly lockout and no clear cap** — this daily beat is the "log in and raid
+together" rhythm, a carrot that rewards showing up each day, not a tax that punishes running more.
+The first-of-the-day state (per character, per raid) is server-tracked (§8).
+
+Supporting reward rules (unchanged in shape):
+
 - **Boss uniques.** The finale boss's uniques come from **the boss's normal drop table**
   (`10_systems/DROPS.md` §5.3–§5.4, `10_systems/ITEMS.md` §11) — no separate raid-only unique
   table. A raid-context kill receives `10_systems/DROPS.md`'s raid-boss treatment; an
   open-arena solo kill of the same boss (§7) receives the plain region-boss treatment. That
   entry-context distinction is the whole of "reduced reward" — no other reward math is forked.
 - **Loot arbitration.** Who receives a discrete drop is `10_systems/social/PARTY.md` §5's
-  (loot-share modes) over `10_systems/DROPS.md` §7's tag-eligibility — consumed unchanged.
+  (loot-share modes) over `10_systems/DROPS.md` §7's tag-eligibility — consumed unchanged. The
+  guaranteed `raid_token` (B) is a per-member grant, not a contested corpse roll, so it is not
+  subject to loot arbitration.
 - **Raid-exclusive consumables.** Raid stage devices and clear rewards may grant raid-exclusive
-  use items minted from the reserved `item_use` range (`docs/ID_REGISTRY.md`, `item_use_0017`–
+  use items minted from the reserved `item_use` range (`docs/ID_REGISTRY.md`, `item_use_0021`–
   `0060` block); concrete items are Phase D content.
-- **First clear.** Each raid grants a one-time first-clear reward per character, folded into
-  `10_systems/LEVELING.md` §4's "other" (≈5%) one-time-grant budget alongside first-kill and
-  discovery grants (`10_systems/DROPS.md` §8's family) — budgeted there, not here.
+- **First-ever clear (one-time).** Separate from the daily beat (D): each raid also grants a
+  one-time first-*ever*-clear reward per character, folded into `10_systems/LEVELING.md` §4's
+  "other" (≈5%) one-time-grant budget alongside first-kill and discovery grants
+  (`10_systems/DROPS.md` §8's family) — budgeted there, not here.
 
 ## 7. Solo fallback (arc-1 rule, kept for all four raids)
 
@@ -160,13 +204,15 @@ raid-tier rewards (§6). Raid-boss combat scaling for the party context is
 
 Raid instancing is `authority: server` end to end (`10_systems/PERSISTENCE.md` §1–§2,
 `00_vision/PILLARS.md` P6): instance allocation, stage-objective state, the fixed `N`, loot/`exp`
-arbitration, and the §5 clear-cooldown timers are all server truth a client may not self-certify.
+arbitration, the guaranteed `raid_token` grants (§6.B/§6.D), the per-character/per-raid
+first-clear-of-the-day flags (§6.D), and the §5 clear-cooldown timers are all server truth a client
+may not self-certify.
 **In the interim solo build, raids ship present but dormant** — the party system is dormant
 (`10_systems/social/PARTY.md` §Server Dependency), so no party ever forms and no herald entry
 succeeds; heralds stand in the world with a "gather a party" refusal line. The solo player's path
 to all four bosses is §7's open arena entry, which works fully offline. The `GameState` facade
-(`10_systems/PERSISTENCE.md` §5) still carries the raid-side fields (first-clear flags, cooldown
-timers) so the live server swap changes no calling code.
+(`10_systems/PERSISTENCE.md` §5) still carries the raid-side fields (first-ever-clear flags,
+first-clear-of-the-day flags, cooldown timers) so the live server swap changes no calling code.
 
 ## Open Questions
 
@@ -183,23 +229,35 @@ timers) so the live server swap changes no calling code.
   `10_systems/COMBAT_FORMULA.md` §13.3's assumed `N` range at 3–6 — and the stale Rift-era
   references (party 4–6, `map_197`–`map_200`, "R12") are gone from PARTY/SPAWN/COMBAT_FORMULA.
   The remaining DROPS-side question is tracked in its own entry below.
-- **Lockout tuning.** The 30-minute clear cooldown (§5) is a first-pass default serving one
+- **Lockout tuning.** The 15-minute clear cooldown (§5) is a first-pass default serving one
   target — raid-clear chaining must not beat at-level field play as a loot/`shards` faucet
-  (`10_systems/DROPS.md` / `10_systems/ECONOMY.md` faucet balance). Retune with telemetry;
-  alternatives (daily count, no cooldown at all) stay open. Owner: this doc with
-  `10_systems/ECONOMY.md`.
+  (`10_systems/DROPS.md` / `10_systems/ECONOMY.md` faucet balance). The daily pacing pull now lives
+  in the **first-clear-of-the-day bonus** (§6.D), not the cooldown, so the cooldown itself can stay
+  short; retune both together with telemetry (alternatives — a longer cooldown, a daily clear count,
+  no cooldown at all — stay open). Owner: this doc with `10_systems/ECONOMY.md`.
+- **Day-boundary definition for the first-clear-of-the-day bonus (§6.D).** The daily bonus keys on a
+  per-character, per-raid "first clear this day" flag, and this doc defers the **day-boundary rule**
+  (fixed UTC rollover vs per-account local reset vs rolling-24h) to `10_systems/PERSISTENCE.md`, which
+  does not yet define one. PERSISTENCE must land the day-boundary rule (and carry the per-raid
+  first-of-day flag on the `GameState` facade, §5, next to the existing first-clear flags and
+  cooldown timers) before §6.D can resolve. Flag-don't-guess: no boundary is assumed here. Owner:
+  `10_systems/PERSISTENCE.md` with this doc; the same boundary should serve any other daily social
+  beat (party/guild) so the whole social package shares one definition.
 - **Contribution-weighted vs even reward split.** `10_systems/social/PARTY.md` §4 owns the
   exp-split math (contribution-weighted + presence) and its own Open Questions already flag
   reconciling that split against `10_systems/LEVELING.md` §3's raid total. Whether raid rewards
-  (first-clear grants, stage-device consumables, any future raid token) should follow that same
-  weighted split or stay strictly per-member-even is unresolved; default at this revision:
-  per-member-even for everything except the boss `exp` pool, which is PARTY.md §4's. Owner:
-  `10_systems/social/PARTY.md`, consulted by this doc.
-- **Raid-boss drop treatment on shared bosses.** `10_systems/DROPS.md` §5.4's raid-boss table is
-  written Rift-scoped (raid tokens from a Rift `item_etc` block). How much of it applies to a
-  raid-context kill of the arc-1 **shared** bosses (`mob_027`/`mob_150`, §6) — in particular
-  whether they drop any raid token at all — needs a DROPS-side pass. Owner:
-  `10_systems/DROPS.md`.
+  (first-clear grants, stage-device consumables) should follow that same weighted split or stay
+  strictly per-member-even is unresolved; default at this revision: per-member-even for everything
+  except the boss `exp` pool, which is PARTY.md §4's. The `raid_token` grants (§6.B, §6.D) resolve
+  this specific case — they are authored as **flat guaranteed per-member** grants (every eligible
+  member gets one; the daily bonus adds a second), never a pool to divide — so they sit outside the
+  weighted-split question entirely. Owner: `10_systems/social/PARTY.md`, consulted by this doc.
+- **Resolved — raid-boss drop treatment on shared bosses.** `10_systems/DROPS.md` §5.4 now applies
+  its raid-boss table (including the guaranteed per-member `raid_token` from the `item_etc_0177`–
+  `0180` block) to a **raid-entry** kill of all four finale bosses, the arc-1 **shared** bosses
+  (`mob_027`/`mob_150`) included; an open-arena solo kill of the same boss (§7) drops **no** token
+  and takes the plain region-boss table (§5.3). The entry-context distinction (§6) is the whole of
+  the difference. Nothing remains open here.
 - **Entry fee.** Whether raid entry charges a `shards` fee (a sink lever) is deliberately left
   open; default none (§3). Owner: `10_systems/ECONOMY.md` with this doc.
 - **Per-stage / completion `exp` values (§6).** The `raid_stage_exp` / `raid_clear_exp` amounts are

@@ -95,6 +95,27 @@ dedicated `fortune` build near Lv 100 reads a `fortune_drop_bonus ≈ 30` from S
 `m ≈ 1.30` (+30% rare-loot rate) — the assassin-fantasy payoff of the `flicker`/`dirk` double-dip
 (`10_systems/STATS.md` §2.1) without warping the economy.
 
+### 4.1 `party_drop_bonus` — grouping loot bias
+
+The loot analogue of `10_systems/social/PARTY.md` §4's exp party bonus: same-map hunting improves
+**loot**, not just `exp`, so a party out-drops the same players hunting alone (P3, the social pull).
+`10_systems/social/PARTY.md` supplies **who is eligible** (its §4 same-map eligibility, count
+`n_eligible`); this doc owns the multiplier and how it composes. A fixed lookup on the same-map
+eligible member count (a flat table, like the exp party bonus):
+
+| same-map eligible members | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| `party_drop_bonus` | 1.00 | 1.05 | 1.10 | 1.16 | 1.22 | **1.30** |
+
+`party_drop_bonus` multiplies the **same sub-`guaranteed` `chance` rolls** `m` (§4) multiplies —
+item/material/emberstone/unique rows and the pool rarity-weight bias — and **composes with
+`fortune` by multiplication**: the applied factor is `m · party_drop_bonus`. It does **not** touch
+`guaranteed` rows, `shards`, or `qty`. The combined-adjusted `chance` obeys the **same ≤ 0.95
+clamp** as §4, so no combination of grouping and `fortune` ever makes a drop certain. A solo-in-party
+member (everyone else off-map) draws `1.00` — no bonus without company. First-pass faucet lever;
+retune the combined grouping-plus-`fortune` ceiling against the `shards`/item faucet at the next
+gate (Open Questions; owner DROPS with `10_systems/ECONOMY.md`).
+
 ## 5. Per-tier table shapes
 
 The baseline shape each monster tier's `drop_mob` table follows. Content may add thematic rows
@@ -135,11 +156,14 @@ within these shapes; the guarantees are the contract.
   rule**, not this doc. This doc owns the table shape:
 - `shards` — `guaranteed`, large (raid `shards` = §3 `boss` mean × the raid `life` factor is
   overkill; use `boss` ×15 as the floor, tuned per raid).
-- **Raid tokens** — a raid etc-currency/material from the reserved raid-token block
-  (`item_etc_0177`–`0192`, `docs/ID_REGISTRY.md`) — `guaranteed`, one per participating member;
-  **raid entry only** (an open-arena solo kill of the same boss drops none, resolving
-  `10_systems/social/RAID.md` §Open-Questions on shared bosses). The raid-gear exchange loop is
-  deferred (Open Questions).
+- **Raid tokens** — the raid's `raid_token` (`item_etc_0177` Undervault Seal / `0178` Mainspring
+  Cog / `0179` Deepfrost Shard / `0180` Voidtide Pearl, `docs/ID_REGISTRY.md`) — `guaranteed`, one
+  per participating member; **raid entry only** (an open-arena solo kill of the same boss drops
+  none, resolving the shared-boss question). The **first-clear-of-the-day** grants **one extra**
+  token to each member (`10_systems/LEVELING.md` §3.1; day boundary per
+  `10_systems/PERSISTENCE.md`). Tokens are spent at the **Raid Quartermaster** on the
+  raid-exclusive gear (`item_equip_0223`–`0230`) and cosmetics (`item_cosmetic_0001`–`0008`) —
+  catalog/prices owned by `10_systems/ITEMS.md`, exchange rules by `10_systems/social/RAID.md`.
 - **One guaranteed pool roll**, `rarity_source = raid` (§5.5) — `rare`+ emphasis.
 - **Raid uniques** — the finale boss's two uniques come from the boss's **own** drop table
   (`10_systems/ITEMS.md` §11; no separate raid-only unique list, `10_systems/social/RAID.md` §6),

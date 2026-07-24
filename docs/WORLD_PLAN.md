@@ -229,6 +229,11 @@ reward. Raid rules/rewards are owned by RAID.md (reference, never restated here)
 - **`raid_voidtide` — the Voidtide** (Lv 70–80, party 3–6): stages `map_320`–`map_322`
   → finale arena `map_324` (Nyxaris, the Tidesunder; `mob_234`).
 
+A **Raid Quartermaster** NPC (the `raid_token` vendor, `10_systems/ITEMS.md` §13) stands in
+**Millbrook Central** (`map_018`, the social hub) as the world's shared raid-rewards counter;
+Phase D may also seat one in each far-isle port town (Frosthaven / Spirehaven / Duskwatch
+Landing) for arc-2 convenience. Placement is an NPC-block detail authored in Phase D.
+
 ---
 
 ## Region sections

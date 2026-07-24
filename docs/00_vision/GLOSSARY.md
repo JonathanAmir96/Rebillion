@@ -126,6 +126,10 @@ reserved for future expansions — invalid in this run's content.
 ## Raids (owner: 10_systems/social/RAID.md; replaces the retired "party quest"/`pq_*` family)
 `raid_undervault` · `raid_mainspring` · `raid_deepfrost` · `raid_voidtide`
 
+## Party-finder activity (owner: 10_systems/social/PARTY_FINDER.md)
+`field_hunt` · `raid` · `quest` · `boss` · `social` — the listing categories on the
+`party_finder` board.
+
 ## Terrain (owner: 15_maps_system/MAP_TRAVERSAL.md; foothold model)
 `foothold` (walkable segment, arbitrary angle; the ground truth of platforming) ·
 `terrain_chunk` (hand-painted ground art snapped to footholds; ART_BIBLE amendment AB-001)

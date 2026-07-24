@@ -306,7 +306,7 @@ primary/`life`/`armor`/`warding`/`haste`; `gloves` may also roll `crit_rate`/`pr
 Each of the 11 bosses (`docs/WORLD_PLAN.md`: 8 arc-1 region bosses + 3 arc-2 island bosses, one
 per new island) owns **two** uniques at `item_equip_0201`–`0222` (mapping owned by
 `docs/ID_REGISTRY.md`: boss #n → `0199+2n`, `0200+2n`, n = 1..11; `0217`–`0222` are the arc-2
-bosses #9–#11, `0223`–`0230` reserved for future bosses). Rules:
+bosses #9–#11. `0223`–`0230` are the raid-exclusive gear (§13), not boss uniques). Rules:
 
 - **Rarity `epic` or `legendary`.** `req_level` = the boss's level band; slot/type is the unique's
   own (a boss may own e.g. one `weapon` + one `amulet`).
@@ -352,6 +352,29 @@ Grouping (aligned to existing `50_content/items/` tree): `equip/item_table_weapo
 (`item_etc_0193`–`0197`). `20_schemas/item.schema.md` (Phase C) owns the exact field list, types,
 and required/optional flags; this doc owns only the table wrapper and the meaning of `base`/
 `affixes`/`tier`/`rarity`. Field values reference only GLOSSARY tokens (`docs/VALIDATION.md` §1–§3).
+
+## 13. Raid-exclusive gear & the Raid Quartermaster
+
+The **Raid Quartermaster** is a vendor NPC (placement in the raid staging towns / Millbrook,
+`docs/WORLD_PLAN.md`) that sells raid-exclusive rewards for `raid_token`s (earned per
+`10_systems/social/RAID.md` §6 / `10_systems/DROPS.md` §5.4). This is the raids-as-centerpiece
+loot loop (`00_vision/PILLARS.md` P3) — desirable, but **not** required to progress (P2, solo
+stays viable).
+
+- **Raid-exclusive equipment — `item_equip_0223`–`0230`, two per raid** (undervault `0223`–`0224`
+  · mainspring `0225`–`0226` · deepfrost `0227`–`0228` · voidtide `0229`–`0230`). `req_level` = the
+  raid's level band; `rarity` `epic`. Built to the §7–§10 base+affix budget for that band with
+  **one signature flourish line** (like a boss unique, §11), but the total item pe is capped at the
+  ordinary `epic` budget — deliberately a **side-grade** with a distinctive identity, **not** a
+  strict upgrade over same-band boss uniques or top-tier crafted gear. A solo player who never
+  raids is never behind the power curve; the raid gear is a *flavor and prestige* choice.
+- **Raid cosmetics — `item_cosmetic_0001`–`0008`, one title + one cosmetic effect per raid.** No
+  stats (`10_systems/MONETIZATION.md` cosmetic-only charter; `00_vision/PILLARS.md` anti-pay-to-win).
+  Purely the "I cleared the Voidtide" flex that drives social prestige.
+- **Pricing (first-pass, `raid_token`s).** Prices are set so a piece takes **several clears**, not
+  one — aspirational but attainable: a raid gives 1 token/clear (2 on the first-of-day). First-pass
+  targets flagged in Open Questions and tuned with `10_systems/ECONOMY.md`: an equip ≈ 8–12 tokens,
+  a cosmetic ≈ 15–20. Concrete SKUs authored in Phase D.
 
 ## Open Questions
 

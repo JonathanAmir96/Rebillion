@@ -44,10 +44,31 @@ tags. There is no fourth tag; a field that seems to need one is a modeling error
 | Combat resolution (hit/crit/damage/mitigation) | `10_systems/COMBAT_FORMULA.md` §1 |
 | Bind point | `10_systems/DEATH_PENALTY.md` §4 |
 | Guild / party / trade / mail / market state | `10_systems/social/GUILD.md`, `10_systems/social/PARTY.md`, `10_systems/social/MARKET.md` (stubs) |
+| Time-gated counters (daily/weekly resets) | this doc §2.1 |
 
 Every entry above already reads (in its owning doc) "server-authoritative... solo client
 simulates/holds an advisory copy... corrected on sync" — this doc is simply the one place that
 phrasing is defined instead of repeated.
+
+### 2.1 Time boundaries — daily and weekly resets
+
+Several systems grant time-gated rewards — the raid **first-clear-of-the-day** bonus
+(`10_systems/social/RAID.md` §6, `10_systems/LEVELING.md` §3.1) and the **weekly guild goal**
+(`10_systems/social/GUILD.md`) — and need one shared, server-authoritative definition of "a day"
+and "a week" so every feature resets together:
+
+- **Day boundary:** a fixed **daily reset at 00:00 UTC**. All per-day flags (e.g. each raid's
+  first-clear-of-the-day flag, per character) clear at that instant, server-side. UTC (not local
+  time) is chosen so a fixed-time global reset is unambiguous and un-gameable by clock changes;
+  revisit per-region local resets if the game ships timezoned shards (Open Questions).
+- **Week boundary:** the daily reset on a fixed **weekly anchor day** (first-pass **Monday 00:00
+  UTC**); weekly counters (guild-goal progress) clear then.
+- **Where the flags live:** per-character day/week flags and counters are `authority: server`
+  fields on the `GameState` facade (§5) in the solo build — the client reads them, the server
+  (future) owns the reset tick. The solo build applies the reset locally on load using the
+  save's stored last-reset timestamp vs. the current clock.
+
+Concrete reward numbers stay in each owning doc; this section owns only *when* the boundaries fall.
 
 ## 3. `authority: client`
 
