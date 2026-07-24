@@ -5,6 +5,52 @@ Companion Memory Bank (distilled current state, coding-pass context):
 `memory/projectbrief.md` → `memory/systemPatterns.md` → `memory/techContext.md` →
 `memory/activeContext.md` → `memory/progress.md`.
 
+## 2026-07-25 — mock-up expansion: four new animated pages + a motion pass (owner-directed)
+
+Branch `worktree-mockup-expansion`. Owner asked for "better perspective in game" from the
+wireframes, with animation where it clarifies, covering combo / monsters / monetization /
+mechanics. Delivered in `docs/mockups/`:
+
+- **`combat_combo_mockup.html`** — the combo layer on one shared 8 s rotation clock (basic →
+  Twin Fangs → Throwing Dirk = burst, ×2 more, window expiry): live counter, the 3.0 s chain
+  window drawn as a *design instrument the player never sees*, momentum pips with the locked
+  tier-III socket, burst ICD suppressing the second finisher, the `essence` refund on the
+  gauge, plus the tier ladder × advancement gate, the COMBAT_FORMULA §2 pipeline with step 8
+  highlighted, and the negative-rules table (what never links).
+- **`monster_ai_bestiary_mockup.html`** — normal/elite/boss readouts side by side (real content:
+  `mob_001`/`mob_011`/`mob_027`), the 8-state machine with a travelling token, aggro radius +
+  `aggro_vertical_band` + leash geometry animating a charge → leash break → heal-on-home, the
+  telegraph tier floors (0.4/0.6 s) as timing bars, and all 12 profiles as vignettes.
+- **`core_mechanics_mockup.html`** — one 16 s run touching every traversal mechanic with its
+  tile budgets, per-monster element affinities (×0/×0.5/×1.0/×1.5) plus the two-knob player-side
+  routing, the 12-slot status row with radial wipes and hard-CC DR, and the hitstun/i-frame
+  contract; closes with a one-table constants index.
+- **`monetization_mockup.html`** — the Charter panel (dual lanes, daily stamps, and the
+  **progressive gilt fee ladder**, 2,500 → 60,000 by `level` band), the Cogwork Capsule
+  (published odds, 40-pull pity, the **account-wide** weekly cap, animated pull), the cosmetic
+  appearance loadout with the four mints, and in-world billboards — each surface drawn beside
+  its own guardrail band, and a closing table of the whole money surface.
+- **`index.html`** — a launcher indexing all ten mock-ups, linked from `README.md`.
+- **`gameplay_scene_mockup.html`** — motion pass on the field scene (6 s clock): floating damage
+  numbers, crit/combo punch-scale, telegraph holding past its floor, cooldown wipe counting
+  down, toast, `exp` creep, an untouched normal wandering, boss-bar drain.
+
+House rules held: every new page is palette-legal against `ART_BIBLE.yaml` (checked
+mechanically, 0 off-palette values), all motion is CSS-only and honors
+`prefers-reduced-motion`, and each page repeats the non-binding disclaimer. **Flagged, not
+made:** `UI_ART_SPEC.md`'s UA-003 amendment still enumerates only the original six mock-ups —
+extending it is an owner-directed edit to a change-controlled file (Law 5), so `README.md`
+carries the new list instead and names the gap.
+
+**Rebased onto `main` @ `0c773cb`** (PR #13, the design-critic wave) mid-branch, which moved
+three facts the monetization page had already drawn from the pre-#13 canon; all three
+reconciled before landing: the gilt fee is no longer flat 6,000 but **ECONOMY §4.4's
+level-banded ladder**, the capsule purchase cap is **account-wide (PA-002)** not
+per-character, and prize containment is **bind on dispense** — non-vendorable *and* never
+tradable *and* never listable — not vendor-value-0 alone. Worth remembering as a pattern: a
+mock-up is a *rendering* of canon, so it inherits every canon change during a long branch and
+has to be re-diffed against the owning docs at rebase time, not just at authoring time.
+
 ## 2026-07-24 — first standing design-critic pass + the three fixes it landed (owner-directed)
 
 Branch `claude/autonomous-design-review-88i3fc`. The recurring Design Critic role ran its first
