@@ -1,0 +1,34 @@
+id: map_096
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Sirens' Hollow
+region: tidewatch
+map_type: secret
+level_band: { min: 20, max: 22 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 60, h: 40 }
+water_physics: true
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [30, 18] }
+portals:
+  - id: to_echoing_grotto
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_093
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: hollow_pocket
+    rect_tiles: { x: 15, y: 16, w: 30, h: 12 }
+    mobs:
+      - { mob: mob_065, count: 1 }
+      - { mob: mob_066, count: 1 }
+    max_concurrent: 3
+platform_brief: |
+  A resonant side-hollow off the Echoing Grotto, one raised shelf reachable by a
+  single running jump (5-tile figure, MAP_TRAVERSAL §1). Breaks the region's level
+  curve on purpose -- a tougher pocket for those who go looking.
+flavor: "Half-heard song drifts from this hollow at low tide, and the pair of shapes that answer it are not friendly."

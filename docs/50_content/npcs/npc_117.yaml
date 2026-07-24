@@ -1,0 +1,12 @@
+id: npc_117
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Captain Maren Duskbrand
+region: voidshore
+map: map_306
+role: quest_giver
+dialog:
+  greeting: "The spineturrets have zeroed the last approach. Clear them, and clear the way to the Reach besides."
+  farewell: "The Redoubt holds because people like you keep it holding."
+portrait: portrait_npc_117
+flavor: "Maren commands the Redoubt's watch and has personally signed off on every soul that's walked into the Sunder Deeps and not come back the same."

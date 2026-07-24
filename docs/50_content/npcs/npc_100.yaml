@@ -1,0 +1,12 @@
+id: npc_100
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Quartermaster Below
+region: arcane_reach
+map: map_245
+role: quest_giver
+dialog:
+  greeting: "New off the Runewake and already the drift-hounds are circling the cargo. Typical."
+  farewell: "Watch the footing past the second shard. It isn't always where you left it."
+portrait: portrait_npc_100
+flavor: "Below runs Spirehaven's cargo lines and has never once explained why he goes by a name that isn't his own."

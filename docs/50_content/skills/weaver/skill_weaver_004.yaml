@@ -1,0 +1,33 @@
+id: skill_weaver_004
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Mend                         # exact JOBS.md §4.1 first-job roster name
+line: weaver
+tier: first
+kind: active
+targeting: party                   # roster target `party`; solo resolves to self only (SKILL_SYSTEM §6)
+cost: { essence: 8 }               # top-heavy in the first-job band (5->12, §5) — support skills cost more than core attacks
+cooldown: 6.0
+level_data:
+  - level: 1
+    essence_cost: 8
+    cooldown: 6.0
+    effects:
+      - { op: heal, scaling: spellpower, mult: 0.5 }   # default heal scaling (SKILL_EFFECTS §4)
+  - level: 4
+    essence_cost: 10
+    cooldown: 5.0
+    effects:
+      - { op: heal, scaling: spellpower, mult: 0.65 }
+  - level: 7
+    essence_cost: 11
+    cooldown: 4.5
+    effects:
+      - { op: heal, scaling: spellpower, mult: 0.8 }
+  - level: 10
+    essence_cost: 12
+    cooldown: 4.0
+    effects:
+      - { op: heal, scaling: spellpower, mult: 0.9 }   # mult non-decreasing, cooldown non-increasing (§4 warn)
+animation: skill_weaver_004_cast
+flavor: "A soft weave of essence poured over the party like warm water — the first mending word every Weaver learns."

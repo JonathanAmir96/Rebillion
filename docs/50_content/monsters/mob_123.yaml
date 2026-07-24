@@ -1,0 +1,27 @@
+id: mob_123
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Frostbound Thrall
+tier: normal                     # ID slot 123 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: frost                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 38
+size_class: large
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 38
+  life: 6724                     # 4*(38+3)^2
+  power: 120                      # 6+3*38 (touch = round(0.5*power), neutral, §13.1)
+  armor: 228                     # 6*38  (armor+warding sum = 456 = 12*38)
+  warding: 228                   # 6*38
+  precision: 152                 # 4*38
+  evasion: 4.14                   # 3 + 0.03*38 (%)
+  exp: 453                       # exp_per_kill_normal(38)=round(4*38^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only territorial_guard-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 5
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_123
+# the Warden's honor-thrall; the last test before the vault (AI_BEHAVIOR §6) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "The Warden's own honor-thrall, a champion of the drowned garrison frozen mid-oath before the last door and set to hold it forever. It fights with a captain's craft and a corpse's patience, the final test before the vault below."

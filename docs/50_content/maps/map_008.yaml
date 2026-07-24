@@ -1,0 +1,48 @@
+id: map_008
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Emberfoot Fields, Ashen Flat
+region: emberfoot
+map_type: field
+level_band: { min: 4, max: 5 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 140, h: 28 }
+bgm: bgm_emberfoot
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_windbreak_ridge
+    kind: edge
+    at: { edge: left }
+    target_map: map_007
+    target_spawn: main
+    dead_end: false
+  - id: to_cinder_hollow
+    kind: edge
+    at: { edge: right }
+    target_map: map_009
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: ashen_flat_stretch
+    rect_tiles: { x: 20, y: 20, w: 68, h: 6 }
+    mobs:
+      - { mob: mob_004, count: 3 }
+      - { mob: mob_005, count: 1 }
+    max_concurrent: 6
+npcs: []
+interactables:
+  - type: sign
+    id: sign_ashen_flat_008
+    at_tile: [16, 21]
+    params:
+      text: "The flat runs long and level. The hollow beyond holds deeper shadows than the rest of the island."
+      interact_prompt: Read
+platform_brief: |
+  A long, level flat with no elevation change -- the widest single band on the
+  island (MAP_TRAVERSAL §1.1 gap rule not invoked, no gaps). Foothold segments under
+  painted terrain_chunks (ART_BIBLE AB-001). Pure horizontal hunting ground.
+flavor: "Ash lies deep and undisturbed across this flat, packed down by nothing but wandering embers and the wind."

@@ -1,0 +1,41 @@
+id: skill_bulwark_014
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Provoke                     # exact JOBS.md §2.3 roster name (skill.schema rule 1)
+line: bulwark
+tier: second                      # Stoneguard is a 2nd-advancement (Lv 40) spec (JOBS §1, SKILL_SYSTEM §2).
+                                  # NB: skill.schema rule 1's "014-021 -> third" is the stale v2 LINEAR
+                                  # mapping; v3 branching puts specs (007-027) at the 2nd tier and moves
+                                  # 3rd tier to 028-045. Authored per JOBS/SKILL_SYSTEM v3 (authoritative).
+kind: active
+targeting: { shape: melee_arc, arc_degrees: 120, radius: 2.0 }   # roster target melee_arc (SKILL_SYSTEM §6)
+cost: { essence: 14 }             # flat default; scaled per-rank in level_data (spec band 12->28, §5)
+cooldown: 8.0                     # flat default; scaled per-rank below (spec band 4-20 s, §5)
+max_level: 10                     # fixed by SKILL_SYSTEM §2 (only 10 valid)
+level_data:                       # rows only at 1/4/7/10; ranks 2/3/5/6/8/9 interpolate (SKILL_SYSTEM §4)
+  - level: 1
+    essence_cost: 14
+    cooldown: 8.0
+    effects:                      # order/element/op-list identical across rows (non-interpolatable)
+      - { op: deal_damage, element: neutral, mult: 1.2 }   # scales on `power` (blade default, §1)
+      - { op: taunt, dur: 3 }                               # single-target taunt in the arc (SKILL_EFFECTS §11)
+  - level: 4
+    essence_cost: 17
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.6 }
+      - { op: taunt, dur: 4 }
+  - level: 7
+    essence_cost: 20
+    cooldown: 6.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.0 }
+      - { op: taunt, dur: 5 }
+  - level: 10
+    essence_cost: 24
+    cooldown: 5.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.4 }   # mult non-decreasing, cooldown non-increasing (§4 warn)
+      - { op: taunt, dur: 6 }
+animation: skill_bulwark_014_cast     # active skills carry an animation id (SKILL_ANIMATION naming)
+flavor: "A blunt shield-shout that singles out the biggest threat and dares it to try you first. The Stoneguard's opening word in every fight."

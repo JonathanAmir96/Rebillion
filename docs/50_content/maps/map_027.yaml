@@ -1,0 +1,49 @@
+id: map_027
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Millbrook West Outskirts
+region: millbrook
+map_type: field
+level_band: { min: 8, max: 8 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_old_town                       # field/dungeon pattern bgm_<biome_key> (MAPS_SYSTEM §5)
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 22] }
+  - { id: from_verdant, tile: [138, 22] }   # cross-region edge destination spawn (MAP_CONNECTIONS §2)
+portals:
+  - id: to_millbrook_central
+    kind: edge
+    at: { edge: left }
+    target_map: map_018
+    target_spawn: main
+    dead_end: false
+  - id: to_verdant                         # WORLD_PLAN edge table: Millbrook (west outskirts) -> Verdant
+    kind: edge
+    at: { edge: right }
+    target_map: map_043
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: west_outskirts_zone
+    rect_tiles: { x: 40, y: 16, w: 70, h: 10 }
+    mobs:
+      - { mob: mob_013, count: 4 }
+      - { mob: mob_014, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_west_outskirts_trailhead
+    at_tile: [24, 21]
+    params:
+      text: "Verdant Hollow lies west through the tree line -- Millbrook's watch keeps the road clear this far and no farther."
+      interact_prompt: Read
+npcs: [npc_024]
+platform_brief: |
+  A rutted cart road through low hedgerow, one flat band with a shallow ditch
+  crossable in a single stride (MAP_TRAVERSAL §1.1). Terrain is foothold segments
+  under painted terrain_chunks (ART_BIBLE AB-001); no verticality gimmick.
+flavor: "The last tended fields before Millbrook gives way to Verdant Hollow's wilder green."

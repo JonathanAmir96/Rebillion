@@ -1,0 +1,24 @@
+id: mob_008
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Pebblethrow Imp
+tier: normal                     # ID slot 008 = R1 normal (ID_REGISTRY Monsters)
+element: neutral                 # neutral critter (WORLD_PLAN R1 mix)
+level: 6
+size_class: small
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 6
+  life: 325                      # 4*(6+3)^2
+  power: 24                      # 6+3*6 (touch dmg = round(0.5*power), neutral, §13.1)
+  armor: 36                      # 6*6  (armor+warding sum = 72 = 12*6)
+  warding: 36                    # 6*6
+  precision: 24                  # 4*6
+  evasion: 3.2                   # 3 + 0.03*6 (%)
+  exp: 41                        # exp_per_kill_normal(6)=round(4*6^1.3) (LEVELING §3)
+ai_profile: ranged_skirmisher    # keeps its distance and pelts you; teaches closing gaps (AI_BEHAVIOR §8)
+ai_params:                       # override only ranged_skirmisher-declared tunables
+  preferred_range_min: 4
+  preferred_range_max: 8
+  attack_cooldown_s: 1.8
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+drop_table: drop_mob_008
+flavor: "A wiry, knuckle-cracking imp that never wants you within arm's reach, backpedaling and lobbing hot pebbles. The first foe that punishes a novice for standing still."

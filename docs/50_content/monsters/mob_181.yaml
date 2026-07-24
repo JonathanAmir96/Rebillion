@@ -1,0 +1,27 @@
+id: mob_181
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Runedust Flitter
+tier: normal                     # ID slot 181 = R10 normal (ID_REGISTRY Monsters)
+element: arcane                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [shadow]
+resists: [arcane]                # ELEMENTS §2 (mutually exclusive lists)
+level: 54
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 54
+  life: 12996                    # 4*(54+3)^2
+  power: 168                     # 6+3*54
+  spellpower: 168                # 6+3*54 (parity; magic attacker, §13)
+  armor: 324                    # 6*54  (armor+warding sum = 648 = 12*54)
+  warding: 324                  # 6*54
+  precision: 216                # 4*54
+  evasion: 4.62                 # 3+0.03*54 (%)
+  exp: 715                     # round(4*54^1.3) normal (LEVELING §3)
+ai_profile: ranged_skirmisher
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  preferred_range_min: 5
+  preferred_range_max: 9
+  attack_cooldown_s: 1.4
+animation_states: [idle, walk, jump, fall, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_181
+flavor: "A palm-sized glyph that never finished its spell and now spits the leftover syllables at anything nearer than it likes."

@@ -1,0 +1,26 @@
+id: mob_096
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Ashwing Harrier
+tier: normal                     # ID slot 96 = R6 normal (ID_REGISTRY ashfall)
+element: neutral                      # R6 element mix is fire/neutral (WORLD_PLAN)
+weak_to: [frost]                  # thematic (ELEMENTS §2; lists mutually exclusive)
+resists: [fire]
+level: 30
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 30
+  life: 4356                     # 4*(30+3)^2
+  power: 96                     # 6+3*30 (touch = round(0.5*power), neutral, §13.1)
+  armor: 180                     # 6*30  (armor+warding sum = 12*30)
+  warding: 180                   # 6*30
+  precision: 120                 # 4*30
+  evasion: 3.9                   # 3 + 0.03*30 (%)
+  exp: 333                       # exp_per_kill_normal(30)=round(4*30^1.3) (LEVELING §3)
+ai_profile: aerial_swooper
+ai_params:                       # override only aerial_swooper-declared tunables (AI_BEHAVIOR)
+  patrol_altitude: 5
+  swoop_speed_mult: 2.2
+  climb_recover_s: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_096
+flavor: "A gaunt carrion-bird that rides the thermals over the cinder fields, patient as the drought. It stoops on the fallen the instant the last kick goes out of them."

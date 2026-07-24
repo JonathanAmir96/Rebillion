@@ -1,0 +1,25 @@
+id: mob_111
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Ruin Scuttler
+tier: normal                     # ID slot 111 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: neutral                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+level: 31
+size_class: small
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 31
+  life: 4624                     # 4*(31+3)^2
+  power: 99                      # 6+3*31 (touch = round(0.5*power), neutral, §13.1)
+  armor: 186                     # 6*31  (armor+warding sum = 372 = 12*31)
+  warding: 186                   # 6*31
+  precision: 124                 # 4*31
+  evasion: 3.93                   # 3 + 0.03*31 (%)
+  exp: 347                       # exp_per_kill_normal(31)=round(4*31^1.3) (LEVELING §3)
+ai_profile: timid_grazer
+ai_params:                       # override only timid_grazer-declared tunables (AI_BEHAVIOR)
+  flee_radius: 5
+  flee_speed_mult: 1.5
+  corner_wait_s: 2
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_111
+# bottom-grazer that flees; fights only when cornered (AI_BEHAVIOR §4) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "A flat grey crab the size of a dinner plate, grazing the algae off sunken flagstones and skittering into the nearest crack at the first tremor of a footfall. It fights only when there is nowhere left to run."

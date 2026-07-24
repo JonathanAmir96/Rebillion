@@ -1,0 +1,30 @@
+id: skill_bulwark_027
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Inspiring Victory
+line: bulwark
+tier: second
+kind: passive
+# NOTE (flag): roster ops are `on_hit_proc(on_kill→empower)` only, with target `party` — skill.schema
+# rule 5 reads as requiring a `passive_stat_bonus` w/ `scope: party_aura` whenever a passive targets
+# `party`, but this skill has no passive_stat_bonus in its roster ops. Authored exactly to the roster
+# (on_hit_proc only; the wrapped `apply_status(empower)` targets the party via this skill's own
+# targeting shape, SKILL_EFFECTS §16 "inherited from the wrapped effect's class"). validate.py's
+# current skill checks do not enforce rule 5 in code; flagged for the schema owner to reconcile.
+targeting: party
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: on_hit_proc, trigger: on_kill, chance: 1.0, icd: 12, effect: { op: apply_status, status: empower, chance: 1.0 } }
+  - level: 4
+    effects:
+      - { op: on_hit_proc, trigger: on_kill, chance: 1.0, icd: 10, effect: { op: apply_status, status: empower, chance: 1.0 } }
+  - level: 7
+    effects:
+      - { op: on_hit_proc, trigger: on_kill, chance: 1.0, icd: 8, effect: { op: apply_status, status: empower, chance: 1.0 } }
+  - level: 10
+    effects:
+      - { op: on_hit_proc, trigger: on_kill, chance: 1.0, icd: 6, effect: { op: apply_status, status: empower, chance: 1.0 } }
+flavor: "Every kill under the Warcaller's banner sends a fresh surge of confidence through the whole warband. Victory feeds itself."

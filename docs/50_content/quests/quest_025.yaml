@@ -1,0 +1,27 @@
+# exp/shards worked per QUESTS.md §4-§5 and LEVELING.md §1 at Lv8 (exp_to_next=1,980,
+# kills_per_level=33, exp_per_kill_normal=60) and DROPS.md §3 (mean_shards_normal(8)=15).
+id: quest_025
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS, JOBS]
+name: The Root and the Rune
+region: verdant
+quest_type: main
+giver_npc: npc_033                # Elder Yewna, the Weaver line's home-town instructor (WORLD_PLAN §Job instructors)
+level_requirement: 8
+recommended_level: 8
+steps:                            # chain-establishing trainer quest (JOBS.md §1 1st advancement)
+  - type: kill
+    target: mob_028
+    count: 6
+  - type: collect
+    target: item_etc_0033          # sourced from mob_028's drop table (parallel monster batch)
+    count: 3
+rewards:
+  exp: 495                        # round(0.25 * 1,980); main band 15-30% (QUESTS §4)
+  shards: 225                     # main = mean_shards_normal(8)*15 = 15*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0001, qty: 3 }   # Lesser Life Tonic
+    - { id: item_use_0006, qty: 3 }   # Lesser Essence Tonic
+flavor: "Elder Yewna has watched a hundred hopefuls stumble through Firebolt before their first real lesson begins."
+offer_text: "Essence answers before it's asked, if you let it. Cull a few root-stalkers, bring me a stalk of what they leave behind, and we'll begin properly."
+complete_text: "Good instincts, or good luck -- either serves, at first. Welcome to the weaving, properly now."

@@ -1,0 +1,26 @@
+id: mob_194
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Glyph Colossus
+tier: normal                     # ID slot 194 = R10 normal (ID_REGISTRY Monsters)
+element: arcane                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [neutral]
+resists: [arcane]                # ELEMENTS §2 (mutually exclusive lists)
+level: 65
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 65
+  life: 18496                    # 4*(65+3)^2
+  power: 201                     # 6+3*65
+  armor: 390                    # 6*65  (armor+warding sum = 780 = 12*65)
+  warding: 390                  # 6*65
+  precision: 260                # 4*65
+  evasion: 4.95                 # 3+0.03*65 (%)
+  exp: 910                     # round(4*65^1.3) normal (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 6
+  leash_radius: 5
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_194
+flavor: "A slab-limbed giant of stacked rune-plate that holds a single crossing between two shards. Physical force cracks the glyphs that bind it; magic only feeds it."

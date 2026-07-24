@@ -1,0 +1,24 @@
+id: quest_118
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Harbinger's Horn
+region: voidshore
+quest_type: side
+giver_npc: npc_117
+level_requirement: 80
+recommended_level: 80
+steps:
+  - type: kill
+    target: mob_226
+    count: 8
+  - type: collect
+    target: item_etc_0176
+    count: 5
+rewards:
+  exp: 123864  # round(0.08 * 1,548,300); side band 5-10% (QUESTS §4)
+  shards: 492  # mean_shards_normal(80)*4 = 123*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 1 }
+flavor: "The harbingers sound their spiral horns along Redoubt Reach, and every sounding calls the black tide a little higher."
+offer_text: "Silence a few harbingers before the whole reach hears their horns. Bring me one intact and I'll see you paid well."
+complete_text: "One horn quieter. I almost don't want to know what happens when the last one sounds."

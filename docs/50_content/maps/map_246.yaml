@@ -1,0 +1,31 @@
+id: map_246
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Spirehaven Hearth-Inn
+region: arcane_reach
+map_type: interior
+level_band: { min: 53, max: 53 }         # matches its town, tight band (MAPS_SYSTEM §4)
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 34, h: 20 }              # interior: <=1 screen (MAPS_SYSTEM §2)
+bgm: bgm_town_arcane_reach                 # interior inherits its town's tag (MAPS_SYSTEM §5)
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [17, 14] }
+portals:
+  - id: to_spirehaven
+    kind: door
+    at: { tile: [17, 18] }
+    target_map: map_245
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: inn_bed
+    id: bed_spirehaven_inn
+    at_tile: [24, 13]
+    params: {}
+npcs: [npc_098]
+platform_brief: |
+  One flat room, low-beamed, built heavy against the drift. No verticality, no gimmick --
+  a single foothold floor from door to hearth, matching the interior default (MAPS_SYSTEM §2).
+flavor: "Built low and stone-braced, deliberately unlike everything else on the shard that floats."

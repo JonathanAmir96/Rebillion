@@ -1,0 +1,166 @@
+id: item_table_materials_r08
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R8 Clockwork Ruins monster materials: item_etc_0113-0128 (ID_REGISTRY etc block), one per
+# R8 normal species (mob_129-144). etc rows: no `buy`, source_hint cross-checks each drop_mob.
+items:
+  - id: item_etc_0113
+    name: Tarnished Gearwheel
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 34                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 36                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_129          # drops from Cog-Scuttler (cross-checks drop_mob_129)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A brass drive-wheel worn smooth and green with age, one of a thousand the scuttler-swarms shed. Scrappers on the ring buy them by the crate for the good old alloy."
+  - id: item_etc_0114
+    name: Spent Charge-Cell
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 34                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 36                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_130          # drops from Spark-Mote (cross-checks drop_mob_130)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A drained glass cell that still holds a faint blue afterglow of the current it carried. It fogs and warms in the hand as the last dregs bleed out."
+  - id: item_etc_0115
+    name: Sentry Pauldron-Plate
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 35                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 38                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_131          # drops from Brass Sentry (cross-checks drop_mob_131)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A curved slab of sentry-shoulder plating, dented by blows it was built to shrug off. The maker's guild-mark is still legible under the tarnish."
+  - id: item_etc_0116
+    name: Etched Glyph-Sliver
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 35                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 38                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_132          # drops from Glyph-Slinger (cross-checks drop_mob_132)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A finger of dark stone incised with a single thrown rote-glyph, cold and faintly humming. Scholars pay for the etching; the stone is worthless."
+  - id: item_etc_0117
+    name: Counterweight Cog
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 36                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 39                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_133          # drops from Gearwork Rammer (cross-checks drop_mob_133)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A heavy off-center cog cast to give a ram-frame its shoving bias. It rolls in a drunken wobble and rings like a struck bell."
+  - id: item_etc_0118
+    name: Ornithopter Feather-Vane
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 36                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 39                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_134          # drops from Clockwork Ornithopter (cross-checks drop_mob_134)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A single hammered-brass flight-feather from a clockwork bird, impossibly thin and still keen at the edge. It catches the air like the real thing."
+  - id: item_etc_0119
+    name: Seized Piston-Rod
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 36                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 39                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_135          # drops from Dormant Automaton (cross-checks drop_mob_135)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A rust-fused piston shaft torn from a dormant labor-frame, locked forever at half-stroke. Reforged, the steel takes a fearsome edge."
+  - id: item_etc_0120
+    name: Mending-Engine Solder
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 37                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 40                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_136          # drops from Mending Engine (cross-checks drop_mob_136)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A coil of the strange self-flowing solder a repair-frame carries in its belly, warm and pliant to the touch. It welds brass without a flame."
+  - id: item_etc_0121
+    name: Ballista Torsion-Spring
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 37                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 40                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_137          # drops from Bolt Emplacement (cross-checks drop_mob_137)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A coiled torsion-spring wound so tight it still hums with stored violence centuries on. Handle it as you would a loaded weapon, because it is one."
+  - id: item_etc_0122
+    name: Arc-Coil Winding
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 38                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 42                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_138          # drops from Arc-Caster (cross-checks drop_mob_138)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A spool of fine glyph-threaded wire stripped from a caster-frame's coils, sparking faintly where it frays. Enchanters prize the pre-charged strands."
+  - id: item_etc_0123
+    name: Dust-Caked Brush
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 38                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 42                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_139          # drops from Brass Sweeper (cross-checks drop_mob_139)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A worn roller-brush from a sweeper's underbelly, matted with the compressed dust of a dead city. Oddly, the felt beneath is still supple."
+  - id: item_etc_0124
+    name: Conduit Rune-Chip
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 38                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 42                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_140          # drops from Rune-Scuttler (cross-checks drop_mob_140)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A chipped tile of wall-conduit still carrying a live thread of the ruin's old current. It stings if you close a circuit across it carelessly."
+  - id: item_etc_0125
+    name: Ram-Piston Head
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 39                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 44                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_141          # drops from Piston Charger (cross-checks drop_mob_141)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The blunt hardened head of a charger's driving piston, scarred by everything it ever hit. Nothing short of a forge will reshape it."
+  - id: item_etc_0126
+    name: Sentinel Lens
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 39                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 44                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_142          # drops from Sentinel Drone (cross-checks drop_mob_142)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A ground-crystal watch-lens from a drifting eye-frame, flawless and faintly warm. Look through it and distant things swim too close."
+  - id: item_etc_0127
+    name: Warden Keyplate
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 40                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 45                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_143          # drops from Vault Warden (cross-checks drop_mob_143)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A heavy engraved keyplate a gate-warden carried in place of a heart, cut with a lock-rote no living smith can read. Collectors covet the whole ones."
+  - id: item_etc_0128
+    name: Arclight Prism
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 40                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 45                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_144          # drops from Arclight Turret (cross-checks drop_mob_144)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A fist-sized cut prism that still splits stray light into a razor of stored arclight. Held wrong, it will happily burn a line across your palm."

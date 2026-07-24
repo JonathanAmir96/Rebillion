@@ -1,0 +1,25 @@
+id: mob_137
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Bolt Emplacement
+tier: normal                     # ID_REGISTRY: mob_137 in R8 normals block 129-144
+element: neutral                   # WORLD_PLAN R8 split = neutral/arcane
+weak_to: [arcane]                 # ELEMENTS §2 (mutually exclusive lists)
+level: 37
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 37
+  life: 6400                     # 4*(37+3)^2
+  power: 117                      # 6+3*37 (touch = round(0.5*power), §13.1)
+  armor: 222                      # 6*37  (armor+warding sum = 444 = 12*37)
+  warding: 222                    # 6*37
+  precision: 148                  # 4*37
+  evasion: 4.11                   # 3 + 0.03*37 (%)
+  exp: 437                      # exp_per_kill_normal(37)=round(4*37^1.3) (LEVELING §3)
+ai_profile: stationary_turret
+ai_params:
+  aggro_radius: 7
+  attack_cooldown_s: 2.5
+  windup_s: 0.6
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_137
+flavor: "A ceiling-anchored ballista-turret still holding the field of fire it was bolted down to cover. Its cadence is a metronome; learn the beat and cross between the bolts."

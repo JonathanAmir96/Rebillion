@@ -1,0 +1,54 @@
+id: map_275
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rune Vaults, the Deepest Chamber
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 70, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 68, h: 68 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 60] }
+portals:
+  - id: to_last_ledge
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_274
+    target_spawn: main
+    dead_end: false
+  - id: to_vault_cache
+    kind: door
+    at: { tile: [50, 40] }
+    target_map: map_276
+    target_spawn: main
+    dead_end: false
+  - id: to_shattered_orrery
+    kind: edge
+    at: { edge: top }
+    target_map: map_277
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: deepest_chamber_zone
+    rect_tiles: { x: 18, y: 24, w: 32, h: 30 }
+    mobs:
+      - { mob: mob_198, count: 2 }
+      - { mob: mob_201, count: 1 }
+    max_concurrent: 8
+interactables:
+  - type: lore_marker
+    id: marker_deepest_chamber
+    at_tile: [16, 58]
+    params:
+      text: "The vault's floor gives way here into open sky -- past this point the Sanctum stopped charting the fall entirely."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  The vault's true bottom, a wide chamber open on one side to the drift below. A sealed side
+  cache sits mid-floor; the ascent to the Shattered Orrery opens past it. Dense combat holds
+  the full chamber (SPAWN §2), no new verticality gimmick.
+flavor: "This is as deep as Highrune Sanctum's own charts go -- everything past here was mapped by whoever built the vault, not by them."

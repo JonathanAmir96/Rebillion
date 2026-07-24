@@ -1,0 +1,25 @@
+id: mob_131
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Brass Sentry
+tier: normal                     # ID_REGISTRY: mob_131 in R8 normals block 129-144
+element: neutral                   # WORLD_PLAN R8 split = neutral/arcane
+weak_to: [arcane]                 # ELEMENTS §2 (mutually exclusive lists)
+level: 35
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 35
+  life: 5776                     # 4*(35+3)^2
+  power: 111                      # 6+3*35 (touch = round(0.5*power), §13.1)
+  armor: 210                      # 6*35  (armor+warding sum = 420 = 12*35)
+  warding: 210                    # 6*35
+  precision: 140                  # 4*35
+  evasion: 4.05                   # 3 + 0.03*35 (%)
+  exp: 407                      # exp_per_kill_normal(35)=round(4*35^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_131
+flavor: "A pillar-legged watch-automaton still pacing the three tiles of floor it was set to guard. It does not pursue and it does not tire; it simply does not let you pass."

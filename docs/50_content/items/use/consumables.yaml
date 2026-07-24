@@ -1,0 +1,325 @@
+id: item_table_consumables
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, SKILL_EFFECTS, INVENTORY]
+# The use-item table: item_use_0001-0060 (ID_REGISTRY §use; 0001-0016 well-known names, hard-
+# checked exact name + price per item.schema rule 10). This batch authors the 16 well-known
+# arc-1 rows (0001-0016): the five life/essence tonic tiers (Lesser/base/Greater/Superior/Prime,
+# ITEMS §1.1 tier->band binding: req_level = band start 1/10/19/28/37) plus the six un-tiered
+# specialties (Antidote/Thaw Salve/Millbrook Return Scroll/Hearth Bread/Sharpening Oil/Ironhide
+# Draught). Prices are ECONOMY §4.1's literal buy/sell numbers (hard, not derived from the
+# round(0.25*buy) formula where the table's own literal sell differs, e.g. Antidote 50/12).
+# Heal/restore_essence amounts target ~40% of the band-start STATS §2 life/essence pool
+# (main-primary auto-growth sample, ECONOMY §5's ~40%-of-band assumption); first-pass, tunable.
+# 0021-0060 stays reserved (region specialties, raid consumables, Phase D growth).
+items:
+  - id: item_use_0001
+    name: Lesser Life Tonic          # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common                   # cosmetic on use rows (ITEMS §5)
+    req_level: 1                     # tier-1 band start, Lv 1-9 (ITEMS §1.1)
+    price:
+      buy: 15                        # ECONOMY §4.1 exact (well-known ID, hard-checked)
+      sell: 4                        # ECONOMY §4.1 exact (well-known ID, hard-checked)
+    effects:
+      # flat restore; ~40% of Lv1-band player life (STATS §2 life(1)=120+18*1+3*might(1)=153,
+      # main-might sample table). First-pass per ECONOMY §5's ~40%-of-band-life assumption.
+      - { op: heal, scaling: flat, amount: 60 }
+    use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                       # use tab fixed stack (INVENTORY §2)
+    flavor: "A watered cordial that dulls the day's scrapes."
+
+  - id: item_use_0002
+    name: Life Tonic                 # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 10                    # tier-2 band start, Lv 10-18 (ITEMS §1.1)
+    price:
+      buy: 60                        # ECONOMY §4.1 exact
+      sell: 15                       # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv10-band life (STATS §2 life(10)=120+180+3*might(10)=354, main-might growth
+      # 12+3*(L-8)). First-pass.
+      - { op: heal, scaling: flat, amount: 140 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "A stiffer brew than the village cordial; it steadies the hands as much as it heals."
+
+  - id: item_use_0003
+    name: Greater Life Tonic         # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 19                    # tier-3 band start, Lv 19-27 (ITEMS §1.1)
+    price:
+      buy: 200                       # ECONOMY §4.1 exact
+      sell: 50                       # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv19-band life (STATS §2 life(19)=120+342+3*might(19)=597). First-pass.
+      - { op: heal, scaling: flat, amount: 240 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "Millbrook apothecaries cut this batch stronger, for travelers bound past the ring road."
+
+  - id: item_use_0004
+    name: Superior Life Tonic        # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 28                    # tier-4 band start, Lv 28-36 (ITEMS §1.1)
+    price:
+      buy: 500                       # ECONOMY §4.1 exact
+      sell: 125                      # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv28-band life (STATS §2 life(28)=120+504+3*might(28)=840). First-pass.
+      - { op: heal, scaling: flat, amount: 350 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "A barrens-brewed tonic, thick enough to hold its heat against the cinder wind."
+
+  - id: item_use_0005
+    name: Prime Life Tonic           # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 37                    # tier-5 band start, Lv 37-42 (ITEMS §1.1, arc-1 top)
+    price:
+      buy: 1000                      # ECONOMY §4.1 exact
+      sell: 250                      # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv37-band life (STATS §2 life(37)=120+666+3*might(37)=1083). First-pass.
+      - { op: heal, scaling: flat, amount: 450 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "The ring's finest cordial, brewed for those bound for the Clockwork approach."
+
+  - id: item_use_0006
+    name: Lesser Essence Tonic       # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 1
+    price:
+      buy: 15                        # ECONOMY §4.1 exact (life/essence pair-mate of 0001)
+      sell: 4                        # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv1-band essence (STATS §2 essence(1)=40+4+3*focus(1)=59, main-focus growth).
+      - { op: restore_essence, scaling: flat, amount: 25 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "A thin infusion that clears the fog after too many cast spells."
+
+  - id: item_use_0007
+    name: Essence Tonic              # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 10
+    price:
+      buy: 60                        # ECONOMY §4.1 exact (pair-mate of 0002)
+      sell: 15                       # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv10-band essence (STATS §2 essence(10)=40+40+3*focus(10)=134).
+      - { op: restore_essence, scaling: flat, amount: 55 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "Ferry-dock brew favored by Mossmere apprentices crossing for the first time."
+
+  - id: item_use_0008
+    name: Greater Essence Tonic      # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 19
+    price:
+      buy: 200                       # ECONOMY §4.1 exact (pair-mate of 0003)
+      sell: 50                       # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv19-band essence (STATS §2 essence(19)=40+76+3*focus(19)=251).
+      - { op: restore_essence, scaling: flat, amount: 100 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "Distilled twice over at the athenaeum, sharp enough to clear even a spent caster's head."
+
+  - id: item_use_0009
+    name: Superior Essence Tonic     # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 28
+    price:
+      buy: 500                       # ECONOMY §4.1 exact (pair-mate of 0004)
+      sell: 125                      # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv28-band essence (STATS §2 essence(28)=40+112+3*focus(28)=368).
+      - { op: restore_essence, scaling: flat, amount: 150 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "Barrens-brewed and bitter, but it burns the fatigue out of a caster's focus fast."
+
+  - id: item_use_0010
+    name: Prime Essence Tonic        # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 37
+    price:
+      buy: 1000                      # ECONOMY §4.1 exact (pair-mate of 0005)
+      sell: 250                      # ECONOMY §4.1 exact
+    effects:
+      # ~40% of Lv37-band essence (STATS §2 essence(37)=40+148+3*focus(37)=485).
+      - { op: restore_essence, scaling: flat, amount: 200 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "The ring's finest infusion, kept behind the counter for those bound past Ashfall."
+
+  - id: item_use_0011
+    name: Antidote                   # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 1                     # any level (ITEMS §1.1: un-tiered)
+    price:
+      buy: 50                        # ECONOMY §4.1 exact
+      sell: 12                       # ECONOMY §4.1 exact
+    effects:
+      # removes active poison-tagged debuffs (STATUS_EFFECTS §2 cleanse tag poison_type)
+      - { op: cleanse_status, tag: poison_type }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "A bitter draught that burns worse going down than the venom it cures."
+
+  - id: item_use_0012
+    name: Thaw Salve                 # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 1                     # any level
+    price:
+      buy: 50                        # ECONOMY §4.1 exact
+      sell: 12                       # ECONOMY §4.1 exact
+    effects:
+      # removes active chill/freeze-tagged debuffs (STATUS_EFFECTS §2 cleanse tag chill_type)
+      - { op: cleanse_status, tag: chill_type }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "A warming balm rubbed into numb fingers before they stop answering at all."
+
+  - id: item_use_0013
+    name: Millbrook Return Scroll    # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 1                     # any level
+    price:
+      buy: 100                       # ECONOMY §4.1 exact
+      sell: 25                       # ECONOMY §4.1 exact
+    # no representable mechanic among the four permitted use-ops (item.schema Open Questions:
+    # "Scrolls (utility/return) have no representable mechanic" -- teleport/return is unowned by
+    # any system doc); effects left empty rather than inventing a fifth op.
+    effects: []
+    use_cooldown: 60.0                # first-pass; a return scroll gets a longer cooldown than a
+                                       # tonic so it isn't a free repeated shortcut (no owning doc)
+    stack: 100
+    flavor: "Folded parchment that hums faintly once, then sets you walking back toward Millbrook's cobbles."
+
+  - id: item_use_0014
+    name: Hearth Bread               # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 1                     # any level
+    price:
+      buy: 80                        # ECONOMY §4.1 exact
+      sell: 20                       # ECONOMY §4.1 exact
+    effects:
+      # food buff: temporary life regen (ITEMS §1 "foods (temporary buffs)"; STATUS_EFFECTS regen)
+      - { op: apply_status, status: regen, chance: 1.0, dur: 300 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "A warm loaf straight off the village hearth. Eaten slow, it settles the day's aches."
+
+  - id: item_use_0015
+    name: Sharpening Oil             # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 1                     # any level
+    price:
+      buy: 150                       # ECONOMY §4.1 exact
+      sell: 37                       # ECONOMY §4.1 exact
+    effects:
+      # weapon buff: temporary offense buff (STATUS_EFFECTS empower)
+      - { op: apply_status, status: empower, chance: 1.0, dur: 180 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "A thin coat of Millbrook honing oil, worked into the edge before a hard fight."
+
+  - id: item_use_0016
+    name: Ironhide Draught           # exact ID_REGISTRY name (well-known 0001-0016)
+    category: use
+    rarity: common
+    req_level: 1                     # any level
+    price:
+      buy: 150                       # ECONOMY §4.1 exact
+      sell: 37                       # ECONOMY §4.1 exact
+    effects:
+      # defense buff: temporary toughness (STATUS_EFFECTS fortify)
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 180 }
+    use_cooldown: 1.0
+    stack: 100
+    flavor: "A chalky draught that leaves the skin feeling a half-inch thicker for a while."
+
+  - id: item_use_0017
+    name: Sovereign Life Tonic      # exact ID_REGISTRY name (well-known 0017-0020, arc-2 tonics)
+    category: use
+    rarity: common                  # cosmetic on use rows (ITEMS §5)
+    req_level: 40                   # tier-6 band start, Lv 40-61 (ITEMS §1.1)
+    price:
+      buy: 2000                     # continues ECONOMY §4.1 curve above Prime (1000) -- see note
+      sell: 500                     # round(0.25 * 2000) (ECONOMY §4)
+    effects:
+      # flat restore; magnitude is Phase D use-item data (ITEMS §1). ~40% of Lv-40-band player life
+      # (STATS §2 life ~1164 pre-gear at Lv40) per ECONOMY §5's ~40%-of-band assumption. First-pass.
+      - { op: heal, scaling: flat, amount: 600 }
+    use_cooldown: 1.0               # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                      # use tab fixed stack (INVENTORY §2)
+    flavor: "A resinous cordial brewed against the deep cold; one pull and the ache of the ice lets go."
+
+  # --- item_use_0018-0020: completes the seven-tier tonic ladder (ITEMS §1.1) with the
+  # Sovereign essence pair-mate and the Mythic (tier-7) pair. Names/IDs exact per ID_REGISTRY.
+  # Prices continue the ECONOMY §4.1 rising-sink curve above Prime (1000): each pair-mate shares
+  # its counterpart's buy/sell (ECONOMY §4.1's own rows are one price per life/essence pair, not
+  # two); Sovereign = Prime x2 (2000/500, matching item_use_0017 above); Mythic = Sovereign x2
+  # (4000/1000), continuing the same doubling step. Restore magnitudes are Phase D use-item data
+  # (ITEMS §1): Mythic life keeps Sovereign's ~life-pool-fraction approach at the higher band;
+  # essence restores are set at half their life-pair-mate's magnitude for both tiers (300/600 =
+  # 0.5, 500/1000 = 0.5), a first-pass ratio reflecting essence's smaller pool (STATS §2:
+  # essence = 40+4L+3*focus vs life = 120+18L+3*might) -- first-pass, tunable at the balance gate.
+  - id: item_use_0018
+    name: Sovereign Essence Tonic     # exact ID_REGISTRY name (well-known 0017-0020, arc-2 tonics)
+    category: use
+    rarity: common                   # cosmetic on use rows (ITEMS §5)
+    req_level: 40                    # tier-6 band start, Lv 40-61 (ITEMS §1.1), same as 0017
+    price:
+      buy: 2000                      # pair-mate of item_use_0017 (ECONOMY §4.1: one price/pair)
+      sell: 500                      # round(0.25 * 2000) (ECONOMY §4)
+    effects:
+      - { op: restore_essence, scaling: flat, amount: 300 }  # ~0.5x the life pair-mate (see header)
+    use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                       # use tab fixed stack (INVENTORY §2)
+    flavor: "The same resinous cordial, cut instead for the mind -- a pull clears the fog the deep cold leaves on a caster's focus."
+
+  - id: item_use_0019
+    name: Mythic Life Tonic          # exact ID_REGISTRY name (well-known 0017-0020, arc-2 tonics)
+    category: use
+    rarity: common                   # cosmetic on use rows (ITEMS §5)
+    req_level: 62                    # tier-7 band start, Lv 62-80+ (ITEMS §1.1)
+    price:
+      buy: 4000                      # continues the Prime(1000)->Sovereign(2000) doubling step
+      sell: 1000                     # round(0.25 * 4000) (ECONOMY §4)
+    effects:
+      - { op: heal, scaling: flat, amount: 1000 }   # first-pass magnitude for the Lv62-80+ band
+    use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                       # use tab fixed stack (INVENTORY §2)
+    flavor: "Distilled past Sovereign's own recipe with a splinter of arcane rune-glass; the ache doesn't just fade, it forgets it was ever there."
+
+  - id: item_use_0020
+    name: Mythic Essence Tonic       # exact ID_REGISTRY name (well-known 0017-0020, arc-2 tonics)
+    category: use
+    rarity: common                   # cosmetic on use rows (ITEMS §5)
+    req_level: 62                    # tier-7 band start, Lv 62-80+ (ITEMS §1.1), same as 0019
+    price:
+      buy: 4000                      # pair-mate of item_use_0019 (ECONOMY §4.1: one price/pair)
+      sell: 1000                     # round(0.25 * 4000) (ECONOMY §4)
+    effects:
+      - { op: restore_essence, scaling: flat, amount: 500 }  # ~0.5x the life pair-mate (see header)
+    use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
+    stack: 100                       # use tab fixed stack (INVENTORY §2)
+    flavor: "The same rune-glass distillation, bent instead toward the mind -- essence returns as fast as the cordial goes down."

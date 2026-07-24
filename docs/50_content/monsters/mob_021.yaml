@@ -1,0 +1,25 @@
+id: mob_021
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Rotgas Puffer
+tier: normal                     # ID slot 021 = R2 normal (ID_REGISTRY Monsters)
+element: neutral                   # R2 mix is neutral/shadow (WORLD_PLAN R2)
+weak_to: [fire]                  # thematic: fire burns out swollen vermin (ELEMENTS §2)
+level: 12
+size_class: small
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 12
+  life: 900                     # 4*(12+3)^2
+  power: 42                     # 6+3*12 (touch = round(0.5*power), §13.1)
+  armor: 72                     # 6*12  (armor+warding sum = 144 = 12*12)
+  warding: 72                     # 6*12
+  precision: 48                 # 4*12
+  evasion: 3.36                   # 3+0.03*12 (%)
+  exp: 101                      # exp_per_kill_normal(12)=round(4*12^1.3) (LEVELING §3)
+ai_profile: kamikaze_burster
+ai_params:                       # override only kamikaze_burster-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 6
+  detonate_range: 1
+  rush_speed_mult: 1.8
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_021
+flavor: "A distended corpse-fly grub swollen tight with marsh gas, skittering straight for warmth on too many legs. It swells and stills for a heartbeat, then bursts in a reeking cloud that takes itself with it."

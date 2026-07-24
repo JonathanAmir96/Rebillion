@@ -1,0 +1,11 @@
+id: drop_mob_115
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone, no pool -> no ENHANCEMENT/WORLD_PLAN/PARTY
+owner: mob_115
+rows:
+  # shards guaranteed, normal x1. mean_shards_normal(33)=round(1.5*33+3)=53; range=[round(0.8*53),round(1.2*53)]=[42,64] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 42, qty_max: 64 }
+  # 1 region material, common (DROPS §5.1); item_etc_0104 is this mob's R7 material
+  - { ref: item_etc_0104, chance: common, qty_min: 1, qty_max: 2 }
+  # a use item (tonic) at rare (DROPS §5.1); Superior Life Tonic serves the Lv 33 band (ITEMS §1.1)
+  - { ref: item_use_0004, chance: rare, qty_min: 1, qty_max: 1 }

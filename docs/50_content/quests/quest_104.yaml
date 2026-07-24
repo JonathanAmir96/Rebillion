@@ -1,0 +1,21 @@
+id: quest_104
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Orin's Lost Bearings
+region: arcane_reach
+quest_type: side
+giver_npc: npc_102                # Wayfinder Orin, Spirehaven
+level_requirement: 58
+recommended_level: 58
+steps:
+  - type: kill
+    target: mob_184
+    count: 10
+rewards:
+  exp: 40748                      # round(0.075 * exp_to_next(58)=543,312); side band (QUESTS §4)
+  shards: 360                     # mean_shards_normal(58)*4 = 90*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }
+flavor: "Orin's own bearing-stone went missing off a scouting walk, last seen near a den of tilt-backs."
+offer_text: "Lost my bearing-stone to a nest of tilt-backs three shards out. Clear them and I might just find it again, funny how that works."
+complete_text: "Would you look at that -- turned up right where I said it would. Funny how that works."

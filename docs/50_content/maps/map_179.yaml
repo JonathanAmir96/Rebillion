@@ -1,0 +1,49 @@
+id: map_179
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, Sunken Cogyard
+region: clockwork
+map_type: field
+level_band: { min: 35, max: 36 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 155, h: 30 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_rustfall_approach
+    kind: edge
+    at: { edge: left }
+    target_map: map_178
+    target_spawn: main
+    dead_end: false
+  - id: to_brassvein_terraces
+    kind: edge
+    at: { edge: right }
+    target_map: map_180
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_cogyard_zone
+    rect_tiles: { x: 30, y: 20, w: 62, h: 8 }
+    mobs:
+      - { mob: mob_131, count: 3 }
+      - { mob: mob_132, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: climbable
+    id: rope_cogyard_pit
+    at_tile: [70, 16]
+    params:
+      rect_tiles: { x: 70, y: 16, w: 2, h: 10 }
+      orientation: vertical
+      visual: rope
+npcs: []
+platform_brief: |
+  A collapsed gear-pit sunk one band below the main terrace, crossed by a single rope
+  rather than a jump (MAP_INTERACTABLES §3 climbable). The pit floor holds the densest
+  spawn cluster; the upper rim stays clear for a breather.
+flavor: "Enormous cogs lie half-buried where the yard floor gave way, still grinding against nothing."

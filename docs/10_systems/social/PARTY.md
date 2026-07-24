@@ -1,14 +1,15 @@
-# PARTY.md — Party System, Exp Share & Rift Raids
+# PARTY.md — Party System, Exp Share & Raids
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md, 10_systems/JOBS.md,
 10_systems/LEVELING.md, 10_systems/COMBAT_FORMULA.md, 10_systems/DROPS.md, 10_systems/INVENTORY.md,
 10_systems/ECONOMY.md, 10_systems/QUESTS.md, 10_systems/DEATH_PENALTY.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/SPAWN.md, 10_systems/HUD.md, 10_systems/CONTROLS.md,
-10_systems/social/CHAT.md, 15_maps_system/MAPS_SYSTEM.md, 10_systems/PERSISTENCE.md,
-docs/WORLD_PLAN.md
+10_systems/social/CHAT.md, 10_systems/social/RAID.md, 15_maps_system/MAPS_SYSTEM.md,
+10_systems/PERSISTENCE.md, docs/WORLD_PLAN.md
 
 Owner doc for the **party**: membership and roster, invite/kick/leave and leader powers, the
-exp-share split, loot-share modes, the HUD data contract, and the Rift raid party rules. Kill/`exp`
+exp-share split, loot-share modes, the HUD data contract, and the raid party rules. The **raid**
+itself (entry, stage chain, lockout, rewards policy) is `10_systems/social/RAID.md`'s; kill/`exp`
 math is `10_systems/LEVELING.md`/`10_systems/COMBAT_FORMULA.md`; drop tagging and table shape are
 `10_systems/DROPS.md`; death/release-and-reenter is `10_systems/DEATH_PENALTY.md`; raid boss
 scaling math is `10_systems/COMBAT_FORMULA.md` §13.3. This doc consumes all of those and never
@@ -69,12 +70,31 @@ This is a party-specific anti-power-leveling gate distinct from `10_systems/COMB
 `exp_diff_mult` below) — without it, a low-level character parked beside a far higher-level
 partner would draw that dampener's flat "killing up" bonus indefinitely.
 
-**Split — contribution-weighted base + presence bonus.**
+**Party exp bonus — MapleStory-inspired (the "Party Bonus EXP").** Being grouped **multiplies the
+shared pool**, and the bonus climbs **steeply** with party size so a full party genuinely out-earns
+the same players hunting alone — the core reason to party (`00_vision/PILLARS.md` P3, a
+hunt-and-hangout world). It is a **fixed lookup** on the number of same-map eligible members (a flat
+table, like MapleStory's own — not a smooth formula):
+
+| same-map eligible members | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| `party_bonus` (× the pool) | 1.00 | 1.10 | 1.25 | 1.45 | 1.70 | **2.00** |
+
+A full party of 6 **doubles** the shared `exp` pool before it is split, and each added member is
+worth more than the last — so filling the party is aspirational, exactly the MapleStory party-play
+pull. It scales the pool **before** the split, so every member's share rises with it; a
+solo-in-party member (everyone else off-map) draws `1.00` — no bonus without company. The table is a
+first-pass faucet lever `10_systems/LEVELING.md` / `10_systems/ECONOMY.md` may retune (Open
+Questions); it does **not** touch the `10_systems/LEVELING.md` §1 curve, only how fast a grouped
+player travels it (that doc's `/played` estimates are solo — grouped pace is faster).
+
+**Split — party-bonus pool, contribution-weighted base + presence bonus.**
 
 ```
-pool            = round( base_exp(mob) · exp_diff_mult(anchor_level − mob.level) )
+pool            = round( base_exp(mob) · exp_diff_mult(anchor_level − mob.level) · party_bonus(n_eligible) )
                   # base_exp/exp_diff_mult are 10_systems/LEVELING.md §2-3 /
                   # 10_systems/COMBAT_FORMULA.md §9 terms, keyed to the party anchor, not restated
+                  # party_bonus is this section's table above (the grouping incentive)
 contribution(m) = damage_dealt(m, mob) / Σ damage_dealt(all eligible, mob)   # 0 if none dealt
 member_pool(m)  = pool · ( 0.70 · contribution(m) + 0.30 / n_eligible )
 member_exp(m)   = round( member_pool(m) · range_mult(m) )
@@ -108,16 +128,19 @@ Questions — whether this duplicates the material/`shards` faucet per member is
 **Default: `round_robin`** for pool rolls and boss/raid uniques. The leader may toggle the mode
 (§2) at any time; a change applies to the next roll, never retroactively.
 
-## 6. Rift raids
+## 6. Raids
 
-Raid arenas (`map_197`–`map_200`, `docs/WORLD_PLAN.md` R12) are **party-required and
-party-instanced** (`10_systems/SPAWN.md` §7): entering allocates the encounter to the entering
-party alone.
+The **raid** — its concept, entry, stage chain, lockout, and rewards policy — is owned by
+`10_systems/social/RAID.md`; this section owns only the **party-side** rules a raid consumes. A raid
+run is **party-required and party-instanced** across the four raid finale arenas
+(`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md` §2, `docs/WORLD_PLAN.md`):
+entering allocates the stage chain and finale arena to the entering party alone
+(`10_systems/SPAWN.md` §7).
 
-- **Legal party size: 4–6.** Below 4, arena entry is refused (`15_maps_system/MAPS_SYSTEM.md` §8);
-  the cap is the same flat 6 as §1. This fixes `10_systems/COMBAT_FORMULA.md` §13.3's assumed
-  `N ≈ 4–6` range.
-- **`N` is fixed at instance creation** (`10_systems/SPAWN.md` §7) and never re-scales mid-fight —
+- **Legal party size: 3–6.** Below 3, raid entry is refused (`10_systems/social/RAID.md` §3,
+  `15_maps_system/MAPS_SYSTEM.md` §8); the cap is the same flat 6 as §1. This fixes
+  `10_systems/COMBAT_FORMULA.md` §13.3's assumed `N` range at `3–6`.
+- **`N` is fixed at instance creation** (`10_systems/SPAWN.md` §7) and never re-scales mid-run —
   not on a fall, a Release, a disconnect, or a late arrival (late arrivals fight but do not add to
   `N`). No hidden re-scaling (`00_vision/PILLARS.md` P1).
 - **Boss scaling** (`raid_life(N, L)`, fixed `raid_damage`, the 12-minute enrage timer) is entirely
@@ -129,10 +152,10 @@ party alone.
   restated here. This doc fixes only the party bookkeeping:
   - A **fallen** member stays on the roster and on party HUD plates (§3) in a distinct fallen
     state — resolves `10_systems/DEATH_PENALTY.md` §5.3's flagged open question.
-  - While fallen but not yet Released, they are still physically on the arena map, so they remain
+  - While fallen but not yet Released, they are still physically on the instance map, so they remain
     exp/loot-eligible (§4/§5) for kills that land before they Release.
-  - Once Released to the staging-shard field (`docs/WORLD_PLAN.md` R12), they fail the same-map
-    gate (§4) until they walk back through the entrance.
+  - Once Released to the raid's staging area (`10_systems/social/RAID.md` §3), they fail the
+    same-map gate (§4) until they walk back through the entrance.
 
 ## Server Dependency
 
@@ -140,16 +163,25 @@ Roster membership, HUD plate data, exp/loot arbitration, and raid instance alloc
 `authority: server` (`10_systems/PERSISTENCE.md` §1–§2; `00_vision/PILLARS.md` P6) — a client
 cannot self-certify who is in range or award itself a kill's exp/loot. **The interim solo build
 ships the entire party system present but dormant**: the invite/roster UI exists but has no other
-character to reach, so no party ever forms, and Rift raids stay unreachable
-(`10_systems/SPAWN.md` §7 requires an entering party).
+character to reach, so no party ever forms, and raids stay unreachable
+(`10_systems/social/RAID.md` §8; `10_systems/SPAWN.md` §7 requires an entering party).
 
 ## Open Questions
 
 - The 70/30 contribution/presence split and the range_mult bands (§4) are first-pass balance;
   retune once real damage-share telemetry exists. Owner: this doc with `10_systems/ECONOMY.md`.
-- This doc's split refines `10_systems/LEVELING.md` §3's "assumes an even split among a mid party"
-  note for the raid 150× total; the two should reconcile at the next gate — the actual split is
-  not strictly even, only approximately so for a balanced-damage party.
+- The **party exp bonus** table (§4, climbing to `×2.00` — a doubled pool — at `N` = 6) is
+  first-pass: steep enough to make a full party genuinely inspiring (MapleStory-style) while the
+  same-map presence gate and the range_mult falloff keep it from becoming a power-level faucet. It
+  accelerates grouped pacing past `10_systems/LEVELING.md` §1's solo `/played` estimates — reconcile
+  grouped pace against the solo curve at the next gate. Owner: this doc with `10_systems/LEVELING.md`
+  / `10_systems/ECONOMY.md`.
+- This doc's §4 contribution-weighted split is the arbiter of `10_systems/LEVELING.md` §3's
+  raid-boss **150× total** (`10_systems/social/RAID.md` §6 routes the finale-boss `exp` pool here);
+  LEVELING §3's per-member figures assume the even-split degenerate case (`N` = 5), which this split
+  only approximates for a balanced-damage party across the legal `3–6` range. Reconcile the exact
+  per-member share at the next gate. Owner: this doc with `10_systems/LEVELING.md` /
+  `10_systems/social/RAID.md`.
 - Whether "same-map" (§4/§5) should tighten to a same-screen/zone radius on very large field maps
   is flagged, not resolved; default keeps the literal same-map gate.
 - Whether material/use-item/`shards` rows duplicate per eligible member or are split (§5) is

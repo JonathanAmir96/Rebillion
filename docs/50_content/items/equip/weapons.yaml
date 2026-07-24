@@ -1,0 +1,955 @@
+id: item_table_weapons
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, ENHANCEMENT]
+# All line weapons live in this one table (ITEMS §12 grouping): arc-1 item_equip_0001-0040 AND
+# arc-2 item_equip_0231-0254 (v3 re-block, ID_REGISTRY / ITEMS §4). NB: item.schema's File-conventions
+# row still lists weapons.yaml as 0001-0040 only -- that predates the v3 arc-2 re-block; ID_REGISTRY
+# is authoritative on the range. Intra-block layout (ITEMS §4): arc-2 weapons contiguous by line,
+# blade 0231-0236 / bow 0237-0242 / staff 0243-0248 / dirk 0249-0254, each T7->T12.
+#
+# Arc-1 block (this batch): item_equip_0001-0024, contiguous by line -- blade 0001-0006 / bow
+# 0007-0012 / staff 0013-0018 / dirk 0019-0024, each T1->T6 (req_level 1/8/15/22/29/36, ITEMS §4).
+# 0025-0040 stays reserved (intra-line growth). NB: ITEMS §4's own "ID-block layout" prose
+# describes arc-1 with gaps instead (blade 0001-0006, bow 0011-0016, staff 0021-0026, dirk
+# 0031-0036, with 0007-0010/0017-0020/... reserved between lines) -- this batch instead follows
+# the task brief's explicit contiguous layout, which matches the pattern this file already uses
+# for arc-2 above (lines packed together, reserved tail at the end, not interleaved). Both
+# layouts mint the same 24 IDs inside the same 0001-0040 ID_REGISTRY block; flagged here for
+# ITEMS.md §4 to reconcile its prose with the as-authored convention, not resolved in this file.
+#
+# All arc-1 rows: rarity uncommon (1 affix line, ITEMS §5), enhance_max 9 (ENHANCEMENT §2). Base
+# W (ITEMS §7 closed-form, tabulated exactly at these six req_levels) and affix +primary u(L)
+# (ITEMS §10) per tier: T1(1)=W8/u2, T2(8)=W26/u3, T3(15)=W49/u5, T4(22)=W78/u6, T5(29)=W112/u8,
+# T6(36)=W151/u9 (staff W = round(1.10x) of the physical column: 9/29/54/86/123/166). Per-line
+# uncommon cap(L)=round(1.4*u(L)) by tier: 3/4/7/8/11/13 -- every affix line here sits at exactly
+# u(L), well under cap. Price buy=round(base_buy(tier)*2.5)/sell=round(0.25*buy) (ECONOMY §4/§4.2;
+# base_buy T1-T6 = 30/120/300/600/1050/1800, the table's own tier column, no extrapolation needed
+# unlike the arc-2 rows below).
+items:
+  - id: item_equip_0001             # arc-1 blade, T1
+    name: Kilnforged Shortblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { power: 8 }          # ITEMS §7 T1 blade W = round(0.055*1^2 + 2.05*1 + 6)
+      affixes:
+        - { stat: might, value: 2 }  # u(1)=2 pe; cap(1)=3; 2<=3 OK
+    enhance_max: 9
+    price:
+      buy: 75
+      sell: 19
+    flavor: "Cast in the village kiln from scrap and stubbornness; it still smells faintly of woodsmoke."
+
+  - id: item_equip_0002             # arc-1 blade, T2
+    name: Harborwind Cutlass
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { power: 26 }          # ITEMS §7 T2 blade W = round(0.055*8^2 + 2.05*8 + 6)
+      affixes:
+        - { stat: might, value: 3 }  # u(8)=3 pe; cap(8)=4; 3<=4 OK
+    enhance_max: 9
+    price:
+      buy: 300
+      sell: 75
+    flavor: "Ferry-deck steel, quenched in harbor brine the night before the crossing."
+
+  - id: item_equip_0003             # arc-1 blade, T3
+    name: Mossmere Falchion
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { power: 49 }          # ITEMS §7 T3 blade W = round(0.055*15^2 + 2.05*15 + 6)
+      affixes:
+        - { stat: might, value: 5 }  # u(15)=5 pe; cap(15)=7; 5<=7 OK
+    enhance_max: 9
+    price:
+      buy: 750
+      sell: 188
+    flavor: "Mossmere's smiths fold it thin enough to whistle through the hollow's dappled light."
+
+  - id: item_equip_0004             # arc-1 blade, T4
+    name: Brinewatch Broadsword
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { power: 78 }          # ITEMS §7 T4 blade W = round(0.055*22^2 + 2.05*22 + 6)
+      affixes:
+        - { stat: might, value: 6 }  # u(22)=6 pe; cap(22)=8; 6<=8 OK
+    enhance_max: 9
+    price:
+      buy: 1500
+      sell: 375
+    flavor: "Weighted for the coastal wind, its edge kept bright against the salt."
+
+  - id: item_equip_0005             # arc-1 blade, T5
+    name: Cinderreach Greatblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { power: 112 }          # ITEMS §7 T5 blade W = round(0.055*29^2 + 2.05*29 + 6)
+      affixes:
+        - { stat: might, value: 8 }  # u(29)=8 pe; cap(29)=11; 8<=11 OK
+    enhance_max: 9
+    price:
+      buy: 2625
+      sell: 656
+    flavor: "Forge-blackened in the barrens' own cinder-pits, it never fully cools."
+
+  - id: item_equip_0006             # arc-1 blade, T6
+    name: Ironspring Warblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { power: 151 }          # ITEMS §7 T6 blade W = round(0.055*36^2 + 2.05*36 + 6)
+      affixes:
+        - { stat: might, value: 9 }  # u(36)=9 pe; cap(36)=13; 9<=13 OK
+    enhance_max: 9
+    price:
+      buy: 4500
+      sell: 1125
+    flavor: "Millbrook ringsmiths temper it against the Clockwork approach's grinding gearlight."
+
+  - id: item_equip_0007             # arc-1 bow, T1
+    name: Kilnforged Shortbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { power: 8 }          # ITEMS §7 T1 bow W
+      affixes:
+        - { stat: finesse, value: 2 }  # u(1)=2 pe; cap(1)=3; 2<=3 OK
+    enhance_max: 9
+    price:
+      buy: 75
+      sell: 19
+    flavor: "Green-cut village yew, strung the same week it was felled."
+
+  - id: item_equip_0008             # arc-1 bow, T2
+    name: Harborwind Longbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { power: 26 }          # ITEMS §7 T2 bow W
+      affixes:
+        - { stat: finesse, value: 3 }  # u(8)=3 pe; cap(8)=4; 3<=4 OK
+    enhance_max: 9
+    price:
+      buy: 300
+      sell: 75
+    flavor: "A harbor hunter's stave, its draw tuned to the ferry-dock crosswind."
+
+  - id: item_equip_0009             # arc-1 bow, T3
+    name: Mossmere Huntbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { power: 49 }          # ITEMS §7 T3 bow W
+      affixes:
+        - { stat: finesse, value: 5 }  # u(15)=5 pe; cap(15)=7; 5<=7 OK
+    enhance_max: 9
+    price:
+      buy: 750
+      sell: 188
+    flavor: "Mossmere fletchers taper it to slip between the hollow's crowded boughs."
+
+  - id: item_equip_0010             # arc-1 bow, T4
+    name: Brinewatch Recurve
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { power: 78 }          # ITEMS §7 T4 bow W
+      affixes:
+        - { stat: finesse, value: 6 }  # u(22)=6 pe; cap(22)=8; 6<=8 OK
+    enhance_max: 9
+    price:
+      buy: 1500
+      sell: 375
+    flavor: "Cliffside horn and cord, drawn tight against the coastal gusts."
+
+  - id: item_equip_0011             # arc-1 bow, T5
+    name: Cinderreach Warbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { power: 112 }          # ITEMS §7 T5 bow W
+      affixes:
+        - { stat: finesse, value: 8 }  # u(29)=8 pe; cap(29)=11; 8<=11 OK
+    enhance_max: 9
+    price:
+      buy: 2625
+      sell: 656
+    flavor: "Ash-cured limbs strung with barrens' own sinew, warped by the endless heat."
+
+  - id: item_equip_0012             # arc-1 bow, T6
+    name: Ironspring Longbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { power: 151 }          # ITEMS §7 T6 bow W
+      affixes:
+        - { stat: finesse, value: 9 }  # u(36)=9 pe; cap(36)=13; 9<=13 OK
+    enhance_max: 9
+    price:
+      buy: 4500
+      sell: 1125
+    flavor: "Ring-forged laminate that hums faintly near the Clockwork gearworks."
+
+  - id: item_equip_0013             # arc-1 staff, T1
+    name: Kilnforged Wandstaff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { spellpower: 9 }      # ITEMS §7 T1 staff W (round(1.10*8))
+      affixes:
+        - { stat: focus, value: 2 }  # u(1)=2 pe; cap(1)=3; 2<=3 OK
+    enhance_max: 9
+    price:
+      buy: 75
+      sell: 19
+    flavor: "A stripped kiln-poker some elder swore was lucky. It might even be right."
+
+  - id: item_equip_0014             # arc-1 staff, T2
+    name: Harborwind Cantorstaff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { spellpower: 29 }     # ITEMS §7 T2 staff W (round(1.10*26))
+      affixes:
+        - { stat: focus, value: 3 }  # u(8)=3 pe; cap(8)=4; 3<=4 OK
+    enhance_max: 9
+    price:
+      buy: 300
+      sell: 75
+    flavor: "Carved from ferry driftwood, its grain still runs the way the tide left it."
+
+  - id: item_equip_0015             # arc-1 staff, T3
+    name: Mossmere Branchstaff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { spellpower: 54 }     # ITEMS §7 T3 staff W (round(1.10*49))
+      affixes:
+        - { stat: focus, value: 5 }  # u(15)=5 pe; cap(15)=7; 5<=7 OK
+    enhance_max: 9
+    price:
+      buy: 750
+      sell: 188
+    flavor: "Mossmere's athenaeum grows these from living root-wood, cut only once it stops climbing."
+
+  - id: item_equip_0016             # arc-1 staff, T4
+    name: Brinewatch Tidewand
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { spellpower: 86 }     # ITEMS §7 T4 staff W (round(1.10*78))
+      affixes:
+        - { stat: focus, value: 6 }  # u(22)=6 pe; cap(22)=8; 6<=8 OK
+    enhance_max: 9
+    price:
+      buy: 1500
+      sell: 375
+    flavor: "Tide-warped and salt-pale, it channels the coast's own restless hum."
+
+  - id: item_equip_0017             # arc-1 staff, T5
+    name: Cinderreach Sceptre
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { spellpower: 123 }    # ITEMS §7 T5 staff W (round(1.10*112))
+      affixes:
+        - { stat: focus, value: 8 }  # u(29)=8 pe; cap(29)=11; 8<=11 OK
+    enhance_max: 9
+    price:
+      buy: 2625
+      sell: 656
+    flavor: "Cinder-blackened haft, warm to the touch long after the caster stops."
+
+  - id: item_equip_0018             # arc-1 staff, T6
+    name: Ironspring Ritualstaff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { spellpower: 166 }    # ITEMS §7 T6 staff W (round(1.10*151))
+      affixes:
+        - { stat: focus, value: 9 }  # u(36)=9 pe; cap(36)=13; 9<=13 OK
+    enhance_max: 9
+    price:
+      buy: 4500
+      sell: 1125
+    flavor: "Ring-tempered brass-core wood, ticking faintly in time with the Clockwork gears."
+
+  - id: item_equip_0019             # arc-1 dirk, T1
+    name: Kilnforged Shiv
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { power: 8 }          # ITEMS §7 T1 dirk W
+      affixes:
+        - { stat: fortune, value: 2 }  # u(1)=2 pe; cap(1)=3; 2<=3 OK
+    enhance_max: 9
+    price:
+      buy: 75
+      sell: 19
+    flavor: "A whittled kitchen knife some kiln-hand decided was good enough to fight with."
+
+  - id: item_equip_0020             # arc-1 dirk, T2
+    name: Harborwind Dirk
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { power: 26 }          # ITEMS §7 T2 dirk W
+      affixes:
+        - { stat: fortune, value: 3 }  # u(8)=3 pe; cap(8)=4; 3<=4 OK
+    enhance_max: 9
+    price:
+      buy: 300
+      sell: 75
+    flavor: "Ferry-dock steel, short enough to hide and sharp enough not to need to."
+
+  - id: item_equip_0021             # arc-1 dirk, T3
+    name: Mossmere Fang
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { power: 49 }          # ITEMS §7 T3 dirk W
+      affixes:
+        - { stat: fortune, value: 5 }  # u(15)=5 pe; cap(15)=7; 5<=7 OK
+    enhance_max: 9
+    price:
+      buy: 750
+      sell: 188
+    flavor: "Mossmere's quiet blade, folded thin to slip between root and shadow."
+
+  - id: item_equip_0022             # arc-1 dirk, T4
+    name: Brinewatch Kris
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { power: 78 }          # ITEMS §7 T4 dirk W
+      affixes:
+        - { stat: fortune, value: 6 }  # u(22)=6 pe; cap(22)=8; 6<=8 OK
+    enhance_max: 9
+    price:
+      buy: 1500
+      sell: 375
+    flavor: "A coastal skinning-knife reforged for closer work than fish."
+
+  - id: item_equip_0023             # arc-1 dirk, T5
+    name: Cinderreach Stiletto
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { power: 112 }          # ITEMS §7 T5 dirk W
+      affixes:
+        - { stat: fortune, value: 8 }  # u(29)=8 pe; cap(29)=11; 8<=11 OK
+    enhance_max: 9
+    price:
+      buy: 2625
+      sell: 656
+    flavor: "Barrens flint-steel, its edge holding heat long after the strike."
+
+  - id: item_equip_0024             # arc-1 dirk, T6
+    name: Ironspring Twinblade
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { power: 151 }          # ITEMS §7 T6 dirk W
+      affixes:
+        - { stat: fortune, value: 9 }  # u(36)=9 pe; cap(36)=13; 9<=13 OK
+    enhance_max: 9
+    price:
+      buy: 4500
+      sell: 1125
+    flavor: "Ring-forged twin edges, ticking a half-beat out of time like the gearworks themselves."
+
+  - id: item_equip_0231             # arc-2 blade, T7
+    name: Rimesteel Warblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark              # fixed by weapon_type (ITEMS §3): blade -> bulwark
+    tier: 7
+    req_level: 43                   # T7 req_level = 1 + 7*(7-1) (ITEMS §4)
+    rarity: uncommon                # 1 affix line (ITEMS §5)
+    stats:
+      base: { power: 196 }          # T7 blade W = round(0.055*43^2 + 2.05*43 + 6) (ITEMS §7)
+      affixes:
+        # Lv43: u=round(1.5+0.22*43)=11; +primary line = u = 11 pe; per-line cap=round(1.4*11)=15;
+        # uncommon budget = 1 line * 15 = 15 pe; 11 <= 15 (ITEMS §10). `might` is weapon-eligible.
+        - { stat: might, value: 11 }
+    enhance_max: 9                   # uniform 0-9 track (ENHANCEMENT §2)
+    price:
+      buy: 7000                     # base_buy(T7)=2800 (ECONOMY §4.2 interp) * uncommon x2.5
+      sell: 1750                    # round(0.25 * 7000) (ECONOMY §4)
+    flavor: "Frost-quenched ring steel, reforged on the far ice. It rings a half-tone colder than any blade off Harthmoor."
+
+  # --- item_equip_0232-0254 batch (23 rows): arc-2 T8-T12, continuing the blade/bow/staff/dirk
+  # layout from the header comment. Naming scheme (deterministic, region-themed by tier band,
+  # ITEMS §4 region context): T7 Rimesteel / T8 Frostcrown (Frostpeak, Lv40-55) -> T9 Runeglass /
+  # T10 Skyshard (Arcane Reach, Lv53-68) -> T11 Voidshroud / T12 Tidesunder (Voidshore, Lv66-80).
+  # All rows: rarity uncommon (1 affix line, ITEMS §5), enhance_max 9 (ENHANCEMENT §2), price
+  # buy = round(base_buy(tier) * 2.5) / sell = round(0.25*buy) (ECONOMY §4/§4.2; base_buy T7-T10
+  # per ECONOMY §4.2 table+interp: 2800/4000/6000/8000; T11/T12 not tabulated there -- extrapolated
+  # by continuing the T8->T10 +2000/tier arithmetic step to 10000/12000, Phase D first-pass, flagged
+  # for ECONOMY.md to adopt formally). Affix = +primary(line_hint's governing primary, ITEMS §3)
+  # value u(L)=round(1.5+0.22*L) (ITEMS §10), always <= per-line cap round(1.4*u(L)) for uncommon.
+  # u(L)/cap(L) by tier: T7(43)=11/15, T8(50)=12/17, T9(57)=14/20, T10(64)=16/22, T11(71)=17/24,
+  # T12(78)=19/27 (T8/T10/T12 anchors match ITEMS §10 table exactly; T7/T9/T11 computed from the
+  # same formula, same method the exemplar row above used for T7).
+
+  - id: item_equip_0232             # arc-2 blade, T8
+    name: Frostcrown Broadblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { power: 246 }          # ITEMS §7 T8 blade W
+      affixes:
+        - { stat: might, value: 12 }  # u(50)=12 pe; cap 17; uncommon budget 1*17=17; 12<=17 OK
+    enhance_max: 9
+    price:
+      buy: 10000                    # base_buy(T8)=4000 * uncommon x2.5
+      sell: 2500
+    flavor: "Broad enough to shrug off a wyrm's claw, cold enough that the wielder's own breath frosts the crossguard."
+
+  - id: item_equip_0233             # arc-2 blade, T9
+    name: Runeglass Saber
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { power: 302 }          # ITEMS §7 T9 blade W
+      affixes:
+        - { stat: might, value: 14 }  # u(57)=14 pe; cap 20; 14<=20 OK
+    enhance_max: 9
+    price:
+      buy: 15000                    # base_buy(T9)=6000 * uncommon x2.5
+      sell: 3750
+    flavor: "Its edge is drawn glass fused over dead sorcery -- a blade that hums when the rune-shards drift too close."
+
+  - id: item_equip_0234             # arc-2 blade, T10
+    name: Skyshard Cleaver
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { power: 362 }          # ITEMS §7 T10 blade W
+      affixes:
+        - { stat: might, value: 16 }  # u(64)=16 pe; cap 22; 16<=22 OK
+    enhance_max: 9
+    price:
+      buy: 20000                    # base_buy(T10)=8000 * uncommon x2.5
+      sell: 5000
+    flavor: "Forged from a shard that fell clean out of the Reach's floating stone. Still weightless mid-swing."
+
+  - id: item_equip_0235             # arc-2 blade, T11
+    name: Voidshroud Greatblade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { power: 429 }          # ITEMS §7 T11 blade W
+      affixes:
+        - { stat: might, value: 17 }  # u(71)=17 pe; cap 24; 17<=24 OK
+    enhance_max: 9
+    price:
+      buy: 25000                    # base_buy(T11)=10000 (extrap) * uncommon x2.5
+      sell: 6250
+    flavor: "Drawn from a shore where the sky itself tore open. Its shadow does not fall the same direction twice."
+
+  - id: item_equip_0236             # arc-2 blade, T12 (arc-2 top)
+    name: Tidesunder Sovereign Blade
+    category: equip
+    slot: weapon
+    weapon_type: blade
+    line_hint: bulwark
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { power: 501 }          # ITEMS §7 T12 blade W
+      affixes:
+        - { stat: might, value: 19 }  # u(78)=19 pe; cap 27; 19<=27 OK
+    enhance_max: 9
+    price:
+      buy: 30000                    # base_buy(T12)=12000 (extrap) * uncommon x2.5
+      sell: 7500
+    flavor: "Named for the leviathan that hauled it up from the drowned shore. Even sheathed, it drips cold light."
+
+  - id: item_equip_0237             # arc-2 bow, T7
+    name: Rimesteel Longbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 7
+    req_level: 43
+    rarity: uncommon
+    stats:
+      base: { power: 196 }          # ITEMS §7 T7 bow W
+      affixes:
+        - { stat: finesse, value: 11 }  # u(43)=11 pe; cap 15; 11<=15 OK
+    enhance_max: 9
+    price:
+      buy: 7000
+      sell: 1750
+    flavor: "Stave and string both cured in hoarfrost. Loosed arrows whistle a half-tone flatter in the cold."
+
+  - id: item_equip_0238             # arc-2 bow, T8
+    name: Frostcrown Recurve
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { power: 246 }          # ITEMS §7 T8 bow W
+      affixes:
+        - { stat: finesse, value: 12 }  # u(50)=12 pe; cap 17; 12<=17 OK
+    enhance_max: 9
+    price:
+      buy: 10000
+      sell: 2500
+    flavor: "A recurve cut from Wyrmcrag pine, its draw weight built for a mountain wind that never quits."
+
+  - id: item_equip_0239             # arc-2 bow, T9
+    name: Runeglass Bow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { power: 302 }          # ITEMS §7 T9 bow W
+      affixes:
+        - { stat: finesse, value: 14 }  # u(57)=14 pe; cap 20; 14<=20 OK
+    enhance_max: 9
+    price:
+      buy: 15000
+      sell: 3750
+    flavor: "Its limbs are cast rune-glass, not wood -- an arrow loosed from it never quite forgets where it came from."
+
+  - id: item_equip_0240             # arc-2 bow, T10
+    name: Skyshard Longbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { power: 362 }          # ITEMS §7 T10 bow W
+      affixes:
+        - { stat: finesse, value: 16 }  # u(64)=16 pe; cap 22; 16<=22 OK
+    enhance_max: 9
+    price:
+      buy: 20000
+      sell: 5000
+    flavor: "Strung with a filament pulled from a moored shard's anchor-cable. It sings faintly at full draw."
+
+  - id: item_equip_0241             # arc-2 bow, T11
+    name: Voidshroud Warbow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { power: 429 }          # ITEMS §7 T11 bow W
+      affixes:
+        - { stat: finesse, value: 17 }  # u(71)=17 pe; cap 24; 17<=24 OK
+    enhance_max: 9
+    price:
+      buy: 25000
+      sell: 6250
+    flavor: "Its limbs were void-tide driftwood before someone thought to string them. The nock hums against your cheek."
+
+  - id: item_equip_0242             # arc-2 bow, T12 (arc-2 top)
+    name: Tidesunder Bow
+    category: equip
+    slot: weapon
+    weapon_type: bow
+    line_hint: keeneye
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { power: 501 }          # ITEMS §7 T12 bow W
+      affixes:
+        - { stat: finesse, value: 19 }  # u(78)=19 pe; cap 27; 19<=27 OK
+    enhance_max: 9
+    price:
+      buy: 30000
+      sell: 7500
+    flavor: "Carved from a beach-bone the tide dragged skyward. Every shot lands a half-second before you expect it to."
+
+  - id: item_equip_0243             # arc-2 staff, T7
+    name: Rimesteel Staff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 7
+    req_level: 43
+    rarity: uncommon
+    stats:
+      base: { spellpower: 216 }     # ITEMS §7 T7 staff W (round(1.10*196))
+      affixes:
+        - { stat: focus, value: 11 }  # u(43)=11 pe; cap 15; 11<=15 OK
+    enhance_max: 9
+    price:
+      buy: 7000
+      sell: 1750
+    flavor: "A stripped icicle-branch bound in ring steel. It never quite thaws in the caster's hand."
+
+  - id: item_equip_0244             # arc-2 staff, T8
+    name: Frostcrown Sceptre
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { spellpower: 271 }     # ITEMS §7 T8 staff W
+      affixes:
+        - { stat: focus, value: 12 }  # u(50)=12 pe; cap 17; 12<=17 OK
+    enhance_max: 9
+    price:
+      buy: 10000
+      sell: 2500
+    flavor: "Capped with a sliver of the Frostcrown Crevasse's own ice, which never melts however hard it's driven."
+
+  - id: item_equip_0245             # arc-2 staff, T9
+    name: Runeglass Rod
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { spellpower: 332 }     # ITEMS §7 T9 staff W
+      affixes:
+        - { stat: focus, value: 14 }  # u(57)=14 pe; cap 20; 14<=20 OK
+    enhance_max: 9
+    price:
+      buy: 15000
+      sell: 3750
+    flavor: "Cast whole from a shard of dead sorcery, still faintly warm from whatever it once powered."
+
+  - id: item_equip_0246             # arc-2 staff, T10
+    name: Skyshard Staff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { spellpower: 398 }     # ITEMS §7 T10 staff W
+      affixes:
+        - { stat: focus, value: 16 }  # u(64)=16 pe; cap 22; 16<=22 OK
+    enhance_max: 9
+    price:
+      buy: 20000
+      sell: 5000
+    flavor: "It leans toward the nearest floating shard whenever set down, like it's trying to go home."
+
+  - id: item_equip_0247             # arc-2 staff, T11
+    name: Voidshroud Staff
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { spellpower: 472 }     # ITEMS §7 T11 staff W
+      affixes:
+        - { stat: focus, value: 17 }  # u(71)=17 pe; cap 24; 17<=24 OK
+    enhance_max: 9
+    price:
+      buy: 25000
+      sell: 6250
+    flavor: "Its haft is umbral driftglass; casting with it dims the caster's own shadow for a heartbeat after."
+
+  - id: item_equip_0248             # arc-2 staff, T12 (arc-2 top)
+    name: Tidesunder Scepter
+    category: equip
+    slot: weapon
+    weapon_type: staff
+    line_hint: weaver
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { spellpower: 551 }     # ITEMS §7 T12 staff W
+      affixes:
+        - { stat: focus, value: 19 }  # u(78)=19 pe; cap 27; 19<=27 OK
+    enhance_max: 9
+    price:
+      buy: 30000
+      sell: 7500
+    flavor: "Torn-sky light pools in its head between casts, like it's still deciding whether to give the spell back."
+
+  - id: item_equip_0249             # arc-2 dirk, T7
+    name: Rimesteel Dirk
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 7
+    req_level: 43
+    rarity: uncommon
+    stats:
+      base: { power: 196 }          # ITEMS §7 T7 dirk W
+      affixes:
+        - { stat: fortune, value: 11 }  # u(43)=11 pe; cap 15; 11<=15 OK
+    enhance_max: 9
+    price:
+      buy: 7000
+      sell: 1750
+    flavor: "A whisper-thin blade quenched in meltwater. It never quite stops dripping, even dry-sheathed."
+
+  - id: item_equip_0250             # arc-2 dirk, T8
+    name: Frostcrown Fang
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { power: 246 }          # ITEMS §7 T8 dirk W
+      affixes:
+        - { stat: fortune, value: 12 }  # u(50)=12 pe; cap 17; 12<=17 OK
+    enhance_max: 9
+    price:
+      buy: 10000
+      sell: 2500
+    flavor: "Shaped after a Wyrmcrag hunting-fang, weighted to vanish from a grip until the moment it's needed."
+
+  - id: item_equip_0251             # arc-2 dirk, T9
+    name: Runeglass Dirk
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { power: 302 }          # ITEMS §7 T9 dirk W
+      affixes:
+        - { stat: fortune, value: 14 }  # u(57)=14 pe; cap 20; 14<=20 OK
+    enhance_max: 9
+    price:
+      buy: 15000
+      sell: 3750
+    flavor: "Its edge is a sliver of rune-glass ground so fine the cut doesn't register until well after the strike."
+
+  - id: item_equip_0252             # arc-2 dirk, T10
+    name: Skyshard Twinblade
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { power: 362 }          # ITEMS §7 T10 dirk W
+      affixes:
+        - { stat: fortune, value: 16 }  # u(64)=16 pe; cap 22; 16<=22 OK
+    enhance_max: 9
+    price:
+      buy: 20000
+      sell: 5000
+    flavor: "Two shard-splinters bound hilt to hilt; a coin-flip which one draws first blood."
+
+  - id: item_equip_0253             # arc-2 dirk, T11
+    name: Voidshroud Dirk
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { power: 429 }          # ITEMS §7 T11 dirk W
+      affixes:
+        - { stat: fortune, value: 17 }  # u(71)=17 pe; cap 24; 17<=24 OK
+    enhance_max: 9
+    price:
+      buy: 25000
+      sell: 6250
+    flavor: "Its blade swallows torch-light rather than reflect it, which suits how it's usually drawn."
+
+  - id: item_equip_0254             # arc-2 dirk, T12 (arc-2 top)
+    name: Tidesunder Kris
+    category: equip
+    slot: weapon
+    weapon_type: dirk
+    line_hint: flicker
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { power: 501 }          # ITEMS §7 T12 dirk W
+      affixes:
+        - { stat: fortune, value: 19 }  # u(78)=19 pe; cap 27; 19<=27 OK
+    enhance_max: 9
+    price:
+      buy: 30000
+      sell: 7500
+    flavor: "A wave-pattern kris pulled from the Tidesunder Maw's tideline, still cold from the drowned dark."

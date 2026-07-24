@@ -1,0 +1,48 @@
+id: map_010
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Emberfoot Fields, Smoking Verge
+region: emberfoot
+map_type: field
+level_band: { min: 6, max: 7 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 140, h: 28 }
+bgm: bgm_emberfoot
+ambience: [amb_wind, amb_ember_glow]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_cinder_hollow
+    kind: edge
+    at: { edge: left }
+    target_map: map_009
+    target_spawn: main
+    dead_end: false
+  - id: to_kiln_approach
+    kind: edge
+    at: { edge: right }
+    target_map: map_011
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: smoking_verge_stretch
+    rect_tiles: { x: 20, y: 20, w: 68, h: 6 }
+    mobs:
+      - { mob: mob_006, count: 3 }
+      - { mob: mob_007, count: 1 }
+    max_concurrent: 6
+npcs: []
+interactables:
+  - type: sign
+    id: sign_smoking_verge_010
+    at_tile: [16, 21]
+    params:
+      text: "Vents of pale smoke rise from cracks in the ground -- the kiln's heat is close now."
+      interact_prompt: Read
+platform_brief: |
+  A level verge broken by two short 2-tile rises, each a single running jump
+  (MAP_TRAVERSAL §1.1). Foothold segments under painted terrain_chunks (ART_BIBLE
+  AB-001). Smoke-vent set dressing signals the kiln's approach without a hazard.
+flavor: "Heat-cracks vent pale smoke across the verge. The Old Kiln Tunnels open just beyond the last rise."

@@ -1,0 +1,48 @@
+id: map_201
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Deepway, Entrance Passage
+region: frostpeak
+map_type: dungeon
+level_band: { min: 40, max: 40 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 60, h: 32 }
+bgm: bgm_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 24] }
+portals:
+  - id: to_cindershelf_gate
+    kind: door
+    at: { tile: [4, 24] }
+    target_map: map_125
+    target_spawn: from_deepway
+    dead_end: false  # reverse of the Cindershelf Lv40+ gate (MAP_CONNECTIONS §9.1); map_125 forward-ref, arc-1 sibling batch
+  - id: to_deepway_ii
+    kind: door
+    at: { tile: [54, 24] }
+    target_map: map_202
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: deepway_entrance_stretch
+    rect_tiles: { x: 18, y: 20, w: 32, h: 8 }
+    mobs:
+      - { mob: mob_151, count: 3 }
+    max_concurrent: 8
+interactables:
+  - type: sign
+    id: sign_deepway_gate
+    at_tile: [8, 23]
+    params:
+      text: "The tunnel breathes cold. Cindershelf is behind you now; the far ice waits ahead."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Level, ice-cut floor the whole span, no verticality gimmick at the threshold. Terrain is
+  foothold segments under painted ice terrain_chunks (ART_BIBLE AB-001). A shallow rise partway
+  in (1-tile) keeps the walk from feeling like a flat corridor; every gap crosses in a single
+  running jump.
+flavor: "The Deepway's mouth opens beneath Cindershelf, a Lv 40+ gate sealing frost-touched dark from the ash-warm ring above."

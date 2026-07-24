@@ -1,0 +1,35 @@
+id: mob_202
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
+name: Prismwing Harrier
+tier: elite                      # ID slot 202 = R10 elite (ID_REGISTRY Monsters)
+element: arcane
+weak_to: [shadow]
+resists: [arcane]                # ELEMENTS §2
+level: 67
+size_class: medium
+stats:                           # COMBAT_FORMULA §13.2 elite (normal Lv 67 x tier mults)
+  life: 117600                  # 19600 (§13 Lv67) * 6
+  power: 311                    # 207 * 1.5
+  armor: 523                   # 402 * 1.3  (armor+warding sum = 1046)
+  warding: 523                 # 402 * 1.3
+  precision: 295               # 268 * 1.1
+  evasion: 7.01                # 5.01 + 2 (§13.2 elite)
+  exp: 4730                    # exp_per_kill_normal(67)=946 * 5 (LEVELING §3 elite)
+ai_profile: aerial_swooper
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  patrol_altitude: 5
+  swoop_speed_mult: 2.4
+  climb_recover_s: 2.6
+abilities:                       # SKILL_EFFECTS op registry (§17); scales on power/spellpower (§1)
+  - id: prism_dive
+    name: Prism Dive
+    targeting: line
+    cooldown: 5.0
+    telegraph_s: 1.0              # plays 'telegraph' state (VALIDATION §6)
+    effects:
+      - { op: deal_damage, element: arcane, mult: 2.1 }
+      - { op: apply_status, status: blind, chance: 0.5, dur: 4 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+drop_table: drop_mob_202
+flavor: "A crystalline harrier that dives in a lance of refracted light; the arcane glare that trails it pierces any veil and sears the eyes of the veiled."

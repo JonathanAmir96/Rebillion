@@ -4,7 +4,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/STATS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/ELEMENTS.md,
 10_systems/JOBS.md, 10_systems/ENHANCEMENT.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
 10_systems/INVENTORY.md, 10_systems/STATUS_EFFECTS.md, 10_systems/SKILL_EFFECTS.md,
-20_schemas/item.schema.md, 40_assets/ART_BIBLE.yaml, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md
+10_systems/social/RAID.md, 20_schemas/item.schema.md, 40_assets/ART_BIBLE.yaml,
+docs/ID_REGISTRY.md, docs/WORLD_PLAN.md
 
 Owner doc for **items**: the three categories, the nine equipment slots and four weapon types
 (semantics for the GLOSSARY tokens whose owner is this doc), the `rarity` ladder, and — the
@@ -26,6 +27,34 @@ carry/stack rules `10_systems/INVENTORY.md`. This doc never restates those.
 `equip` is fully specified here. `use`/`etc` items carry no stat-line budget; their functional
 values (restore amounts, buff magnitudes, material vendor price) are authored in Phase D against
 `20_schemas/item.schema.md` and priced by `10_systems/ECONOMY.md`.
+
+### 1.1 Consumable restore tiers (the tonic ladder)
+
+`use` tonics restore `life`/`essence` in flat amounts that step up in **restore tiers**; each tier
+serves a level band and is meant to be out-leveled as its flat restore stops keeping pace
+(`10_systems/ECONOMY.md` §4.1). This doc owns the **tier → level-band binding** (delegated here by
+`docs/ID_REGISTRY.md` §use); the per-tier `shards` price is `10_systems/ECONOMY.md` §4.1 and the
+flat restore magnitudes are Phase D use-item data. The v3 ladder is **seven tiers**, each a
+`life`/`essence` pair — five arc-1 tiers (`item_use_0001`–`0010`, Lesser→Prime) plus two arc-2
+tiers minted from the reserved `item_use_0017`–`0060` range (raid consumables, owner
+`10_systems/social/RAID.md`, draw from the same reserved range above these — reference only):
+
+| Tier | Name (Life / Essence pair) | IDs (life / essence) | Serves band | Arc |
+|---|---|---|---|---|
+| 1 | Lesser | `0001` / `0006` | Lv 1–9 | 1 |
+| 2 | (base) Tonic | `0002` / `0007` | Lv 10–18 | 1 |
+| 3 | Greater | `0003` / `0008` | Lv 19–27 | 1 |
+| 4 | Superior | `0004` / `0009` | Lv 28–36 | 1 |
+| 5 | Prime | `0005` / `0010` | Lv 37–42 (arc-1 top) | 1 |
+| 6 | **Sovereign** | `0017` / `0018` | Lv 40–61 | 2 |
+| 7 | **Mythic** | `0019` / `0020` | Lv 62–80+ | 2 |
+
+The Lv 40–42 overlap between Prime and Sovereign is the intended arc-1→arc-2 handoff (both are
+viable there). Arc-1 bands are compressed to the authored Lv 1–42 arc (the v2 re-scope;
+`docs/ID_REGISTRY.md` §use); `10_systems/ECONOMY.md` §4.1 still carries the pre-v2 Lv-100 bands and
+prices only through Prime, and must follow this binding and add price rows for Sovereign/Mythic
+(Open Questions). Cleanses, scrolls, and foods (`item_use_0011`–`0016`, plus Phase D specialties in
+`0021`–`0060`) are un-tiered and not on this ladder.
 
 ## 2. Equipment slots (nine)
 
@@ -68,33 +97,45 @@ type→line pairing is fixed by GLOSSARY/`10_systems/JOBS.md`; this doc owns its
 
 ## 4. Tier bands and level requirements
 
-Ten gear tiers **T1–T10**, each keyed to a required level aligned to region entry
-(`docs/WORLD_PLAN.md`). Weapons and armor share the tier grid; accessories use the same grid
-(Phase D may author accessories at fewer bands, §12). The **Lv 8 first advancement**
-(`10_systems/JOBS.md`) is the gate at which a character can first equip a line weapon (it will be
-past T1's `req_level` 1 by then). There is **no T11**: at Lv 100 the endgame power source is
-**T10 + enhancement (`10_systems/ENHANCEMENT.md`) + boss uniques (§11)**, matching the gear-only
-post-cap policy (`10_systems/LEVELING.md` §6).
+Twelve gear tiers **T1–T12**, each keyed to a required level aligned to region entry
+(`docs/WORLD_PLAN.md`), following `req_level(tier) = 1 + 7·(tier − 1)`. The ladder spans the two
+authored arcs: **T1–T6** (arc 1, Lv 1–42) and **T7–T12** (arc 2, Lv 40–80). Weapons and armor
+share the tier grid; accessories use the same grid (Phase D may author accessories at fewer bands,
+§12). The **Lv 8 first advancement** (`10_systems/JOBS.md`) is the gate at which a character can
+first equip a line weapon (past T1's `req_level` 1 by then, at roughly T2). At the top of each arc
+the power source is **the arc's top tier + enhancement (`10_systems/ENHANCEMENT.md`) + boss uniques
+(§11)**; there is no tier above T12 in the authored design — **Lv 80 is the between-arcs plateau**,
+and the game's Lv 300 cap is future-arc design (`00_vision/SCOPE.md`) that will extend this ladder
+rather than replace it.
 
-| Tier | `req_level` | Region context (`docs/WORLD_PLAN.md`) |
-|---|---|---|
-| T1 | 1 | Emberfoot (starter) |
-| T2 | 10 | Verdant |
-| T3 | 20 | Tidewatch |
-| T4 | 30 | Sunken |
-| T5 | 40 | Ashfall |
-| T6 | 50 | Frostpeak |
-| T7 | 60 | Gloomwood |
-| T8 | 70 | Clockwork |
-| T9 | 80 | Arcane Reach |
-| T10 | 90 | Voidshore / Rift-ready |
+| Tier | `req_level` | Arc | Region context (`docs/WORLD_PLAN.md`) |
+|---|---|---|---|
+| T1 | 1 | 1 | Emberfoot Isle (starter) |
+| T2 | 8 | 1 | Harthmoor ring entry (ferry, 1st advancement) |
+| T3 | 15 | 1 | Harthmoor ring (mid) |
+| T4 | 22 | 1 | Harthmoor ring |
+| T5 | 29 | 1 | Harthmoor ring (upper) |
+| T6 | 36 | 1 | Harthmoor ring / Clockwork approach (arc-1 top) |
+| T7 | 43 | 2 | Frostpeak Isle (Lv 40–55) |
+| T8 | 50 | 2 | Frostpeak Isle |
+| T9 | 57 | 2 | Arcane Reach (Lv 53–68) |
+| T10 | 64 | 2 | Arcane Reach |
+| T11 | 71 | 2 | Voidshore (Lv 66–80) |
+| T12 | 78 | 2 | Voidshore (arc-2 top) |
+
+Exact per-region level bands are owned by `docs/WORLD_PLAN.md`; the arc-2 island bands cited above
+are the v3 owner revision (2026-07-23).
 
 **ID-block layout** within `item_equip` (`docs/ID_REGISTRY.md` owns the ranges; this is the
-intra-block convention): weapons `0001`–`0040` = 10 tiers × 4 types in line order
-(`blade 0001`–`0010`, `bow 0011`–`0020`, `staff 0021`–`0030`, `dirk 0031`–`0040`); armor
-`0041`–`0140` = 5 slots × tiers (`head 0041`–, `body`, `legs`, `boots`, `gloves`, then reserved
-growth for intermediate/region-variant pieces); accessories `0141`–`0180` = `cape`/`ring`/`amulet`
-× tiers; boss uniques `0201`–`0230` (§11).
+intra-block convention). **Arc 1 (`0001`–`0180`):** weapons `0001`–`0040` = 4 lines × 6 tiers in
+line order (`blade 0001`–`0006`, `bow 0011`–`0016`, `staff 0021`–`0026`, `dirk 0031`–`0036`; the
+`0007`–`0010`/`0017`–`0020`/… tails are reserved intra-line growth); armor `0041`–`0140` = 5 slots
+× 6 tiers (`head`, `body`, `legs`, `boots`, `gloves`, then reserved growth for intermediate/
+region-variant pieces); accessories `0141`–`0180` = `cape`/`ring`/`amulet` × tiers. **Arc 2
+(`0231`–`0300`, re-blocked from the old `0231`–`0300` growth reserve — no content was ever minted
+there, so re-blocking is legal; proposed to `docs/ID_REGISTRY.md`, see Open Questions):** weapons
+`0231`–`0254` (4 lines × T7–T12), armor `0255`–`0284` (5 slots × T7–T12), accessories `0285`–`0300`
+(16). Boss uniques `0201`–`0222` (§11).
 
 ## 5. Rarity ladder
 
@@ -138,18 +179,26 @@ lever. These values, plus gear affix `power` and the primary contribution, are t
 at-level geared character reaches the `power_ref` offense of `10_systems/COMBAT_FORMULA.md` §15
 (that doc's OQ owns retuning `mult m` if they drift; `W` is never retuned to break the band).
 
+`W` follows the closed-form curve `W_phys(L) = round(0.055·L² + 2.05·L + 6)` (with
+`L = req_level`) and `W_staff(L) = round(1.10·W_phys(L))` — the table is the per-tier checksum. The
+curve is calibrated to `level`, not to tier ordinal, so the v2/v3 re-scope (arc-1 tiers compressed
+onto Lv 1–36, arc-2 tiers Lv 43–78) preserves the at-level `power` a character carries at any given
+level (the `power_ref` relationship, §7 prose and Open Questions):
+
 | Tier | `req_level` | `W` (`blade`/`bow`/`dirk` → `power`) | `W` (`staff` → `spellpower`) |
 |---|---|---|---|
 | T1 | 1 | 8 | 9 |
-| T2 | 10 | 30 | 33 |
-| T3 | 20 | 68 | 74 |
-| T4 | 30 | 116 | 127 |
-| T5 | 40 | 176 | 193 |
-| T6 | 50 | 246 | 270 |
-| T7 | 60 | 327 | 359 |
-| T8 | 70 | 418 | 460 |
-| T9 | 80 | 522 | 574 |
-| T10 | 90 | 636 | 700 |
+| T2 | 8 | 26 | 29 |
+| T3 | 15 | 49 | 54 |
+| T4 | 22 | 78 | 86 |
+| T5 | 29 | 112 | 123 |
+| T6 | 36 | 151 | 166 |
+| T7 | 43 | 196 | 216 |
+| T8 | 50 | 246 | 271 |
+| T9 | 57 | 302 | 332 |
+| T10 | 64 | 362 | 398 |
+| T11 | 71 | 429 | 472 |
+| T12 | 78 | 501 | 551 |
 
 ## 8. Armor / warding base by slot × tier
 
@@ -164,14 +213,17 @@ warding_base(slot, L) = round( 0.70 · armor_base(slot, L) )
 w[slot]: body 0.28 · legs 0.24 · head 0.18 · boots 0.15 · gloves 0.15   (Σ = 1.0)
 ```
 
-| Slot | Lv 1 | Lv 10 | Lv 30 | Lv 50 | Lv 70 | Lv 90 |
+Sample columns span both arcs (Lv 1 = T1, 22 = T4, 36 = T6 arc-1 top, 50 = T8, 64 = T10, 78 = T12
+arc-2 top); intermediate tiers interpolate on the same formula.
+
+| Slot | Lv 1 | Lv 22 | Lv 36 | Lv 50 | Lv 64 | Lv 78 |
 |---|---|---|---|---|---|---|
-| body `armor`/`warding` | 7 / 5 | 23 / 16 | 61 / 43 | 98 / 69 | 135 / 95 | 173 / 121 |
-| legs | 6 / 4 | 20 / 14 | 52 / 36 | 84 / 59 | 116 / 81 | 148 / 104 |
-| head | 4 / 3 | 15 / 11 | 39 / 27 | 63 / 44 | 87 / 61 | 111 / 78 |
-| boots | 4 / 3 | 13 / 9 | 33 / 23 | 53 / 37 | 73 / 51 | 93 / 65 |
-| gloves | 4 / 3 | 13 / 9 | 33 / 23 | 53 / 37 | 73 / 51 | 93 / 65 |
-| **5-set `armor`** | **25** | **84** | **218** | **351** | **484** | **618** |
+| body `armor`/`warding` | 7 / 5 | 46 / 32 | 72 / 50 | 98 / 69 | 124 / 87 | 150 / 105 |
+| legs | 6 / 4 | 39 / 27 | 62 / 43 | 84 / 59 | 106 / 74 | 129 / 90 |
+| head | 4 / 3 | 29 / 20 | 46 / 32 | 63 / 44 | 80 / 56 | 97 / 68 |
+| boots | 4 / 3 | 25 / 18 | 39 / 27 | 52 / 36 | 66 / 46 | 80 / 56 |
+| gloves | 4 / 3 | 25 / 18 | 39 / 27 | 52 / 36 | 66 / 46 | 80 / 56 |
+| **5-set `armor`** | **25** | **164** | **258** | **349** | **442** | **536** |
 
 ## 9. Accessory base by tier
 
@@ -184,18 +236,23 @@ primary_base(L) = round( 2 + 0.35·L )     # ring & amulet primary
 cape_warding(L) = round( 0.15 · K(L) / 3 )     # K(L) per COMBAT_FORMULA §5
 ```
 
+`crit_rate`/`evasion` step +0.5% every two tiers (1.0% → 3.5%); `crit_power` steps
++0.03/+0.05/+0.07/+0.09/+0.12/+0.15 by tier pair.
+
 | Tier band | `ring` primary / `crit_rate` | `amulet` primary / `crit_power` | `cape` `warding` / `evasion` |
 |---|---|---|---|
 | T1 (Lv 1) | 2 / 1.0% | 2 / +0.03 | 4 / 1.0% |
-| T2 (Lv 10) | 6 / 1.0% | 6 / +0.03 | 13 / 1.0% |
-| T3 (Lv 20) | 9 / 1.5% | 9 / +0.05 | 22 / 1.5% |
-| T4 (Lv 30) | 13 / 1.5% | 13 / +0.05 | 33 / 1.5% |
-| T5 (Lv 40) | 16 / 2.0% | 16 / +0.07 | 43 / 2.0% |
-| T6 (Lv 50) | 20 / 2.0% | 20 / +0.07 | 53 / 2.0% |
-| T7 (Lv 60) | 23 / 2.5% | 23 / +0.09 | 63 / 2.5% |
-| T8 (Lv 70) | 27 / 2.5% | 27 / +0.09 | 73 / 2.5% |
-| T9 (Lv 80) | 30 / 3.0% | 30 / +0.12 | 83 / 3.0% |
-| T10 (Lv 90) | 34 / 3.0% | 34 / +0.12 | 93 / 3.0% |
+| T2 (Lv 8) | 5 / 1.0% | 5 / +0.03 | 11 / 1.0% |
+| T3 (Lv 15) | 7 / 1.5% | 7 / +0.05 | 18 / 1.5% |
+| T4 (Lv 22) | 10 / 1.5% | 10 / +0.05 | 25 / 1.5% |
+| T5 (Lv 29) | 12 / 2.0% | 12 / +0.07 | 32 / 2.0% |
+| T6 (Lv 36) | 15 / 2.0% | 15 / +0.07 | 39 / 2.0% |
+| T7 (Lv 43) | 17 / 2.5% | 17 / +0.09 | 46 / 2.5% |
+| T8 (Lv 50) | 20 / 2.5% | 20 / +0.09 | 52 / 2.5% |
+| T9 (Lv 57) | 22 / 3.0% | 22 / +0.12 | 59 / 3.0% |
+| T10 (Lv 64) | 24 / 3.0% | 24 / +0.12 | 66 / 3.0% |
+| T11 (Lv 71) | 27 / 3.5% | 27 / +0.15 | 73 / 3.5% |
+| T12 (Lv 78) | 29 / 3.5% | 29 / +0.15 | 80 / 3.5% |
 
 `crit_rate`/`crit_power`/`evasion` from accessories feed `10_systems/STATS.md` §2 and are
 soft-capped there (§6) — stacking beyond the band is self-limiting, no special rule here.
@@ -210,29 +267,29 @@ This is the "total stat budget and how it splits" — base (§7–§9) + up to N
 **Affix menu** — magnitude of a single rolled line (`u(L) = round(1.5 + 0.22·L)` is the primary
 unit):
 
-| Affix line | Lv 1 | Lv 10 | Lv 30 | Lv 50 | Lv 70 | Lv 90 |
+| Affix line | Lv 1 | Lv 22 | Lv 36 | Lv 50 | Lv 64 | Lv 78 |
 |---|---|---|---|---|---|---|
-| +primary (`= u`) | 2 | 4 | 8 | 12 | 17 | 21 |
-| +`power`/`spellpower` (`2.2u`) | 4 | 9 | 18 | 26 | 37 | 46 |
-| +`life` (`11u`) | 22 | 44 | 88 | 132 | 187 | 231 |
-| +`essence` (`5u`) | 10 | 20 | 40 | 60 | 85 | 105 |
-| +`armor` or +`warding` (`4u`) | 8 | 16 | 32 | 48 | 68 | 84 |
-| +`precision` (`3u`) | 6 | 12 | 24 | 36 | 51 | 63 |
-| +`crit_rate` | 1.0% | 1.0% | 1.5% | 2.0% | 2.5% | 3.0% |
-| +`crit_power` | +0.03 | +0.03 | +0.03 | +0.05 | +0.05 | +0.07 |
+| +primary (`= u`) | 2 | 6 | 9 | 12 | 16 | 19 |
+| +`power`/`spellpower` (`2.2u`) | 4 | 13 | 20 | 26 | 35 | 42 |
+| +`life` (`11u`) | 22 | 66 | 99 | 132 | 176 | 209 |
+| +`essence` (`5u`) | 10 | 30 | 45 | 60 | 80 | 95 |
+| +`armor` or +`warding` (`4u`) | 8 | 24 | 36 | 48 | 64 | 76 |
+| +`precision` (`3u`) | 6 | 18 | 27 | 36 | 48 | 57 |
+| +`crit_rate` | 1.0% | 1.5% | 1.5% | 2.0% | 2.5% | 3.0% |
+| +`crit_power` | +0.03 | +0.03 | +0.03 | +0.05 | +0.07 | +0.07 |
 | +`evasion` | 1.0% | 1.0% | 1.0% | 1.5% | 1.5% | 2.0% |
-| +`haste` (`round(1+0.05L)`) | 1 | 2 | 3 | 4 | 5 | 6 |
+| +`haste` (`round(1+0.05L)`) | 1 | 2 | 3 | 4 | 4 | 5 |
 
 **Rarity affix budget** — line count and total pe ceiling (`cap(L) = round(1.4·u(L))` = per-line
 pe cap; total = count × cap):
 
-| `rarity` | Lines | pe budget @ Lv 1 | @ Lv 30 | @ Lv 50 | @ Lv 70 | @ Lv 90 |
-|---|---|---|---|---|---|---|
-| `common` | 0 | 0 | 0 | 0 | 0 | 0 |
-| `uncommon` | 1 | 3 | 11 | 17 | 24 | 29 |
-| `rare` | 2 | 6 | 22 | 34 | 48 | 58 |
-| `epic` | 3 | 9 | 33 | 51 | 72 | 87 |
-| `legendary` | 4 | 12 | 44 | 68 | 96 | 116 |
+| `rarity` | Lines | pe budget @ Lv 1 | @ Lv 22 | @ Lv 36 | @ Lv 50 | @ Lv 64 | @ Lv 78 |
+|---|---|---|---|---|---|---|---|
+| `common` | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `uncommon` | 1 | 3 | 8 | 13 | 17 | 22 | 27 |
+| `rare` | 2 | 6 | 16 | 26 | 34 | 44 | 54 |
+| `epic` | 3 | 9 | 24 | 39 | 51 | 66 | 81 |
+| `legendary` | 4 | 12 | 32 | 52 | 68 | 88 | 108 |
 
 **Affix eligibility by slot** (keeps base identity intact): `weapon` rolls
 `power`/`spellpower`/primary/`crit_rate`/`crit_power`/`haste`; armor rolls
@@ -240,15 +297,16 @@ primary/`life`/`armor`/`warding`/`haste`; `gloves` may also roll `crit_rate`/`pr
 `cape` rolls `evasion`/`warding`/`haste`; `ring`/`amulet` roll primary/`crit_rate`/`crit_power`/
 `power`/`spellpower`. Armor rolling a primary is the "stat lean" (§2).
 
-**Worked example** — `rare` T6 (Lv 50) `body` armor: base 98 `armor` / 69 `warding`
+**Worked example** — `rare` T8 (Lv 50) `body` armor: base 98 `armor` / 69 `warding`
 (16.7 pe); affixes = 2 lines, budget 34 pe: e.g. +12 `might` (12 pe) + +132 `life` (3.96 pe) =
 16 pe ≤ 34, per-line cap 17 not exceeded. Total item pe ≈ 32.7.
 
 ## 11. Boss unique gear
 
-Each of the 15 bosses (`docs/WORLD_PLAN.md`, 11 region + 4 raid) owns **two** uniques at
-`item_equip_0201`–`0230` (mapping owned by `docs/ID_REGISTRY.md`: boss #n → `0199+2n`, `0200+2n`).
-Rules:
+Each of the 11 bosses (`docs/WORLD_PLAN.md`: 8 arc-1 region bosses + 3 arc-2 island bosses, one
+per new island) owns **two** uniques at `item_equip_0201`–`0222` (mapping owned by
+`docs/ID_REGISTRY.md`: boss #n → `0199+2n`, `0200+2n`, n = 1..11; `0217`–`0222` are the arc-2
+bosses #9–#11, `0223`–`0230` reserved for future bosses). Rules:
 
 - **Rarity `epic` or `legendary`.** `req_level` = the boss's level band; slot/type is the unique's
   own (a boss may own e.g. one `weapon` + one `amulet`).
@@ -297,11 +355,37 @@ and required/optional flags; this doc owns only the table wrapper and the meanin
 
 ## Open Questions
 
-- SCOPE (`00_vision/SCOPE.md`) lists "~80 armor" and "~24 accessories"; the §4 clean grid yields 50
-  core armor (5 slots × 10 tiers) + reserved growth and 30 core accessories. Phase D fills toward
-  the SCOPE counts using the reserved `item_equip` ranges (intermediate/region-variant pieces on
-  the same §8/§9 value curve, interpolated by `req_level`); exact per-slot SKU count is a Phase D
-  call bounded by `docs/ID_REGISTRY.md`. Flagged for the content pass.
+- **ID_REGISTRY change proposal (arc-2 re-block + `item_use` mints).** `docs/ID_REGISTRY.md` (owner)
+  should adopt, in a new commit (no minted content exists in these ranges, so re-blocking is legal
+  per its own v2 note): (a) **equip** — carve the old `item_equip_0231`–`0300` growth reserve into
+  arc-2 blocks: weapons `0231`–`0254` (4 lines × T7–T12), armor `0255`–`0284` (5 slots × T7–T12),
+  accessories `0285`–`0300` (16); (b) **boss uniques** — mark `item_equip_0217`–`0222` assigned to
+  bosses #9–#11 (formula `0199+2n`, n = 1..11) and keep `0223`–`0230` reserved; (c) **consumables**
+  — mint `item_use_0017` Sovereign Life Tonic, `0018` Sovereign Essence Tonic, `0019` Mythic Life
+  Tonic, `0020` Mythic Essence Tonic (leaving `0021`–`0060` for raid consumables / Phase D
+  specialties), and update the "five tiers" note to "seven tiers" citing §1.1 here. Per-arc equip
+  counts then are 24 + 24 weapons, 30 + 30 armor, 16 + 16 accessories, 16 + 6 uniques — SCOPE
+  (`00_vision/SCOPE.md`, v2) still lists the arc-1-only ~86 equip / ~30 use totals and needs a v3
+  count revision (owner: SCOPE). Phase D fills toward final counts using the reserved-growth tails
+  on the same §8/§9 value curve, interpolated by `req_level`.
+- **ENHANCEMENT emberstone band mapping (arc-2) — owner `10_systems/ENHANCEMENT.md`.** §4's twelve
+  tiers now need enhancement stones through T12. Recommendation: keep one stone per **two** tiers and
+  add **Emberstone VI** at the reserved `item_etc_0198`, re-mapping to the v3 `req_level`s — I → T1–T2
+  (Lv 1–14), II → T3–T4 (15–28), III → T5–T6 (29–42), IV → T7–T8 (43–56), V → T9–T10 (57–70),
+  VI → T11–T12 (71–80). Separately, ENHANCEMENT §4's worked example cites a **T6 `blade` base `W`
+  246** — that is now T8 (T6 `W` = 151, §7); the example must be re-pointed to T8 or recomputed at
+  the new T6 `W`. Owner ENHANCEMENT; do not edit from here.
+- **ECONOMY tonic re-band + new price rows — owner `10_systems/ECONOMY.md` §4.1.** That table still
+  carries pre-v2 Lv-100 tonic bands and stops at Prime. It should adopt the seven-tier tier→band
+  binding in §1.1 (arc-1 tiers compressed to Lv 1–42) and add `shards` price rows for the two arc-2
+  tonics (`item_use_0017`/`0018` Sovereign, `0019`/`0020` Mythic) continuing its rising-sink curve
+  above Prime. Restate bands in one place only (this doc owns the binding; ECONOMY references it).
+- **Arc-2 region context depends on WORLD_PLAN/GLOSSARY promotion.** §4's arc-2 island bands
+  (Frostpeak/Arcane Reach/Voidshore) and the `item_etc` material blocks (`0129`–`0176`, 16/island)
+  and equip pools (`pool_equip_r09`–`r11`) are owned by `docs/WORLD_PLAN.md` / `10_systems/DROPS.md`;
+  those island region-slugs are still marked "reserved / invalid in this run's content" in
+  `00_vision/GLOSSARY.md` and must be promoted for arc-2 before that content lands. Referenced here,
+  not owned.
 - `W` and the §10 affix budgets assume the `power_ref`/`mult m` reference of
   `10_systems/COMBAT_FORMULA.md` §15; if the balance pass finds an at-level geared character lands
   far off `power_ref`, retune `mult m` there (never `normal_life`), and revisit the staff +10%
@@ -316,3 +400,8 @@ and required/optional flags; this doc owns only the table wrapper and the meanin
 - Set bonuses (wearing N pieces of a themed group) are **not** in this pass; if wanted they attach
   to boss-unique groups (§11) via `passive_stat_bonus` and need a `set_id` field in
   `20_schemas/item.schema.md`. Flagged, not designed.
+- (MON-001) A zero-stat cosmetic appearance layer (overlay slots rendered above the equipment
+  slots) is reserved by `10_systems/MONETIZATION.md` §3.1. Slot list and
+  `20_schemas/item.schema.md` fields land in a future amendment — settle before the Phase E
+  coding pass fixes the character render/paper-doll layering. No cosmetic items are authored
+  this run.

@@ -1,0 +1,13 @@
+id: npc_042
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, MAP_CONNECTIONS, PERSISTENCE]
+name: Pier Officer Toran
+region: tidewatch
+map: map_071
+role: pier_officer
+services: [longship]
+dialog:
+  greeting: "Fare's due at the rail, friend -- pay up and the Frostwake, Runewake, or Voidwake will have you."
+  farewell: "Mind the gangway. The sea doesn't wait twice."
+portrait: portrait_npc_042
+flavor: "Toran has checked fares and manifests at this pier long enough to call every longship captain by name."

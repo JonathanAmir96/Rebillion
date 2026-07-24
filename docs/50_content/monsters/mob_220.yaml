@@ -1,0 +1,26 @@
+id: mob_220
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Umbral Wardshell
+tier: normal                     # ID_REGISTRY: mob_207-226 = R11 normals (14 shadow / 6 neutral)
+element: shadow                     # WORLD_PLAN R11 element mix: shadow/neutral
+weak_to: [arcane]
+resists: [shadow]
+level: 75                         # monotone gradient along R11 field path map_288-305 (66->80)
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 75
+  life: 24336                    # 4*(75+3)^2
+  power: 231                     # 6+3*75
+  armor: 450                     # 6*75  (armor+warding sum = 900 = 12*75)
+  warding: 450                   # 6*75
+  precision: 300                 # 4*75
+  evasion: 5.25                   # 3 + 0.03*75 (%)
+  exp: 1096                      # round(4*75^1.3) (LEVELING §3 normal x1)
+ai_profile: territorial_guard
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_220
+flavor: "A slow, plated sentinel grown thick with sable coral; it holds its stretch of shore against all comers and yields it to none."

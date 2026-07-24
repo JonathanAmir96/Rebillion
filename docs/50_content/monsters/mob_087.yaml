@@ -1,0 +1,82 @@
+id: mob_087
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Mother Gloam
+tier: boss                       # ID slot 087 = R5 boss #5 (ID_REGISTRY Monsters)
+element: shadow                  # the spider-matron whose web IS the wood's dark (WORLD_PLAN R5)
+weak_to: [fire]                  # her silk and the dark it holds both burn (ELEMENTS §2)
+resists: [shadow]
+level: 28
+size_class: boss                 # knockback/CC-immune (COMBAT_FORMULA §11, STATUS_EFFECTS §3)
+stats:                           # §13 normal Lv 28 x §13.2 boss multipliers (region-boss row)
+  life: 134540                   # 3844 x35
+  power: 180                     # 90 x2.0 (touch = round(0.5*power), §13.1; contact-hot phases only)
+  spellpower: 180                # parity (§13); her web-shadow casts scale on magic
+  armor: 269                     # 168 x1.6  (armor+warding sum = 538 ~= 12*28 x1.6)
+  warding: 269                   # 168 x1.6
+  precision: 134                 # 112 x1.2
+  evasion: 3.84                   # 3.84 + 0 (bosses don't dodge, §13.2)
+  exp: 7600                      # exp_per_kill_normal(28)=304 x25 (LEVELING §3 boss)
+ai_profile: boss_scripted        # authored 2-phase fight (AI_BEHAVIOR §14-§15)
+abilities:
+  - id: ensnaring_silk
+    name: Ensnaring Silk
+    targeting: { shape: line, length: 8, width: 2 }
+    cooldown: 7.0
+    telegraph_s: 1.2
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.5 }
+      - { op: apply_status, status: root, chance: 0.7, dur: 3 }
+  - id: gloom_veil
+    name: Gloom Veil
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.5
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.4 }
+      - { op: apply_status, status: blind, chance: 0.6, dur: 4 }
+  - id: web_cocoon
+    name: Web Cocoon
+    targeting: self
+    cooldown: 20.0
+    telegraph_s: 1.5
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.10 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+  - id: broodstorm
+    name: Broodstorm
+    targeting: self
+    cooldown: 25.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_070, count: 3, dur: 30 }
+  - id: frenzied_fangs
+    name: Frenzied Fangs
+    targeting: { shape: melee_arc, radius: 2.5 }
+    cooldown: 6.0
+    telegraph_s: 0.9
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.9 }
+      - { op: apply_status, status: weaken, chance: 0.7, dur: 6 }
+  - id: skitter_frenzy
+    name: Skitter Frenzy
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.7 }
+      - { op: knockback }
+phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
+  - phase_id: 1                  # LOOM: holds her web, shells up, cloaks and controls the dark
+    life_threshold_pct: 100
+    base_profile: territorial_guard
+    added_abilities: [ensnaring_silk, gloom_veil, web_cocoon, broodstorm]
+  - phase_id: 2                  # FRENZY: web torn, she charges the light and floods the brood
+    life_threshold_pct: 50
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 2.8, charge_recover_s: 2.0 }
+    added_abilities: [frenzied_fangs, skitter_frenzy, broodstorm]
+    enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +cast +phase_shift (§8/§15)
+drop_table: drop_mob_087
+flavor: "The spider-matron of the deep hollow, so old and so vast that the wood's endless dark is only the shadow of her web strung tree to tree. When the light finally reaches her she does not flee it -- she comes down the strands to put it out."

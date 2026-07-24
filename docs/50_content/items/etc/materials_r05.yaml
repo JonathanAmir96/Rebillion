@@ -1,0 +1,182 @@
+id: item_table_materials_r05
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R5 Gloomwood monster materials: item_etc_0065-0080 (ID_REGISTRY etc block), one per R5 normal
+# species (mob_068-083). etc rows carry no `buy` (not vendor-purchasable, ITEMS §1); sell is a
+# first-pass value (etc sell has no ECONOMY owner -- item.schema OQ). source_hint cross-checks each drop_mob.
+items:
+  - id: item_etc_0065
+    name: Silkcreep Silk
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 20                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 22                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_068          # drops from Silkcreep Lurker (cross-checks drop_mob_068)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A skein of grey, ground-hugging web still gritty with leaf-mold. Fen weavers prize it for cord that holds a knot in the wet."
+
+  - id: item_etc_0066
+    name: Sporeback Cap
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 20                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 22                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_069          # drops from Sporeback Grazer (cross-checks drop_mob_069)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A pale fen-fungus cap scraped from a grazer's hide, faintly luminous in the dark. Apothecaries dry it for a mild sleeping draught."
+
+  - id: item_etc_0067
+    name: Broodling Silk
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 21                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 23                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_070          # drops from Veilspinner Broodling (cross-checks drop_mob_070)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A tangle of fine hatchling-thread, sticky and quick to knot. Sold by the fistful to the ring's netmakers, who never ask where it comes from."
+
+  - id: item_etc_0068
+    name: Fenmurk Hide
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 21                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 23                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_071          # drops from Fenmurk Newt (cross-checks drop_mob_071)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A slick, mottled newt-skin that sheds standing water. Cheap, plentiful, and just waterproof enough to line a boot."
+
+  - id: item_etc_0069
+    name: Thornhide Tusk
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 22                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 24                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_072          # drops from Thornhide Rooter (cross-checks drop_mob_072)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A cracked boar-tusk fouled with dried bramble sap. It takes a crude edge and a worse smell."
+
+  - id: item_etc_0070
+    name: Silkspitter Gland
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 22                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 24                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_073          # drops from Silkspitter (cross-checks drop_mob_073)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A leathery sac of half-set gluey silk, kept sealed lest it web the pouch shut. Trappers thin it into a snare-paste."
+
+  - id: item_etc_0071
+    name: Hushfang Fang
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 23                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 25                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_074          # drops from Hushfang Stalker (cross-checks drop_mob_074)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A long, hollow shade-fang that stays cold in the palm. Alchemists draw a numbing tincture from the marrow."
+
+  - id: item_etc_0072
+    name: Mistwing Dust
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 23                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 25                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_075          # drops from Mistwing Moth (cross-checks drop_mob_075)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A pinch of luminous wing-scale swept from a downed moth, glowing a sickly green. It fogs the air and the mind in equal measure."
+
+  - id: item_etc_0073
+    name: Gloomweaver Charm
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 24                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 26                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_076          # drops from Gloomweaver Acolyte (cross-checks drop_mob_076)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A knot of shrine-silk and blackwood beads the acolytes wear at the throat. Scholars pay for the weaving, not the ward."
+
+  - id: item_etc_0074
+    name: Sporepod Husk
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 24                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 26                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_077          # drops from Sporepod Sentinel (cross-checks drop_mob_077)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "The dry, split shell of a spent sentinel-pod, light as paper and hard as bark. Ground fine, it stiffens a fen-poultice."
+
+  - id: item_etc_0075
+    name: Shadeclaw Pelt
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 25                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 28                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_078          # drops from Shadeclaw Prowler (cross-checks drop_mob_078)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A swatch of ink-black cat-fur that drinks the lamplight. It never quite lies flat, as if still stalking."
+
+  - id: item_etc_0076
+    name: Blightpuff Sac
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 25                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 28                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_079          # drops from Blightpuff Crawler (cross-checks drop_mob_079)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "An unruptured spore-bladder, handled gingerly and stored in oil. Miners buy them to smoke out choked shafts."
+
+  - id: item_etc_0077
+    name: Rotwood Bark
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 26                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 29                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_080          # drops from Rotwood Warden (cross-checks drop_mob_080)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A slab of moss-furred deadwood peeled from a warden's back, half timber and half loam. Carvers season it for damp-proof shingle."
+
+  - id: item_etc_0078
+    name: Nightsilk Coil
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 26                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 29                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_081          # drops from Nightsilk Ambusher (cross-checks drop_mob_081)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A hank of black tripline silk, so fine it whistles when drawn taut. The best snare-thread the wood yields."
+
+  - id: item_etc_0079
+    name: Gloomcap Spore
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 27                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 30                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_082          # drops from Gloomcap Sporecaster (cross-checks drop_mob_082)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A vial of blighted brown spore-dust, sealed with wax against the damp. A grain seeds a whole cellar with rot."
+
+  - id: item_etc_0080
+    name: Dreadwidow Chelicera
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 28                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 31                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_083          # drops from Dreadwidow Hunter (cross-checks drop_mob_083)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A curved, resin-hard mouth-fang from the wood's great hunter, longer than a finger. Trophy-hunters and poison-makers bid against each other for a clean pair."

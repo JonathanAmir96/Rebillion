@@ -1,0 +1,40 @@
+id: map_128
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Ashfall Approach
+region: ashfall
+map_type: field
+level_band: { min: 26, max: 26 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 150, h: 26 }
+bgm: bgm_ashfall
+ambience: [amb_wind, amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 20] }
+portals:
+  - id: to_cindershelf
+    kind: edge
+    at: { edge: left }
+    target_map: map_125
+    target_spawn: main
+  - id: to_129
+    kind: edge
+    at: { edge: right }
+    target_map: map_129
+    target_spawn: main
+spawn_zones:
+  - id: map_128_zone
+    rect_tiles: { x: 30, y: 16, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_088, count: 4 }
+      - { mob: mob_089, count: 2 }
+    max_concurrent: 6
+npcs: [npc_067]
+platform_brief: |
+  Two low ash terraces stepped by ~2-tile rises, each crossable in a single running jump
+  (MAP_TRAVERSAL §1.1: gaps <=5 tiles horizontal / <=3.5 tiles rise). Terrain is foothold
+  segments under painted ash terrain_chunks (ART_BIBLE AB-001). No rope/ladder needed;
+  footing holds firm despite the heat-shimmer.
+flavor: "The barrens open in low, cracked flats just past Cindershelf's gate -- an easy first stretch for anyone fresh off the coach."

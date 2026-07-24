@@ -1,0 +1,35 @@
+id: mob_227
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Tideshorn Behemoth
+tier: elite                      # ID_REGISTRY: mob_227-233 = R11 elites (Lv 77-82)
+element: shadow                     # WORLD_PLAN R11 mix: shadow/neutral
+weak_to: [arcane]
+resists: [shadow]
+level: 77
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget x §13.2 elite mults, Lv 77
+  life: 153600                  # 4*(77+3)^2 x6
+  power: 356                    # (6+3*77) x1.5
+  armor: 601                   # 6*77 x1.3  (armor+warding sum = 1202)
+  warding: 601                 # 6*77 x1.3
+  precision: 339                # 4*77 x1.1
+  evasion: 7.31                  # (3+0.03*77) +2 (§13.2 elite)
+  exp: 5670                     # round(4*77^1.3) x5 (LEVELING §3 elite)
+ai_profile: aggressive_charger
+ai_params:
+  aggro_radius: 8
+  charge_speed_mult: 3.0
+  charge_recover_s: 2.8
+abilities:
+  - id: shoreward_charge
+    name: Shoreward Charge
+    targeting: { shape: line, length: 8, width: 2 }
+    cooldown: 9.0
+    telegraph_s: 1.1                # windup plays the telegraph state (AI_BEHAVIOR §2)
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.9 }
+      - { op: knockback, distance: 3, vertical: 1 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+drop_table: drop_mob_227
+flavor: "A mountain of drowned wreckage that gathers speed across the flats and rams straight through a foothold line. The charge is death; the long stumble after is the opening."

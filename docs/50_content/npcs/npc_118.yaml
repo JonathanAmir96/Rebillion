@@ -1,0 +1,12 @@
+id: npc_118
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Threshold Warden Padrig Voss
+region: voidshore
+map: map_307
+role: quest_giver
+dialog:
+  greeting: "The Deeps don't care how far you've come. Clear the hounds at the threshold or don't bother going further."
+  farewell: "Good. The Deeps are a little less hungry today."
+portrait: portrait_npc_118
+flavor: "Padrig has stood the Sunder Deeps' threshold longer than anyone can remember, and has stopped counting who he's turned back."

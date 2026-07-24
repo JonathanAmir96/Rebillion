@@ -6,7 +6,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, 10_
 10_systems/STATUS_EFFECTS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/QUESTS.md,
 10_systems/DEATH_PENALTY.md, 10_systems/CONTROLS.md, 10_systems/CAMERA.md, 10_systems/HUD.md,
 10_systems/social/PARTY.md, 10_systems/social/GUILD.md, 10_systems/social/MARKET.md,
-30_engineering/ENGINEERING_STANDARDS.md, 30_engineering/BACKEND_SECURITY.md,
+30_engineering/ENGINEERING_STANDARDS.md, 70_integrations/GAMEPLAY_SIMULATION.md,
 docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
 
 Owner doc for **what is saved, who owns the truth, and how the interim solo build stores it**.
@@ -69,9 +69,9 @@ server periodically reconciles, accepting the client's position if it is plausib
 own simulation and correcting it otherwise. The interim solo build has no server to reconcile
 against, so position/velocity are effectively client-simulated only for now; they are still
 tagged `shared` because that is their permanent shape once networked. The concrete reconciliation
-algorithm (tolerance window, correction/snap method, velocity capping) is owned by
-`30_engineering/BACKEND_SECURITY.md` §1 (backend design pass opened by owner instruction
-2026-07-24); this doc keeps owning only the `shared` tag's meaning.
+algorithm (tolerance envelope, correction/snap method, speed-cap displacement margin) is owned by
+`70_integrations/GAMEPLAY_SIMULATION.md` §2 (Phase I backend wave); this doc keeps owning only
+the `shared` tag's meaning.
 
 ## 5. The solo build: a `GameState` facade over a local save
 
@@ -80,8 +80,9 @@ algorithm (tolerance window, correction/snap method, velocity capping) is owned 
 through one **`GameState` facade** rather than touching a save file or a future network call
 directly, so swapping the backing store later (local file → networked client) never requires
 changing calling code. This doc fixes the **data model** (§1–§4) and the **cadence** (§6) that
-facade must serve; the facade's actual interface/class design is
-`30_engineering/ENGINEERING_STANDARDS.md`'s (Phase B/E engineering territory, not yet authored).
+facade must serve; the GameState save-facade autoload is established in
+`30_engineering/ENGINEERING_STANDARDS.md`; its detailed interface/class design is coding-pass
+territory.
 
 ## 6. Save slots & autosave cadence (solo build)
 
@@ -119,8 +120,8 @@ boundary, not an exception to it:
 ## 8. `save_version` — migration/versioning field
 
 Every save file carries a `save_version` integer. On load, if it is lower than the build's
-current version, a migration step runs (owned by `30_engineering/ENGINEERING_STANDARDS.md` once
-authored) before any system reads through the facade; an unrecognized *future* `save_version`
+current version, a migration step runs (owned by `30_engineering/ENGINEERING_STANDARDS.md`) before
+any system reads through the facade; an unrecognized *future* `save_version`
 (the file is newer than the running build) refuses to load rather than silently truncating data.
 No system may drop an unrecognized field silently — an unknown field is a migration bug, not
 ignorable input.
@@ -145,16 +146,16 @@ is assumed safe by default.
   Not decided — owner: this doc, jointly with whatever future server-onboarding doc exists.
 - ~~Position/velocity reconciliation algorithm (§4) is explicitly deferred — out of this run's
   scope per `00_vision/SCOPE.md`; do not design it prematurely here.~~ **Resolved 2026-07-24:**
-  owned by `30_engineering/BACKEND_SECURITY.md` §1 (server simulation + tolerance/snap + velocity
-  cap); concrete numbers remain that doc's open item.
+  owned by `70_integrations/GAMEPLAY_SIMULATION.md` §2 (accept-if-plausible tolerance envelope,
+  error-blend vs hard-snap correction, speed-cap displacement margin — Phase I backend wave).
 - Whether the `shards` wallet and bank are per-character (assumed, matching
   `10_systems/INVENTORY.md` §3/§7's default) or ever account-shared is confirmed here as
   **per-character** for the solo build and the interim server; an account-shared purse/vault is a
   later, explicitly opt-in addition, not a launch item.
 - `save_version`'s migration framework (§8) has no concrete implementation yet; flagged for
-  `30_engineering/ENGINEERING_STANDARDS.md`, which itself is not confirmed to exist as a Phase B
-  deliverable (`00_vision/SCOPE.md`'s phase list does not explicitly enumerate
-  `30_engineering/*`) — flag this gap for the orchestrator.
+  `30_engineering/ENGINEERING_STANDARDS.md` (authored and locked per CLAUDE.md Law 5), which
+  establishes the GameState save facade but does not yet specify the concrete migration
+  framework; the migration step is deferred to the coding pass.
 - Cloud-save / multi-device sync for the solo build is not addressed; assumed local-disk-only
   until a server exists.
 - Whether a corrupted/unreadable save slot should attempt partial recovery or hard-fail to a

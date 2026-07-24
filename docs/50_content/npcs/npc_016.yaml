@@ -1,0 +1,13 @@
+id: npc_016
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, MAP_CONNECTIONS]
+name: Coachman Ressa Vane
+region: millbrook
+map: map_018
+role: coach_clerk
+services: [coach]
+dialog:
+  greeting: "Millbrook Coachworks -- name your ring town, and your shards, and we'll see you there."
+  farewell: "Hold the rail. The road's smoother than the cart makes it feel."
+portrait: portrait_npc_016
+flavor: "Vane knows the fare to every ring station by heart and still double-checks the board out of habit."

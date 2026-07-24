@@ -1,0 +1,45 @@
+id: map_317
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: "Umbral Reach, Depth 2"
+region: voidshore
+map_type: dungeon
+level_band: { min: 80, max: 80 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 59, h: 66 }
+bgm: bgm_voidshore
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 50] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_316
+    target_spawn: main
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_318
+    target_spawn: main
+  - id: to_secret_319
+    kind: door
+    at: { tile: [30, 10] }
+    target_map: map_319
+    target_spawn: main
+spawn_zones:
+  - id: umbral_depth_2
+    rect_tiles: { x: 14, y: 10, w: 36, h: 36 }
+    mobs:
+      - { mob: mob_230, count: 1 }
+      - { mob: mob_231, count: 1 }
+    max_concurrent: 4
+npcs: []
+platform_brief: |
+  A narrowing gallery of drowned stone, its drops all within
+  MAP_TRAVERSAL §1.1's crossable range. Terrain is foothold segments under
+  painted terrain_chunks (ART_BIBLE AB-001), the density thinning near the
+  sealed door into the Voidtide stage chain.
+flavor: "The reach narrows to a single sealed door here, and the air past it tastes of the open void."

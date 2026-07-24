@@ -1,0 +1,41 @@
+id: map_232
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Glacier Caverns, Deep Chute
+region: frostpeak
+map_type: dungeon
+level_band: { min: 56, max: 56 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_frostpeak
+ambience: [amb_wind, amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_231
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_233
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: map_232_zone
+    rect_tiles: { x: 20, y: 30, w: 30, h: 12 }
+    mobs:
+      - { mob: mob_171, count: 2 }
+      - { mob: mob_173, count: 1 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  A vertical ice-cavern room-and-corridor loop, denser combat pacing than the fields
+  (SPAWN §2 dungeon budget). Ledges stack in 2-3 tile rises, each within the standard jump
+  budget (MAP_TRAVERSAL §1.1); no rope/ladder required on the main line.
+flavor: "Deeper into the glacier's dead ice, where the cold itself seems to be listening."

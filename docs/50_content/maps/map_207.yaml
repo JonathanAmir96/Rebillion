@@ -1,0 +1,43 @@
+id: map_207
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Frostwake
+region: frostpeak
+map_type: interior
+level_band: { min: 40, max: 40 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 36, h: 16 }
+bgm: bgm_town_frostpeak
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [18, 10] }
+  - { id: longship_deck, tile: [18, 10] }
+portals:
+  - id: to_frosthaven
+    kind: longship
+    at: { tile: [8, 10] }
+    target_map: map_204
+    target_spawn: longship_dock
+    route_id: route_frostpeak_tidewatch
+    fare_ref: fare_longship_short
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+    dead_end: false
+  - id: to_tidewatch_port
+    kind: longship
+    at: { tile: [28, 10] }
+    target_map: map_071
+    target_spawn: longship_dock
+    route_id: route_frostpeak_tidewatch
+    fare_ref: fare_longship_short
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+    dead_end: false  # arc-1 pier, map_071 forward-ref; sibling batch
+npcs: [npc_088]
+platform_brief: |
+  An open weather-deck, whale-bone rail on both sides, no cargo hold modeled. Flat single
+  band, no verticality -- a social interlude, not a traversal puzzle (MAP_CONNECTIONS §8.4:
+  combat-free, no spawn zones at launch).
+flavor: "The longship that rides the Frostpeak-Tidewatch line, her deck worn smooth by two seasons of paying passengers."

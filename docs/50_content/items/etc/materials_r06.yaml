@@ -1,0 +1,166 @@
+id: item_table_materials_r06
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R6 Ashfall monster materials: item_etc_0081-0096 (ID_REGISTRY etc block), one per R6
+# normal species mob_088-103. Values only; etc rows carry no `buy` (ITEMS §1).
+items:
+  - id: item_etc_0081
+    name: Cinderfly Ash
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 26                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 45                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_088          # drops from Cinder Swarmling (cross-checks drop_mob_088)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A pinch of grey ash that stays warm in the palm long after the swarm is gone. Barrens tanners bank it into fire-hardening dust."
+  - id: item_etc_0082
+    name: Jackal Fang
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 26                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 45                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_089          # drops from Ashscrabble Jackal (cross-checks drop_mob_089)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A yellowed fang worn flat from scavenging on scalding ground. It holds an edge no whetstone gave it."
+  - id: item_etc_0083
+    name: Emberdust Wing
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 27                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 47                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_090          # drops from Embermoth (cross-checks drop_mob_090)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A single wing, its ember-dust still faintly aglow where it isn't crushed. Alchemists prize the glow for slow-burning inks."
+  - id: item_etc_0084
+    name: Cinder Adder Fang
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 27                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 47                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_091          # drops from Cinder Adder (cross-checks drop_mob_091)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A curved black fang beaded with a resin that will not cool. A scratch from it smoulders for hours."
+  - id: item_etc_0085
+    name: Dustback Plate
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 28                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 48                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_092          # drops from Dustback Grazer (cross-checks drop_mob_092)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A dust-caked scute pried from a grazer's back, grey clean through. Masons grind it into a heat-shedding grit."
+  - id: item_etc_0086
+    name: Scoria Clinker
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 28                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 48                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_093          # drops from Scoria Hurler (cross-checks drop_mob_093)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A fist of glowing furnace-clinker, light as pumice and twice as sharp. The vents grow it by the ton."
+  - id: item_etc_0087
+    name: Stalker Claw
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 29                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 50                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_094          # drops from Barrens Stalker (cross-checks drop_mob_094)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A hooked claw, ground blunt on open flint yet still able to open a pack rival. Trophy hunters pay in shards."
+  - id: item_etc_0088
+    name: Slagshell Fragment
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 29                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 50                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_095          # drops from Slagshell Tortoise (cross-checks drop_mob_095)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A shard of fused shell and slag that glows dull red along the break. It will scorch a bare hand raw."
+  - id: item_etc_0089
+    name: Harrier Pinion
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 30                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 51                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_096          # drops from Ashwing Harrier (cross-checks drop_mob_096)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A stiff flight-feather, vanes soot-grey and reeking of carrion. Fletchers set them on bolts meant for the barrens."
+  - id: item_etc_0090
+    name: Ashpriest Cinder-Bead
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 30                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 51                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_097          # drops from Ashpriest Acolyte (cross-checks drop_mob_097)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A scorched prayer-bead that hums with a rote of banked heat. Scholars pay for the etching, not the ember."
+  - id: item_etc_0091
+    name: Blazing Core
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 31                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 53                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_098          # drops from Blazing Mote (cross-checks drop_mob_098)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A cooled bead of trapped fire, inert now but heavy with what it was. Handled wrong, it wakes."
+  - id: item_etc_0092
+    name: Scoria Ore Chunk
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 31                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 53                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_099          # drops from Scoria Sentinel (cross-checks drop_mob_099)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A knuckle of raw slag-ore streaked with dull metal. Barrens smiths cannot get enough of it."
+  - id: item_etc_0093
+    name: Revenant Ember
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 32                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 54                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_100          # drops from Ember Revenant (cross-checks drop_mob_100)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A coal that was once a heart, still warm at the core against all reason. It refuses to go out."
+  - id: item_etc_0094
+    name: Vulture Quill
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 32                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 54                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_101          # drops from Barrens Vulture (cross-checks drop_mob_101)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A broad, ragged quill dusted the dead grey of the flats. Scribes render it down for a stubborn black ink."
+  - id: item_etc_0095
+    name: Slag Brute Sinew
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 33                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 56                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_102          # drops from Slag Brute (cross-checks drop_mob_102)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A rope of blackened sinew that steams when cut, salvaged from a brute's shoulder. Bowyers crave its unyielding pull."
+  - id: item_etc_0096
+    name: Cinderhulk Coal
+    category: etc
+    rarity: common                # cosmetic on etc rows (display tier only, ITEMS §5)
+    req_level: 34                 # band placement (advisory for etc, not an equip gate)
+    price:
+      sell: 57                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
+    source_hint: mob_103          # drops from Cinderhulk (cross-checks drop_mob_103)
+    stack: 999                    # etc tab fixed stack (INVENTORY §2)
+    flavor: "A lump of banked coal cut from a cinderhulk's chest, glowing steadily and never spending itself. A single one heats a forge for a week."

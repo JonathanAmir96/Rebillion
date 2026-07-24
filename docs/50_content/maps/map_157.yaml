@@ -1,0 +1,41 @@
+id: map_157
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Silt Causeway, Broken Span
+region: sunken
+map_type: field
+level_band: { min: 32, max: 33 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 155, h: 30 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_156
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_158
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_field_157
+    rect_tiles: { x: 47, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_113, count: 4 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A broken causeway of floating stone segments; the largest gap uses the water-physics doubled
+  10-tile jump distance (MAP_TRAVERSAL §7). No rope/ladder required.
+flavor: "A collapsed stone causeway still marks the old road beneath the water -- someone built this, once."

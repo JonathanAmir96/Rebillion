@@ -1,0 +1,50 @@
+id: mob_065
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Tidecult Zealot
+tier: elite                      # ID slot 065 = R4 elite (ID_REGISTRY Monsters)
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 23
+size_class: medium
+stats:                           # §13 normal Lv 23 x §13.2 elite multipliers
+  life: 16224                    # 2704 x6  (normal Lv23 life = 4*(23+3)^2 = 2704)
+  power: 113                     # 75 x1.5  (normal Lv23 power = 6+3*23 = 75)
+  armor: 179                     # 138 x1.3  (armor+warding sum ~= 12*23 x1.3 = 359)
+  warding: 179                   # 138 x1.3
+  precision: 101                 # 92 x1.1
+  evasion: 5.69                  # 3.69 + 2% (§13.2 elite)
+  exp: 1180                      # exp_per_kill_normal(23)=236 x5 (LEVELING §3 elite)
+ai_profile: support_caller       # Morva's chief cantor; buffs and raises the coven, dangerous left alive (AI_BEHAVIOR §11)
+ai_params:
+  support_radius: 7
+  cast_cooldown_s: 5
+  retreat_range: 7
+abilities:
+  - id: brine_hymn
+    name: Brine Hymn
+    targeting: self
+    cooldown: 12.0
+    telegraph_s: 1.2
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 8 }
+  - id: call_faithful
+    name: Call the Faithful
+    targeting: self
+    cooldown: 22.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_060, count: 2, dur: 25 }
+  - id: rime_rebuke
+    name: Rime Rebuke
+    targeting: { shape: line, length: 5, width: 1 }
+    cooldown: 6.0
+    telegraph_s: 0.9
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.3 }
+      - { op: apply_status, status: chill, chance: 0.5, dur: 3 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite caster: +cast +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_065
+flavor: "The loudest voice in Morva's shore-cult, arms flung wide as she sings her sisters' wounds shut and calls fresh acolytes up from the surf. Her hymn makes the whole coven harder to put down."

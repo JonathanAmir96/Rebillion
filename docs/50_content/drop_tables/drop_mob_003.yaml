@@ -1,0 +1,8 @@
+id: drop_mob_003
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table
+owner: mob_003
+rows:
+  # mean_shards_normal(2)=round(1.5*2+3)=6; range=[round(4.8),round(7.2)]=[5,7] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 5, qty_max: 7 }
+  - { ref: item_etc_0003, chance: common, qty_min: 1, qty_max: 2 }   # swarm mob drops in twos (DROPS §5.1)

@@ -1,0 +1,22 @@
+id: quest_086
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Custodian's Reckoning
+region: clockwork
+quest_type: main
+giver_npc: npc_082
+level_requirement: 40
+recommended_level: 40
+prereqs: [quest_085]
+steps:
+  - type: kill   # The Custodian -- via the raid_mainspring finale instance or the arena's open solo entry (RAID.md §7)
+    target: mob_150
+    count: 1
+rewards:
+  exp: 49368  # round(0.30*164,560) (LEVELING §1 Lv40); main band 15-30%, top of band for the region finale
+  shards: 945 # main = mean_shards_normal(40)*15 = 63*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }   # a pair of Sovereign Life Tonics for the climb into arc 2
+flavor: "Sable has watched the Mainspring's coil for a season straight, and she's certain it's about to give -- one way or another."
+offer_text: "Silence the Custodian, raid or open gate, I don't care which. Bring me proof and I'll finally let this ruin rest."
+complete_text: "The coil's still. Centuries of ticking, and now nothing but brass and quiet. You've earned every shard of this."

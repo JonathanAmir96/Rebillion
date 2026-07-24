@@ -1,0 +1,20 @@
+id: quest_044
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Foghorn Cull
+region: tidewatch
+quest_type: side
+giver_npc: npc_050
+level_requirement: 19
+recommended_level: 19
+prereqs: [quest_042]
+steps:
+  - type: kill
+    target: mob_058
+    count: 10
+rewards:
+  exp: 1693                  # round(0.10 * 16928); band per QUESTS §4 at Lv19
+  shards: 128                # mean_shards_normal(19)*4 = 32*4 (QUESTS §5 side / DROPS §3)
+flavor: "The icewater wisps drifting over the shoals have grown bold enough to pelt the watch patrols with ice splinters on sight."
+offer_text: "Ten of the wisps, popped before they can pelt another patrol -- they've taken to hurling ice at anyone who gets close."
+complete_text: "Quieter skies over the shoals already. My patrols thank you, even if they won't say it themselves."

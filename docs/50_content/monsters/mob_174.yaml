@@ -1,0 +1,43 @@
+id: mob_174
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Blizzard Conjurer
+tier: elite
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 54
+size_class: large
+stats:                           # §13 normal Lv 54 x §13.2 elite multipliers
+  life: 77976                    # 12996 x6
+  power: 252                     # 168 x1.5
+  spellpower: 252                # parity with power (§13); abilities scale on magic
+  armor: 421                     # 324 x1.3  (armor+warding sum ~= 12*54 x1.3)
+  warding: 421                   # 324 x1.3
+  precision: 238                 # 216 x1.1
+  evasion: 6.6                   # 4.6 + 2% (§13.2 elite)
+  exp: 3575                    # exp_per_kill_normal(54)=715 x5 (LEVELING §3 elite)
+ai_profile: ranged_skirmisher
+ai_params:
+  preferred_range_min: 5
+  preferred_range_max: 9
+  attack_cooldown_s: 1.6
+abilities:
+  - id: frost_lance
+    name: Frost Lance
+    targeting: projectile
+    cooldown: 4.0
+    telegraph_s: 0.8
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.7 }
+  - id: blizzard
+    name: Blizzard
+    targeting: { shape: aoe_circle, radius: 4, origin: target }
+    cooldown: 13.0
+    telegraph_s: 1.6
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.2 }
+      - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_174
+flavor: "A robed summit-mage whose breath fogs the air three paces out, calling squalls down onto anything that closes. It never wants you near, and works hard to keep it that way."

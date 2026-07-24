@@ -1,0 +1,54 @@
+id: map_282
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Unmoored Stair, Upper Flight
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 70, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 55, h: 60 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 52] }
+portals:
+  - id: to_lower_flight
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_281
+    target_spawn: main
+    dead_end: false
+  - id: to_landing_cache
+    kind: door
+    at: { tile: [40, 32] }
+    target_map: map_283
+    target_spawn: main
+    dead_end: false
+  - id: to_anchor_vault
+    kind: door
+    at: { tile: [14, 8] }
+    target_map: map_284
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: upper_flight_chamber
+    rect_tiles: { x: 16, y: 20, w: 28, h: 24 }
+    mobs:
+      - { mob: mob_204, count: 2 }
+      - { mob: mob_205, count: 1 }
+    max_concurrent: 8
+interactables:
+  - type: lore_marker
+    id: marker_anchor_vault_gate
+    at_tile: [14, 10]
+    params:
+      text: "Aetheron's own runework hums through the door ahead, louder and more strained with every step closer."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  The stair's final landing, open on one side to the drift far below. A sealed side alcove
+  sits mid-floor; the Anchor Vault's door caps the top, the region's only arena entrance
+  (MAPS_SYSTEM §8). Dense combat holds the landing (SPAWN §2).
+flavor: "The last solid footing before whatever is left of Aetheron -- the runework past this door hums loud enough to feel through the floor."

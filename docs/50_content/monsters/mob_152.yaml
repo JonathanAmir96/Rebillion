@@ -1,0 +1,24 @@
+id: mob_152
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Snowpelt Forager
+tier: normal
+element: neutral
+level: 40
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 40
+  life: 7395                     # 4*(40+3)^2
+  power: 126                     # 6+3*40 (touch = round(0.5*power), §13.1)
+  armor: 240                     # 6*40  (armor+warding sum = 480 = 12*40)
+  warding: 240                   # 6*40
+  precision: 160                 # 4*40
+  evasion: 4.2                   # 3 + 0.03*40 (%)
+  exp: 484                     # exp_per_kill_normal(40)=round(4*40^1.3) (LEVELING §3)
+ai_profile: passive_wanderer
+ai_params:                       # override only passive_wanderer-declared tunables (AI_BEHAVIOR)
+  wander_radius: 6
+  flee_duration_s: 4
+  corner_wait_s: 2
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_152
+flavor: "A shaggy, plodding browser of the low snowfields that wants nothing to do with anyone. Struck, it bolts in a spray of powder rather than fight."

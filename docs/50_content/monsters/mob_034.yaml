@@ -1,0 +1,26 @@
+id: mob_034
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Puffcap Burster
+tier: normal                     # ID slot 034 = R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]                  # dry, gas-filled cap; goes up fast
+resists: [nature]
+level: 11
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 11
+  life: 784                      # 4*(11+3)^2
+  power: 39                      # 6+3*11 (detonation + touch scale on power, §13.1)
+  armor: 66                      # 6*11  (armor+warding sum = 132 = 12*11)
+  warding: 66                    # 6*11
+  precision: 44                  # 4*11
+  evasion: 3.3                   # 3 + 0.03*11 (%)
+  exp: 90                        # exp_per_kill_normal(11)=round(4*11^1.3) (LEVELING §3)
+ai_profile: kamikaze_burster     # rushes and detonates; always telegraphs even at normal tier (AI_BEHAVIOR §12)
+ai_params:                       # override only kamikaze_burster-declared tunables
+  aggro_radius: 6
+  detonate_range: 1
+  rush_speed_mult: 1.8
+animation_states: [idle, walk, jump, fall, telegraph, attack, hit, die]   # kamikaze always plays telegraph (AI_BEHAVIOR §12)
+drop_table: drop_mob_034
+flavor: "A swollen, gas-taut mushroom that has learned to walk on a knot of root-legs, hunting for something to pop against. It swells, splits its cap wide in warning, and bursts in a cloud of spores that were never meant to be breathed."

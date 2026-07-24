@@ -1,0 +1,14 @@
+id: npc_008
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Bram Ironsoot
+region: emberfoot
+map: map_003
+role: blacksmith
+shop:
+  items: [item_equip_0001, item_use_0015]    # forward-refs: arc-1 first weapon row; Sharpening Oil
+dialog:
+  greeting: "Blades and edges. Nothing fancy, but it'll hold through a fight."
+  farewell: "Keep it oiled."
+portrait: portrait_npc_008
+flavor: "Bram shares the outfitters' back room with a forge barely big enough for one anvil, and never asks more than a fair price."

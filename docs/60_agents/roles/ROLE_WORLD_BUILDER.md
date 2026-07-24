@@ -13,12 +13,12 @@ monster-gradient law and every traversal metric.
 
 **Reads first:** its WORLD_PLAN region section (the biome brief), map.schema.md Template,
 MAP_TRAVERSAL.md (foothold metrics), MAP_CONNECTIONS.md (edges + spawn naming law),
-SPAWN.md (density budgets), the region's mob manifest (names/levels from the mob lead).
+10_systems/SPAWN.md (density budgets), the region's mob manifest (names/levels from the mob lead).
 
 **Deliverable contract:** one YAML per map, values only; spawn zones referencing only
 region-local mobs; portals matching WORLD_PLAN edges exactly (spawn-point naming law);
-platform_brief ≤6 lines including slope character (footholds are engine-pass geometry);
-monotonic mob levels along field ID order.
+platform_brief within map.schema.md's line cap, including slope character (footholds are
+engine-pass geometry); monotonic mob levels along field ID order.
 
 **Definition of done:** batch passes VALIDATION §1–§6 region-locally; every portal
 bidirectional or `dead_end: true`; arena pairs its WORLD_PLAN boss.

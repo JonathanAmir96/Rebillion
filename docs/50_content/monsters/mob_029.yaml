@@ -1,0 +1,24 @@
+id: mob_029
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Hollow Vole
+tier: normal                     # ID slot 029 = R3 normal (ID_REGISTRY Monsters)
+element: neutral                 # R3 element split is nature/neutral (WORLD_PLAN)
+level: 8
+size_class: tiny
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 8
+  life: 485                      # §13 table Lv 8
+  power: 30                      # 6+3*8 (touch = round(0.5*power), neutral, §13.1)
+  armor: 48                      # 6*8  (armor+warding sum = 96 = 12*8)
+  warding: 48                    # 6*8
+  precision: 32                  # 4*8
+  evasion: 3.2                   # 3 + 0.03*8 (%)
+  exp: 60                        # exp_per_kill_normal(8) (LEVELING §3)
+ai_profile: timid_grazer         # notices you and bolts; fights only when cornered (AI_BEHAVIOR §4)
+ai_params:                       # override only timid_grazer-declared tunables
+  flee_radius: 6
+  flee_speed_mult: 1.6
+  corner_wait_s: 2
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_029
+flavor: "A fat-cheeked burrower that grazes the hollow's mushroom shelves and vanishes down a root-hole at the first crunch of your step. Corner one and it will bite, for whatever a vole's teeth are worth."

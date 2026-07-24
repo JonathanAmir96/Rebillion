@@ -1,0 +1,41 @@
+id: map_089
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Sea Cave Mouth
+region: tidewatch
+map_type: dungeon
+level_band: { min: 20, max: 20 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 60, h: 50 }
+water_physics: true
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_field
+    kind: edge
+    at: { edge: top }
+    target_map: map_086
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_090
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: dungeon_main_089
+    rect_tiles: { x: 8, y: 30, w: 44, h: 16 }
+    mobs:
+      - { mob: mob_060, count: 2 }
+      - { mob: mob_061, count: 2 }
+    max_concurrent: 6
+npcs: [npc_052]
+platform_brief: |
+  A compact vertical crawl of flooded chambers linked by short 2-3 tile ledge drops,
+  all within the standard jump arc (MAP_TRAVERSAL §1). Corridor-and-room loop denser
+  than the open fields above, per the dungeon combat budget.
+flavor: "The tide-scoured mouth of the sea caves, daylight still reaching the first chamber."

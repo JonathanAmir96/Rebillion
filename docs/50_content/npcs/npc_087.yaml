@@ -1,0 +1,14 @@
+id: npc_087
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Torvin Coldwright
+region: frostpeak
+map: map_206
+role: merchant
+shop:
+  items: [item_use_0017]
+dialog:
+  greeting: "Frost-proof boots, whale-oil lamps, whatever else the ice demands. Take your pick."
+  farewell: "Layer up. The flats don't forgive a bare collar."
+portrait: portrait_npc_087
+flavor: "Torvin outfits every Deepway arrival with cold-weather kit, priced fair and stocked deep."

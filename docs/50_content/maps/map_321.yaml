@@ -1,0 +1,35 @@
+id: map_321
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: "Voidtide Stage: the Eclipse Gallery"
+region: voidshore
+map_type: dungeon
+level_band: { min: 81, max: 82 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 66, h: 74 }
+bgm: bgm_voidshore
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 60] }
+portals:
+  - id: to_stage_3
+    kind: door
+    at: { tile: [58, 12] }
+    target_map: map_322
+    target_spawn: main
+    dead_end: true
+spawn_zones:
+  - id: voidtide_stage_2
+    rect_tiles: { x: 14, y: 10, w: 42, h: 44 }
+    mobs:
+      - { mob: mob_232, count: 1 }
+      - { mob: mob_233, count: 1 }
+    max_concurrent: 4
+npcs: []
+platform_brief: |
+  The stage chain's second hall, sequential and one-way forward (RAID.md §4) --
+  no reverse portal is authored back to stage 1. An ordinary combat dungeon per
+  SPAWN §7, its exit locked until the hall's objective clears.
+flavor: "Black light pools in the Eclipse Gallery like standing water, and something in it is watching back."

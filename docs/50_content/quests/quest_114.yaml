@@ -1,0 +1,22 @@
+id: quest_114
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: What the Duskwings Carry
+region: voidshore
+quest_type: side
+giver_npc: npc_113
+level_requirement: 69
+recommended_level: 69
+steps:
+  - type: kill
+    target: mob_212
+    count: 8
+  - type: collect
+    target: item_etc_0169
+    count: 5
+rewards:
+  exp: 57329  # round(0.06 * 955,476); side band 5-10% (QUESTS §4)
+  shards: 424  # mean_shards_normal(69)*4 = 106*4 (QUESTS §5 / DROPS §3)
+flavor: "The duskwing shades carry scraps of the torn sky itself caught in their wings, and Halven wants a sample."
+offer_text: "Bring down a few duskwings and pull the sky-scraps from their wings -- I want to know how far the tear's spread."
+complete_text: "Still fluttering, even dead. That's not a good sign, but it's the answer I needed."

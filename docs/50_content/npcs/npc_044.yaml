@@ -1,0 +1,12 @@
+id: npc_044
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS]
+name: Harbormaster Coll Marrow
+region: tidewatch
+map: map_072
+role: quest_giver
+dialog:
+  greeting: "Every hull that clears this harbor crosses my desk first. What's yours crossing about?"
+  idle: "Half my ledger is tide-tables, the other half is excuses for late cargo."
+portrait: portrait_npc_044
+flavor: "Coll has run the harbormaster's office for two decades and treats a missing manifest like a personal insult."

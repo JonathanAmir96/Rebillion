@@ -1,0 +1,14 @@
+id: npc_105
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Forgewright Talla
+region: arcane_reach
+map: map_266
+role: blacksmith
+shop:
+  items: [item_equip_0244, item_equip_0250]
+dialog:
+  greeting: "Rune-steel, tempered under a sky that doesn't hold still. Takes some getting used to."
+  farewell: "Sharp edge, steady hands. The Reach forgives neither if they slip."
+portrait: portrait_npc_105
+flavor: "Talla forges at the Sanctum's cracked-open lower hall, using the shard's own drifting cold as her quench."

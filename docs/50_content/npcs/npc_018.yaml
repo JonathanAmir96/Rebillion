@@ -1,0 +1,12 @@
+id: npc_018
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Guard Captain Bram Alders
+region: millbrook
+map: map_018
+role: quest_giver
+dialog:
+  greeting: "The undervault gate's held for generations. I'd rather it kept holding on my watch."
+  farewell: "Keep your blade loose down there. The old stone doesn't like visitors."
+portrait: portrait_npc_018
+flavor: "Alders has commanded Millbrook's watch long enough to remember when the undervault seal still had a working lock."

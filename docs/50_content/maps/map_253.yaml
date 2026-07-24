@@ -1,0 +1,49 @@
+id: map_253
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Hanging Gardens
+region: arcane_reach
+map_type: field
+level_band: { min: 57, max: 58 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 175, h: 32 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 26] }
+portals:
+  - id: to_long_drift
+    kind: edge
+    at: { edge: left }
+    target_map: map_252
+    target_spawn: main
+    dead_end: false
+  - id: to_prism_hollow
+    kind: edge
+    at: { edge: right }
+    target_map: map_254
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: hanging_gardens_stretch
+    rect_tiles: { x: 34, y: 20, w: 66, h: 9 }
+    mobs:
+      - { mob: mob_183, count: 2 }
+      - { mob: mob_184, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: climbable
+    id: rope_hanging_gardens
+    at_tile: [70, 12]
+    params:
+      rect_tiles: { x: 70, y: 12, w: 1, h: 12 }
+      orientation: vertical
+      visual: rope
+npcs: []
+platform_brief: |
+  Terraced shard-plates hung with pale void-moss, climbing in three tiers. A single rope of
+  woven light-vine (MAP_TRAVERSAL §4) connects the lower and upper tiers -- the field's first
+  climbable, dressed as glowing vine rather than hemp. Standard climb rules apply throughout.
+flavor: "Void-moss drapes every upper tier here, pale and faintly luminous, feeding on light no one can see the source of."

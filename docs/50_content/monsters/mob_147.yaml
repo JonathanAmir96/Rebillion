@@ -1,0 +1,42 @@
+id: mob_147
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Vaultgate Colossus
+tier: elite                      # ID_REGISTRY: mob_147 in R8 elites block 145-149
+element: neutral
+weak_to: [arcane]
+level: 41
+size_class: large
+stats:                           # §13 normal Lv 41 x §13.2 elite multipliers
+  life: 46464                    # 7744 x6
+  power: 194                     # 129 x1.5
+  armor: 320                     # 246 x1.3  (armor+warding sum ~= 12*41 x1.3)
+  warding: 320                   # 246 x1.3
+  precision: 180                 # 164 x1.1
+  evasion: 6.23                   # 4.23 + 2% (§13.2 elite)
+  exp: 2500                     # exp_per_kill_normal(41)=500 x5 (LEVELING §3 elite)
+ai_profile: territorial_guard
+ai_params:
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 2
+abilities:
+  - id: gate_slam
+    name: Gate Slam
+    targeting: melee_arc
+    cooldown: 6.5
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.7 }
+      - { op: apply_status, status: sunder, chance: 0.7, dur: 8 }
+  - id: lockdown_stance
+    name: Lockdown Stance
+    targeting: self
+    cooldown: 16.0
+    telegraph_s: 1.2
+    effects:
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+      - { op: taunt, radius: 6, dur: 4 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_147
+flavor: "A door made to walk, twice the height of the gate it once was, still barring a hall that leads nowhere. It plants itself in the threshold and dares the ruin to move it."

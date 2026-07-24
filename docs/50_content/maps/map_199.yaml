@@ -1,0 +1,40 @@
+id: map_199
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Forgotten Ratchet
+region: clockwork
+map_type: secret
+level_band: { min: 41, max: 42 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 46, h: 22 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 16] }
+portals:
+  - id: to_cogwork_muster
+    kind: door
+    at: { tile: [4, 16] }
+    target_map: map_194
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: forgotten_ratchet_zone
+    rect_tiles: { x: 12, y: 12, w: 26, h: 8 }
+    mobs:
+      - { mob: mob_149, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_forgotten_ratchet
+    at_tile: [26, 14]
+    params:
+      text: "A ratchet mechanism jammed mid-click, holding tension no one alive remembers setting."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A tucked-away mechanism nook beside the muster hall, sparse and quiet (SPAWN §2 secret
+  budget). No verticality gimmick.
+flavor: "A supply nook the musters stocked and forgot, tucked just off the herald's own hall."

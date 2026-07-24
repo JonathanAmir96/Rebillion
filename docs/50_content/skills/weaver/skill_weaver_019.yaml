@@ -1,0 +1,34 @@
+id: skill_weaver_019
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Pyromania
+line: weaver
+tier: second
+kind: passive
+# NOTE (flag, not guess): JOBS.md §4.3 describes the proc condition as "vs `burn`" (bonus damage
+# against an already-burning target). The frozen condition examples (schema OQ / SKILL_EFFECTS §16)
+# are only `below_life_pct:X`, `while_veiled`, `vs_marked` — none names a target-has-status check.
+# Authored `vs_status:burn` as a natural extension of the `vs_marked` pattern; this token is not in
+# the frozen example set, so flagged for the batch lead / condition-vocabulary owner to confirm at
+# the C gate rather than silently assumed valid.
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { spellpower: 0.04 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, condition: "vs_status:burn", chance: 1.0, effect: { op: deal_damage, element: fire, mult: 0.3 } }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { spellpower: 0.06 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, condition: "vs_status:burn", chance: 1.0, effect: { op: deal_damage, element: fire, mult: 0.4 } }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { spellpower: 0.08 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, condition: "vs_status:burn", chance: 1.0, effect: { op: deal_damage, element: fire, mult: 0.5 } }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { spellpower: 0.10 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, condition: "vs_status:burn", chance: 1.0, effect: { op: deal_damage, element: fire, mult: 0.6 } }
+flavor: "A deepening obsession with the burn. Every hit against a target already alight lands that much harder."

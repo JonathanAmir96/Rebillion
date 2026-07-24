@@ -1,0 +1,12 @@
+id: npc_082
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: West Gate Loremaster Sable
+region: clockwork
+map: map_188
+role: quest_giver
+dialog:
+  greeting: "The Custodian's been counting seconds since before Gloomwood had a name for its own dark. I mean to know why."
+  farewell: "Come back from the gearworks in one piece. The Custodian doesn't negotiate."
+portrait: portrait_npc_082
+flavor: "Sable followed the web-vault route into the ruins alone, and has stayed at the west gate ever since to warn the ones who follow."

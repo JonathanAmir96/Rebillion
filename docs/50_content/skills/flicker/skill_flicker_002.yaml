@@ -1,0 +1,33 @@
+id: skill_flicker_002
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Shadowstep                   # exact JOBS.md §5.1 first-job roster name
+line: flicker
+tier: first
+kind: active
+targeting: self                    # roster target `self` (SKILL_SYSTEM §6)
+cost: { essence: 5 }
+cooldown: 6.0
+level_data:
+  - level: 1
+    essence_cost: 5
+    cooldown: 6.0
+    effects:
+      - { op: dash, distance: 4, direction: toward_target, iframes: true, through_enemies: true }   # roster "(i-frames, behind target)" (SKILL_EFFECTS §9)
+  - level: 4
+    essence_cost: 7
+    cooldown: 5.0
+    effects:
+      - { op: dash, distance: 5, direction: toward_target, iframes: true, through_enemies: true }
+  - level: 7
+    essence_cost: 8
+    cooldown: 4.5
+    effects:
+      - { op: dash, distance: 5, direction: toward_target, iframes: true, through_enemies: true }
+  - level: 10
+    essence_cost: 8
+    cooldown: 4.0
+    effects:
+      - { op: dash, distance: 6, direction: toward_target, iframes: true, through_enemies: true }   # distance non-decreasing, cooldown non-increasing (§4 warn)
+animation: skill_flicker_002_cast
+flavor: "A blink through shadow that puts the Flicker at a target's back before the target even registers they've moved."

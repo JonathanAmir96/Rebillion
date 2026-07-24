@@ -1,0 +1,43 @@
+id: mob_106
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Ashen Pyromancer
+tier: elite                      # ID slot 106 = R6 elite (ID_REGISTRY ashfall)
+element: fire
+weak_to: [frost]
+resists: [fire]
+level: 35
+size_class: large
+stats:                           # §13 normal Lv 35 x §13.2 elite multipliers
+  life: 34656                    # 5776 x6
+  power: 166                     # 111 x1.5
+  armor: 273                     # 210 x1.3  (armor+warding sum ~= 12*35 x1.3)
+  warding: 273                   # 210 x1.3
+  precision: 154                 # 140 x1.1
+  evasion: 6.0                   # 4.0 + 2% (§13.2 elite)
+  exp: 2035                     # exp_per_kill_normal(35)=407 x5 (LEVELING §3 elite)
+ai_profile: ranged_skirmisher
+ai_params:
+  preferred_range_min: 5
+  preferred_range_max: 9
+  attack_cooldown_s: 1.6
+abilities:
+  - id: cinder_lance
+    name: Cinder Lance
+    targeting: { shape: line, length: 8, width: 2 }
+    cooldown: 7.0
+    telegraph_s: 1.2
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.6 }
+      - { op: apply_status, status: burn, chance: 0.7, dur: 6 }
+  - id: ember_burst
+    name: Ember Burst
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.4
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.4 }
+      - { op: apply_status, status: burn, chance: 0.6, dur: 6, stacks: 2 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_106
+flavor: "A pilgrim who stared too long into the eternal cinders and came away speaking their language. Fire answers the burnt-out sockets in a rain of hungry sparks."

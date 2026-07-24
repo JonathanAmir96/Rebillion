@@ -1,0 +1,43 @@
+id: mob_064
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Reefmaw Barracuda
+tier: elite                      # ID slot 064 = first R4 elite (ID_REGISTRY Monsters)
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 22
+size_class: large
+stats:                           # §13 normal Lv 22 x §13.2 elite multipliers
+  life: 15000                    # 2500 x6
+  power: 108                     # 72 x1.5
+  armor: 172                     # 132 x1.3  (armor+warding sum ~= 12*22 x1.3 = 343)
+  warding: 172                   # 132 x1.3
+  precision: 97                  # 88 x1.1
+  evasion: 5.66                  # 3.66 + 2% (§13.2 elite)
+  exp: 1110                      # exp_per_kill_normal(22)=222 x5 (LEVELING §3 elite)
+ai_profile: aggressive_charger   # a monstrous reef-hunter that runs its prey down the shoal (AI_BEHAVIOR §5)
+ai_params:
+  aggro_radius: 8
+  charge_speed_mult: 3.2
+  charge_recover_s: 2.2
+abilities:
+  - id: reef_lunge
+    name: Reef Lunge
+    targeting: { shape: line, length: 6, width: 2 }
+    cooldown: 7.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.6 }
+      - { op: apply_status, status: chill, chance: 0.7, dur: 4 }
+  - id: thrash
+    name: Tail Thrash
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 9.0
+    telegraph_s: 1.1
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.5 }
+      - { op: knockback }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_064
+flavor: "A barracuda grown to the length of a longboat's oar, scarred silver and cased in reef-rime. Its charge is a blue blur; its thrashing tail clears the shoal of anything left standing."

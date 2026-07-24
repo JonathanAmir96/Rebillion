@@ -1,0 +1,59 @@
+id: map_066
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Root Warrens, Heartwood Vault
+region: verdant
+map_type: dungeon
+level_band: { min: 15, max: 15 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 66, h: 66 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [33, 8] }
+portals:
+  - id: to_deep_roots
+    kind: edge
+    at: { edge: top }
+    target_map: map_065
+    target_spawn: main
+    dead_end: false
+  - id: to_last_root
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_067
+    target_spawn: main
+    dead_end: false
+  - id: to_whispering_hollow
+    kind: door                              # a hollowed knot in the vault's heartwood, easy to miss (secret pocket)
+    at: { tile: [58, 40] }
+    target_map: map_069
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: heartwood_vault_hall
+    rect_tiles: { x: 16, y: 20, w: 36, h: 26 }
+    mobs:
+      - { mob: mob_041, count: 3 }
+    max_concurrent: 8
+  - id: heartwood_vault_elite_den
+    rect_tiles: { x: 12, y: 46, w: 14, h: 12 }
+    mobs:
+      - { mob: mob_045, count: 1 }        # elite
+    max_concurrent: 2
+    respawn_override: 90
+interactables:
+  - type: sign
+    id: sign_heartwood_vault
+    at_tile: [26, 18]
+    params:
+      text: "A single vast heartwood root fills this vault, hollowed out by something old. The warren's true root, maybe."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A vast hollowed heartwood vault, gaps within the 5-tile/3.5-tile jump caps (MAP_TRAVERSAL
+  §1.1). Foothold segments dressed in heartwood terrain_chunks (ART_BIBLE AB-001); a
+  knothole east wall hides the door to a side pocket, the elite den sits off the main hall.
+flavor: "One single root fills this whole vault, thick as a tower and hollowed through by something patient."

@@ -1,0 +1,20 @@
+id: quest_074
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Guarding the Gatefront
+region: sunken
+quest_type: side
+giver_npc: npc_072
+level_requirement: 34
+recommended_level: 34
+prereqs: [quest_072]
+steps:
+  - type: kill
+    target: mob_116
+    count: 10
+rewards:
+  exp: 8855  # side pct=0.09 of exp_to_next(34)=98,392; shards=mean_shards_normal(34)*4=54*4
+  shards: 216
+flavor: "Adric won't open the gate log until whatever keeps circling the gatefront is dealt with."
+offer_text: "Something's been pacing the gatefront every night, and I'd rather not open that gate with it still out there. Handle it."
+complete_text: "Good. The gate's yours to pass, once you're ready for what's on the other side."

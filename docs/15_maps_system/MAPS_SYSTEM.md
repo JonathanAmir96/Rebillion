@@ -3,14 +3,14 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, docs/WORLD_PLAN.md,
 docs/ID_REGISTRY.md, docs/VALIDATION.md, 10_systems/SPAWN.md, 10_systems/DEATH_PENALTY.md,
 10_systems/AI_BEHAVIOR.md, 10_systems/HUD.md, 10_systems/social/PARTY.md,
-15_maps_system/MAP_TRAVERSAL.md, 15_maps_system/MAP_INTERACTABLES.md,
+10_systems/social/RAID.md, 15_maps_system/MAP_TRAVERSAL.md, 15_maps_system/MAP_INTERACTABLES.md,
 15_maps_system/MAP_LAYERS.md, 15_maps_system/MAP_CONNECTIONS.md, 40_assets/ART_BIBLE.yaml
 
 Owner doc for a map's anatomy — the fields every map file carries — and for the 6 `map_type`
 values in `00_vision/GLOSSARY.md`. Movement physics is `15_maps_system/MAP_TRAVERSAL.md`;
 interactable object types are `15_maps_system/MAP_INTERACTABLES.md`; the depth/collision layer
-stack is `15_maps_system/MAP_LAYERS.md`; portal, spawn-naming, and waygate rules between maps are
-`15_maps_system/MAP_CONNECTIONS.md`. This doc consumes those and never restates them. Exact YAML
+stack is `15_maps_system/MAP_LAYERS.md`; portal, spawn-naming, and coach/longship transport rules
+between maps are `15_maps_system/MAP_CONNECTIONS.md`. This doc consumes those and never restates them. Exact YAML
 field typing/validation is the future `20_schemas/map.schema.md` (Phase C); this doc defines the
 conceptual anatomy that schema will formalize. 1 screen = the locked render base 640×360 px ≈
 40×22.5 tiles at the 16 px tile grid (`40_assets/ART_BIBLE.yaml`, Phase C) — used throughout §2's
@@ -30,8 +30,8 @@ Every map file carries:
 | `bgm` | Single music tag | §5 |
 | `ambience` | List of 0+ ambience tags | §5 |
 | `bounds` | `{width, height}` in tiles | §2 per-type guidance |
-| `spawn_points` | Named entry points (`main`, `from_<slug>`, `waygate`, …) | `MAP_CONNECTIONS.md` |
-| `portals` | Edge/door/waygate exits | `MAP_INTERACTABLES.md` (params) + `MAP_CONNECTIONS.md` (rules) |
+| `spawn_points` | Named entry points (`main`, `from_<slug>`, `coach_stop`, …) | `MAP_CONNECTIONS.md` |
+| `portals` | Edge/door/coach/longship exits | `MAP_INTERACTABLES.md` (params) + `MAP_CONNECTIONS.md` (rules) |
 | `spawn_zones` | Monster population zones | `10_systems/SPAWN.md` |
 | `interactables` | Non-portal, non-mob objects | `MAP_INTERACTABLES.md` |
 | `layers` | Depth/TileMapLayer/tileset declarations | `MAP_LAYERS.md` |
@@ -48,13 +48,13 @@ Size guidance is authoring guidance for Phase D, not a `docs/VALIDATION.md` hard
 |---|---|---|---|---|
 | `field` | Open overworld exploration/hunting; the world-graph's connective tissue | 3–6 screens (~120–240 tiles) | 1–3 screens (~23–68 tiles) | Yes — `10_systems/SPAWN.md` zone-spawned |
 | `dungeon` | Compact-vertical combat gauntlet; corridor/room loops denser than a field | 1–2 screens (~40–80 tiles) | 2–5 screens (~45–113 tiles) | Yes — denser budget, `10_systems/SPAWN.md` §2 |
-| `town` | Social hub: vendors, trainers, waygate, hosts interiors | 2–4 screens (~80–160 tiles) | 1 screen (~23 tiles) | No — combat-free (§6) |
+| `town` | Social hub: vendors, trainers, coach station, hosts interiors | 2–4 screens (~80–160 tiles) | 1 screen (~23 tiles) | No — combat-free (§6) |
 | `interior` | Single indoor room (inn/shop/hall/etc.) reached via a `door` portal from a town | ≤1 screen (~≤40 tiles) | ≤1 screen (~≤23 tiles) | No — combat-free (§6) |
 | `arena` | Gated boss encounter | 1–2 screens (~40–80 tiles) | 1 screen (~23 tiles), up to 2 for a vertical fight | Yes — boss-scripted only, no zone spawner (§7) |
 | `secret` | Bonus/reward pocket off the main path | ≤2 screens any dimension (~≤80 tiles) | ≤2 screens (~≤45 tiles) | Optional, sparse — `10_systems/SPAWN.md` §2 |
 
-Counts per type are fixed by `docs/WORLD_PLAN.md`/`00_vision/SCOPE.md` (94 field · 54 dungeon ·
-4 town · 17 interior · 15 arena · 16 secret = 200); this doc governs shape, not allocation.
+Counts per type are fixed by `docs/WORLD_PLAN.md`/`00_vision/SCOPE.md` (153 field · 95 dungeon ·
+12 town · 30 interior · 11 arena · 23 secret = 324); this doc governs shape, not allocation.
 
 ## 3. Naming conventions (`display_name`)
 
@@ -63,7 +63,7 @@ Patterns below are authoring law for the *shape* of a name; the specific name fo
 
 | `map_type` | Pattern | Rationale |
 |---|---|---|
-| `town` | `<Place name> <Settlement noun>` (Village/Township/Port/Sanctum) | Matches the 4 towns already named in `docs/WORLD_PLAN.md` |
+| `town` | `<Place name> <Settlement noun>` (Village/Township/Port/Sanctum) | Matches the 12 towns already named in `docs/WORLD_PLAN.md` |
 | `field` | `<Region descriptor>` + a directional/progression qualifier, never a new place-name | A field chain must read as one place, not a new zone (P3 — world map drawable from memory) |
 | `dungeon` | `<Place> <Tunnels\|Warrens\|Caves\|Vault(s)\|Spires\|…>` or `The <Adjective> <Noun>` | Evokes the crawl itself |
 | `interior` | `<Function>` (Inn, Smithy, Market Hall, …), optionally `<Town> <Function>` when cross-region UI needs disambiguation | Matches the building's purpose |
@@ -121,9 +121,12 @@ already cleared would be exactly that kind of sting).
 (`15_maps_system/MAP_INTERACTABLES.md` §2) from its adjoining field/dungeon map — arenas never
 have a second walkable entrance, satisfying `docs/VALIDATION.md` §5 reachability with exactly one
 edge. Default gate = open (no level lock, no quest lock — P1, the player chooses engagements). A
-per-arena quest-flag override is an optional Phase D authoring choice, not a rule here. Rift raid
-arenas (`map_197`–`map_200`) additionally enforce a party-size minimum
-(`10_systems/social/PARTY.md`, `10_systems/SPAWN.md` §7); regional arenas never require a party.
+per-arena quest-flag override is an optional Phase D authoring choice, not a rule here. The four
+raid finale arenas (`map_042`/`map_200`/`map_244`/`map_324`) double as their raids' finale
+instances: the raid entry — party 3–6, through the raid herald and the party-instanced stage chain
+(`10_systems/social/RAID.md` §3–§4, `10_systems/SPAWN.md` §7) — is a separate path that never
+touches the arena's own `door`, which stays the ungated open solo entry (`RAID.md` §7). Regional
+arenas never require a party.
 
 **`boss_bar` hookup.** An arena map declares `boss_mob_id: mob_NNN` identifying its boss. The
 client shows `10_systems/HUD.md`'s `boss_bar` element bound to that mob's `life` the moment its AI
@@ -137,7 +140,8 @@ per-party-instanced. It resets to phase 1 at full life once it has been empty of
 `arena_reset_grace_s` = **30 s** — long enough that a same-party wipe-and-retry doesn't reset
 mid-corpse-run, short enough that a later group never inherits a stale fight. This satisfies
 `10_systems/SPAWN.md` §3's "no long timer" intent while keeping regional bosses simple, single-
-instance content (P3, one connected world); Rift raid arenas remain the sole party-instanced
+instance content (P3, one connected world); raid instances — each raid's stage maps **and** its
+finale arena copy (`10_systems/social/RAID.md` §4) — remain the sole party-instanced
 exception (`10_systems/SPAWN.md` §7). `10_systems/DEATH_PENALTY.md` §5.2's "re-entering starts a
 fresh attempt" is the solo-player special case of this same rule (an empty arena after one
 player's death/respawn).

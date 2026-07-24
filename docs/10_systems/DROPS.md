@@ -3,7 +3,8 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/STATS.md, 10_systems/ITEMS.md, 10_systems/ENHANCEMENT.md, 10_systems/ECONOMY.md,
 10_systems/LEVELING.md, 10_systems/COMBAT_FORMULA.md, 10_systems/ELEMENTS.md,
-10_systems/social/PARTY.md, 10_systems/PERSISTENCE.md, 20_schemas/monster.schema.md,
+10_systems/social/PARTY.md, 10_systems/social/RAID.md, 10_systems/PERSISTENCE.md,
+20_schemas/monster.schema.md,
 20_schemas/drop_table.schema.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md,
 50_content/drop_tables/pools.yaml
 
@@ -17,13 +18,13 @@ the roll; those own what the rolled thing is worth or how a party splits it.
 
 ## 1. Drop table & row shape
 
-Exactly one drop table per monster, `drop_mob_001`–`drop_mob_150`, number matching its `mob_NNN`
-(`docs/ID_REGISTRY.md`). A table is an unordered list of **rows**, each rolled **independently**
+Exactly one drop table per monster, `drop_mob_NNN` numbered to match its `mob_NNN`
+(`docs/ID_REGISTRY.md`; arc-1 `001`–`150`, arc-2 continuing). A table is an unordered list of **rows**, each rolled **independently**
 when the monster dies (one monster can drop several rows, or none but its guaranteed `shards`):
 
 | Field | Meaning |
 |---|---|
-| `ref` | a concrete item ID (`item_equip_*`/`item_use_*`/`item_etc_*`), the literal `shards`, or a named pool `pool_equip_r01`–`r12` (§6) |
+| `ref` | a concrete item ID (`item_equip_*`/`item_use_*`/`item_etc_*`), the literal `shards`, or a named pool `pool_equip_r01`–`r11` (§6) |
 | `chance` | probability in `[0,1]`, expressed as a §2 named bucket or a raw float |
 | `qty_min`–`qty_max` | integer quantity rolled uniformly if the row hits (unstacked equips are always 1) |
 | `rarity_source` | *(pool rows only)* which §5 rarity-weight row instantiates the equip's `rarity` |
@@ -124,16 +125,25 @@ within these shapes; the guarantees are the contract.
   (or `legendary` for the more prized one). **First-ever clear guarantees one** of the two
   (bad-luck protection, P2); later kills roll the chance.
 
-### 5.4 raid boss (Rift, `docs/WORLD_PLAN.md` R12)
+### 5.4 raid boss (raid-entry kill)
+- Applies to a **raid-entry** kill of one of the four raid finale bosses
+  (`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md` §2). The **same boss killed
+  via the open (non-raid) arena entry** (`10_systems/social/RAID.md` §7) is a plain region-boss kill
+  and takes §5.3 instead — the entry context is the whole of the reward difference
+  (`10_systems/social/RAID.md` §6); no other math forks.
 - Party-shared loot; **who receives which roll is `10_systems/social/PARTY.md`'s distribution
   rule**, not this doc. This doc owns the table shape:
 - `shards` — `guaranteed`, large (raid `shards` = §3 `boss` mean × the raid `life` factor is
   overkill; use `boss` ×15 as the floor, tuned per raid).
-- **Raid tokens** — a raid etc-currency/material (Rift `item_etc` block `0177`–`0192`) —
-  `guaranteed`, one per participating member (the raid-gear exchange loop is deferred, Open
-  Questions).
+- **Raid tokens** — a raid etc-currency/material from the reserved raid-token block
+  (`item_etc_0177`–`0192`, `docs/ID_REGISTRY.md`) — `guaranteed`, one per participating member;
+  **raid entry only** (an open-arena solo kill of the same boss drops none, resolving
+  `10_systems/social/RAID.md` §Open-Questions on shared bosses). The raid-gear exchange loop is
+  deferred (Open Questions).
 - **One guaranteed pool roll**, `rarity_source = raid` (§5.5) — `rare`+ emphasis.
-- **Raid uniques** — the raid boss's two uniques (`10_systems/ITEMS.md` §11), `legendary`-weighted.
+- **Raid uniques** — the finale boss's two uniques come from the boss's **own** drop table
+  (`10_systems/ITEMS.md` §11; no separate raid-only unique list, `10_systems/social/RAID.md` §6),
+  `legendary`-weighted on a raid-entry kill.
 
 ### 5.5 Pool rarity-roll weights (`rarity_source`)
 
@@ -147,7 +157,10 @@ renormalization.
 | `boss` | 0 | 30 | 50 | 18 | 2 |
 | `raid` | 0 | 0 | 40 | 45 | 15 |
 
-## 6. Region equip pools (`pool_equip_r01`–`r12`)
+The `raid` row fires **only** on a raid-entry finale-boss kill (§5.4); the same boss soloed via the
+open (non-raid) arena entry rolls the `boss` row (§5.3, `10_systems/social/RAID.md` §6–§7).
+
+## 6. Region equip pools (`pool_equip_r01`–`r11`)
 
 A named pool per region (`docs/ID_REGISTRY.md`; contents authored in
 `50_content/drop_tables/pools.yaml`). A pool lists the **base equip IDs** (`item_equip_*` weapons/
@@ -204,9 +217,10 @@ client may re-roll a table or self-assign a rarity.
 - The `fortune` cap (+100%, §4) and whether it should also nudge `shards` slightly are open;
   default keeps `shards` `fortune`-free for steady income. Owner: this doc with
   `10_systems/ECONOMY.md`.
-- Raid-token → raid-gear exchange (§5.4) and the token IDs within Rift `item_etc` `0177`–`0192` are
-  a Phase D / endgame design; this doc fixes only that a `guaranteed` token row exists. Flagged for
-  `10_systems/social/PARTY.md` + the R12 content batch.
+- Raid-token → raid-gear exchange (§5.4) and the concrete token IDs within the reserved raid-token
+  block (`item_etc_0177`–`0192`, `docs/ID_REGISTRY.md`) are a Phase D / endgame design; this doc
+  fixes only that a `guaranteed` raid-entry token row exists. Flagged for
+  `10_systems/social/PARTY.md` + `10_systems/social/RAID.md` and the arc-2 raid content batch.
 - Ownership-timer values (60 s / 120 s) and whether dungeons/arenas shorten them are first-pass;
   confirm against `10_systems/social/PARTY.md` loot rules and `15_maps_system/MAPS_SYSTEM.md` zone
   behavior.

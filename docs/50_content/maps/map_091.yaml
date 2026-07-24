@@ -1,0 +1,40 @@
+id: map_091
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Brinehollow Tunnels
+region: tidewatch
+map_type: dungeon
+level_band: { min: 21, max: 21 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 65, h: 55 }
+water_physics: true
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_090
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_092
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: dungeon_main_091
+    rect_tiles: { x: 8, y: 30, w: 49, h: 16 }
+    mobs:
+      - { mob: mob_062, count: 3 }
+      - { mob: mob_063, count: 2 }
+    max_concurrent: 7
+platform_brief: |
+  A compact vertical crawl of flooded chambers linked by short 2-3 tile ledge drops,
+  all within the standard jump arc (MAP_TRAVERSAL §1). Corridor-and-room loop denser
+  than the open fields above, per the dungeon combat budget.
+flavor: "Looping brine-flooded tunnels, ankle-deep in places, that fold back on themselves."

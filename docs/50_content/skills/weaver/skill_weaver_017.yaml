@@ -1,0 +1,40 @@
+id: skill_weaver_017
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Overload
+line: weaver
+tier: second
+kind: active
+targeting: self                   # roster target `self` (SKILL_SYSTEM §6)
+cost: { essence: 12 }
+cooldown: 16.0
+level_data:
+  - level: 1
+    essence_cost: 12
+    cooldown: 16.0
+    effects:
+      # `element: arcane` on these buff applications is a flavor tag only (SKILL_EFFECTS §14 "element"
+      # param, optional on any apply_status) matching JOBS.md's Elem column — empower/clarity are
+      # element-agnostic buffs mechanically (ELEMENTS.md §5).
+      - { op: apply_status, status: empower, chance: 1.0, element: arcane }
+      - { op: apply_status, status: clarity, chance: 1.0, element: arcane }
+  - level: 4
+    essence_cost: 15
+    cooldown: 14.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, element: arcane }
+      - { op: apply_status, status: clarity, chance: 1.0, element: arcane }
+  - level: 7
+    essence_cost: 18
+    cooldown: 12.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, element: arcane }
+      - { op: apply_status, status: clarity, chance: 1.0, element: arcane }
+  - level: 10
+    essence_cost: 21
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, element: arcane }
+      - { op: apply_status, status: clarity, chance: 1.0, element: arcane }
+animation: skill_weaver_017_cast
+flavor: "The Cindercall floods their own essence past comfortable limits, buying a window of pure uninterrupted burst."

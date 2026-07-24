@@ -1,0 +1,14 @@
+id: npc_019
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, ENHANCEMENT]
+name: Ferrin Coalworth
+region: millbrook
+map: map_022
+role: blacksmith
+shop:
+  items: [item_use_0015, item_use_0016]
+dialog:
+  greeting: "Steel's honest work, and Millbrook's forge has never once let a customer down."
+  farewell: "Keep the edge dry. Rust's the only thing that beats me."
+portrait: portrait_npc_019
+flavor: "Coalworth is the third of his family to keep Millbrook's forge lit, and swears the fire remembers every one of them."

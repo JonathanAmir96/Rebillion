@@ -1,0 +1,33 @@
+id: skill_keeneye_003
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Backstep                     # exact JOBS.md §3.1 first-job roster name
+line: keeneye
+tier: first
+kind: active
+targeting: self                    # roster target `self` (SKILL_SYSTEM §6)
+cost: { essence: 5 }
+cooldown: 5.0
+level_data:
+  - level: 1
+    essence_cost: 5
+    cooldown: 5.0
+    effects:
+      - { op: dash, distance: 3, direction: backward, iframes: true }   # roster "(backward, i-frames)" (SKILL_EFFECTS §9)
+  - level: 4
+    essence_cost: 7
+    cooldown: 4.2
+    effects:
+      - { op: dash, distance: 4, direction: backward, iframes: true }
+  - level: 7
+    essence_cost: 8
+    cooldown: 3.5
+    effects:
+      - { op: dash, distance: 4, direction: backward, iframes: true }
+  - level: 10
+    essence_cost: 8
+    cooldown: 3.0
+    effects:
+      - { op: dash, distance: 5, direction: backward, iframes: true }   # distance non-decreasing, cooldown non-increasing (§4 warn)
+animation: skill_keeneye_003_cast
+flavor: "A snapped step back and away, bow already re-drawn before the boots land. Distance is a Keeneye's best armor."

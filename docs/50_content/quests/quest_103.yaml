@@ -1,0 +1,26 @@
+id: quest_103
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Falling Archipelago
+region: arcane_reach
+quest_type: main
+giver_npc: npc_100                # Quartermaster Below, Spirehaven
+turn_in_npc: npc_104               # Archivist Meloux, Highrune Sanctum -- sends the player onward
+level_requirement: 55
+recommended_level: 55
+steps:                            # sequenced: clear the field pack, then report to the Sanctum
+  - type: kill
+    target: mob_181
+    count: 10
+  - type: talk
+    target: npc_104
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 91500                      # round(0.20 * exp_to_next(55)=457,500); main band 15-30% (QUESTS §4)
+  shards: 1290                    # mean_shards_normal(55)*15 = 86*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 3 }
+flavor: "Below wants proof the drift-things are only getting bolder before he'll trust anyone with cargo. The Sanctum wants to know why."
+offer_text: "Clear the runeglow pack off the ridge road and I'll vouch for you -- then go see the Archivist. She's been asking after every soul who steps off my ships."
+complete_text: "So the Reach really is unwinding faster than the old charts say. Good. You'll want to see the Rune Vaults for yourself before this is through."

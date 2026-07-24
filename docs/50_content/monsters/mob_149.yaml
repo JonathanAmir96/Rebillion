@@ -1,0 +1,42 @@
+id: mob_149
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Sentinel Prime
+tier: elite                      # ID_REGISTRY: mob_149 in R8 elites block 145-149
+element: neutral
+weak_to: [arcane]
+level: 42
+size_class: large
+stats:                           # §13 normal Lv 42 x §13.2 elite multipliers
+  life: 48600                    # 8100 x6
+  power: 198                     # 132 x1.5
+  armor: 328                     # 252 x1.3  (armor+warding sum ~= 12*42 x1.3)
+  warding: 328                   # 252 x1.3
+  precision: 185                 # 168 x1.1
+  evasion: 6.26                   # 4.26 + 2% (§13.2 elite)
+  exp: 2580                     # exp_per_kill_normal(42)=516 x5 (LEVELING §3 elite)
+ai_profile: pack_hunter
+ai_params:
+  aggro_radius: 6
+  pack_call_radius: 12
+  pack_max_size: 6
+abilities:
+  - id: muster_call
+    name: Muster Call
+    targeting: self
+    cooldown: 18.0
+    telegraph_s: 1.4
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
+      - { op: summon_entity, entity_ref: mob_129, count: 3, dur: 24 }
+  - id: rending_strike
+    name: Rending Strike
+    targeting: melee_arc
+    cooldown: 6.0
+    telegraph_s: 0.9
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.6 }
+      - { op: apply_status, status: sunder, chance: 0.5, dur: 5 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_149
+flavor: "The command-frame the lesser scuttlers were built to answer, a brass captain leading a garrison that forgot the war ended. Its horn-glyph flares and the walls empty out around you."

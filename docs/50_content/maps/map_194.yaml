@@ -1,0 +1,53 @@
+id: map_194
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Gearworks, Cogwork Muster
+region: clockwork
+map_type: dungeon
+level_band: { min: 41, max: 42 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 40] }
+portals:
+  - id: to_mainspring_approach
+    kind: edge
+    at: { edge: left }
+    target_map: map_193
+    target_spawn: main
+    dead_end: false
+  - id: to_forgotten_ratchet
+    kind: door
+    at: { tile: [30, 8] }
+    target_map: map_199
+    target_spawn: main
+    dead_end: false
+  - id: to_mainspring_stage
+    kind: door
+    at: { tile: [50, 30] }
+    target_map: map_195
+    target_spawn: main
+    dead_end: false  # raid_mainspring stage entrance; door only opens through raid herald npc_084's dialog (RAID.md §3) -- authored as an ordinary portal, no schema field models the herald gate
+  - id: to_the_mainspring
+    kind: door
+    at: { tile: [55, 40] }
+    target_map: map_200
+    target_spawn: main
+    dead_end: false  # ordinary open-entry door to the boss arena (RAID.md §7 solo fallback), separate from the raid stage chain
+spawn_zones:
+  - id: cogwork_muster_zone
+    rect_tiles: { x: 16, y: 30, w: 30, h: 12 }
+    mobs:
+      - { mob: mob_146, count: 2 }
+      - { mob: mob_147, count: 1 }
+    max_concurrent: 8
+npcs: [npc_084]
+platform_brief: |
+  A wide muster hall before the last two doors -- the raid gate and the open arena door
+  sit side by side on the far wall. No verticality gimmick; the herald's post is a
+  single flat landing at the entrance.
+flavor: "The last chamber before the Mainspring itself, where every muster gathers before the herald sees them through."

@@ -1,0 +1,32 @@
+id: map_016
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Kiln Heart
+region: emberfoot
+map_type: arena
+level_band: { min: 8, max: 8 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 70, h: 30 }              # arena: 1-2 screens wide, up to 2 tall for a vertical fight (MAPS_SYSTEM §2)
+bgm: bgm_boss_emberfoot                    # bespoke boss theme (MAPS_SYSTEM §5)
+ambience: [amb_ember_glow]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 24] }
+portals:
+  - id: to_furnace_depths
+    kind: door
+    at: { tile: [4, 24] }
+    target_map: map_013
+    target_spawn: main
+    dead_end: false
+arena_config:
+  boss_mob_id: mob_012                      # forward-ref: Cindermaw, monster batch (WORLD_PLAN R1 boss)
+  gate: { type: open }                      # regional arenas never require a party (MAPS_SYSTEM §8)
+  hazards:
+    - { tier: standard, rect_tiles: { x: 30, y: 26, w: 12, h: 4 } }   # the kiln's bed of hot coals
+platform_brief: |
+  A single wide chamber around the old kiln bed, mostly one band with a low
+  2-tile-rise lip circling the coal pit (single running jump, MAP_TRAVERSAL §1.1).
+  The coal-pit hazard sits centered, giving Cindermaw's charges room to telegraph.
+flavor: "The old kiln's heart, still banked hot after all these years. Cindermaw wakes the moment anyone steps past the last door."
