@@ -88,25 +88,26 @@ the schema's other controlled vocabularies): `owner`/`rows[].ref` mob and item p
 ## Example
 
 ```yaml
-# illustrative — real instances land in Phase D. mob_010 (Cinder Houndmaster, elite, Lv10) is the
-# same worked mob as 20_schemas/monster.schema.md's own example. Shards row: mean_shards_normal(10)
-# = round(1.5*10+3) = 18 (DROPS §3); elite x4 = 72; +-20% range = [round(0.8*72), round(1.2*72)]
-# = [58, 86]. Elite shape per DROPS §5.2: guaranteed shards, 2-3 materials, one emberstone
-# (uncommon), one guaranteed pool roll (rarity_source: elite), one use item (uncommon).
-id: drop_mob_010
+# illustrative — mirrors the minted 50_content/drop_tables/drop_mob_011.yaml. mob_011 (Embermane
+# Alpha, elite, Lv8) is the same worked mob as 20_schemas/monster.schema.md's own example. Shards
+# row: mean_shards_normal(8) = round(1.5*8+3) = 15 (DROPS §3); elite x4 = 60; +-20% range =
+# [round(0.8*60), round(1.2*60)] = [48, 72]. Elite shape per DROPS §5.2: guaranteed shards, 2-3
+# materials, one emberstone (uncommon), one guaranteed pool roll (rarity_source: elite), one use
+# item (uncommon).
+id: drop_mob_011
 schema: 20_schemas/drop_table.schema.md
 references: [DROPS, ITEMS, ENHANCEMENT]
-owner: mob_010
+owner: mob_011
 rows:
-  - { ref: shards, chance: guaranteed, qty_min: 58, qty_max: 86 }
-  - { ref: item_etc_0001, chance: common, qty_min: 1, qty_max: 2 }
-  - { ref: item_etc_0002, chance: uncommon, qty_min: 1, qty_max: 1 }
+  - { ref: shards, chance: guaranteed, qty_min: 48, qty_max: 72 }
+  - { ref: item_etc_0011, chance: common, qty_min: 1, qty_max: 2 }
+  - { ref: item_etc_0010, chance: uncommon, qty_min: 1, qty_max: 1 }
   - { ref: item_etc_0193, chance: uncommon, qty_min: 1, qty_max: 1 }   # Emberstone I (R1 = T1-T2)
   - { ref: pool_equip_r01, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: elite }
   - { ref: item_use_0001, chance: uncommon, qty_min: 1, qty_max: 1 }
 ```
 
-**Boss unique rows pattern** (illustrative fragment, `drop_mob_011`, Cindermaw — region-order boss
+**Boss unique rows pattern** (illustrative fragment, `drop_mob_012`, Cindermaw — region-order boss
 `n=1`, owning `item_equip_0201`/`0202` per `docs/ID_REGISTRY.md`'s boss-unique mapping):
 
 ```yaml
@@ -245,7 +246,7 @@ pools:
   §9 OQ (raid-token exchange loop, same area).
 - **Boss-order table isn't tabulated anywhere.** Same gap `20_schemas/item.schema.md` flags: rule 6
   requires computing "boss #n" from `docs/WORLD_PLAN.md`'s region order; correct today but brittle.
-  Flag for `docs/ID_REGISTRY.md` to consider tabulating the 15 boss-order→`mob_NNN`/table pairs.
+  Flag for `docs/ID_REGISTRY.md` to consider tabulating the 11 boss-order→`mob_NNN`/table pairs.
 - **Per-slot pool weighting.** `10_systems/DROPS.md` §6's own Open Question (uniform-across-slots
   vs. weighting toward a player's line weapon) is unresolved; `entries[].weight` supports either
   resolution without a schema change, so this schema takes no position.
