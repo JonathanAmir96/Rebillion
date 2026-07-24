@@ -25,6 +25,11 @@ portals:
     target_map: map_079
     target_spawn: main
     dead_end: false
+  - id: to_coast_road_crossing             # additive branch to the wide crossroads (map_332)
+    kind: door
+    at: { tile: [130, 19] }
+    target_map: map_332
+    target_spawn: from_brinewash
 spawn_zones:
   - id: field_main_078
     rect_tiles: { x: 10, y: 18, w: 140, h: 10 }

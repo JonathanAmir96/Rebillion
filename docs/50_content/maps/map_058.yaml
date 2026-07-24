@@ -26,6 +26,11 @@ portals:
     target_map: map_059
     target_spawn: main
     dead_end: false
+  - id: to_hollow_crossways                # additive branch to the wide crossroads (map_331)
+    kind: door
+    at: { tile: [128, 23] }
+    target_map: map_331
+    target_spawn: from_elderbark
 spawn_zones:
   - id: elderbark_reach_canopy
     rect_tiles: { x: 30, y: 18, w: 68, h: 12 }

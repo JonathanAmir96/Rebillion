@@ -40,26 +40,32 @@ Line** — see *Arc 2 — the far isles* below.
 | # | Region | Slug | Level | Biome key (ramp) | Maps | N | E | B |
 |---|--------|------|-------|------------------|------|---|---|---|
 | 1 | Emberfoot Isle | `emberfoot` | 1–8 | emberfoot (ember) | 16 | 10 | 1 | 1 |
-| 2 | Millbrook & Rosen Harbor (hub) | `millbrook` | 8–14 | old_town (earth) | 27 | 12 | 2 | 1 |
-| 3 | Verdant Hollow | `verdant` | 8–16 | verdant_hollow (verdant) | 28 | 16 | 3 | 1 |
-| 4 | Tidewatch Coast | `tidewatch` | 14–22 | tidewatch (tide) | 27 | 16 | 3 | 1 |
+| 2 | Millbrook & Rosen Harbor (hub) | `millbrook` | 8–14 | old_town (earth) | 28 | 12 | 2 | 1 |
+| 3 | Verdant Hollow | `verdant` | 8–16 | verdant_hollow (verdant) | 29 | 16 | 3 | 1 |
+| 4 | Tidewatch Coast | `tidewatch` | 14–22 | tidewatch (tide) | 28 | 16 | 3 | 1 |
 | 5 | Gloomwood | `gloomwood` | 20–28 | gloomwood (verdant dark) | 27 | 16 | 3 | 1 |
-| 6 | Ashfall Barrens | `ashfall` | 26–34 | ashfall (ember/ash) | 27 | 16 | 3 | 1 |
+| 6 | Ashfall Barrens | `ashfall` | 26–34 | ashfall (ember/ash) | 28 | 16 | 3 | 1 |
 | 7 | Sunken Depths | `sunken` | 30–38 | tidewatch_dark (tide) | 25 | 16 | 4 | 1 |
 | 8 | Clockwork Ruins (endgame) | `clockwork` | 34–40(+2) | clockwork (earth/stone) | 25 | 16 | 5 | 1 |
 | 9 | Frostpeak Isle | `frostpeak` | 40–55(+2) | frostpeak (tide) | 45 | 20 | 7 | 1 |
 | 10 | Arcane Reach | `arcane_reach` | 53–68(+2) | arcane_reach (arcane) | 41 | 20 | 7 | 1 |
 | 11 | Voidshore | `voidshore` | 66–80(+2) | voidshore (arcane, dark) | 41 | 20 | 7 | 1 |
-| — | **TOTAL** | | | | **329** | **178** | **45** | **11** |
+| — | **TOTAL** | | | | **333** | **178** | **45** | **11** |
 
 Each of the five raid regions carries one extra map over its contiguous block: the raid **bonus
 room** (`10_systems/social/RAID.md` §6.E), minted in `docs/ID_REGISTRY.md`'s `map_325`–`map_329`
 extension range because every region block is full. Region totals above include them.
 
+Four ring regions likewise carry one extra map over their contiguous block — the **wide junction
+fields** (`map_330`–`map_333`, owner directive 2026-07-25), one crossroads hung additively off the
+Millbrook, Verdant, Tidewatch, and Ashfall roads (three existing field maps apiece) in a second
+`docs/ID_REGISTRY.md` extension range. They add no monsters or bosses; the region totals above
+include them.
+
 Rows 1–8 are Arc 1 (Lv 1–42); rows 9–11 are Arc 2 (Lv 40–82).
 
 Map-type totals (all 11 regions): 12 towns · 30 interiors (incl. ferry + 3 longship decks) ·
-153 fields · 95 dungeons (incl. 12 **dedicated** raid-stage maps, 3 more shared with
+157 fields (incl. the 4 wide junction crossroads `map_330`–`map_333`) · 95 dungeons (incl. 12 **dedicated** raid-stage maps, 3 more shared with
 `raid_orrery` — `map_277`–`map_279`, which stay open-world dungeons too, 10_systems/social/RAID.md
 §4 — and the 3-map Deepway) · 28 secrets (incl. the 5 raid bonus rooms `map_325`–`map_329`,
 `10_systems/social/RAID.md` §6.E) ·

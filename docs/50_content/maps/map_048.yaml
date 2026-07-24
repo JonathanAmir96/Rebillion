@@ -26,6 +26,11 @@ portals:
     target_map: map_049
     target_spawn: main
     dead_end: false
+  - id: to_hollow_crossways                # additive branch to the wide crossroads (map_331)
+    kind: door
+    at: { tile: [120, 21] }
+    target_map: map_331
+    target_spawn: from_fernbrake
 spawn_zones:
   - id: fernbrake_thicket
     rect_tiles: { x: 30, y: 20, w: 66, h: 8 }

@@ -26,6 +26,11 @@ portals:
     target_map: map_036
     target_spawn: main
     dead_end: false
+  - id: to_cart_road_junction              # additive branch to the wide crossroads (map_330)
+    kind: door
+    at: { tile: [120, 21] }
+    target_map: map_330
+    target_spawn: from_cellar_outskirts
 spawn_zones:
   - id: cellar_outskirts_zone
     rect_tiles: { x: 40, y: 16, w: 70, h: 10 }

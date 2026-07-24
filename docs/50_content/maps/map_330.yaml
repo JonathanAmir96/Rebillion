@@ -1,0 +1,75 @@
+id: map_330
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Millbrook Cart-Road Junction
+region: millbrook
+map_type: field
+level_band: { min: 9, max: 11 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 300, h: 34 }      # wide-junction sub-case (MAPS_SYSTEM §2): ~7.5 screens
+bgm: bgm_old_town
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [150, 28] }
+  - { id: from_west_outskirts, tile: [14, 28] }      # arrival from the west outskirts road
+  - { id: from_east_road, tile: [286, 28] }          # arrival from the east coast road
+  - { id: from_cellar_outskirts, tile: [154, 12] }   # arrival from the upper cellar-road stair
+portals:
+  - id: to_west_outskirts
+    kind: door
+    at: { tile: [8, 28] }
+    target_map: map_027
+    target_spawn: main
+  - id: to_east_road
+    kind: door
+    at: { tile: [292, 28] }
+    target_map: map_028
+    target_spawn: main
+  - id: to_cellar_outskirts
+    kind: door
+    at: { tile: [150, 12] }
+    target_map: map_035
+    target_spawn: main
+spawn_zones:
+  - id: junction_west_yard
+    rect_tiles: { x: 40, y: 24, w: 100, h: 6 }
+    mobs:
+      - { mob: mob_014, count: 3 }        # shares one species with the west outskirts road
+      - { mob: mob_015, count: 2 }        # shares one species with the east road
+    max_concurrent: 6
+  - id: junction_terrace
+    rect_tiles: { x: 160, y: 16, w: 90, h: 5 }
+    mobs:
+      - { mob: mob_015, count: 2 }
+      - { mob: mob_014, count: 2 }
+    max_concurrent: 5
+interactables:
+  - type: climbable
+    id: climb_central_rope
+    at_tile: [148, 28]
+    params:
+      rect_tiles: { x: 148, y: 12, w: 2, h: 16 }
+      orientation: vertical
+      visual: rope
+  - type: climbable
+    id: climb_east_ladder
+    at_tile: [206, 28]
+    params:
+      rect_tiles: { x: 206, y: 20, w: 2, h: 8 }
+      orientation: vertical
+      visual: ladder
+  - type: sign
+    id: sign_cart_road_junction
+    at_tile: [150, 27]
+    params:
+      text: "Three roads meet here: the west outskirts, the east coast road, and the stair up to the old cellar ground."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A broad three-way cart-road crossing on a lower yard band with a mid terrace stepped by
+  2-tile rises; a central rope and an east ladder climb to the upper stair and its cellar-road
+  door (MAP_TRAVERSAL §1.1, gaps within the 5-tile/3.5-tile caps). Foothold segments under
+  painted terrain_chunks (ART_BIBLE AB-001). Width is the MAPS_SYSTEM §2 wide-junction sub-case.
+flavor: "Where Millbrook's roads all cross at once -- carts from three directions, and dust that never quite settles."

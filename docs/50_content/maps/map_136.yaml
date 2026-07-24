@@ -30,6 +30,11 @@ portals:
     at: { tile: [80, 15] }
     target_map: map_142
     target_spawn: main
+  - id: to_dune_crossroads                 # additive branch to the wide crossroads (map_333)
+    kind: door
+    at: { tile: [120, 19] }
+    target_map: map_333
+    target_spawn: from_vent_mouth
 spawn_zones:
   - id: map_136_zone
     rect_tiles: { x: 30, y: 16, w: 60, h: 8 }

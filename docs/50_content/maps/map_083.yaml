@@ -31,6 +31,11 @@ portals:
     target_map: map_095
     target_spawn: main
     dead_end: false
+  - id: to_coast_road_crossing             # additive branch to the wide crossroads (map_332)
+    kind: door
+    at: { tile: [140, 19] }
+    target_map: map_332
+    target_spawn: from_barnacle
 spawn_zones:
   - id: field_main_083
     rect_tiles: { x: 10, y: 18, w: 150, h: 10 }
