@@ -146,9 +146,10 @@ that never becomes the mandatory pacing path (P2).
 **B. Raid tokens (`raid_token`).** On a **finale-boss clear**, every eligible raid member is
 **guaranteed** their raid's `raid_token` (`00_vision/GLOSSARY.md`; per-raid variants
 `item_etc_0177` Undervault Seal · `item_etc_0178` Mainspring Cog · `item_etc_0179` Deepfrost Shard ·
-`item_etc_0180` Voidtide Pearl, `docs/ID_REGISTRY.md`). The guaranteed drop itself is authored in the
-raid-finale drop table (`10_systems/DROPS.md` §5.4 — one per participating member, raid entry only)
-and is consumed here, not restated. Tokens are spent at the **Raid Quartermaster** — a vendor NPC
+`item_etc_0180` Voidtide Pearl, `docs/ID_REGISTRY.md`). The guaranteed grant is a **runtime grant
+keyed by entry context** (`10_systems/DROPS.md` §5.4 — one per participating member, raid entry
+only; never authored as extra static rows in the boss's drop table,
+`20_schemas/drop_table.schema.md` rule 4) and is consumed here, not restated. Tokens are spent at the **Raid Quartermaster** — a vendor NPC
 whose item catalog and prices are `10_systems/ITEMS.md`'s and whose placement (the raid staging
 towns / Millbrook) is `docs/WORLD_PLAN.md`'s. This doc owns only that the token is guaranteed per
 member on a finale clear and that the Quartermaster's exclusive stock is `raid_token`-gated.
@@ -168,8 +169,9 @@ that raid's `raid_token`, and they exist nowhere else in the game. Per raid:
     rules are `10_systems/COSMETICS.md`'s.
 
 **D. First-clear-of-the-day bonus (the daily social beat).** The **first successful clear of a given
-raid, per character, per day** (the day boundary is `10_systems/PERSISTENCE.md`'s — see Open
-Questions) pays a bonus **on top of** the ordinary A/B grants:
+raid, per character, per day** (the day boundary — a fixed daily reset at 00:00 UTC — is
+`10_systems/PERSISTENCE.md` §2.1's, consumed here by reference) pays a bonus **on top of** the
+ordinary A/B grants:
   - **2× that raid's `raid_clear_exp`** completion bonus (the doubled value is
     `10_systems/LEVELING.md` §3.1's — referenced, not restated), and
   - **one bonus `raid_token`** (the same per-raid token as B).
@@ -245,14 +247,15 @@ first-clear-of-the-day flags, cooldown timers) so the live server swap changes n
   telemetry: if live runs clear much faster than the modeled ≈ 25 minutes, revisit the cooldown and
   the LEVELING §3.1 amounts together (alternatives — a longer cooldown, a daily clear count, no
   cooldown at all — stay available). Owner: this doc with `10_systems/ECONOMY.md`.
-- **Day-boundary definition for the first-clear-of-the-day bonus (§6.D).** The daily bonus keys on a
-  per-character, per-raid "first clear this day" flag, and this doc defers the **day-boundary rule**
-  (fixed UTC rollover vs per-account local reset vs rolling-24h) to `10_systems/PERSISTENCE.md`, which
-  does not yet define one. PERSISTENCE must land the day-boundary rule (and carry the per-raid
-  first-of-day flag on the `GameState` facade, §5, next to the existing first-clear flags and
-  cooldown timers) before §6.D can resolve. Flag-don't-guess: no boundary is assumed here. Owner:
-  `10_systems/PERSISTENCE.md` with this doc; the same boundary should serve any other daily social
-  beat (party/guild) so the whole social package shares one definition.
+- **Resolved (2026-07-24 contradiction fix): day-boundary definition for the
+  first-clear-of-the-day bonus (§6.D).** `10_systems/PERSISTENCE.md` §2.1 now defines the shared
+  time boundaries — a fixed **daily reset at 00:00 UTC** (fixed UTC rollover chosen over
+  per-account local and rolling-24h variants), plus the weekly Monday 00:00 UTC anchor — and
+  explicitly names this doc's per-character, per-raid first-clear-of-the-day flag among the per-day
+  flags cleared at that instant, carried on the `GameState` facade (PERSISTENCE §5) next to the
+  first-ever-clear flags and cooldown timers (§8). §6.D consumes that boundary by reference, and
+  the same definition serves the weekly guild goal (`10_systems/social/GUILD.md` §11), so the whole
+  social package shares one clock as this entry asked. Nothing remains open here.
 - **Contribution-weighted vs even reward split.** `10_systems/social/PARTY.md` §4 owns the
   exp-split math (contribution-weighted + presence) and its own Open Questions already flag
   reconciling that split against `10_systems/LEVELING.md` §3's raid total. Whether raid rewards

@@ -23,7 +23,7 @@ are roster, chat, crest, and MOTD only**; the owner-directed social-package guil
 - **Fee: 100,000 `shards`**, paid by the founder alone (no guild bank exists to split it, §8).
   This adopts `10_systems/ECONOMY.md` §6's placeholder as authoritative — that doc reserves the
   exact number to this one.
-- Creation happens at the **guild hall** interior, Millbrook Central (`map_022`,
+- Creation happens at the **guild hall** interior, the Millbrook Guild Hall (`map_024`,
   `docs/WORLD_PLAN.md` R2) — the only guild hall in the world, matching Millbrook's role as the
   social heart (`00_vision/PILLARS.md` P3). The panel is toggled with `G`
   (`10_systems/CONTROLS.md` §1) and rendered in `frame_window` (`10_systems/HUD.md` §1), both
@@ -54,7 +54,7 @@ Leadership transfer is leader-initiated only (no auto-succession like
 
 ## 4. Roster cap & growth
 
-Base cap **20**. The leader may purchase **+10** per step at the guild hall (`map_022`), up to
+Base cap **20**. The leader may purchase **+10** per step at the guild hall (`map_024`), up to
 **4 purchases** (cap **60**), paid personally (§8 — no guild bank). The `shards` cost per step is
 reserved to `10_systems/ECONOMY.md`, mirroring how that doc reserves the creation fee here (§1);
 not fixed in this doc (Open Questions).
@@ -141,7 +141,7 @@ a **guild level** (1–5 at launch) at the cumulative thresholds below. Guild-le
 |---|---|---|
 | 1 | 0 (founding) | the launch surfaces (§1–§7) |
 | 2 | 2,000 | roster step 5 (paid +10 → cap **70**) · additional crest symbols (§5) |
-| 3 | 6,000 | roster step 6 (paid +10 → cap **80**) · first guild cosmetic unlock (`item_cosmetic_0009`–`0064` guild block, `docs/ID_REGISTRY.md`) |
+| 3 | 6,000 | roster step 6 (paid +10 → cap **80**) · first guild cosmetic unlock (`item_cosmetic_0009`–`0032` guild block, `docs/ID_REGISTRY.md`) |
 | 4 | 15,000 | roster step 7 (paid +10 → cap **90**) · additional crest shape + further guild cosmetics |
 | 5 | 30,000 | roster step 8 (paid +10 → cap **100**, the launch ceiling) · prestige guild cosmetic |
 
@@ -207,17 +207,18 @@ guild has a real but reachable stretch):
   (`10_systems/social/PARTY.md` §4; = 6,000 party-eligible kills ≈ 12.5 grouped hunting hours).
 
 Meeting the objective grants the **guild-wide reward**: for the **following week, the §10 grouping
-buff runs at +10% / +10%** (a time-boxed doubling; same trigger, same composition, same caps —
-`10_systems/DROPS.md` §4.1's clamp still binds). One reward, always earnable, no purse needed.
+buff runs at +10% / +10%** (a time-boxed doubling; same trigger, same composition, same ≤ 0.95
+clamp — `10_systems/DROPS.md` §4.1 restates the lift-week drop ceiling and its clamp still binds). One reward, always earnable, no purse needed.
 Guild cosmetics stay §9's guild-level ladder rather than a weekly payout (a missable weekly
 cosmetic would punish small guilds — P2); **`shards` to the guild** remains a rejected-for-now
 variant contingent on the guild purse deferred by §8 (Open Questions).
 
-- **Week boundary.** The week rolls on a fixed weekday anchored to `10_systems/PERSISTENCE.md`'s
-  **day boundary** — the same boundary `10_systems/social/RAID.md` §6.D defers to PERSISTENCE for
-  its first-clear-of-the-day bonus (that entry already notes the boundary should serve any other
-  periodic social feature). This doc adds no second clock; the exact day boundary and weekday anchor
-  are `10_systems/PERSISTENCE.md`'s (Open Questions).
+- **Week boundary.** The week rolls on `10_systems/PERSISTENCE.md` §2.1's fixed **weekly anchor
+  (Monday 00:00 UTC)** — the weekly application of the same **00:00 UTC day boundary**
+  `10_systems/social/RAID.md` §6.D consumes for its first-clear-of-the-day bonus, so the whole
+  social package shares one clock. This doc adds no second clock; the boundary and anchor are
+  defined in `10_systems/PERSISTENCE.md` §2.1, which names this weekly goal's counters explicitly,
+  and are consumed here by reference.
 - **N, the objective rotation, and the reward table are first-pass** and flagged (Open Questions).
   The objective is a **guild-wide goal, not a per-member quest** — distinct from the per-member
   guild-quest board §8 still leaves undesigned.
@@ -282,9 +283,13 @@ resolves.
   targets favor big guilds; default stays flat for legibility, P1), and the `shards`-to-guild
   variant stays contingent on the deferred guild bank (§8). Owner: this doc with
   `10_systems/ECONOMY.md`.
-- **Week/day boundary (§11)** is owned by `10_systems/PERSISTENCE.md` — the weekly goal anchors to
-  the same day boundary `10_systems/social/RAID.md` §6.D already defers there (fixed UTC rollover vs
-  per-account local vs rolling window). Owner: `10_systems/PERSISTENCE.md`; this doc consumes.
+- **Resolved (2026-07-24 contradiction fix): week/day boundary (§11).** `10_systems/PERSISTENCE.md`
+  §2.1 now defines the shared boundaries — a fixed **daily reset at 00:00 UTC** and a **weekly
+  anchor at Monday 00:00 UTC** (fixed UTC rollover chosen over per-account local and rolling-window
+  variants) — and explicitly names this doc's weekly-goal counters among the state that resets
+  there. §11 and `10_systems/social/RAID.md` §6.D both consume that one definition; the only
+  remaining revisit (per-region local resets if timezoned shards ever ship) is PERSISTENCE §2.1's
+  own. Owner: `10_systems/PERSISTENCE.md`; this doc consumes.
 - **Guild cosmetics — owner assigned 2026-07-24:** the guild sub-block is `item_cosmetic_0009`–
   `0032` (`docs/ID_REGISTRY.md`) and the cosmetic system + earn/equip rules are
   `10_systems/COSMETICS.md`'s (its §4 keys guild unlocks to §9's guild-level ladder;
