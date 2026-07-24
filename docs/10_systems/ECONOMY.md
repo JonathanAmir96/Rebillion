@@ -34,6 +34,7 @@ handful of Lesser tonics; §4).
 | Travel (Harborwind Ferry + Harthmoor Coachworks fares) | §7 (this doc) | ring distance |
 | Enhancement fee | §3 (this doc) | gear tier × target `+` |
 | Stat free-point reallocation | §3.1 (this doc) | `level` |
+| Gilded Charter unlock (seasonal battle pass) | §4.4 (this doc) | flat, per 30-day season |
 | Guild creation | `10_systems/social/GUILD.md` (fee reserved here) | flat, endgame |
 | Market transaction fee | `10_systems/social/MARKET.md` (future) | % of sale |
 | **Repairs** | — | **none: no durability system exists** |
@@ -166,6 +167,16 @@ gear is used or traded on the future market (`10_systems/social/MARKET.md`), nev
 `round(0.25 · 1800 · 8)` = **3,600** `shards` (≈ 8 min of Lv 36 income) — a satisfying but
 non-dominant faucet.
 
+### 4.4 Gilded Charter price (cited by `10_systems/BATTLE_PASS.md` §6)
+
+Unlocking a season's gilt reward lane costs a flat **6,000 `shards`**, per character, per
+30-day season — ≈ 16 minutes of Lv 30 at-level income (§5), ≈ 42 minutes at Lv 10: a real
+monthly sink that stays cozy (P2). Mechanics, guardrails, and everything else about the
+charter are `10_systems/BATTLE_PASS.md`'s; this doc owns only the number. The charter adds
+**no faucet**: neither lane ever rewards `shards`, and the season reward lanes' total vendor
+value is capped at 1,500 `shards` (`10_systems/BATTLE_PASS.md` §5.3), so §1's faucet list is
+unchanged. First-pass number; retune at the D gate.
+
 ## 5. Potion economics vs hunting income
 
 A session must net **positive** while potions take a real **~20–30%** bite at combat-heavy levels
@@ -205,6 +216,13 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
   fee (`10_systems/social/MARKET.md`) is a further sink.
 - **No faucet from nothing.** `shards` come only from in-world play (§1); defeat, idling, and
   logging in grant none (`10_systems/DEATH_PENALTY.md` §3).
+- **The Cogwork Capsule never mints `shards`** (`10_systems/GACHAPON.md` §1/§7, pillar
+  amendment PA-001): capsule tickets cannot be bought or sold for `shards`, and every
+  dispensed prize carries vendor value 0 — the game's one real-money product has no path into
+  the `shards` supply, so §1's faucet list is unchanged.
+- **The Gilded Charter is a recurring sink, not a faucet** (§4.4): a flat monthly `shards`
+  outflow per participating character, with the reward lanes' vendor value budget-capped
+  (`10_systems/BATTLE_PASS.md` §5.3) so claiming rewards never becomes a `shards` entry point.
 - **Guild creation** reserves a large flat sink (placeholder ~100,000 `shards`, owner
   `10_systems/social/GUILD.md`) to soak endgame surplus.
 - **Bounded worst-case costs.** Enhancement pity (`10_systems/ENHANCEMENT.md` §3) caps the fee a

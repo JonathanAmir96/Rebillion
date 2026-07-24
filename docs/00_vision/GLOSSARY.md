@@ -122,7 +122,7 @@ render no layer. Z-order and part classes live in the owner doc, never restated.
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
 `item_cosmetic_NNNN` · `skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` ·
 `pool_equip_rNN` · `style_<category>_NN` (category ∈ `base`/`hair`/`face`/`skin`/`haircolor`;
-40_assets/CHARACTER_COMPOSITING.md)
+40_assets/CHARACTER_COMPOSITING.md) · `season_NNN` (10_systems/BATTLE_PASS.md)
 
 ## Region slugs (owner: docs/WORLD_PLAN.md; five-island world)
 `emberfoot` · `millbrook` · `verdant` · `tidewatch` · `gloomwood` · `ashfall` · `sunken` ·
@@ -185,8 +185,18 @@ The earlier free-warp "waygate" mechanism is retired — that token is invalid i
   `bold` · `perilous`), `slot_family` (`weapon_family` · `armor_family` ·
   `accessory_family`); owner 10_systems/SCROLLS.md. Promote when Phase D scroll content
   lands.
+- Charter family (owner: 10_systems/BATTLE_PASS.md; added 2026-07-24, promote at the next
+  gate): `charter` (the 30-day seasonal reward ledger — in-world the Wayfarer's Charter) ·
+  `charter_free` / `charter_gilt` (track enum: free lane / `shards`-purchased gilt lane) ·
+  `charter_mark` (charter progression point) · `season` (one 30-day charter cycle; IDs
+  `season_NNN`, block in docs/ID_REGISTRY.md)
+- Capsule family (owner: 10_systems/GACHAPON.md; added 2026-07-24 under pillar amendment
+  PA-001, the bounded exception to MON-001): `capsule` (the Cogwork Capsule gacha machine /
+  interactable kind) · `capsule_ticket` (one pull; item `item_use_0021`) · `capsule_pity`
+  (the per-character guaranteed-cosmetic counter)
 
 ## Open Questions
-- None currently. (The `haste` move/attack split was resolved at the B gate: kept combined;
+- None blocking. (The `haste` move/attack split was resolved at the B gate: kept combined;
   conversion percentages owned by 10_systems/STATS.md §5. Reopen only if animation breakpoints
-  demand it.)
+  demand it. Charter and capsule families promote at the next phase gate — owner
+  confirmations 2026-07-24.)

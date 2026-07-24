@@ -53,9 +53,21 @@ code, no generated art. Read `README.md` for the tree map and
   166 h · Lv 100 ≈ 300 h of `/played`; curve `kills_per_level(L) = round(20 + 6.6·L + 0.2·L²)`.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
-- Monetization (owner amendment MON-001, 2026-07-23): cosmetic-only + in-world sponsor
-  billboards, hard no-pay-to-win charter — `docs/10_systems/MONETIZATION.md`. Direction only;
-  no store content is authored this run.
+- Live-ops (owner addition 2026-07-24): the **Wayfarer's Charter** battle pass
+  (`docs/10_systems/BATTLE_PASS.md`) — 30-day seasons (`season_NNN`), free + gilt reward
+  lanes, gilt bought with **shards** (6,000, ECONOMY §4.4; real money never touches the
+  charter); **cosmetics are the gilt lane's headline offer**, minted from the
+  `item_cosmetic` Event/charter sub-block via the COSMETICS.md appearance layer. Charter
+  tokens provisional in GLOSSARY pending the next gate.
+- Monetization (owner amendments **MON-001** 2026-07-23 + **PA-001** 2026-07-24):
+  cosmetic-only + in-world sponsor billboards, hard no-pay-to-win charter
+  (`docs/10_systems/MONETIZATION.md`) — with **one bounded PA-001 exception**: the
+  **Cogwork Capsule** gacha (`docs/10_systems/GACHAPON.md`), the game's single real-money
+  product (capsule-ticket packs). Hard caps: power ≤ ordinary-play items (equip ≤ `rare`,
+  gear-mod scrolls, emberstones — never exclusives), tickets earnable free (charter 4/+8
+  per season + ≈1-per-7-h world drop), 10-purchase weekly cap, published odds + 40-pull
+  cosmetic pity, no real-money→shards bridge (prizes vendor 0). Changing any PA-001 cap is
+  a new pillar amendment, not a tune. Direction only; no store content authored this run.
 - Player sprite is **composited** (Maple-style paper-doll), never one baked sheet:
   layer stack + anchor map in `docs/40_assets/CHARACTER_COMPOSITING.md`, appearance palette
   via ART_BIBLE amendment AB-002, `style_*` IDs in ID_REGISTRY. Generation cost is linear in

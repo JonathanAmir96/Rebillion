@@ -21,6 +21,8 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Items — etc | ~185 | 16 materials per region (×11) + 4 raid tokens + emberstone tiers (batched tables) |
 | NPCs | 120 | Town-weighted; see ID_REGISTRY.md |
 | Quests | 120 | Region-banded kill/collect/talk/reach chains, incl. 8 raid handler quests |
+| Seasons (charter) | 1 | `season_001` (Wayfarer's Charter launch season, Phase D); owner 10_systems/BATTLE_PASS.md; IDs to `season_050` reserved |
+| Capsule prize pool | 1 | Cogwork Capsule gacha pool (Phase D); owner 10_systems/GACHAPON.md; cosmetics from the `item_cosmetic` capsule sub-block |
 | Elements | 6 | Owner: 10_systems/ELEMENTS.md (`arcane` mobs appear in Clockwork Ruins and Arcane Reach only) |
 | Status effects | 16 | Owner: 10_systems/STATUS_EFFECTS.md |
 | AI profiles | 12 | Owner: 10_systems/AI_BEHAVIOR.md |
@@ -38,20 +40,29 @@ until future arcs land. 10_systems/LEVELING.md designs the full curve to 300
 - All docs and content listed in GENERATE.md §2, including locked Appendices A–C verbatim.
 - Social/economy systems (trading, party, guild, chat, mail, market): full design docs or
   honest stubs, all flagged server-dependent; **no implementation**.
+- The Wayfarer's Charter seasonal system (30-day battle pass, free + `shards`-purchased gilt
+  lanes; 10_systems/BATTLE_PASS.md): design doc now, `season.schema.md` at Phase C,
+  `season_001` content at Phase D. Owner addition 2026-07-24.
+- The Cogwork Capsule gachapon (bounded real-money tickets per pillar amendment PA-001;
+  10_systems/GACHAPON.md): design doc now, `capsule_pool.schema.md` at Phase C, prize-pool
+  content at Phase D. Owner addition 2026-07-24.
 - `VALIDATION.md` pass/fail rules, run against every content batch during generation.
 - Coding-pass phase briefs in `60_agents/` (Phase E).
 
 ## Out of scope (this run)
 - GDScript/scenes/engine work of any kind; art or audio asset generation (PixelLab briefs are
   templates only); networking/backend; balancing beyond first-pass budget tables; localization
-  (US English only); monetization implementation (direction fixed by owner amendment MON-001 in
-  10_systems/MONETIZATION.md — cosmetic-only, no pay-to-win; no store content authored this
-  run); character cosmetics beyond equipment and the character-creation appearance set
+  (US English only); monetization implementation (direction fixed by owner amendments MON-001
+  + PA-001 in 10_systems/MONETIZATION.md — cosmetic-only, no pay-to-win, plus the single
+  bounded Cogwork Capsule gacha SKU, 10_systems/GACHAPON.md; no store content authored this
+  run; the Gilded Charter remains `shards`-purchased, 10_systems/BATTLE_PASS.md §1);
+  character cosmetics beyond equipment, the character-creation appearance set
   (base/hair/face/skin — owner directive 2026-07-24, design in
-  40_assets/CHARACTER_COMPOSITING.md; the zero-stat appearance layer MONETIZATION.md §3.1
-  reserved is now anchored for the earned side by 10_systems/COSMETICS.md — its system design
-  is in scope, while store content stays unauthored and nothing appearance-related is sold
-  this run).
+  40_assets/CHARACTER_COMPOSITING.md), and the zero-stat cosmetic layer
+  (10_systems/COSMETICS.md — the appearance layer MONETIZATION.md §3.1 reserved, now anchored
+  for the earned side; charter and capsule cosmetics mint `item_cosmetic` IDs there, never
+  stat-bearing equipment). Those system designs are in scope, while store content stays
+  unauthored and nothing appearance-related is sold this run.
 
 ## Deliberate scope limits
 - One weapon type per job line (4 total). Armor is class-agnostic with stat leans.
