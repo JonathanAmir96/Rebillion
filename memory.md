@@ -5,6 +5,61 @@ Companion Memory Bank (distilled current state, coding-pass context):
 `memory/projectbrief.md` → `memory/systemPatterns.md` → `memory/techContext.md` →
 `memory/activeContext.md` → `memory/progress.md`.
 
+## 2026-07-24 — repo-wide md audit, cleanup & consistency pass (owner-directed)
+
+Branch `claude/md-audit-2026-07-24` — **presented for owner review; nothing merged to `main`
+per the audit's merge policy.** Full report (the authoritative record of this wave):
+`docs/phase_reports/MD_AUDIT_REPORT_2026-07-24.md`. Method: 8 read-only reviewer sub-agents
+over all 117 md files (grill evidence contract) + producer adjudication; 6 mock-up authors;
+validator + md_graph gated every commit (0/0 throughout).
+
+- **Relevance pass:** dated supersession banners on 4 phase reports + the executed
+  BACKEND_KICKOFF_PROMPT; ~10 stale already-landed Open Questions closed (ITEMS registry
+  re-block, JOBS skill re-block + spec tokens, SPAWN filename, PARTY_FINDER tokens, PARTY HUD
+  region, SKILL_SYSTEM bar count…); Law-2 restatement trims (ACCOUNT name law, README rules,
+  PARTY drop-bonus ladder); this file's misplaced gameplay-loop entry relocated to
+  newest-first order; GLOSSARY `coach_station`/`coach_clerk`/`pier_officer` promoted
+  (C-gate condition met) + `from_ferry` formalized; last "(v2.3)/(v3)" vintage tags dropped.
+- **Contradiction sweep:** ~27 rulings, owner doc wins every time — headline: ORG.md's
+  "locked files touched by no one" → CLAUDE.md Law 5 change-controlled wording (swept through
+  5 role files + 6 other docs); memory/techContext slots 3→4; TELEMETRY ≤3→≤4; NETWORK_PROTOCOL
+  opcode count 103→106; BACKEND_ARCHITECTURE/CHAT_SOCIAL gain `party_finder` (§7 row + §3.7
+  stub); DATABASE_PERSISTENCE gains the PERSISTENCE §2.1 time-gate table; RAID §5 wipe list
+  gains the COMBAT_FORMULA §13.3 enrage trigger; SCOPE↔COSMETICS §3.1 reconciled;
+  MAP_TRAVERSAL finally defines footholds (AB-001) + MAP_LAYERS bridge; WIKI_EXPORT
+  acknowledges the landed wiki_gen.py; schema exemplars disclaimed/synced; FTUE §2 gap
+  arithmetic fixed. **Flagged-not-fixed owner calls (5):** the schema `icon` law (required by
+  item/skill schemas, absent from all minted rows, validator would reject it), SPAWN
+  mob_pool weight-vs-count model, MAPS_SYSTEM reach-step trigger zones, ITEMS shield/overall
+  integration pointer, the ES- amendment channel operator.
+- **Connectivity:** true directed BFS exposed the 5-file `memory/` Memory Bank as unreachable
+  (the CLI degree check reads 0) — linked from README/CLAUDE.md/memory.md; counts 98/98 →
+  **117/117**; MD_CONNECTIVITY_REPORT regenerated with the BFS caveat.
+- **Change-controlled amendments (owner-authorized for this audit):** UA-002 + ES-002
+  (structural `## Open Questions` conformance), UA-003 (mock-ups referenced as non-binding).
+  ART_BIBLE.yaml verified clean, untouched.
+- **Quest-`exp` regen (the flagged Phase-D handoff) landed:** `tools/regen_quest_exp.py`,
+  120/120 mechanically regenerated on the ratified curve, authored pcts preserved
+  (0 out-of-band), two Phase-D authoring slips healed (quest_058 mis-computed integer;
+  quest_097 e(54)=716 slip), comments refreshed. **FTUE §2 verified: Emberfoot quest sum
+  3,804 ≥ 3,800 — the 60-min Lv-8 promise closes before one-time grants.** QUESTS/LEVELING
+  stale-exp OQs closed; `shards` + monster `stats.exp` untouched.
+- **Content hygiene:** grey→gray (31 flavor strings, the only US-spelling family tree-wide);
+  banned-token sweep zero hits outside VALIDATION.md.
+- **Mock-ups:** `gameplay_scene_mockup.html` refreshed to exact ART_BIBLE tokens; 5 new
+  wireframes (entry/roster/creation · Millbrook hub · inventory+character windows · world
+  map/travel · raid boss HUD) — all self-contained, palette-locked, README-linked.
+
+## 2026-07-24 — unlogged waves, reconstructed by the md audit (retroactive entry)
+
+Two landed waves carried no memory entry (found via `git log` during the audit; placement
+here is approximate — times from git): the **`memory/` Memory Bank** (5-file distilled
+context: projectbrief/systemPatterns/techContext/activeContext/progress, commit `1b28149`
+@ ~07:24 UTC) and **`docs/70_integrations/SERVER_LOGGING_SPEC.md` + the ID_REGISTRY
+log-event-code blocks** (commits `ec5e839`/`6370a72` @ ~10:57 UTC). Both were audited and
+reconciled by the md-audit wave above (the Memory Bank was also unreachable + partly stale —
+fixed there).
+
 ## 2026-07-24 — wiki generator + per-monster animation notes (owner-directed)
 
 Branch `claude/monster-maps-design-review-d0sytf` (rebased onto main). Owner directives: (1) a

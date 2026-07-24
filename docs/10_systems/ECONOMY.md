@@ -297,3 +297,9 @@ server-authoritative flag (`10_systems/PERSISTENCE.md`); every later crossing pa
   differently, align the flag. Whether the waiver should instead attach to the Deepway
   (`15_maps_system/MAP_CONNECTIONS.md` §9, the free walking route) rather than the paid longship is
   a minor call — default keeps it on the longship (the paid mode, where a waiver is meaningful).
+- **§7.1's 3+-segment coach tier may be unreachable on the real ring (2026-07-24 md audit).**
+  The tier's example pair ("longest ring hop — Cindershelf ↔ Tidewatch Port") is topologically
+  wrong: `docs/WORLD_PLAN.md`'s ring-closure edge (`map_088` ↔ `map_140`) makes Ashfall and
+  Tidewatch adjacent, so that pair is a 1-segment hop, and on the five-station ring no pair
+  appears to need 3+ segments at all. Either re-example and keep the tier as future headroom, or
+  drop the 320-shard row; fares are this doc's call, topology is WORLD_PLAN's. Owner: this doc.

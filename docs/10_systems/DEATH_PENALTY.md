@@ -131,8 +131,10 @@ deaths have no revive option at all (respawn is the only path).
 ## Open Questions
 - Exact `pct` values (§2) are first-pass balance; owner for retuning is this doc, informed by
   `10_systems/LEVELING.md`'s eventual exp curve.
-- Whether a fallen character (§5.3) still shows on party frames or counts for loot eligibility is
-  `10_systems/social/PARTY.md`'s call — flagged for confirmation.
+- **Partially resolved (2026-07-24 md audit):** the party-frame half is settled —
+  `10_systems/HUD.md` §4.1 renders fallen members (desaturated plate + fallen glyph, resolving
+  this doc's flag on the HUD side). Loot eligibility while fallen remains
+  `10_systems/social/PARTY.md` §6's call — still flagged there.
 - Rebind cost: is resting at a new inn free, or does it cost `shards`/carry a cooldown? Default
   assumed **free**; owner `10_systems/ECONOMY.md` may add a fee.
 - A revive skill effect op (§6) is proposed for `10_systems/SKILL_EFFECTS.md` to pick up as

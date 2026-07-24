@@ -264,8 +264,8 @@ Cinder-warmed training island around the starter village. Tone: warm, safe, firs
 Harbor district + timber-and-cobble market city; the social heart, and **home of the
 Flicker line** (its instructor keeps the undervault quarter). Tone: cozy, lantern-lit.
 - Maps `017`–`042`: `017` town **Rosen Harbor** (ferry dock, coach station) · `018` town
-  **Millbrook Central** (hub, coach station) · `019`–`026` interiors (inn, smithy, market hall, guild hall,
-  tavern, mayor's house, harbor office, bank) · `027`–`035` fields (west outskirts `027`,
+  **Millbrook Central** (hub, coach station) · `019`–`026` interiors (inn, harbor office, bank,
+  smithy, market hall, guild hall `map_024`, tavern, mayor's house — minted ID order) · `027`–`035` fields (west outskirts `027`,
   east road `028`, farmland, mill lanes) · `036`–`037` dungeons (Millbrook Catacombs) ·
   `038`–`040` dungeons (**raid `raid_undervault` stages**, party-instanced) · `041` secret ·
   `042` arena (The Cellar Deep — also the `raid_undervault` finale instance).
