@@ -16,14 +16,15 @@ from hidden math.
 ## P2 — The grind is cozy, not cruel
 Progression is steady and legible: clear level bands per region, drop tables you can reason
 about, no trap builds. Sessions of 20 minutes must feel rewarding. Death stings but never
-deletes an evening (DEATH_PENALTY.md). Idle moments in towns are part of the game, not waste.
+deletes an evening (10_systems/DEATH_PENALTY.md). Idle moments in towns are part of the game, not waste.
 
-## P3 — One world, hub-and-spoke
-Two islands, one world: a sheltered training isle, then a ferry to the great island where
-Millbrook is the social heart. Regions have strong biome identity (one palette ramp, one
-motif), maps connect like real geography, and travel is a legible loop: walk the ring, hunt
-outward, and pay your way home — coach fares in shards, or the long walk back. The world map
-should be drawable from memory.
+## P3 — One world, a walkable ring
+Five islands, one world: a sheltered training isle, a ferry to the great ringed island where
+Millbrook is the social heart, and the far isles beyond — reached by deep passage or
+longship. Regions have strong biome identity (one palette ramp, one
+motif), maps connect like real geography, and travel is a legible loop: hunt outward, return
+home by the Millbrook Return Scroll or a paid coach — there are no free warps
+(WORLD_PLAN.md §Harthmoor Coachworks). The world map should be drawable from memory.
 
 ## P4 — Compose, don't enumerate
 Skills are compositions of effect primitives. Monsters are stats plus a named behavior profile.
@@ -38,7 +39,7 @@ are build failures, not surprises.
 
 ## P6 — Multiplayer-shaped from day one
 Trading, parties, guilds, chat, mail, and the market are designed now and stubbed honestly —
-the client is written against a server-authoritative boundary (PERSISTENCE.md,
+the client is written against a server-authoritative boundary (10_systems/PERSISTENCE.md,
 30_engineering/ENGINEERING_STANDARDS.md) even while running solo. No system may assume it owns
 truth that the server will later own.
 
@@ -49,8 +50,9 @@ would read as another game's asset, term, or map is out — homage yes, clone ne
 ## Anti-pillars (never do)
 - No photoreal or HD-2D rendering; pixel identity is locked in ART_BIBLE.yaml.
 - No pay-to-win (amended MON-001): real-money purchases may never grant stats, power,
-  progression speed, or market-tradable advantage. Cosmetic-only monetization direction per
-  10_systems/MONETIZATION.md; shards remain earned in-world only (ECONOMY.md).
+  progression speed, or market-tradable advantage. Cosmetic-only monetization and in-world
+  sponsor placements are permitted per 10_systems/MONETIZATION.md; shards remain earned
+  in-world only (10_systems/ECONOMY.md).
 - No rule text inside content files; content holds values and references only.
 - No silent invention: unknown token, rule, or number → Open Question, not a guess.
 
@@ -58,5 +60,4 @@ would read as another game's asset, term, or map is out — homage yes, clone ne
 - None. (Pillars locked at Phase A; changes require an orchestrator amendment. Amendment
   log: **MON-001**, owner, 2026-07-23 — anti-pillar "no pay-style economy" refined to
   "no pay-to-win"; cosmetic-only monetization direction fixed in
-  10_systems/MONETIZATION.md. 2026-07-24 — P3 travel phrasing updated from free "warp
-  home" to the paid-coach loop per owner Decision Contract C5, recorded in `memory.md`.)
+  10_systems/MONETIZATION.md.)

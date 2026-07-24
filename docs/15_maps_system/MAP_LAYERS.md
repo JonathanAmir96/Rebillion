@@ -70,10 +70,7 @@ Every map's `tileset_id` = `tileset_<biome_key>`, where `biome_key` is looked up
 the same as the region slug for Millbrook and Sunken (below). A map's biome (and therefore
 tileset) is fully determined by its region; there is no second map-level art token.
 
-The **8 active biomes** (the v2 first-arc regions r01–r08; keys per `docs/WORLD_PLAN.md`'s Region
-overview "Biome key (ramp)" column):
-
-| Region (`docs/WORLD_PLAN.md`) | Biome key | Tileset token |
+| Region (v3, `docs/WORLD_PLAN.md`) | Biome key | Tileset token |
 |---|---|---|
 | Emberfoot Isle | `emberfoot` | `tileset_emberfoot` |
 | Millbrook & Rosen Harbor | `old_town` | `tileset_old_town` |
@@ -83,29 +80,15 @@ overview "Biome key (ramp)" column):
 | Ashfall Barrens | `ashfall` | `tileset_ashfall` |
 | Sunken Depths | `tidewatch_dark` | `tileset_tidewatch_dark` |
 | Clockwork Ruins | `clockwork` | `tileset_clockwork` |
-
-One tileset id per biome (**8 total** in this run); internal variants for a region's distinct
-sub-areas (e.g., a cave versus an open field in the same region) are an atlas-organization concern
-inside that one tileset, owned by `40_assets/ART_BIBLE.yaml`, not a second token here.
-
-**ART_BIBLE amendment AB-001 (foothold terrain).** Organic ground is *not* built from seamless
-terrain tiles — it is hand-painted `terrain_chunk` art snapped to `foothold` segments
-(`15_maps_system/MAP_TRAVERSAL.md` §1; `docs/00_vision/GLOSSARY.md` Terrain). Each biome's
-`tileset_<biome_key>` therefore governs the region's **built structures and non-terrain tilesets**
-(towns, interiors, dungeon brickwork, platform props) plus the biome's painted-chunk palette ramp;
-it is not a seamless organic-ground tileset. The 16 px grid remains the layout and measurement unit
-(map sizes, jump metrics) per AB-001.
-
-**Reserved future-arc biomes — not used in this run.** The four biome keys below belong to
-future-expansion islands (`docs/WORLD_PLAN.md` Open Questions) and **must not** appear on any v2
-map or drive any active rule. Listed only so their tokens are not accidentally reused:
-
-| Reserved region | Biome key | Tileset token |
-|---|---|---|
-| Frostpeak Ascent | `frostpeak` | `tileset_frostpeak` |
+| Frostpeak Isle | `frostpeak` | `tileset_frostpeak` |
 | Arcane Reach | `arcane_reach` | `tileset_arcane_reach` |
 | Voidshore | `voidshore` | `tileset_voidshore` |
-| The Rift | `rift` | `tileset_rift` |
+
+One tileset id per biome (11 total across the two authored arcs); only the `rift` biome key is
+**reserved for a future arc** (`00_vision/SCOPE.md`, `docs/WORLD_PLAN.md`) and mints its tileset
+token when that arc lands. Internal variants for a region's distinct sub-areas (e.g., a
+cave versus an open field in the same region) are an atlas-organization concern inside that one
+tileset, owned by `40_assets/ART_BIBLE.yaml`, not a second token here.
 
 ## 5. Lighting/ambience overlay policy
 

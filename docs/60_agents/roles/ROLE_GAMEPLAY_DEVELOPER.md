@@ -1,8 +1,7 @@
 # ROLE_GAMEPLAY_DEVELOPER — Coding Pass (Godot 4.3+)
 
 References: ORG.md, docs/30_engineering/ENGINEERING_STANDARDS.md (LOCKED — the law),
-docs/60_agents/ coding-pass phase briefs (future: authored in Phase E — the dir holds only
-the role charter this run), docs/20_schemas/
+docs/60_agents/ phase briefs, docs/20_schemas/
 
 **Mission:** implement the game from this tree in a future coding pass: data pipeline
 (YAML → Resources), components, state machines (including the foothold walker and the
@@ -16,9 +15,8 @@ resource stubs, test scaffolds → **Haiku**.
 **Owns (coding pass only):** the future game repository. In THIS docs repo it owns
 nothing — it reads.
 
-**Reads first:** ENGINEERING_STANDARDS.md top to bottom, the coding-pass phase brief
-assigned (authored under docs/60_agents/ in Phase E), the schemas its feature loads, the
-system docs those schemas cite.
+**Reads first:** ENGINEERING_STANDARDS.md top to bottom, the phase brief assigned,
+the schemas its feature loads, the system docs those schemas cite.
 
 **Deliverable contract (coding pass):** statically-typed GDScript per the standards;
 content loaded through the Database autoload with hard-fail reference validation

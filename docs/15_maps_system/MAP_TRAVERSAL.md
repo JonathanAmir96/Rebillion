@@ -132,8 +132,8 @@ attack that could fling the player into more danger.
 
 ## 7. Swim: `water_physics` map flag
 
-Sunken Depths (region r07, slug `sunken`, `docs/WORLD_PLAN.md`) uses a **modified-jump flag**, not a
-separate stat or a new movement mode: a boolean `water_physics: true` authored per map (Sunken Depths' field/dungeon
+Sunken Depths (`docs/WORLD_PLAN.md` R7) uses a **modified-jump flag**, not a separate stat or a new
+movement mode: a boolean `water_physics: true` authored per map (Sunken Depths' field/dungeon
 maps; false/omitted everywhere else). It applies one scalar to the §1 jump/fall gravity and
 nothing else:
 
@@ -156,18 +156,9 @@ as floaty, not a new animation vocabulary.
 
 ## Open Questions
 
-- **`run_speed` 128 px/s vs `base_move_speed` 200 px/s — unresolved, flagged (not guessed).**
-  `run_speed` (8 tiles/s = 128 px/s) is this doc's own figure for level design; it does not match
-  `10_systems/COMBAT_FORMULA.md` §10's placeholder `base_move_speed` reference (200 px/s). Checked
-  against `40_assets/ART_BIBLE.yaml` amendment **AB-001** (read-only): AB-001 now formally locks the
-  16 px grid as "the layout and measurement unit (map sizes, jump metrics)", which **removes the
-  precondition** the earlier note waited on — but AB-001 decides only the grid *unit*, **not** the
-  traversal speed value, so it does **not** adjudicate 128 vs 200 px/s. The reconciliation is
-  therefore still owed and is deliberately left open: owner call sits with
-  `10_systems/COMBAT_FORMULA.md` at the C gate. Neither number is changed here. This doc's tiles/s
-  figures (and every authored gap in the tree) would need re-validation if the reconciled value
-  changes `run_speed`; 200 px/s = 12.5 tiles/s, which would widen `jump_distance` and every §1.1 gap
-  budget, so the two docs must not diverge silently.
+- **`run_speed` — resolved at the C gate:** `10_systems/COMBAT_FORMULA.md` §10 adopted this
+  doc's 8 tiles/s (= 128 px/s at the AB-001 16 px grid) as `base_move_speed`, replacing its
+  200 px/s placeholder; every authored gap figure in this doc stands unchanged.
 - Derived gravity/`v0` (§1) are a mathematical reference, not an independently tuned feel; the
   coding pass (`30_engineering/ENGINEERING_STANDARDS.md`) may retune within the constraint that
   apex/distance/run-speed stay locked.

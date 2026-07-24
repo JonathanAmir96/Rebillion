@@ -8,8 +8,8 @@ docs/WORLD_PLAN.md, 10_systems/DEATH_PENALTY.md, 10_systems/HUD.md, 10_systems/P
 40_assets/ART_BIBLE.yaml, 20_schemas/map.schema.md
 
 Owner doc for the 10 interactable object **types** a map YAML may place, and each type's param
-shape. Portal *rules* (which kinds connect which maps, spawn-point targeting, coach-travel fares)
-are `15_maps_system/MAP_CONNECTIONS.md`'s; the climbing mechanic ropes/ladders invoke is
+shape. Portal *rules* (which kinds connect which maps, spawn-point targeting, the coach network and
+longship ride flow) are `15_maps_system/MAP_CONNECTIONS.md`'s; the climbing mechanic ropes/ladders invoke is
 `15_maps_system/MAP_TRAVERSAL.md` §4; drop-table math and loot ownership windows are the future
 `10_systems/DROPS.md`. This doc owns only the object shapes themselves.
 
@@ -31,23 +31,38 @@ deliberate "use" action (a prompt + input) while layer 7 objects auto-collect on
 
 ## 2. `portal`
 
-Kinds: `edge`, `door`, `coach`. Full connection semantics, spawn-point law, and the paid
-coach-travel rules are `15_maps_system/MAP_CONNECTIONS.md`'s; this doc owns only the object's params.
+Kinds: `edge`, `door`, `coach`, `longship`. Full connection semantics, spawn-point law, the coach
+network rule, and the longship ride flow are `15_maps_system/MAP_CONNECTIONS.md`'s (§§1–3, §8); this
+doc owns only the object's params. Any kind may additionally carry the optional `level_gate`
+property (`15_maps_system/MAP_CONNECTIONS.md` §9).
 
 | Param | Type | Notes |
 |---|---|---|
-| `kind` | enum | `edge` \| `door` \| `coach` |
-| `target_map` | `map_NNN` | Fixed for `edge`/`door` (a `door` includes both Harborwind Ferry ends); for `coach`, resolved dynamically at use-time from the destination the player picks in the coach menu (§9), not a single fixed value |
-| `target_spawn` | spawn name | Naming law in `15_maps_system/MAP_CONNECTIONS.md` §2 (`from_<slug>`, `from_ferry`, `coach_stop`) |
+| `kind` | enum | `edge` \| `door` \| `coach` \| `longship` |
+| `target_map` | `map_NNN` | Fixed for `edge`/`door`; for `coach`, resolved at use-time from the Coachworks destination menu (all Harthmoor stations, `15_maps_system/MAP_CONNECTIONS.md` §3) rather than a single fixed value; for `longship`, the boarding portal targets its route's deck map and the deck arrival portal targets the destination pier (`15_maps_system/MAP_CONNECTIONS.md` §8) |
+| `target_spawn` | spawn name | Naming law in `15_maps_system/MAP_CONNECTIONS.md` §2 — `coach_stop` for coach arrivals; `longship_deck` (boarding) / `longship_dock` (arrival) for longship |
+| `level_gate` | int | Optional; minimum character `level` to pass. Absent = no gate (the default, every arc-1 portal). Applies uniformly across kinds (`15_maps_system/MAP_CONNECTIONS.md` §9) |
+| `route_id` | route ref | `longship` only — the route this portal serves; route identity + endpoint maps owned by `docs/WORLD_PLAN.md`'s arc-2 edge table (`15_maps_system/MAP_CONNECTIONS.md` §8.2) |
+| `fare_ref` | fare-row ref | `longship` only — hook to the route's `10_systems/ECONOMY.md` §7.2 fare row, charged at boarding (`15_maps_system/MAP_CONNECTIONS.md` §8.1) |
+| `cadence_s` | float | `longship` only — real-time interval between departures; default `15_maps_system/MAP_CONNECTIONS.md` §8.3 |
+| `sail_duration_s` | float | `longship` only — real-time deck-ride length; default `15_maps_system/MAP_CONNECTIONS.md` §8.3 |
 | `dead_end` | bool | `docs/VALIDATION.md` §5 — true if no reverse portal exists on the destination |
 
-- `edge` — a screen-edge walk-off transition (most field/dungeon chain links and all 8 cross-
+- `edge` — a screen-edge walk-off transition (most field/dungeon chain links and all the cross-
   region walk edges, `docs/WORLD_PLAN.md`); visually seamless, no prompt.
 - `door` — an explicit approach-and-interact threshold (town↔interior, every arena's entry gate,
-  `15_maps_system/MAPS_SYSTEM.md` §8, and both Harborwind Ferry ends, `map_001`/`map_017`).
-- `coach` — the paid Harthmoor Coachworks transit itself, always paired with a `coach_station` (§9)
-  on the same town map; charges a `shards` fare (`10_systems/ECONOMY.md`) per ride. Visual identity
-  for all three kinds is `40_assets/ART_BIBLE.yaml`'s. The retired `waygate` kind no longer exists.
+  `15_maps_system/MAPS_SYSTEM.md` §8; also the Harborwind Ferry crossing and the Deepway,
+  `15_maps_system/MAP_CONNECTIONS.md` §9.1 — the latter carries `level_gate: 40`).
+- `coach` — the paid Harthmoor Coachworks town↔town transit itself, always paired with a
+  `coach_station` (§9) on the same map; the station opens the destination menu and charges the fare
+  (`15_maps_system/MAP_CONNECTIONS.md` §3).
+- `longship` — the paid **scheduled** arc-2 inter-island transit. Boarding is mediated by a
+  `pier_officer` NPC (`20_schemas/npc.schema.md`) standing at the origin pier, co-located with the
+  boarding portal: the officer takes the `fare_ref` fare and admits the player, who rides the deck
+  map for `sail_duration_s` before the arrival portal delivers them to the destination pier's
+  `longship_dock` (full flow `15_maps_system/MAP_CONNECTIONS.md` §8). No dedicated boarding
+  *interactable object* exists — the NPC is the boarding gate — so this doc's type count stays at 10.
+- Visual identity for all portal kinds is `40_assets/ART_BIBLE.yaml`'s.
 
 ## 3. `rope` / `ladder`
 
@@ -128,19 +143,18 @@ the solo client may cache a local advisory copy — the client only opens the UI
 
 ## 9. `coach_station`
 
-The physical station a player interacts with to buy a Harthmoor Coachworks ride. Full fare and
-network semantics are `15_maps_system/MAP_CONNECTIONS.md` §3; this doc defines only the object. A
-`coach_station` sits only in the five coach towns (`docs/WORLD_PLAN.md`) and is always co-located
-with exactly one `portal(kind: coach)` (§2) on the same map — interacting with the station opens the
-destination menu (`10_systems/HUD.md`) and, on a paid selection, triggers that portal, dynamically
-targeting whichever coach station the player picks. A `coach_npc` (the coachman) may render at the
-station; the Rosen Harbor coachman is the one who grants the free novice pilgrimage ride
-(`MAP_CONNECTIONS.md` §3). The retired `waygate_console` is an invalid token
-(`00_vision/GLOSSARY.md` Transport).
+The physical Harthmoor Coachworks station a player interacts with to open the destination menu and
+pay the ride. Full network semantics are `15_maps_system/MAP_CONNECTIONS.md` §3 and the `shards`
+fares are `10_systems/ECONOMY.md` §7.1; this doc defines only the object. A `coach_station` is
+always co-located with exactly one `portal(kind: coach)` (§2) on the same map — interacting with the
+station opens the destination menu (`10_systems/HUD.md`) and, on selecting a destination and paying
+the ring-distance fare, triggers that portal to the chosen station's `coach_stop` spawn. There is no
+per-character unlock set — every station is always available (paid per ride). The one free novice
+pilgrimage ride is granted by the `coach_clerk` NPC (`20_schemas/npc.schema.md`), not the object.
 
 | Param | Type | Notes |
 |---|---|---|
-| `id` | — | One per coach town map |
+| `id` | — | One per coach-station map |
 
 ## 10. `quest_object`
 

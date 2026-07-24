@@ -31,8 +31,7 @@ handful of Lesser tonics; §4).
 | Sink | Owner of the number | Scales with |
 |---|---|---|
 | Consumables (tonics/cleanses/scrolls/foods) | §4 (this doc) | level band (§4) |
-| Town travel — Coachworks fares + Harborwind Ferry | §7 (this doc) | ring-hop distance (coach); flat (ferry) |
-| Millbrook Return Scroll (`item_use_0013`) | §4.1 (this doc) | flat — paid recall consumable (§7) |
+| Travel (Harborwind Ferry + Harthmoor Coachworks fares) | §4.3 (this doc) | ring distance |
 | Enhancement fee | §3 (this doc) | gear tier × target `+` |
 | Stat free-point reallocation | §3.1 (this doc) | `level` |
 | Guild creation | `10_systems/social/GUILD.md` (fee reserved here) | flat, endgame |
@@ -59,20 +58,25 @@ base_fee(T) = round( 3 · mean_shards_normal(T.req_level) )   # DROPS §3
 plus_mult(n) = 1 + 0.5·(n - 1)                        # +1 → ×1.0 … +9 → ×5.0
 ```
 
+Tier `req_level`s follow `10_systems/ITEMS.md` §4's v3 twelve-tier ladder (T1–T6 arc 1, T7–T12
+arc 2); sampled rows below, intermediate tiers computed from the same formula.
+
 | Tier (`req_level`) | `base_fee` | fee @ +1 | @ +5 | @ +9 |
 |---|---|---|---|---|
 | T1 (1) | 15 | 15 | 45 | 75 |
-| T2 (8) | 45 | 45 | 135 | 225 |
 | T3 (15) | 78 | 78 | 234 | 390 |
-| T4 (22) | 108 | 108 | 324 | 540 |
 | T5 (29) | 141 | 141 | 423 | 705 |
 | T6 (36) | 171 | 171 | 513 | 855 |
-| T7 (40) | 189 | 189 | 567 | 945 |
+| T8 (50) | 234 | 234 | 702 | 1,170 |
+| T10 (64) | 297 | 297 | 891 | 1,485 |
+| T12 (78) | 360 | 360 | 1,080 | 1,800 |
 
-Worked: taking one T7 item 0→+9 (guaranteed +1..+5, then the §3-pity risky band, expected ≈ 8
-attempts total) costs ≈ **5.1 K `shards`** ≈ 10 min of at-level (Lv 42) income (§5) — a real but
-cozy sink, repeated per key item. Pity (`10_systems/ENHANCEMENT.md` §3) bounds the worst case; luck
-never inflates the *fee* past the 5-attempt cap per level.
+Worked: taking one T6 item 0→+9 (guaranteed +1..+5, then the §3-pity risky band, expected ≈ 13
+attempts total) costs ≈ **7.5 K `shards`** ≈ 16 min of at-level income (§5) — a real but cozy
+sink, repeated per key item; because fee and income both scale on `mean_shards_normal`, the same
+climb on a T12 item (≈ 15.8 K) costs the same ≈ 16 min at its own level. Pity
+(`10_systems/ENHANCEMENT.md` §3) bounds the worst case; luck never inflates the *fee* past the
+5-attempt cap per level.
 
 ### 3.1 Stat free-point reallocation fee
 
@@ -83,9 +87,11 @@ fee; this doc owns the number:
 reallocation_fee(L) = round( 50 · L )       # full respec of the free pool
 ```
 
-Lv 30 → 1,500; Lv 42 (arc end) → 2,100; reference Lv 80 → 4,000. Scales with `level` so it stays a
-meaningful choice without ever locking a build (P2 — no trap builds; the pool is always
-reallocatable). First-pass; `10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
+Lv 10 → 500; Lv 30 → 1,500; Lv 80 (arc-2 top, `docs/00_vision/SCOPE.md`) → 4,000. The
+formula is designed to keep scaling unchanged over the full climb to the Lv 300 cap
+(`10_systems/LEVELING.md` §6) as future arcs land. Scales with `level` so it stays a meaningful
+choice without ever locking a build (P2 — no trap builds; the pool is always reallocatable).
+First-pass; `10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
 
 ## 4. Vendor price bands
 
@@ -95,34 +101,53 @@ buy)`.
 
 ### 4.1 Consumables (`item_use`, `docs/ID_REGISTRY.md` §use)
 
-The five tonic tiers span the authored Lv 1–42 arc (`docs/ID_REGISTRY.md`; band mapping here,
-magnitudes are Phase D `10_systems/ITEMS.md` data):
-
 | Item (life / essence pair) | Serves band | Buy | Sell |
 |---|---|---|---|
-| Lesser Life / Essence Tonic (`0001`/`0006`) | Lv 1–8 | 15 | 4 |
-| Life / Essence Tonic (`0002`/`0007`) | Lv 9–17 | 50 | 13 |
-| Greater … (`0003`/`0008`) | Lv 18–25 | 130 | 33 |
-| Superior … (`0004`/`0009`) | Lv 26–33 | 280 | 70 |
-| Prime … (`0005`/`0010`) | Lv 34–42 | 500 | 125 |
+| Lesser Life / Essence Tonic (`0001`/`0006`) | Lv 1–9 | 15 | 4 |
+| Life / Essence Tonic (`0002`/`0007`) | Lv 10–18 | 60 | 15 |
+| Greater … (`0003`/`0008`) | Lv 19–27 | 200 | 50 |
+| Superior … (`0004`/`0009`) | Lv 28–36 | 500 | 125 |
+| Prime … (`0005`/`0010`) | Lv 37–42 (arc-1 top) | 1,000 | 250 |
+| Sovereign … (`0017`/`0018`) | Lv 40–61 (arc 2) | 1,200 | 300 |
+| Mythic … (`0019`/`0020`) | Lv 62–80+ (arc 2) | 1,500 | 375 |
 | Antidote (`0011`) / Thaw Salve (`0012`) | any | 50 | 12 |
-| Millbrook Return Scroll (`0013`) | any | 2,500 | 625 |
+| Millbrook Return Scroll (`0013`) | any | 100 | 25 |
 | Hearth Bread (`0014`, food buff) | any | 80 | 20 |
 | Sharpening Oil (`0015`) / Ironhide Draught (`0016`) | any | 150 | 37 |
 
 Restore/buff magnitudes are Phase D use-item data (`10_systems/ITEMS.md` §1); this table owns only
-price. A tonic tier is meant to be replaced as you out-level its band (its flat restore stops
-keeping pace) — the upgrade cadence is itself a rising sink (§6).
+price. The tier→band binding is `10_systems/ITEMS.md` §1.1's (the v3 seven-tier ladder: five
+arc-1 tiers plus the arc-2 Sovereign/Mythic pairs; the Lv 40–42 Prime/Sovereign overlap is the
+intended arc handoff) — restated here as price rows only. The Sovereign/Mythic prices are
+first-pass, deliberately flatter than the arc-1 doubling so the §5 bite stays bounded (Open
+Questions). A tonic tier is meant to be replaced as you out-level its band (its flat restore
+stops keeping pace) — the upgrade cadence is itself a rising sink (§6).
 
-**The Millbrook Return Scroll (`0013`) is a paid travel sink, not a cheap convenience.** Per the
-`docs/WORLD_PLAN.md` ruling (v2.2) it is a **shard-priced vendor consumable** — a single-use, one-way
-recall to Millbrook Central's `main` spawn, purchasable in advance and stockpiled — sold at every
-town's general-goods vendor. It is **not free** and there is no free warp anywhere
-(`15_maps_system/MAP_CONNECTIONS.md` §3). Its **2,500** `shards` price is set **above the priciest
-coach ride to Millbrook** (a 2-hop 1,800-`shards` fare, §7) as a deliberate convenience premium: the
-scroll recalls from **anywhere** — including dungeons, arenas, and the station-less Sunken Depths
-spur — instantly and without walking to a coach stop, where a coach only runs station-to-station
-(§7). Pricing rationale and the fare comparison live in §7.
+**`steady` scroll shelf** (`10_systems/SCROLLS.md` §4.2 — vendor sells `steady` tier only;
+`bold`/`perilous` are drop-/quest-only; resolves that doc's filed §4.1-price-rows question):
+
+| Scroll SKU (`steady`, `docs/ID_REGISTRY.md` scroll block) | Buy | Sell |
+|---|---|---|
+| Weapon-family `aspect` | 800 | 200 |
+| Weapon-family `temper` | 1,200 | 300 |
+| Armor-family `aspect` | 500 | 125 |
+| Armor-family `temper` | 750 | 188 |
+| Accessory-family `aspect` | 600 | 150 |
+| Accessory-family `temper` | 900 | 225 |
+
+### 4.3 Travel fares (`docs/WORLD_PLAN.md` v2.2 — Harborwind Ferry & Harthmoor Coachworks)
+
+| Ride | Fare (`shards`) |
+|---|---|
+| Harborwind Ferry, per crossing (`map_001` ↔ `map_017`) | 25 |
+| Coach, between stations | `100 × hops` (100–400) |
+
+`hops` counts stations along the shortest coach-route path (stations: Rosen Harbor, Millbrook
+Central, Mossmere, Cindershelf, Tidewatch Port; Rosen Harbor ↔ Millbrook Central counts as 1).
+Each fresh character's **one free ride** from Rosen Harbor to their job instructor's town (the
+advancement pilgrimage, `docs/WORLD_PLAN.md`) waives the fare once and only once, server-tracked.
+Fares are deliberately below one minute of at-band hunting income (§5) — paid convenience, never
+a wall (`00_vision/PILLARS.md` P2); walking the ring stays free.
 
 ### 4.2 Equipment (buy value by tier × rarity)
 
@@ -132,17 +157,20 @@ buy anything at 25%. Buy value = `base_buy(tier) · rarity_mult`:
 | Tier (`req_level`) | `base_buy` (`common`) |  | `rarity_mult` |  |
 |---|---|---|---|---|
 | T1 (1) | 30 |  | `common` | ×1 |
-| T2 (8) | 100 |  | `uncommon` | ×2.5 |
-| T4 (22) | 360 |  | `rare` | ×8 |
-| T6 (36) | 870 |  | `epic` | ×30 |
-| T7 (40) | 1,050 |  | `legendary` | ×30 (suppressed) |
+| T2 (8) | 120 |  | `uncommon` | ×2.5 |
+| T4 (22) | 600 |  | `rare` | ×8 |
+| T6 (36) | 1,800 |  | `epic` | ×30 |
+| T8 (50) | 4,000 |  | `legendary` | ×30 (suppressed) |
+| T10 (64) | 8,000 |  | | |
+| T12 (78) | 13,000 |  | | |
 
-`base_buy` for intermediate tiers interpolates (T3 210, T5 570).
+Tier `req_level`s per `10_systems/ITEMS.md` §4 (v3 twelve-tier ladder); `base_buy` for
+intermediate tiers interpolates (T3 300, T5 1,050, T7 2,800, T9 6,000, T11 10,500).
 **`legendary` and boss-unique vendor value is suppressed to the `epic` multiplier** so the best
 gear is used or traded on the future market (`10_systems/social/MARKET.md`), never vendored for a
 `shards` windfall (an inflation guard, §6). Example vendoring faucet: a `rare` T6 drop sells for
-`round(0.25 · 870 · 8)` = **1,740** `shards` (≈ 3 min of income) — a satisfying but non-dominant
-faucet.
+`round(0.25 · 1800 · 8)` = **3,600** `shards` (≈ 8 min of Lv 36 income) — a satisfying but
+non-dominant faucet.
 
 ## 5. Potion economics vs hunting income
 
@@ -154,19 +182,22 @@ potion spend assumes ≈ **18 tonics/hour** of the band tonic (≈ 1 per 27 kill
 
 | Player Lv | Band tonic (buy) | Income/hr | Potion spend/hr | Bite | Net/hr |
 |---|---|---|---|---|---|
-| 8 | Lesser (15) | 7,200 | 270 | 3.8% | +6,930 |
-| 17 | Life (50) | 13,920 | 900 | 6.5% | +13,020 |
-| 25 | Greater (130) | 19,680 | 2,340 | 11.9% | +17,340 |
-| 33 | Superior (280) | 25,440 | 5,040 | 19.8% | +20,400 |
-| 42 | Prime (500) | 31,680 | 9,000 | 28.4% | +22,680 |
+| 10 | Life Tonic (60) | 8,640 | 1,080 | 12.5% | +7,560 |
+| 30 | Superior (500) | 23,040 | 9,000 | 39.1% | +14,040 |
+| 50 | Sovereign (1,200) | 37,440 | 21,600 | 57.7% | +15,840 |
+| 70 | Mythic (1,500) | 51,840 | 27,000 | 52.1% | +24,840 |
+| 90 | Mythic (1,500) | 66,240 | 27,000 | 40.8% | +39,240 |
 
-The bite deliberately **rises into the Lv 30–42 arc endgame** (the combat-heavy dungeon and
-Clockwork years), peaking near the 28% target at the Lv 42 arc end. Early levels (8–25) sit under
-20% — intended tutorial gentleness (P2). Net is positive at every level, funding the enhancement
-(§3) and gear (§4) sinks that turn surplus `shards` into power. Exact restore amounts (Phase D
-use-item data)
-set the real drink rate; if tonics restore more/less than the ~40%-of-band-`life` assumption here,
-drinks/hour shifts and the bite with it — retune tonic **price** (§4.1), not the faucet.
+Band tonics per `10_systems/ITEMS.md` §1.1's v3 ladder. The bite **rises through the 30–70 band**
+(the combat-heavy dungeon years) then eases past 80 as income outpaces the capped Mythic price;
+early levels (10–18) sit well under 20% — intended tutorial gentleness (P2). Net stays positive
+at every level (the hard law), funding the enhancement (§3) and gear (§4) sinks that turn surplus
+`shards` into power. Note the honest recompute against the v3 band compression: the modeled bite
+now **overshoots the ~20–30% target from the Superior band up** under the unchanged arc-1 prices
+and the fixed 18-drinks/hour assumption — flagged for D-gate retune (Open Questions). Exact
+restore amounts (Phase D use-item data) set the real drink rate; if tonics restore more/less than
+the ~40%-of-band-`life` assumption here, drinks/hour shifts and the bite with it — retune tonic
+**price** (§4.1), not the faucet.
 
 ## 6. Inflation guardrails (for the future server)
 
@@ -185,72 +216,51 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
 - **Bounded worst-case costs.** Enhancement pity (`10_systems/ENHANCEMENT.md` §3) caps the fee a
   single upgrade can demand, so no sink is an infinite `shards` pit (P2).
 
-## 7. Travel sinks — Harthmoor Coachworks fares & Harborwind Ferry
+## 7. Transport fares (v3 — coach, ferry, longship)
 
-Town-to-town travel is a **paid `shards` sink**, not a free warp (P3 — a legible world you traverse,
-not teleport across). `15_maps_system/MAP_CONNECTIONS.md` §3 owns the **rules** (which towns carry a
-station, the no-cooldown/no-unlock policy, the one free novice pilgrimage ride, the ferry rules);
-this section owns the **numbers** it hands off. `docs/WORLD_PLAN.md`'s "Harthmoor Coachworks" table
-is the authoritative list of stations; fares here never add or move one.
+Records the paid-transport `shards` fares that `docs/WORLD_PLAN.md` delegates to this doc (its
+Coachworks and ferry paragraphs point here; the numbers were previously unwritten — this section
+fills that standing delegation) and adds the arc-2 `longship` rows. **Rules** for each mode
+(portal semantics, scheduling, spawns, the free-ride flag) are `15_maps_system/MAP_CONNECTIONS.md`'s
+transport taxonomy + §8; this section owns only the numbers. All fares are `shards`, charged at
+boarding, server-authoritative (`10_systems/PERSISTENCE.md`). Travel is a low-friction loop
+(`00_vision/PILLARS.md` P3), so a fare is a **light convenience sink**, not a wall — every fare
+below is a small fraction of at-level income (§5), and for the scheduled `longship` the real-time
+sail (`15_maps_system/MAP_CONNECTIONS.md` §8), not the shards, is the trip's true cost.
 
-**Derivation.** Fares are anchored to the `10_systems/DROPS.md` §3 shard faucet: at-level hunting
-income is `≈ 480 · mean_shards_normal(L)` (DROPS §3), which DROPS publishes as ≈ 8.6 K/hr at Lv 10,
-≈ 16 K/hr mid-arc (Lv 20, ≈ 264 `shards`/min), ≈ 23 K/hr at Lv 30, ≈ 32 K/hr at the Lv 42 arc end.
-A **1-ring-hop coach ride is priced at ≈ 4 minutes of that mid-arc income** (1,000 `shards`); each
-additional ring hop adds ≈ 80% (2 hops → 1,800). This keeps a coach ride a cozy few-minutes sink
-mid-arc — real, but never a tax — and cheaper still per-minute as income rises through the late arc.
+### 7.1 Ferry & coach (paid, instant)
 
-### 7.1 Coach fares (`shards`, per ride)
-
-Fare scales with **ring-hop distance** between the two stations along `docs/WORLD_PLAN.md`'s ring
-order **Millbrook ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔ Millbrook**, with **Millbrook
-Central the hub** most rides route through conceptually (`15_maps_system/MAP_CONNECTIONS.md` §3).
-Gloomwood carries no station, so the shortest ring path between two stations may pass through it
-without stopping. Ring-hop distance is the minimum number of ring steps between the two stations'
-regions (Rosen Harbor and Millbrook Central both sit in the south Millbrook hub = 0 hops apart).
-
-| Ring-hop distance | Fare (`shards`) | ≈ mid-arc income (Lv 20) |
+| Mode | Fare | Note |
 |---|---|---|
-| 0 (same hub: Rosen Harbor ↔ Millbrook Central) | 300 | ≈ 1 min |
-| 1 hop | 1,000 | ≈ 4 min |
-| 2 hops | 1,800 | ≈ 7 min |
+| Harborwind Ferry (Emberfoot ↔ Rosen Harbor, `map_015`) | 40 | Flat; the small crossing fare `docs/WORLD_PLAN.md` previews (Lv ~8 band — ≈ 30 s of Lv 10 income, §5). |
+| Coach — 1 ring segment | 120 | Adjacent Harthmoor Coachworks stations. |
+| Coach — 2 ring segments | 220 | |
+| Coach — 3+ ring segments | 320 | Longest ring hop (e.g. Cindershelf ↔ Tidewatch Port). |
 
-Two hops is the maximum between any two of the five stations. Full station-pair matrix (both
-directions cost the same; Phase D copies this):
+Coach ring-distance = number of ring-road segments between the two stations (station adjacency per
+`docs/WORLD_PLAN.md`). The one free Rosen Harbor→instructor-town ride (the advancement pilgrimage)
+is `docs/WORLD_PLAN.md`'s rule; this table charges every other ride. First-pass, anchored so even
+the longest coach hop is well under a minute of in-band income (§5) — coaches are a convenience
+shortcut, a minor sink by design (P3), never a gate.
 
-| From \ To | Rosen Harbor | Millbrook Central | Mossmere | Cindershelf | Tidewatch Port |
-|---|---|---|---|---|---|
-| **Rosen Harbor** (`map_017`) | — | 300 | 1,000 | 1,800 | 1,000 |
-| **Millbrook Central** (`map_018`) | 300 | — | 1,000 | 1,800 | 1,000 |
-| **Mossmere** (`map_043`) | 1,000 | 1,000 | — | 1,800 | 1,800 |
-| **Cindershelf** (`map_125`) | 1,800 | 1,800 | 1,800 | — | 1,000 |
-| **Tidewatch Port** (`map_071`) | 1,000 | 1,000 | 1,800 | 1,000 | — |
+### 7.2 Longship (paid, scheduled — arc-2 island network)
 
-Cindershelf (Ashfall) is the far station — 2 hops from the Millbrook hub going back through
-Tidewatch — so rides to/from it are the priciest, matching the "Cindershelf is deliberately the
-boldest first trip" note (`docs/WORLD_PLAN.md`). The **one free novice pilgrimage ride** (Rosen
-Harbor → the character's job-instructor town, `15_maps_system/MAP_CONNECTIONS.md` §3) waives one
-fare per character, server-authoritative (`10_systems/PERSISTENCE.md`); every ride thereafter is
-paid at the table above.
+Fare scales with **route length**; the concrete `route_id`→length-class assignment and endpoint
+maps live in `docs/WORLD_PLAN.md`'s arc-2 edge table (cited, never restated here). Anchored to the
+arc-2 band (Lv 40–80) income (§5) and `mean_shards_normal` back-solved from §3's enhancement
+`base_fee` (`mean_shards_normal(40) ≈ 63`, `(70) ≈ 108`): each fare is well under a minute of
+at-level income, keeping the scheduled ride — not the shards — the trip's real cost.
 
-### 7.2 Harborwind Ferry fare
+| Route length class | Fare | ≈ anchor |
+|---|---|---|
+| Short (1 hop — Harthmoor pier ↔ nearest new-island port) | 300 | ≈ 5 × `mean_shards_normal(40)` |
+| Medium (2 hops) | 500 | ≈ 8 × |
+| Long (inter-island, 3+ hops) | 800 | ≈ 13 × (≈ 45 s of Lv 50 income, §5) |
 
-The **Harborwind Ferry** (`map_015`) is the sole crossing between Emberfoot Isle and Harthmoor Isle
-and charges a **flat 150 `shards` per crossing**, both directions (`15_maps_system/MAP_CONNECTIONS.md`
-§3.1). It is deliberately **small** — ≈ 1 min of Lv-8 income (≈ 7.2 K/hr, DROPS §3) — because it
-gates every fresh Lv-8 novice leaving the training island; a character has always out-hunted the
-50-`shards` starting purse (§1) well before reaching the dock, so the fare is a token sink, not a
-wall. It is a separate line item from the coach fares (they never combine on one trip).
-
-### 7.3 Millbrook Return Scroll vs the fare table
-
-The **Millbrook Return Scroll** (`item_use_0013`, priced in §4.1 at **2,500** `shards`) is the paid
-magic alternative to walking or coaching home. It is priced **above the 1,800-`shards` maximum coach
-fare to Millbrook** as a convenience premium: unlike a coach — which runs only station-to-station and
-must be reached on foot — the scroll recalls to Millbrook Central from **anywhere** (mid-field, a
-dungeon, an arena, or the station-less Sunken Depths spur, `15_maps_system/MAP_CONNECTIONS.md` §7),
-instantly, and is **bought in advance and carried**. That anywhere-instant convenience is what the
-premium buys. There is **no free recall** and no free warp (`15_maps_system/MAP_CONNECTIONS.md` §3).
+**Free first crossing (adopted):** each character's **first** longship crossing after completing
+the Lv 40 2nd advancement is waived by the pier officer — the arc-2 counterpart to
+`docs/WORLD_PLAN.md`'s free advancement-pilgrimage coach ride. One-time, per-character,
+server-authoritative flag (`10_systems/PERSISTENCE.md`); every later crossing pays the table fare.
 
 ## Open Questions
 
@@ -259,20 +269,35 @@ premium buys. There is **no free recall** and no free warp (`15_maps_system/MAP_
   `10_systems/LEVELING.md` §1. Retune at the D gate once real spawn density and potion restore
   values land; adjust **prices/fees**, never the `10_systems/DROPS.md` faucet or
   `10_systems/COMBAT_FORMULA.md` `normal_life`.
+- **Tonic bite overshoot (§5).** Recomputed against `10_systems/ITEMS.md` §1.1's compressed v3
+  bands, the modeled potion bite exceeds the ~20–30% target from Superior up (peaking ≈ 58% at
+  Lv 50) even with the deliberately flat Sovereign/Mythic prices. Retune the tonic price ladder
+  (§4.1) — or revisit the 18-drinks/hour assumption — at the D gate once Phase D restore values
+  land. Owner: this doc with `10_systems/ITEMS.md`.
+- The §4.1 `steady` scroll-shelf prices predate the v3 revision and have not been re-anchored to
+  the new bands — known debt; revisit with `10_systems/SCROLLS.md` at the D gate.
 - Quest `shards` reward budgets (§1) depend on `10_systems/QUESTS.md` honoring a per-region share;
   the split of the total faucet between hunting-drops and quests is unfixed here (default: drops
   dominant, quests supplementary). Confirm with `10_systems/QUESTS.md` at the D gate.
 - Market transaction-fee rate and guild-creation fee are stubs owned by the `social/` docs; if
   those systems change the sink budget materially, revisit §6. Flagged, server-dependent.
-- No cap-`exp` "mastery → `shards`" sink is needed this arc — under cap 300 all `exp` in the Lv 1–42
-  arc goes to levels (`10_systems/LEVELING.md` §6, no post-cap discard). If a future arc's tail ever
-  wants an `exp`-overflow sink it belongs in §1, balanced against §2.
+- A "mastery `exp` → `shards`" post-cap soft sink is floated by `10_systems/LEVELING.md` §6 OQ but
+  **not** adopted here (default: cap `exp` discarded). If wanted it is a faucet and belongs in §1,
+  balanced against §2.
 - Whether stat reallocation should be cheaper/free below some level (to lower the early
   experimentation barrier) is open; default is the flat `50·L` curve (§3.1).
-- Coach fares, the ferry fare, and the Return Scroll price (§7, §4.1) are first-pass, derived from
-  the `10_systems/DROPS.md` §3 faucet at the mid-arc (Lv 20) income anchor. They are **flat**, not
-  level-scaled, so their real bite shrinks as income rises across the arc — intended (travel should
-  feel cheaper as you grow), but confirm at the D gate that a 2-hop 1,800-`shards` fare is not
-  punishing for an under-income Lv 8–14 player who coaches early. If the ring-distance/Millbrook-hub
-  pricing model in `15_maps_system/MAP_CONNECTIONS.md` §3 needs adjustment once these land, flag it
-  back to that doc's owner (its Open Questions handed the fare table here).
+- (MON-001) A billboard-rental `shards` sink in town maps is reserved by
+  `10_systems/MONETIZATION.md` §3.2; if adopted it lands as a §2 sink row in a future
+  amendment. The premium currency (`gleam`, GLOSSARY Provisional) never converts to or from
+  `shards` in either direction — no monetization faucet or sink may ever appear in this doc.
+- §7 fares (ferry 40; coach 120/220/320 by ring distance; longship 300/500/800 by route length)
+  are first-pass, anchored to §5 income and §3's `mean_shards_normal`. §7.1 also *fills*
+  `docs/WORLD_PLAN.md`'s previously-unwritten ferry/coach fare delegation; if that owner intended a
+  different band, retune here (never the `10_systems/DROPS.md` faucet). Route→length-class mapping
+  for §7.2 is `docs/WORLD_PLAN.md`'s arc-2 edge table's; confirm the class count matches the fare
+  tiers when that table lands.
+- §7.2 free-first-crossing is adopted (mirrors the free pilgrimage coach ride). The exact trigger
+  is "Lv 40 2nd-advancement completed" flag; if `10_systems/JOBS.md` keys the advancement
+  differently, align the flag. Whether the waiver should instead attach to the Deepway
+  (`15_maps_system/MAP_CONNECTIONS.md` §9, the free walking route) rather than the paid longship is
+  a minor call — default keeps it on the longship (the paid mode, where a waiver is meaningful).

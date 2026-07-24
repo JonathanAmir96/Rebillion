@@ -4,7 +4,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, doc
 docs/ID_REGISTRY.md, 10_systems/LEVELING.md, 10_systems/ECONOMY.md, 10_systems/DROPS.md,
 10_systems/ITEMS.md, 10_systems/INVENTORY.md, 10_systems/JOBS.md, 10_systems/HUD.md,
 10_systems/CONTROLS.md, 10_systems/PERSISTENCE.md, 10_systems/SPAWN.md,
-10_systems/social/PARTY.md, 15_maps_system/MAP_INTERACTABLES.md,
+10_systems/social/PARTY.md, 10_systems/social/RAID.md, 15_maps_system/MAP_INTERACTABLES.md,
 15_maps_system/MAPS_SYSTEM.md, 20_schemas/quest.schema.md
 
 Owner doc for **quests**: the fields every quest is built from, the four step types, how a
@@ -12,9 +12,9 @@ Owner doc for **quests**: the fields every quest is built from, the four step ty
 abandon/retry/repeat policy, and the quest-log UX hook. `exp` curve math is
 `10_systems/LEVELING.md`; `shards` faucet/sink balance is `10_systems/ECONOMY.md`; item
 definitions are `10_systems/ITEMS.md`; kill-credit tagging is `10_systems/DROPS.md` §7. This doc
-never restates those — it only sets the *quest-side* budget and shape. The 90 authored quests and
-their per-region ID blocks (`quest_001`–`090`) are `docs/ID_REGISTRY.md`'s; `docs/WORLD_PLAN.md`
-supplies region level bands. `20_schemas/quest.schema.md` (Phase C) formalizes field types; this
+never restates those — it only sets the *quest-side* budget and shape. The authored quests and
+their per-region ID blocks (arc-1 `quest_001`–`090`, arc-2 `quest_091`–`120`) are
+`docs/ID_REGISTRY.md`'s; `docs/WORLD_PLAN.md` supplies region level bands. `20_schemas/quest.schema.md` (Phase C) formalizes field types; this
 doc owns the anatomy and the numbers Phase D content copies.
 
 ## 1. Quest anatomy (fields)
@@ -37,11 +37,9 @@ doc owns the anatomy and the numbers Phase D content copies.
 A quest chain is nothing but one quest's `prereqs` naming an earlier `quest_NNN`; there is **no**
 separate "chain" step type or field. `level_requirement` and `prereqs` both gate *accepting* the
 quest (both must hold). Job-advancement trainer quests (`10_systems/JOBS.md` §1) are ordinary
-`main` quests: the 2nd-tier (Lv 40) trainer quest's `prereqs` names the line's 1st-advancement
-trainer quest, which is what actually enforces "already that line, already that tier" — no separate
-job-gate field is needed. (The 3rd-advancement trainer quest gates at Lv 80 and is reserved for a
-future arc, `10_systems/JOBS.md` §1/§8 — not authored this run.) The four 1st-advancement trainer
-quests (one per line) are **mutually
+`main` quests: the 2nd/3rd-tier trainer quest's `prereqs` names the previous tier's trainer quest,
+which is what actually enforces "already that line, already that tier" — no separate job-gate
+field is needed. The four 1st-advancement trainer quests (one per line) are **mutually
 exclusive by authoring convention**: completing one sets the character's line
 (`10_systems/JOBS.md` §1) and the other three must stop being offered to that character from then
 on; this doc fixes the exclusivity, Phase D wires it through each trainer NPC's quest list.
@@ -93,27 +91,29 @@ quest_exp = round( pct · exp_to_next(quest_level) )     # exp_to_next per 10_sy
 | `main` (incl. job-trainer) | 15%–30% |
 | `side` | 5%–10% |
 
-Arc rows are Lv 1–42; rows below the rule are reference anchors beyond the authored arc.
-
 | `quest_level` | `exp_to_next` (`10_systems/LEVELING.md` §1) | `main` reward (15–30%) | `side` reward (5–10%) |
 |---|---|---|---|
-| 1 | 108 | 16–32 | 5–11 |
-| 10 | 8,480 | 1,272–2,544 | 424–848 |
-| 20 | 45,704 | 6,856–13,711 | 2,285–4,570 |
-| 30 | 132,534 | 19,880–39,760 | 6,627–13,253 |
-| 40 | 292,336 | 43,850–87,701 | 14,617–29,234 |
-| 42 (arc end) | 335,400 | 50,310–100,620 | 16,770–33,540 |
-| — reference — | | | |
-| 60 | 931,520 | 139,728–279,456 | 46,576–93,152 |
-| 80 | 2,177,148 | 326,572–653,144 | 108,857–217,715 |
+| 1 | 80 | 12–24 | 4–8 |
+| 10 | 3,200 | 480–960 | 160–320 |
+| 20 | 19,700 | 2,955–5,910 | 985–1,970 |
+| 30 | 66,600 | 9,990–19,980 | 3,330–6,660 |
+| 50 | 336,440 | 50,466–100,932 | 16,822–33,644 |
+| 70 | 1,002,000 | 150,300–300,600 | 50,100–100,200 |
+| 90 | 2,277,960 | 341,694–683,388 | 113,898–227,796 |
+| 99 | 3,112,560 | 466,884–933,768 | 155,628–311,256 |
 
 A region's total quest `exp` should land near **≈25%** of the `exp` needed to clear that region's
 level band (`10_systems/LEVELING.md` §4 — cited, not restated); Phase D sums each region's
 authored quests against that target and tunes individual `pct` within the bands above, per
-`10_systems/LEVELING.md`'s own Open Question on this reconciliation. There is no Rift band
-(Decision Contract C9): the Clockwork raid/handler quests **`quest_085`–`090`** are ordinary arc
-quests (region 8, Lv 34–42) and **pay `exp` on the normal `main`/`side` bands above** — they are
-not exempt.
+`10_systems/LEVELING.md`'s own Open Question on this reconciliation. **Raid intro/handler quests**
+(arc-1 `quest_087`–`090`; arc-2 `quest_099`–`100` and `quest_119`–`120`; `docs/WORLD_PLAN.md`,
+`10_systems/social/RAID.md` §3) are authored as ordinary quests and pay **normal region-budget
+`exp`** for their band (§4 above, `10_systems/LEVELING.md` §4) — the authored arcs top out at Lv 80
+and there is **no post-cap zero-`exp` band** in scope (the `level` cap is 300,
+`10_systems/LEVELING.md` §1/§6). The raid **clear** reward itself is the finale-boss `exp` and loot
+(`10_systems/LEVELING.md` §3, `10_systems/social/RAID.md` §6), separate from these quests
+(handler-quest **repeatability** vs §7's one-time-per-character launch policy is flagged in Open
+Questions).
 
 ## 5. Reward budget — `shards`
 
@@ -132,8 +132,10 @@ a `side` quest pays the **elite-kill** `shards` mean at the quest's level, a `ma
 | 10 | 72 | 270 |
 | 20 | 132 | 495 |
 | 30 | 192 | 720 |
-| 40 | 252 | 945 |
-| 42 (arc end) | 264 | 990 |
+| 50 | 312 | 1,170 |
+| 70 | 432 | 1,620 |
+| 90 | 552 | 2,070 |
+| 99 | 608 | 2,280 |
 
 `10_systems/ECONOMY.md` treats this as a supplementary faucet, not the main one (its §1); it may
 retune the multipliers above at the D gate if the total faucet drifts. **Item rewards** (an
@@ -172,7 +174,7 @@ values are normally equal.
   quests at once, each as a one-line name + current step's progress counter; which quests are
   tracked (of the player's active set) is a player choice made from the full log.
 - **Concurrency cap.** A character may hold up to **20** active (accepted, not turned in) quests
-  at once — generous enough to never bind normal region-by-region play (90 quests total, mostly
+  at once — generous enough to never bind normal region-by-region play (120 quests total, mostly
   cleared in sequence).
 - Controller navigation of the full log follows `10_systems/CONTROLS.md`'s framed-UI rules.
 
@@ -186,9 +188,18 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 
 ## Open Questions
 
-- Party-shared quest credit (does a party member's kill/collect count for everyone nearby?) is
-  deferred to `10_systems/social/PARTY.md`, not yet authored; default until then is **unshared** —
-  each member individually needs the kill tag / the collect item.
+- Quest kill/collect credit-sharing **among party members** (does a party member's kill/collect
+  count for everyone nearby?) is resolved by `10_systems/social/PARTY.md` §4: a `kill`-step's credit
+  shares across same-map members with that step active (mirroring `10_systems/DROPS.md` §7's shared
+  tag), while a `collect`-step does **not** share — credit requires the item in hand. Raids inherit
+  this same model for stage objectives (`10_systems/social/RAID.md` §4). This doc's §3 `kill` step
+  defers there; no separate quest-side rule.
+- **Raid handler-quest repeatability.** `10_systems/social/RAID.md` §3 describes the raid handler
+  quest as a **repeatable** clear turn-in wrapper, but §7 above sets the launch policy at
+  one-time-per-character with no repeatable-quest system. Reconcile before Phase D authors the
+  handler quests: either the raid clear-reward loop routes through `10_systems/social/RAID.md`'s own
+  clear/cooldown mechanics (not a re-acceptable quest), or the handler is the first sanctioned
+  exception to §7. Owner: this doc with `10_systems/social/RAID.md`.
 - Exact per-quest `pct` within the §4 bands, and the regional ≈25% reconciliation, is Phase D
   authoring work per `10_systems/LEVELING.md` §4's own Open Question; not resolved to the exact
   quest here.
