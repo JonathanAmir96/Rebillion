@@ -236,16 +236,111 @@ def item_ref(w, ref, depth):
     return esc(ref)
 
 
+def label(token):
+    """'aoe_circle' -> 'Aoe Circle'; used for statuses/stats/tokens in prose."""
+    return str(token).replace("_", " ").title()
+
+
+def pct(x):
+    try:
+        return "%d%%" % round(float(x) * 100)
+    except (TypeError, ValueError):
+        return esc(x)
+
+
+def fmt_targeting(t):
+    """Render a targeting token/map as player-readable prose (SKILL_SYSTEM §6).
+    Tile figures convert at the locked 16 px grid."""
+    if not isinstance(t, dict):
+        names = {"melee_arc": "Melee arc", "line": "Straight line",
+                 "projectile": "Projectile", "aoe_circle": "Area circle",
+                 "self": "Self", "party": "Whole party"}
+        return esc(names.get(t, label(t)))
+    shape = t.get("shape")
+    if shape == "melee_arc":
+        return esc("Melee arc — %s° swing, %s-tile reach"
+                   % (t.get("arc_degrees", 120), t.get("radius", "?")))
+    if shape == "line":
+        return esc("Straight line ahead — %s tiles long × %s tall"
+                   % (t.get("length", "?"), t.get("width", "?")))
+    if shape == "projectile":
+        bits = []
+        if t.get("range") is not None:
+            bits.append("%s-tile range" % t["range"])
+        if t.get("speed") is not None:
+            bits.append("%s tiles/s" % t["speed"])
+        if t.get("gravity"):
+            bits.append("arcing")
+        if t.get("impact_radius"):
+            bits.append("bursts in a %s-tile circle on impact" % t["impact_radius"])
+        return esc("Projectile" + (" — " + ", ".join(bits) if bits else ""))
+    if shape == "aoe_circle":
+        origin = {"self": "around itself", "reticle": "at a targeted spot",
+                  "impact": "on impact"}.get(t.get("origin"), "")
+        return esc(("%s-tile circle %s" % (t.get("radius", "?"), origin)).strip())
+    if shape == "self":
+        return "Self"
+    if shape == "party":
+        return esc("Whole party within %s tiles" % t.get("radius", 8))
+    return esc(t)
+
+
+def fmt_effect(e):
+    """One effect op -> one player-readable sentence (SKILL_EFFECTS ops)."""
+    if not isinstance(e, dict):
+        return esc(e)
+    op = e.get("op")
+    chance = "" if e.get("chance") in (None, 1, 1.0) \
+        else "%s chance to " % pct(e["chance"])
+    if op == "deal_damage":
+        elem = e.get("element", "neutral")
+        mult = e.get("mult")
+        return esc("Deals %s damage%s" % (elem, " (×%s)" % mult if mult else ""))
+    if op == "apply_status":
+        dur = " for %s s" % e["dur"] if e.get("dur") is not None else ""
+        stacks = " (%s stacks)" % e["stacks"] if e.get("stacks") else ""
+        verb = "inflict" if chance else "Inflicts"
+        return esc("%s%s %s%s%s" % (chance, verb, label(e.get("status")),
+                                    dur, stacks))
+    if op == "cleanse_status":
+        return esc("Cleanses %s" % label(e.get("status", e.get("tag", "effects"))))
+    if op == "heal":
+        return esc("Restores life" + (" (×%s)" % e["mult"] if e.get("mult") else ""))
+    if op == "restore_essence":
+        return "Restores essence"
+    if op == "grant_shield":
+        dur = " for %s s" % e["dur"] if e.get("dur") is not None else ""
+        return esc("Grants a shield%s" % dur)
+    if op == "knockback":
+        return esc("Knocks the target back %s tiles" % e.get("distance", "?"))
+    if op == "pull":
+        return esc("Pulls the target %s tiles closer" % e.get("distance", "?"))
+    if op in ("dash", "leap"):
+        return esc("%s %s tiles" % (label(op), e.get("distance", "?")))
+    if op == "taunt":
+        return "Forces enemies to attack the caster"
+    if op == "summon_entity":
+        n = e.get("count", 1)
+        who = e.get("entity", e.get("template", "minions"))
+        return esc("Summons %s× %s" % (n, label(who)))
+    if op == "passive_stat_bonus":
+        return esc("Passive: +%s %s" % (e.get("amount", "?"),
+                                        label(e.get("stat", "?"))))
+    if op == "on_hit_proc":
+        return esc("%s an on-hit effect"
+                   % ("%strigger" % chance if chance else "Triggers"))
+    bits = ", ".join("%s %s" % (k, v) for k, v in e.items() if k != "op")
+    return esc("%s (%s)" % (label(op), bits))
+
+
 def fmt_effects(effects):
-    outs = []
-    for e in effects or []:
-        if not isinstance(e, dict):
-            outs.append(esc(e))
-            continue
-        op = e.get("op", "?")
-        bits = ["%s=%s" % (k, v) for k, v in e.items() if k != "op"]
-        outs.append("<code>%s</code> (%s)" % (esc(op), esc(", ".join(bits))))
-    return "<br>".join(outs)
+    return "<br>".join(fmt_effect(e) for e in effects or [])
+
+
+def fmt_cost(c):
+    if isinstance(c, dict):
+        return esc(" + ".join("%s %s" % (v, k) for k, v in c.items()))
+    return esc(c)
 
 
 def tags(vals):
@@ -286,15 +381,15 @@ def monster_page(w, ix, mob, out):
 
     if m.get("abilities"):
         body.append("<h2>Abilities</h2><div class='wrap'><table>"
-                    "<tr><th>Ability</th><th>Targeting</th><th>Cooldown</th>"
-                    "<th>Telegraph</th><th>Effects</th></tr>")
+                    "<tr><th>Ability</th><th>Hits</th><th>Cooldown</th>"
+                    "<th>Wind-up</th><th>Effects</th></tr>")
         for a in m["abilities"]:
             body.append("<tr><td><b>%s</b>%s</td><td>%s</td><td>%s s</td>"
                         "<td>%s s</td><td>%s</td></tr>" % (
                             esc(a.get("name", a.get("id", "?"))),
                             "<br><i>%s</i>" % esc(a["animation_note"])
                             if a.get("animation_note") else "",
-                            esc(a.get("targeting")), esc(a.get("cooldown")),
+                            fmt_targeting(a.get("targeting")), esc(a.get("cooldown")),
                             esc(a.get("telegraph_s")), fmt_effects(a.get("effects"))))
         body.append("</table></div>")
 
@@ -615,9 +710,9 @@ def skills_index(w, out):
                 esc(s.get("kind"))))
             if s.get("flavor"):
                 body.append('<div class="flavor">%s</div>' % esc(s["flavor"]))
-            body.append("<p>Targeting: <code>%s</code> · Cost: <code>%s</code> · "
-                        "Cooldown: %s s</p>" % (esc(s.get("targeting")),
-                                                esc(s.get("cost")), esc(s.get("cooldown"))))
+            body.append("<p>Hits: %s · Cost: %s · Cooldown: %s s</p>"
+                        % (fmt_targeting(s.get("targeting")),
+                           fmt_cost(s.get("cost")), esc(s.get("cooldown"))))
             ld = s.get("level_data") or []
             if ld:
                 body.append("<div class='wrap'><table><tr><th>Rank Lv</th>"
