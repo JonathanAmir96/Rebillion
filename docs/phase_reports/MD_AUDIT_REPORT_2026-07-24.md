@@ -225,6 +225,14 @@ Provisional transport-token entry (promoted).
 5. ROLE_ART_DIRECTOR.md — who operates the ES- amendment channel (C26).
 6. ECONOMY.md — the unreachable 3+-segment coach fare tier (C29).
 
+**Update (2026-07-24, owner rulings — same day):** the owner approved the merge and ruled on
+all of the above in the follow-up wave (`claude/md-audit-followups-2026-07-24`): C3 → icon is
+derived-implicit, no stored field (schemas rules 10/16, VALIDATION §6); C15 → SPAWN adopts the
+schema's absolute-count model; C20 → `trigger_zones` declared in MAPS_SYSTEM §1 (validator
+wiring at Phase E); C26 → Agent-3 operates AB-/UA-/ES-; C29 → the 3+-segment tier stays as
+explicit future headroom. Item 4 (shield/overall) stays tracked debt for its integration wave
+by the same ruling.
+
 **Noted, deliberately not acted on:** `combo_momentum`/`combo_burst` stay Provisional (their
 stated promotion bar — schema/content field-value consumption — is not yet met, though they
 are load-bearing vocabulary in three docs); `item_use_0091`–`0100` reserve has no named

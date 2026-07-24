@@ -1,7 +1,7 @@
 # activeContext.md — Current State, Priorities, Open Decisions
 
-> Memory Bank file 4/5. Snapshot as of **2026-07-24, post md-audit** (branch
-> `claude/md-audit-2026-07-24`, awaiting owner merge review). Newest owner decisions
+> Memory Bank file 4/5. Snapshot as of **2026-07-24, post md-audit** (audit wave merged
+> to `main`; the six audit calls owner-ruled the same day). Newest owner decisions
 > live in root `memory.md`; this file distills what the *next* session must know
 > before generating anything.
 
@@ -34,21 +34,17 @@
 
 ## Immediate priorities (ordered)
 
-1. **Owner merge review of the md-audit branch** (`claude/md-audit-2026-07-24` — report
-   first, merge only on explicit owner approval), then the five owner calls it raised
-   (`MD_AUDIT_REPORT_2026-07-24.md` §8: icon law C3 · SPAWN spawn-model C15 ·
-   reach-step trigger zones C20 · shield/overall integration · ES- channel operator).
-2. **Phase E — coding-pass briefs.** The remaining generation phase: per-feature
+1. **Phase E — coding-pass briefs.** The remaining generation phase: per-feature
    implementation briefs + the VALIDATION §7 Open-Questions rollup index. Route to
    Opus-tier per ORG.md.
-3. **Balance pass (D-gate retune).** ECONOMY prices/fees, tonic bite (overshoots
+2. **Balance pass (D-gate retune).** ECONOMY prices/fees, tonic bite (overshoots
    ~20–30% target past Superior), DROPS anchors, WORLD_CHANNELS capacity targets
    (sized against the old two-island world), raid band vs Millbrook ceiling; input:
    the regenerated quest-exp table (MD_AUDIT_REPORT Appendix A).
-4. **Art pass.** PixelLab briefs per `ART_GENERATION_RUNBOOK.md` — no longer blocked:
+3. **Art pass.** PixelLab briefs per `ART_GENERATION_RUNBOOK.md` — no longer blocked:
    the 16 px tile-scale lock and the DISPLAY.md resolution law are resolved; the
    compositing spike gate (base body + 1 outfit + 2 hairs, COMPOSITING §9) runs first.
-5. **Backend coding pass** (post-briefs): Elixir/OTP skeleton per the Phase I suite;
+4. **Backend coding pass** (post-briefs): Elixir/OTP skeleton per the Phase I suite;
    resolve the four audit flags before the affected subsystems are written.
 
 ## Active architectural gaps (filed flags — resolve before coding that area)
@@ -85,10 +81,12 @@ providers · character-slot expansion pricing · platform priority sign-off
 - Emberstone coverage gap: T11–T12 gear has no enhancement stone (Emberstone VI
   `item_etc_0198` reserved, unminted).
 - COLLECTIONS set-completion `shards` grant needs a 4th-faucet ECONOMY amendment.
-- The md audit's five raised flags (priority 1 above). Resolved & removed from this
-  list 2026-07-24: the FTUE Lv-8 gate (front-loaded grants verified — quest sum 3,804
-  ≥ 3,800, `ONBOARDING_FTUE.md` §2) and the ITEMS/JOBS registry re-blocks (landed in
-  `ID_REGISTRY.md` long since; stale OQs closed).
+- Resolved & removed from this list 2026-07-24: the FTUE Lv-8 gate (front-loaded grants
+  verified — quest sum 3,804 ≥ 3,800, `ONBOARDING_FTUE.md` §2), the ITEMS/JOBS registry
+  re-blocks (landed long since; stale OQs closed), and **all six md-audit calls**
+  (owner-ruled same day — icon derived-implicit · SPAWN count model · trigger_zones ·
+  shield/overall stays tracked debt · Agent-3 runs AB-/UA-/ES- · coach 3+-tier =
+  future headroom; see `memory.md`).
 
 **Known design debts (non-blocking, tracked in owning docs):** shields/overalls/
 scrolls content integration (blocks 0181–0200, `item_use_0061`–`0100` reserved;

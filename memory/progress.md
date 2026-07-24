@@ -1,7 +1,7 @@
 # progress.md — Status Matrix & Milestones
 
-> Memory Bank file 5/5. Status as of **2026-07-24, post md-audit** (branch
-> `claude/md-audit-2026-07-24`, awaiting owner merge review). Validator
+> Memory Bank file 5/5. Status as of **2026-07-24, post md-audit** (audit wave merged to
+> `main`; six audit calls owner-ruled same day). Validator
 > state: `python3 tools/validate.py` strict → **0 failures / 0 warnings**.
 > Legend: ✅ Fully Defined · 🟡 Partially Defined (usable, flagged gaps) · ⬜ Not Started.
 

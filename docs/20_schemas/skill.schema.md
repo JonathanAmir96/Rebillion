@@ -63,7 +63,7 @@ cost/cooldown/`level_data` resolution and targeting are **server-authoritative**
 | `level_data[].essence_cost` | int | no | `SKILL_SYSTEM` §4/§5 | Present only to **scale** cost by rank; overrides `cost.essence` at authored ranks and interpolates between. Non-decreasing with rank (warn). `server`. |
 | `level_data[].cooldown` | float s | no | `SKILL_SYSTEM` §4/§5 | Present only to scale cooldown by rank; overrides top-level `cooldown`. Non-increasing with rank (warn). `server`. |
 | `animation` | string (anim id) | actives yes / passives no | `40_assets/SKILL_ANIMATION.md` §1 | Animation id following `40_assets/SKILL_ANIMATION.md` naming — exactly `<this id>_cast` (the anchor). Omitted for passives (an optional `_proc` fx clip is suffix-derived there, §2 — no field). `client`. |
-| `icon` | string (ui icon id) | yes | `40_assets/SKILL_ANIMATION.md` §5; `40_assets/UI_ART_SPEC.md` icon naming | Must equal `ui_icon_skill_<line>_<NNN>` for this id — a 1:1 derivation, authored explicitly so tooling/UI never re-derives it (same precedent as item `line_hint`). Required for **all** skills, passives included (Skills-window display). `client`. |
+| *(no `icon` field — derived)* | — | — | `40_assets/SKILL_ANIMATION.md` §5; `40_assets/UI_ART_SPEC.md` icon naming | **Owner ruling 2026-07-24:** the icon asset id is derived 1:1 from the skill `id` (`ui_icon_skill_<line>_<NNN>`, all skills, passives included) and is **never stored** in content; a stored `icon:` is redundant and fails §3's unknown-field gate (rule 10). `client`. |
 | `flavor` | string | yes | `00_vision/PILLARS.md` P1 | ≤ 2 sentences, US spelling. `client`. |
 
 **Cost / cooldown placement (the one cross-cutting rule).** `10_systems/SKILL_SYSTEM.md` §4 lists
@@ -134,7 +134,6 @@ level_data:
       - { op: deal_damage, element: fire, mult: 3.0 }
       - { op: apply_status, status: burn, chance: 0.60, dur: 6 }
 animation: skill_weaver_007_cast
-icon: ui_icon_skill_weaver_007
 flavor: "A packed bloom of essence-fire lobbed onto a point and left to smolder. The blast lands,
   the ground keeps burning."
 ```
@@ -177,7 +176,10 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4, §6).
    Warn-only — leanings are loose by design.
 9. **Animation (hard for actives).** `active` skills carry an `animation` id that equals exactly
    `<id>_cast` per `40_assets/SKILL_ANIMATION.md` §1 (`docs/VALIDATION.md` §6); passives omit it.
-10. **Icon (hard).** `icon` equals exactly `ui_icon_skill_<line>_<NNN>` for this `id`
+10. **Icon (owner ruling 2026-07-24 — derived, never stored).** The icon **asset** id equals
+    exactly `ui_icon_skill_<line>_<NNN>` for this `id`, derived by UI/tooling at load; skill
+    files carry **no** `icon` field (a stored value would be pure redundancy and fails §3's
+    unknown-field gate). The asset-naming law itself
     (`40_assets/SKILL_ANIMATION.md` §5; `docs/VALIDATION.md` §6). Applies to every skill,
     passives included.
 
@@ -201,7 +203,6 @@ level_data:
   # add rows at 4, 7, 10 to scale (ranks 2/3/5/6/8/9 interpolate, SKILL_SYSTEM §4);
   # to scale cost/cooldown, add essence_cost / cooldown keys inside these rows.
 animation: skill_{line}_{NNN}_cast     # actives only; omit for passives
-icon: ui_icon_skill_{line}_{NNN}       # all skills, passives included
 flavor: "{<=2 sentences}"
 
 # --- optional fields (omit if unused): ---
@@ -223,8 +224,8 @@ flavor: "{<=2 sentences}"
 - ~~`40_assets/SKILL_ANIMATION.md` lands this phase.~~ **Resolved:** `40_assets/SKILL_ANIMATION.md`
   landed as the naming owner; the anchor form `skill_<line>_NNN_cast` is confirmed as law (§1
   there), and multi-clip needs are covered by its derived clip suffixes (§2 there) — one
-  `animation` id per skill stands. The `icon` field (this schema, rule 10) binds each skill to its
-  `ui_icon_skill_<line>_<NNN>` asset per its §5.
+  `animation` id per skill stands. Each skill's `ui_icon_skill_<line>_<NNN>` asset binds by
+  derivation from the skill `id` (rule 10 — no stored field, owner ruling 2026-07-24) per its §5.
 - **Summon `entity_ref` targets.** Skills with `summon_entity` (`skill_keeneye_010` "Falcon",
   `skill_bulwark_022` "Battle Standard") reference a summon-template entity whose ID block is the
   open `20_schemas/monster.schema.md` / `docs/ID_REGISTRY.md` question; confirm the ref format at the

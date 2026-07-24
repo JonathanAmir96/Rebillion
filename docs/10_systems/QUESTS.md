@@ -55,7 +55,7 @@ quests.
 | `kill` | One or a short explicit list of `mob_NNN`, × count | Credit follows `10_systems/DROPS.md` §7 tag-eligibility (deal/take damage before death); no separate quest-kill-credit rule |
 | `collect` | `item_etc_NNNN` (or `item_use_NNNN`), × count | Sourced per §3.1 below |
 | `talk` | One `npc_NNN` | May be the giver, the turn-in NPC, or a third party |
-| `reach` | `map_NNN` + a named trigger zone/waypoint | Zone declaration mechanism is `15_maps_system/MAPS_SYSTEM.md`'s (a `10_systems/SPAWN.md`-`spawn_zones`-like rect), not defined here |
+| `reach` | `map_NNN` + a named trigger zone/waypoint | Zone declaration is `15_maps_system/MAPS_SYSTEM.md` §1's `trigger_zones` (named SPAWN-style rect; confirmed by owner ruling 2026-07-24), not defined here |
 
 A step may optionally declare `requires_step` (another step in the same quest, same
 prereq-linking pattern as §2) to force sequencing; default is **parallel** — all of a quest's
@@ -217,9 +217,9 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 - `quest_object` full mechanics (respawn timer, whether non-questers can see/interact with it) are
   owned by `15_maps_system/MAP_INTERACTABLES.md`, not yet authored; this doc only fixes the
   grant-on-interact contract (§3.1).
-- The `reach`-step trigger-zone declaration (map-side schema shape) is pending
-  `15_maps_system/MAPS_SYSTEM.md`; assumed analogous to `10_systems/SPAWN.md` §1's `spawn_zones`
-  rect pattern but not confirmed.
+- **Resolved (2026-07-24, owner ruling): the `reach`-step trigger-zone declaration landed** —
+  `15_maps_system/MAPS_SYSTEM.md` §1 `trigger_zones`, exactly the SPAWN-style named rect this
+  doc assumed. Validator wiring + map backfill are Phase E items tracked there.
 - Daily/weekly/repeatable quests are explicitly **not** a launch feature (§7); if added later it
   is a new system referencing this doc's anatomy, not a change to it.
 - Whether a quest may ever require an equipped item level / job line beyond `level_requirement`

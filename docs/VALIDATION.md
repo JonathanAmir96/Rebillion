@@ -45,8 +45,11 @@ warns, never fails.
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
 every state required for their entity class (e.g., elites/bosses must include `telegraph`).
 Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming (`<skill_id>_cast`, actives
-only); skill `icon` equals `ui_icon_skill_<line>_<NNN>` and item `icon` equals
-`ui_icon_item_<id stem>` (40_assets/SKILL_ANIMATION.md §5 / 40_assets/UI_ART_SPEC.md naming).
+only); icon **assets** are named by 1:1 derivation from the entity `id` — skill
+`ui_icon_skill_<line>_<NNN>`, item `ui_icon_item_<id stem>` — and content files store **no**
+`icon` field (owner ruling 2026-07-24; 20_schemas/skill.schema.md rule 10 /
+20_schemas/item.schema.md rule 16; asset naming 40_assets/SKILL_ANIMATION.md §5 /
+40_assets/UI_ART_SPEC.md).
 Appearance-style references resolve to the ID_REGISTRY.md `style_<category>_NN` blocks
 (40_assets/CHARACTER_COMPOSITING.md). When a monster file carries
 `animation_notes`, every key must be a state token present in that same file's
@@ -68,10 +71,8 @@ landed "to fix later."
 - tools/validate.py's `item_use` ID ceiling (0060) predates the scroll block
   `item_use_0061`–`0100` (ID_REGISTRY.md) — raise it when scroll content mints (owner:
   validator/tools).
-- **§6's icon-naming law is documented but unenforced and unmet (2026-07-24 md audit).**
-  `20_schemas/item.schema.md` and `20_schemas/skill.schema.md` hard-require an `icon` field
-  (`ui_icon_item_<id stem>` / `ui_icon_skill_<line>_<NNN>`), yet no minted item/skill row in
-  `50_content/` carries one, tools/validate.py checks nothing for it, and its `ALLOWED["skill"]`
-  set would reject the field as unknown. Owner call needed: (a) mechanical backfill batch +
-  validator enforcement, or (b) amend the schemas to make `icon` derived-implicit (it is 100%
-  derivable from `id`, so storing it is redundant). Owner: schema owners + validator/tools.
+- **Resolved (2026-07-24, owner ruling): the icon field is derived-implicit — option (b).**
+  Content stores no `icon` field; the asset id derives 1:1 from the entity `id` (schemas'
+  rules 10/16, §6 above). Minted content was already compliant (zero stored fields), and
+  tools/validate.py's unknown-field gate now correctly *enforces* the ruling by rejecting any
+  stored `icon:`. No backfill needed.

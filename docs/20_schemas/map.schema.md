@@ -321,11 +321,10 @@ flavor: "{≤2 sentences}"
   10 — but that doc never states the unified token name; `climbable` is this schema's inference
   (borrowed from the `15_maps_system/MAP_LAYERS.md` §2.1 collision-layer name), not a confirmed
   one. Flag for `15_maps_system/MAP_INTERACTABLES.md`'s owner to confirm or correct.
-- `spawn_zones[].mobs` uses an absolute `count` per mob (this schema's resolution) rather than
-  `10_systems/SPAWN.md` §1's illustrative relative `weight` — that doc itself flags its shape as
-  "illustrative only, not the authoritative schema," so this is this doc formalizing it, but the
-  reinterpretation (target population per mob vs. weighted-random selection) changes the
-  spawner's runtime algorithm and should be confirmed with `10_systems/SPAWN.md`'s owner.
+- ~~`spawn_zones[].mobs` absolute-`count` model needs `10_systems/SPAWN.md` owner
+  confirmation.~~ **Resolved (2026-07-24, owner ruling):** SPAWN.md §1 adopted this schema's
+  absolute-count model (target population per mob; `target_count` = sum); the weighted-random
+  sketch is retired.
 - `respawn_override` is authored zone-wide (one value for every mob in the zone) rather than truly
   per-mob as `10_systems/SPAWN.md` §3's "per-mob override" wording suggests; flagged as a possible
   future refinement if a zone ever needs different overrides per mob within it.
