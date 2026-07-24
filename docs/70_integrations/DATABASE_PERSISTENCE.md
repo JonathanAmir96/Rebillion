@@ -118,6 +118,11 @@ character(
   account_id        fk,            -- binding to the account root (ACCOUNTS_AUTH §2)
   name              text unique,   -- global uniqueness (ACCOUNTS_AUTH §5, enforced by this index)
   job_line          enum,          -- novice|bulwark|keeneye|weaver|flicker (GLOSSARY; JOBS owns)
+  hair              text,          -- style_hair_NN   ┐ creation appearance picks (ACCOUNT §3);
+  face              text,          -- style_face_NN   │ values range-checked against ID_REGISTRY
+  hair_color        text,          -- style_haircolor │ "Appearance styles" on write (creation +
+  skin              text,          -- style_skin_NN   ┘ any future restyle); CHARACTER_COMPOSITING
+                                   --   owns what they render as. Stored as ids, never art refs.
   bind_map          fk map_NNN,    -- bind point (DEATH_PENALTY §4)
   bind_spawn        text,          -- named spawn on bind_map
   save_version      int,           -- §6 migration lineage

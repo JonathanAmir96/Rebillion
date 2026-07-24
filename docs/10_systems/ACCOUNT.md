@@ -68,9 +68,10 @@ server-minted opaque id, never a `docs/ID_REGISTRY.md` content id
 - **Roster/creation screen UI spec.** `40_assets/UI_ART_SPEC.md` is change-controlled; the
   two screens (roster + creation, including the "check name" widget and live appearance
   preview) need an entry through its amendment channel before the coding pass builds them.
-- **Name-check UX for the live build:** debounce/rate-limit on the "check name" call and the
-  reservation TTL are `70_integrations/ACCOUNTS_AUTH.md`/gateway concerns
-  (`70_integrations/NETWORK_PROTOCOL.md` auth domain) — flagged there, not designed here.
+- **Name-check UX for the live build:** the wire pair exists
+  (`70_integrations/NETWORK_PROTOCOL.md` §9.2 `op_0105`/`op_0194`, creation itself
+  `op_0103`/`op_0193` with the appearance picks); what remains open is debounce/rate-limit
+  on the probe and the reservation TTL — gateway concerns, flagged there, not designed here.
 - **Deleted-character grace period** (undo window before a delete is final) is deliberately
   absent this run; if live-ops wants one, it lands in `70_integrations/ACCOUNTS_AUTH.md`'s
   account model, and this screen only reflects it.

@@ -35,6 +35,14 @@ directives: (1) MapleStory-style customizable player sprites motivated by PixelL
 - **New `10_systems/DISPLAY.md`** — borderless fullscreen default, largest-integer-factor scaling
   of the locked 640x360 base, `ink` letterbox, `display_mode` client setting (frame_system +
   Alt+Enter). Resolves CAMERA/HUD's "once a target resolution is fixed" flags.
+- **Backend wiring (follow-up, same directive):** DATABASE_PERSISTENCE §3.1 `character` gains the
+  four appearance columns (style ids, range-checked on write). NETWORK_PROTOCOL mints: §9.2
+  `op_0105`/`op_0194` name-check pair (full §5 gate, session-scoped reservation), `op_0103/0193`
+  extended with appearance picks + `invalid_appearance`, `op_0191` roster corrected 3→4 slots +
+  per-entry appearance descriptor for roster-screen compositing; §9.5 `op_0401` player spawns
+  carry the appearance descriptor (`style_*` + `worn_visible` ids only — clients resolve to local
+  atlases, no pixels on the wire), new `op_0406 appearance_delta` re-broadcast on visible-slot
+  equip change (§9.9 rows cross-cite). COMPOSITING §10 documents the peer-render path.
 
 ## 2026-07-24 — combo layer + HUD stance + advancement quest lines (owner-directed)
 

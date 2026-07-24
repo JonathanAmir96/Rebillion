@@ -267,7 +267,12 @@ free generation per frame.
 
 One parent player node drives the state machine and clip timing from the base body's manifest;
 each layer is a child sprite sharing the parent's flip and frame index — animated parts sample
-their own atlas at the same `(state, frame)`, anchored parts apply §4 placement. Ramp remaps
+their own atlas at the same `(state, frame)`, anchored parts apply §4 placement. **Peers render
+the same way from wire data**: another player's layer stack is rebuilt from the appearance
+descriptor the server pushes on spawn and on visible-equip change
+(`70_integrations/NETWORK_PROTOCOL.md` §9.5 `op_0401`/`op_0406`) — the descriptor carries
+style/item **ids only**, each client resolves them to local part atlases; no pixel data ever
+rides the wire. Ramp remaps
 bake per-swatch textures at import (a handful of small PNGs) rather than a runtime palette
 shader — simplest thing that satisfies `30_engineering/ENGINEERING_STANDARDS.md` pixel
 rules; the coding pass may substitute a shader with identical output. Not new rendering law —
