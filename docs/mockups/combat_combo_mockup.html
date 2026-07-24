@@ -1,0 +1,451 @@
+<!-- Non-binding wireframe mock-up (added 2026-07-24). Binding specs: docs/10_systems/COMBO_SYSTEM.md,
+     docs/10_systems/COMBAT_FORMULA.md, docs/10_systems/HUD.md §7/§7.1, docs/40_assets/UI_ART_SPEC.md + cited docs. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Combat &amp; Combo Layer Mock-up</title>
+<style>
+  :root{
+    --ink:#241726; --paper:#fbf7ef; --link:#54b0c6; --emph:#f6c34b;
+    --warn:#c8461f; --good:#3f9a45; --bg:#241726; --panel:#3a2b40; --line:#6b6270;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#e8e2d8;font:14px/1.55 ui-sans-serif,system-ui,sans-serif;padding:24px}
+  .wrap{max-width:1320px;margin:0 auto}
+  h1{font-size:20px;color:var(--emph);margin:0 0 4px}
+  h2{font-size:15px;color:var(--link);margin:28px 0 8px}
+  p.sub{margin:0 0 18px;color:#9a92a0;font-size:13px}
+  .frame{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:10px;overflow-x:auto}
+  svg{display:block;margin:0 auto;image-rendering:pixelated}
+  .px{shape-rendering:crispEdges}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 18px;margin-top:12px;font-size:12.5px;color:#e8e2d8}
+  .legend b{color:var(--emph);font-weight:700;margin-right:4px}
+  .legend .doc{color:#9a92a0}
+  .note{font-size:12px;color:#9a92a0;margin-top:10px;border-left:3px solid var(--warn);padding-left:10px}
+  .motion{font-size:12px;color:#9a92a0;margin:0 0 14px;border-left:3px solid var(--link);padding-left:10px}
+  code{font-family:ui-monospace,monospace;color:var(--link);font-size:0.92em}
+  table{border-collapse:collapse;font-size:12.5px;margin-top:6px;width:100%}
+  th,td{border:1px solid var(--line);padding:4px 9px;text-align:left}
+  th{background:#3a2b40;color:var(--emph);font-weight:700}
+  td.f{font-family:ui-monospace,monospace;color:var(--emph)}
+  td.no{color:#9a92a0}
+
+  /* ============ 8-SECOND ROTATION LOOP (one shared clock) ============
+     t=0.5 basic → link 1 · t=1.0 Twin Fangs → link 2 · t=2.0 Throwing Dirk → link 3 = BURST
+     t=3.0 basic → 4 · t=4.0 Twin Fangs → 5 · t=5.0 Throwing Dirk → 6 (burst on ICD)
+     t=8.0 window expires (3.0 s after the last link) → chain resets, loop restarts.
+     1 s = 12.5% of the loop. */
+  .anim{animation-duration:8s;animation-iteration-count:infinite;animation-timing-function:linear}
+
+  /* combo-counter link readouts: each visible only for its own second */
+  @keyframes k2{0%,12.4%{opacity:0}12.5%,24.9%{opacity:1}25%,100%{opacity:0}}
+  @keyframes k3{0%,24.9%{opacity:0}25%,37.4%{opacity:1}37.5%,100%{opacity:0}}
+  @keyframes k4{0%,37.4%{opacity:0}37.5%,49.9%{opacity:1}50%,100%{opacity:0}}
+  @keyframes k5{0%,49.9%{opacity:0}50%,62.4%{opacity:1}62.5%,100%{opacity:0}}
+  @keyframes k6{0%,62.4%{opacity:0}62.5%,96%{opacity:1}100%{opacity:0}}
+  .k2{animation-name:k2}.k3{animation-name:k3}.k4{animation-name:k4}.k5{animation-name:k5}.k6{animation-name:k6}
+
+  /* counter shell: hidden below 2 links (HUD §7.1), punch-scale on the burst */
+  @keyframes counterShell{0%,12.4%{opacity:0}12.5%,96%{opacity:1}100%{opacity:0}}
+  .counter-shell{animation-name:counterShell}
+  @keyframes burstPunch{
+    0%,24.9%{transform:scale(1)}
+    26%{transform:scale(1.45)}
+    29%{transform:scale(0.94)}
+    32%,100%{transform:scale(1)}}
+  .burst-punch{animation-name:burstPunch;transform-box:fill-box;transform-origin:center}
+
+  /* momentum pips: I fills at 3 links (t=2), II at 6 links (t=5), III stays a locked socket */
+  @keyframes pip1{0%,24.9%{opacity:0}25%,96%{opacity:1}100%{opacity:0}}
+  @keyframes pip2{0%,62.4%{opacity:0}62.5%,96%{opacity:1}100%{opacity:0}}
+  .pip1{animation-name:pip1}.pip2{animation-name:pip2}
+
+  /* burst ring + label: one flash at t=2, then nothing (8 s internal cooldown) */
+  @keyframes burstFlash{0%,24.9%{opacity:0;transform:scale(0.4)}27%{opacity:1;transform:scale(1)}36%{opacity:0;transform:scale(1.6)}100%{opacity:0}}
+  .burst-flash{animation-name:burstFlash;transform-box:fill-box;transform-origin:center}
+  @keyframes burstLabel{0%,24.9%{opacity:0}26%,34%{opacity:1}40%,100%{opacity:0}}
+  .burst-label{animation-name:burstLabel}
+
+  /* the 3.0 s chain window, redrawn from each landed link (COMBO_SYSTEM §2.3) */
+  @keyframes windowDrain{
+    0%{transform:scaleX(0)}
+    6.2%{transform:scaleX(1)}      /* t=0.5 link lands, window full */
+    12.5%{transform:scaleX(0.79)}  /* refreshed at t=1.0 */
+    12.6%{transform:scaleX(1)}
+    25%{transform:scaleX(0.66)}    /* refreshed at t=2.0 */
+    25.1%{transform:scaleX(1)}
+    37.5%{transform:scaleX(0.66)}
+    37.6%{transform:scaleX(1)}
+    50%{transform:scaleX(0.66)}
+    50.1%{transform:scaleX(1)}
+    62.5%{transform:scaleX(0.66)}
+    62.6%{transform:scaleX(1)}     /* last link at t=5.0 — nothing refreshes it after this */
+    100%{transform:scaleX(0)}}     /* runs dry at t=8.0 → chain resets to 0 */
+  .window-drain{animation-name:windowDrain;transform-box:fill-box;transform-origin:left center}
+
+  /* attack cadence: player sprite lunges on each landed source */
+  @keyframes lunge{
+    0%,4%{transform:translateX(0)}6.2%{transform:translateX(7px)}9%{transform:translateX(0)}
+    11%{transform:translateX(0)}12.5%{transform:translateX(7px)}15%{transform:translateX(0)}
+    23%{transform:translateX(0)}25%{transform:translateX(7px)}28%{transform:translateX(0)}
+    36%{transform:translateX(0)}37.5%{transform:translateX(7px)}40%{transform:translateX(0)}
+    48%{transform:translateX(0)}50%{transform:translateX(7px)}53%{transform:translateX(0)}
+    61%{transform:translateX(0)}62.5%{transform:translateX(7px)}65%{transform:translateX(0)}
+    100%{transform:translateX(0)}}
+  .lunge{animation-name:lunge}
+
+  /* floating damage numbers, one per landed link (HUD §7: rise + fade over ≈0.8 s) */
+  @keyframes dmg{0%{opacity:0;transform:translateY(0)}2%{opacity:1}12%{opacity:0;transform:translateY(-26px)}100%{opacity:0}}
+  .dmg{animation-name:dmg;animation-duration:8s;animation-iteration-count:infinite;animation-timing-function:ease-out}
+  .d1{animation-delay:0.5s}.d2{animation-delay:1s}.d3{animation-delay:2s}
+  .d4{animation-delay:3s}.d5{animation-delay:4s}.d6{animation-delay:5s}
+
+  /* essence gauge: drains per cast, jumps +5% max on the burst refund (COMBO_SYSTEM §4) */
+  @keyframes essence{
+    0%,6%{transform:scaleX(0.70)}12%{transform:scaleX(0.64)}25%{transform:scaleX(0.58)}
+    26%{transform:scaleX(0.64)}                 /* burst refunds 5% of max essence */
+    37%{transform:scaleX(0.61)}50%{transform:scaleX(0.55)}62%,100%{transform:scaleX(0.49)}}
+  .essence-fill{animation-name:essence;transform-box:fill-box;transform-origin:left center}
+
+  /* burst internal-cooldown bar: 8 s from t=2.0, so the t=5.0 finisher cannot burst */
+  @keyframes icd{0%,25%{transform:scaleX(0)}25.1%{transform:scaleX(1)}100%{transform:scaleX(0.25)}}
+  .icd-fill{animation-name:icd;transform-box:fill-box;transform-origin:left center}
+
+  /* timeline playhead */
+  @keyframes head{0%{transform:translateX(0)}100%{transform:translateX(560px)}}
+  .playhead{animation-name:head}
+
+  @media (prefers-reduced-motion: reduce){
+    .anim,.dmg{animation:none!important}
+    .counter-shell,.k6,.pip1,.pip2{opacity:1}
+    .k2,.k3,.k4,.k5,.burst-flash,.burst-label{opacity:0}
+    .window-drain{transform:scaleX(0.66)}
+    .essence-fill{transform:scaleX(0.49)}.icd-fill{transform:scaleX(0.25)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — Combat &amp; Combo Layer Mock-up</h1>
+<p class="sub">The skill-chaining layer in motion: <code>combo_momentum</code> links, the 3.0&nbsp;s chain window, momentum tiers, and the
+<code>combo_burst</code> finisher — rules owned by <code>COMBO_SYSTEM.md</code>, drawing owned by <code>HUD.md §7/§7.1</code>, folded into the damage
+pipeline at <code>COMBAT_FORMULA.md §2</code> step&nbsp;8. Sample character: <b>Ember</b>, Lv&nbsp;24 <code>flicker</code> (1st job — momentum caps at tier&nbsp;II,
+COMBO_SYSTEM §3). Skills are real content: <code>skill_flicker_001</code> Twin Fangs, <code>skill_flicker_003</code> Throwing Dirk.
+Sprites/hex values are illustrative placeholders — art identity is owned by <code>ART_BIBLE.yaml</code>. Gold numbered pins are design annotations, not game UI.</p>
+<p class="motion">▶ <b>Everything on this page runs on one shared 8-second rotation clock</b>, so the counter, window bar, gauges, and timeline below always agree:
+basic → Twin Fangs → Throwing Dirk (<b>burst</b>) → basic → Twin Fangs → Throwing Dirk (burst on cooldown) → window expires → reset.
+Motion is honored per <code>prefers-reduced-motion</code>; with reduced motion the page settles on the end-of-rotation frame.</p>
+
+<h2>1 · The chain, live (6 links to tier II, one burst)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 300" width="1280" height="600" role="img" aria-label="Animated mock-up of the combo counter during one rotation">
+  <!-- backdrop: a compressed field slice, same grammar as gameplay_scene_mockup.html -->
+  <g class="px">
+    <rect x="0" y="0" width="640" height="300" fill="#241726"/>
+    <rect x="0" y="0" width="640" height="120" fill="#5a1e14"/>
+    <rect x="0" y="120" width="640" height="60" fill="#8f2d1b"/>
+    <rect x="0" y="180" width="640" height="40" fill="#c8461f"/>
+    <rect x="0" y="220" width="640" height="40" fill="#eb7a2c"/>
+    <path d="M0,214 L90,180 L190,208 L300,176 L420,212 L560,186 L640,206 L640,260 L0,260 Z" fill="#3a2b40"/>
+    <rect x="0" y="256" width="640" height="44" fill="#3a2b1e"/>
+    <rect x="0" y="256" width="640" height="5" fill="#eb7a2c"/>
+    <rect x="0" y="261" width="640" height="2" fill="#6b4a2d"/>
+  </g>
+
+  <!-- ============ ENTITIES ============ -->
+  <!-- player, lunging once per landed source -->
+  <g class="px lunge anim">
+    <rect x="150" y="232" width="12" height="14" fill="#3f9a45"/>
+    <rect x="150" y="226" width="12" height="8" fill="#f0b58a"/>
+    <rect x="149" y="223" width="14" height="5" fill="#3a2b40"/>
+    <rect x="158" y="229" width="2" height="2" fill="#241726"/>
+    <rect x="146" y="234" width="5" height="10" fill="#4b2a78"/>
+    <rect x="150" y="246" width="5" height="10" fill="#3a2b1e"/><rect x="157" y="246" width="5" height="10" fill="#3a2b1e"/>
+    <rect x="162" y="234" width="12" height="3" fill="#e8e2d8"/><rect x="174" y="233" width="4" height="5" fill="#fbf7ef"/>
+  </g>
+  <!-- target pack: an aoe_circle finisher is one link, not eight (COMBO_SYSTEM §2.1) -->
+  <g class="px">
+    <g><rect x="236" y="238" width="22" height="14" fill="#9a6f3f"/><rect x="232" y="242" width="6" height="8" fill="#9a6f3f"/>
+       <rect x="254" y="232" width="8" height="10" fill="#9a6f3f"/><rect x="256" y="235" width="2" height="2" fill="#f6c34b"/>
+       <rect x="238" y="252" width="4" height="4" fill="#6b4a2d"/><rect x="250" y="252" width="4" height="4" fill="#6b4a2d"/>
+       <rect x="232" y="258" width="30" height="3" fill="#241726"/><rect x="233" y="259" width="14" height="1.5" fill="#c8461f"/></g>
+    <g><rect x="286" y="240" width="20" height="12" fill="#9a6f3f"/><rect x="282" y="243" width="6" height="7" fill="#9a6f3f"/>
+       <rect x="287" y="252" width="4" height="4" fill="#6b4a2d"/><rect x="298" y="252" width="4" height="4" fill="#6b4a2d"/>
+       <rect x="282" y="258" width="28" height="3" fill="#241726"/><rect x="283" y="259" width="19" height="1.5" fill="#c8461f"/></g>
+    <g><rect x="330" y="236" width="21" height="13" fill="#9a6f3f"/><rect x="326" y="240" width="6" height="7" fill="#9a6f3f"/>
+       <rect x="331" y="249" width="4" height="4" fill="#6b4a2d"/><rect x="343" y="249" width="4" height="4" fill="#6b4a2d"/>
+       <rect x="326" y="258" width="29" height="3" fill="#241726"/><rect x="327" y="259" width="8" height="1.5" fill="#c8461f"/></g>
+  </g>
+  <!-- one damage number per landed link; the burst instance is the big one -->
+  <g font-family="ui-monospace,monospace" font-weight="700" stroke="#241726" stroke-width="0.7" paint-order="stroke" text-anchor="middle">
+    <text class="dmg d1" x="248" y="222" font-size="10" fill="#e8e2d8">31</text>
+    <text class="dmg d2" x="264" y="216" font-size="10" fill="#e8e2d8">2×24</text>
+    <text class="dmg d3" x="300" y="210" font-size="17" fill="#f6c34b">88!</text>
+    <text class="dmg d4" x="246" y="220" font-size="10" fill="#e8e2d8">33</text>
+    <text class="dmg d5" x="268" y="214" font-size="10" fill="#e8e2d8">2×26</text>
+    <text class="dmg d6" x="338" y="212" font-size="11" fill="#e8e2d8">41</text>
+  </g>
+
+  <!-- ============ COMBO COUNTER (HUD §7.1) — right of center, ~1/3 down ============ -->
+  <g class="counter-shell anim">
+    <g class="burst-punch anim" font-family="ui-monospace,monospace" text-anchor="middle">
+      <text class="k2 anim" x="452" y="104" font-size="24" font-weight="700" fill="#f6c34b" stroke="#241726" stroke-width="0.9" paint-order="stroke">×2</text>
+      <text class="k3 anim" x="452" y="104" font-size="24" font-weight="700" fill="#f6c34b" stroke="#241726" stroke-width="0.9" paint-order="stroke">×3</text>
+      <text class="k4 anim" x="452" y="104" font-size="24" font-weight="700" fill="#f6c34b" stroke="#241726" stroke-width="0.9" paint-order="stroke">×4</text>
+      <text class="k5 anim" x="452" y="104" font-size="24" font-weight="700" fill="#f6c34b" stroke="#241726" stroke-width="0.9" paint-order="stroke">×5</text>
+      <text class="k6 anim" x="452" y="104" font-size="24" font-weight="700" fill="#f6c34b" stroke="#241726" stroke-width="0.9" paint-order="stroke">×6</text>
+      <text x="452" y="117" font-size="7" fill="#9a92a0">combo</text>
+    </g>
+    <!-- momentum-tier pips I / II / III — III renders as an empty socket: gated by advancement -->
+    <circle class="pip1 anim" cx="437" cy="127" r="3" fill="#f6c34b"/>
+    <circle cx="437" cy="127" r="3" fill="none" stroke="#6b6270" stroke-width="1"/>
+    <circle class="pip2 anim" cx="452" cy="127" r="3" fill="#f6c34b"/>
+    <circle cx="452" cy="127" r="3" fill="none" stroke="#6b6270" stroke-width="1"/>
+    <circle cx="467" cy="127" r="3" fill="none" stroke="#6b6270" stroke-width="1"/>
+    <line x1="464.5" y1="129.5" x2="469.5" y2="124.5" stroke="#6b6270" stroke-width="1"/>
+  </g>
+  <!-- burst flash, once per rotation (8 s ICD) -->
+  <circle class="burst-flash anim" cx="452" cy="99" r="26" fill="none" stroke="#f6c34b" stroke-width="2.5"/>
+  <text class="burst-label anim" x="452" y="70" font-family="ui-monospace,monospace" font-size="10" font-weight="700"
+        fill="#f6c34b" text-anchor="middle" stroke="#241726" stroke-width="0.8" paint-order="stroke">BURST ×1.25</text>
+  <text class="burst-label anim" x="452" y="82" font-family="ui-monospace,monospace" font-size="7" fill="#a7e0e3" text-anchor="middle">+5% max essence</text>
+
+  <!-- ============ DESIGN INSTRUMENT (not game UI): the 3.0 s chain window ============ -->
+  <g>
+    <rect x="392" y="146" width="120" height="9" rx="1.5" fill="#241726" stroke="#54b0c6" stroke-width="1" opacity="0.85"/>
+    <rect class="window-drain anim" x="393" y="147" width="118" height="7" fill="#54b0c6" opacity="0.55"/>
+    <text x="452" y="167" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" text-anchor="middle">chain window 3.0 s — refreshed by any landed link</text>
+  </g>
+
+  <!-- ============ BOTTOM BAR (abridged) ============ -->
+  <g>
+    <rect x="0" y="264" width="640" height="36" fill="#241726" opacity="0.9"/>
+    <rect x="0" y="264" width="640" height="1" fill="#6b6270"/>
+    <rect x="8" y="269" width="140" height="11" rx="2" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <rect x="9" y="270" width="121" height="9" fill="#c8461f"/><rect x="9" y="270" width="121" height="4" fill="#eb7a2c"/>
+    <text x="78" y="277.5" font-family="ui-monospace,monospace" font-size="7.5" font-weight="700" fill="#fbf7ef" text-anchor="middle">356 / 412</text>
+    <rect x="8" y="283" width="140" height="11" rx="2" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <g class="essence-fill anim"><rect x="9" y="284" width="138" height="9" fill="#2f7aa0"/><rect x="9" y="284" width="138" height="4" fill="#54b0c6"/></g>
+    <text x="78" y="291.5" font-family="ui-monospace,monospace" font-size="7.5" font-weight="700" fill="#fbf7ef" text-anchor="middle">essence</text>
+    <!-- the three chain-eligible sources, in rotation order -->
+    <g font-family="ui-monospace,monospace">
+      <rect x="176" y="270" width="23" height="23" rx="2" fill="#241726" stroke="#f6c34b" stroke-width="1.5"/>
+      <path d="M180,288 L195,273 M192,273 h3 v3" stroke="#fbf7ef" stroke-width="2" fill="none"/>
+      <text x="187.5" y="299" font-size="5.5" fill="#9a92a0" text-anchor="middle">basic</text>
+      <rect x="204" y="270" width="23" height="23" rx="2" fill="#241726" stroke="#f6c34b" stroke-width="1.5"/>
+      <path d="M208,288 l7,-15 M212,288 l7,-15" stroke="#e8e2d8" stroke-width="2" fill="none"/>
+      <text x="215.5" y="299" font-size="5.5" fill="#9a92a0" text-anchor="middle">Twin Fangs</text>
+      <rect x="232" y="270" width="23" height="23" rx="2" fill="#241726" stroke="#f6c34b" stroke-width="1.5"/>
+      <path d="M236,287 l12,-12 M245,275 h4 v4" stroke="#c09a54" stroke-width="2" fill="none"/>
+      <text x="243.5" y="299" font-size="5.5" fill="#9a92a0" text-anchor="middle">Throwing Dirk</text>
+      <!-- a support cast: neutral to the chain (COMBO_SYSTEM §2.3) -->
+      <rect x="266" y="270" width="23" height="23" rx="2" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+      <circle cx="277.5" cy="281.5" r="6" fill="none" stroke="#6b6270" stroke-width="1.5"/>
+      <text x="277.5" y="299" font-size="5.5" fill="#6b6270" text-anchor="middle">Sleight (no link)</text>
+    </g>
+    <!-- burst internal cooldown, 8 s -->
+    <g>
+      <text x="470" y="276" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">combo_burst ICD 8 s</text>
+      <rect x="470" y="280" width="120" height="7" rx="1.5" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+      <rect class="icd-fill anim" x="471" y="281" width="118" height="5" fill="#7a3f9a"/>
+    </g>
+  </g>
+
+  <!-- annotation pins -->
+  <g font-family="ui-monospace,monospace" font-size="8" font-weight="700">
+    <g><circle cx="486" cy="99" r="7" fill="#f6c34b"/><text x="486" y="102" fill="#241726" text-anchor="middle">1</text></g>
+    <g><circle cx="411" cy="127" r="7" fill="#f6c34b"/><text x="411" y="130" fill="#241726" text-anchor="middle">2</text></g>
+    <g><circle cx="376" cy="150" r="7" fill="#f6c34b"/><text x="376" y="153" fill="#241726" text-anchor="middle">3</text></g>
+    <g><circle cx="452" cy="56" r="7" fill="#f6c34b"/><text x="452" y="59" fill="#241726" text-anchor="middle">4</text></g>
+    <g><circle cx="304" cy="286" r="7" fill="#f6c34b"/><text x="304" y="289" fill="#241726" text-anchor="middle">5</text></g>
+    <g><circle cx="604" cy="283" r="7" fill="#f6c34b"/><text x="604" y="286" fill="#241726" text-anchor="middle">6</text></g>
+    <g><circle cx="160" cy="288" r="7" fill="#f6c34b"/><text x="160" y="291" fill="#241726" text-anchor="middle">7</text></g>
+  </g>
+</svg>
+
+<div class="legend">
+  <div><b>1</b> Link counter, <code>dmg_number</code> font — appears at 2+ links, hidden below <span class="doc">HUD §7.1</span></div>
+  <div><b>2</b> Momentum pips I·II·III; tier III is a struck-through empty socket — a 1st-job character is capped at II <span class="doc">COMBO_SYSTEM §3</span></div>
+  <div><b>3</b> <b>Design instrument, not game UI:</b> the 3.0 s chain window. The player never sees this bar — the rhythm is learned, not metered <span class="doc">COMBO_SYSTEM §2.3</span></div>
+  <div><b>4</b> <code>combo_burst</code>: punch-scale flash reusing the §7 crit language, ×1.25 on <b>every</b> instance of that cast <span class="doc">COMBO_SYSTEM §4, HUD §7.1</span></div>
+  <div><b>5</b> Support/mobility casts are <b>neutral</b> — they neither grow, refresh, nor break the chain <span class="doc">COMBO_SYSTEM §2.3</span></div>
+  <div><b>6</b> Burst internal cooldown 8 s — the second finisher at t=5.0 meets the pattern but cannot burst <span class="doc">COMBO_SYSTEM §4</span></div>
+  <div><b>7</b> Burst refunds 5% of max <code>essence</code> — a flat kickback, not a <code>restore_essence</code> op <span class="doc">COMBO_SYSTEM §4</span></div>
+</div>
+<p class="note">Asymmetric by design: monsters have no combo layer, the same asymmetry as player i-frames. <code>combo_momentum</code> is <b>not a status</b> — it never
+occupies a slot in the 12-slot status row (<code>STATUS_EFFECTS §1</code>), has no icon, and cannot be cleansed or dispelled.</p>
+</div>
+
+<h2>2 · The rotation on a ruler (what the clock above is doing)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 210" width="1280" height="420" role="img" aria-label="Timeline of one 8-second combo rotation">
+  <rect x="0" y="0" width="640" height="210" fill="#241726" class="px"/>
+  <!-- time axis: 0..8 s over x 40..600 (70 px per second) -->
+  <g font-family="ui-monospace,monospace" font-size="7" fill="#9a92a0">
+    <line x1="40" y1="176" x2="600" y2="176" stroke="#6b6270" stroke-width="1"/>
+    <g stroke="#6b6270" stroke-width="1">
+      <line x1="40" y1="176" x2="40" y2="182"/><line x1="110" y1="176" x2="110" y2="182"/><line x1="180" y1="176" x2="180" y2="182"/>
+      <line x1="250" y1="176" x2="250" y2="182"/><line x1="320" y1="176" x2="320" y2="182"/><line x1="390" y1="176" x2="390" y2="182"/>
+      <line x1="460" y1="176" x2="460" y2="182"/><line x1="530" y1="176" x2="530" y2="182"/><line x1="600" y1="176" x2="600" y2="182"/>
+    </g>
+    <text x="40" y="193" text-anchor="middle">0 s</text><text x="110" y="193" text-anchor="middle">1</text><text x="180" y="193" text-anchor="middle">2</text>
+    <text x="250" y="193" text-anchor="middle">3</text><text x="320" y="193" text-anchor="middle">4</text><text x="390" y="193" text-anchor="middle">5</text>
+    <text x="460" y="193" text-anchor="middle">6</text><text x="530" y="193" text-anchor="middle">7</text><text x="600" y="193" text-anchor="middle">8 s</text>
+  </g>
+  <!-- lanes -->
+  <g font-family="ui-monospace,monospace" font-size="7.5" fill="#9a92a0">
+    <text x="4" y="34">source</text><text x="4" y="72">links</text><text x="4" y="110">window</text><text x="4" y="148">burst</text>
+  </g>
+  <!-- source lane: each landed source -->
+  <g font-family="ui-monospace,monospace" font-size="6.5" text-anchor="middle">
+    <g><rect x="60" y="20" width="40" height="18" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1"/><text x="80" y="32" fill="#e8e2d8">basic</text></g>
+    <g><rect x="96" y="20" width="52" height="18" rx="2" fill="#3a2b40" stroke="#f6c34b" stroke-width="1"/><text x="122" y="32" fill="#f6c34b">Twin Fangs</text></g>
+    <g><rect x="160" y="20" width="60" height="18" rx="2" fill="#3a2b40" stroke="#f6c34b" stroke-width="1.5"/><text x="190" y="32" fill="#f6c34b">Thr. Dirk</text></g>
+    <g><rect x="230" y="20" width="40" height="18" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1"/><text x="250" y="32" fill="#e8e2d8">basic</text></g>
+    <g><rect x="296" y="20" width="52" height="18" rx="2" fill="#3a2b40" stroke="#f6c34b" stroke-width="1"/><text x="322" y="32" fill="#f6c34b">Twin Fangs</text></g>
+    <g><rect x="360" y="20" width="60" height="18" rx="2" fill="#3a2b40" stroke="#f6c34b" stroke-width="1"/><text x="390" y="32" fill="#f6c34b">Thr. Dirk</text></g>
+    <!-- neutral input: a mobility cast that changes nothing -->
+    <g opacity="0.55"><rect x="440" y="20" width="46" height="18" rx="2" fill="#241726" stroke="#6b6270" stroke-width="1" stroke-dasharray="3 2"/><text x="463" y="32" fill="#6b6270">Sleight</text></g>
+  </g>
+  <!-- links lane: the growing counter, with the tier bands behind it -->
+  <g>
+    <rect x="40" y="56" width="560" height="26" fill="#3a2b40" opacity="0.5"/>
+    <rect x="180" y="56" width="420" height="26" fill="#7a3f9a" opacity="0.18"/>
+    <rect x="390" y="56" width="210" height="26" fill="#7a3f9a" opacity="0.28"/>
+    <text x="184" y="66" font-family="ui-monospace,monospace" font-size="6" fill="#b064c6">tier I ×1.05 (3–5 links)</text>
+    <text x="394" y="66" font-family="ui-monospace,monospace" font-size="6" fill="#b064c6">tier II ×1.10 (6–9 links)</text>
+    <g font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#f6c34b" text-anchor="middle">
+      <text x="75" y="78">1</text><text x="110" y="78">2</text><text x="180" y="78">3</text>
+      <text x="250" y="78">4</text><text x="320" y="78">5</text><text x="390" y="78">6</text>
+    </g>
+  </g>
+  <!-- window lane: the 3.0 s window restarted by every landed link, expiring at t=8 -->
+  <g>
+    <rect x="40" y="94" width="560" height="22" fill="#241726" stroke="#6b6270" stroke-width="0.5"/>
+    <g fill="#54b0c6" opacity="0.22">
+      <rect x="75" y="94" width="210" height="22"/><rect x="110" y="94" width="210" height="22"/><rect x="180" y="94" width="210" height="22"/>
+      <rect x="250" y="94" width="210" height="22"/><rect x="320" y="94" width="210" height="22"/>
+    </g>
+    <rect x="390" y="94" width="210" height="22" fill="#54b0c6" opacity="0.4"/>
+    <line x1="600" y1="90" x2="600" y2="120" stroke="#c8461f" stroke-width="2"/>
+    <text x="596" y="130" font-family="ui-monospace,monospace" font-size="6.5" fill="#c8461f" text-anchor="end">window expires → chain resets to 0</text>
+  </g>
+  <!-- burst lane -->
+  <g>
+    <circle cx="180" cy="143" r="6" fill="#f6c34b"/>
+    <text x="192" y="140" font-family="ui-monospace,monospace" font-size="6.5" fill="#f6c34b">BURST — 3 consecutive distinct sources, ≥2 of them actives</text>
+    <rect x="180" y="150" width="560" height="6" fill="#7a3f9a" opacity="0.35"/>
+    <rect x="180" y="150" width="420" height="6" fill="#7a3f9a" opacity="0.6"/>
+    <text x="192" y="149" font-family="ui-monospace,monospace" font-size="6" fill="#b064c6">internal cooldown 8 s →</text>
+    <circle cx="390" cy="143" r="6" fill="none" stroke="#6b6270" stroke-width="1.5"/>
+    <line x1="386" y1="147" x2="394" y2="139" stroke="#6b6270" stroke-width="1.5"/>
+    <text x="402" y="140" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">pattern met — suppressed by ICD</text>
+  </g>
+  <!-- playhead -->
+  <g class="playhead anim">
+    <line x1="40" y1="14" x2="40" y2="182" stroke="#f6c34b" stroke-width="1.5" opacity="0.9"/>
+    <path d="M35,10 h10 l-5,6 Z" fill="#f6c34b"/>
+  </g>
+</svg>
+<p class="note">The counter grows <b>only on a source change</b> (COMBO_SYSTEM §2.2): mashing basic attack, or one skill, holds the chain at 1 link forever.
+A same-source link still refreshes the window — it just adds nothing. A multi-hit or multi-target cast is <b>one</b> link: an <code>aoe_circle</code> clearing a
+pack of eight counts once (§2.1).</p>
+</div>
+
+<h2>3 · Momentum tiers and the advancement gate</h2>
+<div class="frame">
+<svg viewBox="0 0 640 138" width="1280" height="276" role="img" aria-label="Momentum tier ladder gated by job advancement">
+  <rect x="0" y="0" width="640" height="138" fill="#241726" class="px"/>
+  <g font-family="ui-monospace,monospace" font-size="7" fill="#9a92a0">
+    <text x="14" y="18">links</text>
+    <text x="14" y="126">The chain counts links without limit at any job — advancement caps the <b>tier</b> you can cash them in at.</text>
+  </g>
+  <!-- ladder -->
+  <g font-family="ui-monospace,monospace">
+    <g><rect x="60" y="26" width="120" height="26" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/>
+       <text x="120" y="43" font-size="8" fill="#9a92a0" text-anchor="middle">0–2 links · ×1.00</text></g>
+    <g><rect x="60" y="54" width="150" height="26" fill="#4b2a78" stroke="#7a3f9a" stroke-width="1"/>
+       <text x="135" y="71" font-size="8" fill="#e0a7e3" text-anchor="middle">3–5 · tier I · ×1.05</text></g>
+    <g><rect x="60" y="82" width="180" height="26" fill="#7a3f9a" stroke="#b064c6" stroke-width="1"/>
+       <text x="150" y="99" font-size="8" fill="#fbf7ef" text-anchor="middle">6–9 · tier II · ×1.10</text></g>
+    <g><rect x="260" y="82" width="180" height="26" fill="#b064c6" stroke="#e0a7e3" stroke-width="1"/>
+       <text x="350" y="99" font-size="8" fill="#241726" text-anchor="middle">10+ · tier III · ×1.15 (cap)</text></g>
+  </g>
+  <!-- gates -->
+  <g font-family="ui-monospace,monospace" font-size="7.5">
+    <g><rect x="466" y="26" width="160" height="24" rx="2" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+       <text x="474" y="41" fill="#9a92a0">novice</text><text x="618" y="41" fill="#e0a7e3" text-anchor="end">caps at tier I</text></g>
+    <g><rect x="466" y="54" width="160" height="24" rx="2" fill="#241726" stroke="#f6c34b" stroke-width="1.5"/>
+       <text x="474" y="69" fill="#f6c34b">1st job (Lv 8)</text><text x="618" y="69" fill="#e0a7e3" text-anchor="end">caps at tier II</text></g>
+    <g><rect x="466" y="82" width="160" height="24" rx="2" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+       <text x="474" y="97" fill="#9a92a0">2nd job (Lv 40)</text><text x="618" y="97" fill="#e0a7e3" text-anchor="end">tier III</text></g>
+  </g>
+  <text x="466" y="120" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">3rd-tier cap reserved with that arc (Open Questions)</text>
+  <!-- our sample character marker -->
+  <g><path d="M456,66 l-8,-5 v10 Z" fill="#f6c34b"/></g>
+</svg>
+</div>
+
+<h2>4 · Where the multiplier actually lands (<code>COMBAT_FORMULA.md §2</code>)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 128" width="1280" height="256" role="img" aria-label="Damage pipeline with the combo multiplier at step 8">
+  <rect x="0" y="0" width="640" height="128" fill="#241726" class="px"/>
+  <g font-family="ui-monospace,monospace" font-size="6.5" text-anchor="middle">
+    <g><rect x="10" y="30" width="58" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="39" y="43" fill="#9a92a0">1 hit check</text><text x="39" y="53" fill="#6b6270">miss → 0</text></g>
+    <g><rect x="72" y="30" width="58" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="101" y="43" fill="#9a92a0">2 immunity</text><text x="101" y="53" fill="#6b6270">×0 → 0</text></g>
+    <g><rect x="134" y="30" width="58" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="163" y="43" fill="#9a92a0">3 base</text><text x="163" y="53" fill="#6b6270">power × coef</text></g>
+    <g><rect x="196" y="30" width="58" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="225" y="43" fill="#9a92a0">4 mitigation</text><text x="225" y="53" fill="#6b6270">armor/warding</text></g>
+    <g><rect x="258" y="30" width="58" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="287" y="43" fill="#9a92a0">5 element</text><text x="287" y="53" fill="#6b6270">×0.5/1/1.5</text></g>
+    <g><rect x="320" y="30" width="46" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="343" y="43" fill="#9a92a0">6 crit</text><text x="343" y="53" fill="#6b6270">crit_power</text></g>
+    <g><rect x="370" y="30" width="52" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="396" y="43" fill="#9a92a0">7 variance</text><text x="396" y="53" fill="#6b6270">±8%</text></g>
+    <!-- step 8: the one this doc feeds -->
+    <g><rect x="426" y="24" width="86" height="42" rx="2" fill="#4b2a78" stroke="#f6c34b" stroke-width="2"/>
+       <text x="469" y="38" fill="#f6c34b" font-weight="700">8 damage-dealt</text>
+       <text x="469" y="48" fill="#e0a7e3">empower · weaken</text>
+       <text x="469" y="58" fill="#fbf7ef" font-weight="700">combo_momentum</text></g>
+    <g><rect x="516" y="30" width="58" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="545" y="43" fill="#9a92a0">9 lv-diff</text><text x="545" y="53" fill="#6b6270">dampener</text></g>
+    <g><rect x="578" y="30" width="52" height="30" rx="2" fill="#3a2b40" stroke="#3f9a45" stroke-width="1"/><text x="604" y="48" fill="#3f9a45">≥ 1 dmg</text></g>
+  </g>
+  <g stroke="#6b6270" stroke-width="1" fill="none">
+    <path d="M68,45 h4"/><path d="M130,45 h4"/><path d="M192,45 h4"/><path d="M254,45 h4"/><path d="M316,45 h4"/><path d="M366,45 h4"/><path d="M422,45 h4"/><path d="M512,45 h4"/><path d="M574,45 h4"/>
+  </g>
+  <!-- worked envelope -->
+  <g font-family="ui-monospace,monospace" font-size="7">
+    <text x="10" y="86" fill="#9a92a0">Sustained envelope (design target, not a content formula):</text>
+    <text x="10" y="100" fill="#e8e2d8">tier III ×1.15  ×  amortized burst (×1.25 on ≈1 cast / 8 s ≈ +3%)  ≈  <tspan fill="#f6c34b" font-weight="700">+15–18% sustained damage</tspan> vs. a non-chaining player</text>
+    <text x="10" y="114" fill="#9a92a0">— budgeted <b>inside</b> COMBAT_FORMULA §15's rotation factor <tspan fill="#54b0c6">mult m</tspan>. A non-comboer clears an at-level normal in ≈5.2 s, still inside the §14 3–6 s TTK band.</text>
+  </g>
+</svg>
+<p class="note">This is the whole containment argument: combos are a <b>damage-per-minute edge, never a gate</b>. If a balance pass retunes the magnitudes
+(window, thresholds, multipliers, burst ICD), it retunes them against <code>mult m</code> — never against the §14 TTK bands.</p>
+</div>
+
+<h2>5 · What never links (the negative rules, drawn once)</h2>
+<div class="frame">
+<table>
+  <tr><th>Input / event</th><th>Grows the chain?</th><th>Refreshes the window?</th><th>Why</th></tr>
+  <tr><td class="f">basic attack, then a different offensive skill</td><td>yes, +1</td><td>yes</td><td class="no">source changed — this is the entire mechanic</td></tr>
+  <tr><td class="f">the same source, twice in a row</td><td class="no">no</td><td>yes</td><td class="no">mashing one button holds the chain at 1 link forever (§2.2)</td></tr>
+  <tr><td class="f">a multi-hit / multi-target cast</td><td>+1 (first landed instance only)</td><td>yes, every instance</td><td class="no">an <code>aoe_circle</code> clearing a pack is one link, not eight (§2.1)</td></tr>
+  <tr><td class="f">DoT ticks (<code>burn</code> / <code>poison</code>)</td><td class="no">no</td><td class="no">no</td><td class="no">they carry the momentum snapshotted at application instead (§2.4)</td></tr>
+  <tr><td class="f"><code>on_hit_proc</code> extra damage</td><td class="no">no</td><td class="no">no</td><td class="no">not a pressed source (§2.4)</td></tr>
+  <tr><td class="f">summoned entities' damage</td><td class="no">no</td><td class="no">no</td><td class="no">summons act independently — first-pass, flagged in Open Questions (§2.4)</td></tr>
+  <tr><td class="f">touch / reflect damage</td><td class="no">no</td><td class="no">no</td><td class="no">no press behind it (§2.4)</td></tr>
+  <tr><td class="f">misses and immunes</td><td class="no">no</td><td class="no">no</td><td class="no">only <i>landed, non-immune</i> instances count (§2.1)</td></tr>
+  <tr><td class="f">support / mobility casts, item use, dodge, <i>taking</i> damage</td><td class="no">no</td><td class="no">no — but they do not break it either</td><td class="no">strictly neutral (§2.3)</td></tr>
+  <tr><td class="f">death, map transfer</td><td class="no">reset to 0</td><td class="no">—</td><td class="no">chain state is transient, never persisted (§2.3)</td></tr>
+</table>
+<p class="note">Server-authoritative in the live build: chain state, momentum tier, burst eligibility, and the <code>essence</code> refund all resolve server-side and are
+client-predicted like the rest of combat (<code>PERSISTENCE.md</code>; P6). The solo client simulates identically.</p>
+</div>
+
+<p class="note" style="border-color:var(--link);margin-top:22px">Non-binding visual aid. Where this page and
+<code>docs/40_assets/UI_ART_SPEC.md</code> / <code>docs/40_assets/ART_BIBLE.yaml</code> differ, <b>the spec wins</b>. All numbers shown are
+<code>COMBO_SYSTEM.md</code>'s first-pass design-envelope values, due for retune at the balance pass.</p>
+
+</div>
+</body>
+</html>
