@@ -109,7 +109,9 @@ eligible member count (a flat table, like the exp party bonus):
 
 `party_drop_bonus` multiplies the **same sub-`guaranteed` `chance` rolls** `m` (§4) multiplies —
 item/material/emberstone/unique rows and the pool rarity-weight bias — and **composes with
-`fortune` by multiplication**: the applied factor is `m · party_drop_bonus`. It does **not** touch
+`fortune` by multiplication**: the applied factor is `m · party_drop_bonus · guild_drop_buff`,
+where `guild_drop_buff` is the optional guild grouping buff (`10_systems/social/GUILD.md` §10,
+default 1.00, `1.05` when 2+ guildmates share the party). It does **not** touch
 `guaranteed` rows, `shards`, or `qty`. The combined-adjusted `chance` obeys the **same ≤ 0.95
 clamp** as §4, so no combination of grouping and `fortune` ever makes a drop certain. A solo-in-party
 member (everyone else off-map) draws `1.00` — no bonus without company. First-pass faucet lever;

@@ -238,7 +238,10 @@ from the table — `10_systems/QUESTS.md` is responsible for staying in budget, 
 part of the 70/25/5 budget: the §1 curve and its `/played` estimates assume a player who never raids
 (hunting + quests only), so raids can pay strong `exp` (§3.1) without any activity becoming mandatory
 (P2). A grouped player who also raids simply travels the same curve faster; the party exp bonus
-(`10_systems/social/PARTY.md` §4) works the same way. Neither touches the §1 curve.
+(`10_systems/social/PARTY.md` §4) and the guild grouping buff (`10_systems/social/GUILD.md` §10,
++exp when guildmates party together) are the same kind of **elective accelerator** — they stack on
+the grouped pool and speed the climb, but none is in the 70/25/5 budget and none touches the §1
+curve.
 
 ## 5. Level-up rewards
 
