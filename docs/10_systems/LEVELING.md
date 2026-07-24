@@ -147,7 +147,7 @@ the top of arc 2) with no region-boundary jumps.
 | `normal` | ×1 | The pacing anchor. |
 | `elite` | ×5 | ×6 `life` (COMBAT_FORMULA §13.2) for ×5 `exp` → marginally less `exp/hour` than normals; elites are speed-bumps and drop-density, not `exp` farms. |
 | `boss` | ×25 | ×35 `life`; a region `boss` is a progression/loot event, not an `exp/hour` play. |
-| raid boss | raid-shared, **150× base total** | Total = `150 · exp_per_kill_normal(boss.level)`, split among the raid party per `10_systems/social/RAID.md` (exp-share mechanics in `10_systems/social/PARTY.md` §4); raids reward gear/prestige, `exp` is secondary. |
+| raid boss | raid-shared, **150× base total** | Total = `150 · exp_per_kill_normal(boss.level)`, split among the raid party per `10_systems/social/RAID.md` (exp-share mechanics in `10_systems/social/PARTY.md` §4). This is only the finale **kill**; a raid also pays per-stage and completion grants (§3.1) that make a full clear a strong `exp` event, not just a loot run. |
 
 | Mob Lv | `normal` ×1 | `elite` ×5 | `boss` ×25 |
 |---|---|---|---|
@@ -168,9 +168,35 @@ Mob Lv > 80 (future-arc content): compute from `exp_per_kill_normal(L) = round(4
 Raid-boss total `exp` scales with the raid's boss `level`. The two arc-2 raids
 (`10_systems/social/RAID.md`): **`raid_deepfrost`** (boss Lv 55) totals `150 · 732 ≈ 109,800`;
 **`raid_voidtide`** (boss Lv 80) totals `150 · 1,191 ≈ 178,650` — split among the raid party
-(≈ 21,960 and ≈ 35,730 per member at `N` = 5). Each member's share is worth only ≈ 30 at-level
-`normal` kills (≈ 4 min of hunting), so a raid clear is deliberately **not** the fast `exp` path; it
-is the gear/prestige path (`10_systems/DROPS.md`).
+(≈ 21,960 and ≈ 35,730 per member at `N` = 5). That finale-**kill** share alone is worth only ≈ 30
+at-level `normal` kills, so the kill by itself is not the draw — the **per-stage and completion
+grants in §3.1** are what make a full raid clear a strong `exp` event (and the loot is
+`10_systems/DROPS.md`'s).
+
+### 3.1 Raid stage & completion `exp` (MapleStory-inspired)
+
+Raids (`10_systems/social/RAID.md`) pay `exp` in the classic co-op-run tradition: a grant on **each
+stage cleared** plus a headline **completion bonus** on the finale-boss kill, on top of the ordinary
+stage mobs and the §3 raid-boss row. Both grants are **fixed authored `exp` amounts** — a flat
+number per raid, **not** a formula and **not** a fraction of a level — paid **flat to every eligible
+member** (not a pool to split, so the whole party is rewarded for finishing). Each raid's values:
+
+| Raid (band) | `raid_stage_exp` (each stage cleared) | `raid_clear_exp` (finale completion) |
+|---|---|---|
+| `raid_undervault` (Lv 15–22) | 2,000 | 12,000 |
+| `raid_mainspring` (Lv 32–40) | 4,000 | 24,000 |
+| `raid_deepfrost` (Lv 45–55) | 6,000 | 36,000 |
+| `raid_voidtide` (Lv 70–80) | 10,000 | 60,000 |
+
+Values are **fixed and predictable**: a `raid_voidtide` stage always pays 10,000 on clear, every run,
+to each member; its finale always pays the 60,000 completion bonus — the run's **best single `exp`
+reward**. Each stage grants its `raid_stage_exp` the moment that stage's objective
+(`10_systems/social/RAID.md` §4) completes. The numbers rise across the bands only because each raid
+is authored with its own fixed values — there is no per-level scaling formula. The boss's own kill
+`exp` (§3's 150× row, split per `10_systems/social/PARTY.md` §4) is separate and on top. The
+**per-character clear cooldown** (`10_systems/social/RAID.md` §5) keeps clear-chaining from beating
+hunting as the pacing anchor — raiding accelerates a grouped player without becoming mandatory (P2).
+These grants sit **outside** the §4 mandatory source-split.
 
 ## 4. `exp` source split policy
 
@@ -186,6 +212,12 @@ world stays a hunt-and-hangout loop (P3):
 The 70% hunting share is what the §1 `/played` estimate is built on (pure-hunting kills =
 `0.70 · kills_per_level`). If a region's quests over- or under-shoot 25%, its effective pace drifts
 from the table — `10_systems/QUESTS.md` is responsible for staying in budget, citing these numbers.
+
+**Raids sit outside this mandatory mix.** The §3.1 raid grants are an **elective accelerator**, not
+part of the 70/25/5 budget: the §1 curve and its `/played` estimates assume a player who never raids
+(hunting + quests only), so raids can pay strong `exp` (§3.1) without any activity becoming mandatory
+(P2). A grouped player who also raids simply travels the same curve faster; the party exp bonus
+(`10_systems/social/PARTY.md` §4) works the same way. Neither touches the §1 curve.
 
 ## 5. Level-up rewards
 
@@ -254,6 +286,16 @@ Lv 80+ regions.
   contribution-weighted base + presence-bonus mechanics in `10_systems/social/PARTY.md` §4; the
   ≈ 21,960 / ≈ 35,730 per-member figures here assume the even-split degenerate case at `N` = 5.
   Reconcile the exact per-member share with PARTY §4 at the next gate.
+- **Raid stage/completion `exp` values (§3.1) are first-pass fixed numbers.** Authored per raid as
+  flat amounts (not a formula, not a fraction of a level), so a clear's reward is fully predictable;
+  retune the numbers themselves with telemetry against the `10_systems/social/RAID.md` §5 clear
+  cooldown so raiding never beats hunting as the pacing anchor. Owner: this doc with
+  `10_systems/social/RAID.md` / `10_systems/ECONOMY.md`.
+- **The party exp bonus (`10_systems/social/PARTY.md` §4) accelerates grouped pacing.** The §1
+  `/played` estimates are solo (pure hunting); a full party earns `party_bonus`-boosted `exp` and
+  clears faster, so grouped `/played` is shorter than the table. First-pass `+5%`/eligible member is
+  modest, but reconciling the grouped pace against the solo curve is flagged. Owner: this doc with
+  `10_systems/social/PARTY.md`.
 - The ≈ 480 kills/hour pacing assumption (and the 0.70 duty-cycle behind the ≈ 336 effective rate)
   folds in travel/aggro/turn-in downtime that has not been measured; if real spawn density
   (`docs/WORLD_PLAN.md`, map spawn data) diverges, the `/played` estimates shift while the

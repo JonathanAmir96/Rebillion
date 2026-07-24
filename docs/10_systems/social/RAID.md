@@ -112,12 +112,26 @@ counts, spawn sets) are Phase D content authored against these three patterns.
 
 ## 6. Rewards — raids are the loot path
 
-Design intent (fixed): **a raid clear is the loot path; `exp` is secondary.**
-`10_systems/LEVELING.md` §3 owns the raid-boss `exp` multiplier and already prices a clear as
-deliberately slower `exp` than hunting — cited, not restated.
+Design intent (v3.1): **a raid clear is both a strong `exp` event and the loot path.** In the
+MapleStory-inspired shape, `exp` arrives on **each stage cleared** and peaks in a headline
+**completion bonus** on the finale kill; `10_systems/LEVELING.md` §3/§3.1 owns and sizes every raid
+`exp` grant (cited, not restated) so a clear is excellent for its band without letting
+cooldown-gated raiding beat hunting as the mandatory pacing path (`00_vision/PILLARS.md` P2).
 
-- **`exp`.** The finale-boss kill pays `10_systems/LEVELING.md` §3's raid-boss row, split among
-  the party per `10_systems/social/PARTY.md` §4. Stage mobs pay their ordinary per-kill `exp`.
+- **`exp` — per stage, then a headline clear bonus.** A raid pays `exp` at three moments, all
+  budgeted by `10_systems/LEVELING.md` §3/§3.1 (magnitudes there, not restated here):
+  1. **Stage mobs** pay ordinary per-kill `exp` as the party clears them
+     (`10_systems/LEVELING.md` §2–§3), shared per `10_systems/social/PARTY.md` §4.
+  2. **Each stage clear** grants a flat `raid_stage_exp` to **every eligible member** (not split)
+     the moment that stage's objective (§4) completes — the sub-step reward.
+  3. **The finale-boss kill** grants the headline `raid_clear_exp` completion bonus to every
+     eligible member (not split) — deliberately the run's **best `exp`** — *on top of* the boss's
+     own kill `exp` (`10_systems/LEVELING.md` §3's raid-boss row, split per
+     `10_systems/social/PARTY.md` §4).
+  The stage and clear grants are **flat per-member** (the whole party is rewarded for finishing, not
+  a pool to divide) — the MapleStory-inspired feel. This makes a raid an `exp` **event**, not a
+  farm: the per-character clear cooldown (§5) keeps clear-chaining from displacing hunting as the
+  pacing anchor.
 - **Boss uniques.** The finale boss's uniques come from **the boss's normal drop table**
   (`10_systems/DROPS.md` §5.3–§5.4, `10_systems/ITEMS.md` §11) — no separate raid-only unique
   table. A raid-context kill receives `10_systems/DROPS.md`'s raid-boss treatment; an
@@ -188,6 +202,10 @@ timers) so the live server swap changes no calling code.
   `10_systems/DROPS.md`.
 - **Entry fee.** Whether raid entry charges a `shards` fee (a sink lever) is deliberately left
   open; default none (§3). Owner: `10_systems/ECONOMY.md` with this doc.
+- **Per-stage / completion `exp` values (§6).** The `raid_stage_exp` / `raid_clear_exp` amounts are
+  **fixed authored numbers** owned by `10_systems/LEVELING.md` §3.1 (first-pass, one flat value per
+  raid — no formula). This doc fixes only the reward *structure* (per-stage grant + completion
+  bonus, flat per-member); the numbers and their tuning are LEVELING's.
 - **Resolved — arc-2 ID ranges minted.** `map_240`–`244`, `map_320`–`324`, `mob_178`,
   `mob_234`, the arc-2 herald NPCs, and the arc-2 intro/handler quest slots all sit inside
   `docs/ID_REGISTRY.md`'s extended blocks, and the `frostpeak`/`arcane_reach`/`voidshore`
