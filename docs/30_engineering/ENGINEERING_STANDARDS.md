@@ -9,7 +9,7 @@ numbers/strings** (tunables in data, ids as `const`/`StringName`, stat names fro
 **Project structure:** `autoload/` (EventBus, GameState, Database, SceneManager — few singletons);
 `resources/` (Resource classes = schemas as code); `data/` (.tres converted from 50_content YAML);
 `entities/` (one base scene per type, data-driven); `systems/` (combat, spawn, loot, skills);
-`components/` (Health, Hurtbox, Hitbox, StateMachine, StatusStack); `ui/`, `maps/`, `assets/`,
+`components/` (Life, Hurtbox, Hitbox, StateMachine, StatusStack); `ui/`, `maps/`, `assets/`,
 `tests/`. Naming: snake_case files/vars, PascalCase classes/nodes, SCREAMING_SNAKE consts, `_`
 private. Every referenced script declares `class_name`. One folder = one feature.
 
@@ -63,6 +63,11 @@ integrity, schema conformance, ID uniqueness, world-graph) and blocks merges in 
 **VCS/agent hygiene:** gitignore `.godot/`; one concern per commit; content commits separate from
 code; a schema change updates Resource class + validator + content + doc together, or files an
 Open Question; never edit ART_BIBLE (Agent-3 only) or read-only docs (copy locally).
+
+**Amendments:** ES-001 (2026-07-24, owner-directed contradiction fix C-27c,
+`docs/phase_reports/DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`): the survival-pool component is
+named `Life` (was `Health`), per prime directive 6's stat-names-from-GLOSSARY rule and the `life`
+token.
 
 **Definition of Done:** data-driven, typed, tested, validates, respects client/server boundary,
 uses only GLOSSARY tokens, no `push_error` on load, Open Questions resolved or logged.

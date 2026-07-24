@@ -1,0 +1,13 @@
+id: npc_092
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Innkeep Sorra
+region: frostpeak
+map: map_221
+role: innkeeper
+services: [inn_rest]
+dialog:
+  greeting: "The hall's hearth never goes out. Take a bench and warm through before the next climb."
+  farewell: "Mind the wind past the gate -- it's worse than it looks from inside."
+portrait: portrait_npc_092
+flavor: "Sorra runs the hold hall's bunks and stew pot both, and has never once turned a traveler away."

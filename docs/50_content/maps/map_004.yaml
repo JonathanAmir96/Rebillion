@@ -1,0 +1,34 @@
+id: map_004
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Elder's Hall
+region: emberfoot
+map_type: interior
+level_band: { min: 1, max: 8 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 34, h: 18 }
+bgm: bgm_town_emberfoot
+ambience: [amb_crackle]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [17, 12] }
+portals:
+  - id: to_village
+    kind: door
+    at: { tile: [4, 13] }
+    target_map: map_001
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: lore_marker
+    id: marker_cindermaw_legend
+    at_tile: [24, 11]
+    params:
+      text: "A soot-stained mural shows a great furnace-hound curled in the kiln's heart, sleeping since before the village had a name."
+      interact_prompt: Read
+npcs: [npc_003, npc_004]
+platform_brief: |
+  Single flat hall, no verticality. A worn mural covers the back wall; the elder's
+  chair and the guide's lectern sit to either side of the door back to the square.
+flavor: "Every novice's first and last stop -- the guide teaches the basics here, and the elder sends them off toward the kiln when they're ready."

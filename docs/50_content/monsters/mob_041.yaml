@@ -1,0 +1,26 @@
+id: mob_041
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Gloomcap Shambler
+tier: normal                     # ID slot 041 = R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 14
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 14
+  life: 1156                     # 4*(14+3)^2
+  power: 48                      # 6+3*14 (touch = round(0.5*power), neutral, §13.1)
+  armor: 84                      # 6*14  (armor+warding sum = 168 = 12*14)
+  warding: 84                    # 6*14
+  precision: 56                  # 4*14
+  evasion: 3.4                   # 3 + 0.03*14 (%)
+  exp: 124                       # exp_per_kill_normal(14) (LEVELING §3)
+ai_profile: aggressive_charger   # driven at you by the fungus riding its spine (AI_BEHAVIOR §5)
+ai_params:                       # override only aggressive_charger-declared tunables
+  aggro_radius: 7
+  charge_speed_mult: 2.4
+  charge_recover_s: 2.6
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; short untelegraphed windup
+drop_table: drop_mob_041
+flavor: "Once some patient browser of the deep hollow, now a lurching wreck with a black gloomcap sunk into its spine and steering it. The fungus wants meat for its spores, so the shambler charges anything warm and does not stop when it should."

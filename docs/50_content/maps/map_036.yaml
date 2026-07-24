@@ -1,0 +1,41 @@
+id: map_036
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Millbrook Catacombs, the Refuse Tunnels
+region: millbrook
+map_type: dungeon
+level_band: { min: 13, max: 14 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 60, h: 40 }
+bgm: bgm_old_town
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 32] }
+portals:
+  - id: to_cellar_outskirts
+    kind: edge
+    at: { edge: left }
+    target_map: map_035
+    target_spawn: main
+    dead_end: false
+  - id: to_herald_hall
+    kind: edge
+    at: { edge: right }
+    target_map: map_037
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: refuse_tunnels_zone
+    rect_tiles: { x: 18, y: 24, w: 30, h: 12 }
+    mobs:
+      - { mob: mob_022, count: 2 }
+      - { mob: mob_023, count: 3 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  A room-and-corridor loop through old refuse chutes, denser combat pacing than
+  the fields (SPAWN §2 dungeon budget). Ledges stack in 2-tile rises within the
+  standard jump budget (MAP_TRAVERSAL §1.1); no rope/ladder on the main line.
+flavor: "The catacombs' upper tunnels still carry a century of Millbrook's discarded refuse, and whatever's learned to nest in it."

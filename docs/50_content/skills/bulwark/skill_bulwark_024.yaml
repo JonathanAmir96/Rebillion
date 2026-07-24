@@ -1,0 +1,37 @@
+id: skill_bulwark_024
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Second Breath
+line: bulwark
+tier: second
+kind: active
+targeting: party                  # roster target `party` (SKILL_SYSTEM §6)
+cost: { essence: 15 }
+cooldown: 14.0
+level_data:
+  - level: 1
+    essence_cost: 15
+    cooldown: 14.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+      - { op: cleanse_status, tag: control_type, target: party }
+  - level: 4
+    essence_cost: 18
+    cooldown: 12.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+      - { op: cleanse_status, tag: control_type, target: party }
+  - level: 7
+    essence_cost: 21
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+      - { op: cleanse_status, tag: control_type, target: party }
+  - level: 10
+    essence_cost: 24
+    cooldown: 8.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+      - { op: cleanse_status, tag: control_type, target: party }
+animation: skill_bulwark_024_cast
+flavor: "A second-wind bellow that breaks every stun and root in earshot and starts the mending. The Warcaller never leaves the party pinned down."

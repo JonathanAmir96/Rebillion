@@ -1,0 +1,23 @@
+id: quest_023
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Cellar King's Shadow
+region: millbrook
+quest_type: main
+giver_npc: npc_028
+turn_in_npc: npc_023
+level_requirement: 14
+recommended_level: 14
+prereqs: [quest_022]
+steps:
+  - type: kill
+    target: mob_025
+    count: 3
+rewards:
+  exp: 1463     # round(0.20*7,316) (LEVELING §1 Lv14 exp_to_next); main band, pct=0.20
+  shards: 360    # mean_shards_normal(14)*15 = 24*15 (round(1.5*14+3)=24) (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0005, qty: 2 }
+flavor: "Something crowned itself down past the Herald's Hall, and it's sent its shadow-pack scouting the approach."
+offer_text: "Report to Mayor Hune once you've broken its scouts. She'll want to hear it from someone who's seen the throne room's edge."
+complete_text: "So it's real, then -- a king in Millbrook's own drowned grain stores. Someone has to finish this."

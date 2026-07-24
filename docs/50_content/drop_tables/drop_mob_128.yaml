@@ -1,0 +1,19 @@
+id: drop_mob_128
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN]   # boss: emberstone + region-boss unique mapping (not a raid finale -> no PARTY)
+owner: mob_128
+rows:
+  # shards guaranteed, boss x15. mean_shards_normal(38)=60; x15=900 (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 720, qty_max: 1080 }
+  # region materials guaranteed (DROPS §5.3 crafting/quest mats)
+  - { ref: item_etc_0112, chance: guaranteed, qty_min: 2, qty_max: 3 }   # Thrall Oath-Sigil
+  - { ref: item_etc_0110, chance: guaranteed, qty_min: 1, qty_max: 2 }   # Wraith-Ectoplasm
+  # emberstone: 1 guaranteed + 1 uncommon (DROPS §5.3). R7 gear = T3-T4 -> Emberstone II
+  - { ref: item_etc_0194, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0194, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5); pool_equip_r07 in parallel items batch (dangling OK)
+  - { ref: pool_equip_r07, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss uniques: the Drowned Warden owns item_equip_0213/0214 (ID_REGISTRY boss #7 = 0199+2n).
+  # first-ever clear guarantees one of the two (DROPS §5.3 bad-luck protection). Items in parallel batch (dangling OK).
+  - { ref: item_equip_0213, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0214, chance: legendary, qty_min: 1, qty_max: 1 }

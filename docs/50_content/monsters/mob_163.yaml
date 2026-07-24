@@ -1,0 +1,24 @@
+id: mob_163
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Wyrmcrag Vulture
+tier: normal
+element: neutral
+level: 50
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 50
+  life: 11235                     # 4*(50+3)^2
+  power: 156                     # 6+3*50 (touch = round(0.5*power), §13.1)
+  armor: 300                     # 6*50  (armor+warding sum = 600 = 12*50)
+  warding: 300                   # 6*50
+  precision: 200                 # 4*50
+  evasion: 4.5                   # 3 + 0.03*50 (%)
+  exp: 647                     # exp_per_kill_normal(50)=round(4*50^1.3) (LEVELING §3)
+ai_profile: aerial_swooper
+ai_params:                       # override only aerial_swooper-declared tunables (AI_BEHAVIOR)
+  patrol_altitude: 5
+  swoop_speed_mult: 2.0
+  climb_recover_s: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_163
+flavor: "A bald, wind-worn scavenger that wheels over the high passes waiting for the cold to do its work. Impatient ones stoop early, talons first."

@@ -1,0 +1,33 @@
+id: skill_weaver_010
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Renew
+line: weaver
+tier: second
+kind: active
+targeting: party                  # roster target `party`; solo resolves to self only (SKILL_SYSTEM §6)
+cost: { essence: 13 }
+cooldown: 10.0
+level_data:
+  - level: 1
+    essence_cost: 13
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }   # base dur/tick = STATUS_EFFECTS §4.2
+  - level: 4
+    essence_cost: 16
+    cooldown: 9.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+  - level: 7
+    essence_cost: 19
+    cooldown: 8.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+  - level: 10
+    essence_cost: 22
+    cooldown: 7.0
+    effects:
+      - { op: apply_status, status: regen, chance: 1.0 }
+animation: skill_weaver_010_cast
+flavor: "A slow-mending weave laid over the whole party at once. Nothing flashy — just steady upkeep between bigger casts."

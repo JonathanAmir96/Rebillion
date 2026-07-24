@@ -1,0 +1,54 @@
+id: map_188
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, West Gate
+region: clockwork
+map_type: field
+level_band: { min: 39, max: 40 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [70, 22] }
+  - { id: from_gloomwood, tile: [140, 22] }   # destination of Gloomwood's web-vault edge (WORLD_PLAN edge table)
+portals:
+  - id: to_ironloom_reach
+    kind: edge
+    at: { edge: left }
+    target_map: map_187
+    target_spawn: main
+    dead_end: false
+  - id: to_web_vaults
+    kind: edge
+    at: { edge: right }
+    target_map: map_121                        # forward-ref: Gloomwood web vaults (sibling batch)
+    target_spawn: from_clockwork                 # cross-region convention (WORLD_PLAN)
+    dead_end: false
+  - id: to_gearworks_threshold
+    kind: door
+    at: { tile: [70, 8] }
+    target_map: map_189
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: west_gate_zone
+    rect_tiles: { x: 30, y: 18, w: 90, h: 8 }
+    mobs:
+      - { mob: mob_140, count: 3 }
+      - { mob: mob_141, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_west_gate
+    at_tile: [66, 21]
+    params:
+      text: "The gate the web-vaults let out onto — and the sunken stair down into the works proper."
+      interact_prompt: Read
+npcs: [npc_082, npc_083]
+platform_brief: |
+  A second broad terrace mirroring the east gate, the sunken gearworks stair sinking away
+  center-map. No verticality gimmick beyond the stair descent itself.
+flavor: "The ruins' second gate, where Gloomwood's dark finally gives way to brass daylight — and a stair leads deeper still."

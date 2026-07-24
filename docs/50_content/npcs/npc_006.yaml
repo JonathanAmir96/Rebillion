@@ -1,0 +1,13 @@
+id: npc_006
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Trailwarden Fenna
+region: emberfoot
+map: map_005
+role: quest_giver
+dialog:
+  greeting: "Trailhead's clear for now. Fields get warmer and meaner the farther you walk."
+  idle: "I've watched a hundred novices stumble through here. You'll be fine."
+  farewell: "Keep to the marked path and you won't lose your footing."
+portrait: portrait_npc_006
+flavor: "Fenna posts herself at the trailhead every morning, more out of habit than duty, and knows every novice's face by their second lap."

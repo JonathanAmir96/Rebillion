@@ -1,0 +1,71 @@
+id: map_017
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Rosen Harbor
+region: millbrook
+map_type: town
+level_band: { min: 8, max: 8 }        # town band, tight (MAPS_SYSTEM §4); within region 8-14
+biome: old_town                        # fixed by region (MAP_LAYERS §4; Millbrook's biome key, not its slug)
+tileset: tileset_old_town
+size_tiles: { w: 120, h: 24 }           # town: ~2-4 screens wide, ~1 tall (MAPS_SYSTEM §2)
+bgm: bgm_town_millbrook                 # town pattern bgm_town_<region_slug> (MAPS_SYSTEM §5)
+ambience: [amb_wind, amb_crowd]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [55, 18] }
+  - { id: from_ferry, tile: [8, 18] }      # Harborwind Ferry arrival (WORLD_PLAN edge table; MAP_CONNECTIONS §2)
+  - { id: coach_stop, tile: [100, 18] }     # Coachworks arrival (MAP_CONNECTIONS §2/§3)
+portals:
+  - id: to_ferry                            # cross-region door back to Emberfoot's Harborwind Ferry
+    kind: door
+    at: { tile: [6, 18] }
+    target_map: map_015                     # forward-ref: Emberfoot ferry interior (R1 batch, not yet authored)
+    target_spawn: main
+    dead_end: false
+  - id: to_millbrook_central                # intra-region town-to-town edge (WORLD_PLAN edge table)
+    kind: edge
+    at: { edge: top }
+    target_map: map_018
+    target_spawn: main
+    dead_end: false
+  - id: to_anchor_inn
+    kind: door
+    at: { tile: [30, 18] }
+    target_map: map_019
+    target_spawn: main
+    dead_end: false
+  - id: to_harbor_office
+    kind: door
+    at: { tile: [45, 18] }
+    target_map: map_020
+    target_spawn: main
+    dead_end: false
+  - id: to_bank
+    kind: door
+    at: { tile: [70, 18] }
+    target_map: map_021
+    target_spawn: main
+    dead_end: false
+  - id: coach_rosen_harbor                  # Coachworks portal; target is authoring convention only (MAP_CONNECTIONS §3)
+    kind: coach
+    at: { tile: [100, 18] }
+    target_map: map_018
+    target_spawn: coach_stop
+    dead_end: false
+interactables:
+  - type: coach_station
+    id: coach_station_017
+    at_tile: [100, 18]
+    params: {}
+  - type: sign
+    id: sign_rosen_harbor_welcome
+    at_tile: [10, 17]
+    params:
+      text: "Welcome to Rosen Harbor. Mind the gulls and your coin -- the coach runs rain or shine."
+      interact_prompt: Read
+npcs: [npc_011, npc_012, npc_030]
+platform_brief: |
+  A single quay-level band of salt-grayed timber and cobble, gulls wheeling over the
+  ferry slip at the west end. Terrain is foothold segments dressed with painted
+  terrain_chunks (ART_BIBLE AB-001) -- flat and safe, no verticality gimmick for a hub town.
+flavor: "Salt-worn Rosen Harbor smells of tar and frying fish, the first solid ground most novices find past the ferry crossing."

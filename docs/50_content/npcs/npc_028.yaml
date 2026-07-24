@@ -1,0 +1,12 @@
+id: npc_028
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Watch Sergeant Corlan Ashe
+region: millbrook
+map: map_035
+role: quest_giver
+dialog:
+  greeting: "Past this post it's catacomb stone and whatever's nested in it. Prove you can handle the tunnels first."
+  farewell: "Down below, then. Mayor Hune will want a full report."
+portrait: portrait_npc_028
+flavor: "Ashe holds the last post before the catacombs mouth and has sent more nervous novices down that stair than he can count."

@@ -1,0 +1,23 @@
+id: quest_079
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Sign the Roster
+region: clockwork
+quest_type: main
+giver_npc: npc_078
+level_requirement: 34
+recommended_level: 34
+steps:
+  - type: kill
+    target: mob_129
+    count: 10
+  - type: talk
+    target: npc_077
+    count: 1
+    requires_step: 1        # report back to the scout once the east terrace is thinned
+rewards:
+  exp: 17711   # round(0.18*98,392) (LEVELING §1 Lv34: exp_to_next=round(4*34^1.3)*round(20+0.20*34^2)); main band 15-30%
+  shards: 810  # main = mean_shards_normal(34)*15 = 54*15 (QUESTS §5 / DROPS §3)
+flavor: "The expedition roster wants every name accounted for before the gate opens wider. Voss won't sign in a stranger."
+offer_text: "Sign the roster properly and you're one of mine. Thin the east terrace first -- Yulla will vouch for you after."
+complete_text: "Yulla says you held the line. Welcome to the expedition -- the terraces are yours to work now."

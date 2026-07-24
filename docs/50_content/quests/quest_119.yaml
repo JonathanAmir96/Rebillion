@@ -1,0 +1,21 @@
+id: quest_119
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Proving the Herald's Door
+region: voidshore
+quest_type: main
+giver_npc: npc_120
+level_requirement: 70
+recommended_level: 70
+steps:
+  - type: kill
+    target: mob_231
+    count: 3
+rewards:
+  exp: 180360  # round(0.18 * 1,002,000); main band 15-30% (QUESTS §4)
+  shards: 1620  # mean_shards_normal(70)*15 = 108*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 3 }
+flavor: "Ossuin will not open the Voidtide chain to anyone he hasn't seen stand against a wraithpack alpha and its escort."
+offer_text: "Before I speak of Nyxaris, prove you can stand against a wraithpack alpha. Bring down three and we'll talk."
+complete_text: "You've the measure of a wraithpack, then. Gather your party -- the chain beyond this door is a different weight entirely."

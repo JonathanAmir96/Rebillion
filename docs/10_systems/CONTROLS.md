@@ -1,7 +1,8 @@
 # CONTROLS.md — Input Map, Buffering & Rebinding
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/SKILL_SYSTEM.md,
-10_systems/SKILL_EFFECTS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/INVENTORY.md,
+10_systems/SKILL_EFFECTS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/COMBO_SYSTEM.md,
+10_systems/INVENTORY.md,
 10_systems/CAMERA.md, 10_systems/HUD.md, 10_systems/PERSISTENCE.md, 10_systems/social/CHAT.md
 
 Owner doc for **input**: the default keyboard and gamepad maps, the jump-buffer/coyote-time
@@ -29,6 +30,7 @@ forward reference `10_systems/SKILL_SYSTEM.md` §7 leaves to this doc.
 | Toggle Quest Log (`frame_quest`) | `L` | — |
 | Toggle Map | `M` | — |
 | Toggle Guild | `G` | — |
+| Toggle Party (the party-finder Board tab lives inside it — `10_systems/UI_WINDOWS.md` §4, `10_systems/social/PARTY_FINDER.md`) | `P` | — |
 | Chat focus | `Enter` | — |
 | Close / back (topmost framed window) | `Escape` | — |
 
@@ -51,14 +53,14 @@ separate keys are bound for these context-sensitive actions.
 | Skill slots 5–8 | `LB`/`L1` held + D-Pad |
 | Quickslots 1–4 | `RB`/`R1` held + D-Pad |
 | Aim / reticle | Right Stick |
-| Menu hub (Inventory/Skills/Quests/Map/Guild) | `Start`/`Options` |
+| Menu hub (Inventory/Skills/Quests/Map/Guild/Party) | `Start`/`Options` |
 | Tab-switch within an open menu | `LB`/`RB` |
 | Confirm / select (in menu) | `A` |
 | Back / close (in menu) | `B` |
 | Context action (in menu — e.g. quick-use, abandon) | `Y` |
 
-`Start`/`Options` opens a single tabbed menu hub rather than five separate dedicated buttons
-(gamepads don't have five free buttons to spare); once inside, `LB`/`RB` cycle the same five
+`Start`/`Options` opens a single tabbed menu hub rather than six separate dedicated buttons
+(gamepads don't have six free buttons to spare); once inside, `LB`/`RB` cycle the same six
 panels keyboard reaches via §1's individual keys. `LT`/`RT` (`L2`/`R2`) and `Back`/`View` are
 **unassigned at launch** (Open Questions). Chat has no gamepad text-entry path at launch — see
 Open Questions and `10_systems/social/CHAT.md` (stub).
@@ -72,6 +74,18 @@ is a **9th, separate slot** from the 8 general skill slots — its own binding (
 competes with combat-skill bar space. This doc owns only the input binding; which skills are
 eligible for the Dodge slot (presumably `dash`/`leap`-op skills, `10_systems/SKILL_EFFECTS.md`
 §9–§10) and its re-slotting rule are `10_systems/SKILL_SYSTEM.md`'s to confirm (Open Questions).
+
+## 3.1 Combo input model — sequences, not chords
+
+The combo layer (`10_systems/COMBO_SYSTEM.md`) adds **no bindings and no chords**: a combo is
+the player's existing inputs pressed in *sequence* — e.g. basic attack (LMB / `X`) → skill `2`
+(D-Pad Right) → skill `3` (D-Pad Down) inside the chain window. This is a deliberate input-design
+choice over held-modifier chords (`Ctrl`+key patterns): sequences keep every action on its §1/§2
+binding, stay fully rebindable under §5, and work identically on gamepad, where no spare modifier
+exists beyond the §2 bumper banks. Sequencing respects each skill's own cast/recovery lock
+(`10_systems/SKILL_SYSTEM.md` §5); there is no extra combo input buffer at launch (Open
+Questions). Chain rules, timing, and rewards are entirely `10_systems/COMBO_SYSTEM.md`'s — this
+doc owns only the statement that combos ride the ordinary input map.
 
 ## 4. Input buffering windows
 
@@ -130,3 +144,7 @@ convenience that does not hold once the client runs against a live, server-autho
   skills without a mouse feels imprecise.
 - Mouse-and-keyboard vs. gamepad simultaneous hot-swap mid-session (common in PC action games) is
   assumed supported (last-used device drives on-screen prompts) but not detailed here.
+- Whether a skill input pressed during another skill's recovery should queue into a short combo
+  buffer (like §4's jump buffer, so a tight chain never drops to a swallowed press) is deferred
+  to playtesting with `10_systems/COMBO_SYSTEM.md`'s window; launch behavior is no buffer —
+  presses during the cast/recovery lock are ignored.

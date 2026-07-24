@@ -1,0 +1,48 @@
+id: map_182
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, The Tolling Row
+region: clockwork
+map_type: field
+level_band: { min: 36, max: 38 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_ashcog_flats
+    kind: edge
+    at: { edge: left }
+    target_map: map_181
+    target_spawn: main
+    dead_end: false
+  - id: to_verdigris_plaza
+    kind: edge
+    at: { edge: right }
+    target_map: map_183
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: tolling_row_zone
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_134, count: 3 }
+      - { mob: mob_135, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: lore_marker
+    id: marker_tolling_row
+    at_tile: [40, 19]
+    params:
+      text: "A row of brass bells, each cracked, each still swinging faintly on its own dead reckoning."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A colonnade of cracked bell-towers along the terrace, each low enough to walk beneath
+  without ducking. No verticality gimmick; standard jump gaps between tower footings
+  (MAP_TRAVERSAL §1.1).
+flavor: "The bells along this row have not rung true in centuries, but something keeps them swinging."

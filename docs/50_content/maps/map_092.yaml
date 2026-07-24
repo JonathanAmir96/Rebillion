@@ -1,0 +1,41 @@
+id: map_092
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Saltworn Deep
+region: tidewatch
+map_type: dungeon
+level_band: { min: 22, max: 22 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 65, h: 60 }
+water_physics: true
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_091
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_093
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: dungeon_main_092
+    rect_tiles: { x: 8, y: 30, w: 49, h: 16 }
+    mobs:
+      - { mob: mob_063, count: 2 }
+      - { mob: mob_065, count: 1 }
+    max_concurrent: 5
+npcs: [npc_053]
+platform_brief: |
+  A compact vertical crawl of flooded chambers linked by short 2-3 tile ledge drops,
+  all within the standard jump arc (MAP_TRAVERSAL §1). Corridor-and-room loop denser
+  than the open fields above, per the dungeon combat budget.
+flavor: "Salt has eaten the old stonework here down to lace, and something bigger than a crab watches from the dark."

@@ -65,10 +65,10 @@ collected with no input:
 - A **manual-pickup toggle** lets players who want to leave gear behind switch equips (only) to
   press-to-loot; `shards` always auto-collect.
 
-**Auto-loot radius:** placeholder **64 px** (≈ one third of `base_move_speed`, tuned so running
-past a drop grabs it) — pending the tile scale locked by `40_assets/ART_BIBLE.yaml`, exactly as
-`10_systems/COMBAT_FORMULA.md` §10's px placeholders. The radius value is not load-bearing to any
-formula; only the *auto-on-contact* behavior is fixed here.
+**Auto-loot radius:** **64 px = 4 tiles** at the 16 px grid locked by `40_assets/ART_BIBLE.yaml`
+(`10_systems/COMBAT_FORMULA.md` §10) — half a second of travel at `base_move_speed` (128 px/s),
+tuned so running past a drop grabs it. The radius value is not load-bearing to any formula; only
+the *auto-on-contact* behavior is fixed here.
 
 ## 5. Full-inventory handling
 
@@ -90,10 +90,11 @@ Eligibility and timing are **owned by `10_systems/DROPS.md` §7** and consumed h
 
 ## 7. Bank storage (inn, designed now, server-flagged)
 
-A **bank** lets a character stash items beyond the carried inventory, accessed at an **inn interior
-in any of the four bind towns** (Emberfoot Village `map_001`, Millbrook Central `map_029`,
-Tidewatch Port `map_041`, Arcane Sanctum `map_145` — `10_systems/DEATH_PENALTY.md` §4,
-`docs/WORLD_PLAN.md`). The bank mirrors the three tabs:
+A **bank** lets a character stash items beyond the carried inventory, accessed at an **inn
+interior in any bind town** (arc 1: Emberfoot Village `map_001`, Millbrook Central `map_018`,
+Mossmere `map_043`, Tidewatch Port `map_071`, Cindershelf `map_125`; arc 2: Frosthaven
+`map_204`, Spirehaven `map_245`, Duskwatch Landing `map_285` — the bind-town list is
+`10_systems/DEATH_PENALTY.md` §4's, per `docs/WORLD_PLAN.md` v3). The bank mirrors the three tabs:
 
 | Bank tab | Holds | Base slots | Stack size |
 |---|---|---|---|
@@ -140,5 +141,5 @@ may mint items or `shards` or self-assign a drop it was not tagged for
   ground-clutter at high kill rates) is floated but **off by default** (§5's never-take-without-
   input rule). Flag if high-level farming proves too slot-pressured.
 - Account-shared vault tab and cross-character mail-based item transfer are deferred to the social
-  pass; if added, mail item-attachment limits belong to a future `10_systems/social/MAIL.md`, not
-  here.
+  pass; if added, mail item-attachment limits belong to `10_systems/social/MAIL.md` (which already
+  owns mail attachment policy), not here.

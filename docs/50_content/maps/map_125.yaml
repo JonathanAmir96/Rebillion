@@ -1,0 +1,71 @@
+id: map_125
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Cindershelf
+region: ashfall
+map_type: town
+level_band: { min: 26, max: 26 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 120, h: 23 }
+bgm: bgm_town_ashfall
+ambience: [amb_wind, amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [60, 17] }
+  - { id: from_deepway, tile: [14, 17] }  # Deepway surfaces here (WORLD_PLAN arc-2 spawn convention)
+  - { id: from_gloomwood, tile: [104, 17] }  # ring-road arrival from Gloomwood's north fen (map_114)
+  - { id: coach_stop, tile: [40, 17] }
+portals:
+  - id: to_shield_hall
+    kind: door
+    at: { tile: [22, 17] }
+    target_map: map_126
+    target_spawn: main
+  - id: to_inn
+    kind: door
+    at: { tile: [32, 17] }
+    target_map: map_127
+    target_spawn: main
+  - id: to_ashfall_approach
+    kind: edge
+    at: { edge: right }
+    target_map: map_128
+    target_spawn: main
+    # ring road to Gloomwood's north fen (WORLD_PLAN edge table); forward-ref, R5 sibling batch
+  - id: to_gloomwood
+    kind: edge
+    at: { edge: left }
+    target_map: map_114
+    target_spawn: from_ashfall
+    # Deepway door (MAP_CONNECTIONS §9.1); gated northbound only, per §9.2
+  - id: to_deepway
+    kind: door
+    at: { tile: [14, 17] }
+    target_map: map_201
+    target_spawn: main
+    level_gate: 40
+    # Harthmoor Coachworks station; fixed target is authoring convention only (MAP_CONNECTIONS §3, map.schema §portals)
+  - id: coach_cindershelf
+    kind: coach
+    at: { tile: [40, 17] }
+    target_map: map_018
+    target_spawn: coach_stop
+interactables:
+  - type: coach_station
+    id: coach_station_cindershelf
+    at_tile: [40, 17]
+    params: {}
+  - type: sign
+    id: sign_deepway_warning
+    at_tile: [16, 16]
+    params:
+      text: "The Deepway gapes cold beyond this door. Ash-warm barrens end here; frost-touched dark begins -- Lv 40 and steady nerves required."
+      interact_prompt: "Read"
+npcs: [npc_063, npc_066]
+platform_brief: |
+  A single flat kiln-brick concourse, no verticality gimmick -- Cindershelf is built for
+  foot traffic between its hall, inn, coach stand, and the Deepway door. Terrain is
+  foothold segments under painted ash terrain_chunks (ART_BIBLE AB-001). The whole span
+  is one continuous foothold; no gaps to cross.
+flavor: "Ash drifts over Cindershelf's kilns day and night, and the shield-scarred veterans who train here never seem to notice the heat anymore."

@@ -1,0 +1,25 @@
+# side band 5-10% of exp_to_next(15)=8,775 (LEVELING §1); pct=0.06. shards = mean_shards_normal(15)*4
+# = 26*4 (QUESTS §5 / DROPS §3).
+id: quest_033
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Heartwood's Tenants
+region: verdant
+quest_type: side
+giver_npc: npc_040
+prereqs: [quest_032]
+level_requirement: 15
+recommended_level: 15
+steps:                            # parallel: kill count applies across the short explicit list (QUESTS §3)
+  - type: kill
+    target: [mob_040, mob_041]
+    count: 15
+  - type: collect
+    target: item_etc_0046          # sourced from mob_041's drop table (parallel monster batch)
+    count: 6
+rewards:
+  exp: 527                        # round(0.06 * 8,775)
+  shards: 104                     # mean_shards_normal(15)*4 = 26*4
+flavor: "The heartwood vault has its own tenants now, thick enough that Sable won't walk in without company."
+offer_text: "The vault past the deep roots is crawling worse than usual. Cull what's nesting in there and bring me proof -- I don't like sending anyone in blind."
+complete_text: "That's a proper dent in the vault's numbers. The Sovereign's grove is close now -- closer than most care to walk."

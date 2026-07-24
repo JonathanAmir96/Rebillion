@@ -1,0 +1,48 @@
+id: map_256
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Voidmist Reach
+region: arcane_reach
+map_type: field
+level_band: { min: 60, max: 61 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 170, h: 30 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_tilting_field
+    kind: edge
+    at: { edge: left }
+    target_map: map_255
+    target_spawn: main
+    dead_end: false
+  - id: to_broken_stair
+    kind: edge
+    at: { edge: right }
+    target_map: map_257
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: voidmist_reach_stretch
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_186, count: 2 }
+      - { mob: mob_187, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_voidmist_midpoint
+    at_tile: [20, 23]
+    params:
+      text: "Highrune Sanctum still lies well past the ridge. The mist thickens from here on -- keep to the marked stone."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Thickening void mist swallows sightlines past 15 tiles here, though the footing stays a
+  plain foothold band under painted terrain_chunks (ART_BIBLE AB-001). Two low terraces
+  stepped by ~2-tile rises, no verticality gimmick -- the reduced visibility is the challenge.
+flavor: "The mist thickens past this ridge into something closer to void than weather, swallowing sound as readily as sight."

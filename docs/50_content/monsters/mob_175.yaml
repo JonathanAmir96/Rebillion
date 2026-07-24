@@ -1,0 +1,35 @@
+id: mob_175
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Glacierwing Terror
+tier: elite
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 55
+size_class: large
+stats:                           # §13 normal Lv 55 x §13.2 elite multipliers
+  life: 80730                    # 13455 x6 (table checksum, COMBAT §13)
+  power: 257                     # 171 x1.5
+  armor: 429                     # 330 x1.3  (armor+warding sum ~= 12*55 x1.3)
+  warding: 429                   # 330 x1.3
+  precision: 242                 # 220 x1.1
+  evasion: 6.7                   # 4.7 + 2% (§13.2 elite)
+  exp: 3660                    # exp_per_kill_normal(55)=732 x5 (LEVELING §3 elite)
+ai_profile: aerial_swooper
+ai_params:
+  patrol_altitude: 5
+  swoop_speed_mult: 2.2
+  climb_recover_s: 3
+abilities:
+  - id: rime_dive
+    name: Rime Dive
+    targeting: line
+    cooldown: 8.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.9 }
+      - { op: apply_status, status: chill, chance: 0.6, dur: 4 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_175
+flavor: "A vast frost-raptor that owns the sky over the glacier and treats the ground as a larder. Its dive comes in cold and fast enough to frost the air behind it."

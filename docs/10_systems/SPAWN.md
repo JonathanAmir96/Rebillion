@@ -2,7 +2,8 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md,
 docs/VALIDATION.md, 10_systems/AI_BEHAVIOR.md, 10_systems/DEATH_PENALTY.md,
-10_systems/SKILL_EFFECTS.md, 10_systems/PARTY.md, 10_systems/STATUS_EFFECTS.md,
+10_systems/SKILL_EFFECTS.md, 10_systems/social/PARTY.md, 10_systems/social/RAID.md,
+10_systems/STATUS_EFFECTS.md,
 15_maps_system/MAPS_SYSTEM.md, 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md,
 40_assets/UI_ART_SPEC.md, 30_engineering/ENGINEERING_STANDARDS.md
 
@@ -41,21 +42,35 @@ Boss-tier `mob_NNN` IDs (`20_schemas/monster.schema.md` entity tiers) are never 
 regular `spawn_zones` entry — bosses spawn via arena-entry (§3), not the zone spawner. A single
 zone may mix `normal` and `elite` entries in one `mob_pool`.
 
-## 2. Density budgets by map type
+## 2. Density budgets by map type (tile-anchored)
 
-Budgeted as **mobs per screen-width** rather than a fixed per-map total, so a longer map is denser
-only in proportion to its length rather than needing a separate size tier. Working assumption:
-**1 screen-width ≈ 20 tiles** at default camera zoom — provisional pending the real viewport spec
-in `30_engineering/ENGINEERING_STANDARDS.md` (Open Questions). A map's total zone population,
-summed across its `target_count`s, should land near `width_screens × per-screen budget` below.
+Budgeted per **20 tiles of walkable extent** — a fixed world-space unit, deliberately **not**
+"per screen": maps vary widely in size (a compact 60-tile connector up to a 400-tile-wide
+crossing, and tall vertical shafts), and camera zoom is a presentation choice
+(`10_systems/CAMERA.md` §5) that must never change how densely a map is populated. **Walkable
+extent** = the summed horizontal length, in tiles, of a map's foothold-bearing play space across
+all its platform tiers (`15_maps_system/MAP_TRAVERSAL.md` footholds) — so a two-story map counts
+both stories, and a tall map with short floors is budgeted by what a player can actually stand on,
+not by its bounding rect. (Reference: the locked render base is 640×360 = 40×22.5 tiles,
+`15_maps_system/MAP_TRAVERSAL.md`; at a 2× default zoom one visible screen ≈ 20 tiles — the unit
+below matches that feel target but no longer depends on the zoom decision.)
 
-| Map type | Normal / screen-width | Elite presence | Rationale |
+A map's total zone population, summed across its `target_count`s, should land near
+`(walkable_extent_tiles / 20) × per-unit budget`, rounded, with a floor of 1 per declared zone.
+
+| Map type | Normals / 20 walkable tiles | Elite presence | Rationale |
 |---|---|---|---|
-| `field` | 3 | Rare — 1 elite per 3–4 screens, own small zone | Open exploration; the player chooses engagements (P1) |
-| `dungeon` | 4 | Common — 1 elite zone per 2 screens | Corridor gauntlet; more committed combat |
+| `field` | 3 | Rare — 1 elite per 60–80 walkable tiles, own small zone | Open exploration; the player chooses engagements (P1) |
+| `dungeon` | 4 | Common — 1 elite zone per 40 walkable tiles | Corridor gauntlet; more committed combat |
 | `secret` | 2 | Elevated `mob_pool` weight toward elite entries | Bonus content — sparser overall, but richer per encounter |
-| `town` / `interior` | 0 | 0 | Combat-free (`docs/WORLD_PLAN.md` open item; assumed pending `15_maps_system/MAPS_SYSTEM.md` confirmation) |
+| `town` / `interior` | 0 | 0 | Combat-free — confirmed rule, owned by `15_maps_system/MAPS_SYSTEM.md` §6 |
 | `arena` | n/a — exempt | n/a | Boss/wave-scripted, not zone-density-budgeted (`15_maps_system/MAPS_SYSTEM.md`) |
+
+Because the budget is linear in walkable extent, a 3-screen map and a 10-screen map need no
+separate size tiers — they simply carry proportionally more zones (or larger `rect`s with higher
+`target_count`s). Very small combat maps (< 20 walkable tiles) take the floor: one zone,
+`target_count` 1–2. §4's `max_concurrent` defaults are per **zone** and unchanged by map size —
+a big map gets more zones, never one giant unbounded zone.
 
 ## 3. Respawn timers by tier
 
@@ -64,9 +79,9 @@ summed across its `target_count`s, should land near `width_screens × per-screen
 | `normal` | 10 s baseline | Zone spawner (§1); per-mob override via `respawn_timer_s` |
 | `elite` | 90 s baseline | Zone spawner; same override field |
 | `boss` (regional arena) | No real-time timer — **arena-entry instanced** | Resets when the arena is unoccupied and re-triggered |
-| `boss` (Rift raid) | No real-time timer — **party-instanced** | Scoped per party; §7 |
+| `boss` (raid finale) | No real-time timer — **party-instanced** | Scoped per party; §7 |
 
-**Boss respawn decision.** Both regional and Rift raid bosses use arena-entry instancing rather
+**Boss respawn decision.** Both regional and raid finale bosses use arena-entry instancing rather
 than a long real-world timer: the boss is always available and resets to full life the next time
 a player/party properly enters and triggers the arena, consistent with
 `10_systems/DEATH_PENALTY.md` §5.2/§5.3's "walk back in, fresh attempt" model. This was chosen
@@ -115,33 +130,46 @@ untargetable for the duration of its `spawn` state**, so its entrance can't be p
 player has even seen it. Any accompanying screen or audio cue is `40_assets/UI_ART_SPEC.md`'s to
 define, not this doc's.
 
-## 7. Rift raid arena spawn rules
+## 7. Raid finale arena spawn rules
 
-Rift raid arenas (`map_197`–`map_200`, `docs/WORLD_PLAN.md` R12) do not use the zone spawner
-(§1–§4) at all — they are single-boss scripted encounters, exempt exactly like regular arenas
-(§2). Spawning here is **party-instanced**: entering a raid arena allocates that encounter to the
-entering party alone (party size/membership rules owned by `10_systems/PARTY.md`), and the raid
-boss (`mob_147`–`mob_150`) spawns fresh for that instance at full life. Mid-fight adds/waves are
-not a `SPAWN.md` concept — they are the boss's own `phases[].added_abilities`
-(`10_systems/AI_BEHAVIOR.md` §15) executed through the `summon_entity` effect op
-(`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
+The four raid finale arenas (`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md`
+§2, `docs/WORLD_PLAN.md`) do not use the zone spawner (§1–§4) at all — they are single-boss scripted
+encounters, exempt exactly like regular arenas (§2). Entry is through the raid herald and stage
+chain, not an open portal (`10_systems/social/RAID.md` §3–§4). Spawning here is **party-instanced**:
+entering the finale arena allocates that encounter to the entering party alone (party
+size/membership rules owned by `10_systems/social/PARTY.md`), and the finale boss
+(`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md` §2) spawns fresh for that
+instance at full life. Mid-fight adds/waves are not a `SPAWN.md` concept — they are the boss's own
+`phases[].added_abilities` (`10_systems/AI_BEHAVIOR.md` §15) executed through the `summon_entity`
+effect op (`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
+
+A raid's **stage maps** (`10_systems/social/RAID.md` §4) are ordinary combat dungeons and **do** run
+the zone spawner (§1–§4) — the spawner's rules are unchanged; only the map copy is party-scoped to
+the instance.
 
 A party's raid instance persists across individual member deaths/releases
 (`10_systems/DEATH_PENALTY.md` §5.3) — it resets only on a full-party wipe or the party leaving
-the arena, per the boss respawn decision in §3.
+the instance, per the boss respawn decision in §3 and the re-entry model in
+`10_systems/social/RAID.md` §5.
 
 ## Open Questions
-- The `1 screen-width ≈ 20 tiles` assumption (§2) is provisional pending the real camera/viewport
-  spec in `30_engineering/ENGINEERING_STANDARDS.md`; every density number in §2/§4 scales directly
-  if that changes.
+- **Resolved (2026-07-24 contradiction fix):** §2 is re-anchored to a fixed world-space unit
+  (per 20 tiles of walkable extent) instead of "per screen-width," removing the dependency on the
+  undecided default camera zoom (`10_systems/CAMERA.md` §5 Open Question) and covering the full
+  dynamic range of map sizes. If CAMERA later locks a zoom whose visible width differs sharply
+  from ≈20 tiles, revisit the *feel* of the per-unit numbers — the unit itself no longer moves.
+- How the validator computes `walkable_extent_tiles` from a map file (sum of foothold segment
+  lengths at design granularity) is a `20_schemas/map.schema.md` / `tools/` implementation detail;
+  flagged for the validator owner.
 - The map schema's filename (§1) is assumed but not confirmed — likely
   `20_schemas/map.schema.md`, authored at Phase C.
 - `target_count`/`max_concurrent` defaults (§2, §4) are first-pass and tunable per region once
   Phase D populates real zones.
-- The town/interior combat-free assumption (§2) inherits `docs/WORLD_PLAN.md`'s open item; if
-  `15_maps_system/MAPS_SYSTEM.md` later allows interior combat, this table needs a row.
+- **Resolved:** the town/interior combat-free rule (§2) is confirmed and owned by
+  `15_maps_system/MAPS_SYSTEM.md` §6; if that doc ever allows interior combat, §2's table needs
+  a row.
 - Whether the regional-boss "arena-entry instanced" mechanism (§3) is a true per-player instance
   or a shared arena that resets on empty is left to `15_maps_system/MAPS_SYSTEM.md`; both satisfy
   this doc's "no long timer" intent.
-- Rift add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
+- Raid add-wave count/pacing is not budgeted here — it is authored per-boss in Phase D monster
   data, not a SPAWN.md rule.

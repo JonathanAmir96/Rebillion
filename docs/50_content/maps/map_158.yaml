@@ -1,0 +1,41 @@
+id: map_158
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Silt Causeway, Sunken Colonnade
+region: sunken
+map_type: field
+level_band: { min: 33, max: 34 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 155, h: 30 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_157
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_159
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_field_158
+    rect_tiles: { x: 47, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_114, count: 4 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A colonnade of terraces between toppled pillars, each pillar-top a resting ledge. Gaps between
+  pillars sit comfortably inside the doubled water-physics jump figures.
+flavor: "Rows of drowned columns lean at odd angles, their carvings worn smooth by centuries of current."

@@ -1,0 +1,42 @@
+id: map_164
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Sunken Hall of Tides
+region: sunken
+map_type: dungeon
+level_band: { min: 35, max: 36 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 70, h: 50 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_163
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_165
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_dungeon_164
+    rect_tiles: { x: 15, y: 32, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_120, count: 3 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  A vertical drowned-nave room-and-corridor loop, denser combat pacing than the fields (SPAWN §2
+  dungeon budget). Ledges stack in 2-3 tile rises, doubled by water-physics headroom
+  (MAP_TRAVERSAL §7); no rope/ladder required on the main line.
+flavor: "The gate opens on a long, flooded nave where the tide itself seems to breathe in and out with the current."

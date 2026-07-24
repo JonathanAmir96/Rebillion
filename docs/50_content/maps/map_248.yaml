@@ -1,0 +1,48 @@
+id: map_248
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Lower Drift
+region: arcane_reach
+map_type: field
+level_band: { min: 53, max: 54 }        # first field; R10 fields ascend 53->68 across 248-265
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 170, h: 28 }
+bgm: bgm_arcane_reach                    # field pattern bgm_<biome_key> (MAPS_SYSTEM §5)
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_spirehaven
+    kind: edge
+    at: { edge: left }
+    target_map: map_245
+    target_spawn: main
+    dead_end: false
+  - id: to_shardline_causeway
+    kind: edge
+    at: { edge: right }
+    target_map: map_249
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: lower_drift_stretch
+    rect_tiles: { x: 36, y: 18, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_179, count: 4 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_trailhead_248
+    at_tile: [22, 21]
+    params:
+      text: "Spirehaven behind you, the drift ahead. The shards hold weight -- trust your footing, not your eyes."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Two low shard-terraces stepped by ~2-tile rises, each crossable in a single running jump
+  (MAP_TRAVERSAL §1.1: gaps <=5 tiles horizontal / <=3.5 tiles rise). Terrain is foothold
+  segments under painted rune-glyph terrain_chunks (ART_BIBLE AB-001). No verticality gimmick
+  beyond the terraces -- a welcoming first drift.
+flavor: "The lowest ring of moored shards past Spirehaven, still solid enough that newcomers barely notice the drop below."

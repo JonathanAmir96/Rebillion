@@ -1,0 +1,37 @@
+id: skill_weaver_021
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Frost Lance                 # exact JOBS.md §4.4 Frostbind roster name (skill.schema rule 1)
+line: weaver
+tier: second                      # Frostbind is a 2nd-advancement (Lv 40) spec (JOBS §1, SKILL_SYSTEM §2)
+kind: active
+targeting: { shape: line, length: 8, width: 1.2, pierce: all }   # roster target `line`; "(pierce)" = line shape's own geometry
+cost: { essence: 14 }
+cooldown: 9.0
+level_data:
+  - level: 1
+    essence_cost: 14
+    cooldown: 9.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.2 }
+      - { op: apply_status, status: chill, chance: 0.50 }
+  - level: 4
+    essence_cost: 17
+    cooldown: 8.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.6 }
+      - { op: apply_status, status: chill, chance: 0.60 }
+  - level: 7
+    essence_cost: 20
+    cooldown: 7.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 2.0 }
+      - { op: apply_status, status: chill, chance: 0.70 }
+  - level: 10
+    essence_cost: 23
+    cooldown: 6.0
+    effects:
+      - { op: deal_damage, element: frost, mult: 2.4 }
+      - { op: apply_status, status: chill, chance: 0.80 }
+animation: skill_weaver_021_cast
+flavor: "A piercing lance of frost that skewers the whole row and leaves every target a step slower. Frostbind's opening word."

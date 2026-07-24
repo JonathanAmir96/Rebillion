@@ -1,0 +1,49 @@
+id: map_259
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, the Drowned Glyphs
+region: arcane_reach
+map_type: field
+level_band: { min: 62, max: 63 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 175, h: 30 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_skyroad_remnant
+    kind: edge
+    at: { edge: left }
+    target_map: map_258
+    target_spawn: main
+    dead_end: false
+  - id: to_high_drift
+    kind: edge
+    at: { edge: right }
+    target_map: map_260
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: drowned_glyphs_stretch
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_189, count: 2 }
+      - { mob: mob_190, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: climbable
+    id: rope_drowned_glyphs
+    at_tile: [86, 12]
+    params:
+      rect_tiles: { x: 86, y: 12, w: 1, h: 12 }
+      orientation: vertical
+      visual: rope
+npcs: []
+platform_brief: |
+  Half-submerged in void mist, a field of glyph-carved plates that read as legible only from
+  the upper tier. A single light-vine rope (MAP_TRAVERSAL §4) connects the lower reading floor
+  to the upper terrace. Standard climb rules apply throughout.
+flavor: "The glyphs here mean something, clearly, but only from above -- from the floor they're just cracks in old stone."

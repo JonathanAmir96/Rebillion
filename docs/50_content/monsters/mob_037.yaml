@@ -1,0 +1,26 @@
+id: mob_037
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Pollenwing Moth
+tier: normal                     # ID slot 037 = R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]
+level: 12
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 12
+  life: 900                      # 4*(12+3)^2
+  power: 42                      # 6+3*12 (dive contact scales on power, §13.1)
+  armor: 72                      # 6*12  (armor+warding sum = 144 = 12*12)
+  warding: 72                    # 6*12
+  precision: 48                  # 4*12
+  evasion: 3.4                   # 3 + 0.03*12 (%)
+  exp: 101                       # exp_per_kill_normal(12) (LEVELING §3)
+ai_profile: aerial_swooper       # patrols the air lane over the trail and dives (AI_BEHAVIOR §9)
+ai_params:                       # override only aerial_swooper-declared tunables
+  patrol_altitude: 4
+  swoop_speed_mult: 2.0
+  climb_recover_s: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # airborne; jump/fall carry the dive/climb
+drop_table: drop_mob_037
+flavor: "A moth the size of a spread hand, wings furred in luminous pollen that sifts down as it circles. It rides the warm air above the path and folds into a dive when you pass beneath, dusting you with spores as it climbs away."

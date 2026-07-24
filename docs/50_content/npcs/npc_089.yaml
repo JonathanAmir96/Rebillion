@@ -1,0 +1,12 @@
+id: npc_089
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Quartermaster Ilse
+region: frostpeak
+map: map_206
+role: quest_giver
+dialog:
+  greeting: "The flats are thick with prowlers this season. Cull a few, and I'll make it worth the trip."
+  farewell: "Keep your blade dry and your feet drier."
+portrait: portrait_npc_089
+flavor: "Ilse tracks the outfitter's ledgers and the region's hunting bounties both, one eye on each."

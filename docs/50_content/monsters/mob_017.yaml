@@ -1,0 +1,24 @@
+id: mob_017
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Bilge Toad
+tier: normal                     # ID slot 017 = R2 normal (ID_REGISTRY Monsters)
+element: neutral                   # R2 mix is neutral/shadow (WORLD_PLAN R2)
+level: 10
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 10
+  life: 676                     # 4*(10+3)^2
+  power: 36                     # 6+3*10 (touch = round(0.5*power), §13.1)
+  armor: 60                     # 6*10  (armor+warding sum = 120 = 12*10)
+  warding: 60                     # 6*10
+  precision: 40                 # 4*10
+  evasion: 3.3                   # 3+0.03*10 (%)
+  exp: 80                      # exp_per_kill_normal(10)=round(4*10^1.3) (LEVELING §3)
+ai_profile: ranged_skirmisher
+ai_params:                       # override only ranged_skirmisher-declared tunables (AI_BEHAVIOR)
+  preferred_range_min: 4
+  preferred_range_max: 8
+  attack_cooldown_s: 1.5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_017
+flavor: "A bloat-bellied toad squatting in the flooded cellar sumps, its throat sac working between spits. It lobs a gob of bilge from across the water and hops back before you can close the gap."

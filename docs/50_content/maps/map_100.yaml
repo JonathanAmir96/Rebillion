@@ -1,0 +1,41 @@
+id: map_100
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Gloomwood Eaves, Last Light
+region: gloomwood
+map_type: field
+level_band: { min: 21, max: 21 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 20] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_099
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_101
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: eaves_last_light
+    rect_tiles: { x: 24, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_069, count: 3 }
+      - { mob: mob_070, count: 3 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  A shallow root-crossed clearing, the last patch where any daylight reaches the floor.
+  Gaps remain within the standard jump budget (MAP_TRAVERSAL §1.1); terrain is foothold
+  segments under painted gloomwood terrain_chunks (ART_BIBLE AB-001).
+flavor: "Call this the last honest light in Gloomwood -- past here the canopy never breaks again."

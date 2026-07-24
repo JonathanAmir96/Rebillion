@@ -4,7 +4,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, doc
 docs/ID_REGISTRY.md, 10_systems/LEVELING.md, 10_systems/ECONOMY.md, 10_systems/DROPS.md,
 10_systems/ITEMS.md, 10_systems/INVENTORY.md, 10_systems/JOBS.md, 10_systems/HUD.md,
 10_systems/CONTROLS.md, 10_systems/PERSISTENCE.md, 10_systems/SPAWN.md,
-10_systems/social/PARTY.md, 15_maps_system/MAP_INTERACTABLES.md,
+10_systems/social/PARTY.md, 10_systems/social/RAID.md, 15_maps_system/MAP_INTERACTABLES.md,
 15_maps_system/MAPS_SYSTEM.md, 20_schemas/quest.schema.md
 
 Owner doc for **quests**: the fields every quest is built from, the four step types, how a
@@ -12,9 +12,9 @@ Owner doc for **quests**: the fields every quest is built from, the four step ty
 abandon/retry/repeat policy, and the quest-log UX hook. `exp` curve math is
 `10_systems/LEVELING.md`; `shards` faucet/sink balance is `10_systems/ECONOMY.md`; item
 definitions are `10_systems/ITEMS.md`; kill-credit tagging is `10_systems/DROPS.md` §7. This doc
-never restates those — it only sets the *quest-side* budget and shape. The 90 authored quests and
-their per-region ID blocks (`quest_001`–`090`) are `docs/ID_REGISTRY.md`'s; `docs/WORLD_PLAN.md`
-supplies region level bands. `20_schemas/quest.schema.md` (Phase C) formalizes field types; this
+never restates those — it only sets the *quest-side* budget and shape. The authored quests and
+their per-region ID blocks (arc-1 `quest_001`–`090`, arc-2 `quest_091`–`120`) are
+`docs/ID_REGISTRY.md`'s; `docs/WORLD_PLAN.md` supplies region level bands. `20_schemas/quest.schema.md` (Phase C) formalizes field types; this
 doc owns the anatomy and the numbers Phase D content copies.
 
 ## 1. Quest anatomy (fields)
@@ -43,6 +43,10 @@ field is needed. The four 1st-advancement trainer quests (one per line) are **mu
 exclusive by authoring convention**: completing one sets the character's line
 (`10_systems/JOBS.md` §1) and the other three must stop being offered to that character from then
 on; this doc fixes the exclusivity, Phase D wires it through each trainer NPC's quest list.
+The designed **shape** of each advancement quest line (the Lv 40 two-quest Second Rite chain with
+its Clockwork trial ground, and the reserved 3rd-advancement three-quest line `quest_121`–`132`)
+is `10_systems/JOBS.md` §1.1's; to this doc and its schema they are ordinary chained `main`
+quests.
 
 ## 3. Step types (four — fixed set)
 
@@ -93,22 +97,28 @@ quest_exp = round( pct · exp_to_next(quest_level) )     # exp_to_next per 10_sy
 
 | `quest_level` | `exp_to_next` (`10_systems/LEVELING.md` §1) | `main` reward (15–30%) | `side` reward (5–10%) |
 |---|---|---|---|
-| 1 | 80 | 12–24 | 4–8 |
-| 10 | 3,200 | 480–960 | 160–320 |
-| 20 | 19,700 | 2,955–5,910 | 985–1,970 |
-| 30 | 66,600 | 9,990–19,980 | 3,330–6,660 |
-| 50 | 336,440 | 50,466–100,932 | 16,822–33,644 |
-| 70 | 1,002,000 | 150,300–300,600 | 50,100–100,200 |
-| 90 | 2,277,960 | 341,694–683,388 | 113,898–227,796 |
-| 99 | 3,112,560 | 466,884–933,768 | 155,628–311,256 |
+| 1 | 108 | 16–32 | 5–11 |
+| 10 | 8,480 | 1,272–2,544 | 424–848 |
+| 20 | 45,704 | 6,856–13,711 | 2,285–4,570 |
+| 30 | 132,534 | 19,880–39,760 | 6,627–13,253 |
+| 50 | 549,950 | 82,492–164,985 | 27,498–54,995 |
+| 70 | 1,464,924 | 219,739–439,477 | 73,246–146,492 |
+| 90 | 3,103,026 | 465,454–930,908 | 155,151–310,303 |
+| 99 | 4,140,648 | 621,097–1,242,194 | 207,032–414,065 |
 
 A region's total quest `exp` should land near **≈25%** of the `exp` needed to clear that region's
 level band (`10_systems/LEVELING.md` §4 — cited, not restated); Phase D sums each region's
 authored quests against that target and tunes individual `pct` within the bands above, per
-`10_systems/LEVELING.md`'s own Open Question on this reconciliation. **Rift-band quests
-(`quest_085`–`090`, region 12, Lv 100+) pay no `exp`** — they inherit the post-cap policy
-(`10_systems/LEVELING.md` §6) exactly as monster kills do at cap; their reward is `shards`/items
-only (§5).
+`10_systems/LEVELING.md`'s own Open Question on this reconciliation. **Raid intro/handler quests**
+(arc-1 `quest_087`–`090`; arc-2 `quest_099`–`100` and `quest_119`–`120`; `docs/WORLD_PLAN.md`,
+`10_systems/social/RAID.md` §3) are authored as ordinary quests and pay **normal region-budget
+`exp`** for their band (§4 above, `10_systems/LEVELING.md` §4) — the authored arcs top out at Lv 80
+and there is **no post-cap zero-`exp` band** in scope (the `level` cap is 300,
+`10_systems/LEVELING.md` §1/§6). The raid **clear** reward itself is the finale-boss `exp` and loot
+(`10_systems/LEVELING.md` §3, `10_systems/social/RAID.md` §6), separate from these quests —
+handler quests are **one-time** like every quest (§7); repeat-clear rewards route through the
+raid's own clear mechanics, never a re-acceptable quest (`10_systems/social/RAID.md` §3, resolved
+2026-07-24).
 
 ## 5. Reward budget — `shards`
 
@@ -169,7 +179,7 @@ values are normally equal.
   quests at once, each as a one-line name + current step's progress counter; which quests are
   tracked (of the player's active set) is a player choice made from the full log.
 - **Concurrency cap.** A character may hold up to **20** active (accepted, not turned in) quests
-  at once — generous enough to never bind normal region-by-region play (90 quests total, mostly
+  at once — generous enough to never bind normal region-by-region play (120 quests total, mostly
   cleared in sequence).
 - Controller navigation of the full log follows `10_systems/CONTROLS.md`'s framed-UI rules.
 
@@ -183,12 +193,28 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 
 ## Open Questions
 
-- Party quest-credit sharing (does a party member's kill/collect count for everyone nearby?) is
-  deferred to `10_systems/social/PARTY.md`, not yet authored; default until then is **unshared** —
-  each member individually needs the kill tag / the collect item.
+- Quest kill/collect credit-sharing **among party members** (does a party member's kill/collect
+  count for everyone nearby?) is resolved by `10_systems/social/PARTY.md` §4: a `kill`-step's credit
+  shares across same-map members with that step active (mirroring `10_systems/DROPS.md` §7's shared
+  tag), while a `collect`-step does **not** share — credit requires the item in hand. Raids inherit
+  this same model for stage objectives (`10_systems/social/RAID.md` §4). This doc's §3 `kill` step
+  defers there; no separate quest-side rule.
+- **Resolved (2026-07-24 contradiction fix): raid handler-quest repeatability.** The handler quest
+  is **one-time per character** — an ordinary §7 quest closing the raid's intro arc; all
+  repeat-clear rewards flow through `10_systems/social/RAID.md`'s own clear/cooldown mechanics
+  (its §5–§6 and `10_systems/LEVELING.md` §3.1), never a re-acceptable quest. §7 keeps zero
+  exceptions; RAID §3's wording is synced.
 - Exact per-quest `pct` within the §4 bands, and the regional ≈25% reconciliation, is Phase D
   authoring work per `10_systems/LEVELING.md` §4's own Open Question; not resolved to the exact
   quest here.
+- **Authored quest `exp` rewards need a mechanical regen pass (stale against the new curve).** The
+  §4 reward is `pct · exp_to_next(quest_level)`, and `exp_to_next` changed with the ratified pacing
+  curve (`10_systems/LEVELING.md` §1). The computed `exp` integers already stored in
+  `docs/50_content/quests/*.yaml` are therefore stale and must be **regenerated mechanically** in a
+  Phase-D content pass against the new `exp_to_next` (the `pct` bands and every rule here are
+  unchanged) — do not hand-edit the content files. `shards` rewards (§5, income-indexed) and monster
+  `stats.exp` (per-kill, `10_systems/LEVELING.md` §3) are **not** stale. Owner: Phase-D content /
+  producer.
 - `quest_object` full mechanics (respawn timer, whether non-questers can see/interact with it) are
   owned by `15_maps_system/MAP_INTERACTABLES.md`, not yet authored; this doc only fixes the
   grant-on-interact contract (§3.1).

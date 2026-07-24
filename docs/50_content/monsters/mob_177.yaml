@@ -1,0 +1,42 @@
+id: mob_177
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Rimevault Sentinel
+tier: elite
+element: neutral
+level: 57
+size_class: large
+stats:                           # §13 normal Lv 57 x §13.2 elite multipliers
+  life: 86400                    # 14400 x6
+  power: 266                     # 177 x1.5
+  armor: 445                     # 342 x1.3  (armor+warding sum ~= 12*57 x1.3)
+  warding: 445                   # 342 x1.3
+  precision: 251                 # 228 x1.1
+  evasion: 6.7                   # 4.7 + 2% (§13.2 elite)
+  exp: 3835                    # exp_per_kill_normal(57)=767 x5 (LEVELING §3 elite)
+ai_profile: territorial_guard
+ai_params:
+  aggro_radius: 5
+  leash_radius: 5
+  patrol_radius: 2
+abilities:
+  - id: vault_slam
+    name: Vault Slam
+    targeting: { shape: aoe_circle, radius: 3, origin: self }
+    cooldown: 11.0
+    telegraph_s: 1.4
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.7 }
+      - { op: knockback }
+      - { op: apply_status, status: stun, chance: 0.4, dur: 1.5 }
+  - id: stoneguard_stance
+    name: Stoneguard Stance
+    targeting: self
+    cooldown: 17.0
+    telegraph_s: 1.4
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.15 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_177
+flavor: "A construct of iron and vault-stone left to guard the Rimevaults' deepest door. It slams the ground to shatter footing, then locks down behind a wall of stoneguard."

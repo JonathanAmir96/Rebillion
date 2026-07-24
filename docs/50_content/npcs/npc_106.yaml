@@ -1,0 +1,12 @@
+id: npc_106
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Vault Warden Iskrel
+region: arcane_reach
+map: map_266
+role: handler
+dialog:
+  greeting: "The Rune Vaults don't open for the curious. They open for whoever clears a path first."
+  farewell: "Come back with what's still glowing down there. I'll know if it isn't."
+portrait: portrait_npc_106
+flavor: "Iskrel has sealed and reopened the Rune Vaults' outer door more times than he'll admit, always for someone he judged ready."

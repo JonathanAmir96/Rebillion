@@ -1,0 +1,40 @@
+id: map_303
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: "Umbral Shore, Drowned Light Hollow"
+region: voidshore
+map_type: field
+level_band: { min: 76, max: 77 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 150, h: 29 }
+bgm: bgm_voidshore
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 20] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_302
+    target_spawn: main
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_304
+    target_spawn: main
+spawn_zones:
+  - id: shore_zone_303
+    rect_tiles: { x: 30, y: 16, w: 100, h: 10 }
+    mobs:
+      - { mob: mob_221, count: 2 }
+      - { mob: mob_222, count: 3 }
+    max_concurrent: 7
+npcs: []
+platform_brief: |
+  Low basalt terraces stepped by ~2-tile rises, each crossable in a single running
+  jump (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted void-surf
+  terrain_chunks (ART_BIBLE AB-001). The shore keeps climbing gently toward the
+  Redoubt with no verticality gimmick beyond the terraces.
+flavor: "The black surf climbs a little higher on this stretch of the Umbral Shore, and the things that hunt in it climb with it."

@@ -43,7 +43,11 @@ anywhere else in the tree is a validation failure.
 | `exp` | Experience points token |
 | `level` | Character/monster level |
 | `emberstone` | Enhancement material (10_systems/ENHANCEMENT.md); visual flavor may be reskinned by ART_BIBLE amendment |
-| `nickname` | Player-chosen unique character name (format + uniqueness law: 10_systems/ACCOUNT.md) |
+| `raid_token` | Raid-earned currency spent on raid-exclusive rewards (per-raid variants; 10_systems/social/RAID.md, 10_systems/DROPS.md) |
+| `party_drop_bonus` | Drop-chance multiplier from same-map party size (owner: 10_systems/DROPS.md; the loot analogue of PARTY.md §4's exp party bonus) |
+| `guild_contribution` | Points a guild accrues from members' raids and party hunts, driving guild level/unlocks (owner: 10_systems/social/GUILD.md) |
+| `party_finder` | The server-side listing board for forming parties/raids (owner: 10_systems/social/PARTY_FINDER.md) |
+| `nickname` | Player-chosen unique character name (name law: 70_integrations/ACCOUNTS_AUTH.md §5; player-facing flow: 10_systems/ACCOUNT.md) |
 
 ## Entity tiers (owner: 20_schemas/monster.schema.md)
 `normal` · `elite` · `boss`
@@ -91,18 +95,20 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 ## Size classes (locked by 40_assets/ART_BIBLE.yaml `sizing.size_classes`)
 `tiny` · `small` · `medium` · `large` · `boss`
 
-## Job lines (owner: 10_systems/JOBS.md; promoted at B gate, revised v2)
+## Job lines (owner: 10_systems/JOBS.md; branching 2nd jobs)
 
-| Stat | Line token | 1st job (Lv 8) | 2nd job (Lv 40) | 3rd job (future arc) |
+| Stat | Line token | 1st job (Lv 8) | 2nd-job specializations (Lv 40, choose one) | 3rd tier (future arc) |
 |---|---|---|---|---|
-| `might` | `bulwark` | Bulwark | Ironbrand | Aegis |
-| `finesse` | `keeneye` | Keeneye | Pathstalker | Skypiercer |
-| `focus` | `weaver` | Weaver | Runeweaver | Highweaver |
-| `fortune` | `flicker` | Flicker | Duskstep | Nightdancer |
+| `might` | `bulwark` | Bulwark | Ironbrand (`ironbrand`) · Stoneguard (`stoneguard`) · Warcaller (`warcaller`) | Aegis |
+| `finesse` | `keeneye` | Keeneye | Pathstalker (`pathstalker`) · Sureshot (`sureshot`) | Skypiercer |
+| `focus` | `weaver` | Weaver | Runeweaver (`runeweaver`) · Cindercall (`cindercall`) · Frostbind (`frostbind`) | Highweaver |
+| `fortune` | `flicker` | Flicker | Duskstep (`duskstep`) · Wildcard (`wildcard`) | Nightdancer |
 
-`novice` is the shared pre-advancement class (Lv 1–7). Skill IDs: `skill_<line>_NNN` plus
-`skill_novice_NNN`. 3rd jobs are named-and-reserved only — this run authors the Lv 1–42
-arc; the game cap is 300 (initial design; see SCOPE.md).
+`novice` is the shared pre-advancement class (Lv 1–7). The 2nd advancement (Lv 40) is a
+permanent choice of one specialization within the line (rules: 10_systems/JOBS.md). Skill
+IDs: `skill_<line>_NNN` plus `skill_novice_NNN`. 3rd-tier jobs are named-and-reserved only —
+this run authors two arcs to Lv 80 (Voidshore elites overshoot to 82); the game cap is 300
+(initial design; see SCOPE.md).
 
 ## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in social/GUILD.md)
 `heater` · `round` · `banner` · `diamond` · `crest_ornate`
@@ -114,31 +120,73 @@ render no layer. Z-order and part classes live in the owner doc, never restated.
 
 ## ID prefixes (ranges owned by docs/ID_REGISTRY.md)
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
-`skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN` ·
-`style_<category>_NN` (category ∈ `base`/`hair`/`face`/`skin`/`haircolor`;
+`item_cosmetic_NNNN` · `skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` ·
+`pool_equip_rNN` · `style_<category>_NN` (category ∈ `base`/`hair`/`face`/`skin`/`haircolor`;
 40_assets/CHARACTER_COMPOSITING.md)
 
-## Region slugs (owner: docs/WORLD_PLAN.md; v2 two-island world)
+## Region slugs (owner: docs/WORLD_PLAN.md; five-island world)
 `emberfoot` · `millbrook` · `verdant` · `tidewatch` · `gloomwood` · `ashfall` · `sunken` ·
-`clockwork` (shorthand `r01`–`r08`, in that order). Islands: **Emberfoot Isle** (r01) and
-**Harthmoor Isle** (r02–r08). Slugs `frostpeak` / `arcane_reach` / `voidshore` / `rift` are
+`clockwork` · `frostpeak` · `arcane_reach` · `voidshore` (shorthand `r01`–`r11`, in that
+order). Islands: **Emberfoot Isle** (r01), **Harthmoor Isle** (r02–r08), and the Arc-2 far
+isles **Frostpeak Isle** (r09), **Arcane Reach** (r10), **Voidshore** (r11). Slug `rift` is
 reserved for future expansions — invalid in this run's content.
 
-## Party quests (owner: 10_systems/social/PARTY_QUEST.md)
-`pq_undervault` · `pq_mainspring`
+## Raids (owner: 10_systems/social/RAID.md; replaces the retired "party quest"/`pq_*` family)
+`raid_undervault` · `raid_mainspring` · `raid_deepfrost` · `raid_voidtide`
 
-## Terrain (owner: 15_maps_system/MAP_TRAVERSAL.md; v2.4 foothold model)
+## Party-finder activity (owner: 10_systems/social/PARTY_FINDER.md)
+`field_hunt` · `raid` · `quest` · `boss` · `social` — the listing categories on the
+`party_finder` board.
+
+## Terrain (owner: 15_maps_system/MAP_TRAVERSAL.md; foothold model)
 `foothold` (walkable segment, arbitrary angle; the ground truth of platforming) ·
 `terrain_chunk` (hand-painted ground art snapped to footholds; ART_BIBLE amendment AB-001)
 
-## Transport (owner: 15_maps_system/MAP_CONNECTIONS.md; v2.2)
+## Transport (owner: 15_maps_system/MAP_CONNECTIONS.md; v3)
 `coach` (paid town-to-town portal kind, fares in shards per ECONOMY.md) · `coach_stop`
-(arrival spawn id) · the Harborwind Ferry (paid island crossing). The earlier free-warp
-"waygate" mechanism is retired — that token is invalid in content.
+(arrival spawn id) · the Harborwind Ferry (paid instant island crossing) · the Deepway (free
+Lv-40-gated underground passage, Cindershelf `map_125` → `map_201`–`203` → Frosthaven; owner
+WORLD_PLAN.md/MAP_CONNECTIONS.md) · `longship` (paid
+**scheduled** Arc-2 inter-island portal kind, 2–3 min real-time sail on a deck map) ·
+`longship_deck` (deck boarding spawn id) · `longship_dock` (pier arrival spawn id) ·
+`level_gate` (optional portal property: minimum `level` to pass; rules MAP_CONNECTIONS.md §9).
+The earlier free-warp "waygate" mechanism is retired — that token is invalid in content.
 
 ## Provisional (pending promotion at a phase gate)
-- None currently. (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)
+- `combo_momentum` — the player-only sustained damage-dealt multiplier built by chaining
+  distinct damage sources (basic attack + `deal_damage` actives) inside the chain window ·
+  `combo_burst` — the finisher reward for a three-distinct-source sequence. Owner:
+  10_systems/COMBO_SYSTEM.md (which also owns all magnitudes/timing). Promote both at the
+  next phase gate once content or schemas consume them as field values.
+- `gleam` — premium cosmetic-only currency (real money; account-bound; never converts to or
+  from `shards`). Owner: 10_systems/MONETIZATION.md (MON-001). OQ: promote or rename at the
+  next phase gate.
+- `raid_herald` — NPC archetype: the staging-area NPC that fronts a raid's entry
+  (10_systems/social/RAID.md). Promote if Phase D NPC content uses it as a field value.
+- `guild_level` — a guild's progression tier, raised by `guild_contribution`
+  (10_systems/social/GUILD.md §9). Promote if it becomes a field value in guild content/schemas.
+- `coach_station` (interactable) · `coach_clerk` / `pier_officer` (NPC roles) — the coach
+  kiosk and transport-staff tokens from the waygate→coach reconciliation
+  (15_maps_system/MAP_INTERACTABLES.md, 20_schemas/npc.schema.md). Promote at the C gate.
+- Cosmetic categories — `title` (cosmetic display string; grants from collection milestones,
+  10_systems/COLLECTIONS.md §7, and raid SKUs) · `dye` · `skin` · `crest_flourish`; owner
+  10_systems/COSMETICS.md (§2), which is the character-display consumer `title`'s original
+  promotion condition waited on. Promote all four at the next phase gate once the first
+  cosmetic content batch consumes them. (`title` originally ported from the
+  equipment-v2/F-gate wave at the v3 merge.)
+- `shield` / `overall` — equipment slot tokens from the equipment-v2 wave (off-hand
+  defensive piece; body+legs single piece). Semantics: 10_systems/SCROLLS.md's companion
+  ITEMS §2 revision, **not yet integrated with the v3 T1–T12 content** — IDs re-homed to
+  `item_equip_0181`–`0200` at the v3 merge (see ID_REGISTRY). Promote with that
+  integration wave.
+- `req_line` — optional equip-restriction field (values = job-line tokens); owner
+  10_systems/ITEMS.md. (Equipment-v2 wave.)
+- Scroll vocabulary — `scroll_kind` (`aspect` · `temper`), `scroll_tier` (`steady` ·
+  `bold` · `perilous`), `slot_family` (`weapon_family` · `armor_family` ·
+  `accessory_family`); owner 10_systems/SCROLLS.md. Promote when Phase D scroll content
+  lands.
 
 ## Open Questions
-- ~~Split `haste` into move/attack tokens?~~ **Resolved at B gate:** kept combined; conversion
-  percentages owned by 10_systems/STATS.md §5. Reopen only if animation breakpoints demand it.
+- None currently. (The `haste` move/attack split was resolved at the B gate: kept combined;
+  conversion percentages owned by 10_systems/STATS.md §5. Reopen only if animation breakpoints
+  demand it.)

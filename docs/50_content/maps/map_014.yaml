@@ -1,0 +1,40 @@
+id: map_014
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Smoldering Hollow
+region: emberfoot
+map_type: secret
+level_band: { min: 6, max: 8 }            # secrets may break the field gradient (WORLD_PLAN map-order law)
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 45, h: 30 }              # secret: <=2 screens any dimension (MAPS_SYSTEM §2)
+bgm: bgm_emberfoot
+ambience: [amb_ember_glow]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [22, 24] }
+portals:
+  - id: to_cinder_hollow
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_009
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: smoldering_hollow_den
+    rect_tiles: { x: 10, y: 14, w: 26, h: 10 }
+    mobs:
+      - { mob: mob_011, count: 1 }          # the region's one elite (SPAWN §2 secret weight toward elite)
+    max_concurrent: 4                       # secret default (SPAWN §4)
+interactables:
+  - type: lore_marker
+    id: marker_smoldering_hollow
+    at_tile: [12, 13]
+    params:
+      text: "Scorched claw-marks score the rock here, far too large for anything you've fought so far."
+      interact_prompt: Read
+platform_brief: |
+  A tight, hidden alcove reached from Cinder Hollow's narrowed upper gap. One raised
+  ledge (2-tile rise) shelters the den; a single running jump clears it (MAP_TRAVERSAL
+  §1.1). No further verticality -- the reward is the fight, not the platforming.
+flavor: "A scorched pocket behind the hollow's upper rocks, warmer and darker than anywhere else on the island. Something bigger denned here."

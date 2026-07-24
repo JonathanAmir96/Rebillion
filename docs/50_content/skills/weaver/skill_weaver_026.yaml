@@ -1,0 +1,32 @@
+id: skill_weaver_026
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Permafrost
+line: weaver
+tier: second
+kind: passive
+# NOTE (flag, not guess): same condition-vocabulary gap as skill_weaver_019 — "vs `chill`" has no
+# frozen `condition` token (schema OQ examples are only `below_life_pct:X`, `while_veiled`,
+# `vs_marked`). Authored `vs_status:chill` by the same `vs_marked`-pattern extension; flagged, not
+# assumed valid, pending the condition vocabulary freeze at the C gate.
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { warding: 0.04 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, condition: "vs_status:chill", chance: 1.0, effect: { op: deal_damage, element: frost, mult: 0.25 } }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { warding: 0.06 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, condition: "vs_status:chill", chance: 1.0, effect: { op: deal_damage, element: frost, mult: 0.35 } }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { warding: 0.08 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, condition: "vs_status:chill", chance: 1.0, effect: { op: deal_damage, element: frost, mult: 0.45 } }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { warding: 0.10 }, mode: pct }
+      - { op: on_hit_proc, trigger: on_deal, condition: "vs_status:chill", chance: 1.0, effect: { op: deal_damage, element: frost, mult: 0.55 } }
+flavor: "The cold the Frostbind carries never quite leaves. Anything already chilled takes the follow-up hit worse."

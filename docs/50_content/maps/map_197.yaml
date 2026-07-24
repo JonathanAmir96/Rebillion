@@ -1,0 +1,35 @@
+id: map_197
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
+name: Mainspring Trial, the Escapement Antechamber
+region: clockwork
+map_type: dungeon
+level_band: { min: 38, max: 40 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 60, h: 40 }
+bgm: bgm_clockwork
+ambience: [amb_gears]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 30] }
+portals:
+  - id: to_the_mainspring
+    kind: door
+    at: { tile: [54, 12] }
+    target_map: map_200
+    target_spawn: main
+    dead_end: true  # raid finale entry; one-way into the shared arena instance (RAID.md §4, SPAWN §7)
+spawn_zones:
+  - id: escapement_antechamber_zone
+    rect_tiles: { x: 16, y: 22, w: 32, h: 10 }
+    mobs:
+      - { mob: mob_147, count: 2 }
+      - { mob: mob_148, count: 2 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  Stage 3: the puzzle room before the finale (RAID.md §4 reach/quest_object pattern), a
+  short gauntlet of elites guarding the antechamber door. Party-instanced; no
+  verticality gimmick.
+flavor: "The last chamber before the Custodian's own gate, escapement arms sweeping in patient counterpoint to what waits beyond."

@@ -1,0 +1,13 @@
+id: npc_033
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS, JOBS]
+name: Elder Yewna
+region: verdant                   # must equal home map's region
+map: map_044                      # bidirectional with map_044's npcs[] (both list each other)
+role: quest_giver                 # the Weaver line's home-town instructor (WORLD_PLAN §Job instructors); no dedicated trainer role in the enum
+dialog:
+  greeting: "The hollow answers if you ask it properly -- fire, frost, or the raw arcane between. Which will you learn first?"
+  idle: "Every root here has a name, if you listen long enough."
+  farewell: "Mind your essence, and mind the hollow. Both run dry if you're careless."
+portrait: portrait_npc_033
+flavor: "Elder Yewna has taught the weaving of raw essence into elements from this athenaeum for three decades, and outlived every apprentice who thought they knew better."

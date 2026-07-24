@@ -16,10 +16,30 @@ ROLE_PRODUCER (orchestrator, top tier)
 ├── ROLE_NARRATIVE_WRITER  (NPCs, quests, flavor)
 ├── ROLE_CONTENT_AUTHOR    (mechanical YAML mass-production)
 ├── ROLE_ART_DIRECTOR      ("Agent-3" — art bible, UI spec, PixelLab QA)
+│   └── ROLE_ART_QUARTERMASTER (PixelLab budget gate — balance check + self-vs-PixelLab routing)
 ├── ROLE_QA_VALIDATOR      (VALIDATION.md enforcement, batch gates)
+├── ROLE_SECURITY_ENGINEER (anti-cheat & data-integrity assurance, security review gates)
 ├── ROLE_INTEGRATION_ENGINEER (backend/platform/pipeline design)
+├── ROLE_BACKEND_ENGINEER  (live-server implementation & ops — Elixir/OTP coding pass)
 └── ROLE_GAMEPLAY_DEVELOPER   (future coding pass, Godot)
 ```
+
+## Role files (index)
+
+Every role above has a charter file in this directory — read it before staffing that role:
+
+- `docs/60_agents/roles/ROLE_PRODUCER.md`
+- `docs/60_agents/roles/ROLE_SYSTEMS_ARCHITECT.md`
+- `docs/60_agents/roles/ROLE_WORLD_BUILDER.md`
+- `docs/60_agents/roles/ROLE_NARRATIVE_WRITER.md`
+- `docs/60_agents/roles/ROLE_CONTENT_AUTHOR.md`
+- `docs/60_agents/roles/ROLE_ART_DIRECTOR.md`
+- `docs/60_agents/roles/ROLE_ART_QUARTERMASTER.md`
+- `docs/60_agents/roles/ROLE_QA_VALIDATOR.md`
+- `docs/60_agents/roles/ROLE_SECURITY_ENGINEER.md`
+- `docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md`
+- `docs/60_agents/roles/ROLE_BACKEND_ENGINEER.md`
+- `docs/60_agents/roles/ROLE_GAMEPLAY_DEVELOPER.md`
 
 ## Model routing law
 
@@ -44,6 +64,9 @@ below can execute mechanically; that is the preferred way to make cheap generati
 - Locked files (ART_BIBLE.yaml, UI_ART_SPEC.md, ENGINEERING_STANDARDS.md) are touched by
   no one; ROLE_ART_DIRECTOR alone operates their amendment channels.
 - Every doc ends with `## Open Questions`. Every batch passes VALIDATION.md before landing.
+- No PixelLab MCP call without a same-batch `get_balance` check routed through
+  ROLE_ART_QUARTERMASTER — simple assets are self-generated, generations are spent only
+  per its decision matrix.
 - No git pushes by staff roles; the producer commits/pushes at gates.
 
 ## Invocation template (for prompts)

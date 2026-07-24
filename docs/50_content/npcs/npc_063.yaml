@@ -1,0 +1,13 @@
+id: npc_063
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, MAP_CONNECTIONS]
+name: Coachman Dray
+region: ashfall
+map: map_125                     # bidirectional with map_125's npcs[] (both list each other)
+role: coach_clerk                # co-located with map_125's coach_station (npc.schema role enum)
+services: [coach]                # role floor: coach_clerk -> services >= {coach} (npc.schema rule 1)
+dialog:
+  greeting: "Cindershelf run, is it? Longest leg on the ring, and I've walked -- ridden -- every mile of it."
+  farewell: "Mind the ash on the step. Fare's the same either direction."
+portrait: portrait_npc_063
+flavor: "Dray has driven the Cindershelf coach longer than most novices have been alive, and swears the ash never once got into his lungs."

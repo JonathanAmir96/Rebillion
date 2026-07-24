@@ -1,0 +1,12 @@
+id: npc_094
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Archivist Meira
+region: frostpeak
+map: map_221
+role: quest_giver
+dialog:
+  greeting: "The hold's old logs mention creatures further up the glacier the newer hunters don't recognize."
+  farewell: "Bring back what you find -- the archive is thin on anything past Rimeglass."
+portrait: portrait_npc_094
+flavor: "Meira catalogs Wyrmcrag's hunting logs and pesters every passing adventurer for fresh field notes."

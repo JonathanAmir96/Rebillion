@@ -1,0 +1,25 @@
+id: quest_004
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Smoke on the Wind
+region: emberfoot
+quest_type: main
+giver_npc: npc_006                # Trailwarden Fenna
+level_requirement: 3
+recommended_level: 3
+prereqs: [quest_002]
+steps:
+  - type: kill
+    target: mob_003
+    count: 8
+  - type: reach
+    target: map_007
+    zone: windbreak_ridge           # named waypoint on map_007 (QUESTS §3, MAPS_SYSTEM pending)
+rewards:
+  exp: 75                          # round(0.20 * 374); main band, exp_to_next(3)=374
+  shards: 120                      # mean_shards_normal(3)*15 = 8*15
+  items:
+    - { id: item_use_0006, qty: 2 }   # forward-ref: Lesser Essence Tonic
+flavor: "Fenna wants a novice to see the whole trail's length, past where the wind starts to bite."
+offer_text: "Clear the path as you go, and stand atop the windbreak ridge so I know you made it that far."
+complete_text: "You can see the kiln-smoke from up there, can't you? That's where you're headed, eventually."

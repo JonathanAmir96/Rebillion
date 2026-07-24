@@ -1,0 +1,26 @@
+id: mob_070
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Veilspinner Broodling
+tier: normal                     # ID slot 070 = R5 Gloomwood normal (ID_REGISTRY Monsters)
+element: shadow                    # R5 element mix = shadow/nature/neutral (WORLD_PLAN R5)
+weak_to: [fire]
+resists: [shadow]
+level: 21
+size_class: tiny
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 21
+  life: 2304                     # 4*(21+3)^2
+  power: 69                      # 6+3*21 (touch = round(0.5*power), neutral, §13.1)
+  armor: 126                      # 6*21  (armor+warding sum = 252 = 12*21)
+  warding: 126                    # 6*21
+  precision: 84                  # 4*21
+  evasion: 3.63                    # 3 + 0.03*21 (%)
+  exp: 209                       # exp_per_kill_normal(21)=round(4*21^1.3) (LEVELING §3)
+ai_profile: pack_hunter
+ai_params:                       # override only pack_hunter-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  pack_call_radius: 9
+  pack_max_size: 5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_070
+flavor: "A skittering hatchling no bigger than a hand, harmless until the web-song of its kin answers. One is a nuisance; a whole clutch pouring from the dark is the wood's warning."

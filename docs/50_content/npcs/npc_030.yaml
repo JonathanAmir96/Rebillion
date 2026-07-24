@@ -1,0 +1,12 @@
+id: npc_030
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES]
+name: Denny Cray
+region: millbrook
+map: map_017
+role: flavor
+dialog:
+  greeting: "Tide's decent today. Ferry crowd's always jumpy the first hour off the boat."
+  farewell: "Mind your footing on the wet boards."
+portrait: portrait_npc_030
+flavor: "Cray's fished Rosen Harbor's shallows since he was a boy and can name every ferry passenger's home isle by their boots alone."

@@ -1,0 +1,26 @@
+id: mob_151
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Rimefang Prowler
+tier: normal                     # ID slot 151 = first R9 normal (ID_REGISTRY Monsters)
+element: frost                   # R9 element split is frost/neutral (WORLD_PLAN)
+weak_to: [fire]                  # thematic frost creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 40
+size_class: medium
+stats:                           # all copied from COMBAT_FORMULA §13 normal budget, Lv 40
+  life: 7395                     # 4*(40+3)^2
+  power: 126                     # 6+3*40 (touch dmg = round(0.5*power), neutral, §13.1)
+  armor: 240                     # 6*40  (armor+warding sum = 480 = 12*40)
+  warding: 240                   # 6*40
+  precision: 160                 # 4*40
+  evasion: 4.2                   # 3 + 0.03*40 (%)
+  exp: 484                       # exp_per_kill_normal(40)=round(4*40^1.3) (LEVELING §3)
+ai_profile: pack_hunter          # weak alone, dangerous in numbers (AI_BEHAVIOR §10)
+ai_params:                       # override only pack_hunter-declared tunables
+  aggro_radius: 6
+  pack_call_radius: 9
+  pack_max_size: 4
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_151
+flavor: "A lean frost-wolf of the hoarfrost flats, all rimed fur and cold breath. One is a nuisance; the pack that answers its call is the isle's first real lesson."

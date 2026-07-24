@@ -1,0 +1,26 @@
+id: map_023
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, ECONOMY]
+name: Millbrook Market Hall
+region: millbrook
+map_type: interior
+level_band: { min: 8, max: 9 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 28, h: 14 }
+bgm: bgm_town_millbrook
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 10] }
+portals:
+  - id: to_millbrook_central
+    kind: door
+    at: { tile: [14, 12] }
+    target_map: map_018
+    target_spawn: main
+    dead_end: false
+npcs: [npc_020]
+platform_brief: |
+  A timbered hall of market stalls under one roof, flat and open, combat-free
+  interior (MAPS_SYSTEM §2/§6).
+flavor: "Every stall in Millbrook's market hall claims to have the best price in the ring, and every stall is wrong about at least one other stall."

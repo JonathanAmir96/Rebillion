@@ -1,0 +1,24 @@
+id: mob_079
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Blightpuff Crawler
+tier: normal                     # ID slot 079 = R5 Gloomwood normal (ID_REGISTRY Monsters)
+element: neutral                    # R5 element mix = shadow/nature/neutral (WORLD_PLAN R5)
+level: 25
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 25
+  life: 3136                     # 4*(25+3)^2
+  power: 81                      # 6+3*25 (touch = round(0.5*power), neutral, §13.1)
+  armor: 150                      # 6*25  (armor+warding sum = 300 = 12*25)
+  warding: 150                    # 6*25
+  precision: 100                  # 4*25
+  evasion: 3.75                    # 3 + 0.03*25 (%)
+  exp: 263                       # exp_per_kill_normal(25)=round(4*25^1.3) (LEVELING §3)
+ai_profile: kamikaze_burster
+ai_params:                       # override only kamikaze_burster-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 6
+  detonate_range: 1
+  rush_speed_mult: 1.8
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_079
+flavor: "A swollen grub packed tight with pressurized spore-gas, waddling toward any heat it senses. It ruptures on contact in a choking grey bloom, indifferent to its own end."

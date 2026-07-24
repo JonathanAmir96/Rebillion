@@ -1,0 +1,41 @@
+id: map_103
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Hush Path, Antler Break
+region: gloomwood
+map_type: field
+level_band: { min: 22, max: 23 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_web_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_102
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_104
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: hush_path_antler
+    rect_tiles: { x: 26, y: 20, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_072, count: 3 }
+      - { mob: mob_073, count: 3 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  A scatter of broken antler-shaped deadfall forms low, uneven footholds, each gap within
+  the standard jump budget (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted
+  gloomwood terrain_chunks (ART_BIBLE AB-001).
+flavor: "Old bone-white deadfall litters this break, picked clean by things that never show themselves."

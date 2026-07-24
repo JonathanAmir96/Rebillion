@@ -1,0 +1,24 @@
+id: skill_weaver_006
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Essence Flow                 # exact JOBS.md §4.1 first-job roster name
+line: weaver
+tier: first
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.30, effect: { op: restore_essence, amount: 2, target: self }, icd: 2.0 }   # SKILL_EFFECTS §16, payload §5
+  - level: 4
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.40, effect: { op: restore_essence, amount: 3, target: self }, icd: 2.0 }
+  - level: 7
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.50, effect: { op: restore_essence, amount: 4, target: self }, icd: 2.0 }
+  - level: 10
+    effects:
+      - { op: on_hit_proc, trigger: on_deal, chance: 0.60, effect: { op: restore_essence, amount: 5, target: self }, icd: 2.0 }
+flavor: "Every spell a Weaver lands feeds a trickle of essence back — barely noticeable at first, but it adds up across a long fight."

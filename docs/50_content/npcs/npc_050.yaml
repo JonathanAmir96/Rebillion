@@ -1,0 +1,12 @@
+id: npc_050
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS]
+name: Harborwatch Scout Innes
+region: tidewatch
+map: map_081
+role: quest_giver
+dialog:
+  greeting: "The frost's crept further down the bluffs every season I've patrolled them. Someone should thin the cause out."
+  farewell: "Stay upwind of the spray. It bites colder than it looks."
+portrait: portrait_npc_050
+flavor: "Innes walks the bluff patrols alone by choice, and knows exactly how far the frost-touched coast has crept this year."

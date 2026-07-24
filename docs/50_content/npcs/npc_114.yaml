@@ -1,0 +1,12 @@
+id: npc_114
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Vanguard Sella Ashcombe
+region: voidshore
+map: map_300
+role: handler
+dialog:
+  greeting: "The Heights get worse the higher you climb. Good -- I've got worse work the higher you climb."
+  farewell: "Come back with proof, not just stories."
+portrait: portrait_npc_114
+flavor: "Sella holds the forward camp at the Umbral Heights, the last friendly fire before the shore turns truly hostile."

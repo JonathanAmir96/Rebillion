@@ -1,0 +1,48 @@
+id: map_113
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Fen Approach, Reed Line
+region: gloomwood
+map_type: field
+level_band: { min: 27, max: 28 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_112
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_114
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: fen_approach_reed_line
+    rect_tiles: { x: 26, y: 20, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_082, count: 3 }
+      - { mob: mob_083, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_fen_warden_post
+    at_tile: [40, 21]
+    params:
+      text: "A warden's reed-woven post, strung with charms against whatever wades the fen ahead."
+      interact_prompt: Read
+npcs: [npc_059]
+platform_brief: |
+  The trees thin toward a reed-choked wetland edge, terraces still within the standard
+  jump budget (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted gloomwood
+  terrain_chunks (ART_BIBLE AB-001), tapering toward the fen proper.
+flavor: "The canopy finally thins here, and the ground turns soft underfoot -- the fen isn't far now."

@@ -1,0 +1,26 @@
+id: mob_077
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Sporepod Sentinel
+tier: normal                     # ID slot 077 = R5 Gloomwood normal (ID_REGISTRY Monsters)
+element: nature                    # R5 element mix = shadow/nature/neutral (WORLD_PLAN R5)
+weak_to: [fire]
+resists: [nature]
+level: 24
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 24
+  life: 2916                     # 4*(24+3)^2
+  power: 78                      # 6+3*24 (touch = round(0.5*power), neutral, §13.1)
+  armor: 144                      # 6*24  (armor+warding sum = 288 = 12*24)
+  warding: 144                    # 6*24
+  precision: 96                  # 4*24
+  evasion: 3.72                    # 3 + 0.03*24 (%)
+  exp: 249                       # exp_per_kill_normal(24)=round(4*24^1.3) (LEVELING §3)
+ai_profile: stationary_turret
+ai_params:                       # override only stationary_turret-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  attack_cooldown_s: 2.5
+  windup_s: 0.6
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_077
+flavor: "A knee-high bulb rooted in the rot, indistinguishable from a stump until its cap swivels toward warmth. It fires a stinging jet of spores and never moves an inch."

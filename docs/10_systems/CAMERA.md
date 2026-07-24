@@ -10,11 +10,11 @@ Owner doc for the **player camera**: the deadzone, facing lookahead, vertical pl
 screen-shake budget. Parallax layer definitions are `15_maps_system/MAP_LAYERS.md`; this doc
 owns only that the camera's tracked position is what those layers scale against. World-space
 distances (deadzone, lookahead, bounds) are in **tiles** (`40_assets/ART_BIBLE.yaml` grid unit) —
-the tile→pixel scale is not yet locked (open across this tree, e.g.
-`10_systems/COMBAT_FORMULA.md` §10). Screen-shake amplitude (§7) is a rendering-layer offset, not
-a world distance, so it is given as a small raw-pixel placeholder instead, matching how
-`10_systems/COMBAT_FORMULA.md` §10–§11 and `10_systems/INVENTORY.md` §4 already flag their own
-px placeholders pending the same lock.
+the tile→pixel scale is **locked at 16 px** (`base_unit_px: 16`, AB-001;
+`10_systems/COMBAT_FORMULA.md` §10 resolution), so each tile value here has an exact px
+equivalent (deadzone 6×3 tiles = 96×48 px; lookahead 3 tiles = 48 px) while tiles stay the
+authored unit. Screen-shake amplitude (§7) is a rendering-layer offset, not a world distance, so
+it is given directly in raw pixels.
 
 ## 1. Deadzone
 
@@ -58,7 +58,7 @@ moment-to-moment Y — so an ordinary jump/fall arc does not bob the camera up a
 The camera's viewport never shows beyond a map's authored bounds rect (top/bottom/left/right, in
 tiles), adjusted for half the viewport's extent so the edge of the map sits flush with the edge
 of the screen rather than centering past it. The bounds rect itself is per-map authored data
-(`15_maps_system/MAPS_SYSTEM.md`, not yet written) — this doc owns only the clamp behavior that
+(`15_maps_system/MAPS_SYSTEM.md`) — this doc owns only the clamp behavior that
 consumes it.
 
 ## 5. Pixel snapping & zoom
@@ -66,8 +66,10 @@ consumes it.
 - The camera's final render position is **rounded to whole pixels** every frame — no sub-pixel
   camera position — to keep pixel art crisp (`40_assets/ART_BIBLE.yaml` identity).
 - **Zoom is an integer multiple only** (1×, 2×, 3×, …); no fractional zoom, and zoom does not
-  change dynamically during play (no per-encounter zoom-out effect at launch). The exact default
-  multiplier is pending the `40_assets/ART_BIBLE.yaml` tile-scale lock (Open Questions).
+  change dynamically during play (no per-encounter zoom-out effect at launch). The tile→pixel
+  scale itself is locked (16 px, see preamble), but `40_assets/ART_BIBLE.yaml`'s
+  `resolution_policy` permits 2×/3×/4× without naming a default — the exact default multiplier
+  is still an open choice (Open Questions).
 
 ## 6. Arena camera lock
 
@@ -83,8 +85,8 @@ arena-lock trigger, switches the camera from normal deadzone-follow to a **locke
 The tighter, un-eased tracking keeps boss telegraphs and arena hazards readable at all times (P1)
 — readability over camera smoothness during a fight that matters. The lock releases back to
 normal on the boss's death or the player exiting the arena. **Which map/zone triggers the lock,
-and the arena's rect, are authored data owned by `15_maps_system/MAPS_SYSTEM.md`** (not yet
-written); this doc owns only what the camera *does* once locked, per
+and the arena's rect, are authored data owned by `15_maps_system/MAPS_SYSTEM.md`**;
+this doc owns only what the camera *does* once locked, per
 `10_systems/AI_BEHAVIOR.md` §15's note that arena-side camera-lock authoring lives in the map
 file. A boss `phase_shift` transition (`10_systems/AI_BEHAVIOR.md` §15) may trigger a screen-shake
 pulse (§7) but does not itself alter the lock framing.
@@ -123,17 +125,18 @@ synced or validated by a server, even once the game is server-authoritative for 
 ## Open Questions
 
 - Deadzone size, lookahead distance/timing, and the vertical re-center lerp (§1–§3) are first-pass
-  values chosen for a readable, non-nauseating feel; retune after playtesting once the tile→pixel
-  scale locks (`40_assets/ART_BIBLE.yaml`). The §7 shake-amplitude px values are placeholders for
-  the same reason and should be revisited alongside them.
-- Default integer zoom multiplier (§5) is not chosen here — it is downstream of the
-  `40_assets/ART_BIBLE.yaml` tile-scale lock referenced across this tree
-  (e.g. `10_systems/COMBAT_FORMULA.md` §10).
+  values chosen for a readable, non-nauseating feel; the tile→pixel scale is locked (16 px,
+  preamble), so their px equivalents are fixed — what remains is a playtesting retune of feel, not
+  scale. The §7 shake-amplitude px values are first-pass for the same reason and should be
+  revisited alongside them.
+- Default integer zoom multiplier (§5) is not chosen here — `40_assets/ART_BIBLE.yaml`'s
+  `resolution_policy` permits 2×/3×/4× without naming a default; the choice is an
+  ART_BIBLE/engineering call (the tile-scale lock is resolved and no longer blocks it).
 - The "boss slam" screen-shake flag's exact field name/location is not yet defined in
   `10_systems/SKILL_EFFECTS.md` or `10_systems/AI_BEHAVIOR.md`; flagged for whichever doc adds
   ability-presentation metadata.
 - Whether non-arena "mini-lock" zones (e.g., a tough elite pack in a dungeon corridor) are used in
-  Phase D content, beyond the 15 boss arenas, is undecided — the mechanism (§6) supports it either
-  way.
+  Phase D content, beyond the 11 boss arenas (one per region block; `docs/ID_REGISTRY.md`,
+  `docs/WORLD_PLAN.md`), is undecided — the mechanism (§6) supports it either way.
 - Ultrawide/uncommon aspect ratios and any camera safe-area guarantee are not addressed; likely an
   `40_assets/ART_BIBLE.yaml`/engineering concern once a target resolution is fixed.

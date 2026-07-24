@@ -1,0 +1,11 @@
+id: drop_mob_151
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone row, no pool row -> no ENHANCEMENT/WORLD_PLAN/PARTY
+owner: mob_151
+rows:
+  # shards: guaranteed. mean_shards_normal(40)=round(1.5*40+3)=63; range=[round(0.8*63),round(1.2*63)]=[50,76] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 50, qty_max: 76 }
+  # 1 region material, common (DROPS §5.1); item_etc_0129 is this mob's R9 material
+  - { ref: item_etc_0129, chance: common, qty_min: 1, qty_max: 2 }
+  # a use item (tonic/cleanse) at rare (DROPS §5.1); Sovereign Life Tonic serves the Lv 40 band
+  - { ref: item_use_0017, chance: rare, qty_min: 1, qty_max: 1 }

@@ -1,0 +1,13 @@
+id: npc_004
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Elder Yarrow
+region: emberfoot
+map: map_004
+role: quest_giver
+dialog:
+  greeting: "Every novice passes through this hall eventually. What brings you to me today?"
+  idle: "The kiln has slept longer than any of us have been alive. Best it stays that way a while yet."
+  farewell: "Go carefully. Emberfoot only graduates the ones who come back."
+portrait: portrait_npc_004
+flavor: "Yarrow has sent off more graduating novices than she can count, and still remembers every name."

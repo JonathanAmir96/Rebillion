@@ -8,8 +8,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/JOBS.md,
 
 ## Purpose
 
-Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 84
-line skills + 4 novice skills in `00_vision/SCOPE.md` / `10_systems/JOBS.md`. A skill file is the
+Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 94
+line skills + 4 novice skills (98 total) in `00_vision/SCOPE.md` / `10_systems/JOBS.md` v3. A skill file is the
 data a Phase D author fills and the coding pass loads: an identity that must match a
 `10_systems/JOBS.md` roster row exactly, a targeting shape from `10_systems/SKILL_SYSTEM.md` §6, an
 `essence` cost and cooldown, and a `level_data` table of ordered effect ops drawn from the
@@ -24,10 +24,13 @@ math, the op parameter schemas, cost/cooldown bands, or status rules — it cite
 - **One entity per file.** `50_content/skills/<line>/skill_<line>_NNN.yaml`, where `<line>` ∈
   {`bulwark`, `keeneye`, `weaver`, `flicker`, `novice`} and the folder name equals the line. Novice
   skills live in `50_content/skills/novice/skill_novice_NNN.yaml`.
-- **ID ranges** (`docs/ID_REGISTRY.md` Skills; `10_systems/JOBS.md` §1): per line
-  `skill_<line>_001`–`021` authored (`022`–`030` reserved), in tier order — `001`–`006` first-job,
-  `007`–`013` second-job, `014`–`021` third-job. Novice: `skill_novice_001`–`010` reserved, `001`–
-  `004` authored. The file's `id` is its filename stem; both immutable.
+- **ID ranges** (`docs/ID_REGISTRY.md` Skills v3; `10_systems/JOBS.md` §1): per line
+  `skill_<line>_001`–`060` reserved, in tier order — `001`–`006` first-job (shared by the
+  line's specs), `007`–`013` specialization #1, `014`–`020` specialization #2, `021`–`027`
+  specialization #3 (`bulwark`/`weaver` only), `028`–`045` reserved 3rd tier (unauthored),
+  `046`–`060` reserved growth. Authored v3: `bulwark`/`weaver` 27, `keeneye`/`flicker` 20.
+  Novice: `skill_novice_001`–`010` reserved, `001`–`004` authored. The file's `id` is its
+  filename stem; both immutable.
 - **`line` field naming note.** The master-brief format anchor wrote this identity field as `job`;
   this schema names it **`line`** to match the task's explicit field list and the `00_vision/GLOSSARY.md`
   "Line token" vocabulary. See Open Questions — flagged, not silently chosen.
@@ -84,7 +87,7 @@ Every enum value comes from its owning registry; this schema points, never redef
 | `...effects[].element` | `10_systems/ELEMENTS.md` (GLOSSARY Elements). |
 | `...effects[].status` | `10_systems/STATUS_EFFECTS.md` (GLOSSARY Status effects). |
 | `...effects[].tag` (on `cleanse_status`) | `10_systems/STATUS_EFFECTS.md` §2 cleanse tags. |
-| `...effects[].scaling` | `power`·`spellpower` (`10_systems/SKILL_EFFECTS.md` §1; default per line). |
+| `...effects[].scaling` | `10_systems/SKILL_EFFECTS.md`: `power`·`spellpower`·`max_life`·`flat` (§1 line default). Per-effect constraints per that doc's op rows — `heal` allows all four (default `spellpower`); `grant_shield` allows `spellpower`·`max_life`·`flat`. |
 | `...effects[].stats` keys (on `passive_stat_bonus`) | `10_systems/STATS.md` (GLOSSARY stat tokens). |
 | `...effects[].trigger` (on `on_hit_proc`) | `10_systems/SKILL_EFFECTS.md` §16: `on_deal`·`on_take`·`on_crit`·`on_kill`·`on_dodge`·`on_cast`. |
 
@@ -138,7 +141,7 @@ Passive pattern (illustrative, `skill_weaver_005` "Attunement"): `kind: passive`
 `cost: { essence: 0 }`, `cooldown: 0`, a single `level_data[].effects` row of one
 `{ op: passive_stat_bonus, stats: { spellpower: ..., essence: ... } }` scaled across ranks; no
 `animation`. Proc passives use one `on_hit_proc` op instead; hybrid passives (e.g.
-`skill_flicker_021`) use `passive_stat_bonus` + `on_hit_proc`.
+`skill_flicker_019` "Lucky Streak") use `passive_stat_bonus` + `on_hit_proc`.
 
 ## Validation rules
 
@@ -146,8 +149,9 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4, §6).
 
 1. **Identity ↔ roster (hard).** `line`, `tier`, `kind`, and `name` must match the
    `10_systems/JOBS.md` §2–§6 roster row for this `id` **exactly** (name string included). The tier
-   must agree with the ID sub-block (`001`–`006`→`first`, `007`–`013`→`second`, `014`–`021`→`third`,
-   `skill_novice_*`→`novice`; `10_systems/JOBS.md` §1). `id` in-range (`docs/VALIDATION.md` §4).
+   must agree with the ID sub-block (`001`–`006`→`first`, `007`–`027`→`second` — all three
+   specialization blocks are 2nd-advancement tier, `10_systems/JOBS.md` v3 §1 — `028`–`045`→`third`
+   (unauthored), `skill_novice_*`→`novice`). `id` in-range (`docs/VALIDATION.md` §4).
 2. **Ops validate (hard).** Every `effects[]` op token is one of the 14
    (`10_systems/SKILL_EFFECTS.md`) and every param validates against that op's schema (§3–§16):
    required params present, enums from their owners, values in the op's authoring bounds.
@@ -161,7 +165,8 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4, §6).
 5. **Passive shape (hard).** `kind: passive` ⇒ `cost.essence: 0`, `cooldown: 0` (or omitted),
    `targeting` ∈ {`self`, `party`}, and `effects[]` uses only `passive_stat_bonus` and/or
    `on_hit_proc` (no direct offensive ops); `party` targeting requires the `passive_stat_bonus`
-   `scope: party_aura` (`10_systems/SKILL_EFFECTS.md` §13, e.g. `skill_bulwark_019`).
+   `scope: party_aura` (`10_systems/SKILL_EFFECTS.md` §13, e.g. `skill_bulwark_020` "Sentinel's
+   Aura").
 6. **`max_level` (hard).** If present, `max_level == 10` (`10_systems/SKILL_SYSTEM.md` §2).
 7. **Prerequisites (hard).** Each `prerequisites[].skill` is a **same-line** skill id that exists,
    with `min_rank` 1–10; no self-reference; no cycles (`10_systems/SKILL_SYSTEM.md` §2).
@@ -204,16 +209,17 @@ flavor: "{<=2 sentences}"
   this schema uses **`line`** (the task's explicit field list + `00_vision/GLOSSARY.md` "Line token"
   vocabulary). If the orchestrator intends the literal anchor key `job`, rename here — flagged rather
   than guessed. Whichever is chosen, the value is a GLOSSARY line token.
-- **`condition` enum for `passive_stat_bonus`/`on_hit_proc`.** `10_systems/SKILL_EFFECTS.md` §16 (OQ)
-  leaves the `condition` vocabulary (`below_life_pct:X`, `while_veiled`, `vs_marked`, …) open-ended
-  and asks that it be frozen at the C gate so `docs/VALIDATION.md` can enum-check it. Until frozen,
-  authors use only the examples named there; this schema cannot enum-validate `condition` yet.
+- **Resolved (2026-07-24 contradiction fix): `condition` enum for `passive_stat_bonus`/
+  `on_hit_proc`.** `10_systems/SKILL_EFFECTS.md` §16 now freezes the vocabulary to exactly four
+  values — `below_life_pct:X` · `while_veiled` · `vs_marked` · `while_stance` — which
+  `docs/VALIDATION.md` enum-checks; a new condition is added there first, never invented in
+  content. `condition` is therefore enum-validated against that frozen set.
 - **`40_assets/SKILL_ANIMATION.md` lands this phase.** The `animation` field cites it as the naming
   owner, but that asset doc is a sibling Phase C deliverable not yet authored; the anchor form
   `skill_<line>_NNN_cast` is the interim pattern. Reconcile the naming rule (and any multi-clip skills
   needing more than one animation id) once it exists.
-- **Summon `entity_ref` targets.** Skills with `summon_entity` (`skill_keeneye_010`,
-  `skill_weaver_017`, `skill_flicker_015`) reference a summon-template entity whose ID block is the
+- **Summon `entity_ref` targets.** Skills with `summon_entity` (`skill_keeneye_010` "Falcon",
+  `skill_bulwark_022` "Battle Standard") reference a summon-template entity whose ID block is the
   open `20_schemas/monster.schema.md` / `docs/ID_REGISTRY.md` question; confirm the ref format at the
   C gate (`10_systems/SKILL_EFFECTS.md` §12 OQ).
 - **Per-skill cast/recovery window.** `10_systems/SKILL_SYSTEM.md` §5 describes a per-skill

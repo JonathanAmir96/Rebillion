@@ -1,0 +1,55 @@
+id: map_009
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Emberfoot Fields, Cinder Hollow
+region: emberfoot
+map_type: field
+level_band: { min: 5, max: 6 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 140, h: 28 }
+bgm: bgm_emberfoot
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 22] }
+portals:
+  - id: to_ashen_flat
+    kind: edge
+    at: { edge: left }
+    target_map: map_008
+    target_spawn: main
+    dead_end: false
+  - id: to_smoking_verge
+    kind: edge
+    at: { edge: right }
+    target_map: map_010
+    target_spawn: main
+    dead_end: false
+  - id: to_smoldering_hollow
+    kind: edge
+    at: { edge: top, tile_range: [96, 108] }
+    target_map: map_014
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: cinder_hollow_stretch
+    rect_tiles: { x: 20, y: 20, w: 68, h: 6 }
+    mobs:
+      - { mob: mob_005, count: 3 }
+      - { mob: mob_006, count: 1 }
+    max_concurrent: 6
+npcs: []
+interactables:
+  - type: lore_marker
+    id: marker_hollow_gap
+    at_tile: [98, 19]
+    params:
+      text: "A narrow gap splits the upper rock here -- something wider than a fox has been through recently."
+      interact_prompt: Read
+platform_brief: |
+  A sunken hollow, floor 2 tiles below the entry terraces (crossable per MAP_TRAVERSAL
+  §1.1). A hidden upper gap near the far rise (tile_range narrows the walk-off span)
+  leads to a bonus pocket -- foothold segments under painted terrain_chunks (ART_BIBLE
+  AB-001).
+flavor: "The hollow sits lower than the rest of the fields, shadowed even at midday. Locals say something bigger than the usual pests dens in the rocks above."

@@ -1,0 +1,27 @@
+id: mob_120
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Rimeguard Husk
+tier: normal                     # ID slot 120 = R7 Sunken normal (ID_REGISTRY Monsters)
+element: frost                    # R7 split 10 frost / 4 shadow / 2 neutral (WORLD_PLAN)
+weak_to: [fire]                  # thematic cold creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 36
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 36
+  life: 6084                     # 4*(36+3)^2
+  power: 114                      # 6+3*36 (touch = round(0.5*power), neutral, §13.1)
+  armor: 216                     # 6*36  (armor+warding sum = 432 = 12*36)
+  warding: 216                   # 6*36
+  precision: 144                 # 4*36
+  evasion: 4.08                   # 3 + 0.03*36 (%)
+  exp: 422                       # exp_per_kill_normal(36)=round(4*36^1.3) (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only territorial_guard-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_120
+# corpse-soldier still standing its post (AI_BEHAVIOR §6) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
+flavor: "An armored corpse-soldier of the drowned garrison, frozen into its rusted plate and still standing its post at a flooded stair. It answers every intruder with the same slow, certain halberd-sweep it has practiced for centuries."

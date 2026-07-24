@@ -1,0 +1,42 @@
+id: map_254
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Prism Hollow
+region: arcane_reach
+map_type: field
+level_band: { min: 58, max: 59 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 170, h: 28 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_hanging_gardens
+    kind: edge
+    at: { edge: left }
+    target_map: map_253
+    target_spawn: main
+    dead_end: false
+  - id: to_tilting_field
+    kind: edge
+    at: { edge: right }
+    target_map: map_255
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: prism_hollow_stretch
+    rect_tiles: { x: 34, y: 18, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_184, count: 2 }
+      - { mob: mob_185, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A shallow bowl of fractured crystal scatters ambient light into every color at once. Two
+  low terraces stepped by a 2-tile rise, an easy standing jump throughout (MAP_TRAVERSAL
+  §1.1). No mechanical gimmick -- the hollow's disorientation is purely visual.
+flavor: "Every crystal fragment here throws the same handful of colors, over and over, until the eye stops trusting distance."

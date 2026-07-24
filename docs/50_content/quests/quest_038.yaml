@@ -1,0 +1,27 @@
+id: quest_038
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS, JOBS]
+name: Saela's Second Oath
+region: tidewatch
+quest_type: main
+giver_npc: npc_041
+level_requirement: 40
+recommended_level: 40
+prereqs: [quest_037]
+steps:
+  - type: reach
+    target: map_190
+    zone: "keeneye_trial_ground"
+    count: 1
+  - type: talk
+    target: npc_041
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 32912                  # round(0.20 * 164560); band per QUESTS §4 at Lv40
+  shards: 945                # mean_shards_normal(40)*15 = 63*15 (QUESTS §5 main / DROPS §3)
+  items:
+    - { id: item_use_0010, qty: 2 }
+flavor: "The second oath routes every keeneye through a trial ground deep in the Clockwork Ruins, far from the harbor they swore the first oath in."
+offer_text: "Your line's next choice waits in the Ruins, not here. Walk the trial ground, come back whole, and tell me which path called to you."
+complete_text: "Pathstalker or Sureshot, the ring's roster has room for either. Wear it well -- it's yours for life now."

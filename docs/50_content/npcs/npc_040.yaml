@@ -1,0 +1,12 @@
+id: npc_040
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Grove-Keeper Sable
+region: verdant
+map: map_067
+role: quest_giver
+dialog:
+  greeting: "Thorn-light past this hall means the Sovereign's grove. It's slept a long time. It won't sleep through a fight."
+  farewell: "Come back out, however it goes. The warren keeps the count either way."
+portrait: portrait_npc_040
+flavor: "Sable has stood this last root-hall for longer than anyone in Mossmere can say, turning back the unready and pointing on the rest."

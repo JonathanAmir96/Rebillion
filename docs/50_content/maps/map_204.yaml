@@ -1,0 +1,53 @@
+id: map_204
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Frosthaven Port
+region: frostpeak
+map_type: town
+level_band: { min: 40, max: 40 }        # town band, tight (MAPS_SYSTEM §4); within region 40-55
+biome: frostpeak                         # fixed by region (MAP_LAYERS §4)
+tileset: tileset_frostpeak
+size_tiles: { w: 130, h: 24 }            # town: ~2-4 screens wide, ~1 tall (MAPS_SYSTEM §2)
+bgm: bgm_town_frostpeak                  # town pattern bgm_town_<region_slug> (MAPS_SYSTEM §5)
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [40, 18] }
+  - { id: from_deepway, tile: [14, 18] }     # Deepway surfaces here (WORLD_PLAN arc-2 spawn convention)
+  - { id: longship_dock, tile: [112, 18] }   # longship arrival pier (MAP_CONNECTIONS §2/§8)
+portals:
+  - id: to_hoarfrost_flats                   # town -> first field (both endpoints authored)
+    kind: edge
+    at: { edge: right }
+    target_map: map_208
+    target_spawn: main
+    dead_end: false
+  - id: to_deepway                           # two-way door back into the Deepway (MAP_CONNECTIONS §9.1)
+    kind: door
+    at: { tile: [12, 18] }
+    target_map: map_203                       # forward-ref: Deepway dungeon (R9 batch)
+    target_spawn: main
+    dead_end: false
+  - id: pier_frostwake                       # longship boarding: pier -> the Frostwake deck (WORLD_PLAN arc-2 edges)
+    kind: longship
+    at: { tile: [116, 18] }
+    target_map: map_207                        # forward-ref: the Frostwake deck interior (R9 batch)
+    target_spawn: longship_deck
+    route_id: route_frostpeak_tidewatch        # route identity owned by WORLD_PLAN arc-2 edge table
+    fare_ref: fare_longship_short              # ECONOMY §7.2 short-hop fare (300 shards)
+    cadence_s: 120.0                           # MAP_CONNECTIONS §8.3 default
+    sail_duration_s: 150.0                     # MAP_CONNECTIONS §8.3 default
+interactables:
+  - type: lore_marker
+    id: marker_deepway_mouth
+    at_tile: [16, 17]
+    params:
+      text: "The Deepway's cold breath still rises from the tunnel mouth. You came up out of that dark."
+      interact_prompt: Read
+npcs: [npc_085]                              # bidirectional with each NPC's `map`; batch appends 086-096
+platform_brief: |
+  Flat whale-bone quay on a single band, no verticality gimmick — a safe arrival town.
+  Terrain is foothold segments dressed with painted terrain_chunks (ART_BIBLE AB-001,
+  MAP_TRAVERSAL v2.4). The Deepway mouth sits west, the longship pier east, the field
+  gate at the right edge; the whole walkable span is one continuous foothold, no gaps.
+flavor: "The first town on the far ice, built on whale-bone piers where the Deepway breaks the surface. Longships ride at the frozen quay, waiting on the tide."

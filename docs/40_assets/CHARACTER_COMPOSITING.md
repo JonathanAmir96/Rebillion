@@ -67,6 +67,12 @@ verbatim** — no parallel naming. `ring`/`amulet` render no layer (invisible sl
   item means Phase D authors **one** animated part spanning torso-to-ankle instead of a
   matched pair; the item still occupies only its own slot (`10_systems/ITEMS.md` slot rules
   unchanged — this is a visual field, not an equip rule).
+- The equipment-v2 wave's provisional `shield` / `overall` slot tokens
+  (`00_vision/GLOSSARY.md` Provisional; IDs re-homed at the v3 merge, `docs/ID_REGISTRY.md`)
+  are **not yet layers** — they join this registry only with their ITEMS §2 integration wave.
+  When they do: `overall` is exactly this table's `covers` mechanism promoted to a real slot
+  (one animated torso-to-ankle part, `body`+`legs` layers skipped), and `shield` slots in as
+  an animated off-hand layer whose z-position that wave must fix (Open Questions).
 - This fixed global z-order is deliberately state-independent (no per-frame z-map) — one
   invariant, no downstream reorder tables. If a specific clip proves to need a weapon-behind-
   body frame, that is an Open Question, not a silent exception.
@@ -297,3 +303,14 @@ nearest/no-mipmap/pixel-snap all inherit unchanged.
 - **Cape motion.** Cape as anchored-with-optional-`walk`-variant (§3.1) is a first-pass
   economy call; if capes read as stiff in playtest, promote `cape` to an animated part (costs
   ~34 frames per cape) — a per-part class change, no contract change.
+- **`shield`/`overall` slot integration.** When the equipment-v2 wave lands in
+  `10_systems/ITEMS.md` §2 (§2 note above), this doc's layer registry gains both: `overall`
+  rides the existing `covers` mechanism; `shield`'s z-order (behind or in front of the body
+  on which states) and its part class need fixing then — flagged for that wave, not decided
+  early here.
+- **Cosmetic skins/dyes vs. this stack.** `10_systems/COSMETICS.md`'s reserved `skin`/`dye`
+  categories (`item_cosmetic_NNNN`) are a separate, future system — but their natural
+  implementation is this exact contract: a cosmetic `skin` = an alternate sprite part swapped
+  onto an equip's layer, a `dye` = a ramp remap like §5's swatches. When that arc lands, it
+  should extend this doc rather than invent a parallel pipeline — flagged for
+  `10_systems/COSMETICS.md`'s owner.

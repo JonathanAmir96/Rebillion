@@ -1,0 +1,43 @@
+id: mob_066
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Sablecrab Warlord
+tier: elite                      # ID slot 066 = last R4 elite (ID_REGISTRY Monsters)
+element: neutral
+resists: [frost]                 # its rimed carapace shrugs off cold (ELEMENTS §2)
+level: 24
+size_class: large
+stats:                           # §13 normal Lv 24 x §13.2 elite multipliers.
+                                 # armor/warding reallocated toward armor (shell tank), sum kept ~= 12*24 x1.3 = 374
+  life: 17496                    # 2916 x6  (normal Lv24 life = 4*(24+3)^2 = 2916)
+  power: 117                     # 78 x1.5  (normal Lv24 power = 6+3*24 = 78)
+  armor: 244                     # reallocated up (sum = 374)
+  warding: 130                   # reallocated down (armor+warding sum ~= 12*24 x1.3 = 374)
+  precision: 106                 # 96 x1.1
+  evasion: 5.72                  # 3.72 + 2% (§13.2 elite)
+  exp: 1245                      # exp_per_kill_normal(24)=249 x5 (LEVELING §3 elite)
+ai_profile: territorial_guard    # a fortress of a crab that owns its sea-cave mouth and yields nothing (AI_BEHAVIOR §6)
+ai_params:
+  aggro_radius: 6
+  leash_radius: 5
+  patrol_radius: 3
+abilities:
+  - id: crushing_claw
+    name: Crushing Claw
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 6.0
+    telegraph_s: 1.1
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.6 }
+      - { op: apply_status, status: sunder, chance: 0.8, dur: 8 }
+  - id: shell_guard
+    name: Shell Guard
+    targeting: self
+    cooldown: 18.0
+    telegraph_s: 1.3
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.08 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_066
+flavor: "A black-shelled bull crab the size of a fishing skiff, both claws grown into wrecking mauls that split shields as easily as clams. When it hunkers behind its own carapace, only patience gets through."

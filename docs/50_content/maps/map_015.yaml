@@ -1,0 +1,40 @@
+id: map_015
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Harborwind Ferry
+region: emberfoot
+map_type: interior
+level_band: { min: 8, max: 8 }            # ridden at graduation, ~Lv8 (WORLD_PLAN "novices take the ferry at ~Lv 8")
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 40, h: 20 }              # interior: <=1 screen (MAPS_SYSTEM §2)
+bgm: bgm_interior_ferry                   # hushed variant (MAPS_SYSTEM §5)
+ambience: [amb_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [20, 14] }
+portals:
+  - id: to_village
+    kind: door
+    at: { tile: [4, 15] }
+    target_map: map_001
+    target_spawn: from_ferry                # ferry doors target from_ferry (WORLD_PLAN spawn convention; MAP_CONNECTIONS §2)
+    dead_end: false
+  - id: to_rosen_harbor
+    kind: door
+    at: { tile: [36, 15] }
+    target_map: map_017                     # forward-ref: Millbrook/Rosen Harbor batch (WORLD_PLAN edge table)
+    target_spawn: from_ferry                # ferry doors target from_ferry (WORLD_PLAN spawn convention; MAP_CONNECTIONS §2)
+    dead_end: false
+interactables:
+  - type: sign
+    id: sign_ferry_fare
+    at_tile: [10, 14]
+    params:
+      text: "Harborwind Ferry -- a small fare, a short crossing, and Harthmoor Isle on the far side."
+      interact_prompt: Read
+npcs: [npc_005]
+platform_brief: |
+  A single flat deck room, combat-free, no verticality. Two doors bookend the deck --
+  the village behind, Rosen Harbor ahead across the water.
+flavor: "A modest deck room that smells of salt and rope. For most novices, the last quiet minutes before the wider world."

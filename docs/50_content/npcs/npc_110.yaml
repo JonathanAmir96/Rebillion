@@ -1,0 +1,13 @@
+id: npc_110
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Hearthkeep Mira Dusk
+region: voidshore
+map: map_286
+role: innkeeper
+services: [inn_rest]
+dialog:
+  greeting: "Warm bed, warmer stew -- the Landing's the last place either comes easy."
+  farewell: "Bar the shutters if the wind turns black."
+portrait: portrait_npc_110
+flavor: "Mira keeps the Landing's only hearth lit through every storm the torn sky throws at it."

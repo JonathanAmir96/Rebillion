@@ -1,0 +1,14 @@
+id: npc_116
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Provisioner Yara Holt
+region: voidshore
+map: map_306
+role: merchant
+shop:
+  items: [item_use_0017]
+dialog:
+  greeting: "Last market before the Deeps. Buy heavy -- there's no stall down there."
+  farewell: "Travel light on everything but tonics."
+portrait: portrait_npc_116
+flavor: "Yara runs the Redoubt's market from a cart that hasn't moved in years, though her prices climb with every dungeon rumor."

@@ -1,0 +1,29 @@
+id: skill_flicker_013
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Evasive Instinct              # exact JOBS.md §5.2 Duskstep roster name
+line: flicker
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+max_level: 10
+level_data:
+  - level: 1
+    effects:
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: apply_status, status: swiftness, chance: 1.0, dur: 6 }, icd: 3.0 }        # "swiftness" half of the roster's on_dodge payload (JOBS §5.2)
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: restore_essence, amount: 5, target: self }, icd: 3.0 }                     # "+restore_essence" half of the same trigger
+  - level: 4
+    effects:
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: apply_status, status: swiftness, chance: 1.0, dur: 7 }, icd: 3.0 }
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: restore_essence, amount: 7, target: self }, icd: 3.0 }
+  - level: 7
+    effects:
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: apply_status, status: swiftness, chance: 1.0, dur: 8 }, icd: 3.0 }
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: restore_essence, amount: 9, target: self }, icd: 3.0 }
+  - level: 10
+    effects:
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: apply_status, status: swiftness, chance: 1.0, dur: 9 }, icd: 3.0 }
+      - { op: on_hit_proc, trigger: on_dodge, chance: 1.0, effect: { op: restore_essence, amount: 11, target: self }, icd: 3.0 }
+flavor: "A near-miss is never wasted on a Duskstep — every dodge leaves them faster on their feet and lighter on essence for the next vanish."

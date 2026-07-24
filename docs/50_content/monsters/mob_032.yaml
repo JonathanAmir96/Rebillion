@@ -1,0 +1,26 @@
+id: mob_032
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Mireback Spitter
+tier: normal                     # ID slot 032 = R3 normal (ID_REGISTRY Monsters)
+element: nature                  # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+resists: [nature]                # thick-skinned toad; shrugs its own kind's toxin
+level: 10
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 10
+  life: 675                      # §13 table Lv 10
+  power: 36                      # 6+3*10 (spit + touch scale on power, §13.1)
+  armor: 60                      # 6*10  (armor+warding sum = 120 = 12*10)
+  warding: 60                    # 6*10
+  precision: 40                  # 4*10
+  evasion: 3.3                   # 3 + 0.03*10 (%)
+  exp: 80                        # exp_per_kill_normal(10)=80 (LEVELING §3)
+ai_profile: ranged_skirmisher    # holds the far bank and lobs venom; hates being closed on (AI_BEHAVIOR §8)
+ai_params:                       # override only ranged_skirmisher-declared tunables
+  preferred_range_min: 4
+  preferred_range_max: 8
+  attack_cooldown_s: 1.8
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; basic spit is the attack, no telegraph
+drop_table: drop_mob_032
+flavor: "A bloated bog-toad the color of old bruises, squatting on a mire-hummock and eyeing you sidelong. It arcs a gob of stinging venom the moment you step within range, then hops a length back to do it again."

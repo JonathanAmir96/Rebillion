@@ -1,0 +1,13 @@
+id: npc_010
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Kiln Marshal Ordo
+region: emberfoot
+map: map_013
+role: quest_giver
+dialog:
+  greeting: "The Heart's through that door, and Cindermaw with it. You'd best be ready."
+  idle: "I've turned back more novices than I've waved through. Don't take it personally if I stop you."
+  farewell: "Go on, then -- and come back the way you went in."
+portrait: portrait_npc_010
+flavor: "Ordo has guarded the last door before the Kiln Heart for twenty years, and has personally seen off every graduate the island has produced."

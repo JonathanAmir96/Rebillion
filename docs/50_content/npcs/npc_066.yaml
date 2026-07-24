@@ -1,0 +1,14 @@
+id: npc_066
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Vendor Petra
+region: ashfall
+map: map_125                     # bidirectional with map_125's npcs[] (both list each other)
+role: merchant
+shop:
+  items: [item_use_0001, item_use_0002, item_use_0014]
+dialog:
+  greeting: "Tonics, bread, whatever keeps you upright out there. Ash doesn't discount the price of thirst."
+  farewell: "Barrens'll take everything you don't hold onto. Come back stocked."
+portrait: portrait_npc_066
+flavor: "Petra's stall is the last stop before the fields, and she's learned to read a novice's nerves better than any coach ledger."

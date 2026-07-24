@@ -1,0 +1,41 @@
+id: skill_bulwark_007
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Charge                      # exact JOBS.md §2.2 Ironbrand roster name (skill.schema rule 1)
+line: bulwark
+tier: second                      # Ironbrand is a 2nd-advancement (Lv 40) spec (JOBS §1, SKILL_SYSTEM §2)
+kind: active
+targeting: { shape: line, length: 6, width: 1.5 }   # roster target `line` (SKILL_SYSTEM §6)
+cost: { essence: 12 }             # flat default; scaled per-rank in level_data (spec band 12->28, SKILL_SYSTEM §5)
+cooldown: 9.0                     # flat default; scaled per-rank below (spec band 4-20 s, §5)
+level_data:                       # rows only at 1/4/7/10; ranks 2/3/5/6/8/9 interpolate (SKILL_SYSTEM §4)
+  - level: 1
+    essence_cost: 12
+    cooldown: 9.0
+    effects:                      # order/element/op-list identical across rows (non-interpolatable)
+      - { op: dash, distance: 5, direction: facing, iframes: true }        # gap-closer (SKILL_EFFECTS §9)
+      - { op: deal_damage, element: neutral, mult: 1.0 }                   # scales on `power` (blade default, §1)
+      - { op: knockback, distance: 2, direction: away_from_source }        # SKILL_EFFECTS §7
+  - level: 4
+    essence_cost: 16
+    cooldown: 8.0
+    effects:
+      - { op: dash, distance: 5, direction: facing, iframes: true }
+      - { op: deal_damage, element: neutral, mult: 1.4 }
+      - { op: knockback, distance: 2, direction: away_from_source }
+  - level: 7
+    essence_cost: 20
+    cooldown: 7.0
+    effects:
+      - { op: dash, distance: 5, direction: facing, iframes: true }
+      - { op: deal_damage, element: neutral, mult: 1.8 }
+      - { op: knockback, distance: 2, direction: away_from_source }
+  - level: 10
+    essence_cost: 24
+    cooldown: 6.0
+    effects:
+      - { op: dash, distance: 5, direction: facing, iframes: true }
+      - { op: deal_damage, element: neutral, mult: 2.2 }   # mult non-decreasing, cooldown non-increasing (§4 warn)
+      - { op: knockback, distance: 2, direction: away_from_source }
+animation: skill_bulwark_007_cast
+flavor: "A shoulder-first charge that drags the Ironbrand the length of the line, flattening anything in the way. The opening bell of every press."

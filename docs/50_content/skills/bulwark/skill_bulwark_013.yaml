@@ -1,0 +1,24 @@
+id: skill_bulwark_013
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Immovable
+line: bulwark
+tier: second
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.04, warding: 0.04 }, mode: pct }
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.06, warding: 0.06 }, mode: pct }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.08, warding: 0.08 }, mode: pct }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.10, warding: 0.10 }, mode: pct }
+flavor: "A stance so settled it stops reading as posture. The Ironbrand simply does not move."

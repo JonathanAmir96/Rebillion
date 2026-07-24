@@ -1,0 +1,83 @@
+id: mob_128
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: The Drowned Warden
+tier: boss                       # ID slot 128 = R7 Sunken boss (ID_REGISTRY Monsters)
+element: frost
+weak_to: [fire]
+resists: [frost]
+level: 38
+size_class: boss                 # knockback/CC-immune (COMBAT_FORMULA §11, STATUS_EFFECTS §3)
+stats:                           # §13 normal Lv 38 x §13.2 boss multipliers (region-boss row)
+  life: 235340                  # 6724 x35
+  power: 240                     # 120 x2.0 (touch = round(0.5*power), §13.1; contact-hot phases only)
+  spellpower: 240                # parity (§13); frost casts scale on magic
+  armor: 365                     # 228 x1.6  (armor+warding sum ~= 12*38 x1.6)
+  warding: 365                   # 228 x1.6
+  precision: 182                 # 152 x1.2
+  evasion: 4.14                   # 4.14 + 0 (bosses don't dodge, §13.2)
+  exp: 11325                    # exp_per_kill_normal(38)=453 x25 (LEVELING §3 boss)
+ai_profile: boss_scripted        # authored 2-phase fight (AI_BEHAVIOR §14-§15)
+abilities:
+  - id: warden_cleave
+    name: Warden's Cleave
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 8.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.5 }
+      - { op: knockback }
+  - id: rime_lantern
+    name: Rime Lantern
+    targeting: { shape: line, length: 8, width: 2 }
+    cooldown: 7.0
+    telegraph_s: 1.2
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.6 }
+      - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
+  - id: drowning_grasp
+    name: Drowning Grasp
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.5
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.4 }
+      - { op: apply_status, status: root, chance: 0.6, dur: 3 }
+  - id: bulwark_of_the_deep
+    name: Bulwark of the Deep
+    targeting: self
+    cooldown: 20.0
+    telegraph_s: 1.5
+    effects:
+      - { op: grant_shield, scaling: max_life, mult: 0.10 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 12 }
+  - id: tidal_crash
+    name: Tidal Crash
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: frost, mult: 1.9 }
+      - { op: apply_status, status: freeze, chance: 0.5, dur: 2 }
+      - { op: knockback }
+  - id: drowned_muster
+    name: Drowned Muster
+    targeting: self
+    cooldown: 25.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_109, count: 3, dur: 30 }
+phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
+  - phase_id: 1                  # the sealed door: holds the vault-mouth, shells up, cold control
+    life_threshold_pct: 100
+    base_profile: territorial_guard
+    added_abilities: [warden_cleave, rime_lantern, drowning_grasp, bulwark_of_the_deep]
+  - phase_id: 2                  # the last stand: mobile, aggressive, raises the drowned
+    life_threshold_pct: 50
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 3.0, charge_recover_s: 2.0 }
+    added_abilities: [tidal_crash, drowned_muster]
+    enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+drop_table: drop_mob_128
+flavor: "An armored husk the size of a war-cog, still keeping the dead kingdom's last door with a lantern of cold blue fire and a halberd no rust could dull. It has stood the vault-mouth so long it has half-forgotten there is anyone left to keep the door from -- but it remembers, always, how to keep it."

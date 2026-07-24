@@ -1,0 +1,14 @@
+id: npc_085
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, MAP_CONNECTIONS]
+name: Deckwarden Halva
+region: frostpeak                 # must equal home map's region
+map: map_204                      # bidirectional with map_204's npcs[] (both list each other)
+role: pier_officer                # the longship boarding gate (npc.schema role enum)
+services: [longship]              # role floor: pier_officer -> services >= {longship} (npc.schema rule 1);
+                                  # co-located with map_204's portal(kind: longship) (rule 7 soft check)
+dialog:
+  greeting: "Frostwake sails on the tide, not your schedule. Pay the deckwarden and mind the rail."
+  farewell: "Fair ice ahead. Don't lean over the side."
+portrait: portrait_npc_085
+flavor: "Halva has crewed the far-isle longships since before Frosthaven had a name, and takes the fare from every soul who boards her deck."

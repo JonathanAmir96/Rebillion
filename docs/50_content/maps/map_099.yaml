@@ -1,0 +1,41 @@
+id: map_099
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Gloomwood Eaves, First Shadow
+region: gloomwood
+map_type: field
+level_band: { min: 20, max: 21 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 20] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_098
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_100
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: eaves_first_shadow
+    rect_tiles: { x: 24, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_068, count: 3 }
+      - { mob: mob_070, count: 3 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Two low terraces stepped by a 2-tile rise, each crossable in a single running jump
+  (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted gloomwood terrain_chunks
+  (ART_BIBLE AB-001). No rope/ladder needed on this stretch.
+flavor: "The last patches of open sky vanish here; even the birdsong seems to lower its voice."

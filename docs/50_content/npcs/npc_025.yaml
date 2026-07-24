@@ -1,0 +1,12 @@
+id: npc_025
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Road Warden Iva Sennet
+region: millbrook
+map: map_028
+role: quest_giver
+dialog:
+  greeting: "The east road's long and flat, and lately it's crawling. Clear a stretch for the coach traffic."
+  farewell: "Tidewatch is a long walk still. Watch the scrub."
+portrait: portrait_npc_025
+flavor: "Sennet keeps the east road clear for the coach line and the merchants who won't pay the fare."

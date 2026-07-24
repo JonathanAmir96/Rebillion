@@ -1,0 +1,37 @@
+id: skill_weaver_016
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Meteor Strike
+line: weaver
+tier: second
+kind: active
+targeting: { shape: aoe_circle, radius: 3, origin: reticle, reticle_range: 10, telegraph: 1.2 }   # roster target `aoe_circle`
+cost: { essence: 18 }
+cooldown: 14.0
+level_data:
+  - level: 1
+    essence_cost: 18
+    cooldown: 14.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.8 }
+      - { op: apply_status, status: burn, chance: 0.50, dur: 6 }
+  - level: 4
+    essence_cost: 21
+    cooldown: 12.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 2.3 }
+      - { op: apply_status, status: burn, chance: 0.60, dur: 6 }
+  - level: 7
+    essence_cost: 24
+    cooldown: 10.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 2.8 }
+      - { op: apply_status, status: burn, chance: 0.70, dur: 6 }
+  - level: 10
+    essence_cost: 27
+    cooldown: 8.0
+    effects:
+      - { op: deal_damage, element: fire, mult: 3.3 }
+      - { op: apply_status, status: burn, chance: 0.80, dur: 6 }
+animation: skill_weaver_016_cast
+flavor: "A telegraphed column of fire dropped from nowhere onto a marked point. Cindercall's biggest single swing."

@@ -5,15 +5,15 @@ docs/10_systems/QUESTS.md
 
 **Mission:** author the words players actually read: NPC casts for towns, quest chains,
 dialog lines, and flavor text — cozy-heroic, slightly whimsical, never bloated. One voice
-across 84 NPCs and 90 quests.
+across the full NPC and quest cast (counts owned by ID_REGISTRY.md).
 
-**Model tier:** **Sonnet** (default). PQ handler quests and job-advancement quests →
+**Model tier:** **Sonnet** (default). Raid handler quests and job-advancement quests →
 **Opus** review by the architect if they touch rules.
 
 **Owns (per assignment):** 50_content/npcs/npc_NNN.yaml and 50_content/quests/quest_NNN.yaml
 within one region's blocks.
 
-**Reads first:** WRITING_STYLE.md if it exists (else PILLARS mood + ART_BIBLE identity),
+**Reads first:** docs/10_systems/WRITING_STYLE.md (the voice bible),
 the region's WORLD_PLAN section, its mob + map manifests (real names for kill/reach
 targets), QUESTS.md reward budgets, the instructor table (WORLD_PLAN v2.3).
 

@@ -1,0 +1,41 @@
+id: map_112
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Sunken Canopy, Understory
+region: gloomwood
+map_type: field
+level_band: { min: 27, max: 27 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 32 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_web_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_111
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_113
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_canopy_understory
+    rect_tiles: { x: 26, y: 22, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_081, count: 3 }
+      - { mob: mob_082, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  A cramped, low-ceilinged stretch beneath a second collapsed canopy layer; every gap
+  stays within the standard jump budget (MAP_TRAVERSAL §1.1). Terrain is foothold segments
+  under painted gloomwood terrain_chunks (ART_BIBLE AB-001).
+flavor: "Two canopies deep now, and the understory presses close enough to touch on both sides."

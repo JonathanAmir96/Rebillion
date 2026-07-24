@@ -1,0 +1,12 @@
+id: npc_052
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS]
+name: Cave Guide Thistle
+region: tidewatch
+map: map_089
+role: quest_giver
+dialog:
+  greeting: "The sea caves don't forgive a wrong turn. Stick to the marked chambers and you'll come out the other side."
+  farewell: "Lantern oil's cheaper than a rescue party. Bring both anyway."
+portrait: portrait_npc_052
+flavor: "Thistle has mapped every flooded chamber of the sea caves and still won't go past the Saltworn Deep alone."

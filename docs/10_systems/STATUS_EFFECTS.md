@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md,
 10_systems/ELEMENTS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/SKILL_SYSTEM.md, 10_systems/PARTY.md,
+10_systems/SKILL_SYSTEM.md, 10_systems/social/PARTY.md, 10_systems/social/RAID.md,
 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md, docs/ID_REGISTRY.md,
 docs/WORLD_PLAN.md
 
@@ -50,8 +50,8 @@ no immunity DR — it simply refreshes and is duration-limited by tier (§3).
 
 Each debuff carries one or two **cleanse tags**. A `cleanse_status(tag)` op
 (`10_systems/SKILL_EFFECTS.md`) or a cleanse item removes every active status carrying that tag.
-Buffs carry no cleanse tag (they are not player-cleansable; see §4). Tags are proposed GLOSSARY
-Provisional tokens — see Open Questions.
+Buffs carry no cleanse tag (they are not player-cleansable; see §4). Tags are canonical
+`00_vision/GLOSSARY.md` tokens (§Status effects, promoted at the B gate).
 
 | Cleanse tag | Statuses carrying it | Canonical remover |
 |---|---|---|
@@ -77,9 +77,11 @@ tier (`normal` · `elite` · `boss`, `20_schemas/monster.schema.md`):
 | Damage debuff (`sunder`, `weaken`) | 100% | 100% | 50% magnitude |
 | DoT (`burn`, `poison`) | 100% | 100% | 100% |
 
-Rift raid bosses (`mob_147`–`mob_150`, `docs/WORLD_PLAN.md` R12) are **immune to all CC**, hard
-and soft; DoTs and damage debuffs still apply at the `boss` row. `10_systems/PARTY.md` /
-`10_systems/COMBAT_FORMULA.md` may override raid values.
+A raid-instanced finale boss (`10_systems/social/RAID.md`) uses this same `boss` row **except**
+as `10_systems/COMBAT_FORMULA.md` §13.2's raid-boss tier row specifies: fought via raid entry it
+is **CC-immune** — hard and soft CC alike land nothing — while the non-CC classes (damage
+debuffs, DoTs) keep the `boss` row's scaling. The same monster through the arena's open
+(non-raid) entry is an ordinary `boss` (this row; `10_systems/COMBAT_FORMULA.md` §13.3).
 
 ## 4. Registry — the 16 statuses
 
@@ -125,14 +127,15 @@ Notes:
 - Buffs are **not** player-cleansable and carry no cleanse tag; they expire on their timer or are
   removed by a monster **dispel/purge** mechanic (whether such an op exists is an Open Question).
 - `swiftness` adds to the `haste`-derived percentages and is re-clamped by the STATS §6 hard caps
-  (it cannot push attack-speed past +75%).
+  (the attack-speed hard cap owned by `10_systems/STATS.md` §6).
 - `regen` is the one dynamic (non-snapshot) status — it reads the receiver's live max `life` each
   tick (§1), so it scales correctly if max `life` changes mid-effect.
 - `veil` is pierced by `arcane` sources (`10_systems/ELEMENTS.md` §5): an `arcane` attack or an
   `arcane`-flagged monster senses and can target a veiled entity; taking any offensive action
   also breaks `veil`.
-- `clarity`'s `essence`-cost reduction applies to `restore_essence`-relevant skill costs at cast
-  time (`10_systems/SKILL_SYSTEM.md` owns cost resolution).
+- `clarity`'s **−15%** `essence`-cost reduction applies to **all** `essence` skill costs, as a
+  multiplier on the resolved cost at cast time (`10_systems/SKILL_SYSTEM.md` §5 owns cost
+  resolution).
 
 ## 5. Application & authority
 
@@ -147,18 +150,19 @@ apply to DoT ticks exactly as to direct hits.
 
 ## Open Questions
 
-- Cleanse-group tags (`burn_type`, `poison_type`, `chill_type`, `control_type`, `sense_type`,
-  `curse_type`) are **new classification tokens** referenced by the `cleanse_status` op, item
-  files, and skill data. Propose promoting them to `00_vision/GLOSSARY.md` Provisional at the B
-  gate; until then they live here as the sole definition.
+- **Cleanse-group tags — resolved:** `00_vision/GLOSSARY.md` §Status effects lists all six
+  classification tokens (`burn_type`, `poison_type`, `chill_type`, `control_type`, `sense_type`,
+  `curse_type`) as canonical, promoted at the B gate (§2).
 - Buff removal: is a monster **dispel/purge** op needed? `00_vision/GLOSSARY.md`'s skill-effect
   ops have no `purge`. Default: buffs only expire (no purge); flag if a boss design needs to strip
   player buffs. Owner: `10_systems/SKILL_EFFECTS.md`.
-- Hard-CC DR window (10 s) and immunity duration (8 s) are first-pass; may need PvE-vs-raid tuning.
-  Owner: `10_systems/COMBAT_FORMULA.md` / `10_systems/PARTY.md`.
-- Whether Rift raid bosses use full CC-immunity (current default) or the `boss` soft-CC row;
-  confirm with `10_systems/PARTY.md`.
-- Max simultaneous statuses (12) is tied to the HUD icon budget; confirm against
-  `40_assets/UI_ART_SPEC.md` when the HUD is specced.
+- Hard-CC DR window (10 s) and immunity duration (8 s) are first-pass; may need retuning for
+  party-instanced finales. Owner: `10_systems/COMBAT_FORMULA.md` / `10_systems/social/PARTY.md`.
+- **Raid-boss CC-immunity — resolved at the v3 revision:** `10_systems/COMBAT_FORMULA.md` §13.2
+  now carries a live raid-boss tier row (full CC immunity via raid entry); §3 aligns with it.
+  Whether the non-CC classes (damage debuffs, DoTs) should also tighten on that row is that
+  doc's call — default keeps the `boss` row scaling for them.
+- **Max simultaneous statuses vs the HUD icon budget — resolved:** `10_systems/HUD.md` §8 specs
+  the status icon row at exactly 12 and states it equals this doc's §1 per-entity cap.
 - `regen` and healing scaling: currently % of receiver max `life`; if healer output should scale
   on the applier's `spellpower` instead, that is a `10_systems/COMBAT_FORMULA.md` decision.

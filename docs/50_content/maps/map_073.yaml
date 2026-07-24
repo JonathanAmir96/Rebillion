@@ -1,0 +1,31 @@
+id: map_073
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Salt-Worn Inn
+region: tidewatch
+map_type: interior
+level_band: { min: 14, max: 14 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 32, h: 18 }
+bgm: bgm_town_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 10] }
+portals:
+  - id: to_port
+    kind: door
+    at: { tile: [16, 16] }
+    target_map: map_071
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: inn_bed
+    id: inn_bed_tidewatch
+    at_tile: [18, 11]
+    params: {}
+npcs: [npc_045]
+platform_brief: |
+  One flat room, no verticality -- a single-band interior reached by
+  the door back to the port quay.
+flavor: "Driftwood beams and the smell of woodsmoke and brine -- the harborwatch's off-duty hearth."

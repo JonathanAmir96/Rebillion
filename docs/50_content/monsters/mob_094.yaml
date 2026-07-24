@@ -1,0 +1,25 @@
+id: mob_094
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Barrens Stalker
+tier: normal                     # ID slot 94 = R6 normal (ID_REGISTRY ashfall)
+element: neutral                      # R6 element mix is fire/neutral (WORLD_PLAN)
+resists: [fire]
+level: 29
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 29
+  life: 4096                     # 4*(29+3)^2
+  power: 93                     # 6+3*29 (touch = round(0.5*power), neutral, §13.1)
+  armor: 174                     # 6*29  (armor+warding sum = 12*29)
+  warding: 174                   # 6*29
+  precision: 116                 # 4*29
+  evasion: 3.9                   # 3 + 0.03*29 (%)
+  exp: 319                       # exp_per_kill_normal(29)=round(4*29^1.3) (LEVELING §3)
+ai_profile: aggressive_charger
+ai_params:                       # override only aggressive_charger-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  charge_speed_mult: 2.5
+  charge_recover_s: 2.5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_094
+flavor: "A rangy predator built for one hard rush across open ash, all shoulder and claw. Sidestep the charge and it stumbles a long, gasping moment before it can wheel again."

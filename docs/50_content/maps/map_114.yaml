@@ -1,0 +1,49 @@
+id: map_114
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Fen Approach, North Fen
+region: gloomwood
+map_type: field
+level_band: { min: 28, max: 28 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+  - { id: from_ashfall, tile: [148, 22] }    # WORLD_PLAN cross-region edge: Ashfall east dunes/char route (map_125) -> here, ring closure toward Cindershelf
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_113
+    target_spawn: main
+    dead_end: false
+  - id: to_ashfall_barrens
+    kind: edge
+    at: { edge: right }
+    target_map: map_125                     # forward-ref: Ashfall Barrens (R6, not yet authored)
+    target_spawn: from_gloomwood
+    dead_end: false
+spawn_zones:
+  - id: fen_north_fen
+    rect_tiles: { x: 26, y: 20, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_083, count: 4 }
+      - { mob: mob_084, count: 1 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_north_fen_border
+    at_tile: [130, 21]
+    params:
+      text: "Ash on the wind past the tree line -- Cindershelf and the barrens lie just beyond."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  Open, waterlogged fen ground at the region's edge, the canopy finally breaking apart
+  overhead. Gaps remain within the standard jump budget (MAP_TRAVERSAL §1.1); terrain is
+  foothold segments under painted gloomwood terrain_chunks (ART_BIBLE AB-001).
+flavor: "The fen opens onto ash-smelling wind at the tree line -- Gloomwood's last breath before the barrens begin."

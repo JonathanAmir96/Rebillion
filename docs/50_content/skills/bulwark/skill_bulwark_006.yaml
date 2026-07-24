@@ -1,0 +1,24 @@
+id: skill_bulwark_006
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Sure Footing                 # exact JOBS.md §2.1 first-job roster name
+line: bulwark
+tier: first
+kind: passive
+targeting: self
+cost: { essence: 0 }
+cooldown: 0
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.02 }, mode: pct }   # STATS.md stat token (SKILL_EFFECTS §13); first-job kit, smaller than the spec-tier bands
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.03 }, mode: pct }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.04 }, mode: pct }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { armor: 0.05 }, mode: pct }
+flavor: "A wide, grounded stance that keeps a Bulwark planted no matter how hard the shove. The wall doesn't move."

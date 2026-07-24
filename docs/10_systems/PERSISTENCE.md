@@ -6,7 +6,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, 10_
 10_systems/STATUS_EFFECTS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/QUESTS.md,
 10_systems/DEATH_PENALTY.md, 10_systems/CONTROLS.md, 10_systems/CAMERA.md, 10_systems/HUD.md,
 10_systems/social/PARTY.md, 10_systems/social/GUILD.md, 10_systems/social/MARKET.md,
-30_engineering/ENGINEERING_STANDARDS.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
+30_engineering/ENGINEERING_STANDARDS.md, 70_integrations/GAMEPLAY_SIMULATION.md,
+docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
 
 Owner doc for **what is saved, who owns the truth, and how the interim solo build stores it**.
 Every other system doc in this tree already assumes a three-way `authority` tag
@@ -30,7 +31,7 @@ tags. There is no fourth tag; a field that seems to need one is a modeling error
 
 | Data | Owning doc |
 |---|---|
-| Character identity (`nickname`, `job`, appearance, roster slot) | `10_systems/ACCOUNT.md` |
+| Character identity (`nickname`, `job`, appearance, roster slot) | `70_integrations/ACCOUNTS_AUTH.md` §2/§5 (player-facing flow: `10_systems/ACCOUNT.md`) |
 | `level` / `exp` / `exp_into_level` | `10_systems/LEVELING.md` |
 | Primary stats, free-point allocation, derived-stat recompute | `10_systems/STATS.md` §7–§8 |
 | Inventory contents (all 3 tabs) + bank | `10_systems/INVENTORY.md` |
@@ -42,11 +43,34 @@ tags. There is no fourth tag; a field that seems to need one is a modeling error
 | Drop rolls, loot tag/ownership timers | `10_systems/DROPS.md` §7/§9 |
 | Combat resolution (hit/crit/damage/mitigation) | `10_systems/COMBAT_FORMULA.md` §1 |
 | Bind point | `10_systems/DEATH_PENALTY.md` §4 |
-| Guild / party / trade / mail / market state | `10_systems/social/GUILD.md`, `10_systems/social/PARTY.md`, `10_systems/social/MARKET.md` (stubs) |
+| Guild / party / trade / mail / market state | `10_systems/social/GUILD.md`, `10_systems/social/PARTY.md`, `10_systems/social/TRADING.md`, `10_systems/social/MAIL.md`, `10_systems/social/MARKET.md` |
+| Collection log progress (discovery state, revealed-drop flags, claimed-reward flags) | `10_systems/COLLECTIONS.md` §8 |
+| Cosmetic ownership + appearance loadout | `10_systems/COSMETICS.md` §7 |
+| Time-gated counters (daily/weekly resets) | this doc §2.1 |
 
 Every entry above already reads (in its owning doc) "server-authoritative... solo client
 simulates/holds an advisory copy... corrected on sync" — this doc is simply the one place that
 phrasing is defined instead of repeated.
+
+### 2.1 Time boundaries — daily and weekly resets
+
+Several systems grant time-gated rewards — the raid **first-clear-of-the-day** bonus
+(`10_systems/social/RAID.md` §6, `10_systems/LEVELING.md` §3.1) and the **weekly guild goal**
+(`10_systems/social/GUILD.md`) — and need one shared, server-authoritative definition of "a day"
+and "a week" so every feature resets together:
+
+- **Day boundary:** a fixed **daily reset at 00:00 UTC**. All per-day flags (e.g. each raid's
+  first-clear-of-the-day flag, per character) clear at that instant, server-side. UTC (not local
+  time) is chosen so a fixed-time global reset is unambiguous and un-gameable by clock changes;
+  revisit per-region local resets if the game ships timezoned shards (Open Questions).
+- **Week boundary:** the daily reset on a fixed **weekly anchor day** (first-pass **Monday 00:00
+  UTC**); weekly counters (guild-goal progress) clear then.
+- **Where the flags live:** per-character day/week flags and counters are `authority: server`
+  fields on the `GameState` facade (§5) in the solo build — the client reads them, the server
+  (future) owns the reset tick. The solo build applies the reset locally on load using the
+  save's stored last-reset timestamp vs. the current clock.
+
+Concrete reward numbers stay in each owning doc; this section owns only *when* the boundaries fall.
 
 ## 3. `authority: client`
 
@@ -68,9 +92,9 @@ server periodically reconciles, accepting the client's position if it is plausib
 own simulation and correcting it otherwise. The interim solo build has no server to reconcile
 against, so position/velocity are effectively client-simulated only for now; they are still
 tagged `shared` because that is their permanent shape once networked. The concrete reconciliation
-algorithm (tolerance window, correction/rollback method) is **out of scope for this doc and this
-run** (`00_vision/SCOPE.md` excludes networking/backend) — flagged, not designed, in Open
-Questions.
+algorithm (tolerance envelope, correction/snap method, speed-cap displacement margin) is owned by
+`70_integrations/GAMEPLAY_SIMULATION.md` §2 (Phase I backend wave); this doc keeps owning only
+the `shared` tag's meaning.
 
 ## 5. The solo build: a `GameState` facade over a local save
 
@@ -79,13 +103,15 @@ Questions.
 through one **`GameState` facade** rather than touching a save file or a future network call
 directly, so swapping the backing store later (local file → networked client) never requires
 changing calling code. This doc fixes the **data model** (§1–§4) and the **cadence** (§6) that
-facade must serve; the facade's actual interface/class design is
-`30_engineering/ENGINEERING_STANDARDS.md`'s (Phase B/E engineering territory, not yet authored).
+facade must serve; the GameState save-facade autoload is established in
+`30_engineering/ENGINEERING_STANDARDS.md`; its detailed interface/class design is coding-pass
+territory.
 
 ## 6. Save slots & autosave cadence (solo build)
 
-- **4 character save slots** per install (roster size owned by `10_systems/ACCOUNT.md` §2,
-  owner directive 2026-07-24 — this doc only mirrors the count), each an independent character
+- **4 character save slots** per install (quota owned by `70_integrations/ACCOUNTS_AUTH.md`
+  §2.2, raised 3→4 by owner directive 2026-07-24 — this doc only mirrors the count; the
+  player-facing roster flow is `10_systems/ACCOUNT.md`), each an independent character
   (own `server`-tagged state, §2). Keybinds and UI prefs (§3) live in one shared
   **account-level** client config file, independent of the slots, so rebinding a key is not
   per-character.
@@ -120,8 +146,8 @@ boundary, not an exception to it:
 ## 8. `save_version` — migration/versioning field
 
 Every save file carries a `save_version` integer. On load, if it is lower than the build's
-current version, a migration step runs (owned by `30_engineering/ENGINEERING_STANDARDS.md` once
-authored) before any system reads through the facade; an unrecognized *future* `save_version`
+current version, a migration step runs (owned by `30_engineering/ENGINEERING_STANDARDS.md`) before
+any system reads through the facade; an unrecognized *future* `save_version`
 (the file is newer than the running build) refuses to load rather than silently truncating data.
 No system may drop an unrecognized field silently — an unknown field is a migration bug, not
 ignorable input.
@@ -144,16 +170,18 @@ is assumed safe by default.
   `docs/ID_REGISTRY.md` and `10_systems/ITEMS.md`/`10_systems/ENHANCEMENT.md` legal bounds, or (c)
   restrict import to a subset (e.g., cosmetic/account state only, character re-leveled live)?
   Not decided — owner: this doc, jointly with whatever future server-onboarding doc exists.
-- Position/velocity reconciliation algorithm (§4) is explicitly deferred — out of this run's scope
-  per `00_vision/SCOPE.md`; do not design it prematurely here.
+- ~~Position/velocity reconciliation algorithm (§4) is explicitly deferred — out of this run's
+  scope per `00_vision/SCOPE.md`; do not design it prematurely here.~~ **Resolved 2026-07-24:**
+  owned by `70_integrations/GAMEPLAY_SIMULATION.md` §2 (accept-if-plausible tolerance envelope,
+  error-blend vs hard-snap correction, speed-cap displacement margin — Phase I backend wave).
 - Whether the `shards` wallet and bank are per-character (assumed, matching
   `10_systems/INVENTORY.md` §3/§7's default) or ever account-shared is confirmed here as
   **per-character** for the solo build and the interim server; an account-shared purse/vault is a
   later, explicitly opt-in addition, not a launch item.
 - `save_version`'s migration framework (§8) has no concrete implementation yet; flagged for
-  `30_engineering/ENGINEERING_STANDARDS.md`, which itself is not confirmed to exist as a Phase B
-  deliverable (`00_vision/SCOPE.md`'s phase list does not explicitly enumerate
-  `30_engineering/*`) — flag this gap for the orchestrator.
+  `30_engineering/ENGINEERING_STANDARDS.md` (authored and locked per CLAUDE.md Law 5), which
+  establishes the GameState save facade but does not yet specify the concrete migration
+  framework; the migration step is deferred to the coding pass.
 - Cloud-save / multi-device sync for the solo build is not addressed; assumed local-disk-only
   until a server exists.
 - Whether a corrupted/unreadable save slot should attempt partial recovery or hard-fail to a

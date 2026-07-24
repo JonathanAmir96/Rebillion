@@ -1,0 +1,14 @@
+id: npc_099
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Glimmer Tass
+region: arcane_reach
+map: map_245
+role: merchant
+shop:
+  items: [item_use_0017, item_equip_0238]
+dialog:
+  greeting: "Salvage off three drifting shards, priced honest. Mostly honest."
+  farewell: "Mind you don't drop it over the rail counting your change."
+portrait: portrait_npc_099
+flavor: "Tass sets up her stall wherever the dock stops shifting long enough, and has learned to read the shard-tides better than any tide-table."

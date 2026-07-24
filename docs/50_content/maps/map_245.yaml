@@ -1,0 +1,75 @@
+id: map_245
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Spirehaven Port
+region: arcane_reach
+map_type: town
+level_band: { min: 53, max: 53 }        # town band, tight (MAPS_SYSTEM §4); within region 53-68
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 150, h: 24 }            # town: ~3-4 screens wide, ~1 tall (MAPS_SYSTEM §2)
+bgm: bgm_town_arcane_reach                # town pattern bgm_town_<region_slug> (MAPS_SYSTEM §5)
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [44, 18] }
+  - { id: longship_dock, tile: [122, 18] }   # longship arrival pier (MAP_CONNECTIONS §2/§8)
+portals:
+  - id: to_shardline_reach                   # town -> first field (both endpoints authored)
+    kind: edge
+    at: { edge: right }
+    target_map: map_248
+    target_spawn: main
+    dead_end: false
+  - id: to_inn                                # town -> hearth-inn interior
+    kind: door
+    at: { tile: [20, 18] }
+    target_map: map_246
+    target_spawn: main
+    dead_end: false
+  - id: board_runewake_tidewatch               # longship boarding: pier -> the Runewake deck (Tidewatch route)
+    kind: longship
+    at: { tile: [126, 18] }
+    target_map: map_247
+    target_spawn: longship_deck
+    route_id: route_arcane_reach_tidewatch      # WORLD_PLAN arc-2 edge table (2-hop, medium)
+    fare_ref: fare_longship_medium              # ECONOMY §7.2 medium-hop fare (500 shards)
+    cadence_s: 120.0                            # MAP_CONNECTIONS §8.3 default
+    sail_duration_s: 165.0                       # producer range 120-180s for a 2-hop crossing
+  - id: board_runewake_frostpeak                # longship boarding: pier -> the Runewake deck (Frostpeak route)
+    kind: longship
+    at: { tile: [130, 18] }
+    target_map: map_247
+    target_spawn: longship_deck
+    route_id: route_frostpeak_arcane_reach       # WORLD_PLAN arc-2 edge table (adjacent-island, short)
+    fare_ref: fare_longship_short                 # ECONOMY §7.2 short-hop fare (300 shards)
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+  - id: board_runewake_voidshore                # longship boarding: pier -> the Runewake deck (Voidshore route)
+    kind: longship
+    at: { tile: [134, 18] }
+    target_map: map_247
+    target_spawn: longship_deck
+    route_id: route_arcane_reach_voidshore        # WORLD_PLAN arc-2 edge table (adjacent-island, short)
+    fare_ref: fare_longship_short
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+interactables:
+  - type: lore_marker
+    id: marker_lowest_shard
+    at_tile: [46, 17]
+    params:
+      text: "Spirehaven is built on the lowest shard still moored to the old sky-roads. No one quite trusts the ones above it."
+      interact_prompt: Read
+  - type: storage_chest
+    id: chest_spirehaven
+    at_tile: [30, 18]
+    params:
+      scope: character
+npcs: [npc_097, npc_099, npc_100, npc_101, npc_102]
+platform_brief: |
+  A single moored-stone quay, dead flat, dressed in painted rune-glyph terrain_chunks over
+  foothold segments (ART_BIBLE AB-001) -- an easy arrival before the drift starts in earnest.
+  Three longship gangways cluster at the east pier; the inn sits west; the field gate is the
+  right edge. The whole walkable span is one continuous foothold, no gaps.
+flavor: "The lowest shard still moored to the old sky-roads, and the only ground on the Reach that doesn't drift underfoot."

@@ -1,0 +1,26 @@
+id: mob_072
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Thornhide Rooter
+tier: normal                     # ID slot 072 = R5 Gloomwood normal (ID_REGISTRY Monsters)
+element: nature                    # R5 element mix = shadow/nature/neutral (WORLD_PLAN R5)
+weak_to: [fire]
+resists: [nature]
+level: 22
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 22
+  life: 2500                     # 4*(22+3)^2
+  power: 72                      # 6+3*22 (touch = round(0.5*power), neutral, §13.1)
+  armor: 132                      # 6*22  (armor+warding sum = 264 = 12*22)
+  warding: 132                    # 6*22
+  precision: 88                  # 4*22
+  evasion: 3.66                    # 3 + 0.03*22 (%)
+  exp: 222                       # exp_per_kill_normal(22)=round(4*22^1.3) (LEVELING §3)
+ai_profile: aggressive_charger
+ai_params:                       # override only aggressive_charger-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  charge_speed_mult: 2.5
+  charge_recover_s: 2.5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_072
+flavor: "A tusked, bracken-matted boar gone half to bramble, blundering the fen trails with a temper. It lowers its head and comes at any light it doesn't like."

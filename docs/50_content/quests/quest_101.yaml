@@ -1,0 +1,24 @@
+id: quest_101
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Drift-Hounds at the Dock
+region: arcane_reach
+quest_type: side
+giver_npc: npc_097                # pier officer at Spirehaven, mirrors quest_091's precedent
+level_requirement: 53
+recommended_level: 53
+steps:                            # parallel (default): the shards drop from the hounds you cull
+  - type: kill
+    target: mob_179
+    count: 8
+  - type: collect
+    target: item_etc_0145
+    count: 5
+rewards:
+  exp: 30468                      # round(0.075 * exp_to_next(53)=406,236); side band 5-10% (QUESTS §4)
+  shards: 332                     # mean_shards_normal(53)*4 = 83*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }
+flavor: "The shard-hounds have taken to worrying Spirehaven's cargo lines since the last low tide of mist."
+offer_text: "Something's been chewing through the mooring lines, and it isn't the wind. Thin the pack and bring me proof."
+complete_text: "That'll keep the dock quiet a while. First crossing's the hardest, and you're through it."

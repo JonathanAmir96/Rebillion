@@ -1,0 +1,42 @@
+id: map_263
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, Stormglass Ridge
+region: arcane_reach
+map_type: field
+level_band: { min: 66, max: 67 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 175, h: 30 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_rimeless_height
+    kind: edge
+    at: { edge: left }
+    target_map: map_262
+    target_spawn: main
+    dead_end: false
+  - id: to_sanctum_approach
+    kind: edge
+    at: { edge: right }
+    target_map: map_264
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: stormglass_ridge_stretch
+    rect_tiles: { x: 32, y: 20, w: 68, h: 8 }
+    mobs:
+      - { mob: mob_193, count: 2 }
+      - { mob: mob_194, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  Storm-fused glass ridges jut across this shard in jagged rows, the walkable path threading
+  between them along a plain foothold band. Two low terraces, each an easy standing jump
+  (MAP_TRAVERSAL §1.1). No verticality gimmick.
+flavor: "Lightning that never touches ground fuses the sand up here into ridges of black glass, over and over, season after season."

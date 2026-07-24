@@ -1,0 +1,12 @@
+id: npc_039
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Delver Oskar Voss
+region: verdant
+map: map_050
+role: quest_giver
+dialog:
+  greeting: "Root Hollow's mouth is right behind me. I've mapped the first few turns -- further than that, you're on your own."
+  farewell: "Keep to the marked walls. The warren doesn't forgive a wrong turn."
+portrait: portrait_npc_039
+flavor: "Oskar has charted the Root Warrens' upper reaches for years, always one careful step short of wherever the real danger starts."

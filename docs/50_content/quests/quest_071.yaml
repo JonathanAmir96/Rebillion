@@ -1,0 +1,20 @@
+id: quest_071
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Something in the Kelp
+region: sunken
+quest_type: side
+giver_npc: npc_073
+level_requirement: 31
+recommended_level: 31
+prereqs: [quest_069]
+steps:
+  - type: kill
+    target: mob_111
+    count: 10
+rewards:
+  exp: 5885  # side pct=0.08 of exp_to_next(31)=73,564; shards=mean_shards_normal(31)*4=50*4
+  shards: 200
+flavor: "Fenn's weighted line keeps snagging on something that isn't kelp, and it isn't friendly either."
+offer_text: "Whatever's tangled around my line, it's got teeth. Thin the shallows out and I'll finally get a clean pull."
+complete_text: "Line's clear. I still don't know whose it was, but it's quieter down there now."
