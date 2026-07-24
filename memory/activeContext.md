@@ -8,7 +8,7 @@
 ## Current repository state
 
 - **Single canon** (owner-ruled 2026-07-24): the five-island / two-arc world — 11
-  regions, 324 maps, 234 monsters, 11 bosses, 4 raids, branching 2nd jobs, authored
+  regions, 324 maps, 234 monsters, 11 bosses, 5 raids, branching 2nd jobs, authored
   content Lv 1–80 (elites to 82), game cap 300 reserved. A competing two-island
   reconciliation was reverted; version tags (v2/v3) were stripped — the tree reads as
   one design.
@@ -27,7 +27,13 @@
   `DISPLAY.md`, 4-slot roster, AB-002) → wiki generator + per-monster animation notes
   (all 234 authored) → **repo-wide md audit** (this branch: ~27 contradiction rulings,
   connectivity 117/117, quest-exp regen landed, 6 mock-ups, UA-002/ES-002;
-  `docs/phase_reports/MD_AUDIT_REPORT_2026-07-24.md`).
+  `docs/phase_reports/MD_AUDIT_REPORT_2026-07-24.md`) → **live-ops layer**
+  (`BATTLE_PASS.md` Wayfarer's Charter + `GACHAPON.md` Cogwork Capsule, MON-001/PA-001)
+  → **design-critic pass 01** (`docs/phase_reports/design_reviews/REVIEW_2026-07-24_01.md`):
+  fifth raid `raid_orrery` (56–69, no new map/mob IDs) closing the Lv 56–69 raid drought,
+  capsule amendment **PA-002** (10 tickets/week **per account**; prizes and tickets
+  bind-on-dispense — no vendor, no trade, no market listing), and the Gilded Charter fee
+  made **progressive by `level` band** (`ECONOMY.md` §4.4, 2,500 → 60,000, was flat 6,000).
 - **Pacing retune** (owner-ratified): Lv 40 ≈ 30 h, Lv 80 ≈ 166 h, Lv 100 ≈ 300 h;
   `kills_per_level = round(20 + 6.6L + 0.20L²)` frozen through Lv 100. Quest `exp`
   content is now **regenerated** against it (`tools/regen_quest_exp.py`, 120/120).

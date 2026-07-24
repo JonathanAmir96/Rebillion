@@ -34,9 +34,12 @@ code, no generated art. Read `README.md` for the tree map and
   **Arc 2 (Lv 40–80):** the Deepway — a 3-map underground passage from Cindershelf,
   level-gated Lv 40 — surfaces on Frostpeak Isle (40–55); Arcane Reach (53–68) and
   Voidshore (66–80) complete the far isles, linked by the paid, scheduled **longship**
-  network from Tidewatch Port (2–3 min real-time sails). Totals: 328 maps, 234 monsters
-  (178/45/11), 11 bosses, 4 **raids** (`raid_undervault`/`raid_mainspring`/`raid_deepfrost`/
-  `raid_voidtide` — the instanced co-op runs; owner doc `docs/10_systems/social/RAID.md`).
+  network from Tidewatch Port (2–3 min real-time sails). Totals: 329 maps, 234 monsters
+  (178/45/11), 11 bosses, 5 **raids** (`raid_undervault`/`raid_mainspring`/`raid_deepfrost`/
+  `raid_orrery`/`raid_voidtide` — the instanced co-op runs; owner doc
+  `docs/10_systems/social/RAID.md`; bands 15–22 · 32–40 · 45–55 · 56–69 · 70–80, the arc-2
+  three tiling Lv 45–80 with no gap since `raid_orrery` landed 2026-07-24 reusing R10's
+  Shattered Orrery maps and boss — only its bonus room `map_329` is a new ID).
   Town travel is the paid Harthmoor Coachworks (shards) — no free warps. Each job line has a
   home ring town with its instructor (Bulwark→Cindershelf, Keeneye→Tidewatch Port,
   Weaver→Mossmere, Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law.
@@ -63,19 +66,26 @@ code, no generated art. Read `README.md` for the tree map and
   party still gets a private instance (`docs/70_integrations/WORLD_CHANNELS.md` §2.1).
 - Live-ops (owner addition 2026-07-24): the **Wayfarer's Charter** battle pass
   (`docs/10_systems/BATTLE_PASS.md`) — 30-day seasons (`season_NNN`), free + gilt reward
-  lanes, gilt bought with **shards** (6,000, ECONOMY §4.4; real money never touches the
-  charter); **cosmetics are the gilt lane's headline offer**, minted from the
+  lanes, gilt bought with **shards** on a **level-banded price ladder** (2,500 at Lv 1–9 →
+  60,000 at Lv 62+, ECONOMY §4.4, charged once at purchase against `level` at that moment;
+  owner directive 2026-07-24 replacing the earlier flat 6,000 — a flat fee decayed to ≈14 min
+  of income by Lv 70 and left the free/gilt split with no decision in it, contradicting
+  ECONOMY §6's own "sinks scale with level" guardrail); real money never touches the
+  charter; **cosmetics are the gilt lane's headline offer**, minted from the
   `item_cosmetic` Event/charter sub-block via the COSMETICS.md appearance layer. Charter
   tokens provisional in GLOSSARY pending the next gate.
-- Monetization (owner amendments **MON-001** 2026-07-23 + **PA-001** 2026-07-24):
+- Monetization (owner amendments **MON-001** 2026-07-23 + **PA-001**/**PA-002** 2026-07-24):
   cosmetic-only + in-world sponsor billboards, hard no-pay-to-win charter
   (`docs/10_systems/MONETIZATION.md`) — with **one bounded PA-001 exception**: the
   **Cogwork Capsule** gacha (`docs/10_systems/GACHAPON.md`), the game's single real-money
   product (capsule-ticket packs). Hard caps: power ≤ ordinary-play items (equip ≤ `rare`,
   gear-mod scrolls, emberstones — never exclusives), tickets earnable free (charter 4/+8
-  per season + ≈1-per-7-h world drop), 10-purchase weekly cap, published odds + 40-pull
-  cosmetic pity, no real-money→shards bridge (prizes vendor 0). Changing any PA-001 cap is
-  a new pillar amendment, not a tune. Direction only; no store content authored this run.
+  per season + ≈1-per-7-h world drop), 10-ticket weekly cap **per account** (**PA-002**,
+  tightened from per-character once ACCOUNTS_AUTH §2.2's 4 slots made that 40/week),
+  published odds + 40-pull cosmetic pity, no real-money→shards bridge — prizes **and
+  tickets** are **bind-on-dispense**: non-vendorable *and* never tradable *and* never
+  listable (vendor-0 alone left a MARKET listing route open). Changing any PA-001/PA-002 cap
+  is a new pillar amendment, not a tune. Direction only; no store content authored this run.
 - Player sprite is **composited** (Maple-style paper-doll), never one baked sheet:
   layer stack + anchor map in `docs/40_assets/CHARACTER_COMPOSITING.md`, appearance palette
   via ART_BIBLE amendment AB-002, `style_*` IDs in ID_REGISTRY. Generation cost is linear in
