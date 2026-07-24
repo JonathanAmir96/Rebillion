@@ -44,7 +44,11 @@ warns, never fails.
 ## 6. Asset contract
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
 every state required for their entity class (e.g., elites/bosses must include `telegraph`).
-Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming. When a monster file carries
+Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming (`<skill_id>_cast`, actives
+only); skill `icon` equals `ui_icon_skill_<line>_<NNN>` and item `icon` equals
+`ui_icon_item_<id stem>` (40_assets/SKILL_ANIMATION.md §5 / 40_assets/UI_ART_SPEC.md naming).
+Appearance-style references resolve to the ID_REGISTRY.md `style_<category>_NN` blocks
+(40_assets/CHARACTER_COMPOSITING.md). When a monster file carries
 `animation_notes`, every key must be a state token present in that same file's
 `animation_states`, and every value a non-empty string (20_schemas/monster.schema.md rule 11).
 

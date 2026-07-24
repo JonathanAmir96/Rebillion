@@ -159,8 +159,9 @@ index does not move": §2.1's worked table shows the same `hit_frame = 2` landin
 For a `projectile`-targeted attack/ability (`10_systems/SKILL_SYSTEM.md` §6 shape, not read against
 this doc's task list), `hit_frame` most plausibly fires the projectile's **spawn/release** (matching
 `30_engineering/ENGINEERING_STANDARDS.md`'s Hitbox/Area2D pattern), with actual damage applying later
-on a travel-time collision — a second, later signal this doc does not name or define. Not resolved
-here; see Open Questions.
+on a travel-time collision — a second, later signal this doc does not name or define. **Since
+confirmed:** `40_assets/SKILL_ANIMATION.md` §2 fixes exactly this reading (release at `hit_frame`,
+damage on the projectile's own collision signal) as skill-visual law.
 
 ## 4. Telegraph minimum on-screen time by tier
 
@@ -266,10 +267,10 @@ or ceiling beyond it is stated by any doc read for this task.
   §11 states the Heavy-hit-interrupts-mid-`cast` rule only; `40_assets/ANIMATION_STATES.md` already
   flags that `attack`/`telegraph` parity is assumed, not stated. §5's table here is written for the
   confirmed `cast` case only; inherits that gap rather than resolving it.
-- **Projectile `hit_frame` semantics (§3.3).** Whether `hit_frame` marks release (with impact damage
-  as a separate, later collision signal) or something else for `projectile`-targeted attacks/skills
-  is not settled here — `10_systems/SKILL_SYSTEM.md`/`10_systems/SKILL_EFFECTS.md` were outside this
-  task's reading list. Flagged for confirmation against those docs.
+- ~~Projectile `hit_frame` semantics (§3.3).~~ **Resolved (C):** `40_assets/SKILL_ANIMATION.md` §2
+  confirms release-at-`hit_frame` with damage on the projectile's own travel-time collision signal,
+  consistent with `10_systems/SKILL_SYSTEM.md` §6's `projectile` shape. §3.3's reading stands as
+  written.
 - **`kamikaze_burster` normal-tier telegraph minimum (§4).** This doc extends the `elite` 0.4 s floor
   to that one normal-tier exception by fairness analogy; `10_systems/AI_BEHAVIOR.md` §12 states the
   exception itself but not a minimum on-screen time. Not independently confirmed.

@@ -4,8 +4,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/ITEMS.md, 10_systems/ENHANCEMENT.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
 10_systems/INVENTORY.md, 10_systems/STATS.md, 10_systems/SKILL_EFFECTS.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/PERSISTENCE.md, 10_systems/social/RAID.md,
-20_schemas/monster.schema.md,
-20_schemas/drop_table.schema.md, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md, docs/VALIDATION.md
+20_schemas/monster.schema.md, 20_schemas/drop_table.schema.md, 40_assets/UI_ART_SPEC.md,
+docs/ID_REGISTRY.md, docs/WORLD_PLAN.md, docs/VALIDATION.md
 
 ## Purpose
 
@@ -82,6 +82,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].price.buy` | int | equip/use: yes; etc: **omit** | `ECONOMY` §4.1 (use)/§4.2 (equip) | Etc items are not vendor-purchasable (`10_systems/ITEMS.md` §1 "mostly vendor/trade value"; emberstones specifically never purchasable, `10_systems/ENHANCEMENT.md` §6) — omit `buy` entirely for `etc` rows. |
 | `items[].price.sell` | int | yes | `ECONOMY` §4 | Equip/use: `= round(0.25 · buy)` (hard, `ECONOMY` §4). Etc: authored directly (no `buy` to derive from — see Open Questions, `ECONOMY.md` prices only `use`/`equip`). |
 | `items[].flavor` | string | no | `00_vision/PILLARS.md` P1 | ≤2 sentences, US spelling, optional (task brief marks it optional here, unlike monster/skill `flavor`). `client`. |
+| `items[].icon` | string (ui icon id) | yes | `40_assets/UI_ART_SPEC.md` icon naming (`ui_icon_{category}_{name}`, category `item`) | Must equal `ui_icon_item_<this row's id stem>` — e.g. `item_equip_0002` → `ui_icon_item_equip_0002`. A 1:1 derivation, authored explicitly so tooling/UI never re-derives (same precedent as `line_hint`). Rarity ring/border comes from `rarity` + `40_assets/ART_BIBLE.yaml` `rarity_code` at the slot frame, never baked into the icon. `client`. |
 
 ### Row — `equip` only
 
@@ -130,6 +131,7 @@ Every enum value comes from its owning registry; this schema points, never redef
 | `items[].stats.base`/`affixes[].stat` keys | `10_systems/STATS.md` (GLOSSARY primary/derived stat tokens); slot eligibility `10_systems/ITEMS.md` §10. |
 | `items[].stats.affixes[].op` (flourish) | `10_systems/SKILL_EFFECTS.md` §13/§16 only: `passive_stat_bonus`·`on_hit_proc` (not the full 14-op set — flourishes are stat-adjacent, `ITEMS` §11). |
 | `items[].unique_of` | `docs/ID_REGISTRY.md` Monsters (must resolve to a `tier: boss` entry, `20_schemas/monster.schema.md`). |
+| `items[].icon` | `40_assets/UI_ART_SPEC.md` icon naming (derived 1:1 from `items[].id`, no registry needed). |
 | `items[].effects[].op` (use rows) | `10_systems/SKILL_EFFECTS.md`, restricted subset: `heal`·`restore_essence`·`cleanse_status`·`apply_status`. |
 | `items[].effects[].status` (on `apply_status`) | `10_systems/STATUS_EFFECTS.md` (GLOSSARY Status effects). |
 | `items[].effects[].tag` (on `cleanse_status`) | `10_systems/STATUS_EFFECTS.md` §2 cleanse tags. |
@@ -160,6 +162,7 @@ items:
                                         # budget @Lv8 = 1 line x cap(8)=round(1.4x3)=4 pe: 3<=4 OK
     enhance_max: 9
     price: { buy: 300, sell: 75 }       # ECONOMY §4.2: T2 base_buy 120 x uncommon (x2.5) = 300
+    icon: ui_icon_item_equip_0002
     flavor: "Ferry-deck steel, quenched in harbor brine the night before the crossing."
   # ... item_equip_0001, 0003-0040 (this schema's ID range for equip/weapons.yaml)
 ```
@@ -179,6 +182,7 @@ restore `amount` is Phase D's):
       - { op: heal, scaling: flat, amount: 120 }   # magnitude: Phase D tunes vs Lv1-9 life band
     use_cooldown: 1.0                    # first-pass; see Open Questions
     stack: 100
+    icon: ui_icon_item_use_0001
     flavor: "A watered cordial that dulls the day's scrapes."
 ```
 
@@ -193,6 +197,7 @@ restore `amount` is Phase D's):
     price: { sell: 12 }                  # no buy — etc items are not vendor-purchasable
     source_hint: mob_011                 # Embermane Alpha (elite, cross-checked vs drop_mob_011)
     stack: 999
+    icon: ui_icon_item_etc_0001
     flavor: "A singed lock from a pack-leader's smoldering mane. It smells of hot fur and holds a
       faint warmth for days."
 ```
@@ -252,6 +257,8 @@ referential integrity, §3 schema conformance/front-matter/unknown-fields, §4 I
     order rule, File conventions).
 15. **Rarity mechanical scope (warn).** `rarity` on `use`/`etc` rows has no budget consequence
     (rule 4 applies to `equip` only) — see Open Questions.
+16. **Icon derivation (hard).** `icon` equals exactly `ui_icon_item_<id stem>` for this row's `id`
+    (`40_assets/UI_ART_SPEC.md` naming; `docs/VALIDATION.md` §6).
 
 ## Template
 
@@ -271,6 +278,7 @@ items:
     price:
       buy: {int}                         # omit entirely for etc rows
       sell: {int}                        # equip/use: round(0.25*buy); etc: authored directly
+    icon: ui_icon_item_{equip|use|etc}_{NNNN}   # = this row's id stem (rule 16)
     # flavor: "{<=2 sentences}"          # optional
 
     # --- equip only (forbidden on use/etc): ---
@@ -338,6 +346,12 @@ items:
   row section (field table + validation, including COSMETICS §1's proposed zero-stat check)
   citing that doc; until then `cosmetics.yaml` stays reserved in the file list above. Owner:
   this schema with `10_systems/COSMETICS.md`.
+- **Equip visual fields (`covers`/`hides`) pending from the compositing wave.**
+  `40_assets/CHARACTER_COMPOSITING.md` §2/§8 defines the worn-sprite layer model (a visible-slot
+  equip's part sheets are keyed by the item's own `item_equip_NNNN` — no extra ref field needed)
+  and hands this schema the optional visual fields it names: `covers` (a `body` item spanning
+  torso-to-ankle, skipping the `legs`/`boots` layers) and `hides` (a full helm hiding `hair`).
+  Field shape/validation land here in that wave's follow-up; not authored yet.
 - **Boss-unique region-order table — resolved (v3).** `docs/ID_REGISTRY.md` now tabulates the 11
   boss-order→unique pairs by name (Cindermaw `0201`–`0202` … Nyxaris `0221`–`0222`), so
   `unique_of` validation reads the mapping directly instead of recomputing it from
