@@ -3,7 +3,7 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/JOBS.md,
 10_systems/LEVELING.md, 10_systems/STATS.md, 10_systems/SKILL_EFFECTS.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/ELEMENTS.md, 10_systems/COMBAT_FORMULA.md,
-10_systems/ECONOMY.md, 10_systems/social/PARTY.md, 10_systems/PERSISTENCE.md,
+10_systems/COMBO_SYSTEM.md, 10_systems/ECONOMY.md, 10_systems/social/PARTY.md, 10_systems/PERSISTENCE.md,
 10_systems/CONTROLS.md, 10_systems/HUD.md, 40_assets/ART_BIBLE.yaml, docs/ID_REGISTRY.md
 
 Owner doc for **how skills are learned, ranked, respec'd, slotted, cast, and targeted**, and for
@@ -118,6 +118,11 @@ the bracketing rows. This keeps skill files to four authored rows instead of ten
   during the skill (`10_systems/COMBAT_FORMULA.md` §10 owns the base cadence). Cast/recovery
   duration is per-skill (`level_data`-adjacent constant), short for spammables and longer for heavy
   hits; it exists so animations read honestly (hit-frame honesty, P1), not as a tax.
+- **Casting rhythm feeds the combo layer.** The no-GCD + per-skill cast/recovery model above is
+  the substrate the combo system chains across: alternating the basic attack with distinct
+  `deal_damage` actives builds `combo_momentum` and can trigger a `combo_burst`
+  (`10_systems/COMBO_SYSTEM.md` owns all chain rules, timing, and magnitudes; nothing about a
+  skill's own cost/cooldown/targeting changes when it participates in a chain).
 - **Cooldowns are per skill instance, real-time**, and pause with the game (solo) but run
   server-side authoritatively when live (`10_systems/PERSISTENCE.md`). Some passives/procs
   (`10_systems/SKILL_EFFECTS.md` `on_hit_proc`) carry an internal cooldown (`icd`) instead of a

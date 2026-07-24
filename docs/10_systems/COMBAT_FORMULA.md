@@ -3,7 +3,8 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/STATS.md, 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md,
 10_systems/LEVELING.md, 10_systems/SKILL_SYSTEM.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/AI_BEHAVIOR.md, 10_systems/social/PARTY.md, 10_systems/social/RAID.md,
+10_systems/COMBO_SYSTEM.md, 10_systems/AI_BEHAVIOR.md, 10_systems/social/PARTY.md,
+10_systems/social/RAID.md,
 10_systems/PERSISTENCE.md,
 20_schemas/monster.schema.md, 40_assets/ART_BIBLE.yaml, docs/WORLD_PLAN.md
 
@@ -23,8 +24,8 @@ stateless class `CombatMath.resolve(attacker, defender, skill, rng) -> HitResult
 defender arrive as **final** stat blocks: every value has already passed the
 `10_systems/STATS.md` §7 compute order, so transient `fortify`/`sunder`/`chill`/`empower` effects
 are **already folded into** `armor`, `warding`, `haste`, and the offense rating before this
-function runs. The pipeline reads final numbers and applies only the two damage-dealt multipliers
-that are not stat folds (`empower`, `weaken`; §8).
+function runs. The pipeline reads final numbers and applies only the damage-dealt multipliers
+that are not stat folds (`empower`, `weaken`, and the player-only `combo_momentum`; §8).
 
 ## 2. Damage pipeline (canonical order)
 
@@ -47,7 +48,7 @@ resolve(A, D, skill, rng):
   if crit: raw *= A.crit_power
   # 7. VARIANCE (§7): uniform ±8%
   raw    *= rng.uniform(0.92, 1.08)
-  # 8. DAMAGE-DEALT STATUS MULTIPLIERS (§8): empower / weaken on the ATTACKER
+  # 8. DAMAGE-DEALT MULTIPLIERS (§8): empower / weaken / combo_momentum on the ATTACKER
   raw    *= A.damage_dealt_mult
   # 9. LEVEL-DIFFERENCE DAMPENER (§9)
   raw    *= damage_diff_mult(A.level - D.level)
@@ -126,7 +127,10 @@ not swing: ±8% never turns a 3-hit kill into a 4-hit kill at-level.
 
 Only two statuses are damage-**dealt** multipliers and thus applied inside the pipeline (step 8),
 because they are not stat folds: `empower` (+20% damage dealt) and `weaken` (−25% damage dealt),
-both on the **attacker**, magnitudes owned by `10_systems/STATUS_EFFECTS.md` §4. Their product is
+both on the **attacker**, magnitudes owned by `10_systems/STATUS_EFFECTS.md` §4. A third,
+non-status factor joins the same fold for player attackers only: `combo_momentum`
+(×1.00–×1.15, chain state and magnitudes owned by `10_systems/COMBO_SYSTEM.md` §3 — not a
+status, never cleansed, absent on monsters). The product of all three is
 `A.damage_dealt_mult`. Every other status reaches `CombatMath` **through the stat block**, already
 folded by STATS §7 step 4: `fortify` via `armor`/`warding`, `sunder` via `armor`, `chill`/`swiftness` via
 `haste`, `blind` via §3. DoT ticks (`burn`, `poison`) are ordinary `CombatMath` calls on the
@@ -329,9 +333,11 @@ and the §15 DPS curve; balance retunes toward the **midpoint**, never outside t
 player must output to hit the §14 midpoint; it equals `normal_life(L) / 4.5`. `power_ref` is an
 **illustrative** reference offense (`power` or `spellpower`) for an at-level geared player
 (`10_systems/STATS.md` formulas + typical gear); `mult m` = effective DPS ÷ `power_ref` is the
-combined rotation × `haste` × `crit` × mitigation factor that `10_systems/SKILL_SYSTEM.md` +
-`10_systems/ITEMS.md` must collectively deliver (it matures from basic-attack ≈1.0 early to a full
-geared rotation ≈5.2 at cap). Load-bearing artifact is `normal_life`; `power_ref`/`m` are the
+combined rotation × `haste` × `crit` × mitigation × combo factor that `10_systems/SKILL_SYSTEM.md`
++ `10_systems/ITEMS.md` + `10_systems/COMBO_SYSTEM.md` must collectively deliver (it matures from
+basic-attack ≈1.0 early to a full geared rotation ≈5.2 at cap). The combo layer's ≈+15% sustained
+envelope (`10_systems/COMBO_SYSTEM.md` §4) is **inside** `m`, not on top of it — a non-comboing
+at-level player clears in ≈5.2 s, still inside the §14 3–6 s band. Load-bearing artifact is `normal_life`; `power_ref`/`m` are the
 balance target, not a formula this doc owns.
 
 | Lv | `normal_life` | effective DPS | `power_ref` | `mult m` | TTK |
