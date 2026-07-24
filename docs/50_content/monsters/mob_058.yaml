@@ -22,5 +22,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers in place, a small motionless bead trembling faintly."
+  walk: "Drifts backward on an unseen current, keeping its distance."
+  jump: "A quick upward flicker, rising just out of reach."
+  fall: "Sinks in a slow, weightless drift back toward the ground."
+  attack: "Flares and flings a splinter of ice forward in a quick snap."
+  hit: "Flickers and dims for a moment before steadying."
+  die: "Guts out and scatters into nothing."
 drop_table: drop_mob_058
 flavor: "A hovering bead of blue seafog, no bigger than a lantern, that hurls splinters of ice and drifts back on the wind. Pop it and the chill it carried scatters into nothing."

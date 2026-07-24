@@ -26,6 +26,7 @@ abilities:
     targeting: self
     cooldown: 18.0
     telegraph_s: 1.4
+    animation_note: "Horn-glyph on its chest flares bright as its call echoes out through the walls."
     effects:
       - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
       - { op: summon_entity, entity_ref: mob_129, count: 3, dur: 24 }
@@ -34,9 +35,20 @@ abilities:
     targeting: melee_arc
     cooldown: 6.0
     telegraph_s: 0.9
+    animation_note: "Draws one bladed arm back before sweeping it through in a rending arc."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.6 }
       - { op: apply_status, status: sunder, chance: 0.5, dur: 5 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands at attention, horn-glyph on its chest pulsing a slow steady beat."
+  walk: "Marches forward in a heavy, drilled cadence, plating clanking in rhythm."
+  jump: "Clears an obstacle in a single sharp, drilled leap."
+  fall: "Lands square and upright, boots striking in perfect unison."
+  attack: "Sweeps one bladed arm through a wide rending arc."
+  telegraph: "Draws itself to full height, horn-glyph brightening before it commits."
+  hit: "Snaps rigid for a beat, plating rattling before it holds its line."
+  die: "Snaps to attention one last time, then topples in a single fall."
+  spawn: "Marches up out of the vault floor already in step."
 drop_table: drop_mob_149
 flavor: "The command-frame the lesser scuttlers were built to answer, a brass captain leading a garrison that forgot the war ended. Its horn-glyph flares and the walls empty out around you."

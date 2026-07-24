@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 10
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Crouches low and utterly still, its coat merging seamlessly into the hollow's shadow."
+  walk: "Pads forward in a silent, low-shouldered stalk, ears swiveling for its packmates."
+  jump: "A flat, silent pounce-arc, claws leading."
+  fall: "Lands soft and low, already coiling forward into the next stride."
+  attack: "A fast, silent claw-rake thrown straight from its stalking crouch, no wind-up."
+  hit: "Snaps sideways in a silent snarl, claws flashing."
+  die: "Its legs fold beneath it and it sinks without a sound."
 drop_table: drop_mob_078
 flavor: "A lean, ink-black cat that runs in silent threes through the deepest hollows, more shadow than beast. When one yowls the others are already at your flanks."

@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables
   pack_call_radius: 8
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Bobs and drifts as a loose cluster, individual caps rising and settling out of rhythm."
+  walk: "Scuttles forward as a ragged knot, the cluster's edges lagging and bunching back together."
+  jump: "The whole knot hops in a single ragged bounce, caps scattering apart mid-air."
+  fall: "Drifts down loosely, the cluster re-knotting itself just before it lands."
+  attack: "Lunges forward as one mass, caps butting in a short crowding shove."
+  hit: "The knot flinches apart, caps scattering before drawing back together."
+  die: "Pops apart cap by cap until the knot has nothing left holding it together."
 drop_table: drop_mob_028
 flavor: "A drifting knot of ambulatory sporelings that pops loose from the hollow's rot-logs at a footfall. One is a puff of mold; a whole flush of them buries you in choking cap-dust."

@@ -26,6 +26,7 @@ abilities:
     targeting: line
     cooldown: 8.0
     telegraph_s: 1.1
+    animation_note: "Its feet grind into the floor and shoulders drop before it launches into an unstoppable straight-line ram."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.8 }
       - { op: knockback, distance: 3, vertical: 1 }
@@ -34,9 +35,20 @@ abilities:
     targeting: { shape: aoe_circle, radius: 3, origin: self }
     cooldown: 10.0
     telegraph_s: 1.3
+    animation_note: "Rears its whole bulk skyward before slamming down in a shockwave stomp."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.5 }
       - { op: apply_status, status: stun, chance: 0.4, dur: 2 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands massive and still, plated shoulders venting slow bursts of pressure."
+  walk: "Advances in heavy, ground-shaking strides, plating grinding with each step."
+  jump: "Hauls its huge frame over an obstacle in one heavy, committed lurch."
+  fall: "Lands with a shockwave-heavy slam, plating settling around the impact."
+  attack: "Drives forward in an unstoppable full-body ramming charge."
+  telegraph: "Digs its feet in and hunches its shoulders low, building toward a charge."
+  hit: "Barely rocks on its plating, absorbing the blow with a metallic groan."
+  die: "Buckles at the knees and comes down in a long, grinding collapse."
+  spawn: "Crashes down from above and rises to full height, plating settling with a boom."
 drop_table: drop_mob_145
 flavor: "A siege-frame the size of an ore-wagon, welded from the plating of a dozen lesser machines. It builds speed like an avalanche and lands where it was pointed, floor be damned."

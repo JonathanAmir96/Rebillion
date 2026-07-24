@@ -22,5 +22,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.6
   charge_recover_s: 2.2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands high on long legs, carapace coiled and utterly still."
+  walk: "Prowls forward in a silent, high-stepping glide, legs rippling in sequence."
+  jump: "A long, low pounce-arc that eats up ground in a single bound."
+  fall: "Lands splayed and braced, legs absorbing the drop without a sound."
+  attack: "Runs its prey down and drives forward in a full-body fang-first slam."
+  hit: "Rears back with a hiss, legs snapping tight against the jolt."
+  die: "Its legs buckle in sequence and it sinks flat, carapace settling still."
 drop_table: drop_mob_083
 flavor: "The wood's largest free-roaming spider, a glossy black hunter that runs its prey down rather than trapping it. At the region's edge it is the last lesson before the Broodloom."

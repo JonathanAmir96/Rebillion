@@ -21,5 +21,13 @@ ai_params:
   flee_duration_s: 4
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits low to the ground, its brush-skirt turning in a slow idle sweep."
+  walk: "Rolls along its cleaning route in a smooth, unhurried glide."
+  jump: "Bumps up over a low obstacle without breaking its glide."
+  fall: "Drops off a ledge and settles flat without slowing its brushes."
+  attack: "Rams forward in a single blind, low-angled bump."
+  hit: "Spins in place, brush-skirt scattering dust before it rights itself."
+  die: "Brush-skirt stops turning and it settles flat and still."
 drop_table: drop_mob_139
 flavor: "A low disc-bodied cleaner still pushing centuries of dust down corridors no one walks. It ignores you utterly until struck, then trundles off in blind, mindless alarm."

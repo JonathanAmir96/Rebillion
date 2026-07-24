@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 7.0
     telegraph_s: 1.0
+    animation_note: "Raises its weapon overhead and holds before sweeping it through a wide, deliberate arc."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.5 }
       - { op: knockback }
@@ -35,9 +36,21 @@ abilities:
     targeting: self
     cooldown: 20.0
     telegraph_s: 1.3
+    animation_note: "Plants its weapon and squares its stance, frost climbing its plate before it locks rigid."
     effects:
       - { op: grant_shield, scaling: max_life, mult: 0.08 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands at rigid attention, plated shoulders squared."
+  walk: "Paces a short, disciplined patrol along its stair."
+  jump: "A controlled brace, plate settling as it lands."
+  fall: "Drops square-footed and resets its stance at once."
+  attack: "Drives a trained weapon strike forward with a captain's precision."
+  cast: "Plants its weapon and squares its stance, gathering itself."
+  telegraph: "Raises its weapon overhead and holds, plate creaking with the wind-up."
+  hit: "Absorbs the blow without losing its footing."
+  die: "Sinks to one knee before falling still."
+  spawn: "Strides up out of the dark stair, plate settling into place."
 drop_table: drop_mob_127
 flavor: "The captain of the Warden's frozen honor guard, a head taller than any thrall and clad in rime-welded plate no blade bites easily. It holds the last stair before the vault the way it held it in life: to the last, and beyond."

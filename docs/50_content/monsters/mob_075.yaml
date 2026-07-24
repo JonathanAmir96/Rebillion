@@ -22,5 +22,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.0
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers in place with a slow, steady beat of dust-heavy wings."
+  walk: "Wings its patrol lane through the middle canopy in an unhurried, drifting glide."
+  jump: "A short upward flutter, barely more than a held wingbeat."
+  fall: "Sinks in a loose, drifting spiral, wings trailing loose dust."
+  attack: "Folds its wings tight and dives in a fast, dust-trailing plunge."
+  hit: "Staggers mid-air, wings scattering a burst of dust."
+  die: "Its wings falter and fold, and it sinks in a slow drift to the ground."
 drop_table: drop_mob_075
 flavor: "A moth the span of two hands, its wings furred with luminous fen-dust that fogs the air where it beats. It patrols the middle canopy and dives at anything that stirs the leaf-mold."

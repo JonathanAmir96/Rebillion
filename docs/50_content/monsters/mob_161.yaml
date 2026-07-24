@@ -20,5 +20,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits motionless among the loose stone, claws folded flat against its shell."
+  walk: "Scuttles sideways in short bursts across the scree."
+  jump: "A quick sideways hop over loose rubble."
+  fall: "Lands and settles immediately back into a still crouch."
+  attack: "Snaps both claws forward in a sudden pinching strike."
+  hit: "Shell rocks and claws draw back defensively."
+  die: "Claws splay open and the shell tips onto its back."
 drop_table: drop_mob_161
 flavor: "A rock-crab that sits still as loose stone on the talus slopes until a boot lands beside it. Its shell is grey scree; its claws are not."

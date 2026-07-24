@@ -25,6 +25,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 3, origin: self }
     cooldown: 11.0
     telegraph_s: 1.4
+    animation_note: "Raises both fists overhead, the pause held a beat before they slam down together and crack the ground outward."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.7 }
       - { op: knockback }
@@ -34,9 +35,20 @@ abilities:
     targeting: self
     cooldown: 17.0
     telegraph_s: 1.4
+    animation_note: "Locks its stance and folds inward as a fresh layer of vault-stone visibly seals over it."
     effects:
       - { op: grant_shield, scaling: max_life, mult: 0.15 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands locked in place, faint cracks of light tracing along its stone seams."
+  walk: "Grinds forward in a slow, mechanical stride, stone joints scraping."
+  jump: "A short, heavy hop that lands with a stone-on-stone crack."
+  fall: "Comes down flat-footed, the impact rippling through its frame."
+  attack: "Swings its full stone bulk through in one grinding sweep."
+  hit: "Barely shifts, stone absorbing the strike with a dull crack."
+  die: "Seams fracture wide open as it locks upright, then topples."
+  telegraph: "Plants both feet and raises both fists overhead, stonework groaning."
+  spawn: "Grinds upright out of the vault door's stonework, fists closing."
 drop_table: drop_mob_177
 flavor: "A construct of iron and vault-stone left to guard the Rimevaults' deepest door. It slams the ground to shatter footing, then locks down behind a wall of stoneguard."

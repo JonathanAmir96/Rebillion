@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: melee_arc, arc_degrees: 120, radius: 2 }
     cooldown: 10.0
     telegraph_s: 1.0
+    animation_note: "The wide-yawning jaw held open for a beat is the tell before it lunges shut to swallow the strike."
     effects:
       - { op: deal_damage, element: shadow, mult: 2.2 }
       - { op: heal, scaling: max_life, percent: 8 }
@@ -35,10 +36,21 @@ abilities:
     targeting: { shape: line, length: 6, width: 1.5 }
     cooldown: 13.0
     telegraph_s: 1.1
+    animation_note: "A tendril of dark unspools from its maw and hooks the ground before it hauls its catch under."
     effects:
       - { op: pull, distance: 4 }
       - { op: deal_damage, element: shadow, mult: 1.5 }
       - { op: apply_status, status: root, chance: 0.6, dur: 3 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies sunk and motionless in the surf, indistinguishable from drowned wreckage."
+  walk: "Drags its hulking maw forward in a slow, grinding crawl across the seabed."
+  jump: "Heaves its bulk up out of the surf in one lurching burst."
+  fall: "Slams back down flat, sending a wave of displaced water rolling outward."
+  attack: "Snaps its cavernous maw shut on the target and swallows the blow's force."
+  telegraph: "Its jaw creaks wide open, driftwood-teeth bared, before it lunges."
+  hit: "Convulses along its whole hull-length frame, jaw snapping shut involuntarily."
+  die: "Sags and sinks beneath the surf, jaw slack for the last time."
+  spawn: "Surfaces from the deep surf, jaw already yawning open."
 drop_table: drop_mob_233
 flavor: "A maw the size of a longship's hull, sunk in the black surf and still as driftwood until prey drifts near, then all teeth and undertow."

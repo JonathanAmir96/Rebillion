@@ -27,6 +27,7 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: melee_arc
     cooldown: 5.0
     telegraph_s: 0.9              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "The maw splits wide and hangs open a beat before tearing through in a wide silencing rake."
     effects:
       - { op: deal_damage, element: shadow, mult: 2.2 }
       - { op: apply_status, status: silence, chance: 0.5, dur: 3 }
@@ -35,8 +36,19 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: self
     cooldown: 14.0
     telegraph_s: 1.0              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "It folds its bulk inward and dims to near-nothing, the void thickening around it until it is barely a shape at all."
     effects:
       - { op: apply_status, status: veil, chance: 1.0, dur: 6 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits hunched and near-invisible, a maw of dark barely stirring against the void."
+  walk: "Slides forward in a slow, viscous crawl once revealed."
+  jump: "Hauls itself across a gap in one heavy, lurching pull."
+  fall: "Drops in a loose collapsing mass, reforming on landing."
+  attack: "Rends forward in a wide, tearing swipe of its maw."
+  hit: "Recoils and draws its bulk inward."
+  die: "Collapses into a spreading stain that thins and vanishes."
+  telegraph: "Splits open into a wide, waiting maw a beat before it strikes."
+  spawn: "Rises up out of the void as a gathering knot of dark."
 drop_table: drop_mob_204
 flavor: "A maw of congealed void that shrouds itself in stealth and waits, rending anything that stumbles onto it into silence. Only arcane light pierces its shroud."

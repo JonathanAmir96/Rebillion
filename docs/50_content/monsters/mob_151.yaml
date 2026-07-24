@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables
   pack_call_radius: 9
   pack_max_size: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands with head low and ears swiveling, breath fogging in short controlled puffs."
+  walk: "Pads forward in a loose, stalking trot, head tracking side to side."
+  jump: "Springs off its hind legs in a quick low leap."
+  fall: "Drops with legs already gathering to land at a run."
+  attack: "Lunges in with a snapping bite, weight thrown fully forward."
+  hit: "Recoils a half-step with a snarl, hackles standing."
+  die: "Legs buckle and it sinks sideways into the snow, head settling last."
 drop_table: drop_mob_151
 flavor: "A lean frost-wolf of the hoarfrost flats, all rimed fur and cold breath. One is a nuisance; the pack that answers its call is the isle's first real lesson."

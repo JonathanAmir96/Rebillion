@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands rooted and hunched, barnacled shoulders shifting with slow tide-breaths."
+  walk: "Drags itself in a heavy, grinding shamble along its short patrol line."
+  jump: "Heaves upward in a stiff, barely-clearing hop."
+  fall: "Comes down flat-footed with a weight that presses the sand."
+  attack: "Swings one crusted arm in a slow, crushing overhead blow."
+  hit: "Rocks back a half-step, barnacles rattling loose."
+  die: "Topples backward into the sand in a single collapsing heap."
 drop_table: drop_mob_211
 flavor: "A barnacle-crusted mass of drowned sailcloth and stone that plants itself at a chokepoint and refuses to be drawn off it."

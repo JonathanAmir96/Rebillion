@@ -22,5 +22,13 @@ ai_params:
   swoop_speed_mult: 2.0
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers motionless, its single lens rotating slowly to scan the vault."
+  walk: "Glides in a smooth patrol arc along the high vault ceiling."
+  jump: "Jerks upward a short distance on a sudden burst of lift."
+  fall: "Sinks briefly, lens tilting downward as it tracks its target."
+  attack: "Tucks its frame and dives straight down along a fixed line."
+  hit: "Spins off-axis, lens flaring before it rights its hover."
+  die: "Lens dims and it drops out of the air like dead weight."
 drop_table: drop_mob_142
 flavor: "A floating eye-frame that patrols the high vaults on a hum of dead sorcery, watching for the trespass its makers forbade. When it finds you it stops watching and starts diving."

@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables
   pack_call_radius: 10
   pack_max_size: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hunches low at the waterline, jaws already parted, watching the strand."
+  walk: "Hauls itself forward in a heavy, dragging lurch."
+  jump: "A lunging heave that clears a short gap, jaws still open."
+  fall: "Lands heavily on all limbs, jaws snapping shut on impact."
+  attack: "Drives forward and closes its jaws in one heavy, crushing bite."
+  hit: "Rears back with a snarl, jaws still gaping."
+  die: "Collapses where it stands, jaws finally falling shut."
 drop_table: drop_mob_063
 flavor: "A heavy, deep-water raider that hauls itself up onto the strand in cold-blooded packs, jaws already open. Where the nippers were a lesson, the marauders are the exam."

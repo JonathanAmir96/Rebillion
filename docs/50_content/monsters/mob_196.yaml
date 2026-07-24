@@ -22,5 +22,14 @@ ai_params:                       # override only profile-declared tunables (AI_B
   detonate_range: 1
   rush_speed_mult: 2.0
 animation_states: [idle, walk, jump, fall, telegraph, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Pulses in place, its light swelling and receding like a held breath about to burst."
+  walk: "Streaks forward in a bright, unwavering line toward its target."
+  jump: "Crosses a gap in an unbroken burning arc."
+  fall: "Tumbles through the air still trailing toward its target."
+  attack: "Erupts in a searing flash that blinds everything close."
+  hit: "Dims and staggers, its glow briefly guttering."
+  die: "Collapses inward without releasing its charge, going dark all at once."
+  telegraph: "Swells to a single overfull point, light climbing past what it can hold."
 drop_table: drop_mob_196
 flavor: "A brighter, hungrier cousin of the glimmer wisps, so overfull of stolen light that its final flare can blind a whole ledge before it goes dark."

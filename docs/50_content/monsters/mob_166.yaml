@@ -20,5 +20,13 @@ ai_params:                       # override only timid_grazer-declared tunables 
   flee_speed_mult: 1.5
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands with head low, the stone crust on its back rising and falling with each breath."
+  walk: "Trots away in a nervous, uneven gait, glancing back over its shoulder."
+  jump: "A panicked scrambling hop over any obstacle in its path."
+  fall: "Lands off-balance, stumbling forward before catching itself."
+  attack: "A single desperate headlong shove when it finds no way out."
+  hit: "Flinches hard and bolts a step further away."
+  die: "Legs give out and it sinks down heavily, crust settling last."
 drop_table: drop_mob_166
 flavor: "A slab-shouldered herbivore that carries a crust of stone on its spine and a deep distrust of everything. It spends the fight looking for the exit."

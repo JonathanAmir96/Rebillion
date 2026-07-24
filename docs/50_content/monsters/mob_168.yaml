@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 9
   pack_max_size: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands alert with head raised, scanning in short sweeping turns."
+  walk: "Moves in a tight, coordinated lope alongside its line."
+  jump: "A quick low leap across a break in the ice."
+  fall: "Lands already running, barely breaking stride."
+  attack: "Snaps forward in a fast, low bite."
+  hit: "Flinches back with a snarl, regrouping toward its line."
+  die: "Drops mid-stride and slides to a stop in the snow."
 drop_table: drop_mob_168
 flavor: "A high-altitude cousin of the Rimefang, paler and hungrier, that works the glacier shelves in coordinated lines. The call it raises carries a long way over ice."

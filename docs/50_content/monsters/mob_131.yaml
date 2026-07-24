@@ -21,5 +21,13 @@ ai_params:
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands rigid on braced pillar-legs, head-lens ticking side to side."
+  walk: "Paces a short mechanical patrol, legs swinging in stiff locked steps."
+  jump: "Hops stiffly upward on both pillar-legs at once."
+  fall: "Drops straight down and lands with a jarring, locked-leg thud."
+  attack: "Swings one heavy pillar-arm through a short, grinding arc."
+  hit: "Rocks back on its legs, joints seizing for a beat before resetting."
+  die: "Locks mid-stride and topples over as its last gear winds down."
 drop_table: drop_mob_131
 flavor: "A pillar-legged watch-automaton still pacing the three tiles of floor it was set to guard. It does not pursue and it does not tire; it simply does not let you pass."

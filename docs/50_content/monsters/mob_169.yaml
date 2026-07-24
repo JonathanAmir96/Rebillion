@@ -20,5 +20,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats at its burrow mouth, jaw working slowly side to side."
+  walk: "Waddles a short loop before its burrow on thick, stumping legs."
+  jump: "A short bracing hop, jaw already opening."
+  fall: "Lands heavily, jaw snapping shut on landing."
+  attack: "Clamps its jaw down in one crushing, grinding bite."
+  hit: "Jaw locks and grinds, head barely moving."
+  die: "Jaw finally slackens and it settles down over its burrow mouth."
 drop_table: drop_mob_169
 flavor: "A squat, boulder-jawed beast that has chewed its burrow into the living rock and will die in its mouth before yielding it. Its bite folds iron."

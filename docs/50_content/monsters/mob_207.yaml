@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   pack_call_radius: 9
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Twitches low and hunched, feelers testing the air in quick flicks."
+  walk: "Scuttles sideways in a rapid, many-legged skitter close to the sand."
+  jump: "Springs up in a tight startled hop, legs bunched beneath it."
+  fall: "Drops loosely and lands already scrabbling forward."
+  attack: "Darts in low and snaps its jaws shut in a single quick bite."
+  hit: "Flinches back into a defensive crouch, legs drawn tight."
+  die: "Curls into a shrinking knot of dark that dissolves into the sand."
 drop_table: drop_mob_207
 flavor: "A palm-sized scrap of living dark that never travels alone; where one skitters from the surf, a dozen more boil up behind it."

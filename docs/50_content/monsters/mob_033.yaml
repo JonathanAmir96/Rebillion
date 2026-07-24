@@ -20,5 +20,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.6
   charge_recover_s: 2.4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; short untelegraphed windup (normal tier)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands wide-legged and still, head low, tusks angled forward."
+  walk: "Plods forward with a rolling, heavy-shouldered gait."
+  jump: "A short stiff-legged hop that barely breaks its stride."
+  fall: "Lands stiff-legged with a jolt, head staying low throughout."
+  attack: "Lowers its head and drives forward in a straight-line gore."
+  hit: "Snorts and rocks back a half-step, tusks jerking up."
+  die: "Buckles at the front legs and topples onto its side."
 drop_table: drop_mob_033
 flavor: "A rangy mud-caked boar that roots the fen's soft edges and does not like to be interrupted. It squares up, snorts once, and comes at you dead straight; step aside and it plows past into the reeds."

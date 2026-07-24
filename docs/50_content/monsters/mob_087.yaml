@@ -24,6 +24,7 @@ abilities:
     targeting: { shape: line, length: 8, width: 2 }
     cooldown: 7.0
     telegraph_s: 1.2
+    animation_note: "She rakes one limb along the strand line, marking it an instant before the silk lashes down its length."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.5 }
       - { op: apply_status, status: root, chance: 0.7, dur: 3 }
@@ -32,6 +33,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 12.0
     telegraph_s: 1.5
+    animation_note: "Her whole bulk dims and swells with gathered dark before it billows outward in a blinding veil."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.4 }
       - { op: apply_status, status: blind, chance: 0.6, dur: 4 }
@@ -40,6 +42,7 @@ abilities:
     targeting: self
     cooldown: 20.0
     telegraph_s: 1.5
+    animation_note: "She draws every nearby strand in tight around her own body, wrapping herself in a hardening cocoon."
     effects:
       - { op: grant_shield, scaling: max_life, mult: 0.10 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
@@ -48,6 +51,7 @@ abilities:
     targeting: self
     cooldown: 25.0
     telegraph_s: 1.5
+    animation_note: "She throws her head back and shrieks up through the canopy, and a storm of hatchlings answers from every strand."
     effects:
       - { op: summon_entity, entity_ref: mob_070, count: 3, dur: 30 }
   - id: frenzied_fangs
@@ -55,6 +59,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 2.5 }
     cooldown: 6.0
     telegraph_s: 0.9
+    animation_note: "Her fangs bare in a sudden snapping twitch, faster and looser than her Loom-phase strikes, before she drives them home."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.9 }
       - { op: apply_status, status: weaken, chance: 0.7, dur: 6 }
@@ -63,6 +68,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3
+    animation_note: "She drops flat and every leg blurs into a scrabbling burst before the frenzy erupts outward in a scattering ring."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.7 }
       - { op: knockback }
@@ -78,5 +84,17 @@ phases:                          # boss_scripted phase contract (AI_BEHAVIOR §1
     added_abilities: [frenzied_fangs, skitter_frenzy, broodstorm]
     enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +cast +phase_shift (§8/§15)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Looms motionless at the heart of her web, her vast bulk merged with the strands around her."
+  walk: "Descends the web-strands in a slow, deliberate crawl, silk parting ahead of her."
+  jump: "A single vast bound along the strands that shudders the whole web-vault."
+  fall: "Drops through the dark in total silence, landing with the strands still swaying."
+  attack: "Drives forward in a huge fang-first lunge that closes the distance in an instant."
+  cast: "Weaves both forelimbs through the dark, drawing silk and shadow into a woven shape."
+  hit: "Recoils with a shudder that ripples out through every strand she touches."
+  die: "Collapses inward strand by strand until only stilled silk remains where she hung."
+  telegraph: "Rears up to her full towering height, forelimbs spread wide across the dark."
+  phase_shift: "Tears her own web loom apart around herself, shedding her shell for a bare, frenzied lunge."
+  spawn: "Descends out of the canopy on a strand thick as a trunk, the wood's shadow arriving with her."
 drop_table: drop_mob_087
 flavor: "The spider-matron of the deep hollow, so old and so vast that the wood's endless dark is only the shadow of her web strung tree to tree. When the light finally reaches her she does not flee it -- she comes down the strands to put it out."

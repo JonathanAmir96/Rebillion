@@ -21,5 +21,13 @@ ai_params:
   charge_speed_mult: 2.7
   charge_recover_s: 2.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands braced and hunched, its single great piston hissing at rest."
+  walk: "Lumbers forward on heavy legs, its piston creaking with each stride."
+  jump: "Hauls itself over an obstacle in one heavy, straining heave."
+  fall: "Drops with a ground-shaking thud, its piston bracing the landing."
+  attack: "Fires its piston in one unstoppable straight-line ram."
+  hit: "Rocks back on its brace, piston stuttering before it resets."
+  die: "Piston hisses out its last pressure and the frame slumps forward."
 drop_table: drop_mob_141
 flavor: "A hulking ram-frame driven by a single enormous piston that fires it forward like a bolt. The stroke is unstoppable and the recharge is long; step off the line and make it pay."

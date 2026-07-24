@@ -21,5 +21,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   swoop_speed_mult: 2.3
   aggro_radius: 8
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Rides the haze-currents motionless, wings locked in a still glide."
+  walk: "Circles a steady patrol lane on broad, silent wingbeats."
+  jump: "Tips forward off its glide into a sudden climb."
+  fall: "Drops into a controlled stall before leveling back out."
+  attack: "Folds its wings and stoops in a fast, talons-first strike."
+  hit: "Rocks off-balance mid-air, one wing flaring to recover."
+  die: "Locks rigid and plummets, its wings never opening again."
 drop_table: drop_mob_192
 flavor: "A raptor carved from drifting stone, cold and silent on the wing. It rides the haze-currents the shards throw off and stoops on whatever moves below."

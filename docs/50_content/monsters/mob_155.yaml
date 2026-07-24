@@ -22,5 +22,14 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.5
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set + cast (ranged/caster)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched with arms folded, an icicle already drawn from its back."
+  walk: "Backpedals in quick, careful steps, never turning away from its target."
+  jump: "A short backward hop to open distance."
+  fall: "Lands crouched, already reaching for the next icicle."
+  attack: "Snaps an icicle free and hurls it in a flat, whipping throw."
+  cast: "Draws a longer shard from its back and lines up an overhead throw."
+  hit: "Doubles over, dropping the icicle it was reaching for."
+  die: "Crumples forward into the snow, arms still curled toward its back."
 drop_table: drop_mob_155
 flavor: "A gaunt figure that plucks icicles from its own back and hurls them in flat arcs. It gives ground the instant you close, peppering as it retreats."

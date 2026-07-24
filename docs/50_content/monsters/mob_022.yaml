@@ -22,5 +22,13 @@ ai_params:                       # override only support_caller-declared tunable
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Drifts and bobs in place, a slow pulsing glow rising and dimming."
+  walk: "Glides low and smooth between the lantern lines, never touching the ground."
+  jump: "Bobs upward in a brief, weightless rise."
+  fall: "Sinks gently back down, its glow guttering low."
+  attack: "Brightens sharply and reaches toward a packmate, trailing a thread of light."
+  hit: "Flickers and shrinks in on itself before steadying."
+  die: "Dims to nothing and winks out mid-drift."
 drop_table: drop_mob_022
 flavor: "A cold blue mote drifting between the cellar lanterns, drawn to vermin and away from anything that swings back. It does not bite; it broods over the pack and lends them a borrowed, guttering courage."

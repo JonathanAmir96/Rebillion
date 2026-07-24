@@ -25,9 +25,20 @@ abilities:
     targeting: line
     cooldown: 9.0
     telegraph_s: 1.0
+    animation_note: "Digs in and lowers its fused horn, holding the brace a beat before erupting into the ramming charge."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.8 }
       - { op: knockback }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands broad and still, breath steaming from flared nostrils."
+  walk: "Plods forward with slow, deliberate, coach-sized strides."
+  jump: "A heavy bracing hop before lowering into a charge stance."
+  fall: "Lands with its full weight, horns already dropping."
+  attack: "Drives its fused horn forward in a single, unstoppable ram."
+  hit: "Barely staggers, shaking the impact off its horn."
+  die: "Legs buckle mid-stride and it crashes down horn-first."
+  telegraph: "Digs in its forelegs and lowers its fused horn, bracing for the charge."
+  spawn: "Thunders into view and skids to a stop, horn lowering into line."
 drop_table: drop_mob_173
 flavor: "A craghorn bull the size of a coach, its horns fused into a single ram of horn and ice. When it commits there is one safe place to be, and it is not in front of it."

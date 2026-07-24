@@ -20,5 +20,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.5
   charge_recover_s: 2.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands stiff-legged with hackles raised, head low and eyes fixed on its mark."
+  walk: "Paces in a tense, ribs-showing trot that could break into a run at any step."
+  jump: "Springs off its hind legs in a single desperate bound."
+  fall: "Lands hard on splayed forepaws, absorbing the drop with a stagger."
+  attack: "Gathers its whole scrawny weight and hurls itself forward in a full-body lunge."
+  hit: "Staggers sideways with a yelp, catching itself before it goes down."
+  die: "Buckles at the forelegs and slumps, ribs falling still."
 drop_table: drop_mob_014
 flavor: "A half-feral dock dog gone stray in the cellar lanes, ribs showing and hackles up. It commits to a lunge with its whole scrawny weight and takes a breath to gather itself before the next."

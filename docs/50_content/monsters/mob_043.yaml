@@ -22,5 +22,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands planted and massive, moss-draped flanks barely stirring."
+  walk: "Plods in a slow, deliberate lumber, each footfall landing heavy."
+  jump: "A short, ponderous hop that shakes loose trailing moss."
+  fall: "Comes down in a single heavy, settling thud."
+  attack: "Swings its great bulk forward in one slow, crushing shove."
+  hit: "Absorbs the blow with barely a shudder through its mossy hide."
+  die: "Sinks down by degrees, its great bulk finally coming to rest."
 drop_table: drop_mob_043
 flavor: "The oldest browser in Verdant Hollow, a moss-shagged bulk the size of a cart that has cropped the deep glades since before Mossmere had a name. It moves seldom and slow, but it plants itself in the last gap before the Sovereign's grove and lets nothing soft go by."

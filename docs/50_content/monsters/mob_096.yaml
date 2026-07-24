@@ -22,5 +22,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.2
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Perches with wings folded, head cocked toward the ground below."
+  walk: "Circles patiently on a slow, wide-winged glide."
+  jump: "Snaps into a sharp upward flap to gain height."
+  fall: "Drops a wing and side-slips downward."
+  attack: "Folds into a steep stoop and rakes with outstretched talons."
+  hit: "Jerks sideways, one wing flaring off-balance."
+  die: "Tumbles from the air and lands in a sprawl of feathers."
 drop_table: drop_mob_096
 flavor: "A gaunt carrion-bird that rides the thermals over the cinder fields, patient as the drought. It stoops on the fallen the instant the last kick goes out of them."

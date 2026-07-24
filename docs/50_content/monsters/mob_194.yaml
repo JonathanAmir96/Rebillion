@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 5
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands massive and still, runes along its plating pulsing in slow sequence."
+  walk: "Stomps a short, ground-shaking patrol loop, plates grinding with each step."
+  jump: "Heaves up and over a low gap with a heavy, deliberate lurch."
+  fall: "Comes down flat-footed, the impact rippling through its plating."
+  attack: "Swings one slab-like arm through in a slow, crushing arc."
+  hit: "Absorbs the blow with a dull grinding shudder, runes flaring along the impact."
+  die: "Locks rigid, runes going dark plate by plate, then topples."
 drop_table: drop_mob_194
 flavor: "A slab-limbed giant of stacked rune-plate that holds a single crossing between two shards. Physical force cracks the glyphs that bind it; magic only feeds it."

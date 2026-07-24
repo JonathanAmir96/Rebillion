@@ -22,5 +22,13 @@ ai_params:                       # override only kamikaze_burster-declared tunab
   detonate_range: 1
   rush_speed_mult: 1.8
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Bobs and pulses in place, throbbing with restrained heat."
+  walk: "Drifts forward in a straight, unwavering line toward warmth."
+  jump: "Flares upward suddenly, arcing over an obstacle in its path."
+  fall: "Drops in a straight plunging line, trailing loose sparks."
+  attack: "Rushes in close and bursts apart in a single flaring detonation."
+  hit: "Flickers and dims, sputtering unevenly."
+  die: "Fizzles out in one last weak puff of smoke."
 drop_table: drop_mob_098
 flavor: "A fist-sized bead of trapped fire that rushes anything warm-blooded and bursts against it. The flare is brief and the burn is not."

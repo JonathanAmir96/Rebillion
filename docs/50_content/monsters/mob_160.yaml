@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 9
   pack_max_size: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits low on many legs, antennae twitching in short flicks."
+  walk: "Skitters forward in quick, darting bursts."
+  jump: "A tiny flicking hop, legs scrabbling."
+  fall: "Drops and immediately scrabbles back upright."
+  attack: "Darts in and delivers a fast, biting nip."
+  hit: "Curls tight and skitters backward a short distance."
+  die: "Legs seize and curl inward as it goes still."
 drop_table: drop_mob_160
 flavor: "A skittering frost-mite no bigger than a fist, and never, ever alone. One is a crunch underfoot; the swarm its call brings is a different arithmetic."

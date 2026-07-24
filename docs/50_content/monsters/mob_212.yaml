@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   swoop_speed_mult: 2.2
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs nearly motionless aloft, ragged wings barely stirring."
+  walk: "Wheels in slow, banking circles above the field, wings doubling as its flight stride."
+  jump: "Snaps upward in a sharp climbing beat to regain its patrol height."
+  fall: "Drops in a controlled downward glide before the dive begins in earnest."
+  attack: "Folds its wings and plunges in a fast diving strike at the target."
+  hit: "Jolts and tumbles briefly out of formation before righting itself."
+  die: "Crumples mid-air and flutters down in loose, torn fragments."
 drop_table: drop_mob_212
 flavor: "A tattered flap of torn-sky that wheels above the field and folds into a diving strike, then labors back to its lane."

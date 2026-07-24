@@ -22,5 +22,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits low and hunkered, humped shell settled heavily over its stretch of sand."
+  walk: "Plods forward at an unhurried, deliberate pace, shell swaying."
+  jump: "A slow, heavy heave that barely clears the ground."
+  fall: "Comes down flat-footed with a heavy, grounded thud."
+  attack: "Lunges its head forward in a slow, heavy snapping bite."
+  hit: "Withdraws its head partway into its shell without breaking stance."
+  die: "Settles flat, head and legs drawing still into the shell."
 drop_table: drop_mob_062
 flavor: "An old shore tortoise whose humped shell has crusted over with a permanent glaze of sea-ice, near impossible to crack from the front. It plods, it endures, and it outlasts the impatient."

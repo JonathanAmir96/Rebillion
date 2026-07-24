@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   swoop_speed_mult: 2.2
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers with slow, watchful wingbeats, head cocked toward the ground."
+  walk: "Circles low over the field in a scanning, predatory glide."
+  jump: "Kicks upward in a sharp climbing burst, wings biting hard."
+  fall: "Drops into a shallow stoop, angling in toward prey below."
+  attack: "Stoops fast and rakes with its beak before wheeling away."
+  hit: "Veers off-course with a screech, feathers scattering."
+  die: "Tumbles from the air and lands in a broken sprawl of feathers."
 drop_table: drop_mob_219
 flavor: "A carrion flyer of the torn sky, all beak and hunger, that stoops on stragglers and climbs beyond reach between dives."

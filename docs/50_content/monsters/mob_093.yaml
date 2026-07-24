@@ -22,5 +22,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched, one long arm resting near a heap of clinker."
+  walk: "Backs away in an unhurried, watchful shuffle, keeping its distance."
+  jump: "Hops back a short step to reopen the range."
+  fall: "Drops back into its wide-legged, ready stance."
+  attack: "Winds up and hurls a smoking chunk of clinker in a long overhand throw."
+  hit: "Rocks back a step, shielding its face with one long arm."
+  die: "Slumps forward over its own spent pile of clinker."
 drop_table: drop_mob_093
 flavor: "A squat, long-armed brute that pries glowing clinker from the vents and lobs it in a smoking arc. It backs away the moment you close, never wanting the fight in its lap."

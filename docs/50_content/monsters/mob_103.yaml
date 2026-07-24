@@ -22,5 +22,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 5
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands massive and still, banked coals along its limbs brightening with each slow breath."
+  walk: "Trudges a short patrol loop in slow, ponderous steps."
+  jump: "Hops with a short, heavy-footed jolt that shakes loose cinders."
+  fall: "Comes down flat-footed with a deep, smoking thud."
+  attack: "Swings one slab-like arm through in a slow, crushing backhand."
+  hit: "Absorbs the blow with barely a stagger, coals flaring brighter."
+  die: "Sinks slowly to its knees as its coals dim and go dark."
 drop_table: drop_mob_103
 flavor: "A slab-limbed colossus of banked coals that stands watch over the deep vents nearest the ridge, glowing brighter as it wakes. Endurance is the whole of the fight; it simply does not tire."

@@ -21,5 +21,13 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 10
   pack_max_size: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Crouches low on its haunches, ears flicking toward the rest of the pack."
+  walk: "Trots in a scrabbling, low-slung lope, nose close to the ground."
+  jump: "Scrabbles into a quick leap over broken, cracked ground."
+  fall: "Lands stiff-legged and low, catching its stride without breaking pace."
+  attack: "Snaps forward in a fast, low biting lunge."
+  hit: "Yelps and flinches sideways, scrambling to reset its footing."
+  die: "Crumples onto its side, legs twitching once before going still."
 drop_table: drop_mob_089
 flavor: "A lean, soot-grey scavenger that runs the barrens in scrabbling packs, its paws long since hardened to the scalding ground. It hunts the heat-struck and the slow."

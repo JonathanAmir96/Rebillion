@@ -22,5 +22,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.7
   charge_recover_s: 2.4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Crouches low with its rime coat rippling slightly, tail flicking once."
+  walk: "Stalks forward in a slow, deliberate creep, weight held back."
+  jump: "Gathers and springs in one low, coiled bound."
+  fall: "Lands with all four limbs braced for an immediate lunge."
+  attack: "Commits its full weight into a single frozen forward lunge."
+  hit: "Flinches sideways, rime cracking and reforming over the wound."
+  die: "Stiffens mid-stride and topples, the rime coat shattering as it falls."
 drop_table: drop_mob_167
 flavor: "A lean predator sheathed in a living rime that grows back between kills. It stalks a beat, then commits its whole weight in a single frozen lunge."

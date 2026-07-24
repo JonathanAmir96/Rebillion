@@ -21,5 +21,13 @@ ai_params:
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Slumps motionless among the scrap, indistinguishable from wreckage."
+  walk: "Rises and stomps forward on stiff limbs once its cover is blown."
+  jump: "Crosses a short gap in a single lurching bound."
+  fall: "Drops heavily, limbs still catching up to the landing."
+  attack: "Springs upright in a sudden wind-releasing punch."
+  hit: "Staggers a half-step, joints grinding before it catches itself."
+  die: "Slumps back down into the same broken heap it rose from."
 drop_table: drop_mob_135
 flavor: "A powered-down labor-frame slumped among the scrap, indistinguishable from wreckage until you stand on its plate. Its first blow is the wind-down spring of a century releasing at once."

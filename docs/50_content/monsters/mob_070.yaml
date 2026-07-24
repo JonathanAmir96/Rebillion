@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 9
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits low on splayed legs, antennae twitching toward the faintest vibration."
+  walk: "Skitters forward in short, darting bursts, never quite moving in a straight line."
+  jump: "A quick, twitchy hop that carries its whole tiny frame in one bound."
+  fall: "Tumbles down loosely, legs already scrabbling before it touches ground."
+  attack: "A fast, snapping bite thrown from a dead run with no wind-up at all."
+  hit: "Jerks sideways in a full-body flinch, legs curling tight."
+  die: "Curls into a tight knot and goes still."
 drop_table: drop_mob_070
 flavor: "A skittering hatchling no bigger than a hand, harmless until the web-song of its kin answers. One is a nuisance; a whole clutch pouring from the dark is the wood's warning."

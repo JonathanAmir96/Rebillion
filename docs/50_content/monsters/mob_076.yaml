@@ -22,5 +22,13 @@ ai_params:                       # override only support_caller-declared tunable
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched over a web-shrine, hands weaving slow shapes, muttering into the dark."
+  walk: "Withdraws in a careful backward shuffle, hood low, never turning its back fully."
+  jump: "A short, awkward hop to clear ground while keeping its hands weaving."
+  fall: "Drops in a loose stumble, robes billowing, hands never breaking their weave."
+  attack: "Flings out one hurried, defensive gesture, robes snapping with the effort."
+  hit: "Flinches back into a hunch, weaving hands thrown wide."
+  die: "Sinks to its knees and folds forward, hood spilling over its stilled hands."
 drop_table: drop_mob_076
 flavor: "A hooded thing that tends the brood's web-shrines and mutters strength into the strands. It keeps well behind its wards, threading the dark tighter the longer it lives."

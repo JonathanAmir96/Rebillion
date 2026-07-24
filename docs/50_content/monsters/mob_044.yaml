@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 7.0
     telegraph_s: 1.0
+    animation_note: "Digs a foreleg into the ground and lines its antlers dead ahead before driving forward in a full-committed gore."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.6 }
       - { op: knockback, distance: 2, vertical: 1 }
@@ -35,9 +36,20 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 11.0
     telegraph_s: 1.2
+    animation_note: "Rears up and rakes both forelegs across the ground before a ring of grasping thorn bursts up around it."
     effects:
       - { op: deal_damage, element: nature, mult: 1.2 }
       - { op: apply_status, status: root, chance: 0.7, dur: 3 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands alert with antlers held high, weight shifting between forelegs."
+  walk: "Strides forward in a stiff, high-stepping lope, antlers swaying."
+  jump: "Bounds forward in a full-bodied leap, antlers dipping low."
+  fall: "Lands braced on all four legs, antlers snapping back level."
+  attack: "Lowers its antlers and drives forward in a full-committed gore."
+  hit: "Rears back, antlers jerking skyward with the impact."
+  die: "Buckles at the knees, antlers sagging to the ground last."
+  telegraph: "Rakes a spray of thorn up from the ground before lowering its antlers."
+  spawn: "Bursts up through the undergrowth and plants its hooves, antlers flaring wide."
 drop_table: drop_mob_044
 flavor: "A half-grown beetle-stag already crowned with the branching antlers its kind is feared for, and already too proud of them. It rakes up a wall of grasping thorn before it lowers its head and comes, a small rehearsal of the Sovereign that sired it."

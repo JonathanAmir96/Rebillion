@@ -22,6 +22,14 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers and bobs gently, its knotted light flickering."
+  walk: "Glides backward and sideways, holding an even distance."
+  jump: "Rises in a slow, untethered bob."
+  fall: "Sinks in the same slow, weightless drift."
+  attack: "Contracts and spits a mote forward from its core."
+  hit: "Flinches and scatters into a looser knot."
+  die: "Unravels into strands that fade as they sink."
 drop_table: drop_mob_113
 # kites at range, spitting cold curse-motes (AI_BEHAVIOR §8) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A knot of drowned witch-light that drifts the flooded halls and spits motes of cold curse at anything living, always gliding just out of reach. Sailors' tales call them the lamps the dead kingdom lit and never put out."

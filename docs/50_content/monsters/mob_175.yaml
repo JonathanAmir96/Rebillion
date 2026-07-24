@@ -27,9 +27,20 @@ abilities:
     targeting: line
     cooldown: 8.0
     telegraph_s: 1.0
+    animation_note: "Hangs briefly at the top of its climb before folding its wings and dropping in a frost-trailing line."
     effects:
       - { op: deal_damage, element: frost, mult: 1.9 }
       - { op: apply_status, status: chill, chance: 0.6, dur: 4 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Rides high on locked wings, head swiveling slowly over the glacier below."
+  walk: "Wheels in broad, patient circles along its patrol lane."
+  jump: "A sharp climbing wingbeat before angling into a stoop."
+  fall: "Tucks fully and plummets in a steep dive."
+  attack: "Drives down talons-first in a fast, frost-trailing stoop."
+  hit: "Wings snap wide to catch itself mid-air."
+  die: "Wings fold and it drops out of the sky in a long, uncontrolled spiral."
+  telegraph: "Hangs motionless at the top of its climb, wings drawing in tight."
+  spawn: "Drops out of high cloud and levels off into its patrol lane."
 drop_table: drop_mob_175
 flavor: "A vast frost-raptor that owns the sky over the glacier and treats the ground as a larder. Its dive comes in cold and fast enough to frost the air behind it."

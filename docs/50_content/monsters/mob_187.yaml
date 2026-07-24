@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   charge_speed_mult: 2.6
   charge_recover_s: 2.4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Crouches low, its faceted body throwing flickering false copies of itself."
+  walk: "Prowls forward in a silent, low-slung glide before breaking into a dead sprint."
+  jump: "Launches off all four legs in a low, flat leap."
+  fall: "Lands hard and skids, its refracted afterimages catching up a beat late."
+  attack: "Rams forward in a full-body charging tackle, facets flaring on impact."
+  hit: "Shatters into scattering refractions before reassembling."
+  die: "Cracks through its facets and collapses into inert shards."
 drop_table: drop_mob_187
 flavor: "A four-legged shard of living crystal that refracts the haze into a dozen false stalkers, then charges from the one you were not watching."

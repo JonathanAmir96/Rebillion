@@ -27,6 +27,7 @@ abilities:
     targeting: self
     cooldown: 16.0
     telegraph_s: 1.2
+    animation_note: "Swells and glows along every vein before letting out a summoning shriek that calls fresh cinders from the ash."
     effects:
       - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
       - { op: summon_entity, entity_ref: mob_088, count: 2, dur: 20 }
@@ -35,9 +36,20 @@ abilities:
     targeting: melee_arc
     cooldown: 6.0
     telegraph_s: 0.9
+    animation_note: "Draws her head back low before snapping forward in a fast, wide-jawed bite."
     effects:
       - { op: deal_damage, element: fire, mult: 1.4 }
       - { op: apply_status, status: burn, chance: 0.6, dur: 6 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hunches low, ember veins pulsing bright along her bulk with each breath."
+  walk: "Lumbers forward in a heavy, swaying gait, trailing loose cinders."
+  jump: "Bounds in a short, laboring hop that scatters embers from her hide."
+  fall: "Lands heavy and wide-stanced, cinders puffing up around her feet."
+  attack: "Snaps forward in a fast, wide-jawed bite."
+  telegraph: "Rears back and swells, ember veins flaring brighter across her whole bulk."
+  hit: "Recoils with a hiss, sparks shaking loose from her hide."
+  die: "Sags and folds inward as her ember veins fade to dark."
+  spawn: "Heaves up out of the ash in a burst of scattering cinders."
 drop_table: drop_mob_104
 flavor: "The brood-heart of a cinder swarm, grown to a hunched, ember-veined bulk that births her clouds anew when they thin. Where she settles, the ash itself starts to glow."

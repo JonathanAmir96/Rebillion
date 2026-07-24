@@ -21,5 +21,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats immense and motionless over its drain, sides pulsing with each slow breath."
+  walk: "Shuffles in a heavy, barely-there waddle within its patch of floor."
+  jump: "Heaves itself a short, graceless hop, legs straining under its own bulk."
+  fall: "Lands with a wet thud, its bulk settling back over the drain."
+  attack: "Swings its whole engorged body sideways in a slow, crushing lunge."
+  hit: "Rocks back with a shudder, legs scrabbling to hold its ground."
+  die: "Collapses in on itself, legs curling beneath the bloated mass."
 drop_table: drop_mob_018
 flavor: "A tick swollen to the size of a helm on a season of cellar blood, too heavy now to do more than hold its patch of floor. It plants itself over a drain and swings its engorged bulk at anything that crosses."

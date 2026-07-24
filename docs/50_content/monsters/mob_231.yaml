@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 6, origin: self }
     cooldown: 14.0
     telegraph_s: 1.0
+    animation_note: "The head-thrown-back rear and swelling throat announce the bay before it washes strength over the pack."
     effects:
       - { op: apply_status, status: empower, dur: 10 }
       - { op: apply_status, status: swiftness, dur: 10 }
@@ -35,8 +36,19 @@ abilities:
     targeting: self
     cooldown: 20.0
     telegraph_s: 1.0
+    animation_note: "It plants all four paws and howls into the surf, the sand behind it churning as fresh voidlings claw free."
     effects:
       - { op: summon_entity, entity_ref: mob_207, count: 2, dur: 30 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Paces a tight circle, head thrown back in a silent, restless bay."
+  walk: "Lopes ahead of its pack in a loose, ghostly stride, ears pricked."
+  jump: "Springs across a gap in a smooth, weightless bound."
+  fall: "Drifts down lighter than its bulk suggests, landing without a stumble."
+  attack: "Snaps forward in a quick biting lunge, leading the pack's charge."
+  telegraph: "Rears back and throws its head up, throat swelling before it bays."
+  hit: "Flinches sideways with a snarl, form rippling at the impact."
+  die: "Thins to a wisp on a final long bay and scatters into the dark."
+  spawn: "Surges up out of the surf at the head of its howling pack."
 drop_table: drop_mob_231
 flavor: "The lead spectre of a hunting pack, baying its kin into a frenzy and calling fresh voidlings up from the surf to swarm the fallen."

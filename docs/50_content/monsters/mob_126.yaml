@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: line, length: 8, width: 2 }
     cooldown: 8.0
     telegraph_s: 1.2
+    animation_note: "Banks level and holds its wings wide before folding into a straight, plunging dive down the lane."
     effects:
       - { op: deal_damage, element: frost, mult: 1.7 }
       - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
@@ -35,9 +36,21 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 13.0
     telegraph_s: 1.4
+    animation_note: "Arches its whole body and holds overhead before slamming down into a spreading freezing wake."
     effects:
       - { op: deal_damage, element: frost, mult: 1.4 }
       - { op: apply_status, status: freeze, chance: 0.4, dur: 2 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs enormous and still, its wingspan shadowing the vault below."
+  walk: "Sweeps through the water in slow, deliberate wingbeats."
+  jump: "Tilts sharply upward, wings cupping for a steep climb."
+  fall: "Folds and glides downward in a long, heavy arc."
+  attack: "Tucks its wings and plunges in a crushing, straight dive."
+  cast: "Arches its whole body, wingtips crackling with cold."
+  telegraph: "Banks level and holds, wings spread wide before committing."
+  hit: "Lists hard to one side, its wingbeat stuttering."
+  die: "Goes rigid mid-glide and sinks without another beat."
+  spawn: "Descends out of the dark above, wings unfurling to full span."
 drop_table: drop_mob_126
 flavor: "A ray grown vast and ancient in the lightless deep, its wingspan darkening a whole flooded vault as it wheels overhead. Each dive drags a wake of freezing water that stills everything it washes over."

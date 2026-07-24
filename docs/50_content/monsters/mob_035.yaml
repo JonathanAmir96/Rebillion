@@ -22,5 +22,10 @@ ai_params:                       # override only stationary_turret-declared tuna
   attack_cooldown_s: 2.5
   windup_s: 0.6
 animation_states: [idle, attack, hit, die]   # immobile turret: idle/attack/hit/die only (no walk/patrol)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands fused to the ground, knothole eye slowly tracking side to side."
+  attack: "Bark peels back around the knothole and releases a spray of thorns."
+  hit: "Shudders along its bark plating, knothole eye squeezing shut."
+  die: "Cracks and slumps, bark plating sagging off its motionless trunk."
 drop_table: drop_mob_035
 flavor: "A grey, bark-scaled thing grown fast to the hollow floor, more stump than beast until it turns its knothole eye on you. It cannot follow, but it never misses the same spot twice, and it loosens a spray of hardwood thorns on a clockwork beat."

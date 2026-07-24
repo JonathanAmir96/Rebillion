@@ -27,10 +27,21 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: { shape: aoe_circle, radius: 3, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "It crouches low and gathers itself before hurling its full mass across the gap, coming down in a crushing bloom that staggers everything beneath it."
     effects:
       - { op: leap, distance: 6, height: 4 }
       - { op: deal_damage, element: arcane, mult: 2.3 }
       - { op: apply_status, status: stun, chance: 0.5, dur: 1.5 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands mountainous and still, rune-plate humming with contained force."
+  walk: "Advances in a slow, ground-shaking stride before breaking into a full charge."
+  jump: "Launches itself across a gap in one massive bounding leap."
+  fall: "Comes down hard, the impact rippling through the ground."
+  attack: "Rams forward in a full-body charging collision."
+  hit: "Absorbs the blow with a heavy shudder, plates flaring."
+  die: "Locks rigid plate by plate, then comes apart in a slow collapse."
+  telegraph: "Crouches and gathers itself low before its leap."
+  spawn: "Rises up out of the haze, rune-plate igniting as it settles into stance."
 drop_table: drop_mob_205
 flavor: "The largest of the loosed wardens, a mountain of rune-plate that leaps the gaps between shards and comes down in a crushing bloom of arcane force. The Unmoored's shadow made flesh."

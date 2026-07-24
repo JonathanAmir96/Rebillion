@@ -22,5 +22,13 @@ ai_params:                       # override only timid_grazer-declared tunables 
   flee_speed_mult: 1.5
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Grazes with its head down, plated back rising and falling with each breath."
+  walk: "Shuffles along at a hunched, unhurried browsing pace."
+  jump: "Startles into a stiff hop over an obstacle mid-flee."
+  fall: "Drops back onto all fours in a hunched, plated crouch."
+  attack: "Delivers one panicked headbutt when there is nowhere left to run."
+  hit: "Flinches and hunkers lower beneath its plates."
+  die: "Folds its legs under and settles flat, plates going still."
 drop_table: drop_mob_092
 flavor: "A hunched, plated browser that crops the few scorched lichens the barrens still grows, fleeing at the first crunch of gravel. Its hide is caked grey with the dust it wallows in against the heat."

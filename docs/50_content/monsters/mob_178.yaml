@@ -25,6 +25,7 @@ abilities:
     targeting: { shape: line, length: 8, width: 2 }
     cooldown: 7.0
     telegraph_s: 1.2
+    animation_note: "Draws its head back and its throat lights up before a long gout of frost sweeps down the lane."
     effects:
       - { op: deal_damage, element: frost, mult: 1.6 }
       - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
@@ -33,6 +34,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 12.0
     telegraph_s: 1.5
+    animation_note: "Coils in tight and slams the ground, a ring of frost racing outward from the impact point."
     effects:
       - { op: deal_damage, element: frost, mult: 1.4 }
       - { op: apply_status, status: freeze, chance: 0.5, dur: 2 }
@@ -41,6 +43,7 @@ abilities:
     targeting: self
     cooldown: 20.0
     telegraph_s: 1.5
+    animation_note: "Curls in on itself as a fresh crust of rime visibly crawls out over its scales."
     effects:
       - { op: grant_shield, scaling: max_life, mult: 0.10 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
@@ -49,6 +52,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 8.0
     telegraph_s: 1.0
+    animation_note: "Winds its tail back before hauling it through in a low, sweeping arc."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.5 }
       - { op: knockback }
@@ -57,6 +61,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3
+    animation_note: "Rears its full length skyward before crashing down, sending a shockwave through the ground."
     effects:
       - { op: deal_damage, element: frost, mult: 1.9 }
       - { op: knockback }
@@ -65,6 +70,7 @@ abilities:
     targeting: self
     cooldown: 25.0
     telegraph_s: 1.5
+    animation_note: "Throws its head back in a long call as skittering shapes rise out of the ice around it."
     effects:
       - { op: summon_entity, entity_ref: mob_160, count: 2, dur: 30 }
 phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
@@ -79,5 +85,17 @@ phases:                          # boss_scripted phase contract (AI_BEHAVIOR §1
     added_abilities: [avalanche_fury, glacial_brood]
     enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Coils low across the crevasse floor, scales shifting with each slow, banked breath."
+  walk: "Uncoils and drags its long frame forward in a low, sweeping crawl."
+  jump: "Rears up onto its haunches in a short, heavy launch."
+  fall: "Comes down in a coiling slam, tail still trailing through the air."
+  attack: "Snaps its head forward in a heavy, close-range bite."
+  cast: "Draws its head back, throat lighting with gathering frost."
+  hit: "Recoils along its full length, scales cracking and reknitting."
+  die: "Coils tighten and slacken in a long final settle across the crevasse floor."
+  telegraph: "Rears back to full height, chest and throat swelling before it commits."
+  phase_shift: "Rears to full height as the rime shell shatters off its scales in a single violent shrug."
+  spawn: "Uncoils out of the crevasse ice in a slow, deliberate rise."
 drop_table: drop_mob_178
 flavor: "A hoarfrost drake coiled in the summit crevasse since before the isle had a name, its scales gone to blue glass and rime. It wakes slow, shell-hard and patient; when the cold finally cracks, the whole mountain seems to come down with it."

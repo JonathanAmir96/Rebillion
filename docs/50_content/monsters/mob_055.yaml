@@ -20,5 +20,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.0
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers on a steady wingbeat, head tilting to scan the strand below."
+  walk: "Wheels in a slow banking circuit, wings holding a steady glide."
+  jump: "A sudden upward wingbeat that gains height in an instant."
+  fall: "Drops out of its circuit in a loose, wings-tucked plummet."
+  attack: "Folds its wings and drops in a sudden stooping dive, beak leading."
+  hit: "Staggers a wingbeat off course before righting itself."
+  die: "Wings crumple and it tumbles out of the air."
 drop_table: drop_mob_055
 flavor: "A big-winged shore gull grown bold and mean on gutted fish, wheeling over the tideline for anything that looks soft. It folds and drops without warning, all beak and salt-stink."

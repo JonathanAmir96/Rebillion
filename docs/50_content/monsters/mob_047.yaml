@@ -24,6 +24,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 6.0
     telegraph_s: 1.0
+    animation_note: "Digs its forehooves in and lines its antlers dead ahead before driving forward in a slow, heavy gore."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.6 }
       - { op: knockback, distance: 2, vertical: 1 }
@@ -32,6 +33,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 10.0
     telegraph_s: 1.3
+    animation_note: "Rears up on its hind legs and slams down, sending a shockwave of thorn out from its shell."
     effects:
       - { op: deal_damage, element: nature, mult: 1.3 }
       - { op: apply_status, status: root, chance: 0.7, dur: 3 }
@@ -40,6 +42,7 @@ abilities:
     targeting: { shape: line, length: 8, width: 2 }
     cooldown: 8.0
     telegraph_s: 1.1
+    animation_note: "Arches its shell and bristles its spines outward before loosing them down the line."
     effects:
       - { op: deal_damage, element: nature, mult: 1.4 }
       - { op: apply_status, status: poison, chance: 0.7, dur: 10, stacks: 2 }
@@ -48,6 +51,7 @@ abilities:
     targeting: self
     cooldown: 18.0
     telegraph_s: 1.4
+    animation_note: "Hunkers down and draws its shell in tight as a fresh layer of moss visibly thickens over it."
     effects:                      # shell-intact defensive layer (phase 1)
       - { op: grant_shield, scaling: max_life, mult: 0.10, dur: 12 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
@@ -56,6 +60,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 9.0
     telegraph_s: 1.2
+    animation_note: "Rears back on its cracked shell and bellows before charging in a wide, thrashing gore."
     effects:                      # cracked-shell fury (phase 2)
       - { op: deal_damage, element: neutral, mult: 1.9 }
       - { op: knockback, distance: 3, vertical: 1 }
@@ -64,6 +69,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 11.0
     telegraph_s: 1.4
+    animation_note: "Splits its cracked shell wider and hunches low before erupting a burst of spores outward."
     effects:
       - { op: deal_damage, element: nature, mult: 1.7 }
       - { op: apply_status, status: poison, chance: 0.9, dur: 10, stacks: 3 }
@@ -72,6 +78,7 @@ abilities:
     targeting: self
     cooldown: 24.0
     telegraph_s: 1.5
+    animation_note: "Slams both forehooves down and rakes the ground before a brood of sporelings surges up around it."
     effects:
       - { op: summon_entity, entity_ref: mob_028, count: 2, dur: 30 }   # sporeling adds (cap 1-2, §12)
 phases:                           # boss_scripted phase contract (AI_BEHAVIOR §15)
@@ -87,5 +94,17 @@ phases:                           # boss_scripted phase contract (AI_BEHAVIOR §
     added_abilities: [goring_rampage, spore_eruption, summon_brood]
     enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands massive and unhurried, moss-armored shell rising and falling with slow breath."
+  walk: "Plods forward in a heavy, deliberate lumber, its shell scraping low branches."
+  jump: "A short, ground-shaking hop that barely clears its own bulk."
+  fall: "Lands with its full armored weight, shell settling with a heavy thud."
+  attack: "Lowers its antlers and drives forward in a slow, weighty gore."
+  cast: "Plants all four legs and draws inward before releasing a burst from beneath its shell."
+  hit: "Absorbs the blow with a shudder that barely reaches past its armored shell."
+  die: "Sinks down by degrees, the great shell finally settling still over the grove floor."
+  telegraph: "Digs in and holds dead still, antlers braced for what comes next."
+  spawn: "Rises up out of the grove floor, its moss-armored shell shedding a century of leaf-litter."
+  phase_shift: "The shell splits down its length with a heavy crack, baring the raw, unarmored bulk beneath."
 drop_table: drop_mob_047
 flavor: "A moss-armored beetle-stag older than the hollow that took its name from him, his shell a slab of living green that has turned a hundred years of blades. He fights slow and unbothered behind that carapace until it finally splits, and then the patient king becomes a goring wreck that seeds the grove with his brood as he charges."

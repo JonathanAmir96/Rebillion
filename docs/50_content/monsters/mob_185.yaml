@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   swoop_speed_mult: 2.2
   aggro_radius: 8
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs in the haze with wings folded slow and heavy, barely stirring."
+  walk: "Beats a wide, silent wingbeat as it patrols the air lane above the fight."
+  jump: "Kicks off in a sudden upward wing-snap."
+  fall: "Drops into a loose stall before catching itself on open wings."
+  attack: "Folds its wings and stoops into a fast diving strike."
+  hit: "Staggers mid-air, wings flaring wide to catch itself."
+  die: "Goes rigid and drops out of the air like a snuffed light."
 drop_table: drop_mob_185
 flavor: "A moth the size of a shield, its wings cut from the torn dark between the shards. It eats the light off your lantern before it eats you."

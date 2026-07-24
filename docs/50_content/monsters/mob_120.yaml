@@ -22,6 +22,14 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands rigid at its post, halberd grounded and still."
+  walk: "Pivots and shifts within its stair in a stiff, mechanical patrol."
+  jump: "A stiff-legged brace as it plants itself firmer."
+  fall: "Drops back into its stance without breaking form."
+  attack: "Swings its halberd through the same slow, certain arc."
+  hit: "Staggers a half-step, then resets its stance."
+  die: "Topples backward, halberd clattering from its grip."
 drop_table: drop_mob_120
 # corpse-soldier still standing its post (AI_BEHAVIOR §6) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "An armored corpse-soldier of the drowned garrison, frozen into its rusted plate and still standing its post at a flooded stair. It answers every intruder with the same slow, certain halberd-sweep it has practiced for centuries."

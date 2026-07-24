@@ -27,9 +27,20 @@ abilities:
     targeting: { shape: line, length: 8, width: 2 }
     cooldown: 9.0
     telegraph_s: 1.1                # windup plays the telegraph state (AI_BEHAVIOR §2)
+    animation_note: "The lowered head and dug-in stance point straight down the charge lane before the ram bursts free."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.9 }
       - { op: knockback, distance: 3, vertical: 1 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Looms motionless, wreckage-hide creaking with each slow, heaving breath."
+  walk: "Advances in a heavy, grinding tread that shakes loose debris with every step."
+  jump: "Launches off any ledge mid-charge, wreckage trailing in its wake."
+  fall: "Crashes down still driving forward, indifferent to the height of the drop."
+  attack: "Plows through the charge lane in a full-body ram that flattens everything ahead."
+  telegraph: "Digs in and lowers its head, wreckage groaning as it braces for the charge."
+  hit: "Shudders along its whole frame, loose plating clattering off."
+  die: "Buckles forward and comes apart in a slow collapse of drowned wreckage."
+  spawn: "Heaves up out of the surf, shedding a curtain of water as it rises."
 drop_table: drop_mob_227
 flavor: "A mountain of drowned wreckage that gathers speed across the flats and rams straight through a foothold line. The charge is death; the long stumble after is the opening."

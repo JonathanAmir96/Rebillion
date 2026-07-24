@@ -23,5 +23,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sways gently in place, muttering wards under a bowed hood."
+  walk: "Shuffles backward toward its kin, keeping its distance from any threat."
+  jump: "Hops back over a gap without breaking its chant."
+  fall: "Drifts down loosely, hood trailing, chant unbroken."
+  cast: "Raises both hands and traces a ward-glyph over a nearby ally."
+  hit: "Flinches and clutches its chant close, robes snapping."
+  die: "Crumples mid-syllable, the unfinished ward flickering out."
 drop_table: drop_mob_189
 flavor: "A robed husk of an apprentice who never left the Reach, still chanting the wards that keep its fellows aloft rather than lifting a hand against you."

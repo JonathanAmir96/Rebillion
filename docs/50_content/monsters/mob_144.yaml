@@ -22,5 +22,14 @@ ai_params:
   attack_cooldown_s: 2.4
   windup_s: 0.7
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; +cast (caster); no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits mounted flush to the wall, its lens dimly aglow at rest."
+  walk: "Swivels its whole housing along a short wall-mounted rail."
+  jump: "Jolts a fraction upward on its mount as its charge spikes."
+  fall: "Settles back flush against the wall after the charge spike."
+  attack: "Sweeps a beam of stored arclight through its arc of fire."
+  cast: "Lens brightens steadily as its stored charge gathers toward release."
+  hit: "Housing rattles against the wall before its glow steadies again."
+  die: "Lens goes dark and the housing sags loose on its mount."
 drop_table: drop_mob_144
 flavor: "A wall-set beam-caster that still sweeps its arc of stored arclight across the approach. The charge-glow is your only warning and your only mercy; it is a fixed, learnable line."

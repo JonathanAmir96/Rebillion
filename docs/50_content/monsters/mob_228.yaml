@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: melee_arc, arc_degrees: 140, radius: 2.5 }
     cooldown: 7.0
     telegraph_s: 0.9
+    animation_note: "The raised blade held wide for a beat telegraphs the sweeping arc that follows."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.7 }
       - { op: apply_status, status: stun, chance: 0.4, dur: 1.5 }
@@ -35,8 +36,19 @@ abilities:
     targeting: { shape: aoe_circle, radius: 3, origin: self }
     cooldown: 12.0
     telegraph_s: 1.3
+    animation_note: "Both hands plunge into the sand and drag upward, signalling the grasping tide about to erupt around it."
     effects:
       - { op: apply_status, status: root, chance: 0.7, dur: 3 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands at rigid attention, drowned plate dripping in slow, steady drops."
+  walk: "Marches a short, disciplined loop, boots dragging through wet sand."
+  jump: "A stiff, armored hop that barely breaks its formal bearing."
+  fall: "Lands square-footed, plate settling with a heavy metallic clank."
+  attack: "Swings its blade in a wide, disciplined arc meant to hold the line."
+  telegraph: "Plants its feet and raises its blade high, plate locking rigid for the strike."
+  hit: "Absorbs the blow without breaking stance, plate ringing dully."
+  die: "Sinks to one knee and topples, plate settling motionless in the sand."
+  spawn: "Rises from the drowned ranks and squares its shoulders to the field."
 drop_table: drop_mob_228
 flavor: "A drowned marshal still clad in the black plate of a lost garrison, holding the last strand as if orders never came to fall back."

@@ -20,5 +20,13 @@ ai_params:                       # override only timid_grazer-declared tunables
   flee_speed_mult: 1.6
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits low with cheeks working, ears swiveling toward every small sound."
+  walk: "Scurries forward in short low-backed dashes, nose down and twitching."
+  jump: "A quick startled hop, all four paws leaving the ground at once."
+  fall: "Tucks tight and drops without any attempt to right itself."
+  attack: "Rears up and snaps forward in one quick nipping bite."
+  hit: "Flattens low and skitters back a half-step, whiskers pinned."
+  die: "Curls into a tight ball and goes still."
 drop_table: drop_mob_029
 flavor: "A fat-cheeked burrower that grazes the hollow's mushroom shelves and vanishes down a root-hole at the first crunch of your step. Corner one and it will bite, for whatever a vole's teeth are worth."

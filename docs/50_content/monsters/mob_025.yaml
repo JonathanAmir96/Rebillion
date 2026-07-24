@@ -25,6 +25,7 @@ abilities:
     targeting: melee_arc
     cooldown: 6.0
     telegraph_s: 0.9
+    animation_note: "Bares its full ridge of fangs and shudders before snapping forward in a wide gnashing bite."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.4 }
       - { op: apply_status, status: sunder, chance: 0.5, dur: 6 }
@@ -33,9 +34,20 @@ abilities:
     targeting: self
     cooldown: 16.0
     telegraph_s: 1.2
+    animation_note: "Throws its head back in a long screeching call that draws its pack in from every side."
     effects:
       - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
       - { op: summon_entity, entity_ref: mob_013, count: 3, dur: 20 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched and bristling at the center of its pack, fur-ridge raised."
+  walk: "Swaggers forward in a heavy rolling gait, pack rats parting around it."
+  jump: "Shoulders through obstacles in a short, forceful bound."
+  fall: "Lands stiff-legged with a thud, its ridge of fur snapping upright."
+  attack: "Lunges with a wide gnashing bite, its whole scarred head driving forward."
+  telegraph: "Plants its forepaws and bares its fangs in a long, snarling wind-up."
+  hit: "Rocks back with a snarl, ridge fur bristling higher."
+  die: "Topples heavily onto its side, ridge fur settling flat."
+  spawn: "Shoulders up out of the cellar dark, pack rats scattering into place around it."
 drop_table: drop_mob_025
 flavor: "A rat swollen past all reason on cellar spoil, scarred snout to tail and crowned with a matted ridge of fur. It fights behind a wall of its own kin, and when they thin it simply calls up more."

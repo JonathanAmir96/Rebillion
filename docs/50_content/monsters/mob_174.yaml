@@ -28,6 +28,7 @@ abilities:
     targeting: projectile
     cooldown: 4.0
     telegraph_s: 0.8
+    animation_note: "Draws its hands together, a visible point of frost gathering before it snaps forward as a lance."
     effects:
       - { op: deal_damage, element: frost, mult: 1.7 }
   - id: blizzard
@@ -35,9 +36,21 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: target }
     cooldown: 13.0
     telegraph_s: 1.6
+    animation_note: "Raises both arms high, the whole target area beginning to whiten before the squall drops."
     effects:
       - { op: deal_damage, element: frost, mult: 1.2 }
       - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands with robes billowing faintly, hands cupped before it, breath fogging thick."
+  walk: "Backs away in small, measured steps, eyes never leaving its target."
+  jump: "A short backward hop, robes snapping."
+  fall: "Lands lightly, already drawing its hands together."
+  attack: "Snaps its hands forward, flinging a spear of ice."
+  cast: "Raises both arms overhead, drawing the surrounding cold inward."
+  hit: "Flinches back a step, robes flaring, casting interrupted."
+  die: "Collapses in a slow settle of robes and dissipating frost."
+  telegraph: "Draws its hands together, frost gathering visibly between its palms."
+  spawn: "Fades into view amid a swirl of blown snow, hands already rising."
 drop_table: drop_mob_174
 flavor: "A robed summit-mage whose breath fogs the air three paces out, calling squalls down onto anything that closes. It never wants you near, and works hard to keep it that way."

@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 3
   aggro_vertical_band: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs flat and motionless against a shadowed surface, barely a silhouette."
+  walk: "Glides forward in a low, silent drift once it breaks cover."
+  jump: "Stretches upward into a thin dark column to cross a gap."
+  fall: "Pours downward and re-flattens against the nearest surface."
+  attack: "Lunges out of stillness and wraps around its target in one grasping surge."
+  hit: "Recoils into a ragged, smoke-like tear."
+  die: "Unravels into thinning wisps that scatter on the haze."
 drop_table: drop_mob_191
 flavor: "A smear of the shore's darkest mist that hangs motionless against a shadowed cliff until you pass, then wears your own shadow to strike."

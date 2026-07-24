@@ -21,5 +21,13 @@ ai_params:
   pack_call_radius: 9
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits balled into a tight knot of interlocked gears, clicking and shifting minutely."
+  walk: "Scuttles low and fast on many small gear-legs in a chattering scramble."
+  jump: "Springs upward in a jittery ratchet-hop, legs bunching under it."
+  fall: "Drops in a loose tumble, legs still cycling as if still running."
+  attack: "Lunges forward and snaps its gnashing front gears shut on the target."
+  hit: "Rattles and scatters apart for a beat before clicking back into its knot."
+  die: "Unwinds into a spray of loose gears that roll and clatter still."
 drop_table: drop_mob_129
 flavor: "A skittering knot of loose brass gears that scavenges the ruin floor in chattering droves. One is underfoot; a dozen answering its clatter will strip a trespasser to the bone."

@@ -19,5 +19,13 @@ ai_params:                       # override only passive_wanderer-declared tunab
   wander_radius: 6
   flee_duration_s: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Floats low and still at the water's edge, throat pulsing in a slow rhythm."
+  walk: "Noses forward in an aimless, low-slung waddle, oblivious to almost everything around it."
+  jump: "A clumsy, flat-footed hop that barely lifts it off the mud."
+  fall: "Drops without any attempt to right itself, legs splayed loose."
+  attack: "A single feeble snap of the jaw, thrown only when there is nowhere left to flee."
+  hit: "Flinches with a full-body shudder and a startled backward scoot."
+  die: "Rolls onto its side, legs curling slowly inward as it stills."
 drop_table: drop_mob_071
 flavor: "A dull grey amphibian that noses through the standing water for grubs, blind to almost everything. It fights only when cornered, and badly."

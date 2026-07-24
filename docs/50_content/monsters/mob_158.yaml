@@ -22,5 +22,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.0
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs on an updraft with wings locked, head tilting to scan below."
+  walk: "Rides the air lane in a steady beating glide back and forth."
+  jump: "A sharp upward wingbeat to gain height before folding in."
+  fall: "Tucks its wings and drops into a plunging stoop."
+  attack: "Folds fully into a screaming dive, talons leading."
+  hit: "Wings flare wide to catch itself, feathers ruffling."
+  die: "Wings collapse and it tumbles out of the air."
 drop_table: drop_mob_158
 flavor: "A rime-feathered raptor that rides the crag updrafts and folds into a screaming dive. Between passes it climbs out of reach to line up the next."

@@ -22,5 +22,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.6
   charge_recover_s: 2.4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched and swaying, head low, joints ticking as it cools."
+  walk: "Lumbers forward with a heavy, ground-shaking gait."
+  jump: "Heaves into a short, jarring bound mid-charge."
+  fall: "Lands with a heavy, smoking thud, knees braced wide."
+  attack: "Lowers its head and drives forward in a full-body slamming rush."
+  hit: "Rocks backward as loose cinders slough from its shoulders."
+  die: "Topples forward and comes apart in a settling pile of spent slag."
 drop_table: drop_mob_102
 flavor: "A hulking thing of caked cinder and molten sinew that lowers its head and comes on like a rockslide. The ground it crosses is left smoking in its wake."

@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies flat and still across the ground, indistinguishable from spilled shadow."
+  walk: "Seeps forward in a slow, boneless crawl once it abandons its cover."
+  jump: "Rears up into a loose column before pouring itself across a gap."
+  fall: "Pours downward like spilled ink finding a new level."
+  attack: "Surges upward in a sudden grasping lunge from flat stillness."
+  hit: "Ripples and draws inward at the point of impact."
+  die: "Thins and dissipates into wisps that sink into the ground."
 drop_table: drop_mob_182
 flavor: "A pool of void-mist that lies flat as spilled ink across a shard until a foot finds it. What it grabs, it drinks."

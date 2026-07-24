@@ -22,5 +22,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.5
   charge_recover_s: 2.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats low on the ice, legs tucked, shell rocking with each breath."
+  walk: "Scuttles forward on stubbed legs in short scraping bursts."
+  jump: "Kicks off the ice in a low launching hop."
+  fall: "Comes down shell-first, legs bracing wide on impact."
+  attack: "Barrels forward and rams shell-first into whatever is ahead."
+  hit: "Shell judders and legs skitter for new purchase."
+  die: "Legs fold inward and the shell settles flat on the ice."
 drop_table: drop_mob_153
 flavor: "A blue-shelled crustacean the size of a war-shield, it launches off the ice on stubbed legs and slams shell-first. Whiff its charge and the recovery is yours."

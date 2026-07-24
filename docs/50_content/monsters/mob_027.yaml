@@ -25,6 +25,7 @@ abilities:
     targeting: self
     cooldown: 18.0
     telegraph_s: 1.3
+    animation_note: "Slaps his tails against the stone floor, calling a scrabbling wave of rats up out of the grain."
     effects:
       - { op: summon_entity, entity_ref: mob_013, count: 3, dur: 30 }
   - id: royal_gnaw
@@ -32,6 +33,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 6.0
     telegraph_s: 1.0
+    animation_note: "Rears his crowned head back before snapping down in a wide, braced bite."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.5 }
       - { op: apply_status, status: sunder, chance: 0.5, dur: 6 }
@@ -40,6 +42,7 @@ abilities:
     targeting: { shape: line, length: 6, width: 2 }
     cooldown: 8.0
     telegraph_s: 1.1
+    animation_note: "Draws in a wet, heaving breath and hunches low before spraying a line of filth from his jaws."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.4 }
       - { op: apply_status, status: weaken, chance: 0.6, dur: 5 }
@@ -48,6 +51,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 12.0
     telegraph_s: 1.4
+    animation_note: "Swells his whole bloated body taut before releasing a bursting ring of plague around himself."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.6 }
       - { op: apply_status, status: weaken, chance: 0.7, dur: 6 }
@@ -56,6 +60,7 @@ abilities:
     targeting: self
     cooldown: 24.0
     telegraph_s: 1.5
+    animation_note: "Throws his head back in a booming roar that calls a heavier pack up from the drowned stores."
     effects:
       - { op: apply_status, status: empower, chance: 1.0, dur: 10 }
       - { op: summon_entity, entity_ref: mob_020, count: 2, dur: 30 }
@@ -64,6 +69,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3
+    animation_note: "Coils all his tails together before whipping them out in one wide, crushing sweep."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.7 }
       - { op: knockback }
@@ -79,5 +85,17 @@ phases:                          # boss_scripted phase contract (AI_BEHAVIOR §1
     added_abilities: [royal_summon, tail_thrash]
     enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Slumps heavy and bloated on his throne of grain, tails coiling restlessly at his sides."
+  walk: "Drags his swollen bulk forward in a slow, throne-bound waddle."
+  jump: "Heaves his whole bulk into a short, ground-shaking hop."
+  fall: "Crashes down foursquare, tails slapping the flooded stone."
+  attack: "Snaps forward with a wide, tail-braced gnawing bite."
+  cast: "Rears back and gathers a churning cloud of filth before releasing it."
+  telegraph: "Plants all four legs and bares his crowned fangs in a long, rumbling wind-up."
+  hit: "Staggers back with a wet snarl, tails lashing for balance."
+  die: "Sinks down tail by tail, his bulk finally settling still on the drowned grain."
+  spawn: "Heaves up off his throne, grain and water sluicing off his flanks."
+  phase_shift: "Rears up onto his hind legs in a full-body roar as the flood rises around him."
 drop_table: drop_mob_027
 flavor: "A rat-king bloated past standing, throned on Millbrook's drowned grain stores with his tails knotted to his own vermin court. He does not fight so much as reign, drowning the cellar in gnawing waves until the last of his subjects fall — and this is where the Undervault Heist ends."

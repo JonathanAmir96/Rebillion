@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies half-sunk and motionless in the surf, indistinguishable from wreckage."
+  walk: "Drags itself forward on knotted limbs in a slow, waterlogged crawl."
+  jump: "Heaves up out of the surf in one lurching burst."
+  fall: "Slaps back down into the shallows in a loose, boneless sprawl."
+  attack: "Snatches out with a tangle of limbs and hauls its catch under."
+  hit: "Convulses and draws its limbs in tight against the impact."
+  die: "Goes slack and sinks back beneath the surf without another twitch."
 drop_table: drop_mob_223
 flavor: "A knot of drowned limbs half-sunk in the surf, motionless until a shadow falls across it, then all grip and drag."

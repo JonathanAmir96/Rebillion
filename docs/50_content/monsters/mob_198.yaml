@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   charge_speed_mult: 2.7
   charge_recover_s: 2.3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers massive and still, its rune-plating drifting slightly out of alignment."
+  walk: "Advances in a heavy, grinding drift before surging into a full charge."
+  jump: "Crosses a gap mid-charge without breaking its line."
+  fall: "Drops hard, rune-plating scattering sparks on impact."
+  attack: "Rams forward in a full-body slam, plating flaring along the line of the charge."
+  hit: "Shudders and a plate knocks loose, drifting free."
+  die: "Comes apart plate by plate and settles into a drifting wreck."
 drop_table: drop_mob_198
 flavor: "The last of the great wardens built to hold the archipelago in place, now torn loose and charging anything that nears the Anchor Vault. A grim rehearsal of what waits within."

@@ -26,6 +26,7 @@ abilities:
     targeting: melee_arc
     cooldown: 6.5
     telegraph_s: 1.0
+    animation_note: "Squares fully to the threshold before swinging its whole mass shut in one slam."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.7 }
       - { op: apply_status, status: sunder, chance: 0.7, dur: 8 }
@@ -34,9 +35,20 @@ abilities:
     targeting: self
     cooldown: 16.0
     telegraph_s: 1.2
+    animation_note: "Locks its plating rigid and flat, a widening pulse marking the hold."
     effects:
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
       - { op: taunt, radius: 6, dur: 4 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands planted like a shut door, seams of its plating ticking faintly."
+  walk: "Takes slow, deliberate steps in a tight loop before the threshold."
+  jump: "Rises briefly onto its edge in a stiff, door-like tilt."
+  fall: "Comes back down flat and square with a heavy, final-sounding thud."
+  attack: "Swings its whole slab body through a wide, door-like slam."
+  telegraph: "Squares itself fully toward the threshold and locks its stance."
+  hit: "Barely shifts, plating groaning as the impact rolls off it."
+  die: "Tips slowly off its hinge-line and settles flat across the doorway."
+  spawn: "Unfolds upright from a flat slab into its full standing height."
 drop_table: drop_mob_147
 flavor: "A door made to walk, twice the height of the gate it once was, still barring a hall that leads nowhere. It plants itself in the threshold and dares the ruin to move it."

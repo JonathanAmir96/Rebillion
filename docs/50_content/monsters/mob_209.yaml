@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   charge_speed_mult: 2.8
   charge_recover_s: 2.6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Crouches flat to the ground, haunches coiled and trembling."
+  walk: "Slinks forward low and silent before breaking into a dead sprint."
+  jump: "Launches into a flat, driving leap aimed straight at the target."
+  fall: "Twists to land four-footed, already skidding into its next stride."
+  attack: "Ends its rush in a full-body slam, jaws snapping shut on impact."
+  hit: "Recoils onto its haunches, a ragged snarl breaking its charge."
+  die: "Collapses mid-stride, legs folding out from under it one by one."
 drop_table: drop_mob_209
 flavor: "A low, sprinting silhouette that commits to a headlong rush the instant it sights warm blood. Sidestep the lunge and its long recovery is yours to punish."

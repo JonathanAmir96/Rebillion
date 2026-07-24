@@ -20,5 +20,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats low in the muck, throat sac slowly inflating and deflating."
+  walk: "Hops in short heavy bounds, keeping the same wary distance from its target."
+  jump: "Kicks off in a high defensive hop, legs tucked beneath its bloated body."
+  fall: "Lands with a wet flop, throat sac already swelling again."
+  attack: "Rears back and lobs a gob from its throat sac in a long spitting arc."
+  hit: "Flinches back on its haunches, throat sac collapsing."
+  die: "Sags flat, throat sac deflating one last time."
 drop_table: drop_mob_017
 flavor: "A bloat-bellied toad squatting in the flooded cellar sumps, its throat sac working between spits. It lobs a gob of bilge from across the water and hops back before you can close the gap."

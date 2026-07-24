@@ -28,6 +28,7 @@ abilities:
     targeting: self
     cooldown: 22.0
     telegraph_s: 1.4
+    animation_note: "Swells its cap rim taut and shudders before a fresh clutch of sporelings buds loose."
     effects:
       - { op: summon_entity, entity_ref: mob_028, count: 2, dur: 25 }   # sporeling adds (cap 1-2, §12)
   - id: spore_spray
@@ -35,9 +36,21 @@ abilities:
     targeting: { shape: line, length: 6, width: 2 }
     cooldown: 8.0
     telegraph_s: 1.1
+    animation_note: "Draws its cap in tight and rears back before exhaling a long sweeping spray down the line."
     effects:
       - { op: deal_damage, element: nature, mult: 1.4 }
       - { op: apply_status, status: poison, chance: 0.8, dur: 10, stacks: 2 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # caster/summoner elite: +cast +telegraph +spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats low and bloated, cap pulsing steadily as sporelings bud along its rim."
+  walk: "Waddles forward heavily, trailing a scatter of newly budded sporelings."
+  jump: "A single lumbering hop that scatters loose spores from its cap."
+  fall: "Lands with a heavy squat, cap rim rippling with the impact."
+  attack: "Lunges forward in a short, bloated headbutt."
+  cast: "Draws its cap taut and exhales in one long, sweeping spray."
+  hit: "Flinches, its cap rim rippling outward with the impact."
+  die: "Deflates fully, its cap collapsing flat as the budding stops."
+  telegraph: "Swells its cap to full size, rim bulging before it releases."
+  spawn: "Heaves up out of the hollow floor, cap already crowded with budding sporelings."
 drop_table: drop_mob_046
 flavor: "A bloated mother-cap ringed by the sporelings she buds without end, each one a fresh body to throw between you and her. Cut them down and she simply seeds two more, then hoses the gap with a spray no lungs should meet."

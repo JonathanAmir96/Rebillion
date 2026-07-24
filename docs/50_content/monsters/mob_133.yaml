@@ -21,5 +21,13 @@ ai_params:
   charge_speed_mult: 2.6
   charge_recover_s: 2.4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits low and wedge-shaped, counterweights rocking with each idle tick."
+  walk: "Rolls forward on grinding tread-wheels, gathering into a steady roll."
+  jump: "Bounces stiffly over an obstacle without breaking its forward line."
+  fall: "Drops nose-first and lands with a heavy grinding jolt."
+  attack: "Throws its whole mass into a straight-line shoving ram."
+  hit: "Shudders and grinds to a brief halt, counterweights swinging wild."
+  die: "Locks its wheels and keels over sideways in a slow grinding stop."
 drop_table: drop_mob_133
 flavor: "A wedge of counterweighted brass built to shove ore-carts, now shoving anything that moves. It commits its whole mass to a straight line and needs a long, grinding moment to reset."

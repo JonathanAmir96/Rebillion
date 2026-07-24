@@ -22,5 +22,13 @@ ai_params:                       # override only support_caller-declared tunable
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands with head bowed, hands cupped around a small held ember."
+  walk: "Retreats toward its kin in a hurried, robe-dragging shuffle."
+  jump: "Stumbles into a hop to clear ground while falling back."
+  fall: "Lands off-balance, catching its trailing robes underfoot."
+  attack: "Raises both palms and chants, pouring a wave of heat into a nearby kinsman."
+  hit: "Reels backward, clutching its scorched robes."
+  die: "Crumples to its knees as the ember in its hands goes dark."
 drop_table: drop_mob_097
 flavor: "A robed devotee of the barrens' eternal fire, hood scorched to tatters, who chants the heat into its kin rather than fight. It keeps to the backline and the coals it feeds."

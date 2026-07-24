@@ -22,6 +22,14 @@ ai_params:                       # override only passive_wanderer-declared tunab
   flee_duration_s: 4
   leash_radius: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs motionless, its bell pulsing in a slow open-close rhythm."
+  walk: "Drifts sideways on the current, trailing fringe swaying behind it."
+  jump: "A soft upward pulse that barely breaks its drift."
+  fall: "Settles downward without resistance, fringe streaming above it."
+  attack: "Drifts forward and lets its fringe trail across the target."
+  hit: "Contracts sharply, fringe snapping inward."
+  die: "Goes slack and folds in on itself as it sinks."
 drop_table: drop_mob_110
 # ambient drifter; ignores the diver unless struck (AI_BEHAVIOR §3) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A drifting bell of near-clear ice-jelly, pulsing with a slow inner light as it wanders the cold currents. It means no harm and gives none, until you brush its freezing fringe."

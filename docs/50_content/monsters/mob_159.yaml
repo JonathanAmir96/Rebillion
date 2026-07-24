@@ -22,5 +22,14 @@ ai_params:                       # override only support_caller-declared tunable
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set + cast (ranged/caster)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hooded and still, hands folded before it in quiet prayer."
+  walk: "Retreats in small careful steps, staying close to its kin."
+  jump: "A short flinching hop, robes flaring."
+  fall: "Lands with robes settling heavily around it."
+  attack: "A weak, reluctant shove, thrown only when cornered."
+  cast: "Raises both hands and traces a slow rite over a nearby ally."
+  hit: "Stumbles and clutches its robes tighter."
+  die: "Sinks to its knees, hood falling forward, and goes still."
 drop_table: drop_mob_159
 flavor: "A hooded devotee of the summit-cold that hangs back and hardens its kin with a whispered rite. Alone it is nearly harmless; among a pack it is the reason the pack holds."

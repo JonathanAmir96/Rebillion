@@ -22,5 +22,14 @@ ai_params:                       # override only profile-declared tunables (AI_B
   preferred_range_max: 9
   attack_cooldown_s: 1.6
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands rigid and faceted, surfaces catching faint glints of nonexistent light."
+  walk: "Glides backward in small careful steps, keeping its distance measured."
+  jump: "A brittle, stiff-legged hop to clear ground while repositioning."
+  fall: "Lands with a faint chime, joints resettling into place."
+  attack: "Lashes out in a short defensive swipe when something reaches melee range."
+  cast: "Splits a hand into shards and flings a spray of glass forward."
+  hit: "Cracks along one edge and shudders, catching itself before shattering."
+  die: "Shatters outward into a scatter of dulling shards."
 drop_table: drop_mob_217
 flavor: "A brittle, faceted wraith that flings shards of black glass and keeps its distance, shattering at the touch of anything that reaches it."

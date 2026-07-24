@@ -20,5 +20,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands broad and scarred, surveying the vault with slow, deliberate weight."
+  walk: "Prowls a short heavy patrol, claws scraping the flooded stone."
+  jump: "Heaves itself over obstacles in a solid, weighty hop."
+  fall: "Lands foursquare with a thud, its bulk settling immediately into a guard stance."
+  attack: "Lunges forward with a heavy, scarred-jaw bite and raking claw."
+  hit: "Absorbs the blow with a wide-legged brace, barely rocking back."
+  die: "Sinks down heavily, haunches first, until it lies still."
 drop_table: drop_mob_024
 flavor: "The biggest rat-thing the undervault has yet grown, dog-sized and scarred, that keeps the drowned grain vault as if it owned the stores. It is the last lesson before the throne room, and it knows it."

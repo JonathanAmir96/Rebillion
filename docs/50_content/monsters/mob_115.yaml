@@ -22,6 +22,14 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.0
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs in place with a slow, rolling wingbeat."
+  walk: "Banks and glides in a broad patrol arc through the open water."
+  jump: "Tilts sharply upward, wings cupping to climb."
+  fall: "Folds its wings and lets itself sink in a controlled glide."
+  attack: "Tucks its wings and dives in a fast, straight plunge."
+  hit: "Staggers mid-glide, one wing dipping out of rhythm."
+  die: "Goes rigid, wings splayed, and sinks without another beat."
 drop_table: drop_mob_115
 # patrols the water column and dives (AI_BEHAVIOR §9; water lane = air lane) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A pale ray that soars the flooded nave on wings of cold water, banking through the drowned rafters and diving on anything that stirs the silt below. Its underside glows a soft, deceptive blue."

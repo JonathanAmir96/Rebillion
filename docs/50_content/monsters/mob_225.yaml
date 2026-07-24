@@ -22,5 +22,14 @@ ai_params:                       # override only profile-declared tunables (AI_B
   cast_cooldown_s: 6
   retreat_range: 7
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands with arms raised, robes stirring in an unfelt tide-wind."
+  walk: "Retreats in unhurried steps toward the deep, staying near its kin."
+  jump: "A short defensive hop back and away from an approaching foe."
+  fall: "Lands lightly, robes settling, already resuming its retreat."
+  attack: "Throws one weak, warding gesture when caught without an ally near."
+  cast: "Sweeps both arms wide, wrapping a nearby ally in a shield of churning tide."
+  hit: "Staggers and clutches its robes, chant broken for a beat."
+  die: "Sinks to its knees as its tide-shield unravels into mist."
 drop_table: drop_mob_225
 flavor: "A robed adept that calls the black tide to shield its kin and mend their wounds, retreating toward the deep whenever pressed."

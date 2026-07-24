@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   charge_speed_mult: 2.8
   charge_recover_s: 2.6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands heavy and dripping, bulk rocking with a slow waterlogged sway."
+  walk: "Lumbers forward, building speed into a low, gathering trudge."
+  jump: "Launches off any edge in its path without breaking stride."
+  fall: "Plummets straight down still driving forward, unconcerned by the drop."
+  attack: "Slams its full waterlogged bulk forward in an unstoppable ram."
+  hit: "Staggers a half-step, momentum broken, water sheeting off its hide."
+  die: "Sags and collapses in a spreading waterlogged slick."
 drop_table: drop_mob_218
 flavor: "A waterlogged bulk that builds momentum across the flats and rams straight through, heedless of ledges. The charge is unstoppable; the wind-down is not."

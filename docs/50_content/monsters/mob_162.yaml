@@ -22,5 +22,14 @@ ai_params:                       # override only kamikaze_burster-declared tunab
   detonate_range: 1
   rush_speed_mult: 1.8
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set + cast (ranged/caster)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers in a slow, drifting bob, edges shimmering faintly."
+  walk: "Drifts forward in an unhurried, weightless glide."
+  jump: "A sudden upward flick, weightless and quick."
+  fall: "Sinks slowly, drifting rather than dropping."
+  attack: "Rushes forward and bursts apart in a spray of shrapnel."
+  cast: "Draws inward, pulling its glow tight before the rush begins."
+  hit: "Scatters and reforms, edges flickering unevenly."
+  die: "Dissolves outward into a thinning cloud of frost motes."
 drop_table: drop_mob_162
 flavor: "A drifting mote of supercooled air that glitters prettily right up until it reaches you. It closes fast and bursts into a shrapnel of ice needles."
