@@ -31,6 +31,8 @@ handful of Lesser tonics; §4).
 | Sink | Owner of the number | Scales with |
 |---|---|---|
 | Consumables (tonics/cleanses/scrolls/foods) | §4 (this doc) | level band (§4) |
+| Town travel — Coachworks fares + Harborwind Ferry | §7 (this doc) | ring-hop distance (coach); flat (ferry) |
+| Millbrook Return Scroll (`item_use_0013`) | §4.1 (this doc) | flat — paid recall consumable (§7) |
 | Enhancement fee | §3 (this doc) | gear tier × target `+` |
 | Stat free-point reallocation | §3.1 (this doc) | `level` |
 | Guild creation | `10_systems/social/GUILD.md` (fee reserved here) | flat, endgame |
@@ -104,13 +106,23 @@ magnitudes are Phase D `10_systems/ITEMS.md` data):
 | Superior … (`0004`/`0009`) | Lv 26–33 | 280 | 70 |
 | Prime … (`0005`/`0010`) | Lv 34–42 | 500 | 125 |
 | Antidote (`0011`) / Thaw Salve (`0012`) | any | 50 | 12 |
-| Millbrook Return Scroll (`0013`) | any | 100 | 25 |
+| Millbrook Return Scroll (`0013`) | any | 2,500 | 625 |
 | Hearth Bread (`0014`, food buff) | any | 80 | 20 |
 | Sharpening Oil (`0015`) / Ironhide Draught (`0016`) | any | 150 | 37 |
 
 Restore/buff magnitudes are Phase D use-item data (`10_systems/ITEMS.md` §1); this table owns only
 price. A tonic tier is meant to be replaced as you out-level its band (its flat restore stops
 keeping pace) — the upgrade cadence is itself a rising sink (§6).
+
+**The Millbrook Return Scroll (`0013`) is a paid travel sink, not a cheap convenience.** Per the
+`docs/WORLD_PLAN.md` ruling (v2.2) it is a **shard-priced vendor consumable** — a single-use, one-way
+recall to Millbrook Central's `main` spawn, purchasable in advance and stockpiled — sold at every
+town's general-goods vendor. It is **not free** and there is no free warp anywhere
+(`15_maps_system/MAP_CONNECTIONS.md` §3). Its **2,500** `shards` price is set **above the priciest
+coach ride to Millbrook** (a 2-hop 1,800-`shards` fare, §7) as a deliberate convenience premium: the
+scroll recalls from **anywhere** — including dungeons, arenas, and the station-less Sunken Depths
+spur — instantly and without walking to a coach stop, where a coach only runs station-to-station
+(§7). Pricing rationale and the fare comparison live in §7.
 
 ### 4.2 Equipment (buy value by tier × rarity)
 
@@ -173,6 +185,73 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
 - **Bounded worst-case costs.** Enhancement pity (`10_systems/ENHANCEMENT.md` §3) caps the fee a
   single upgrade can demand, so no sink is an infinite `shards` pit (P2).
 
+## 7. Travel sinks — Harthmoor Coachworks fares & Harborwind Ferry
+
+Town-to-town travel is a **paid `shards` sink**, not a free warp (P3 — a legible world you traverse,
+not teleport across). `15_maps_system/MAP_CONNECTIONS.md` §3 owns the **rules** (which towns carry a
+station, the no-cooldown/no-unlock policy, the one free novice pilgrimage ride, the ferry rules);
+this section owns the **numbers** it hands off. `docs/WORLD_PLAN.md`'s "Harthmoor Coachworks" table
+is the authoritative list of stations; fares here never add or move one.
+
+**Derivation.** Fares are anchored to the `10_systems/DROPS.md` §3 shard faucet: at-level hunting
+income is `≈ 480 · mean_shards_normal(L)` (DROPS §3), which DROPS publishes as ≈ 8.6 K/hr at Lv 10,
+≈ 16 K/hr mid-arc (Lv 20, ≈ 264 `shards`/min), ≈ 23 K/hr at Lv 30, ≈ 32 K/hr at the Lv 42 arc end.
+A **1-ring-hop coach ride is priced at ≈ 4 minutes of that mid-arc income** (1,000 `shards`); each
+additional ring hop adds ≈ 80% (2 hops → 1,800). This keeps a coach ride a cozy few-minutes sink
+mid-arc — real, but never a tax — and cheaper still per-minute as income rises through the late arc.
+
+### 7.1 Coach fares (`shards`, per ride)
+
+Fare scales with **ring-hop distance** between the two stations along `docs/WORLD_PLAN.md`'s ring
+order **Millbrook ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔ Millbrook**, with **Millbrook
+Central the hub** most rides route through conceptually (`15_maps_system/MAP_CONNECTIONS.md` §3).
+Gloomwood carries no station, so the shortest ring path between two stations may pass through it
+without stopping. Ring-hop distance is the minimum number of ring steps between the two stations'
+regions (Rosen Harbor and Millbrook Central both sit in the south Millbrook hub = 0 hops apart).
+
+| Ring-hop distance | Fare (`shards`) | ≈ mid-arc income (Lv 20) |
+|---|---|---|
+| 0 (same hub: Rosen Harbor ↔ Millbrook Central) | 300 | ≈ 1 min |
+| 1 hop | 1,000 | ≈ 4 min |
+| 2 hops | 1,800 | ≈ 7 min |
+
+Two hops is the maximum between any two of the five stations. Full station-pair matrix (both
+directions cost the same; Phase D copies this):
+
+| From \ To | Rosen Harbor | Millbrook Central | Mossmere | Cindershelf | Tidewatch Port |
+|---|---|---|---|---|---|
+| **Rosen Harbor** (`map_017`) | — | 300 | 1,000 | 1,800 | 1,000 |
+| **Millbrook Central** (`map_018`) | 300 | — | 1,000 | 1,800 | 1,000 |
+| **Mossmere** (`map_043`) | 1,000 | 1,000 | — | 1,800 | 1,800 |
+| **Cindershelf** (`map_125`) | 1,800 | 1,800 | 1,800 | — | 1,000 |
+| **Tidewatch Port** (`map_071`) | 1,000 | 1,000 | 1,800 | 1,000 | — |
+
+Cindershelf (Ashfall) is the far station — 2 hops from the Millbrook hub going back through
+Tidewatch — so rides to/from it are the priciest, matching the "Cindershelf is deliberately the
+boldest first trip" note (`docs/WORLD_PLAN.md`). The **one free novice pilgrimage ride** (Rosen
+Harbor → the character's job-instructor town, `15_maps_system/MAP_CONNECTIONS.md` §3) waives one
+fare per character, server-authoritative (`10_systems/PERSISTENCE.md`); every ride thereafter is
+paid at the table above.
+
+### 7.2 Harborwind Ferry fare
+
+The **Harborwind Ferry** (`map_015`) is the sole crossing between Emberfoot Isle and Harthmoor Isle
+and charges a **flat 150 `shards` per crossing**, both directions (`15_maps_system/MAP_CONNECTIONS.md`
+§3.1). It is deliberately **small** — ≈ 1 min of Lv-8 income (≈ 7.2 K/hr, DROPS §3) — because it
+gates every fresh Lv-8 novice leaving the training island; a character has always out-hunted the
+50-`shards` starting purse (§1) well before reaching the dock, so the fare is a token sink, not a
+wall. It is a separate line item from the coach fares (they never combine on one trip).
+
+### 7.3 Millbrook Return Scroll vs the fare table
+
+The **Millbrook Return Scroll** (`item_use_0013`, priced in §4.1 at **2,500** `shards`) is the paid
+magic alternative to walking or coaching home. It is priced **above the 1,800-`shards` maximum coach
+fare to Millbrook** as a convenience premium: unlike a coach — which runs only station-to-station and
+must be reached on foot — the scroll recalls to Millbrook Central from **anywhere** (mid-field, a
+dungeon, an arena, or the station-less Sunken Depths spur, `15_maps_system/MAP_CONNECTIONS.md` §7),
+instantly, and is **bought in advance and carried**. That anywhere-instant convenience is what the
+premium buys. There is **no free recall** and no free warp (`15_maps_system/MAP_CONNECTIONS.md` §3).
+
 ## Open Questions
 
 - Every number here (starting `shards`, fee coefficients, tonic prices, `base_buy`, the 18
@@ -190,3 +269,10 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
   wants an `exp`-overflow sink it belongs in §1, balanced against §2.
 - Whether stat reallocation should be cheaper/free below some level (to lower the early
   experimentation barrier) is open; default is the flat `50·L` curve (§3.1).
+- Coach fares, the ferry fare, and the Return Scroll price (§7, §4.1) are first-pass, derived from
+  the `10_systems/DROPS.md` §3 faucet at the mid-arc (Lv 20) income anchor. They are **flat**, not
+  level-scaled, so their real bite shrinks as income rises across the arc — intended (travel should
+  feel cheaper as you grow), but confirm at the D gate that a 2-hop 1,800-`shards` fare is not
+  punishing for an under-income Lv 8–14 player who coaches early. If the ring-distance/Millbrook-hub
+  pricing model in `15_maps_system/MAP_CONNECTIONS.md` §3 needs adjustment once these land, flag it
+  back to that doc's owner (its Open Questions handed the fare table here).

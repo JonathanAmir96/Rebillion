@@ -161,11 +161,15 @@ Authored by the Phase D world-graph reconciler after all 200 maps exist, directl
   spur terminus.~~ **Resolved 2026-07-24:** VALIDATION.md §5 now tests reachability (not
   acyclicity), carves out `dead_end: true` portals, and excludes `coach` portals from the
   walk-edge match — exactly the rewording this doc's §7 required.
-- **Coach fare table.** `10_systems/ECONOMY.md` owns the `shards` fare per ride (scaling with ring
+- ~~**Coach fare table.** `10_systems/ECONOMY.md` owns the `shards` fare per ride (scaling with ring
   distance) and the ferry fare. As of this revision ECONOMY has no published coach fare table
   (it is being retabled concurrently); this doc references the model only. Handed to ECONOMY's
   owner to publish the fare table; flag if the ring-distance/Millbrook-hub pricing model here needs
-  adjustment once those numbers land.
+  adjustment once those numbers land.~~ **Resolved 2026-07-24:** `10_systems/ECONOMY.md` §7 now
+  publishes the coach fare table (ring-hop pricing, Millbrook-hub, full station-pair matrix), the
+  Harborwind Ferry fare (§7.2), and the Millbrook Return Scroll price (§4.1/§7.3), all derived from
+  the `10_systems/DROPS.md` §3 shard faucet — exactly the model §3/§3.1 of this doc asserts. Rules
+  stay here; numbers live there. The ring-distance/Millbrook-hub model needed no adjustment.
 - Whether the free novice pilgrimage ride (§3) should also cover the *return* trip, or only the
   outbound leg to the instructor's town, is a light design call — default here is outbound-only.
 - Freely-authored extra spawn names on multi-entrance maps (§2) have no stricter naming convention
