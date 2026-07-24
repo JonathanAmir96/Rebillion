@@ -2,6 +2,41 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-24 — wiki generator + per-monster animation notes (owner-directed)
+
+Branch `claude/monster-maps-design-review-d0sytf` (rebased onto main). Owner directives: (1) a
+hiddenstreet-style reference wiki generated from the YAML; (2) per-monster animation
+descriptions (attack/jump/etc., dodge visuals, boss multi-attack tells). Checked first: the
+27-finding contradiction report (`DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`) was already
+fully resolved on main (§5 log) — nothing to fix; both gates clean before starting.
+
+- **New tool `tools/wiki_gen.py`** — static HTML wiki from `docs/50_content/` (805 pages,
+  cross-linked, zero broken links): per-monster pages (stats incl. `evasion` as dodge %,
+  abilities + telegraphs + status effects, boss phases, animation notes, drops resolved to
+  item names, spawn-map reverse index), per-map pages (portals, spawn zones, NPCs, layout
+  brief), NPC/quest pages, item/skill catalogs, region indexes. Stdlib-only (reuses
+  `validate.load_yaml`); output `wiki/` is gitignored build output. Asserts nothing of its own
+  (law 2) — every number is read from the minted files.
+- **`animation_notes` contract** — `20_schemas/monster.schema.md` gains optional
+  `animation_notes` (map state → ≤1-sentence visual brief; keys ⊆ `animation_states`; motion/
+  silhouette only — palette stays ART_BIBLE's, timing stays ANIMATION_TIMING's; new rule 11)
+  and `abilities[].animation_note` (wind-up tell + release read). Enforced in
+  `docs/VALIDATION.md` §6 + `tools/validate.py` (subset + non-empty). Worked example re-synced
+  to minted `mob_011` in full (C-07 lesson).
+- **Content: all 234 monsters authored** — R1 exemplar batch first (mob_001–012), then 10
+  region-scoped author sub-agents (R2–R11, Phase D batch pattern) for mob_013–234. Machine-
+  verified: 234/234 files, notes keys == declared states everywhere, all 143 elite/boss
+  abilities carry `animation_note`, boss `phase_shift` notes sell each phase transition.
+  Gates after landing: `validate.py` 0/0; `md_graph.py` 1 component / 0 orphans.
+- **Open (owner calls, flagged not guessed):** (a) no evade/dodge visual exists — the 12-state
+  set is closed, so a successful `evasion` roll is presentation-only; logged in
+  `ANIMATION_STATES.md` Open Questions (13th `evade` state vs. reuse rule, frame budget needs
+  Agent-3/ART_BIBLE blessing). (b) Owner's MapleStory-style 30 s skill-lock idea vs. the
+  current `silence` framework (soft CC, authored ≤3 s on bosses) — a balance-pass call, not
+  authored. (c) Batch agents noted pre-existing `animation_states` declarations that don't
+  match some `ai_profile` expectations (e.g. two `kamikaze_burster` normals without
+  `telegraph`: mob_079, mob_216) — pre-existing, untouched, for the schema/AI_BEHAVIOR owners.
+
 ## 2026-07-24 — combo layer + HUD stance + advancement quest lines (owner-directed)
 
 Branch `claude/game-hud-combo-system-9n1wim` (rebased onto main). Owner directives: (1) HUD is
