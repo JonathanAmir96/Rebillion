@@ -18,7 +18,9 @@ ROLE_PRODUCER (orchestrator, top tier)
 ├── ROLE_ART_DIRECTOR      ("Agent-3" — art bible, UI spec, PixelLab QA)
 │   └── ROLE_ART_QUARTERMASTER (PixelLab budget gate — balance check + self-vs-PixelLab routing)
 ├── ROLE_QA_VALIDATOR      (VALIDATION.md enforcement, batch gates)
+├── ROLE_SECURITY_ENGINEER (anti-cheat & data-integrity assurance, security review gates)
 ├── ROLE_INTEGRATION_ENGINEER (backend/platform/pipeline design)
+├── ROLE_BACKEND_ENGINEER  (live-server implementation & ops — Elixir/OTP coding pass)
 └── ROLE_GAMEPLAY_DEVELOPER   (future coding pass, Godot)
 ```
 
@@ -34,7 +36,9 @@ Every role above has a charter file in this directory — read it before staffin
 - `docs/60_agents/roles/ROLE_ART_DIRECTOR.md`
 - `docs/60_agents/roles/ROLE_ART_QUARTERMASTER.md`
 - `docs/60_agents/roles/ROLE_QA_VALIDATOR.md`
+- `docs/60_agents/roles/ROLE_SECURITY_ENGINEER.md`
 - `docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md`
+- `docs/60_agents/roles/ROLE_BACKEND_ENGINEER.md`
 - `docs/60_agents/roles/ROLE_GAMEPLAY_DEVELOPER.md`
 
 ## Model routing law
