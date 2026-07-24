@@ -67,11 +67,44 @@ capsule entry below — that entry is left intact as history, per the newest-fir
   raid roster it was replaced with a pointer to RAID §2 rather than a fifth copy (Law 2). Left
   deliberately alone: executed/superseded historical prompts and phase reports, and content files
   that mention a raid because they *are* that raid's content.
-- **Filed, not guessed:** DATABASE_PERSISTENCE — PA-002's account-scoped weekly counter has no
-  storage home (`character_time_gate`'s PK `(character_id, gate_key)` cannot hold it); rides on the
-  unresolved account-root decision. Pre-existing and untouched: `item.schema.md` still has no trace
-  of the `tradeable` field both TRADING §4 and GACHAPON §7 are owed (Phase C), and INVENTORY §8's
-  quick-vendor would try to sell a bind-on-dispense equip roll.
+- **Rebased onto `main` @ `21ef1c6`** (PRs #10 raid-staged-runs · #11 quest expansion · #12 PixelLab
+  library) and reconciled — `raid_orrery` predates main's much richer raid model and had to become a
+  full citizen of it, not just a merged table row. Conflicts in SCOPE / WORLD_PLAN / RAID / CLAUDE /
+  WORLD_CHANNELS all resolved as **unions** (main's bonus-room + claim + run-clock model *and* the
+  fifth raid); one of the branch's Open Questions was dropped as superseded — main had already
+  resolved the "raid herald term" entry. What the integration then owed:
+  - **Bonus room `map_329` — The Orrery Reliquary** (`arcane_reach`, `secret`, opened from `map_284`
+    on a raid-entry kill), appended to main's `map_325`+ raid-bonus extension range; plus
+    `drop_raid_bonus_orrery`. **`tools/validate.py` needed three edits**, not one: `MAP_EXT_BLOCKS`,
+    `ID_RANGES["map"]` hi 328→329, and the hardcoded `RAID_BONUS_TABLES` slug allowlist. Totals now
+    **329 maps / 28 secrets / 5 bonus rooms**; WORLD_PLAN's region table carries the extension maps
+    inside each raid region's row.
+  - **Signature "the orbit"** (RAID §4) — phase-staggered shard platforms on fixed circuits, so
+    routing is a question of *when* and the party is never all in the same phase. Deliberately
+    distinct from `raid_voidtide`'s tide on mechanism (it is authored `moving_platforms` geometry,
+    an **existing** map field — the tide still needs a new param and is flagged unbuildable in
+    RAID's own OQs), scope (per-shard and staggered vs one global scalar), and effect surface
+    (reachability only, coupled to no spawn rule). Stages: `map_277` kill gate · `map_278` puzzle ·
+    `map_279` collect-and-deposit — three different patterns, satisfying §4's no-repeat law.
+- **The two flagged items are now closed (owner-directed):**
+  - **Herald.** `npc_106` **Vault Warden Iskrel** extended rather than a new NPC minted (no
+    `npc_001`–`120` extension). Placement at Highrune Sanctum `map_266` verified legal — §3 delegates
+    placement to WORLD_PLAN, and `raid_orrery`'s chain has no dedicated branch door, so §3's
+    shared-stage carve-out gained one clause. Side finding: **`raid_herald` can never meet its
+    GLOSSARY promotion condition** as the schemas stand — `npc.schema.md`'s `role` enum has no such
+    token and all five heralds are `role: handler`. Flagged, not promoted.
+  - **PA-002 storage.** New **`account_time_gate`** table (DATABASE_PERSISTENCE §3.1), the direct
+    analogue of `character_time_gate` keyed `(account_id, gate_key)`. It **follows the account root**
+    wherever the still-open account-store-placement decision lands, so it pre-empts nothing; the week
+    boundary reuses PERSISTENCE §2.1's existing anchor rather than inventing one. PERSISTENCE §2.1
+    now names the home instead of only noting the exception.
+- **Filed, not guessed:** per-stage orbit numbers (paths, speeds, phase offsets) went to RAID's
+  authoring-pass OQ. Under a separate `account` schema, that schema's write grant must widen past
+  auth-service-only — folded into the open account-store bullet. Pre-existing and untouched:
+  `item.schema.md` still has no trace of the `tradeable` field both TRADING §4 and GACHAPON §7 are
+  owed (Phase C), and INVENTORY §8's quick-vendor would try to sell a bind-on-dispense equip roll.
+  One pre-existing false claim corrected in passing: RAID said `validate.py` enforces bonus-room
+  `level_band` ⊆ region band; it only checks presence.
 
 ## 2026-07-24 — md-audit wave merged; the six audit calls ruled (owner-directed)
 
