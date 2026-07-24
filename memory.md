@@ -2,6 +2,38 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-24 — full-tree contradiction sweep (post social/cosmetics merge)
+
+Six-cluster parallel review of `main` (commit `0b1a632`), every finding hand-verified; report:
+`docs/phase_reports/DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`. Mechanical gates clean
+(`validate.py` 0/0, `md_graph.py` 1 component / 0 orphans); **27 semantic contradictions found**
+(C-01…C-27): 15 high (two live ECONOMY fare tables; tonic + T11/T12 prices vs minted content;
+`mob_151`–`160` summon-template claim colliding with the Frostpeak block; COMBAT_FORMULA `life`
+formula vs its checksum table; schema worked examples off-registry/off-curve in all four schemas;
+GUILD weekly +10% vs DROPS ×2.73 hard ceiling; guild hall `map_022`→`map_024`; stale
+day-boundary and tile-scale-lock claims; ITEMS §4 weapon-ID layout vs minted; ferry/Millbrook
+spawn-target defects) + 12 low (citation/label/pointer drift). Resolutions are **owner-directed**
+(law 4) — nothing was changed in owning docs; the report routes each finding and proposes a
+landing order (registry facts → schema exemplars → ECONOMY → ceiling call → drift batches).
+Also confirmed consistent: all 2026-07-24 social-balance numbers, cosmetics blocks, world
+arithmetic, LEVELING curves, banned-term sweep, UI/animation numbers (report §3).
+
+**Fix pass (same day, owner-directed "fix"):** 25/27 resolved on the branch — resolution log in
+the report's §5. Sides chosen: ECONOMY §7.1 fares win (§4.3 → pointer); ECONOMY prices win over
+minted content (tonics 1,200/1,500; T11/T12 bases 10,500/13,000 — 26 content rows re-minted);
+registry/minted IDs win over prose and schema exemplars everywhere (all four schemas' worked
+examples now mirror minted rows); GUILD's weekly +10% lift kept, DROPS ceiling restated ×2.73
+baseline / ×2.86 lift week; `life` checksum table's round-to-5 rule stated; 16 px tile-scale lock
+consumed by CAMERA/INVENTORY/SKILL_SYSTEM; arc phrasing standardized ("two arcs to Lv 80,
+Voidshore elites overshoot to 82"); ferry/Millbrook spawn targets re-minted per MAP_CONNECTIONS
+§2 (`from_ferry` spawn added to map_001). The two change-controlled-file findings landed as
+**owner-directed amendments**: UA-001 (UI_ART_SPEC icon grids 16/24/32 → 16/24, matching
+ART_BIBLE; nothing used 32 px) and ES-001 (ENGINEERING_STANDARDS component `Health` → `Life` per
+the `life` token). **CLAUDE.md law 5 updated (owner-directed):** "Locked files — do not edit" →
+"Change-controlled files" — agent-initiated edits still forbidden; edits land only on explicit
+owner direction and are logged in the file's `amendments` section (`AB-`/`UA-`/`ES-` ids).
+Post-fix gates clean (`validate.py` 0/0; `md_graph.py` 1 component / 0 orphans).
+
 ## 2026-07-24 — social-package balance pass + cosmetics system (owner-directed follow-ups)
 
 The two follow-ups left open by the social package (below) are done; all first-pass magnitudes are

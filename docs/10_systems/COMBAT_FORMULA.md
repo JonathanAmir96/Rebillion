@@ -128,7 +128,7 @@ Only two statuses are damage-**dealt** multipliers and thus applied inside the p
 because they are not stat folds: `empower` (+20% damage dealt) and `weaken` (−25% damage dealt),
 both on the **attacker**, magnitudes owned by `10_systems/STATUS_EFFECTS.md` §4. Their product is
 `A.damage_dealt_mult`. Every other status reaches `CombatMath` **through the stat block**, already
-folded by STATS §7 step 4: `fortify`/`sunder` via `armor`/`warding`, `chill`/`swiftness` via
+folded by STATS §7 step 4: `fortify` via `armor`/`warding`, `sunder` via `armor`, `chill`/`swiftness` via
 `haste`, `blind` via §3. DoT ticks (`burn`, `poison`) are ordinary `CombatMath` calls on the
 attacker's application-time snapshot; mitigation and element apply to them exactly as to direct
 hits (STATUS_EFFECTS §5).
@@ -200,7 +200,8 @@ in i-frames (§12) or a stability effect applies.
 
 On taking any monster damage instance, the player gains **0.40 s of i-frames**: incoming monster
 contact, attacks, and status applications deal 0 and apply nothing for the window. i-frames also
-attach to `dash`/`leap` and dodge skills (`10_systems/SKILL_EFFECTS.md`). i-frames do **not** cleanse
+attach to `dash`/`leap` skills that opt in via `iframes: true` (per-skill, default false;
+`10_systems/SKILL_EFFECTS.md`). i-frames do **not** cleanse
 DoTs already on the player (existing `burn`/`poison` keep ticking) and do **not** apply between ticks
 of a single multi-hit player skill against a monster — **monsters do not get i-frames**, so player
 combos land fully (P1). The 0.40 s window bounds monster touch/attack stacking (§13) at roughly one
@@ -209,13 +210,13 @@ evening").
 
 ## 13. Monster stat budget (LOAD-BEARING — Phase D copies these)
 
-Baseline **normal, at-level** monster stats. Formulas are authoritative; the table is the checksum.
-For any level not listed, compute from the formula (preferred) or linearly interpolate between
-adjacent rows (≤1% error).
+Baseline **normal, at-level** monster stats. Formulas are authoritative (for `life`, the formula
+**includes** the round-to-5 step below); the table is the checksum. For any level not listed,
+compute from the formula (preferred) or linearly interpolate between adjacent rows (≤1% error).
 
 | Column | Formula | Notes |
 |---|---|---|
-| `life` | `4 · (level + 3)²` | Sets time-to-kill against the §15 DPS curve. |
+| `life` | `4 · (level + 3)²`, **rounded to the nearest multiple of 5** | Sets time-to-kill against the §15 DPS curve. The rounding is part of the rule (the raw quadratic is never more than 1 off a multiple of 5, so no ties); it reproduces every table row exactly, and the table values are the canonical numbers content copies. |
 | `power` / `spellpower` | `6 + 3·level` | Given at parity; a mob attack declares one. Drives touch dmg (§13.1). |
 | `armor` / `warding` | `6·level` each (defense budget `12·level`) | Author may reallocate between the two, keeping the **sum** ≈ `12·level`. |
 | `precision` | `4·level` | The §3 at-level baseline; a mob at baseline neither over- nor under-hits. |
@@ -270,7 +271,7 @@ their script marks contact-hot.
 | `boss` | ×35 | ×2.0 | ×1.6 | ×1.2 | +0 (bosses don't dodge) | boss row; knockback-immune (§11) |
 | raid boss | §13.3 | ×2.5 (fixed) | ×1.8 | ×1.2 | +0 | CC-immune (STATUS_EFFECTS §3) |
 
-Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 150; boss Lv 60 `life` = 15 875×35 ≈ 555 700; boss
+Worked checks: elite Lv 30 `life` = 4355×6 = 26 130; boss Lv 60 `life` = 15 875×35 = 555 625; boss
 Lv 80 `power` = 246×2 = 492. Region and raid finale bosses (`docs/WORLD_PLAN.md`,
 `10_systems/social/RAID.md`) copy the row for their level and phase-tune within it.
 

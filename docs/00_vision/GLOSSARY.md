@@ -106,7 +106,8 @@ Cleanse tags (promoted at B gate): `burn_type` · `poison_type` · `chill_type` 
 `novice` is the shared pre-advancement class (Lv 1–7). The 2nd advancement (Lv 40) is a
 permanent choice of one specialization within the line (rules: 10_systems/JOBS.md). Skill
 IDs: `skill_<line>_NNN` plus `skill_novice_NNN`. 3rd-tier jobs are named-and-reserved only —
-this run authors the Lv 1–82 arcs; the game cap is 300 (initial design; see SCOPE.md).
+this run authors two arcs to Lv 80 (Voidshore elites overshoot to 82); the game cap is 300
+(initial design; see SCOPE.md).
 
 ## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in social/GUILD.md)
 `heater` · `round` · `banner` · `diamond` · `crest_ornate`

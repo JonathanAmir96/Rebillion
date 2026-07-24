@@ -118,8 +118,9 @@ layout is that doc's stub to elaborate). Anchored center. Dormant-but-designed i
 solo build, like everything party-shaped (`00_vision/PILLARS.md` P6).
 
 - **Roster list**: up to 6 rows (`10_systems/social/PARTY.md` §1), each row = name, `level`, job
-  title, same-map indicator, alive/fallen state — the same fields the HUD party frames show
-  (`10_systems/HUD.md` §4.1), plus a leader crown glyph on the leader's row.
+  title, same-map indicator, alive/fallen state — the HUD party plates' identity fields
+  (`10_systems/HUD.md` §4.1) with the job title in place of the job-line icon; the `life`/`essence`
+  percentage bars stay on the HUD plates — plus a leader crown glyph on the leader's row.
 - **Leader controls** (visible to the leader only, `10_systems/social/PARTY.md` §2–§3): invite
   (opens name entry, `frame_input`), kick, promote, and the **loot mode** selector
   (`free_for_all` / `round_robin`, PARTY §5). Members see Leave.

@@ -65,10 +65,10 @@ collected with no input:
 - A **manual-pickup toggle** lets players who want to leave gear behind switch equips (only) to
   press-to-loot; `shards` always auto-collect.
 
-**Auto-loot radius:** placeholder **64 px** (≈ one third of `base_move_speed`, tuned so running
-past a drop grabs it) — pending the tile scale locked by `40_assets/ART_BIBLE.yaml`, exactly as
-`10_systems/COMBAT_FORMULA.md` §10's px placeholders. The radius value is not load-bearing to any
-formula; only the *auto-on-contact* behavior is fixed here.
+**Auto-loot radius:** **64 px = 4 tiles** at the 16 px grid locked by `40_assets/ART_BIBLE.yaml`
+(`10_systems/COMBAT_FORMULA.md` §10) — half a second of travel at `base_move_speed` (128 px/s),
+tuned so running past a drop grabs it. The radius value is not load-bearing to any formula; only
+the *auto-on-contact* behavior is fixed here.
 
 ## 5. Full-inventory handling
 

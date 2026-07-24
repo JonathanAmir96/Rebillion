@@ -91,7 +91,7 @@ only, not a concrete asset list (that is `40_assets/`'s later catalog pass).
 | `sfx_ui_cancel` | Closing/backing out of any `frame_window`/`frame_dialog` |
 | `sfx_ui_navigate` | Cursor/focus movement across `frame_slot` grids (inventory, skill bar, quickslots) |
 | `sfx_ui_error` | Invalid action (can't-afford, wrong slot, on-cooldown) |
-| `sfx_ui_toast` | Toast-stack notifications (`10_systems/HUD.md` §2) |
+| `sfx_ui_toast` | Toast-stack notifications (`10_systems/HUD.md` §9) |
 
 ## 7. Mix rules — bus priority and ducking
 

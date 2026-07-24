@@ -282,9 +282,15 @@ combat resumes), `phase_transition_lock` true (life-threshold crossings always i
 above; set false only if a specific boss needs a softer transition — flag it in that boss's data).
 
 ## Open Questions
-- **Boss/monster ability ID prefix — resolved at the C gate:**
-  `docs/ID_REGISTRY.md` now reserves `mob_ability_<mob_NNN>_01`–`_08` (per-monster namespace)
-  and `mob_151`–`mob_160` for summon templates.
+- **Boss/monster ability ID prefix — resolved at the C gate:** the per-monster
+  `mob_ability_<mob_NNN>_01`–`_08` namespace was adopted
+  (`docs/phase_reports/PHASE_H_CONSISTENCY_REPORT.md`). Summon templates, by contrast, have
+  **no minted `mob_NNN` block** — `mob_151`–`mob_178` belongs to the Frostpeak roster
+  (`docs/ID_REGISTRY.md`, immutable) — so content references them via `summon_tmpl_*`
+  placeholders (`docs/phase_reports/PHASE_D_ARC2_REPORT.md`), real IDs pending (next item).
+- **Summon-template ID block — request to `docs/ID_REGISTRY.md`:** summon templates need a
+  dedicated ID block outside the regional `mob_NNN` rosters; once ID_REGISTRY mints one (in
+  its own commit — not minted here), the `summon_tmpl_*` placeholders re-point to real IDs.
 - An on-death-detonate variant of `kamikaze_burster` (explodes even if killed before its windup
   completes) is not defined; if a later design wants it, it should be a monster-authored
   `on_hit_proc`/death effect (`10_systems/SKILL_EFFECTS.md`), not a change to this profile's base

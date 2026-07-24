@@ -29,7 +29,7 @@ forward reference `10_systems/SKILL_SYSTEM.md` §7 leaves to this doc.
 | Toggle Quest Log (`frame_quest`) | `L` | — |
 | Toggle Map | `M` | — |
 | Toggle Guild | `G` | — |
-| Toggle Party-finder (`10_systems/social/PARTY_FINDER.md`) | `P` | — |
+| Toggle Party (the party-finder Board tab lives inside it — `10_systems/UI_WINDOWS.md` §4, `10_systems/social/PARTY_FINDER.md`) | `P` | — |
 | Chat focus | `Enter` | — |
 | Close / back (topmost framed window) | `Escape` | — |
 
@@ -52,14 +52,14 @@ separate keys are bound for these context-sensitive actions.
 | Skill slots 5–8 | `LB`/`L1` held + D-Pad |
 | Quickslots 1–4 | `RB`/`R1` held + D-Pad |
 | Aim / reticle | Right Stick |
-| Menu hub (Inventory/Skills/Quests/Map/Guild/Party-finder) | `Start`/`Options` |
+| Menu hub (Inventory/Skills/Quests/Map/Guild/Party) | `Start`/`Options` |
 | Tab-switch within an open menu | `LB`/`RB` |
 | Confirm / select (in menu) | `A` |
 | Back / close (in menu) | `B` |
 | Context action (in menu — e.g. quick-use, abandon) | `Y` |
 
-`Start`/`Options` opens a single tabbed menu hub rather than five separate dedicated buttons
-(gamepads don't have five free buttons to spare); once inside, `LB`/`RB` cycle the same five
+`Start`/`Options` opens a single tabbed menu hub rather than six separate dedicated buttons
+(gamepads don't have six free buttons to spare); once inside, `LB`/`RB` cycle the same six
 panels keyboard reaches via §1's individual keys. `LT`/`RT` (`L2`/`R2`) and `Back`/`View` are
 **unassigned at launch** (Open Questions). Chat has no gamepad text-entry path at launch — see
 Open Questions and `10_systems/social/CHAT.md` (stub).

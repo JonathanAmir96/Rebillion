@@ -18,13 +18,13 @@ portals:
     kind: door
     at: { tile: [4, 15] }
     target_map: map_001
-    target_spawn: main
+    target_spawn: from_ferry                # ferry doors target from_ferry (WORLD_PLAN spawn convention; MAP_CONNECTIONS §2)
     dead_end: false
   - id: to_rosen_harbor
     kind: door
     at: { tile: [36, 15] }
     target_map: map_017                     # forward-ref: Millbrook/Rosen Harbor batch (WORLD_PLAN edge table)
-    target_spawn: main
+    target_spawn: from_ferry                # ferry doors target from_ferry (WORLD_PLAN spawn convention; MAP_CONNECTIONS §2)
     dead_end: false
 interactables:
   - type: sign

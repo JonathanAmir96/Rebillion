@@ -85,36 +85,38 @@ Every enum value comes from its owning registry; this schema points, never redef
 ## Example
 
 ```yaml
-# illustrative — real instances land in Phase D. Numbers are exact per LEVELING.md §1 (Lv10
-# exp_to_next=3,200) and DROPS.md §3 (Lv10 boss-mean=270) via QUESTS.md §4-§5's own formulas.
-id: quest_004
+# illustrative shape only — not a mirror of the minted quest_014 (real Millbrook files live in
+# 50_content/quests/). A Lv-10 quest sits in millbrook's band (Lv 8-14, WORLD_PLAN R2), inside
+# the Millbrook quest block quest_011-024 (ID_REGISTRY). Numbers are exact per LEVELING.md §1
+# (Lv10 exp_to_next=8,480) and DROPS.md §3 (Lv10 boss-mean=270) via QUESTS.md §4-§5's own formulas.
+id: quest_014
 schema: 20_schemas/quest.schema.md
 references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
-name: The Kiln's Last Ember
-region: emberfoot
+name: Ticks in the Granary
+region: millbrook
 quest_type: main
-giver_npc: npc_002
+giver_npc: npc_027
 level_requirement: 10
 recommended_level: 10
-prereqs: [quest_002]
+prereqs: [quest_010]
 steps:
   - type: kill
-    target: mob_003
+    target: mob_018
     count: 8
   - type: talk
-    target: npc_005
+    target: npc_028
     count: 1
     requires_step: 1        # must finish the kill step before this talk unlocks
 rewards:
-  exp: 640                  # round(0.20 * 3,200); main band 15-30% = 480-960 (QUESTS §4)
+  exp: 1696                 # round(0.20 * 8,480); main band 15-30% = 1,272-2,544 (QUESTS §4)
   shards: 270                # mean_shards_normal(10)*15 = 18*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0001, qty: 3 }
-flavor: "The last hound of the old kiln still smolders in the tunnels. Emberfoot won't rest
-  easy until it's put out for good."
-offer_text: "One more ember to snuff, then Emberfoot's yours to leave behind. Bring me its
-  claw and I'll vouch for you at the gate."
-complete_text: "Cold to the touch — good. Verdant Hollow's waiting for you now."
+flavor: "Tickmounds have burrowed under the granary floor, and the flour spoils by the sackful.
+  Millbrook's tables go hungry while the millworks stand idle."
+offer_text: "Clear the bloated things out from under my granary, then tell Sergeant Ashe the
+  floor is safe to reopen."
+complete_text: "Ashe's word came ahead of you — good work. The stones turn again tonight."
 ```
 
 ## Validation rules

@@ -13,6 +13,7 @@ ambience: [amb_crowd, amb_ember_glow]
 layers_preset: standard
 spawn_points:
   - { id: main, tile: [55, 18] }
+  - { id: from_ferry, tile: [96, 18] }     # Harborwind Ferry arrival, beside the ferry door (WORLD_PLAN spawn convention; MAP_CONNECTIONS §2)
 portals:
   - id: to_hearthglow_inn
     kind: door

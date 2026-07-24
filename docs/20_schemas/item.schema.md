@@ -145,22 +145,22 @@ schema: 20_schemas/item.schema.md
 references: [ITEMS, ENHANCEMENT, ECONOMY]
 items:
   - id: item_equip_0002
-    name: Verdant Fang
+    name: Harborwind Cutlass
     category: equip
     slot: weapon
     weapon_type: blade
     line_hint: bulwark
     tier: 2
-    req_level: 10
+    req_level: 8
     rarity: uncommon
     stats:
-      base: { power: 30 }              # ITEMS §7 T2 blade W = 30
+      base: { power: 26 }              # ITEMS §7 T2 blade W = round(0.055*8^2 + 2.05*8 + 6) = 26
       affixes:
-        - { stat: might, value: 4 }    # ITEMS §10 Lv10 +primary(u)=4 -> 4.00 pe (§6); uncommon
-                                        # budget @Lv10 = 1 line x cap(10)=round(1.4x4)=6 pe: 4<=6 OK
+        - { stat: might, value: 3 }    # ITEMS §10 Lv8 +primary(u)=3 -> 3.00 pe (§6); uncommon
+                                        # budget @Lv8 = 1 line x cap(8)=round(1.4x3)=4 pe: 3<=4 OK
     enhance_max: 9
     price: { buy: 300, sell: 75 }       # ECONOMY §4.2: T2 base_buy 120 x uncommon (x2.5) = 300
-    flavor: "A gladeforged blade that hums faintly when swung near living wood."
+    flavor: "Ferry-deck steel, quenched in harbor brine the night before the crossing."
   # ... item_equip_0001, 0003-0040 (this schema's ID range for equip/weapons.yaml)
 ```
 
@@ -185,15 +185,16 @@ restore `amount` is Phase D's):
 **Etc-row pattern** (illustrative fragment, `etc/materials_r01.yaml`, Emberfoot region):
 
 ```yaml
-  - id: item_etc_0001
-    name: Cindermaw Fang
+  - id: item_etc_0011
+    name: Embermane Tuft
     category: etc
-    rarity: common
-    req_level: 1
-    price: { sell: 8 }                   # no buy — etc items are not vendor-purchasable
-    source_hint: mob_010                 # Cinder Houndmaster (elite, cross-checked vs drop_mob_010)
+    rarity: uncommon
+    req_level: 8
+    price: { sell: 12 }                  # no buy — etc items are not vendor-purchasable
+    source_hint: mob_011                 # Embermane Alpha (elite, cross-checked vs drop_mob_011)
     stack: 999
-    flavor: "A blunt fang still warm from the kiln-hound's jaw."
+    flavor: "A singed lock from a pack-leader's smoldering mane. It smells of hot fur and holds a
+      faint warmth for days."
 ```
 
 ## Validation rules

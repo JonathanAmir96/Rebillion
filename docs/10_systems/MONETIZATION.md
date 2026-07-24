@@ -26,8 +26,9 @@ one of them is out, regardless of revenue.
 
 1. **No purchased power.** Nothing bought with real money may carry or modify any
    GLOSSARY stat (primary, derived, or otherwise), damage, defense, or combat behavior.
-   Premium goods are purely presentational — `client`-authority fields only, per
-   `10_systems/PERSISTENCE.md` tagging.
+   Premium goods are purely presentational in effect (zero-stat): rendering/appearance fields
+   are `client`-authority per `10_systems/PERSISTENCE.md` tagging, while ownership/entitlements
+   are server-authoritative (§5).
 2. **No market laundering.** Premium goods are account-bound: never tradable, never listable
    on the market (`10_systems/social/MARKET.md`). There is no real-money → `shards` path.
 3. **No grind shortcuts.** No `exp` boosts, drop-rate boosts, or inventory/storage expansions

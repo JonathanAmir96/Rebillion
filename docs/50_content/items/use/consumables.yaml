@@ -262,8 +262,8 @@ items:
     rarity: common                  # cosmetic on use rows (ITEMS §5)
     req_level: 40                   # tier-6 band start, Lv 40-61 (ITEMS §1.1)
     price:
-      buy: 2000                     # continues ECONOMY §4.1 curve above Prime (1000) -- see note
-      sell: 500                     # round(0.25 * 2000) (ECONOMY §4)
+      buy: 1200                     # ECONOMY §4.1 exact (arc-2 curve is deliberately flatter than the arc-1 doubling)
+      sell: 300                     # round(0.25 * 1200) (ECONOMY §4)
     effects:
       # flat restore; magnitude is Phase D use-item data (ITEMS §1). ~40% of Lv-40-band player life
       # (STATS §2 life ~1164 pre-gear at Lv40) per ECONOMY §5's ~40%-of-band assumption. First-pass.
@@ -274,10 +274,10 @@ items:
 
   # --- item_use_0018-0020: completes the seven-tier tonic ladder (ITEMS §1.1) with the
   # Sovereign essence pair-mate and the Mythic (tier-7) pair. Names/IDs exact per ID_REGISTRY.
-  # Prices continue the ECONOMY §4.1 rising-sink curve above Prime (1000): each pair-mate shares
-  # its counterpart's buy/sell (ECONOMY §4.1's own rows are one price per life/essence pair, not
-  # two); Sovereign = Prime x2 (2000/500, matching item_use_0017 above); Mythic = Sovereign x2
-  # (4000/1000), continuing the same doubling step. Restore magnitudes are Phase D use-item data
+  # Prices are ECONOMY §4.1's exact rows -- the arc-2 curve is deliberately flatter than the
+  # arc-1 doubling (§4.1's own note); each pair-mate shares its counterpart's buy/sell (one price
+  # per life/essence pair, not two): Sovereign 1200/300 (matching item_use_0017 above), Mythic
+  # 1500/375. Restore magnitudes are Phase D use-item data
   # (ITEMS §1): Mythic life keeps Sovereign's ~life-pool-fraction approach at the higher band;
   # essence restores are set at half their life-pair-mate's magnitude for both tiers (300/600 =
   # 0.5, 500/1000 = 0.5), a first-pass ratio reflecting essence's smaller pool (STATS §2:
@@ -288,8 +288,8 @@ items:
     rarity: common                   # cosmetic on use rows (ITEMS §5)
     req_level: 40                    # tier-6 band start, Lv 40-61 (ITEMS §1.1), same as 0017
     price:
-      buy: 2000                      # pair-mate of item_use_0017 (ECONOMY §4.1: one price/pair)
-      sell: 500                      # round(0.25 * 2000) (ECONOMY §4)
+      buy: 1200                      # pair-mate of item_use_0017 (ECONOMY §4.1: one price/pair)
+      sell: 300                      # round(0.25 * 1200) (ECONOMY §4)
     effects:
       - { op: restore_essence, scaling: flat, amount: 300 }  # ~0.5x the life pair-mate (see header)
     use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
@@ -302,8 +302,8 @@ items:
     rarity: common                   # cosmetic on use rows (ITEMS §5)
     req_level: 62                    # tier-7 band start, Lv 62-80+ (ITEMS §1.1)
     price:
-      buy: 4000                      # continues the Prime(1000)->Sovereign(2000) doubling step
-      sell: 1000                     # round(0.25 * 4000) (ECONOMY §4)
+      buy: 1500                      # ECONOMY §4.1 exact (flatter arc-2 step above Sovereign 1200)
+      sell: 375                      # round(0.25 * 1500) (ECONOMY §4)
     effects:
       - { op: heal, scaling: flat, amount: 1000 }   # first-pass magnitude for the Lv62-80+ band
     use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)
@@ -316,8 +316,8 @@ items:
     rarity: common                   # cosmetic on use rows (ITEMS §5)
     req_level: 62                    # tier-7 band start, Lv 62-80+ (ITEMS §1.1), same as 0019
     price:
-      buy: 4000                      # pair-mate of item_use_0019 (ECONOMY §4.1: one price/pair)
-      sell: 1000                     # round(0.25 * 4000) (ECONOMY §4)
+      buy: 1500                      # pair-mate of item_use_0019 (ECONOMY §4.1: one price/pair)
+      sell: 375                      # round(0.25 * 1500) (ECONOMY §4)
     effects:
       - { op: restore_essence, scaling: flat, amount: 500 }  # ~0.5x the life pair-mate (see header)
     use_cooldown: 1.0                # first-pass; no owning pacing doc (item.schema OQ)

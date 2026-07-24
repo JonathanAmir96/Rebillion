@@ -108,45 +108,55 @@ members.
 ## Example
 
 ```yaml
-# illustrative — real instances land in Phase D. Values here are the §13 budget for a
-# Lv 10 elite (Emberfoot); tune per WORLD_PLAN R1 during the region batch.
-id: mob_010
+# illustrative — mirrors the minted 50_content/monsters/mob_011.yaml (R1 elite slot per
+# ID_REGISTRY). Values are the §13 budget for a Lv 8 elite (Emberfoot).
+id: mob_011
 schema: 20_schemas/monster.schema.md
 references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
-name: Cinder Houndmaster
+name: Embermane Alpha
 tier: elite
 element: fire
 weak_to: [frost]
 resists: [fire]
 immune_to: []
-level: 10
+level: 8
 size_class: large
 stats:
-  life: 4050        # 675 (§13 Lv10) × 6 (§13.2 elite)
-  power: 54         # 36 × 1.5
-  armor: 78         # 60 × 1.3
-  warding: 78       # 60 × 1.3  (armor+warding sum = 156 = 120 × 1.3)
-  precision: 44     # 40 × 1.1
-  evasion: 5.3      # 3.3% + 2% (§13.2 elite)
-  exp: 400          # exp_per_kill_normal(10)=80 × 5 (LEVELING §3 elite)
+  life: 2910        # 485 (§13 Lv8) × 6 (§13.2 elite)
+  power: 45         # 30 × 1.5
+  armor: 62         # 48 × 1.3 (round)
+  warding: 62       # 48 × 1.3 (round)  (armor+warding sum = 124 ≈ 96 × 1.3)
+  precision: 35     # 32 × 1.1 (round)
+  evasion: 5.2      # 3.2% + 2% (§13.2 elite)
+  exp: 300          # exp_per_kill_normal(8)=60 × 5 (LEVELING §3 elite)
 ai_profile: aggressive_charger
 ai_params:
-  charge_speed_mult: 3.0     # profile-declared tunable (AI_BEHAVIOR §5)
-  charge_recover_s: 2.8
+  aggro_radius: 7            # shared §2 tunable
+  charge_speed_mult: 2.4     # profile-declared tunable (AI_BEHAVIOR §5)
+  charge_recover_s: 2.6
 abilities:
-  - id: cinder_slam
-    name: Cinder Slam
-    targeting: { shape: aoe_circle, radius: 3, origin: self }
-    cooldown: 8.0
-    telegraph_s: 1.0
+  - id: ember_charge
+    name: Ember Charge
+    targeting: { shape: line, length: 6, width: 2 }
+    cooldown: 7.0
+    telegraph_s: 1.2
     effects:
-      - { op: deal_damage, element: fire, mult: 1.6 }
-      - { op: apply_status, status: burn, chance: 0.5, dur: 6 }
+      - { op: deal_damage, element: fire, mult: 1.5 }
+      - { op: apply_status, status: burn, chance: 0.4, dur: 5 }
+  - id: cinder_burst
+    name: Cinder Burst
+    targeting: { shape: aoe_circle, radius: 3, origin: self }
+    cooldown: 10.0
+    telegraph_s: 1.4
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.2 }
+      - { op: knockback, distance: 2 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
-drop_table: drop_mob_010
+drop_table: drop_mob_011
 respawn_override: 120
-flavor: "A scarred alpha that herds the kiln's fire-hounds by scent and snarl. It slams the
-  ground to scatter cinders before it charges."
+flavor: "A scarred pack-leader whose mane smolders when its blood is up, herding the field's
+  lesser cinders by snarl and scent. It rakes a line of embers across the ground before it
+  commits to the charge."
 ```
 
 ## Validation rules

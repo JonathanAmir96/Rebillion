@@ -30,8 +30,8 @@ sizes 64/96/128; icon-only squares 20/24/28 for HUD/skill bar.
 
 **Slots & icons:** one inset-square construction, states empty/filled/selected/locked/cooldown;
 rarity ring from rarity_code; cooldown wipe + ui_number seconds; quantity badge bottom-right;
-empty equip-slot glyph shows slot type. Icons on 16/24/32 grids, 1px ink outline, single motif,
-readable at 16px; categories item/skill/buff_debuff/currency/quest/map_marker/emote. Buff/debuff
+empty equip-slot glyph shows slot type. Icons on 16/24 grids (UA-001; matches ART_BIBLE
+iconography), 1px ink outline, single motif, readable at 16px; categories item/skill/buff_debuff/currency/quest/map_marker/emote. Buff/debuff
 icons get a duration ring (buff=verdant edge, debuff=red edge).
 
 **Tags/bubbles:** name tags on semi-transparent ink chip (player=white, npc=link, monster=ash /
@@ -58,6 +58,11 @@ asset); UI atlas by category (frames/icons/crest_parts/cursor); Nearest/mipmaps 
 `ui_frame_{variant}`, `ui_button_{state}`, `ui_slot_{state}`, `ui_icon_{category}_{name}`,
 `ui_crest_shape_{id}` / `ui_crest_symbol_{id}`, `ui_font_{style}`. PixelLab UI briefs inherit
 ART_BIBLE defaults and inject only variant/motif, ramp accent, size, patch margins (if frame).
+
+**Amendments:** UA-001 (2026-07-24, owner-directed contradiction fix C-17,
+`docs/phase_reports/DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`): icon grids narrowed 16/24/32 →
+16/24 to match ART_BIBLE's locked `iconography` ("16x16 or 24x24 icons"); no authored asset or
+doc used a 32px icon grid.
 
 **Open Questions:** original vs licensed pixel font (check shipping license); lock guild
 shape/symbol counts; window title-bar draggable vs fixed; which HUD elements always-on vs toggle.

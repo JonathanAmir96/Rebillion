@@ -14,10 +14,9 @@ references: [ITEMS, ECONOMY, ENHANCEMENT]
 # escalating by stone tier, flagged for ECONOMY.md to adopt formally.
 #
 # `req_level` is authored as the ITEMS §4 req_level of the LOWER of the two gear tiers each stone
-# enhances (not ENHANCEMENT §1's own "Item req_level range" column, which still carries pre-v3
-# Lv1-100 bands that predate the v3 arc split and no longer line up with the actual T1-T12 ladder
-# Lv1-78 -- ITEMS.md's own Open Question already flags this staleness; this batch uses the
-# tier-column mapping, which IS still accurate, rather than propagate the stale level numbers).
+# enhances -- which matches the lower bound of ENHANCEMENT §1's "Item req_level range" column
+# (that table now carries the v3 T1-T12 bands, Lv1-78 ladder), so the tier->stone mapping and the
+# level column agree.
 # `source_hint` names the arc region whose elite/boss monsters are this stone's primary drop
 # source (ENHANCEMENT §6: emberstones drop from elite/boss, keyed to the region's level band);
 # picked as the region matching the LOWER of the stone's two gear tiers per ITEMS §4's own

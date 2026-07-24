@@ -152,10 +152,10 @@ Title slots (23 total, all one-time):
   block (all tiers) reaches `logged`.
 - **1 global capstone title** — granted at 234/234 `logged` across the five islands.
 
-No GLOSSARY token exists yet for "title" as a shared vocabulary family (it is currently scoped
-entirely to this doc); if a future doc needs to reference "the player's currently equipped
-title" as a shared concept, that token should be proposed under GLOSSARY's **Provisional**
-section rather than invented ad hoc — flagged in Open Questions, not resolved here.
+`title` sits in GLOSSARY's **Provisional** section (cosmetic categories, owner
+`10_systems/COSMETICS.md` §2): that doc owns the equipped-title slot and display surfaces, while
+this doc keeps owning which milestones grant the titles (above). The remaining item is the
+GLOSSARY promotion itself, a phase-gate call — flagged in Open Questions, not resolved here.
 
 ## 8. Authority (per `10_systems/PERSISTENCE.md` §1)
 

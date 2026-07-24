@@ -111,7 +111,9 @@ eligible member count (a flat table, like the exp party bonus):
 item/material/emberstone/unique rows and the pool rarity-weight bias — and **composes with
 `fortune` by multiplication**: the applied factor is `m · party_drop_bonus · guild_drop_buff`,
 where `guild_drop_buff` is the optional guild grouping buff (`10_systems/social/GUILD.md` §10,
-default 1.00, `1.05` when 2+ guildmates share the party). It does **not** touch
+default 1.00, baseline `1.05` when 2+ guildmates share the party, lifted to `1.10` for the week
+after a met weekly guild goal — the time-boxed lift is `10_systems/social/GUILD.md` §11's). It does
+**not** touch
 `guaranteed` rows, `shards`, or `qty`. The combined-adjusted `chance` obeys the **same ≤ 0.95
 clamp** as §4, so no combination of grouping and `fortune` ever makes a drop certain. A solo-in-party
 member (everyone else off-map) draws `1.00` — no bonus without company.
@@ -120,17 +122,21 @@ member (everyone else off-map) draws `1.00` — no bonus without company.
 checks out against the faucet:
 
 - **Combined factor.** `m · party_drop_bonus · guild_drop_buff` ≤ 2.00 × 1.30 × 1.05 = **×2.73**
-  hard ceiling (the §4 `m` cap is nearly unreachable — a dedicated `fortune` build reads
-  `m ≈ 1.30`, giving a realistic ceiling of 1.30 × 1.30 × 1.05 ≈ **×1.77**).
+  hard ceiling at the baseline buff, 2.00 × 1.30 × 1.10 = **×2.86** during a
+  `10_systems/social/GUILD.md` §11 weekly-goal lift week (the §4 `m` cap is nearly unreachable — a
+  dedicated `fortune` build reads `m ≈ 1.30`, giving a realistic ceiling of
+  1.30 × 1.30 × 1.05 ≈ **×1.77**, or 1.30 × 1.30 × 1.10 ≈ **×1.86** in a lift week).
 - **Clamp check.** Only `common` (0.40) rows can hit the 0.95 clamp, and only at the theoretical
-  ceiling (0.40 × 2.73 = 1.09 → clamped); at the realistic ceiling 0.40 × 1.77 = 0.71 stays under
-  it. Rare+ rows stay small everywhere (`epic` 0.008 → 0.022 worst-case) — no drop becomes certain
-  and no rarity band collapses.
+  ceiling (0.40 × 2.73 = 1.09, and 0.40 × 2.86 = 1.14 in a lift week → both clamped); at the
+  realistic ceiling 0.40 × 1.77 = 0.71 (0.40 × 1.86 = 0.74 in a lift week) stays under it. Rare+
+  rows stay small everywhere (`epic` 0.008 → 0.023 worst-case) — no drop becomes certain and no
+  rarity band collapses.
 - **Aggregate faucet.** Material/use rows duplicate per eligible member
   (`10_systems/social/PARTY.md` §5), so six partied players already generate the same per-player
   drop count as six solo hunters; `party_drop_bonus` adds at most **+30%** item supply on top
-  (+36.5% with the guild buff) — a bounded carrot, deliberately smaller than the exp twin's +100%,
-  and `shards` (the primary faucet, §3) are untouched entirely.
+  (+36.5% with the baseline guild buff, +43% during a §11 lift week) — a bounded carrot,
+  deliberately smaller than the exp twin's +100%, and `shards` (the primary faucet, §3) are
+  untouched entirely.
 
 ## 5. Per-tier table shapes
 
@@ -262,10 +268,13 @@ client may re-roll a table or self-assign a rarity.
   arithmetic in §4.1). Remaining open only for telemetry: whether per-member duplication plus the
   +30% party lift over-supplies any *specific* material once real hunting data exists — if so, tune
   that material's row `chance`, never this table. Owner: this doc with `10_systems/ECONOMY.md`.
-- Raid-token → raid-gear exchange (§5.4) and the concrete token IDs within the reserved raid-token
-  block (`item_etc_0177`–`0192`, `docs/ID_REGISTRY.md`) are a Phase D / endgame design; this doc
-  fixes only that a `guaranteed` raid-entry token row exists. Flagged for
-  `10_systems/social/PARTY.md` + `10_systems/social/RAID.md` and the arc-2 raid content batch.
+- **Resolved (2026-07-24 contradiction fix): concrete raid-token IDs.** The four tokens are
+  committed in §5.4 (`item_etc_0177` Undervault Seal · `0178` Mainspring Cog · `0179` Deepfrost
+  Shard · `0180` Voidtide Pearl) and minted in `docs/ID_REGISTRY.md`; the rest of the reserved
+  raid-token block (`item_etc_0177`–`0192`) stays open for future raids. The token → raid-gear
+  exchange catalog/prices remain `10_systems/ITEMS.md`'s (`10_systems/social/RAID.md` §6.B–C); this
+  doc fixes only that the `guaranteed` raid-entry token grant exists (§5.4, a runtime entry-context
+  grant per `20_schemas/drop_table.schema.md` rule 4 — never extra static rows).
 - Ownership-timer values (60 s / 120 s) and whether dungeons/arenas shorten them are first-pass;
   confirm against `10_systems/social/PARTY.md` loot rules and `15_maps_system/MAPS_SYSTEM.md` zone
   behavior.

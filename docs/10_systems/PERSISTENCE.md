@@ -43,7 +43,8 @@ tags. There is no fourth tag; a field that seems to need one is a modeling error
 | Drop rolls, loot tag/ownership timers | `10_systems/DROPS.md` §7/§9 |
 | Combat resolution (hit/crit/damage/mitigation) | `10_systems/COMBAT_FORMULA.md` §1 |
 | Bind point | `10_systems/DEATH_PENALTY.md` §4 |
-| Guild / party / trade / mail / market state | `10_systems/social/GUILD.md`, `10_systems/social/PARTY.md`, `10_systems/social/MARKET.md` (stubs) |
+| Guild / party / trade / mail / market state | `10_systems/social/GUILD.md`, `10_systems/social/PARTY.md`, `10_systems/social/TRADING.md`, `10_systems/social/MAIL.md`, `10_systems/social/MARKET.md` |
+| Collection log progress (discovery state, revealed-drop flags, claimed-reward flags) | `10_systems/COLLECTIONS.md` §8 |
 | Cosmetic ownership + appearance loadout | `10_systems/COSMETICS.md` §7 |
 | Time-gated counters (daily/weekly resets) | this doc §2.1 |
 

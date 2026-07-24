@@ -2,10 +2,10 @@ id: item_table_weapons
 schema: 20_schemas/item.schema.md
 references: [ITEMS, ECONOMY, ENHANCEMENT]
 # All line weapons live in this one table (ITEMS §12 grouping): arc-1 item_equip_0001-0040 AND
-# arc-2 item_equip_0231-0254 (v3 re-block, ID_REGISTRY / ITEMS §4). NB: item.schema's File-conventions
-# row still lists weapons.yaml as 0001-0040 only -- that predates the v3 arc-2 re-block; ID_REGISTRY
-# is authoritative on the range. Intra-block layout (ITEMS §4): arc-2 weapons contiguous by line,
-# blade 0231-0236 / bow 0237-0242 / staff 0243-0248 / dirk 0249-0254, each T7->T12.
+# arc-2 item_equip_0231-0254 (v3 re-block, ID_REGISTRY / ITEMS §4; item.schema's File-conventions
+# row lists both ranges; ID_REGISTRY is authoritative). Intra-block layout (ITEMS §4): arc-2
+# weapons contiguous by line, blade 0231-0236 / bow 0237-0242 / staff 0243-0248 / dirk
+# 0249-0254, each T7->T12.
 #
 # Arc-1 block (this batch): item_equip_0001-0024, contiguous by line -- blade 0001-0006 / bow
 # 0007-0012 / staff 0013-0018 / dirk 0019-0024, each T1->T6 (req_level 1/8/15/22/29/36, ITEMS §4).
@@ -509,9 +509,8 @@ items:
   # T10 Skyshard (Arcane Reach, Lv53-68) -> T11 Voidshroud / T12 Tidesunder (Voidshore, Lv66-80).
   # All rows: rarity uncommon (1 affix line, ITEMS §5), enhance_max 9 (ENHANCEMENT §2), price
   # buy = round(base_buy(tier) * 2.5) / sell = round(0.25*buy) (ECONOMY §4/§4.2; base_buy T7-T10
-  # per ECONOMY §4.2 table+interp: 2800/4000/6000/8000; T11/T12 not tabulated there -- extrapolated
-  # by continuing the T8->T10 +2000/tier arithmetic step to 10000/12000, Phase D first-pass, flagged
-  # for ECONOMY.md to adopt formally). Affix = +primary(line_hint's governing primary, ITEMS §3)
+  # per ECONOMY §4.2 table+interp: 2800/4000/6000/8000; T11/T12 base_buy 10500/13000 per ECONOMY
+  # §4.2's tabulated T12 and interpolated T11). Affix = +primary(line_hint's governing primary, ITEMS §3)
   # value u(L)=round(1.5+0.22*L) (ITEMS §10), always <= per-line cap round(1.4*u(L)) for uncommon.
   # u(L)/cap(L) by tier: T7(43)=11/15, T8(50)=12/17, T9(57)=14/20, T10(64)=16/22, T11(71)=17/24,
   # T12(78)=19/27 (T8/T10/T12 anchors match ITEMS §10 table exactly; T7/T9/T11 computed from the
@@ -589,8 +588,8 @@ items:
         - { stat: might, value: 17 }  # u(71)=17 pe; cap 24; 17<=24 OK
     enhance_max: 9
     price:
-      buy: 25000                    # base_buy(T11)=10000 (extrap) * uncommon x2.5
-      sell: 6250
+      buy: 26250                    # base_buy(T11)=10500 (ECONOMY §4.2 interp) * uncommon x2.5
+      sell: 6563
     flavor: "Drawn from a shore where the sky itself tore open. Its shadow does not fall the same direction twice."
 
   - id: item_equip_0236             # arc-2 blade, T12 (arc-2 top)
@@ -608,8 +607,8 @@ items:
         - { stat: might, value: 19 }  # u(78)=19 pe; cap 27; 19<=27 OK
     enhance_max: 9
     price:
-      buy: 30000                    # base_buy(T12)=12000 (extrap) * uncommon x2.5
-      sell: 7500
+      buy: 32500                    # base_buy(T12)=13000 (ECONOMY §4.2) * uncommon x2.5
+      sell: 8125
     flavor: "Named for the leviathan that hauled it up from the drowned shore. Even sheathed, it drips cold light."
 
   - id: item_equip_0237             # arc-2 bow, T7
@@ -703,8 +702,8 @@ items:
         - { stat: finesse, value: 17 }  # u(71)=17 pe; cap 24; 17<=24 OK
     enhance_max: 9
     price:
-      buy: 25000
-      sell: 6250
+      buy: 26250
+      sell: 6563
     flavor: "Its limbs were void-tide driftwood before someone thought to string them. The nock hums against your cheek."
 
   - id: item_equip_0242             # arc-2 bow, T12 (arc-2 top)
@@ -722,8 +721,8 @@ items:
         - { stat: finesse, value: 19 }  # u(78)=19 pe; cap 27; 19<=27 OK
     enhance_max: 9
     price:
-      buy: 30000
-      sell: 7500
+      buy: 32500
+      sell: 8125
     flavor: "Carved from a beach-bone the tide dragged skyward. Every shot lands a half-second before you expect it to."
 
   - id: item_equip_0243             # arc-2 staff, T7
@@ -817,8 +816,8 @@ items:
         - { stat: focus, value: 17 }  # u(71)=17 pe; cap 24; 17<=24 OK
     enhance_max: 9
     price:
-      buy: 25000
-      sell: 6250
+      buy: 26250
+      sell: 6563
     flavor: "Its haft is umbral driftglass; casting with it dims the caster's own shadow for a heartbeat after."
 
   - id: item_equip_0248             # arc-2 staff, T12 (arc-2 top)
@@ -836,8 +835,8 @@ items:
         - { stat: focus, value: 19 }  # u(78)=19 pe; cap 27; 19<=27 OK
     enhance_max: 9
     price:
-      buy: 30000
-      sell: 7500
+      buy: 32500
+      sell: 8125
     flavor: "Torn-sky light pools in its head between casts, like it's still deciding whether to give the spell back."
 
   - id: item_equip_0249             # arc-2 dirk, T7
@@ -931,8 +930,8 @@ items:
         - { stat: fortune, value: 17 }  # u(71)=17 pe; cap 24; 17<=24 OK
     enhance_max: 9
     price:
-      buy: 25000
-      sell: 6250
+      buy: 26250
+      sell: 6563
     flavor: "Its blade swallows torch-light rather than reflect it, which suits how it's usually drawn."
 
   - id: item_equip_0254             # arc-2 dirk, T12 (arc-2 top)
@@ -950,6 +949,6 @@ items:
         - { stat: fortune, value: 19 }  # u(78)=19 pe; cap 27; 19<=27 OK
     enhance_max: 9
     price:
-      buy: 30000
-      sell: 7500
+      buy: 32500
+      sell: 8125
     flavor: "A wave-pattern kris pulled from the Tidesunder Maw's tideline, still cold from the drowned dark."
