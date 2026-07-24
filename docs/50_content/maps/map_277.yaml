@@ -1,6 +1,6 @@
 id: map_277
 schema: 20_schemas/map.schema.md
-references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
 name: Shattered Orrery, the Outer Gears
 region: arcane_reach
 map_type: dungeon
@@ -39,4 +39,8 @@ platform_brief: |
   Broken clockwork gears the size of shard-plates lie half-buried in the floor here, none
   turning. Chamber-to-chamber climbs stay within the 3.5-tile rise cap (MAP_TRAVERSAL §1.1).
   Dense corridor combat (SPAWN §2).
+  Also raid_orrery stage 1 (RAID.md §2/§4, kill-gate pattern). Everything above describes the
+  OPEN copy and is unchanged; a raid entry allocates a private instance (SPAWN §7) in which the
+  back portal is sealed and to_middle_gears is stage-gated. The instance's own spawn set is
+  banded to the raid, not to this map's Lv 68-69 open gradient -- Phase D owes it (RAID.md OQ).
 flavor: "These gears once turned in step with the sky itself. Now they lie still, rusted through with void-damp."

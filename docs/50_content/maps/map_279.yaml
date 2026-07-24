@@ -1,6 +1,6 @@
 id: map_279
 schema: 20_schemas/map.schema.md
-references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
 name: Shattered Orrery, the Inner Gears
 region: arcane_reach
 map_type: dungeon
@@ -45,4 +45,7 @@ platform_brief: |
   The Orrery's innermost chamber, gears turning slow and purposeless around a dark central
   well. One climb within the 3.5-tile rise cap (MAP_TRAVERSAL §1.1) reaches the ascent toward
   the Unmoored Stair. Dense corridor combat (SPAWN §2).
+  Also raid_orrery stage 3, the last before the finale (RAID.md §2/§4, puzzle pattern). Open
+  copy unchanged; inside the raid instance (SPAWN §7) the back portal is sealed and the cleared
+  stage opens straight into the map_284 finale instance rather than to_unmoored_stair.
 flavor: "Whatever the Orrery once modeled -- a sky, a season, a fall -- it has been turning through the same empty cycle for an age."

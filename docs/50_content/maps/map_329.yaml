@@ -1,0 +1,73 @@
+id: map_329
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, RAID, DROPS]
+name: The Orrery Reliquary
+region: arcane_reach
+map_type: secret
+level_band: { min: 68, max: 68 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 44, h: 22 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [6, 16] }
+portals:
+  - id: to_orrery_staging
+    kind: door
+    at: { tile: [40, 16] }
+    target_map: map_266
+    target_spawn: main
+    dead_end: true       # one-way out to the herald's staging map (RAID.md §6.E: the party is returned there on bonus-clock expiry or on leaving). The INBOUND edge is authored on the finale arena's side, opened only by a raid-entry kill.
+interactables:
+  - type: reactor
+    id: reactor_votive_shard_a
+    at_tile: [10, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_orrery
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Lift free
+  - type: reactor
+    id: reactor_votive_shard_b
+    at_tile: [16, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_orrery
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Lift free
+  - type: reactor
+    id: reactor_votive_shard_c
+    at_tile: [22, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_orrery
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Lift free
+  - type: reactor
+    id: reactor_stilled_orbit_a
+    at_tile: [28, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_orrery
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Lift free
+  - type: reactor
+    id: reactor_stilled_orbit_b
+    at_tile: [34, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_orrery
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Lift free
+  - type: reactor
+    id: reactor_armillary_cache
+    at_tile: [22, 10]
+    params:
+      drop_table_ref: drop_raid_bonus_orrery
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Lift free
+npcs: []
+platform_brief: |
+  The Shattered Orrery's bonus room (RAID.md §6.E): the reliquary shard the anchor-ring kept
+  moored, opened by the portal that appears in map_284 on a raid-entry kill. One screen, flat,
+  no traversal gimmick -- the orbit signature (RAID.md §4) does not reach here and no
+  moving_platforms are authored, so the 90 s bonus clock is the only pressure and no monsters
+  spawn. Every node is one-shot (respawn_timer_s past the clock).
+flavor: "The one shard Aetheron never let drift, hung in still prismatic haze with a century of offerings still on it."

@@ -67,6 +67,13 @@ and "a week" so every feature resets together:
   revisit per-region local resets if the game ships timezoned shards (Open Questions).
 - **Week boundary:** the daily reset on a fixed **weekly anchor day** (first-pass **Monday 00:00
   UTC**); weekly counters (guild-goal progress) clear then.
+- **Not every counter is per character.** The boundaries above are shared, the *scope* is each
+  owning doc's: guild-goal progress is guild-scoped, and the capsule weekly purchase-cap counter is
+  **account**-scoped (`10_systems/GACHAPON.md` §1.3/§7, owner amendment PA-002) — it resets on the
+  same week boundary but is not a per-character row. Its live-server home is the `account_time_gate`
+  row in `70_integrations/DATABASE_PERSISTENCE.md` §3.1 (the account analogue of that doc's
+  per-character `character_time_gate`); it needs no solo-build home, since the interim build ships
+  no store (`10_systems/GACHAPON.md` §6).
 - **Where the flags live:** per-character day/week flags and counters are `authority: server`
   fields on the `GameState` facade (§5) in the solo build — the client reads them, the server
   (future) owns the reset tick. The solo build applies the reset locally on load using the

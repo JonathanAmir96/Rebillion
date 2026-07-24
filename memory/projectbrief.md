@@ -40,7 +40,7 @@ Design pillars (`docs/00_vision/PILLARS.md` — a pillar wins any conflict):
   Lv 100–300 leveling is a provisional softcap sketch only. 3rd-tier jobs are
   named-and-reserved, gate Lv 80, future arcs.
 - World: **5 islands / 11 regions (r01–r11) / 324 maps / 234 monsters (178 normal,
-  45 elite, 11 boss) / 4 raids / 120 NPCs / 120 quests / 98 skills**. Arc 1: Emberfoot
+  45 elite, 11 boss) / 5 raids / 120 NPCs / 120 quests / 98 skills**. Arc 1: Emberfoot
   Isle (1–8) → paid ferry → Harthmoor Isle Victoria-style ring (Millbrook ↔ Verdant ↔
   Gloomwood ↔ Ashfall ↔ Tidewatch) around Clockwork Ruins, Sunken Depths spur. Arc 2:
   Deepway (free, Lv-40 gate) → Frostpeak (40–55), Arcane Reach (53–68), Voidshore
@@ -72,7 +72,8 @@ Design pillars (`docs/00_vision/PILLARS.md` — a pillar wins any conflict):
 - **Mob AI** (`docs/10_systems/AI_BEHAVIOR.md`): 8 canonical states + 12 behavior
   profiles; elites/bosses must telegraph; scripted boss phase contract.
 - **Social** (`docs/10_systems/social/`): party (2× exp bonus, `party_drop_bonus`),
-  4 raids (3–6 players, daily first-clear 2×, raid tokens → quartermaster gear), guild,
+  5 raids (3–6 players, daily first-clear 2×, raid tokens → quartermaster gear; bands
+  15–22 / 32–40 / 45–55 / 56–69 / 70–80, roster `10_systems/social/RAID.md` §2), guild,
   chat, mail, market, trading, party-finder — all designed, all server-deferred.
 - **Combo** (`docs/10_systems/COMBO_SYSTEM.md`): `combo_momentum`/`combo_burst`
   skill-chaining layer, tier-gated by job tier, consumed inside COMBAT_FORMULA §15's

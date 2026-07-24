@@ -281,7 +281,7 @@ Lv 80 `power` = 246×2 = 492. Region and raid finale bosses (`docs/WORLD_PLAN.md
 
 ### 13.3 Raid-boss party scaling (owner)
 
-The four raid finale bosses (`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md`
+The five raid finale bosses (`mob_027`/`mob_150`/`mob_178`/`mob_206`/`mob_234`, `10_systems/social/RAID.md`
 §2, `docs/WORLD_PLAN.md`) scale `life` with party size `N` **when fought via raid entry**
 (`10_systems/social/RAID.md` §3). The same boss soloed through the arena's open (non-raid) entry is
 an ordinary region `boss` (§13.2, no `N`-scaling). `10_systems/social/PARTY.md` §6 owns the legal

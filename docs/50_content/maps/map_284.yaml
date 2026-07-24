@@ -1,6 +1,6 @@
 id: map_284
 schema: 20_schemas/map.schema.md
-references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, RAID]
 name: The Anchor Vault
 region: arcane_reach
 map_type: arena
@@ -20,12 +20,21 @@ portals:
     target_map: map_282
     target_spawn: main
     dead_end: false
+  - id: to_orrery_reliquary
+    kind: door
+    at: { tile: [58, 34] }
+    target_map: map_329
+    target_spawn: main
+    dead_end: true       # The Orrery Reliquary, the raid bonus room (RAID.md §6.E). Authored like map_244's door to its bonus room: the world graph carries the edge, the RULES layer gates it -- this door opens only on a raid-entry finale kill and never for an open-arena (non-raid) kill (RAID.md §6.E/§7).
 interactables: []
 npcs: []
 platform_brief: |
   A vast anchor-ring chamber open to the void mist below, three broad platforms stacked at
   ~3-tile rises for the boss's phase shifts (MAP_TRAVERSAL §1.1). No fall damage regardless
   (§2); the ring itself is the only floor that never drifts.
+  Also the raid_orrery finale instance (RAID.md §2), same dual role map_244/map_324 carry:
+  the open door below is the ordinary solo entry at reduced reward (RAID.md §7), while a raid
+  entry arrives party-instanced from map_279 (SPAWN §7) and pays §6's raid rewards.
 arena_config:
   boss_mob_id: mob_206              # Aetheron, the Unmoored -- matches WORLD_PLAN's R10 boss seed
   gate: { type: open }              # regional arenas never require a party (MAPS_SYSTEM §8)

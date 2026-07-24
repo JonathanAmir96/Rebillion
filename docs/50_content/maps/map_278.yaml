@@ -1,6 +1,6 @@
 id: map_278
 schema: 20_schemas/map.schema.md
-references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
 name: Shattered Orrery, the Middle Gears
 region: arcane_reach
 map_type: dungeon
@@ -44,4 +44,7 @@ platform_brief: |
   Gears here still shudder with the occasional grinding turn, half-alive. A sealed side cache
   sits mid-floor; the climb onward stays within the 3.5-tile rise cap (MAP_TRAVERSAL §1.1).
   Dense corridor combat (SPAWN §2).
+  Also raid_orrery stage 2 (RAID.md §2/§4, collect-and-deposit pattern). Open copy unchanged;
+  inside the raid instance (SPAWN §7) only to_inner_gears is live and stage-gated -- the back
+  portal and the to_gear_cache side door into the map_280 secret are open-world only.
 flavor: "Every few minutes something deep in the mechanism groans and shifts, as if the Orrery is still trying to remember its own shape."

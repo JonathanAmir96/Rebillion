@@ -50,10 +50,15 @@ this doc adds no occupancy cap to arenas and spawns no second channel for one, f
 respawn is `10_systems/SPAWN.md` §3's, restated nowhere here.
 
 **Exemption 2 — raid stage, finale *and bonus-room* maps are true instances, not channels.**
-Covered in §2. This explicitly includes the four bonus rooms `map_325`–`map_328`
+Covered in §2. This explicitly includes the bonus rooms `map_325`–`map_329`
 (`10_systems/social/RAID.md` §6.E), which carry `map_type: secret` and would otherwise be swept up
 by the `secret` entry in the eligible list above — a channelled bonus room would let any passing
 player harvest another party's one-shot nodes, which is the opposite of the design.
+
+The exemption is scoped to the **raid entry context**, not to the `map_NNN`: `raid_orrery`'s stage
+maps are shared with R10's open Shattered Orrery dungeons (`10_systems/social/RAID.md` §4), and
+those **open** copies stay ordinary channel-eligible dungeons under this section's rules. Its
+bonus room `map_329` has no open copy and is instance-only like the other four.
 
 **Channel identity is ops/routing metadata, not a game-content ID.** A channel is addressed as
 `map_NNN` + a small integer index (e.g. "map_017, channel 2") for gateway routing, telemetry, and
@@ -62,7 +67,7 @@ this doc's capacity math. It mints no `docs/ID_REGISTRY.md` block and is never p
 
 ## 2. Raid instances (not channels)
 
-The four raids occupy their own scaling unit — **instance workers**
+The five raids occupy their own scaling unit — **instance workers**
 (`70_integrations/BACKEND_ARCHITECTURE.md` §1), ephemeral map processes allocated one per party on
 raid-gate entry and torn down on exit (`10_systems/SPAWN.md` §7), never shared and never
 occupancy-capped the way §7's channels are:
@@ -72,9 +77,10 @@ occupancy-capped the way §7's channels are:
 | `raid_undervault` | `map_038`–`map_040` | `map_042` | `mob_027` (The Cellar King) |
 | `raid_mainspring` | `map_195`–`map_197` | `map_200` | `mob_150` (The Custodian) |
 | `raid_deepfrost` | `map_240`–`map_242` | `map_244` | `mob_178` |
+| `raid_orrery` | `map_277`–`map_279` (shared with the open world) | `map_284` | `mob_206` (Aetheron) |
 | `raid_voidtide` | `map_320`–`map_322` | `map_324` | `mob_234` |
 
-Each raid's **bonus room** (`map_325` / `map_326` / `map_327` / `map_328`,
+Each raid's **bonus room** (`map_325` / `map_326` / `map_327` / `map_328` / `map_329`,
 `10_systems/social/RAID.md` §6.E) is part of the same instance and is covered by every rule in this
 section — it is never a channel of itself, despite being `map_type: secret`.
 
@@ -84,7 +90,9 @@ size is owned split: the 3-member floor by `10_systems/social/RAID.md` §2/§3, 
 disconnect grace, full-wipe reset, dissolution) is `10_systems/social/RAID.md` §5's. This doc
 adds one fact neither states: **an active raid instance never counts against its stage/finale map's
 channel occupancy**, because it isn't a channel of that map at all — `map_042` and `map_200` also
-serve as ordinary open-entry arenas (§1's Exemption 1) when not hosting a raid finale, and the two are
+serve as ordinary open-entry arenas (§1's Exemption 1) when not hosting a raid finale, and
+`raid_orrery`'s `map_277`–`map_279` are simultaneously ordinary channeled open dungeons
+(`10_systems/social/RAID.md` §4); the two are
 different processes even when both are "the same `map_NNN`" from a content-authoring point of view.
 ### 2.1 The channel claim (one party per raid, per channel)
 
@@ -95,7 +103,7 @@ claimed no other party on that channel may enter that raid.
 
 - **The key is `(channel, raid_token)`** — not `(channel, map_NNN)`. A claim on `raid_undervault`
   leaves `raid_mainspring` free on the same channel, and one claim covers that raid's whole stage
-  chain, finale arena, and bonus room (`map_325`–`map_328`) as a single unit.
+  chain, finale arena, and bonus room (`map_325`–`map_329`) as a single unit.
 - **Held by the world node, not the instance worker.** The claim is taken at instance-creation
   request time — *before* a worker is allocated — and released when that worker is torn down. It is
   node-local state, not a distributed lock: a channel lives on exactly one world node (§7), so a
@@ -118,7 +126,7 @@ soft planning number, the claim is a real constraint, and it is the binding one 
 
 A raid instance is bounded for free by the party cap (≤6, `10_systems/social/PARTY.md` §1) — no
 occupancy math is needed for it, only headroom planning: this doc sets a soft per-world-node target
-of **40 concurrently active raid instances of each token** (160 total across the four tokens)
+of **40 concurrently active raid instances of each token** (200 total across the five tokens)
 before a world node needs a
 scaling look — sized at roughly 5% of the §7 per-node population target
 (2,000 × 0.05 ÷ 3-member floor ≈ 33, rounded up for headroom) engaging raid content at once, which is
@@ -279,7 +287,7 @@ hundreds-to-low-thousands concurrent (`70_integrations/BACKEND_ARCHITECTURE.md` 
 | Extra-channel teardown grace | **5 min** empty before a channel (2+) is torn down | Long enough that ordinary population drift (a quiet minute on a busy map) doesn't thrash spin-up/teardown cycles; short enough that a launch-week spike's extra channels reclaim their world-node budget promptly once the crowd moves on |
 | Target concurrent players per world node | **2,000** | A conservative per-node figure for BEAM's proven social-traffic sweet spot (`70_integrations/BACKEND_ARCHITECTURE.md` §2) given this game's light, hit-event-triggered combat and shared position/velocity sync rather than a heavy fixed-rate numeric sim — leaves headroom under typical soft-realtime BEAM node practice for this workload shape |
 | World-wide concurrent target | **~10,000**, across ≈5 world nodes | Sits at the top of "hundreds-to-low-thousands concurrent" (`70_integrations/BACKEND_ARCHITECTURE.md` §2) while keeping the per-node figure above conservative; world nodes scale horizontally with no practical ceiling (`70_integrations/BACKEND_ARCHITECTURE.md` §1's scaling-unit table), so this is a launch-sizing target, not an architectural cap |
-| raid instance-worker headroom target (per world node) | **40** concurrently active instances per raid token (160 total across four tokens) | Sized at ~5% of the 2,000-player node target engaging raid content at once, divided by the 3-member floor (`10_systems/social/RAID.md` §2/§3) and rounded up for headroom — generous for hundreds-to-low-thousands concurrent play (§2) |
+| raid instance-worker headroom target (per world node) | **40** concurrently active instances per raid token (200 total across five tokens) | Sized at ~5% of the 2,000-player node target engaging raid content at once, divided by the 3-member floor (`10_systems/social/RAID.md` §2/§3) and rounded up for headroom — generous for hundreds-to-low-thousands concurrent play (§2) |
 
 ## 8. Failure modes
 

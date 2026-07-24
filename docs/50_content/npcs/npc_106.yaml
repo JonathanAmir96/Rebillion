@@ -1,12 +1,12 @@
 id: npc_106
 schema: 20_schemas/npc.schema.md
-references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS, RAID, PERSISTENCE]
 name: Vault Warden Iskrel
 region: arcane_reach
 map: map_266
 role: handler
 dialog:
-  greeting: "The Rune Vaults don't open for the curious. They open for whoever clears a path first."
-  farewell: "Come back with what's still glowing down there. I'll know if it isn't."
+  greeting: "The Shattered Orrery turns for no one alone -- bring me a full party and I'll time your crossing to the gears. Come short-handed and I'll send you back down the stair."
+  farewell: "Watch the shards' turn, not the ground under you. Aetheron pulls the whole ring loose once he wakes."
 portrait: portrait_npc_106
-flavor: "Iskrel has sealed and reopened the Rune Vaults' outer door more times than he'll admit, always for someone he judged ready."
+flavor: "Iskrel has sealed and reopened the Rune Vaults' outer door more times than he'll admit, and now calls every muster that goes past it into the Orrery."

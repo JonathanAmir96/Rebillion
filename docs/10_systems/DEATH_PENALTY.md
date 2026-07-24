@@ -95,9 +95,11 @@ arena starts a fresh attempt at full boss life. Boss respawn/instancing mechanic
 `10_systems/SPAWN.md` (timer policy) and `15_maps_system/MAPS_SYSTEM.md` (arena scripting); this
 doc does not redefine them, only that the player's own consequence is the standard §2/§3/§4 flow.
 
-### 5.3 Raid deaths (the four `raid_*` instances, `10_systems/social/RAID.md`)
-A death inside a raid instance (`raid_undervault` / `raid_mainspring` / `raid_deepfrost` /
-`raid_voidtide`) does not use §4 directly. The **run** — stage chain, full-wipe handling, retry,
+### 5.3 Raid deaths (every `raid_*` instance, `10_systems/social/RAID.md` §2's roster)
+A death inside a raid instance does not use §4 directly — the rule is per **entry context**, not per
+raid, so it covers a raid whose stage maps are shared with the open world (`raid_orrery`,
+`10_systems/social/RAID.md` §4) inside the instance only; a death on the open copy of those maps is
+an ordinary dungeon death (§5.1). The **run** — stage chain, full-wipe handling, retry,
 and the clear cooldown — is owned by `10_systems/social/RAID.md` §5, which consumes this
 section's per-character mechanics unchanged:
 

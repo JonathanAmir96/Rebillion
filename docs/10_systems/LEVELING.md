@@ -182,10 +182,11 @@ the top of arc 2) with no region-boundary jumps.
 
 Mob Lv > 80 (future-arc content): compute from `exp_per_kill_normal(L) = round(4·L^1.3)`.
 
-Raid-boss total `exp` scales with the raid's boss `level`. The two arc-2 raids
+Raid-boss total `exp` scales with the raid's boss `level`. The three arc-2 raids
 (`10_systems/social/RAID.md`): **`raid_deepfrost`** (boss Lv 55) totals `150 · 732 ≈ 109,800`;
-**`raid_voidtide`** (boss Lv 80) totals `150 · 1,191 ≈ 178,650` — split among the raid party
-(≈ 21,960 and ≈ 35,730 per member at `N` = 5). That finale-**kill** share alone is worth only ≈ 30
+**`raid_orrery`** (boss Lv 68, `mob_206`) totals `150 · 965 ≈ 144,750`; **`raid_voidtide`**
+(boss Lv 80) totals `150 · 1,191 ≈ 178,650` — split among the raid party
+(≈ 21,960, ≈ 28,950 and ≈ 35,730 per member at `N` = 5). That finale-**kill** share alone is worth only ≈ 30
 at-level `normal` kills, so the kill by itself is not the draw — the **per-stage and completion
 grants in §3.1** are what make a full raid clear a strong `exp` event (and the loot is
 `10_systems/DROPS.md`'s).
@@ -203,6 +204,7 @@ member** (not a pool to split, so the whole party is rewarded for finishing). Ea
 | `raid_undervault` (Lv 15–22) | 500 | 2,500 |
 | `raid_mainspring` (Lv 32–40) | 3,000 | 15,000 |
 | `raid_deepfrost` (Lv 45–55) | 8,000 | 40,000 |
+| `raid_orrery` (Lv 56–69) | 14,000 | 70,000 |
 | `raid_voidtide` (Lv 70–80) | 25,000 | 125,000 |
 
 Values are **fixed and predictable**: a `raid_voidtide` stage always pays 25,000 on clear, every run,
@@ -223,10 +225,23 @@ anchored to ≈ 11% of `exp_to_next` at the band midpoint. The full-clear grant 
 | `raid_undervault` | 4,000 | 18.1% (÷ 22,140 @ 15) | 11.5% (÷ 34,884 @ 18) | 6.9% (÷ 58,164 @ 22) |
 | `raid_mainspring` | 24,000 | 15.2% (÷ 157,832 @ 32) | 11.0% (÷ 218,174 @ 36) | 8.2% (÷ 292,336 @ 40) |
 | `raid_deepfrost` | 64,000 | 15.7% (÷ 407,208 @ 45) | 11.6% (÷ 549,950 @ 50) | 8.8% (÷ 723,216 @ 55) |
+| `raid_orrery` | 112,000 | 14.7% (÷ 761,733 @ 56) | 10.9% (÷ 1,024,290 @ 62) | 8.0% (÷ 1,403,724 @ 69) |
 | `raid_voidtide` | 200,000 | 13.7% (÷ 1,464,924 @ 70) | 11.1% (÷ 1,797,440 @ 75) | 9.2% (÷ 2,177,148 @ 80) |
 
 (The prior first-pass values missed the target badly at the extremes — an Undervault full clear
 paid 29,000 ≈ **83%** of a mid-band level, while a Voidtide clear paid ≈ 8% — hence this retune.)
+
+**`raid_orrery` (added 2026-07-24, band 56–69).** Derived from the structure above, not chosen:
+band midpoint `floor((56 + 69) / 2) = 62`; `exp_to_next(62) = round(4 · 62^1.3) ·
+round(20 + 6.6 · 62 + 0.2 · 62²) = 855 · 1,198 = 1,024,290`; the ≈ 11% anchor wants a full clear
+of `0.11 · 1,024,290 ≈ 112,672`, and `full clear = 8 · raid_stage_exp` gives `≈ 14,084` →
+**14,000** authored, so `raid_clear_exp = 5 · 14,000 = 70,000` and a full clear pays 112,000
+(10.9% at the midpoint). Its band is the roster's widest (14 levels, `10_systems/social/RAID.md`
+§2, because the coverage hole it closes was the widest), so its floor→ceiling spread
+(14.7% → 8.0%) is wider than its neighbors' — both ends still sit inside the roster's existing
+envelope (`raid_undervault` spans 18.1% → 6.9%). The chaining check holds too: at back-to-back
+≈ 25-minute clears, `112,000 × 2.4 ≈ 269 K/h` stays under at-level solo hunting at the band
+midpoint (`336 · 855 ≈ 287 K/h`), so the §4 elective-accelerator property is preserved.
 
 **First-clear-of-the-day bonus.** The first successful clear of a given raid, per character, per day
 (day boundary per `10_systems/PERSISTENCE.md`), pays **2× that raid's `raid_clear_exp`** plus one
@@ -285,7 +300,8 @@ arc 2. Voidshore endgame maps top out at Lv 80 and `raid_voidtide`'s boss is Lv 
 (`docs/WORLD_PLAN.md`, `10_systems/social/RAID.md`); the highest authored elites reach ≈ Lv 82. Past
 ≈ Lv 82 a character keeps leveling on the §1 curve (frozen through the ratified Lv-100 anchor, then
 the §1.2 softcap), but with no higher-band content the pace is a deliberate **slow grind** on the top
-Voidshore maps and the two arc-2 raids until arc 3 authors Lv 80+ regions.
+Voidshore maps and the three arc-2 raids until arc 3 authors Lv 80+ regions (only
+`raid_voidtide`'s 70–80 band is still enterable at the plateau — `10_systems/social/RAID.md` §3).
 
 - **The plateau chase is gear, not levels.** Between arcs, the meaningful power gains come from
   **gear and enhancement** (`10_systems/ITEMS.md`, `10_systems/ENHANCEMENT.md`) — chasing raid
@@ -344,7 +360,8 @@ Voidshore maps and the two arc-2 raids until arc 3 authors Lv 80+ regions.
   Reconcile the exact per-member share with PARTY §4 at the next gate.
 - **Raid stage/completion `exp` values (§3.1) — balanced 2026-07-24; telemetry retune remains.**
   The flat per-raid amounts are now sized against the ratified §1 curve (clear = 5 × stage; full
-  clear ≈ 11% of the band-midpoint `exp_to_next`, 9–18% across each band — arithmetic in §3.1).
+  clear ≈ 11% of the band-midpoint `exp_to_next`, ≈ 7–18% across the bands' floors and ceilings
+  — arithmetic in §3.1, extended for `raid_orrery` 2026-07-24).
   Chaining check for the `10_systems/social/RAID.md` §5 15-minute cooldown: even at back-to-back
   ≈ 25-minute clears, grant `exp`/hour (e.g. `raid_deepfrost` ≈ 64,000 × 2.4 ≈ 154 K/h) stays
   below at-level solo hunting (≈ 336 × 647 ≈ 217 K/h effective at Lv 50), so raiding never beats

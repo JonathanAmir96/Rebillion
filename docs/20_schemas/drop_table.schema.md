@@ -47,7 +47,7 @@ marks who owns the *runtime effect* the field drives (`10_systems/PERSISTENCE.md
 |---|---|---|---|---|
 | `id` | string `drop_mob_NNN` | yes | `docs/ID_REGISTRY.md` Drop tables | Zero-padded; immutable; must equal the filename stem. `server`. |
 | `schema` | string | yes | this file | Literal `20_schemas/drop_table.schema.md` (`docs/VALIDATION.md` §3). |
-| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[DROPS, ITEMS]`; add `ENHANCEMENT` when any row refs an emberstone; add `WORLD_PLAN` for `boss` tables (region-order boss-unique mapping, rule 6); add `PARTY` for the four raid finale bosses' tables (`mob_027`/`mob_150`/`mob_178`/`mob_234`, loot-split ownership; `10_systems/social/RAID.md` §2). |
+| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[DROPS, ITEMS]`; add `ENHANCEMENT` when any row refs an emberstone; add `WORLD_PLAN` for `boss` tables (region-order boss-unique mapping, rule 6); add `PARTY` for the five raid finale bosses' tables (`mob_027`/`mob_150`/`mob_178`/`mob_206`/`mob_234`, loot-split ownership; `10_systems/social/RAID.md` §2). |
 | `owner` | string `mob_NNN` | yes | `10_systems/DROPS.md` §1 | Must equal `mob_<this file's own NNN>` (task's explicit "owner matches filename" rule). `server`. |
 | `rows` | list[row] | yes (≥1) | `10_systems/DROPS.md` §1, §5 | Independently rolled on the monster's death. Shape requirements per this mob's tier — Validation. `server`. |
 | `rows[].ref` | string | yes | `item.schema.md` IDs; literal `shards`; `pools.yaml` IDs | A concrete `item_equip_*`/`item_use_*`/`item_etc_*` id, the literal token `shards`, or a `pool_equip_r01`–`r11` id (§6). Must resolve (`docs/VALIDATION.md` §2). |
@@ -60,8 +60,8 @@ marks who owns the *runtime effect* the field drives (`10_systems/PERSISTENCE.md
 ### `drop_raid_bonus_<raid>.yaml` — raid bonus-room table
 
 The third shape. One file per raid (`drop_raid_bonus_undervault` / `_mainspring` / `_deepfrost` /
-`_voidtide`, `docs/ID_REGISTRY.md`), rolled independently by **every `reactor`** in that raid's
-bonus room (`10_systems/social/RAID.md` §6.E, `map_325`–`map_328`) on harvest — not on any
+`_orrery` / `_voidtide`, `docs/ID_REGISTRY.md`), rolled independently by **every `reactor`** in that raid's
+bonus room (`10_systems/social/RAID.md` §6.E, `map_325`–`map_329`) on harvest — not on any
 monster's death. Field shape is the `drop_mob_NNN` shape above with two differences:
 
 | Field | Type | Required | Notes |
@@ -71,7 +71,7 @@ monster's death. Field shape is the `drop_mob_NNN` shape above with two differen
 | `rows` | list[row] | yes (≥1) | Same row shape and the same `10_systems/DROPS.md` §2 chance buckets as a monster table. Row *composition* is `10_systems/social/RAID.md` §6.E's, not this schema's. |
 
 Because the roll is per-node rather than per-kill, a bonus room's expected yield is
-`node_count × per-row chance` — the node count lives on the **map** (`map_325`–`map_328`
+`node_count × per-row chance` — the node count lives on the **map** (`map_325`–`map_329`
 `interactables`), not in this file, so neither file is balanceable alone. Both are flagged in
 `10_systems/social/RAID.md`'s Open Questions.
 
@@ -177,7 +177,7 @@ referential integrity, §3 schema conformance/front-matter, §4 ID uniqueness+ra
      `guaranteed` pool-roll row (`rarity_source: boss`); exactly the boss's two unique
      `item_equip` refs (mapping per rule 6 below) each on an `epic`-or-`legendary` row, with
      exactly one carrying `first_clear_guaranteed: true`.
-   - **raid finale bosses (§5.4, `mob_027`/`mob_150`/`mob_178`/`mob_234` — `10_systems/social/RAID.md`
+   - **raid finale bosses (§5.4, `mob_027`/`mob_150`/`mob_178`/`mob_206`/`mob_234` — `10_systems/social/RAID.md`
      §2):** these are region bosses; their static tables satisfy the `boss` (§5.3) shape above,
      nothing more. The §5.4 **raid-entry treatment** — the `rarity_source: raid` weight row, the
      `guaranteed` per-member raid-token grant (reserved `item_etc_0177`–`0192` block), and the
@@ -189,7 +189,9 @@ referential integrity, §3 schema conformance/front-matter, §4 ID uniqueness+ra
    owner tier's expected source (`elite`/`boss` per rule 4; `raid` is the §5.4 runtime
    entry-context row and appears in no authored static table).
 6. **Boss unique refs (hard).** An `item_equip` ref inside the `0201`–`0230` `docs/ID_REGISTRY.md`
-   block may appear **only** in a `boss`-tier owner's table (task's explicit "boss uniques only in
+   block — plus `0301`–`0302`, the appended `raid_orrery` Quartermaster pair, which is
+   Quartermaster-bought like `0223`–`0230` and likewise never drops —
+   may appear **only** in a `boss`-tier owner's table (task's explicit "boss uniques only in
    boss tables"), and must be one of the two IDs that doc's boss-unique mapping assigns to this
    owner's region-order number `n` (`n` = 1–11 only, uniques `0201`–`0222`; the raid finale bosses
    are region bosses and add no unique slots, `10_systems/social/RAID.md` §2/§6 — the same
@@ -226,7 +228,7 @@ rows:
   # - { ref: item_etc_{emberstone_id}, chance: uncommon, qty_min: 1, qty_max: 1 }
   # - { ref: pool_equip_r{NN}, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: elite }
   # --- boss (DROPS §5.3): guaranteed materials + emberstone(s) + guaranteed pool + 2 unique rows ---
-  # --- (the four raid finale bosses mob_027/150/178/234 author exactly this shape too; the DROPS §5.4
+  # --- (the five raid finale bosses mob_027/150/178/206/234 author exactly this shape too; the DROPS §5.4
   # ---  raid-entry treatment is runtime entry-context, never extra static rows — rule 4) ---
   # - { ref: pool_equip_r{NN}, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
   # - { ref: item_equip_{unique_id_1}, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }

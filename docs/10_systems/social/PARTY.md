@@ -149,8 +149,9 @@ Questions — whether this duplicates the material/`shards` faucet per member is
 
 The **raid** — its concept, entry, stage chain, lockout, and rewards policy — is owned by
 `10_systems/social/RAID.md`; this section owns only the **party-side** rules a raid consumes. A raid
-run is **party-required and party-instanced** across the four raid finale arenas
-(`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md` §2, `docs/WORLD_PLAN.md`):
+run is **party-required and party-instanced** across the five raid finale arenas
+(`map_042`/`map_200`/`map_244`/`map_284`/`map_324`, `10_systems/social/RAID.md` §2,
+`docs/WORLD_PLAN.md`):
 entering allocates the stage chain and finale arena to the entering party alone
 (`10_systems/SPAWN.md` §7).
 

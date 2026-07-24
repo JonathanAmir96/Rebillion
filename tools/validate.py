@@ -123,6 +123,7 @@ MAP_BLOCKS = [
 MAP_EXT_BLOCKS = [
     ("millbrook", 325, 325), ("clockwork", 326, 326),
     ("frostpeak", 327, 327), ("voidshore", 328, 328),
+    ("arcane_reach", 329, 329),
 ]
 # Mob region blocks: (slug, normal_lo, normal_hi, elite_lo, elite_hi, boss)
 MOB_BLOCKS = [
@@ -135,7 +136,7 @@ MOB_BLOCKS = [
 ]
 # Category overall numeric ranges (prefix -> (lo, hi, digit_width))
 ID_RANGES = {
-    "map": (1, 328, 3), "mob": (1, 234, 3), "drop_mob": (1, 234, 3),
+    "map": (1, 329, 3), "mob": (1, 234, 3), "drop_mob": (1, 234, 3),
     "npc": (1, 120, 3), "quest": (1, 120, 3),
     "item_equip": (1, 300, 4), "item_use": (1, 60, 4), "item_etc": (1, 200, 4),
     "skill": (1, 60, 3),  # per line; novice caps at 10 but 1-60 is the block
@@ -152,15 +153,16 @@ REF_RE = re.compile(
     # Raid bonus-room tables (10_systems/social/RAID.md §6.E). Non-numeric IDs, so they are
     # invisible to id_category()/check_id() below — listing them here is what makes a map's
     # `drop_table_ref` actually resolve, per VALIDATION.md §2.
-    # Match the SHAPE, not the four valid slugs — a typo must still be collected here so it
+    # Match the SHAPE, not the five valid slugs — a typo must still be collected here so it
     # fails to resolve below. Matching only valid names would make typos invisible.
     r"|drop_raid_bonus_[a-z_]+"
     r")\b"
 )
-# The four legal raid-bonus table slugs, checked by name since they carry no numeric suffix.
+# The five legal raid-bonus table slugs, checked by name since they carry no numeric suffix.
 RAID_BONUS_TABLES = {
     "drop_raid_bonus_undervault", "drop_raid_bonus_mainspring",
-    "drop_raid_bonus_deepfrost", "drop_raid_bonus_voidtide",
+    "drop_raid_bonus_deepfrost", "drop_raid_bonus_orrery",
+    "drop_raid_bonus_voidtide",
 }
 
 SCHEMA_BY_PATH = {
@@ -769,7 +771,7 @@ def validate_drop_table(rep, path, ln, data):
             rep.fail(3, path, ln, "drop table missing '%s'" % f)
     idv = data.get("id")
     if isinstance(idv, str) and idv.startswith("drop_raid_bonus"):
-        # 20_schemas/drop_table.schema.md: id must be one of the four minted slugs, and `owner`
+        # 20_schemas/drop_table.schema.md: id must be one of the five minted slugs, and `owner`
         # is a raid token rather than a mob_NNN (the one place that field is not a mob).
         if idv not in RAID_BONUS_TABLES:
             rep.fail(4, path, ln, "raid bonus table id '%s' not one of %s"

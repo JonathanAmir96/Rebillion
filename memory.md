@@ -5,6 +5,107 @@ Companion Memory Bank (distilled current state, coding-pass context):
 `memory/projectbrief.md` → `memory/systemPatterns.md` → `memory/techContext.md` →
 `memory/activeContext.md` → `memory/progress.md`.
 
+## 2026-07-24 — first standing design-critic pass + the three fixes it landed (owner-directed)
+
+Branch `claude/autonomous-design-review-88i3fc`. The recurring Design Critic role ran its first
+pass (`docs/phase_reports/design_reviews/REVIEW_2026-07-24_01.md`, HEAD `48484d6`), reviewing the
+same-day charter/capsule wave and sweeping the ratified LEVELING curve against RAID banding.
+Three proposals, **all owner-approved the same day**, then fixed by three parallel Opus agents on
+non-overlapping file sets plus a fourth consistency sweep. Gates after landing: `validate.py`
+**0/0**; `md_graph.py` **121 files / 1 component / 0 orphans / 0 unreferenced**, 121/121
+README-reachable. `docs/phase_reports/design_reviews/` is now linked from README (it was the only
+unreferenced dir). Supersedes, where they conflict, the live-canon numbers in the dated charter/
+capsule entry below — that entry is left intact as history, per the newest-first law.
+
+- **PA-002 (new owner amendment, MONETIZATION.md).** The capsule containment had two holes the
+  amendment text itself already closed but the implementing doc did not. (1) MONETIZATION's PA-001
+  block requires prizes be "never tradable"; GACHAPON asked only for a `no_vendor` flag. Since
+  ≈42% of pulls (scrolls 10 / emberstones 20 / equip rolls 12) are ordinary tradable items,
+  MARKET.md was a live real-money→`shards` route. GACHAPON §1.5/§3/§7 now specify **bind on
+  dispense** — non-vendorable **and** never tradable **and** never listable, for prizes *and*
+  tickets (free and bought tickets stack indistinguishably, so the bind covers all of them),
+  enforced through TRADING §4's already-pending `tradeable` item-schema field, which must be
+  **per-instance** (the same scroll SKU is tradable from a drop, bound from a capsule). No new
+  mechanism invented. (2) The "10 per **character** per week" purchase cap was really 40/week once
+  ACCOUNTS_AUTH §2.2 granted 4 slots the same day PA-001 landed — its own Open Question deferred
+  this to "once accounts exist", and they did. Cap is now **account-wide**; logged as **PA-002**
+  because PA-001 says changing a §1 cap is an amendment, not a tune. PA-002 only *tightens*.
+- **Fifth raid `raid_orrery` — the Shattered Orrery** (RAID.md §2). The four bands (15–22, 32–40,
+  45–55, 70–80) plus §3's hard both-ends gate left **Lv 56–69 with no raid: ≈53.7 `/played` hours**
+  (LEVELING §1 cum 118.2 h @70 − 64.5 h @55) — 5.5× either other gap, ≈1.6× the whole of Arc 1,
+  covering all of Arcane Reach, with no `raid_token` faucet and no §6.D daily group beat. Owner
+  chose Option A: band **56–69**, party 3–6, stages `map_277`–`279`, finale `map_284`, boss
+  `mob_206` (Aetheron) — **0 map IDs, 0 mob IDs, 0 boss slots minted**. Arc-2 now tiles 45–80 with
+  no hole. `raid_stage_exp` 14,000 / `raid_clear_exp` 70,000, derived from §3.1's own structure
+  (clear = 5× stage; ≈10.9% of `exp_to_next` at the band midpoint Lv 62); chaining invariant
+  re-checked (269 K/h < 287 K/h solo hunting). **Design call:** unlike the other raids' dead-end
+  stage chains, `map_277`–`279` sit on R10's main spine, so they are **dual-purpose** — open copy =
+  ordinary dungeon, raid entry = private instance (the entry-context distinction every finale arena
+  already carries, RAID §7); stripping portals would have stranded the `map_280` secret. ID blocks
+  **extended, never renumbered**: `item_cosmetic` `0064`→`0080` (block was exactly full),
+  `quest_133`–`134` reserved, raid equip pair at `0301`–`0302` (family deliberately discontiguous —
+  `0231`–`0300` is minted arc-2 content). Owed: herald NPC (R10's `npc_097`–`108` is full — owner
+  call), `quest_133`–`134` authoring, instanced stage spawn sets, the reserved SKUs.
+- **Progressive Gilded Charter fee** (ECONOMY §4.4, owner directive: "fee like maple story… when
+  amount increase the tax increased"). The flat 6,000 was ≈48 min of net income at Lv 10 but ≈14
+  min at Lv 70 and <17 min of Lv-50 tonic spend (≈1.3% of a month's net) — so everyone bought gilt
+  instantly and the free/gilt split carried no decision while still costing a `charter_gilt` token,
+  retroactive-purchase rules, §5.2's parity clause and per-character season state. It was also the
+  only unscaled recurring sink, contradicting §6's own "sinks scale with level" guardrail. Now a
+  **level-banded ladder on §4.1's existing tonic bands** (Law 2, no new band scheme): 2,500 (Lv 1–9)
+  · 5,000 · 10,000 · 15,000 · 21,000 · 28,000 · **60,000 (Lv 62+)**, each derived as a rising share
+  (5%→24%) of that band's modeled season net income from §5. Lv 10 is **cheaper** than the old flat
+  fee in both `shards` and minutes, so cozy improved (P2); the top bracket lands at ≈2½ h of at-band
+  net. Charged **once at purchase against `level` at that moment**, never re-assessed (`level` never
+  decreases, and billing a player for progressing is what P2 and BATTLE_PASS §6 forbid). Anchoring
+  on §5's *printed* net column rather than band floors is deliberate — floors produce a
+  **non-monotone** fee because of §5's already-flagged tonic-bite overshoot.
+- **Consistency sweep (24 files)** so the tree holds one story: WORLD_CHANNELS instance count
+  160→200 (arithmetic on its own per-token target), NETWORK_PROTOCOL `op_0203` enum, PARTY §6 /
+  SPAWN §7 / COMBAT_FORMULA §13.3 / MAPS_SYSTEM §8 arena+boss lists, DROPS §5.4 + ITEMS §13 +
+  COSMETICS §4 reward blocks, four schemas, the `memory/` Bank. Where a doc merely *restated* the
+  raid roster it was replaced with a pointer to RAID §2 rather than a fifth copy (Law 2). Left
+  deliberately alone: executed/superseded historical prompts and phase reports, and content files
+  that mention a raid because they *are* that raid's content.
+- **Rebased onto `main` @ `21ef1c6`** (PRs #10 raid-staged-runs · #11 quest expansion · #12 PixelLab
+  library) and reconciled — `raid_orrery` predates main's much richer raid model and had to become a
+  full citizen of it, not just a merged table row. Conflicts in SCOPE / WORLD_PLAN / RAID / CLAUDE /
+  WORLD_CHANNELS all resolved as **unions** (main's bonus-room + claim + run-clock model *and* the
+  fifth raid); one of the branch's Open Questions was dropped as superseded — main had already
+  resolved the "raid herald term" entry. What the integration then owed:
+  - **Bonus room `map_329` — The Orrery Reliquary** (`arcane_reach`, `secret`, opened from `map_284`
+    on a raid-entry kill), appended to main's `map_325`+ raid-bonus extension range; plus
+    `drop_raid_bonus_orrery`. **`tools/validate.py` needed three edits**, not one: `MAP_EXT_BLOCKS`,
+    `ID_RANGES["map"]` hi 328→329, and the hardcoded `RAID_BONUS_TABLES` slug allowlist. Totals now
+    **329 maps / 28 secrets / 5 bonus rooms**; WORLD_PLAN's region table carries the extension maps
+    inside each raid region's row.
+  - **Signature "the orbit"** (RAID §4) — phase-staggered shard platforms on fixed circuits, so
+    routing is a question of *when* and the party is never all in the same phase. Deliberately
+    distinct from `raid_voidtide`'s tide on mechanism (it is authored `moving_platforms` geometry,
+    an **existing** map field — the tide still needs a new param and is flagged unbuildable in
+    RAID's own OQs), scope (per-shard and staggered vs one global scalar), and effect surface
+    (reachability only, coupled to no spawn rule). Stages: `map_277` kill gate · `map_278` puzzle ·
+    `map_279` collect-and-deposit — three different patterns, satisfying §4's no-repeat law.
+- **The two flagged items are now closed (owner-directed):**
+  - **Herald.** `npc_106` **Vault Warden Iskrel** extended rather than a new NPC minted (no
+    `npc_001`–`120` extension). Placement at Highrune Sanctum `map_266` verified legal — §3 delegates
+    placement to WORLD_PLAN, and `raid_orrery`'s chain has no dedicated branch door, so §3's
+    shared-stage carve-out gained one clause. Side finding: **`raid_herald` can never meet its
+    GLOSSARY promotion condition** as the schemas stand — `npc.schema.md`'s `role` enum has no such
+    token and all five heralds are `role: handler`. Flagged, not promoted.
+  - **PA-002 storage.** New **`account_time_gate`** table (DATABASE_PERSISTENCE §3.1), the direct
+    analogue of `character_time_gate` keyed `(account_id, gate_key)`. It **follows the account root**
+    wherever the still-open account-store-placement decision lands, so it pre-empts nothing; the week
+    boundary reuses PERSISTENCE §2.1's existing anchor rather than inventing one. PERSISTENCE §2.1
+    now names the home instead of only noting the exception.
+- **Filed, not guessed:** per-stage orbit numbers (paths, speeds, phase offsets) went to RAID's
+  authoring-pass OQ. Under a separate `account` schema, that schema's write grant must widen past
+  auth-service-only — folded into the open account-store bullet. Pre-existing and untouched:
+  `item.schema.md` still has no trace of the `tradeable` field both TRADING §4 and GACHAPON §7 are
+  owed (Phase C), and INVENTORY §8's quick-vendor would try to sell a bind-on-dispense equip roll.
+  One pre-existing false claim corrected in passing: RAID said `validate.py` enforces bonus-room
+  `level_band` ⊆ region band; it only checks presence.
+
 ## 2026-07-24 — md-audit wave merged; the six audit calls ruled (owner-directed)
 
 Owner approved: the audit branch merged to `main` (merge `4bba402`, 217 files) and all six

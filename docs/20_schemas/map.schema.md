@@ -22,7 +22,7 @@ map data into Godot scenes (`60_agents/`, not yet authored).
 
 One file per map at `50_content/maps/map_NNN.yaml` — `NNN` zero-padded to 3 digits, matching the
 map's reserved slot in `docs/ID_REGISTRY.md`'s 11 region blocks, or in that doc's raid-bonus
-extension range (`map_325`–`map_328`, `10_systems/social/RAID.md` §6.E) — a region may own two
+extension range (`map_325`–`map_329`, `10_systems/social/RAID.md` §6.E) — a region may own two
 disjoint map ranges. No batch
 tables (contrast `10_systems/ITEMS.md` §12's category tables) — every map is distinct enough to
 own its file. The file's `id` field and its filename's `NNN` must agree.
@@ -136,7 +136,7 @@ A `boss`-tier `mob_NNN` may never appear in `mobs` (`10_systems/SPAWN.md` §1 �
 | Sub-field | Type | Required | Notes |
 |---|---|---|---|
 | `boss_mob_id` | string `mob_NNN` | yes | Named field per `15_maps_system/MAPS_SYSTEM.md` §8 (`boss_mob_id`); must be `boss`-tier and match this region's `docs/WORLD_PLAN.md` boss seed |
-| `gate` | `{type, required_flag?, party_min?}` | yes | `type: open\|quest_flag`, default `open` (`15_maps_system/MAPS_SYSTEM.md` §8); `required_flag` (quest-stage ref) required iff `type: quest_flag`; `party_min` (int) is a raid-context hook meaningful only for the four raid finale arenas (`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md` §2) — and even there the authored open-door gate stays `open` (the solo fallback, `RAID.md` §7): the party 3–6 requirement is enforced at raid-herald entry (`RAID.md` §3), and the stage maps (`map_038`–`040`/`195`–`197`/`240`–`242`/`320`–`322`) plus the finale arena are party-instanced per run (`RAID.md` §4, `10_systems/SPAWN.md` §7). Regional arenas never require a party |
+| `gate` | `{type, required_flag?, party_min?}` | yes | `type: open\|quest_flag`, default `open` (`15_maps_system/MAPS_SYSTEM.md` §8); `required_flag` (quest-stage ref) required iff `type: quest_flag`; `party_min` (int) is a raid-context hook meaningful only for the five raid finale arenas (`map_042`/`map_200`/`map_244`/`map_284`/`map_324`, `10_systems/social/RAID.md` §2) — and even there the authored open-door gate stays `open` (the solo fallback, `RAID.md` §7): the party 3–6 requirement is enforced at raid-herald entry (`RAID.md` §3), and the stage maps (`map_038`–`040`/`195`–`197`/`240`–`242`/`277`–`279`/`320`–`322`) plus the finale arena are party-instanced per run (`RAID.md` §4, `10_systems/SPAWN.md` §7). `map_277`–`map_279` are `raid_orrery`'s **shared** stages (`RAID.md` §4) — their authored files stay ordinary open-world dungeons and never carry `party_min`. Regional arenas never require a party |
 | `reset_grace_s` | float | no, default 30 | `15_maps_system/MAPS_SYSTEM.md` §8's `arena_reset_grace_s`; per-arena override hook |
 | `hazards` | list of `{tier, at_tile\|rect_tiles}` | no | `tier` enum owned by `15_maps_system/MAP_TRAVERSAL.md` §6 (`minor`\|`standard`\|`severe`) |
 | `camera_locks` | list of `{phase_id, params:{}}` | no | Phase-triggered per the boss's `phases[]` (`10_systems/AI_BEHAVIOR.md` §15); exact `params` shape is `10_systems/CAMERA.md`'s, not authored in this pass (Open Questions) |
@@ -235,10 +235,13 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
    must set `dead_end: true`; ordinary paired `edge`/`door`/`coach` portals never set it. Checked
    globally at world-graph reconciliation, not per-file (`docs/VALIDATION.md` §5).
 4. **Arena entrance rule.** An `arena` map's only open entrance is exactly one `door`-kind portal
-   from its adjoining field/dungeon (`15_maps_system/MAPS_SYSTEM.md` §8). On the four raid finale
+   from its adjoining field/dungeon (`15_maps_system/MAPS_SYSTEM.md` §8). On the five raid finale
    arenas only, the one-way `dead_end: true` arrival door from the raid's final stage map
    (`map_040`→`map_042`, `map_197`→`map_200`, `map_242`→`map_244`, `map_322`→`map_324`;
    `10_systems/social/RAID.md` §4) is permitted and does not count as a second entrance.
+   `raid_orrery` adds no such authored door: its `map_279`→`map_284` arrival exists only inside the
+   raid instance (its stage maps are shared open-world dungeons whose authored portals are the
+   ordinary ones, `RAID.md` §4), so `map_284` keeps exactly one authored entrance.
 5. **Platform-gap promise.** `platform_brief` may assert gaps are crossable per
    `15_maps_system/MAP_TRAVERSAL.md` §1.1 (or §7's doubled figures under `water_physics: true`);
    this schema mechanically checks only the ≤6-line cap — exact tile-distance legality is an
@@ -247,9 +250,9 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
    inside this map's `region`'s mob block (`docs/ID_REGISTRY.md`). A `boss`-tier id may never
    appear in `spawn_zones` (`10_systems/SPAWN.md` §1).
 7. **Arena boss match.** `arena_config.boss_mob_id` must be the boss `docs/WORLD_PLAN.md` names for
-   this map's region; on the four raid finale arenas that same boss is the raid's finale boss
-   (`map_042`→`mob_027`, `map_200`→`mob_150`, `map_244`→`mob_178`, `map_324`→`mob_234`;
-   `10_systems/social/RAID.md` §2 — no extra boss slots).
+   this map's region; on the five raid finale arenas that same boss is the raid's finale boss
+   (`map_042`→`mob_027`, `map_200`→`mob_150`, `map_244`→`mob_178`, `map_284`→`mob_206`,
+   `map_324`→`mob_234`; `10_systems/social/RAID.md` §2 — no extra boss slots).
 8. **Combat-free map types.** `spawn_zones` must be empty/absent on `town` and `interior` maps
    (`15_maps_system/MAPS_SYSTEM.md` §6, `10_systems/SPAWN.md` §2). `spawn_zones` must also be
    empty/absent on `arena` maps (boss-scripted only, no zone spawner). `arena_config` must be

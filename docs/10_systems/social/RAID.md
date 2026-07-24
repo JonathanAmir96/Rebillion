@@ -28,7 +28,7 @@ Token minting: `raid_<name>` tokens are **minted in `docs/ID_REGISTRY.md`** (the
 same pattern as every other ID family); this doc is the concept owner. A raid that is not in the
 registry does not exist.
 
-## 2. The raid roster (four raids, two arcs)
+## 2. The raid roster (five raids, two arcs)
 
 Placement (which maps, which region, which boss slot) is owned by `docs/WORLD_PLAN.md`; this
 table lists the roster by reference and fixes the **rule-side** columns (band, party size):
@@ -38,6 +38,7 @@ table lists the roster by reference and fixes the **rule-side** columns (band, p
 | `raid_undervault` | Undervault Heist | 15–22 | 3–6 | `map_038`–`map_040` | `map_042` | `mob_027` | `map_325` |
 | `raid_mainspring` | Mainspring Trial | 32–40 | 3–6 | `map_195`–`map_197` | `map_200` | `mob_150` | `map_326` |
 | `raid_deepfrost` | Deepfrost | 45–55 | 3–6 | `map_240`–`map_242` | `map_244` (Frostpeak Isle) | `mob_178` | `map_327` |
+| `raid_orrery` | Shattered Orrery | 56–69 | 3–6 | `map_277`–`map_279` (shared, §4) | `map_284` (Arcane Reach) | `mob_206` | `map_329` |
 | `raid_voidtide` | Voidtide | 70–80 | 3–6 | `map_320`–`map_322` | `map_324` (Voidshore) | `mob_234` | `map_328` |
 
 Every raid runs the same shape: **three stages → finale arena → bonus room**, on one 30-minute run
@@ -45,16 +46,36 @@ clock (§4.1) with a separate 90-second bonus clock (§6.E). The per-raid *signa
 three stages from feeling interchangeable is §4's.
 
 The two arc-1 raids end at **existing region bosses** (no extra boss slots — their finale arenas
-double as the regions' open boss arenas, `docs/WORLD_PLAN.md` R2/R8). The two arc-2 raids and
+double as the regions' open boss arenas, `docs/WORLD_PLAN.md` R2/R8). The three arc-2 raids and
 their bosses live on the new second-arc islands; their names, region sections, and boss
 identities are `docs/WORLD_PLAN.md`'s (cite the mob IDs above, nothing more).
+
+**Band coverage (owner decision 2026-07-24 — the arc-2 bands now tile).** `raid_orrery` was
+added to close the Lv 56–69 hole between `raid_deepfrost`'s ceiling and `raid_voidtide`'s floor
+— ≈ 53.7 `/played` hours (`10_systems/LEVELING.md` §1: cum 118.2 h @ Lv 70 − 64.5 h @ Lv 55)
+with no raid enterable under §3's hard both-ends gate, the longest such window in the game and
+the whole of Arcane Reach. Its floor is one level above `raid_deepfrost`'s ceiling and its
+ceiling one below `raid_voidtide`'s floor, so **45–55 · 56–69 · 70–80 tile with no gap**. It is
+the roster's widest band (14 levels vs 8–11) because the hole it covers is the widest; its
+floor sits 12 levels under its Lv-68 finale boss, against 10 for `raid_deepfrost` and
+`raid_voidtide`. It mints **no new map, mob, or boss IDs** — it reuses R10's existing Shattered
+Orrery dungeon chain (§4) and the region's own boss arena, holding WORLD_PLAN's "each ends at
+an existing boss arena" rule.
 
 ## 3. Entry
 
 - **Raid herald.** Each raid is entered through a **raid herald** NPC standing at the raid's
   staging area — the map its stage chain branches from (placement per `docs/WORLD_PLAN.md`;
   concrete NPC IDs per each region's NPC block in `docs/ID_REGISTRY.md`). The herald is the
-  only entrance to the stage chain; the stage maps have no open portals.
+  only entrance to the **raid instance**; a raid's *dedicated* stage maps have no open portals.
+  `raid_orrery` is the one raid whose stage maps are **shared** with open-world dungeons (§4):
+  there the open copies keep their ordinary portals and the herald still gates the instance.
+  Because that chain has no dedicated branch door to stand at, its staging area is the region's
+  muster hold — **Highrune Sanctum `map_266`** (`docs/WORLD_PLAN.md` R10), where `npc_106` Vault
+  Warden Iskrel posts — rather than the open dungeon the chain happens to hang off. The
+  "branches from" wording above describes the four dedicated-stage raids; placement is
+  `docs/WORLD_PLAN.md`'s in every case, and §6.E's return portal follows the herald, not the
+  branch map.
 - **Intro/handler quest pattern.** Each raid carries an intro quest (unlocks the herald dialog,
   explains the run) and a handler quest (a **one-time** first-clear turn-in that closes the intro
   arc), both authored as ordinary `10_systems/QUESTS.md` quests under that doc's §7
@@ -110,6 +131,16 @@ no-hidden-re-scaling law `10_systems/social/PARTY.md` §6 fixes (`00_vision/PILL
 opens when the stage objective completes; the party advances together. Clearing the last stage
 opens the finale arena, where the raid boss waits.
 
+**Shared stage maps (`raid_orrery`).** Four raids own dedicated stage maps; `raid_orrery`
+instead **reuses maps that also exist in the open world** — R10's Shattered Orrery dungeon
+chain (`map_277`–`map_279`, `docs/WORLD_PLAN.md`). This is the same **entry-context**
+distinction every finale arena already carries (§7: the arena is both an open boss room and a
+raid finale instance), extended one map-type down: the open copy is ordinary world content —
+ordinary portals, ordinary region spawns, ordinary rewards — while a **raid entry** allocates
+a private copy in which the chain is one-way, stage-gated, and pays §6's raid rewards. Reusing
+maps is what lets a fifth raid exist without minting map or mob IDs; nothing else about the
+stage model changes.
+
 **Stage-clear objective patterns.** Stage objectives are built only from
 `10_systems/QUESTS.md` §3's fixed verb set (`kill` / `collect` / `talk` / `reach`) plus
 `quest_object` interactables (`15_maps_system/MAP_INTERACTABLES.md`) — no raid-only verbs:
@@ -130,27 +161,40 @@ from reading as three rooms of the same fight.
 
 **Signature mechanic (one per raid).** Beyond the pattern, each raid carries a **signature** — a
 single environmental rule that colors all three of its stages and gives the raid its identity. A
-signature is built from the same fixed verb set and `quest_object`/`reactor` interactables; it
-invents no new verb and no new interactable type. The four signatures and the stage line-ups they
-produce:
+signature is built from the same fixed verb set plus existing authored shapes
+(`quest_object`/`reactor` interactables, and `moving_platforms` for the orbit); it invents no new
+verb and no new interactable type. The five signatures and the stage line-ups they produce:
 
 | Raid | Signature | Stage 1 | Stage 2 | Stage 3 |
 |---|---|---|---|---|
 | `raid_undervault` | **The haul** — carried stage items slow their carrier and draw the vault's wardens; the party must cover whoever is loaded | `map_038` the Sunken Larders — *kill gate* | `map_039` the Flooded Ledger Vaults — *collect-and-deposit* | `map_040` the Grain King's Approach — *puzzle* (simultaneous levers) |
 | `raid_mainspring` | **The beat** — hazards fire on a fixed clockwork cycle, identical every run; the stage is learned, not out-statted | `map_195` the Sundered Cogworks — *puzzle* (plates in beat order) | `map_196` the Flywheel Vault — *collect-and-deposit* | `map_197` the Escapement Antechamber — *kill gate* |
 | `raid_deepfrost` | **The thaw** — ice gates and frozen footing yield only to heat carried brazier to brazier | `map_240` the Sundered Gate — *collect-and-deposit* (embers to braziers) | `map_241` the Frozen Cistern — *puzzle* (melting/refreezing platforms) | `map_242` the Rimewyrm's Antechamber — *kill gate* |
+| `raid_orrery` | **The orbit** — the shard platforms ride fixed, phase-staggered circuits; standing ground now is open void a beat later, so every route is a question of *when*, and the party is never all in the same phase at once | `map_277` the Outer Gears — *kill gate* (wardens fought where the orbit puts them) | `map_278` the Middle Gears — *puzzle* (actors on separately-phased shards) | `map_279` the Inner Gears — *collect-and-deposit* (orbits meet the deposit ring once a cycle) |
 | `raid_voidtide` | **The tide** — the water level cycles on a timer; footing, reachable ledges, and what spawns all change with it | `map_320` the Sunken Approach — *puzzle* (cross at low tide) | `map_321` the Eclipse Gallery — *kill gate* (spawns per surge) | `map_322` the Last Approach — *collect-and-deposit* (gathered between surges) |
 
 Map placement is `docs/WORLD_PLAN.md`'s and the map IDs above are cited from it, never minted here.
+`raid_orrery`'s three stage names are the shared open maps' own authored names, not parallel raid-only
+names — the instance is the same room under a different entry context (§4's shared-stage rule).
 Concrete per-stage numbers (required counts, spawn sets, lever counts, cycle periods) are Phase D
 content authored against the pattern + signature this table fixes.
+
+**Why the orbit is not the tide.** The two rhyme and are not the same lever. (a) *Mechanism:* the
+orbit is authored geometry — `moving_platforms` (`20_schemas/map.schema.md`,
+`15_maps_system/MAP_TRAVERSAL.md` §5), an existing map field with a fixed `path`/`speed`/`loop_mode`
+— so it needs no new interactable type, no new param, and no map-wide runtime state; the tide needs
+all three (Open Questions). (b) *Scope:* the tide is one global scalar every member shares, so the
+whole party waits out the same window together; the orbit is per-shard and phase-staggered, so at
+every instant some routes are open and others closed and members are split across phases — the
+pressure is hand-off and routing, not waiting. (c) *Effect surface:* the tide changes footing **and**
+what spawns; the orbit changes reachability only, and couples to no spawn rule.
 
 ### 4.1 The run clock
 
 A raid run is **timed end to end** — one clock for the whole run, not one per stage:
 
 ```
-raid_run_timer = 30 min          # all four raids, first pass
+raid_run_timer = 30 min          # all five raids, first pass
 ```
 
 - **Starts** the moment the party is placed in stage 1, and runs continuously across every stage
@@ -234,7 +278,8 @@ that never becomes the mandatory pacing path (P2).
 **B. Raid tokens (`raid_token`).** On a **finale-boss clear**, every eligible raid member is
 **guaranteed** their raid's `raid_token` (`00_vision/GLOSSARY.md`; per-raid variants
 `item_etc_0177` Undervault Seal · `item_etc_0178` Mainspring Cog · `item_etc_0179` Deepfrost Shard ·
-`item_etc_0180` Voidtide Pearl, `docs/ID_REGISTRY.md`). The guaranteed grant is a **runtime grant
+`item_etc_0181` Orrery Bearing · `item_etc_0180` Voidtide Pearl, `docs/ID_REGISTRY.md`). The
+guaranteed grant is a **runtime grant
 keyed by entry context** (`10_systems/DROPS.md` §5.4 — one per participating member, raid entry
 only; never authored as extra static rows in the boss's drop table,
 `20_schemas/drop_table.schema.md` rule 4) and is consumed here, not restated. Tokens are spent at the **Raid Quartermaster** — a vendor NPC
@@ -244,14 +289,16 @@ member on a finale clear and that the Quartermaster's exclusive stock is `raid_t
 
 **C. Raid-exclusive rewards (the desire pull).** Only the Raid Quartermaster sells these, only for
 that raid's `raid_token`, and they exist nowhere else in the game. Per raid:
-  - **Two raid-exclusive equips** (`item_equip_0223`–`0230`, two per raid — undervault 0223–24 ·
-    mainspring 0225–26 · deepfrost 0227–28 · voidtide 0229–30, `docs/ID_REGISTRY.md`). These are
+  - **Two raid-exclusive equips** (two per raid — undervault `item_equip_0223`–24 ·
+    mainspring 0225–26 · deepfrost 0227–28 · voidtide 0229–30 · orrery `item_equip_0301`–`0302`,
+    the appended fifth-raid pair, `docs/ID_REGISTRY.md`). These are
     **aspirational side-grades, not strictly-required best-in-slot** — the field and boss-unique gear
     (`10_systems/ITEMS.md`, `10_systems/DROPS.md` §5.3) keeps solo play fully viable, and the raid
     equips are a lateral flavor of power, not a gate (P2). Their stats and token prices are
     `10_systems/ITEMS.md`'s; this doc owns only that they are `raid_token`-gated and raid-exclusive.
-  - **One raid-exclusive cosmetic + title** (`item_cosmetic_0001`–`0008`, one per raid,
-    `docs/ID_REGISTRY.md`). **No stats**, per the cosmetic-only charter
+  - **One raid-exclusive cosmetic + title** (`item_cosmetic_0001`–`0008` for the first four,
+    `item_cosmetic_0065`–`0066` for `raid_orrery`, `docs/ID_REGISTRY.md`). **No stats**, per the
+    cosmetic-only charter
     (`10_systems/MONETIZATION.md`, `00_vision/PILLARS.md` anti-pay-to-win) — pure prestige a grouped
     player wears to show the clear. Catalog and price are `10_systems/ITEMS.md`'s; equip/display
     rules are `10_systems/COSMETICS.md`'s.
@@ -271,7 +318,7 @@ The first-of-the-day state (per character, per raid) is server-tracked (§8).
 **E. The bonus stage (the chance payoff).** On a **raid-entry** finale-boss kill, a portal opens in
 the finale arena onto that raid's **bonus room** — a separate instanced map, one per raid
 (`map_325` Undervault Cache · `map_326` Mainspring Treasury · `map_327` Deepfrost Hoard ·
-`map_328` Voidtide Trove, `docs/ID_REGISTRY.md`). This is the run's chance-based payoff, distinct
+`map_329` Orrery Reliquary · `map_328` Voidtide Trove, `docs/ID_REGISTRY.md`). This is the run's chance-based payoff, distinct
 from every guaranteed grant above.
 
 - **Raid entry only.** An open-arena solo kill of the same boss (§7) opens no portal and has no
@@ -353,10 +400,10 @@ Supporting reward rules (unchanged in shape):
   "other" (≈5%) one-time-grant budget alongside first-kill and discovery grants
   (`10_systems/DROPS.md` §8's family) — budgeted there, not here.
 
-## 7. Solo fallback (arc-1 rule, kept for all four raids)
+## 7. Solo fallback (arc-1 rule, kept for all five raids)
 
 The finale boss remains **soloable via the arena's open (non-raid) entry at reduced reward** —
-the arc-1 rule (`docs/WORLD_PLAN.md`) is retained game-wide, including on the two arc-2 raids.
+the arc-1 rule (`docs/WORLD_PLAN.md`) is retained game-wide, including on the three arc-2 raids.
 The open entry is the region arena's ordinary door: no party, no herald, no stage chain, no
 cooldown interaction with §5, and the kill is a plain region-boss kill (`boss` tier per
 `10_systems/LEVELING.md` §3 / `10_systems/DROPS.md` §5.3). Only the raid entry produces
@@ -381,11 +428,12 @@ may not self-certify. The timers and rolls added by this revision are the same:
 **In the interim solo build, raids ship present but dormant** — the party system is dormant
 (`10_systems/social/PARTY.md` §Server Dependency), so no party ever forms and no herald entry
 succeeds; heralds stand in the world with a "gather a party" refusal line. The solo player's path
-to all four bosses is §7's open arena entry, which works fully offline. The `GameState` facade
+to all five bosses is §7's open arena entry, which works fully offline (and `raid_orrery`'s
+shared stage maps, §4, stay fully walkable as ordinary R10 dungeons). The `GameState` facade
 (`10_systems/PERSISTENCE.md` §5) still carries the raid-side fields (first-ever-clear flags,
 first-clear-of-the-day flags, cooldown timers) so the live server swap changes no calling code.
-The stage chain, the run clock, and the bonus rooms (`map_325`–`map_328`) are dormant with the rest
-of the raid — the four bonus-room maps ship authored and unreachable, since the only door into one
+The stage chain, the run clock, and the bonus rooms (`map_325`–`map_329`) are dormant with the rest
+of the raid — the five bonus-room maps ship authored and unreachable, since the only door into one
 is a raid-entry boss kill (§6.E) and no raid entry can succeed. They need no `GameState` field:
 both clocks and the bonus roll are per-instance transient state that exists only inside a live run,
 never across a save.
@@ -400,8 +448,9 @@ never across a save.
   `docs/VALIDATION.md` §1–§2 across the tree after all v3 edits land to confirm no legacy
   phrasing survives. Owner: orchestrator, with this doc as the reference.
 - **Resolved — v1 "Rift raid" collision reconciled.** `10_systems/social/PARTY.md` §6 now
-  describes exactly this doc's roster — party-instanced runs across the four v3 finale arenas
-  (`map_042`/`map_200`/`map_244`/`map_324`) at the binding **3–6** party size, fixing
+  describes exactly this doc's roster — party-instanced runs across the five finale arenas
+  (`map_042`/`map_200`/`map_244`/`map_284`/`map_324`; `map_284` added with `raid_orrery`,
+  2026-07-24) at the binding **3–6** party size, fixing
   `10_systems/COMBAT_FORMULA.md` §13.3's assumed `N` range at 3–6 — and the stale Rift-era
   references (party 4–6, `map_197`–`map_200`, "R12") are gone from PARTY/SPAWN/COMBAT_FORMULA.
   The remaining DROPS-side question is tracked in its own entry below.
@@ -434,10 +483,11 @@ never across a save.
   weighted-split question entirely. Owner: `10_systems/social/PARTY.md`, consulted by this doc.
 - **Resolved — raid-boss drop treatment on shared bosses.** `10_systems/DROPS.md` §5.4 now applies
   its raid-boss table (including the guaranteed per-member `raid_token` from the `item_etc_0177`–
-  `0180` block) to a **raid-entry** kill of all four finale bosses, the arc-1 **shared** bosses
+  `0181` block) to a **raid-entry** kill of all five finale bosses, the arc-1 **shared** bosses
   (`mob_027`/`mob_150`) included; an open-arena solo kill of the same boss (§7) drops **no** token
   and takes the plain region-boss table (§5.3). The entry-context distinction (§6) is the whole of
-  the difference. Nothing remains open here.
+  the difference. DROPS §5.4's enumeration was extended with `mob_206` + `item_etc_0181`
+  (2026-07-24 consistency sweep); nothing remains open here.
 - **Entry fee.** Whether raid entry charges a `shards` fee (a sink lever) is deliberately left
   open; default none (§3). Owner: `10_systems/ECONOMY.md` with this doc.
 - **Per-stage / completion `exp` values (§6).** The `raid_stage_exp` / `raid_clear_exp` amounts are
@@ -453,9 +503,17 @@ never across a save.
   Provisional NPC archetype with exactly the promotion condition this entry asked for ("promote if
   Phase D NPC content uses it as a field value"). No content file uses it as a field value yet, so
   the entry correctly stays Provisional — but the request itself is satisfied. Nothing open here.
+  **Flagged, not acted on (2026-07-24, `raid_orrery` herald pass):** the promotion condition cannot
+  be met by NPC content as the schemas stand. `20_schemas/npc.schema.md`'s `role` enum has no
+  `raid_herald` token — its `handler` row explicitly covers "raid handlers," and all five heralds
+  (`npc_029`/`npc_084`/`npc_095`/`npc_106`/`npc_120`) are authored `role: handler`. So `raid_herald`
+  is an archetype word this doc uses in prose, not a field value any file can carry, and it stays
+  Provisional indefinitely unless `20_schemas/npc.schema.md` adds it to the enum (11 of its ≤12
+  budget are used; that is that doc's call, not this one's) or `00_vision/GLOSSARY.md` restates the
+  promotion condition. Not promoted here — flagged for those two owners.
 - **Claim throughput — how many parties per node should be able to raid at once?** The claim keys
-  on `(channel, raid_token)`, so the four raids are independent: one channel carries **four**
-  concurrent parties, one per raid, up to ~24 players. Channel-hopping is a real release valve —
+  on `(channel, raid_token)`, so the five raids are independent: one channel carries **five**
+  concurrent parties, one per raid, up to ~30 players. Channel-hopping is a real release valve —
   `70_integrations/WORLD_CHANNELS.md` §4 gives players an explicit channel picker (30 s cooldown,
   combat-locked) — and channel supply is demand-driven: §3 spins up the next channel when a map
   hits its §7 occupancy cap (60 for a `dungeon`, which the staging maps are), so a crowd contending
@@ -465,12 +523,12 @@ never across a save.
   *arrival* routing only.)
   What remains genuinely open is whether that throughput is the intended one, because two numbers in
   `70_integrations/WORLD_CHANNELS.md` now pull in different directions: §7 sets a headroom target of
-  **40 concurrently active instances per raid token** (160 across four), explicitly sized as ~5% of
+  **40 concurrently active instances per raid token** (200 across five), explicitly sized as ~5% of
   the 2,000-player node target engaging raid content at once — while the claim admits one per token
   per channel. Reaching 40 requires 40 channels of one staging map, i.e. ~2,400 players standing on
   it. The claim, not the headroom figure, is the binding constraint, and the two were written
-  independently. Also note the four bands are **disjoint** (15–22 · 32–40 · 45–55 · 70–80), so a
-  given player is ever eligible for exactly one raid — "four raids are open" is true of the server,
+  independently. Also note the five bands are **disjoint** (15–22 · 32–40 · 45–55 · 56–69 · 70–80), so a
+  given player is ever eligible for exactly one raid — "five raids are open" is true of the server,
   not of the player deciding whether to queue. Owner ruling wanted on the target: keep the claim as
   scarcity-with-agency, or replace it with a per-node concurrency cap sized off the §7 headroom
   number. §3 already calls the claim "a lever, not a law."
@@ -495,7 +553,8 @@ never across a save.
 - **Bonus-room and stage-map portals have no state gate, so §8's "unreachable" is not enforceable.**
   §8 says the bonus rooms ship unreachable because the only door opens on a raid-entry kill. But
   `15_maps_system/MAP_INTERACTABLES.md` §2's portal params offer no state/flag/context condition —
-  only `level_gate` — so the rule lives in a YAML comment on `map_042`/`map_200`/`map_244`/`map_324`
+  only `level_gate` — so the rule lives in a YAML comment on
+  `map_042`/`map_200`/`map_244`/`map_284`/`map_324`
   and in nothing the validator or the runtime can read. The same gap already covers the herald door
   (`map_037` says so in its own comment) and every stage exit "locked until the objective
   completes." One optional portal param (an `open_condition`) would close all three; it belongs to
@@ -531,11 +590,14 @@ never across a save.
   §4.3. Not resolved here because this doc does not own the number.
 - **Bonus-room `level_band` sits outside its own raid's entry band.** `map_325` is banded
   `{14, 14}` while `raid_undervault` admits Lv 15–22 — no player who can legally enter the raid is
-  inside its bonus room's band. The other three rooms use their raid's ceiling and happen to line
-  up. The band follows the *region* because `docs/ID_REGISTRY.md` requires it and
-  `tools/validate.py` enforces `level_band` ⊆ the region's band (millbrook is 8–14, so `{15, 22}`
-  would fail validation) — the same mismatch the pre-existing stage maps `map_038`–`map_042` already
-  carry. Fixing it means deciding whether raid-instanced maps follow the raid band or the region
+  inside its bonus room's band. The other four rooms sit inside their raid's band and happen to line
+  up (`map_329` is `{68, 68}`, inside `raid_orrery`'s 56–69, by following R10's ceiling). The band
+  follows the *region* because `docs/ID_REGISTRY.md` requires it (millbrook is 8–14, so `{15, 22}`
+  would put the map outside its own region's band) — the same mismatch the pre-existing stage maps
+  `map_038`–`map_042` already carry. **Correction (2026-07-24):** this entry previously said
+  `tools/validate.py` *enforces* `level_band` ⊆ the region's band. It does not — the validator only
+  checks that `level_band` is present, so nothing mechanical is holding the region reading; it is a
+  convention the content follows. Fixing it means deciding whether raid-instanced maps follow the raid band or the region
   band, which is `docs/ID_REGISTRY.md`'s and `15_maps_system/MAPS_SYSTEM.md`'s call, not this doc's.
 - **Stage `exp` is banked before anything that costs a cooldown.** §6.A grants `raid_stage_exp` "the
   moment that stage's objective completes," §5 makes failure free, and the 15-minute cooldown fires
@@ -547,17 +609,19 @@ never across a save.
   `10_systems/LEVELING.md` §3.1.
 - **Run-clock value (§4.1).** `raid_run_timer = 30 min` is a first pass, derived from the
   ≈25-minute modeled clear plus ~20% learning headroom — it is **not** measured. The number is
-  wrong in a specific direction if the model is wrong: the four raids span Lv 15–22 to Lv 70–80 and
+  wrong in a specific direction if the model is wrong: the five raids span Lv 15–22 to Lv 70–80 and
   currently share one flat value, so a single clock may be generous for `raid_undervault` (three
   short low-level stages) and tight for `raid_voidtide` (tide cycles gate movement, so the stage
   chain has a hard floor no amount of DPS removes). Alternatives if telemetry says so: per-raid
   values, or a clock derived from stage count × a per-pattern budget. Deliberately **not** split
   per-raid at this revision — one number is easier to falsify than four. Owner: this doc with
   `10_systems/LEVELING.md` at the balance pass.
-- **Signature mechanics need a per-stage authoring pass (§4).** The four signatures (haul / beat /
-  thaw / tide) fix each raid's identity and the pattern each stage runs, but the numbers that make
+- **Signature mechanics need a per-stage authoring pass (§4).** The five signatures (haul / beat /
+  thaw / orbit / tide) fix each raid's identity and the pattern each stage runs, but the numbers that make
   them playable are unauthored: the haul's carry penalty magnitude, the beat's cycle period, the
-  thaw's brazier count and melt duration, the tide's surge period and its interaction with
+  thaw's brazier count and melt duration, the orbit's per-shard `path`/`speed`/`pause_s` values and
+  its phase offsets (and, on `map_278`, the simultaneous-actor count, capped at the 3-member entry
+  floor by the authoring constraint in the death/disconnect entry above), the tide's surge period and its interaction with
   `15_maps_system/MAP_TRAVERSAL.md` footholds. Each is Phase D content; none can be validated by
   `docs/VALIDATION.md` until authored. Flagged rather than guessed per CLAUDE.md Law 4. Owner:
   Phase D content pass against this doc's §4 table.
@@ -589,10 +653,19 @@ never across a save.
   scoped down to what the current interactable set can express, or MAP_INTERACTABLES / SPAWN /
   STATUS_EFFECTS / AI_BEHAVIOR take scoped additions through their own Open-Questions channels.
   This is a real blocker on authoring the signatures, not a detail.
+  **The fifth signature is the exception, and it is the shape the scope-down would take.** The
+  **orbit** (`raid_orrery`, added 2026-07-24) is expressible today with **no** doc addition: it is
+  `moving_platforms` (`20_schemas/map.schema.md`; owner `15_maps_system/MAP_TRAVERSAL.md` §5), an
+  existing *map* field — not an interactable — whose `path`/`speed`/`pause_s`/`loop_mode` already
+  give a fixed, learnable, per-node cycle identical every run, and whose effect is purely
+  reachability (no damage, no aggro, no spawn coupling, no map-wide state). Phase offsets are
+  authored as differing start waypoints, so the drifting-out-of-phase that breaks the beat is the
+  orbit's *feature*. That the one signature designed after this entry was written is also the only
+  buildable one is evidence for the scope-down option over the four-doc-additions option.
 - **Bonus-room table values (§6.E).** The row shape is fixed here; the bucket assignments
   (`uncommon` for `steady` scrolls, `rare` for `bold`, `epic` for `perilous`) are a first pass
   chosen to mirror `10_systems/SCROLLS.md` §4.1's field-drop ordering. **The node count is now
-  authored: 6 reactors per bonus room** (`map_325`–`map_328`), so the blocker this entry previously
+  authored: 6 reactors per bonus room** (`map_325`–`map_329`), so the blocker this entry previously
   named is cleared and the faucet **can** be computed — it just has not been. Per clear, per member,
   6 nodes pay ≈0.9 `steady` · 0.24 `bold` · 0.048 `perilous` scrolls and ≈0.24 extra `raid_token`.
   **If** the per-member-copy reading of `10_systems/social/PARTY.md` §5 holds (see the loot entry
@@ -612,3 +685,47 @@ never across a save.
   pity/floor rule (e.g. one guaranteed `steady` scroll per clear) is the obvious lever and is
   deliberately **not** taken at this revision: adding a floor later is a one-line change, removing
   one after players have it is not. Owner: this doc, post-telemetry.
+- **Resolved (owner decision 2026-07-24): the Lv 56–69 raid drought is closed by a fifth raid.**
+  The former §2 bands (15–22, 32–40, 45–55, 70–80) plus §3's hard both-ends gate left three
+  windows with no raid enterable: Lv 23–31 (≈ 9.6 h), Lv 41–44 (≈ 9.7 h) and **Lv 56–69
+  (≈ 53.7 `/played` h** — `10_systems/LEVELING.md` §1 cum 118.2 h @ Lv 70 − 64.5 h @ Lv 55),
+  the third being 5.5× either other and ≈ 1.6× the whole of Arc 1, covering all of Arcane
+  Reach — no `raid_token` faucet and no §6.D daily group beat for the game's longest stretch
+  (`docs/phase_reports/design_reviews/REVIEW_2026-07-24_01.md` Proposal 2). The owner chose
+  **option A**: `raid_orrery` at band 56–69 reusing `map_277`–`map_279` → `map_284`
+  (Aetheron, `mob_206`), minting no map or mob IDs. Option B (widening the neighboring bands
+  to meet) was rejected — it would seat over-leveled parties in under-leveled raids, which is
+  exactly what §3's both-ends gate exists to prevent. The arc-2 bands now tile 45–80 with no
+  hole. The two arc-1 windows stay open by design (both under 10 h, both inside dense Arc-1
+  content); revisit only if telemetry says otherwise.
+- **`raid_orrery` authoring debt (Phase D follow-up).** The rules, IDs and placement landed
+  2026-07-24, then the herald, the §4 signature/stage assignments, the bonus room `map_329` and its
+  `drop_raid_bonus_orrery` table followed the same day. Still owed, none of it blocking:
+  (a) ~~**Herald NPC.**~~ **Resolved 2026-07-24 (owner).** The owner chose *extend the incumbent*
+  over minting a new NPC, so the `npc_001`–`120` block is untouched: `npc_106` **Vault Warden
+  Iskrel** (`role: handler`, Highrune Sanctum `map_266` — the only R10 `handler`) now carries the
+  raid-entry dialog and `references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS, RAID, PERSISTENCE]`,
+  the same shape the other four heralds use (`npc_029`/`npc_084`/`npc_095`/`npc_120`). His
+  `map_266` posting is §3-legal: placement is `docs/WORLD_PLAN.md`'s, R10 already posts the herald
+  there, and §3's shared-stage clause now says why the "branches from" wording does not bind this
+  one raid. `raid_herald` did **not** become a field value — see the archetype entry above.
+  (b) **Intro/handler quests** `quest_133`–`134` are reserved in `docs/ID_REGISTRY.md` but
+  unauthored (R10's `101`–`110` block reserved none and all ten are minted; nothing was
+  repurposed or renumbered). §3's intro/handler pattern is therefore unsatisfied for this raid
+  until they are written. `20_schemas/quest.schema.md`'s raid-slot list needs the pair added.
+  (c) **Instanced stage spawn sets.** §4's per-raid stage scripts are Phase-D content for every
+  raid; `raid_orrery` needs them explicitly, because the *open* copies of `map_277`–`map_279`
+  are banded Lv 68–70 (R10's deep end) while the raid band floor is 56. The instance's spawn
+  set must be banded to the raid, not inherited from the open map.
+  (d) **SKUs.** `item_equip_0301`–`0302` and `item_cosmetic_0065`–`0066` are reserved and still
+  **unauthored**; `10_systems/ITEMS.md` §13 and `10_systems/COSMETICS.md` §4 now carry the ID
+  ranges (2026-07-24 consistency sweep), and §13's per-raid price rows already cover the fifth
+  raid unchanged — only the concrete SKU rows are owed at Phase D.
+  (e) ~~**Sibling docs that enumerate four raids** and need the fifth.~~ **Done 2026-07-24
+  (consistency sweep).** PARTY §6, SPAWN §7, COMBAT_FORMULA §13.3, DROPS §5.4, ITEMS §13,
+  COSMETICS §4, AUDIO_DESIGN, ENHANCEMENT, ONBOARDING_FTUE, DEATH_PENALTY §5.3, BATTLE_PASS,
+  MAPS_SYSTEM §8, the four schemas (`map`/`quest`/`item`/`drop_table`), WORLD_CHANNELS §1–§2/§7,
+  NETWORK_PROTOCOL `op_0203`, and the `memory/` bank counts all read five. Where a doc merely
+  named the roster in prose, the list was replaced with a pointer to §2 rather than recopied
+  (CLAUDE.md Law 2). `CLAUDE.md` was squared away with the bonus-room wave (2026-07-24); root
+  `memory.md` stays the parent session's. Still owed outside that sweep: items (b)/(c)/(d) above.

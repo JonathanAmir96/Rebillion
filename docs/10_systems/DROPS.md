@@ -169,8 +169,8 @@ within these shapes; the guarantees are the contract.
   (bad-luck protection, P2); later kills roll the chance.
 
 ### 5.4 raid boss (raid-entry kill)
-- Applies to a **raid-entry** kill of one of the four raid finale bosses
-  (`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md` §2). The **same boss killed
+- Applies to a **raid-entry** kill of one of the five raid finale bosses
+  (`mob_027`/`mob_150`/`mob_178`/`mob_206`/`mob_234`, `10_systems/social/RAID.md` §2). The **same boss killed
   via the open (non-raid) arena entry** (`10_systems/social/RAID.md` §7) is a plain region-boss kill
   and takes §5.3 instead — the entry context is the whole of the reward difference
   (`10_systems/social/RAID.md` §6); no other math forks.
@@ -179,12 +179,14 @@ within these shapes; the guarantees are the contract.
 - `shards` — `guaranteed`, large (raid `shards` = §3 `boss` mean × the raid `life` factor is
   overkill; use `boss` ×15 as the floor, tuned per raid).
 - **Raid tokens** — the raid's `raid_token` (`item_etc_0177` Undervault Seal / `0178` Mainspring
-  Cog / `0179` Deepfrost Shard / `0180` Voidtide Pearl, `docs/ID_REGISTRY.md`) — `guaranteed`, one
+  Cog / `0179` Deepfrost Shard / `0181` Orrery Bearing / `0180` Voidtide Pearl,
+  `docs/ID_REGISTRY.md`) — `guaranteed`, one
   per participating member; **raid entry only** (an open-arena solo kill of the same boss drops
   none, resolving the shared-boss question). The **first-clear-of-the-day** grants **one extra**
   token to each member (`10_systems/LEVELING.md` §3.1; day boundary per
   `10_systems/PERSISTENCE.md`). Tokens are spent at the **Raid Quartermaster** on the
-  raid-exclusive gear (`item_equip_0223`–`0230`) and cosmetics (`item_cosmetic_0001`–`0008`) —
+  raid-exclusive gear (`item_equip_0223`–`0230` + `0301`–`0302`) and cosmetics
+  (`item_cosmetic_0001`–`0008` + `0065`–`0066`) —
   catalog/prices owned by `10_systems/ITEMS.md`, exchange rules by `10_systems/social/RAID.md`.
 - **One guaranteed pool roll**, `rarity_source = raid` (§5.5) — `rare`+ emphasis.
 - **The bonus room is a separate table, not a row here.** A raid-entry kill also opens that raid's
@@ -272,10 +274,10 @@ client may re-roll a table or self-assign a rarity.
   arithmetic in §4.1). Remaining open only for telemetry: whether per-member duplication plus the
   +30% party lift over-supplies any *specific* material once real hunting data exists — if so, tune
   that material's row `chance`, never this table. Owner: this doc with `10_systems/ECONOMY.md`.
-- **Resolved (2026-07-24 contradiction fix): concrete raid-token IDs.** The four tokens are
+- **Resolved (2026-07-24 contradiction fix): concrete raid-token IDs.** The five tokens are
   committed in §5.4 (`item_etc_0177` Undervault Seal · `0178` Mainspring Cog · `0179` Deepfrost
-  Shard · `0180` Voidtide Pearl) and minted in `docs/ID_REGISTRY.md`; the rest of the reserved
-  raid-token block (`item_etc_0177`–`0192`) stays open for future raids. The token → raid-gear
+  Shard · `0181` Orrery Bearing · `0180` Voidtide Pearl) and minted in `docs/ID_REGISTRY.md`; the
+  rest of the reserved raid-token block (`item_etc_0182`–`0192`) stays open for future raids. The token → raid-gear
   exchange catalog/prices remain `10_systems/ITEMS.md`'s (`10_systems/social/RAID.md` §6.B–C); this
   doc fixes only that the `guaranteed` raid-entry token grant exists (§5.4, a runtime entry-context
   grant per `20_schemas/drop_table.schema.md` rule 4 — never extra static rows).

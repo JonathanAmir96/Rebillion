@@ -23,6 +23,15 @@ real-money↔`shards` path). The full cap set lives in `10_systems/GACHAPON.md` 
 any cap — or adding any second SKU under this exception — is a new owner amendment, not a
 tune. Everything else in this doc stands as written.
 
+**Amendment PA-002 (owner, 2026-07-24).** The PA-001 purchase cap becomes **account-wide**:
+`10_systems/GACHAPON.md` §1.3's "10 tickets per character per week" now reads **10 tickets per
+account per week**. The cap was written per character while its scope waited on an account
+system; `70_integrations/ACCOUNTS_AUTH.md` §2.2 then granted **4 character slots at launch**
+(owner directive 2026-07-24), making the effective bound 40 tickets/week/account — 4× the cap
+PA-001 intended. PA-002 therefore **tightens** PA-001; it loosens nothing, adds no SKU, and
+changes no other cap. It is logged as an amendment rather than applied as a tune because
+PA-001's own text makes any change to a `10_systems/GACHAPON.md` §1 cap a new owner amendment.
+
 ## 1. Owner intent
 
 Community health outranks revenue. The game's draw is the social, cozy-grind loop

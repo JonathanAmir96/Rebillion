@@ -132,22 +132,26 @@ define, not this doc's.
 
 ## 7. Raid spawn rules — finale arena, stage maps, bonus room
 
-The four raid finale arenas (`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md`
+The five raid finale arenas (`map_042`/`map_200`/`map_244`/`map_284`/`map_324`, `10_systems/social/RAID.md`
 §2, `docs/WORLD_PLAN.md`) do not use the zone spawner (§1–§4) at all — they are single-boss scripted
 encounters, exempt exactly like regular arenas (§2). Entry is through the raid herald and stage
 chain, not an open portal (`10_systems/social/RAID.md` §3–§4). Spawning here is **party-instanced**:
 entering the finale arena allocates that encounter to the entering party alone (party
 size/membership rules owned by `10_systems/social/PARTY.md`), and the finale boss
-(`mob_027`/`mob_150`/`mob_178`/`mob_234`, `10_systems/social/RAID.md` §2) spawns fresh for that
-instance at full life. Mid-fight adds/waves are not a `SPAWN.md` concept — they are the boss's own
+(`mob_027`/`mob_150`/`mob_178`/`mob_206`/`mob_234`, `10_systems/social/RAID.md` §2) spawns fresh for
+that instance at full life. Mid-fight adds/waves are not a `SPAWN.md` concept — they are the boss's own
 `phases[].added_abilities` (`10_systems/AI_BEHAVIOR.md` §15) executed through the `summon_entity`
 effect op (`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
 
 A raid's **stage maps** (`10_systems/social/RAID.md` §4) are ordinary combat dungeons and **do** run
 the zone spawner (§1–§4) — the spawner's rules are unchanged; only the map copy is party-scoped to
-the instance.
+the instance. Where a raid's stage maps are **shared** with open-world dungeons (`raid_orrery`,
+`RAID.md` §4), the open copy keeps the map's authored spawn set and the instance runs the **raid's
+own** set, banded to the raid rather than to the open map — the spawner is the same, the
+`spawn_zones` it is handed differ by entry context. Those instanced sets are Phase-D content owed
+per `RAID.md`'s Open Questions; nothing here fixes their values.
 
-A raid's **bonus room** (`10_systems/social/RAID.md` §6.E, `map_325`–`map_328`) runs **no spawner
+A raid's **bonus room** (`10_systems/social/RAID.md` §6.E, `map_325`–`map_329`) runs **no spawner
 at all** — no zone, no mobs, no boss. Its only contents are `reactor` interactables
 (`15_maps_system/MAP_INTERACTABLES.md` §4), whose one-shot behavior is that doc's `respawn_timer_s`
 and not a `SPAWN.md` concept. It is named here only so the exemption is explicit alongside the
