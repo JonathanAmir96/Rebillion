@@ -16,7 +16,7 @@ steps:                            # parallel: clear the Stair's guardians and br
     target: item_etc_0160
     count: 5
 rewards:
-  exp: 182385                     # round(0.20 * exp_to_next(68)=911,925); main band (QUESTS §4)
+  exp: 269042                     # round(0.20 * exp_to_next(68)=1,345,210); main band (QUESTS §4)
   shards: 1575                    # mean_shards_normal(68)*15 = 105*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 5 }

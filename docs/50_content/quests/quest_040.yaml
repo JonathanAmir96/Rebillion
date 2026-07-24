@@ -13,7 +13,7 @@ steps:
     target: mob_050
     count: 8
 rewards:
-  exp: 614                  # round(0.07 * 8775); band per QUESTS §4 at Lv15
+  exp: 1550                  # round(0.07 * 22140); band per QUESTS §4 at Lv15
   shards: 104                # mean_shards_normal(15)*4 = 26*4 (QUESTS §5 side / DROPS §3)
 flavor: "Brinemaw gars have taken to lying motionless in the causeway shallows and striking at anything that wades past."
 offer_text: "Thin the gars back from the causeway crossing so the cart teams can wade it without losing a horse to the bite."

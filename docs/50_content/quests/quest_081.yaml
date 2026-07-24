@@ -15,7 +15,7 @@ steps:
     target: item_etc_0117
     count: 5
 rewards:
-  exp: 23548  # round(0.20*117,738) (LEVELING §1 Lv36); main band 15-30%
+  exp: 43635  # round(0.20*218,174) (LEVELING §1 Lv36); main band 15-30%
   shards: 855 # main = mean_shards_normal(36)*15 = 57*15 (QUESTS §5 / DROPS §3)
 flavor: "Ione wants the plaza's statuary cleared of its guardians and its verdigris scraped for her ledger."
 offer_text: "Clear the plaza's guardians and bring me scrapings of the good verdigris -- the pale-green kind, not the black."

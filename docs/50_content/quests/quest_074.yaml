@@ -13,7 +13,7 @@ steps:
     target: mob_116
     count: 10
 rewards:
-  exp: 8855  # side pct=0.09 of exp_to_next(34)=98,392; shards=mean_shards_normal(34)*4=54*4
+  exp: 16793  # side pct=0.09 of exp_to_next(34)=186,592; shards=mean_shards_normal(34)*4=54*4
   shards: 216
 flavor: "Adric won't open the gate log until whatever keeps circling the gatefront is dealt with."
 offer_text: "Something's been pacing the gatefront every night, and I'd rather not open that gate with it still out there. Handle it."

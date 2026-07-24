@@ -148,12 +148,9 @@ designed-now / stubbed-now shape, not a missing feature.
 
 ## Open Questions
 
-- **`activity` enum tokenization.** The `field_hunt` / `quest` / `boss` / `social` values (§2.1) are
-  defined in this doc but are not `00_vision/GLOSSARY.md` tokens (only `raid` is, via the
-  `raid_<name>` family). If these are to appear in content or schema files rather than this doc's
-  prose, they need Provisional entries in `00_vision/GLOSSARY.md`. Owner: GLOSSARY gatekeeper at the
-  next phase gate; this doc is the reference. (`party_finder` itself is already a live GLOSSARY
-  token owned by this doc.)
+- **Resolved (2026-07-24 md audit): `activity` enum tokenization.** All five §2.1 values
+  (`field_hunt` · `raid` · `quest` · `boss` · `social`) are canonical GLOSSARY tokens — see
+  `00_vision/GLOSSARY.md` "Party-finder activity" (owner: this doc). No Provisional entries needed.
 - **Party-finder keybind.** `10_systems/CONTROLS.md` §1 reserves no key or gamepad button for the
   §5 panel toggle. A key must be minted there (its "Open Questions" already tracks an undecided
   spare key). Handoff to `10_systems/CONTROLS.md`; until then the panel is town-menu-openable only.

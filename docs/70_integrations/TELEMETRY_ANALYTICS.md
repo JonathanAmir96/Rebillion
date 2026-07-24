@@ -44,7 +44,7 @@ Every event carries a common envelope plus its own fields (§3):
 | `event` | The `evt_*` name |
 | `ts` | Client wall-clock timestamp at emit (server may re-stamp on ingest) |
 | `player_id` | Pseudonymous ID (§5) — never an email, account name, or IP |
-| `character_id` | Which of the account's ≤3 save slots (`10_systems/PERSISTENCE.md` §6) |
+| `character_id` | Which of the account's ≤4 save slots (`70_integrations/ACCOUNTS_AUTH.md` §2.2 via `10_systems/PERSISTENCE.md` §6) |
 | `level` | Character `level` at emit time |
 | `job_line` | GLOSSARY job-line token (`novice`/`bulwark`/`keeneye`/`weaver`/`flicker`) |
 | `region` | GLOSSARY/WORLD_PLAN region slug (`emberfoot`…`voidshore`) |

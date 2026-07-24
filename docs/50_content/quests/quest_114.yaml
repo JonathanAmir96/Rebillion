@@ -15,7 +15,7 @@ steps:
     target: item_etc_0169
     count: 5
 rewards:
-  exp: 57329  # round(0.06 * 955,476); side band 5-10% (QUESTS §4)
+  exp: 84223  # round(0.06 * 1,403,724); side band 5-10% (QUESTS §4)
   shards: 424  # mean_shards_normal(69)*4 = 106*4 (QUESTS §5 / DROPS §3)
 flavor: "The duskwing shades carry scraps of the torn sky itself caught in their wings, and Halven wants a sample."
 offer_text: "Bring down a few duskwings and pull the sky-scraps from their wings -- I want to know how far the tear's spread."

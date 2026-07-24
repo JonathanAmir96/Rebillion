@@ -15,7 +15,7 @@ items:
       sell: 3
     source_hint: mob_001          # Tuftmoth Grub (cross-checks drop_mob_001)
     stack: 999
-    flavor: "A pinch of soft grey fluff shed by the meadow grubs. Emberfoot's outfitter stuffs it into a novice's first bedroll."
+    flavor: "A pinch of soft gray fluff shed by the meadow grubs. Emberfoot's outfitter stuffs it into a novice's first bedroll."
 
   - id: item_etc_0002
     name: Leveret Pelt
@@ -59,7 +59,7 @@ items:
       sell: 6
     source_hint: mob_005          # Ashwing Flitter (cross-checks drop_mob_005)
     stack: 999
-    flavor: "A dusty grey wing-scale that smudges the fingers like soft charcoal. Children on Emberfoot draw with it."
+    flavor: "A dusty gray wing-scale that smudges the fingers like soft charcoal. Children on Emberfoot draw with it."
 
   - id: item_etc_0006
     name: Sootpaw Claw
@@ -169,7 +169,7 @@ items:
       sell: 6
     source_hint: emberfoot        # region-gathered from the cinder fields (no single mob source)
     stack: 999
-    flavor: "Fine pale ash scooped from the fields that never quite goes cold. Potters wash it for a grey glaze."
+    flavor: "Fine pale ash scooped from the fields that never quite goes cold. Potters wash it for a gray glaze."
 
   - id: item_etc_0016
     name: Kiln Glass

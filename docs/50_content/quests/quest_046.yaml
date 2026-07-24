@@ -12,7 +12,7 @@ steps:
     target: [mob_060, mob_061]
     count: 12
 rewards:
-  exp: 4334                  # round(0.22 * 19700); band per QUESTS §4 at Lv20
+  exp: 10055                  # round(0.22 * 45704); band per QUESTS §4 at Lv20
   shards: 495                # mean_shards_normal(20)*15 = 33*15 (QUESTS §5 main / DROPS §3)
   items:
     - { id: item_use_0012, qty: 3 }

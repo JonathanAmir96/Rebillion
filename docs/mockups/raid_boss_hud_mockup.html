@@ -1,0 +1,416 @@
+<!-- Non-binding wireframe mock-up (2026-07-24 md audit). Binding specs: docs/40_assets/UI_ART_SPEC.md, docs/40_assets/ART_BIBLE.yaml, docs/10_systems/HUD.md, docs/10_systems/social/RAID.md + cited docs. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Raid Boss HUD Mock-up (raid_deepfrost finale)</title>
+<style>
+  :root{
+    --ink:#241726; --shadow:#3a2b40; --stone:#6b6270; --ash:#9a92a0; --bone:#e8e2d8; --white:#fbf7ef;
+    --tide-0:#122a4a; --tide-1:#1e4c78; --tide-2:#2f7aa0; --tide-3:#54b0c6; --tide-4:#a7e0e3;
+    --ember-0:#5a1e14; --ember-1:#8f2d1b; --ember-2:#c8461f; --ember-3:#eb7a2c; --ember-4:#f6c34b;
+    --arcane:#7a3f9a; --verdant:#3f9a45;
+    --text:#fbf7ef; --link:#54b0c6; --emph:#f6c34b; --warn:#c8461f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--ink);color:var(--text)}
+  body{font:14px/1.55 ui-monospace,Menlo,Consolas,monospace;padding:24px}
+  .wrap{max-width:1320px;margin:0 auto}
+  h1{font-size:18px;color:var(--emph);margin:0 0 4px;font-weight:700}
+  p.sub{margin:0 0 16px;color:var(--ash);font-size:12.5px}
+  .stage-frame{background:var(--ink);border:1px solid var(--stone);padding:10px;overflow-x:auto}
+  .stage{width:1280px;margin:0 auto}
+  svg{display:block;width:1280px;height:720px;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .px{shape-rendering:crispEdges}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:5px 20px;margin-top:16px;font-size:12.5px;color:var(--bone)}
+  .legend b{color:var(--emph);font-weight:700;margin-right:4px}
+  .legend .doc{color:var(--ash)}
+  .note{font-size:12px;color:var(--ash);margin-top:12px;border-left:3px solid var(--warn);padding-left:10px}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--link);font-size:0.92em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — Raid Boss HUD Mock-up</h1>
+<p class="sub"><code>raid_deepfrost</code> finale: <b style="color:var(--text)">Skoldir, the Rimewyrm</b> (<code>mob_178</code>,
+Lv 55, <code>frost</code>, <code>boss</code>) in the Frostcrown Crevasse arena (<code>map_244</code>, Frostpeak Isle) —
+party of 5 (band 45, RAID.md §2 party 3–6). Stage <code>1280×720</code>, native render <code>640×360</code> at
+2× integer scale (<code>ART_BIBLE.yaml resolution_policy</code>). Layout per <code>HUD.md</code> §2–§11; frames/fonts
+per <code>UI_ART_SPEC.md</code>; boss data per <code>50_content/monsters/mob_178.yaml</code>. Sprites are wireframe
+silhouettes, not final art — art identity stays <code>ART_BIBLE.yaml</code>'s. Gold numbered pins are design
+annotations, not game UI.</p>
+
+<div class="stage-frame"><div class="stage">
+<svg viewBox="0 0 640 360" role="img" aria-label="Raid boss HUD mock-up: Skoldir, the Rimewyrm, raid_deepfrost finale, party of 5">
+
+  <!-- ============ BACKDROP ============ -->
+  <rect x="0" y="0" width="640" height="360" fill="#241726" class="px"/>
+
+  <!-- ============ CREVASSE WALLS (tide ramp) — WORLD_PLAN §R9 biome brief, ART_BIBLE biome_identity.frostpeak ============ -->
+  <g class="px">
+    <polygon points="0,0 165,0 185,55 135,120 178,175 128,235 158,298 0,298" fill="#122a4a"/>
+    <polygon points="15,15 140,15 155,58 118,115 150,168 112,225 135,298 15,298" fill="#1e4c78"/>
+    <polygon points="30,30 115,30 125,62 100,105 60,90" fill="#2f7aa0"/>
+    <path d="M0,0 L165,0" stroke="#a7e0e3" stroke-width="2"/>
+    <path d="M135,120 L178,175" stroke="#54b0c6" stroke-width="2"/>
+    <rect x="70" y="45" width="3" height="3" fill="#fbf7ef"/><rect x="95" y="80" width="3" height="3" fill="#fbf7ef"/><rect x="55" y="150" width="3" height="3" fill="#fbf7ef"/>
+
+    <polygon points="640,0 475,0 455,55 505,120 462,175 512,235 482,298 640,298" fill="#122a4a"/>
+    <polygon points="625,15 500,15 485,58 522,115 490,168 528,225 505,298 625,298" fill="#1e4c78"/>
+    <polygon points="610,30 525,30 515,62 540,105 580,90" fill="#2f7aa0"/>
+    <path d="M640,0 L475,0" stroke="#a7e0e3" stroke-width="2"/>
+    <path d="M505,120 L462,175" stroke="#54b0c6" stroke-width="2"/>
+    <rect x="565" y="45" width="3" height="3" fill="#fbf7ef"/><rect x="540" y="80" width="3" height="3" fill="#fbf7ef"/><rect x="580" y="150" width="3" height="3" fill="#fbf7ef"/>
+  </g>
+
+  <!-- ============ FLOOR — icy shelf, one screen wide (map_244 platform_brief) ============ -->
+  <g class="px">
+    <rect x="0" y="298" width="640" height="62" fill="#1e4c78"/>
+    <rect x="0" y="298" width="640" height="4" fill="#a7e0e3"/>
+    <path d="M95,302 L108,330 L82,346" stroke="#122a4a" stroke-width="2" fill="none"/>
+    <path d="M430,302 L442,326 L418,344" stroke="#122a4a" stroke-width="2" fill="none"/>
+    <path d="M545,302 L556,322" stroke="#122a4a" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- ============ TELEGRAPH GROUND CUE — Avalanche Fury, aoe_circle r5 origin self (mob_178.yaml; SKILL_SYSTEM §6, P1) ============ -->
+  <ellipse cx="320" cy="290" rx="100" ry="20" fill="#c8461f" opacity="0.18" class="px"/>
+  <ellipse cx="320" cy="290" rx="100" ry="20" fill="none" stroke="#c8461f" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+  <!-- ============ BOSS: Skoldir, the Rimewyrm — coiled + reared telegraph pose (tide ramp + white frost accents) ============ -->
+  <g class="px">
+    <polygon points="240,292 280,260 310,275 275,298" fill="#122a4a"/>
+    <polygon points="265,275 325,240 355,258 300,290" fill="#1e4c78"/>
+    <polygon points="310,258 380,222 410,245 345,280" fill="#122a4a"/>
+    <polygon points="370,240 425,195 452,215 405,258" fill="#1e4c78"/>
+    <polygon points="410,210 440,150 468,165 445,205" fill="#122a4a"/>
+    <polygon points="428,175 400,105 428,95 452,168" fill="#1e4c78"/>
+    <polygon points="410,120 402,72 438,66 466,92 450,112" fill="#122a4a"/>
+    <polygon points="410,120 418,140 452,138 466,112" fill="#1e4c78"/>
+    <!-- horns + eye -->
+    <polygon points="398,72 406,54 410,75" fill="#fbf7ef"/>
+    <polygon points="430,64 438,47 443,68" fill="#fbf7ef"/>
+    <circle cx="430" cy="86" r="3" fill="#f6c34b"/>
+    <!-- spine spikes (frost accents) -->
+    <polygon points="340,242 346,228 352,243" fill="#fbf7ef"/>
+    <polygon points="387,217 393,203 399,218" fill="#fbf7ef"/>
+    <polygon points="418,178 424,164 430,179" fill="#fbf7ef"/>
+    <!-- top-left rim light (cel-shaded edges, light_source top-left) -->
+    <path d="M310,258 L380,222" stroke="#54b0c6" stroke-width="1.5" fill="none"/>
+    <path d="M370,240 L425,195" stroke="#54b0c6" stroke-width="1.5" fill="none"/>
+    <path d="M428,175 L400,105" stroke="#a7e0e3" stroke-width="1.5" fill="none"/>
+    <path d="M402,72 L438,66" stroke="#fbf7ef" stroke-width="1.5" fill="none"/>
+    <!-- open jaw + rime-breath frost charge (wind-up tell) -->
+    <path d="M410,120 L418,140" stroke="#241726" stroke-width="1"/>
+    <path d="M444,120 l6,-6 l-2,8 l7,-3 l-4,8 l7,-1" stroke="#fbf7ef" stroke-width="1.5" fill="none"/>
+    <circle cx="448" cy="122" r="4" fill="#a7e0e3" opacity="0.7"/>
+  </g>
+
+  <!-- ============ DAMAGE NUMBERS — frost element tint (HUD §7, UI_ART_SPEC dmg_number) ============ -->
+  <path d="M394,148 l5,-10 5,10 -5,10 Z" fill="#fbf7ef" opacity="0.22"/>
+  <text x="399" y="156" font-size="15" font-weight="700" fill="#54b0c6" stroke="#241726" stroke-width="0.8" paint-order="stroke" text-anchor="middle">121</text>
+  <text x="368" y="216" font-size="10" font-weight="700" fill="#54b0c6" stroke="#241726" stroke-width="0.6" paint-order="stroke" text-anchor="middle">58</text>
+
+  <!-- ============ PARTY (5) — bone/ash wireframe silhouettes, feet-center y=296 ============ -->
+  <!-- Wren · Sureshot (keeneye), ranged, outside the telegraph -->
+  <g class="px">
+    <rect x="135" y="260" width="10" height="10" fill="#9a92a0"/>
+    <rect x="133" y="270" width="14" height="16" fill="#9a92a0"/>
+    <rect x="134" y="286" width="5" height="10" fill="#9a92a0"/><rect x="141" y="286" width="5" height="10" fill="#9a92a0"/>
+    <path d="M126,264 q10,-14 10,20" stroke="#e8e2d8" stroke-width="1.3" fill="none"/>
+  </g>
+  <rect x="106" y="246" width="68" height="11" fill="#241726" opacity="0.82"/>
+  <text x="140" y="254.5" font-size="7" fill="#fbf7ef" text-anchor="middle">Wren &#183; Lv 52</text>
+
+  <!-- Brynn (self) · Frostbind (weaver), outside the telegraph -->
+  <g class="px">
+    <rect x="210" y="260" width="10" height="10" fill="#9a92a0"/>
+    <rect x="208" y="270" width="14" height="16" fill="#9a92a0"/>
+    <rect x="209" y="286" width="5" height="10" fill="#9a92a0"/><rect x="216" y="286" width="5" height="10" fill="#9a92a0"/>
+    <line x1="224" y1="266" x2="224" y2="288" stroke="#54b0c6" stroke-width="2"/>
+    <circle cx="224" cy="264" r="3" fill="#a7e0e3"/>
+  </g>
+  <rect x="181" y="246" width="68" height="11" fill="#241726" opacity="0.82"/>
+  <text x="215" y="254.5" font-size="7" fill="#fbf7ef" text-anchor="middle">Brynn &#183; Lv 53</text>
+
+  <!-- Corvin · Stoneguard (bulwark), leader, tanking in the telegraph -->
+  <g class="px">
+    <rect x="300" y="260" width="10" height="10" fill="#9a92a0"/>
+    <rect x="298" y="270" width="14" height="16" fill="#9a92a0"/>
+    <rect x="299" y="286" width="5" height="10" fill="#9a92a0"/><rect x="306" y="286" width="5" height="10" fill="#9a92a0"/>
+    <rect x="290" y="271" width="7" height="13" fill="#6b6270" stroke="#241726" stroke-width="0.5"/>
+  </g>
+  <rect x="271" y="246" width="68" height="11" fill="#241726" opacity="0.82"/>
+  <text x="305" y="254.5" font-size="7" fill="#fbf7ef" text-anchor="middle">&#9819; Corvin &#183; Lv 54</text>
+
+  <!-- Halvard · Duskstep (flicker) — FALLEN, desaturated + fallen glyph (HUD §4.1, DEATH_PENALTY §5.3) -->
+  <g class="px" opacity="0.85">
+    <rect x="363" y="289" width="34" height="9" fill="#6b6270"/>
+    <rect x="353" y="290" width="11" height="7" fill="#6b6270"/>
+  </g>
+  <path d="M375,276 L383,284 M383,276 L375,284" stroke="#9a92a0" stroke-width="2"/>
+  <rect x="346" y="262" width="68" height="11" fill="#241726" opacity="0.7"/>
+  <text x="380" y="270.5" font-size="6.5" fill="#9a92a0" text-anchor="middle">Halvard &#183; Lv 55 &#9760;</text>
+
+  <!-- Sable · Runeweaver (weaver), outside the telegraph -->
+  <g class="px">
+    <rect x="485" y="260" width="10" height="10" fill="#9a92a0"/>
+    <rect x="483" y="270" width="14" height="16" fill="#9a92a0"/>
+    <rect x="484" y="286" width="5" height="10" fill="#9a92a0"/><rect x="491" y="286" width="5" height="10" fill="#9a92a0"/>
+    <circle cx="504" cy="278" r="4.5" fill="#7a3f9a"/>
+  </g>
+  <rect x="456" y="246" width="68" height="11" fill="#241726" opacity="0.82"/>
+  <text x="490" y="254.5" font-size="7" fill="#fbf7ef" text-anchor="middle">Sable &#183; Lv 53</text>
+
+  <!-- ============ HUD SHELL — always-on chrome (HUD.md §2/§11) ============ -->
+
+  <!-- player plate, top-left (HUD §4) -->
+  <g>
+    <rect x="6" y="6" width="150" height="20" fill="#241726" opacity="0.92" stroke="#6b6270" stroke-width="1"/>
+    <text x="12" y="19.5" font-size="9" font-weight="700" fill="#fbf7ef">Brynn</text>
+    <text x="62" y="19.5" font-size="9" fill="#f6c34b">Lv 53</text>
+    <text x="94" y="19.5" font-size="8" fill="#54b0c6">Frostbind</text>
+  </g>
+
+  <!-- party frames, below the plate — up to 5, 4 shown (everyone but self), leader first (HUD §4.1, PARTY.md §3) -->
+  <g>
+    <!-- Corvin (leader) -->
+    <rect x="6" y="30" width="150" height="22" fill="#241726" opacity="0.9" stroke="#6b6270" stroke-width="1"/>
+    <polygon points="12,34 12,39 16,42 20,39 20,34 16,32" fill="#6b6270" stroke="#241726" stroke-width="0.5"/>
+    <text x="26" y="40" font-size="7" fill="#fbf7ef">&#9819; Corvin &#183; Lv 54</text>
+    <circle cx="150" cy="37" r="2.5" fill="#3f9a45"/>
+    <rect x="26" y="44" width="90" height="3" fill="#241726"/><rect x="26" y="44" width="52" height="3" fill="#c8461f"/>
+    <rect x="26" y="48" width="90" height="3" fill="#241726"/><rect x="26" y="48" width="36" height="3" fill="#2f7aa0"/>
+
+    <!-- Wren -->
+    <rect x="6" y="54" width="150" height="22" fill="#241726" opacity="0.9" stroke="#6b6270" stroke-width="1"/>
+    <polygon points="12,65 16,57 20,65 16,62" fill="#9a92a0"/>
+    <text x="26" y="64" font-size="7" fill="#fbf7ef">Wren &#183; Lv 52</text>
+    <circle cx="150" cy="61" r="2.5" fill="#3f9a45"/>
+    <rect x="26" y="68" width="90" height="3" fill="#241726"/><rect x="26" y="68" width="73" height="3" fill="#c8461f"/>
+    <rect x="26" y="72" width="90" height="3" fill="#241726"/><rect x="26" y="72" width="50" height="3" fill="#2f7aa0"/>
+
+    <!-- Sable -->
+    <rect x="6" y="78" width="150" height="22" fill="#241726" opacity="0.9" stroke="#6b6270" stroke-width="1"/>
+    <circle cx="16" cy="85.5" r="4.5" fill="#7a3f9a"/>
+    <text x="26" y="88" font-size="7" fill="#fbf7ef">Sable &#183; Lv 53</text>
+    <circle cx="150" cy="85" r="2.5" fill="#3f9a45"/>
+    <rect x="26" y="92" width="90" height="3" fill="#241726"/><rect x="26" y="92" width="58" height="3" fill="#c8461f"/>
+    <rect x="26" y="96" width="90" height="3" fill="#241726"/><rect x="26" y="96" width="20" height="3" fill="#2f7aa0"/>
+
+    <!-- Halvard — FALLEN: whole plate desaturates, fallen glyph, stays rendered (HUD §4.1, DEATH_PENALTY §5.3) -->
+    <g opacity="0.65">
+      <rect x="6" y="102" width="150" height="22" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+      <polygon points="16,105 20,110 16,115 12,110" fill="#6b6270"/>
+      <text x="26" y="112" font-size="7" fill="#9a92a0">Halvard &#183; Lv 55 &#9760;</text>
+      <circle cx="150" cy="109" r="2.5" fill="#6b6270"/>
+      <rect x="26" y="116" width="90" height="3" fill="#241726" stroke="#3a2b40" stroke-width="0.5"/>
+      <rect x="26" y="120" width="90" height="3" fill="#241726" stroke="#3a2b40" stroke-width="0.5"/>
+    </g>
+  </g>
+
+  <!-- boss_bar, top-center (HUD §6, UI_ART_SPEC) -->
+  <g>
+    <rect x="190" y="8" width="260" height="32" fill="#241726" opacity="0.94" stroke="#6b6270" stroke-width="1"/>
+    <text x="320" y="22" font-size="11" font-weight="700" fill="#fbf7ef" text-anchor="middle">Skoldir, the Rimewyrm</text>
+    <rect x="200" y="28" width="240" height="9" fill="#241726" stroke="#6b6270" stroke-width="0.5"/>
+    <rect x="201" y="29" width="84" height="7" fill="#c8461f"/><rect x="201" y="29" width="84" height="3" fill="#eb7a2c"/>
+    <!-- phase pip @ life_threshold_pct 50 (mob_178.yaml phase 2) -->
+    <line x1="320" y1="26" x2="320" y2="39" stroke="#f6c34b" stroke-width="2"/>
+    <path d="M320,32 l-6,-6 M320,32 l6,-6 M320,32 l-6,6 M320,32 l6,6" stroke="#f6c34b" stroke-width="1" opacity="0.8"/>
+    <circle cx="320" cy="32" r="7" fill="none" stroke="#fbf7ef" stroke-width="1" opacity="0.6"/>
+  </g>
+  <text x="320" y="47" font-size="6" fill="#9a92a0" text-anchor="middle">phase pip @ life_threshold_pct &#8212; AI_BEHAVIOR &#167;15</text>
+  <text x="320" y="55" font-size="6.5" font-weight="700" fill="#f6c34b" text-anchor="middle">phase 2: avalanche fury &#8212; pip flash on phase_shift</text>
+
+  <!-- telegraph wind-up annotation, near the boss's reared head -->
+  <text x="468" y="205" font-size="6.5" fill="#9a92a0">telegraph state &#8212; distinct wind-up,</text>
+  <text x="468" y="214" font-size="6.5" fill="#9a92a0">ANIMATION_STATES / AI_BEHAVIOR &#167;14&#8211;15</text>
+
+  <!-- minimap, top-right, always-on (HUD §5, §11) -->
+  <g>
+    <rect x="558" y="6" width="76" height="50" fill="#241726" opacity="0.92" stroke="#6b6270" stroke-width="1"/>
+    <rect x="562" y="10" width="68" height="32" fill="#3a2b40"/>
+    <rect x="573" y="32" width="24" height="3" fill="#122a4a"/><rect x="600" y="28" width="20" height="3" fill="#122a4a"/>
+    <circle cx="596" cy="24" r="2.5" fill="#c8461f"/>
+    <circle cx="580" cy="30" r="1.6" fill="#e8e2d8"/><circle cx="608" cy="34" r="1.6" fill="#e8e2d8"/>
+    <text x="596" y="52" font-size="6.5" fill="#9a92a0" text-anchor="middle">Frostcrown Crevasse</text>
+  </g>
+  <!-- quest tracker: correctly absent — raid repeat clears aren't quest-tracked (RAID.md §3/§5, HUD §11) -->
+  <rect x="558" y="60" width="76" height="18" fill="none" stroke="#6b6270" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="596" y="71.5" font-size="5.5" fill="#6b6270" text-anchor="middle">tracker hidden &#8212; no tracked quest</text>
+
+  <!-- chat dock, bottom-left, collapsed (HUD §10) -->
+  <g opacity="0.8">
+    <rect x="6" y="270" width="100" height="34" fill="#241726" opacity="0.75"/>
+    <text x="10" y="280" font-size="6" fill="#9a92a0">[system] Avalanche Fury!</text>
+    <text x="10" y="289" font-size="6" fill="#54b0c6">[party] phase 2 incoming</text>
+    <text x="10" y="298" font-size="6" fill="#54b0c6">[party] shields up, tank!</text>
+  </g>
+
+  <!-- status icon row — verdant buff / red debuff duration rings (HUD §8) -->
+  <g>
+    <rect x="302" y="300" width="16" height="16" fill="#241726" stroke="#c8461f" stroke-width="2"/>
+    <path d="M310,304 v8 M306,306 l8,4 M314,306 l-8,4" stroke="#54b0c6" stroke-width="1.2"/>
+    <path d="M318,300 L318,316 A8,8 0 0 0 306,305 Z" fill="#241726" opacity="0.55"/>
+    <rect x="322" y="300" width="16" height="16" fill="#241726" stroke="#3f9a45" stroke-width="2"/>
+    <path d="M330,312 l0,-8 M327,308 l3,-4 3,4" stroke="#f6c34b" stroke-width="1.4" fill="none"/>
+    <path d="M338,300 L338,316 A8,8 0 0 1 324,312 Z" fill="#241726" opacity="0.4"/>
+  </g>
+
+  <!-- combo counter — right of center, ~1/3 down (HUD §7.1, COMBO_SYSTEM §3) -->
+  <g>
+    <rect x="460" y="110" width="72" height="50" fill="#241726" opacity="0.55"/>
+    <text x="496" y="132" font-size="20" font-weight="700" fill="#fbf7ef" stroke="#241726" stroke-width="0.8" paint-order="stroke" text-anchor="middle">7</text>
+    <text x="496" y="143" font-size="7" fill="#9a92a0" text-anchor="middle">LINKS</text>
+    <circle cx="480" cy="153" r="4" fill="#f6c34b"/>
+    <circle cx="496" cy="153" r="5" fill="#f6c34b" stroke="#fbf7ef" stroke-width="1"/>
+    <circle cx="512" cy="153" r="4" fill="none" stroke="#6b6270" stroke-width="1.5"/>
+  </g>
+
+  <!-- ============ BOTTOM BAR (HUD §3, full) ============ -->
+  <g>
+    <rect x="0" y="318" width="640" height="36" fill="#241726" opacity="0.92"/>
+    <rect x="0" y="318" width="640" height="1" fill="#6b6270"/>
+
+    <!-- life / essence gauges + numerics -->
+    <rect x="8" y="323" width="140" height="11" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <rect x="9" y="324" width="106" height="9" fill="#c8461f"/><rect x="9" y="324" width="106" height="4" fill="#eb7a2c"/>
+    <text x="78" y="331.5" font-size="7.5" font-weight="700" fill="#fbf7ef" text-anchor="middle">415 / 540</text>
+    <rect x="8" y="337" width="140" height="11" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <rect x="9" y="338" width="83" height="9" fill="#1e4c78"/><rect x="9" y="338" width="83" height="4" fill="#54b0c6"/>
+    <text x="78" y="345.5" font-size="7.5" font-weight="700" fill="#fbf7ef" text-anchor="middle">177 / 295</text>
+
+    <!-- 8 skill slots, 2 on cooldown wipe with seconds (HUD §3, SKILL_SYSTEM §7) -->
+    <g>
+      <rect x="168" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <path d="M172,340 L184,328 M181,328 h3 v3" stroke="#e8e2d8" stroke-width="2" fill="none"/>
+      <text x="170.5" y="331" font-size="5.5" fill="#9a92a0">1</text>
+
+      <rect x="192" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <circle cx="202.5" cy="334.5" r="6" fill="none" stroke="#eb7a2c" stroke-width="2"/>
+      <text x="194.5" y="331" font-size="5.5" fill="#9a92a0">2</text>
+
+      <!-- cooldown wipe: 5s remaining -->
+      <rect x="216" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <rect x="218" y="326" width="17" height="17" fill="#54b0c6" opacity="0.45"/>
+      <path d="M226.5,334.5 L226.5,326 A8.5,8.5 0 0 1 235,334.5 Z" fill="#241726" opacity="0.85"/>
+      <text x="226.5" y="338.5" font-size="8" font-weight="700" fill="#fbf7ef" text-anchor="middle">5</text>
+      <text x="218.5" y="331" font-size="5.5" fill="#9a92a0">3</text>
+
+      <rect x="240" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <path d="M244,338 q6,-11 13,-1" stroke="#e8e2d8" stroke-width="2" fill="none"/>
+      <text x="242.5" y="331" font-size="5.5" fill="#9a92a0">4</text>
+
+      <rect x="264" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <circle cx="274.5" cy="334.5" r="5" fill="none" stroke="#a7e0e3" stroke-width="2"/>
+      <text x="266.5" y="331" font-size="5.5" fill="#9a92a0">5</text>
+
+      <!-- cooldown wipe: 2s remaining -->
+      <rect x="288" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <rect x="290" y="326" width="17" height="17" fill="#54b0c6" opacity="0.45"/>
+      <path d="M298.5,334.5 L298.5,326 A8.5,8.5 0 1 1 292,340.6 Z" fill="#241726" opacity="0.85"/>
+      <text x="298.5" y="338.5" font-size="8" font-weight="700" fill="#fbf7ef" text-anchor="middle">2</text>
+      <text x="290.5" y="331" font-size="5.5" fill="#9a92a0">6</text>
+
+      <rect x="312" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <path d="M316,340 l6,-16 6,16 z" fill="none" stroke="#e8e2d8" stroke-width="1.6"/>
+      <text x="314.5" y="331" font-size="5.5" fill="#9a92a0">7</text>
+
+      <rect x="336" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <circle cx="346.5" cy="330" r="3" fill="none" stroke="#e8e2d8" stroke-width="1.6"/><path d="M346.5,333 v7" stroke="#e8e2d8" stroke-width="1.6"/>
+      <text x="338.5" y="331" font-size="5.5" fill="#9a92a0">8</text>
+
+      <!-- Dodge — 9th, visually distinct diamond frame (CONTROLS §3) -->
+      <polygon points="383,321 397,335 383,349 369,335" fill="#241726" stroke="#f6c34b" stroke-width="1.5"/>
+      <path d="M375,341 q4,-11 9,-11 q4,0 5,4" stroke="#f6c34b" stroke-width="1.5" fill="none"/>
+      <path d="M386,332 l3,3 -3,3" stroke="#f6c34b" stroke-width="1.5" fill="none"/>
+      <text x="383" y="356" font-size="5.5" fill="#9a92a0" text-anchor="middle">SHIFT</text>
+
+      <!-- 4 quickslots F1-F4 (HUD §3, INVENTORY) -->
+      <rect x="410" y="324" width="21" height="21" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <rect x="417" y="330" width="7" height="10" fill="#54b0c6"/><rect x="418.5" y="328" width="4" height="3" fill="#9a92a0"/>
+      <rect x="422" y="337" width="8" height="7" fill="#241726" stroke="#9a92a0" stroke-width="0.5"/>
+      <text x="426" y="342.5" font-size="5.5" fill="#fbf7ef" text-anchor="middle">3</text>
+      <text x="412" y="331" font-size="5" fill="#9a92a0">F1</text>
+
+      <rect x="434" y="324" width="21" height="21" fill="#241726" stroke="#6b6270" stroke-width="1"/><text x="436" y="331" font-size="5" fill="#6b6270">F2</text>
+      <rect x="458" y="324" width="21" height="21" fill="#241726" stroke="#6b6270" stroke-width="1"/><text x="460" y="331" font-size="5" fill="#6b6270">F3</text>
+      <rect x="482" y="324" width="21" height="21" fill="#241726" stroke="#6b6270" stroke-width="1"/><text x="484" y="331" font-size="5" fill="#6b6270">F4</text>
+    </g>
+
+    <!-- shards wallet, right-aligned (HUD §3, INVENTORY §3) -->
+    <path d="M552,334 l5,-7 5,7 -5,7 Z" fill="#f6c34b"/><path d="M552,334 l5,-7 5,7 Z" fill="#eb7a2c"/>
+    <text x="566" y="337.5" font-size="9" font-weight="700" fill="#fbf7ef">48,260</text>
+  </g>
+
+  <!-- exp strip: full-width, thin, arcane ramp, very bottom (HUD §3) -->
+  <rect x="0" y="354" width="640" height="6" fill="#241726"/>
+  <rect x="0" y="354" width="256" height="6" fill="#7a3f9a"/>
+  <rect x="0" y="354" width="256" height="1.5" fill="#fbf7ef" opacity="0.3"/>
+
+  <!-- ============ ANNOTATION PINS ============ -->
+  <g font-weight="700" font-size="8">
+    <g><circle cx="150" cy="10" r="7" fill="#f6c34b"/><text x="150" y="13" fill="#241726" text-anchor="middle">1</text></g>
+    <g><circle cx="150" cy="66" r="7" fill="#f6c34b"/><text x="150" y="69" fill="#241726" text-anchor="middle">2</text></g>
+    <g><circle cx="150" cy="113" r="7" fill="#f6c34b"/><text x="150" y="116" fill="#241726" text-anchor="middle">3</text></g>
+    <g><circle cx="446" cy="14" r="7" fill="#f6c34b"/><text x="446" y="17" fill="#241726" text-anchor="middle">4</text></g>
+    <g><circle cx="308" cy="42" r="6.5" fill="#f6c34b"/><text x="308" y="45" fill="#241726" text-anchor="middle">5</text></g>
+    <g><circle cx="338" cy="42" r="6.5" fill="#f6c34b"/><text x="338" y="45" fill="#241726" text-anchor="middle">6</text></g>
+    <g><circle cx="630" cy="10" r="6.5" fill="#f6c34b"/><text x="630" y="13" fill="#241726" text-anchor="middle">7</text></g>
+    <g><circle cx="630" cy="64" r="6.5" fill="#f6c34b"/><text x="630" y="67" fill="#241726" text-anchor="middle">8</text></g>
+    <g><circle cx="258" cy="270" r="6.5" fill="#f6c34b"/><text x="258" y="273" fill="#241726" text-anchor="middle">9</text></g>
+    <g><circle cx="458" cy="80" r="6.5" fill="#f6c34b"/><text x="458" y="83" fill="#241726" text-anchor="middle">10</text></g>
+    <g><circle cx="320" cy="270" r="6.5" fill="#f6c34b"/><text x="320" y="273" fill="#241726" text-anchor="middle">11</text></g>
+    <g><circle cx="55" cy="150" r="6.5" fill="#f6c34b"/><text x="55" y="153" fill="#241726" text-anchor="middle">12</text></g>
+    <g><circle cx="372" cy="222" r="6.5" fill="#f6c34b"/><text x="372" y="225" fill="#241726" text-anchor="middle">13</text></g>
+    <g><circle cx="400" cy="158" r="6.5" fill="#f6c34b"/><text x="400" y="161" fill="#241726" text-anchor="middle">14</text></g>
+    <g><circle cx="496" cy="107" r="6.5" fill="#f6c34b"/><text x="496" y="110" fill="#241726" text-anchor="middle">15</text></g>
+    <g><circle cx="302" cy="298" r="6" fill="#f6c34b"/><text x="302" y="300.5" fill="#241726" text-anchor="middle">16</text></g>
+    <g><circle cx="330" cy="298" r="6" fill="#f6c34b"/><text x="330" y="300.5" fill="#241726" text-anchor="middle">17</text></g>
+    <g><circle cx="152" cy="332" r="6.5" fill="#f6c34b"/><text x="152" y="335" fill="#241726" text-anchor="middle">18</text></g>
+    <g><circle cx="250" cy="320" r="6.5" fill="#f6c34b"/><text x="250" y="323" fill="#241726" text-anchor="middle">19</text></g>
+    <g><circle cx="383" cy="318" r="6.5" fill="#f6c34b"/><text x="383" y="321" fill="#241726" text-anchor="middle">20</text></g>
+    <g><circle cx="445" cy="320" r="6.5" fill="#f6c34b"/><text x="445" y="323" fill="#241726" text-anchor="middle">21</text></g>
+    <g><circle cx="600" cy="332" r="6.5" fill="#f6c34b"/><text x="600" y="335" fill="#241726" text-anchor="middle">22</text></g>
+    <g><circle cx="60" cy="358" r="6" fill="#f6c34b"/><text x="60" y="360.5" fill="#241726" text-anchor="middle">23</text></g>
+    <g><circle cx="14" cy="274" r="6.5" fill="#f6c34b"/><text x="14" y="277" fill="#241726" text-anchor="middle">24</text></g>
+  </g>
+</svg>
+</div></div>
+
+<div class="legend">
+  <div><b>1</b> Player plate (self, Brynn): name / Lv / job display name <span class="doc">HUD §4</span></div>
+  <div><b>2</b> Party frames: up to 5 plates, 4 shown (everyone but self), leader first <span class="doc">HUD §4.1, PARTY.md §3</span></div>
+  <div><b>3</b> Fallen plate (Halvard): desaturated, fallen glyph, stays rendered/still a member <span class="doc">HUD §4.1, DEATH_PENALTY §5.3</span></div>
+  <div><b>4</b> <code>boss_bar</code>: name in <code>ui_title</code>, <code>life</code> in ember ramp &#126;35%, no numeric <span class="doc">HUD §6, UI_ART_SPEC</span></div>
+  <div><b>5</b> Phase pip @ <code>life_threshold_pct</code> 50 (mob_178 phase 2) <span class="doc">AI_BEHAVIOR §15, mob_178.yaml</span></div>
+  <div><b>6</b> Pip flash on <code>phase_shift</code> &#8212; "phase 2: avalanche fury" just entered <span class="doc">AI_BEHAVIOR §15, STATUS_EFFECTS §1</span></div>
+  <div><b>7</b> Minimap, always-on <span class="doc">HUD §5, §11</span></div>
+  <div><b>8</b> Quest tracker: correctly hidden — raid repeat clears are not quest-tracked <span class="doc">RAID.md §3, HUD §11</span></div>
+  <div><b>9</b> Skoldir, the Rimewyrm &#8212; <code>mob_178</code>, Lv 55, <code>frost</code>, <code>boss</code> size class 96px, draw big <span class="doc">WORLD_PLAN §R9, ART_BIBLE sizing.size_classes</span></div>
+  <div><b>10</b> Telegraph state &#8212; distinct wind-up, rearing for Avalanche Fury <span class="doc">ANIMATION_STATES / AI_BEHAVIOR &#167;14&#8211;15</span></div>
+  <div><b>11</b> Avalanche Fury telegraph zone: <code>aoe_circle</code> r5, origin self, <code>telegraph_s</code> 1.3 <span class="doc">SKILL_SYSTEM §6, mob_178.yaml, P1</span></div>
+  <div><b>12</b> Frostcrown Crevasse walls &#8212; icy crevasse, tide ramp <span class="doc">WORLD_PLAN §R9, ART_BIBLE biome_identity.frostpeak</span></div>
+  <div><b>13</b> Damage number, normal hit, <code>frost</code> element tint <span class="doc">HUD §7</span></div>
+  <div><b>14</b> Damage number, crit &#8776;50% larger, same tint, punch-scale-in <span class="doc">HUD §7</span></div>
+  <div><b>15</b> Combo counter "7 LINKS" &#43; momentum pips (I&#8211;II filled, III empty socket) <span class="doc">HUD §7.1, COMBO_SYSTEM §3</span></div>
+  <div><b>16</b> <code>chill</code> debuff &#8212; red-edged duration ring <span class="doc">HUD §8, GLOSSARY</span></div>
+  <div><b>17</b> <code>empower</code> buff &#8212; verdant-edged duration ring <span class="doc">HUD §8, GLOSSARY</span></div>
+  <div><b>18</b> <code>life</code> / <code>essence</code> gauges + numerics <span class="doc">HUD §3</span></div>
+  <div><b>19</b> 8 skill slots &#8212; 2 shown mid-cooldown wipe with seconds <span class="doc">HUD §3, SKILL_SYSTEM §7</span></div>
+  <div><b>20</b> Dodge &#8212; distinct diamond frame, own binding <span class="doc">CONTROLS §3</span></div>
+  <div><b>21</b> 4 quickslots F1&#8211;F4, one loaded (Thaw Salve, cures <code>chill_type</code>) <span class="doc">HUD §3, STATUS_EFFECTS §2</span></div>
+  <div><b>22</b> <code>shards</code> wallet, right-aligned in the bottom bar <span class="doc">HUD §3, INVENTORY §3</span></div>
+  <div><b>23</b> <code>exp</code> strip, full width, arcane ramp <span class="doc">HUD §3</span></div>
+  <div><b>24</b> Chat dock, collapsed, bottom-left <span class="doc">HUD §10</span></div>
+</div>
+<p class="note">Party of 5 sits inside <code>raid_deepfrost</code>'s 3&#8211;6 band (RAID.md §2&#8211;§3); Corvin (leader) tanks
+the Avalanche Fury telegraph while Wren/Brynn/Sable hold outside its radius &#8212; Halvard fell to an earlier one and
+remains a party member per <code>DEATH_PENALTY.md</code> §5.3, re-enterable while the attempt stays live. Life numbers
+on the bottom bar and party plates are illustrative placeholders, not authored stat data.</p>
+
+</div>
+</body>
+</html>

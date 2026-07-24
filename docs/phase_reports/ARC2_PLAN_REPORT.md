@@ -5,6 +5,11 @@ Orchestrated per `docs/60_agents/roles/ORG.md`: producer + 8 role agents (all ha
 tasks routed to Opus-class agents), each owning disjoint files; producer performed the
 gate reconciliation (GLOSSARY / ID_REGISTRY / SCOPE / CLAUDE.md) and all commits.
 
+**Status update (2026-07-24, md audit):** the arc-2 pacing figure below ("≈90 played hours") is
+superseded by the same-day pacing retune — see `docs/10_systems/LEVELING.md` §1 (Lv 40 ≈ 30 h ·
+Lv 80 ≈ 166 h · Lv 100 ≈ 300 h; the arc-2 span Lv 40→80 is ≈ 136.6 h). World/ID facts below remain
+current.
+
 ## The owner revision (summarized)
 
 1. **Second arc, Lv 40–80**, with a significant per-level pace (session-scale levels).

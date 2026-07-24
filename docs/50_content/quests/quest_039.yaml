@@ -12,7 +12,7 @@ steps:
     target: item_etc_0049
     count: 6
 rewards:
-  exp: 585                  # round(0.08 * 7316); band per QUESTS §4 at Lv14
+  exp: 1508                  # round(0.08 * 18848); band per QUESTS §4 at Lv14
   shards: 96                # mean_shards_normal(14)*4 = 24*4 (QUESTS §5 side / DROPS §3)
 flavor: "Addock's nets keep coming back in ribbons, and he's certain the shallows' rime-shelled crabs are behind it."
 offer_text: "Bring me six clean rimeshell claws and I'll know it's them chewing my nets, not something worse."

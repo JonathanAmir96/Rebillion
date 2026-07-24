@@ -5,7 +5,7 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/HUD.md,
 10_systems/SKILL_SYSTEM.md, 10_systems/ENHANCEMENT.md, 10_systems/QUESTS.md,
 10_systems/COSMETICS.md, 10_systems/social/PARTY.md, 10_systems/social/PARTY_FINDER.md,
 10_systems/social/GUILD.md, 10_systems/PERSISTENCE.md, 40_assets/UI_ART_SPEC.md,
-40_assets/ART_BIBLE.yaml
+40_assets/ART_BIBLE.yaml, 40_assets/CHARACTER_COMPOSITING.md
 
 Owner doc for the **layout and anatomy of the framed toggle windows** — what each window shows,
 how its content is arranged, and which locked `40_assets/UI_ART_SPEC.md` frame/font tokens it is
@@ -88,8 +88,9 @@ just works.
 └─────────────────────────────────────┘
 ```
 
-- **Paper-doll**: the character's idle animation renders center (same sprite/cosmetic layering
-  rules as in-world, `10_systems/COSMETICS.md` §4 display order), ringed by one `frame_slot` per
+- **Paper-doll**: the character's idle animation renders center (the same composited layer
+  stack as in-world — `40_assets/CHARACTER_COMPOSITING.md` §2 z-order — with cosmetic overrides
+  per `10_systems/COSMETICS.md` §5–§6), ringed by one `frame_slot` per
   GLOSSARY equipment slot — `weapon` · `head` · `body` · `legs` · `boots` · `gloves` · `cape` ·
   `ring` · `amulet` (`10_systems/ITEMS.md` owns slot semantics and equip legality; empty slots
   show the slot-type glyph per `40_assets/UI_ART_SPEC.md`). The provisional `shield` / `overall`

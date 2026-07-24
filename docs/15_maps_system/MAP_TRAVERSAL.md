@@ -39,6 +39,16 @@ Final in-engine tuning (Godot gravity/jump-velocity project values) may deviate 
 derived reference as long as it preserves the three headline figures above; those are the design
 contract, the derived pair is a starting point, not a separate lock.
 
+**Footholds — the ground truth these numbers walk on (AB-001).** Per the GLOSSARY Terrain
+tokens this doc owns, walkable ground is a chain of **`foothold` segments** — line segments of
+arbitrary angle the character's feet-center pivot rides — with hand-painted **`terrain_chunk`**
+art snapped to them (`40_assets/ART_BIBLE.yaml` amendment AB-001); organic ground is *not* built
+from axis-aligned tiles. The 16 px tile grid remains this doc's **measurement and validation
+lens**: distances, jump metrics, and the §1.1 gap rules are authored and checked in tiles, and
+built structures (towns, interiors, platform props) stay on-grid. Exact foothold geometry per
+map is deferred to the Phase E engine pass (`00_vision/SCOPE.md`); slopes steeper than a
+walkable grade are a flagged Open Question below.
+
 ### 1.1 Validation rule (platform gaps)
 
 A gap between two platforms intended to be crossable by a standard jump — no rope, ladder, or

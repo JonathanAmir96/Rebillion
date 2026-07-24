@@ -13,7 +13,7 @@ steps:
     target: mob_108
     count: 8
 rewards:
-  exp: 13320  # side/main pct within 15-30% band (QUESTS §4); exp_to_next(30)=66,600 (LEVELING §1)
+  exp: 26507  # side/main pct within 15-30% band (QUESTS §4); exp_to_next(30)=132,534 (LEVELING §1)
   shards: 720
 flavor: "Something out of the drowned dark has been testing the salvage camp's perimeter every night since the crews arrived."
 offer_text: "The camp's not going anywhere if I lose another watch to the shallows. Clear the water past the line and I'll owe you."

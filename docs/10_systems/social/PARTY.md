@@ -121,9 +121,8 @@ size, so a fuller party loots better as well as levels faster. The two carrots a
 party exp bonus (climbing to `×2.00` at 6) and this drop bonus are the paired reasons to hunt
 together (`00_vision/PILLARS.md` P2/P3, encourage-not-mandate). **This doc owns only who is
 eligible** — the same-map, in-range membership resolved by §4's eligibility rules. The
-`party_drop_bonus` **table and the roll it multiplies are `10_systems/DROPS.md`'s** (reference,
-never restated here): same-map eligible members `1→1.00 · 2→1.05 · 3→1.10 · 4→1.16 · 5→1.22 ·
-6→1.30`, applied to the same drop `chance` roll `10_systems/DROPS.md` §4 governs. It **stacks with
+`party_drop_bonus` **table and the roll it multiplies are `10_systems/DROPS.md` §4.1's** (reference,
+never restated here), applied to the same drop `chance` roll `10_systems/DROPS.md` §4 governs. It **stacks with
 `fortune`'s own drop multiplier** (`10_systems/DROPS.md` §4's `m`), and both are subject to
 `10_systems/DROPS.md`'s caps (the §4 `≤ 0.95` chance clamp still binds) — grouping and a
 `fortune` build compound, but neither makes a drop certain. A solo-in-party member (everyone else
@@ -224,6 +223,7 @@ character to reach, so no party ever forms, and raids stay unreachable
 - Need/greed as a third loot mode (floated by `10_systems/DROPS.md`'s own wording) is not designed
   in this pass; only `free_for_all`/`round_robin` exist.
 - Exact invite-decline timeout (30 s) is first-pass UX, not load-bearing.
-- Neither `10_systems/HUD.md`'s layout (§2/§4, local-player-plate only) nor
-  `10_systems/CONTROLS.md`'s input map yet reserves a screen region or panel-toggle keybind for
-  other party members' plates (§3) — this doc supplies only the data contract for when they do.
+- **Resolved (2026-07-24 md audit):** `10_systems/HUD.md` §4.1 now reserves the party-frame
+  region (up to 5 member plates beneath the player plate, drawing this doc's §3 data contract),
+  and its §11 fixes the frames as contextual-automatic (shown while in a party) — no panel-toggle
+  keybind exists by design.

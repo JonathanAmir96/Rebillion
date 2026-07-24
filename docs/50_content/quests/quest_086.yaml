@@ -13,7 +13,7 @@ steps:
     target: mob_150
     count: 1
 rewards:
-  exp: 49368  # round(0.30*164,560) (LEVELING §1 Lv40); main band 15-30%, top of band for the region finale
+  exp: 87701  # round(0.30*292,336) (LEVELING §1 Lv40); main band 15-30%, top of band for the region finale
   shards: 945 # main = mean_shards_normal(40)*15 = 63*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 2 }   # a pair of Sovereign Life Tonics for the climb into arc 2

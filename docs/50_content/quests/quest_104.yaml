@@ -12,7 +12,7 @@ steps:
     target: mob_184
     count: 10
 rewards:
-  exp: 40748                      # round(0.075 * exp_to_next(58)=543,312); side band (QUESTS §4)
+  exp: 63269                      # round(0.075 * exp_to_next(58)=843,584); side band (QUESTS §4)
   shards: 360                     # mean_shards_normal(58)*4 = 90*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 2 }

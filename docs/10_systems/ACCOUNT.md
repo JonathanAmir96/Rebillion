@@ -10,9 +10,8 @@ character-creation steps (nickname check → appearance → confirm), and the id
 creation mints. Authorized by owner directive 2026-07-24. The backend truths this flow sits
 on are owned elsewhere and only cited here: account/credential model, the **4-slot quota**,
 and one-way import (`70_integrations/ACCOUNTS_AUTH.md` §2, quota raised 3→4 by the same
-directive); the **character name law** — 3–12 characters, letters/digits, global
-case-insensitive uniqueness, reserved-name and profanity gates, rename mechanism
-(`70_integrations/ACCOUNTS_AUTH.md` §5); save-slot storage and authority tags
+directive); the **character name law** (`70_integrations/ACCOUNTS_AUTH.md` §5 — format,
+uniqueness, gates, and rename all live there); save-slot storage and authority tags
 (`10_systems/PERSISTENCE.md` §2/§6); job rules (`10_systems/JOBS.md`); appearance parts
 (`40_assets/CHARACTER_COMPOSITING.md`). Nothing in those docs is restated as law here.
 

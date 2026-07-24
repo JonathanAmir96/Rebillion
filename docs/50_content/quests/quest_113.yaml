@@ -15,7 +15,7 @@ steps:
     target: item_etc_0173
     count: 5
 rewards:
-  exp: 273521  # round(0.20 * 1,367,604); main band 15-30% (QUESTS §4)
+  exp: 388735  # round(0.20 * 1,943,676); main band 15-30% (QUESTS §4)
   shards: 1770  # mean_shards_normal(77)*15 = 118*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 3 }

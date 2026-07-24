@@ -272,7 +272,9 @@ capacity numbers and §1's channel-eligibility mechanism are decided in this doc
 
 - **§7's numeric targets (occupancy caps, max channels, teardown grace, cooldown/combat-lock
   windows in §4, raid headroom target) are first-pass**, sized from best-practice reasoning rather than
-  live telemetry — retune once real concurrency data exists, matching the precedent
+  live telemetry (and originally sized against the pre-Arc-2 two-island world — still valid as
+  launch targets since world nodes scale horizontally, per
+  `docs/phase_reports/PHASE_I_BACKEND_REPORT.md` §6) — retune once real concurrency data exists, matching the precedent
   `10_systems/SPAWN.md` §2/§4 sets for its own first-pass density defaults.
 - **Whether channel-hop kill/quest-target farming (§4) should ever be throttled beyond the 30 s
   switch cooldown** is a balance call, not an engineering one — this doc's default is "accepted,

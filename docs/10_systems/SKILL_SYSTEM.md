@@ -178,9 +178,9 @@ content file recomputes interpolation or cost — it declares rows and constants
 
 ## Open Questions
 
-- **Skill-bar slot count** (first-pass 8) and input layout are owned by `10_systems/CONTROLS.md` /
-  `10_systems/HUD.md`; if the platform button budget forces fewer, content that assumes 8 usable
-  actives at once may need review. Flagged for the B/C gate.
+- **Resolved (2026-07-24 md audit): skill-bar slot count.** `10_systems/HUD.md` §3 fixes the bar
+  at 8 `frame_slot` cells (+ the separate Dodge slot), settling the count this doc's §7 consumes;
+  input layout stays `10_systems/CONTROLS.md`'s.
 - **Skill-point total** (+1/level, 299 at cap 300) is first-pass; the v3 Lv 40 **branch**
   (`10_systems/JOBS.md` §1) means a character accesses 13 line skills (6 first-job + one spec's 7) +
   4 novice, so the point-vs-rank ratio shifted from the v2 21-skill assumption. If playtesting shows

@@ -20,7 +20,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 13479   # round(0.28 * 48,140); main band 15-30% of exp_to_next(27)=48,140 (LEVELING §1); pct=0.28
+  exp: 27933   # round(0.28 * 99,760); main band 15-30% of exp_to_next(27)=99,760 (LEVELING §1); pct=0.28
   shards: 660    # main = mean_shards_normal(27)*15 = 44*15 (QUESTS §5 / DROPS §3)
 flavor: "Ossian is mustering anyone willing to clear a true path into the vault, per Scholar Vell's warrens reading."
 offer_text: "Vell's reading confirms it -- clear the warrens' worst and report to Thessaly at the last loom gate. She'll want to know what's coming."

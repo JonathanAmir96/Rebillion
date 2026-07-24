@@ -11,7 +11,7 @@ the system doc that owns a number/rule, and to the schema that owns its shape. N
 | `maps/map_NNN.yaml` | one map | `map.schema.md` |
 | `monsters/mob_NNN.yaml` | one monster | `monster.schema.md` |
 | `drop_tables/drop_mob_NNN.yaml` | one per monster (number matches `mob_NNN`) | `drop_table.schema.md` |
-| `drop_tables/pools.yaml` | the **single shared** region-pools file (`id: drop_pools`; all 12 `pool_equip_rNN`) | `drop_table.schema.md` |
+| `drop_tables/pools.yaml` | the **single shared** region-pools file (`id: drop_pools`; all 11 `pool_equip_rNN`) | `drop_table.schema.md` |
 | `items/equip/*.yaml` · `items/use/*.yaml` · `items/etc/*.yaml` | **batch tables** (many rows/file), not one-file-per-item | `item.schema.md` |
 | `npcs/npc_NNN.yaml` | one NPC | `npc.schema.md` |
 | `quests/quest_NNN.yaml` | one quest | `quest.schema.md` |
@@ -49,8 +49,10 @@ tokens (`COMBAT_FORMULA`, `WORLD_PLAN`), matching each schema's own template.
 - **Units.** tiles (distances/coords, top-left origin), seconds (durations/cooldowns), percent for
   `evasion`/`crit_rate` (float), `shards`/`exp`/`life` as integers.
 - **Bidirectional links** (both sides must exist): a map's `npcs[]` ↔ each NPC's `map`; a monster's
-  `drop_table` ↔ its `drop_mob_NNN` file; a quest's `giver_npc`/step targets ↔ those entities. A
-  batch agent that adds an NPC to a town writes it on **both** the NPC file and the map's `npcs[]`.
+  `drop_table` ↔ its `drop_mob_NNN` file. A batch agent that adds an NPC to a town writes it on
+  **both** the NPC file and the map's `npcs[]`. A quest's `giver_npc`/step targets are **one-way**
+  references (must resolve, `docs/VALIDATION.md` §2) — NPC files carry no reverse quest field
+  (`20_schemas/npc.schema.md` single-source rule).
 - **Flag, don't guess** (Law 4): an unknown number/token goes to the owning doc's Open Questions,
   never invented here.
 
@@ -69,3 +71,8 @@ tokens (`COMBAT_FORMULA`, `WORLD_PLAN`), matching each schema's own template.
 | `npcs/npc_085.yaml` | arc-2 **pier NPC** | `pier_officer` role → `services: [longship]`, co-located with the pier portal |
 | `quests/quest_091.yaml` | region **quest** | `side` reward budget (§4 exp band / §5 shards formula), kill + collect steps |
 | `skills/bulwark/skill_bulwark_014.yaml` | **spec skill** | roster-exact identity, `level_data` rows at 1/4/7/10 |
+
+## Open Questions
+
+- None currently. Content conventions change only with their owning schema docs; unknowns go to
+  the owning doc's Open Questions per CLAUDE.md Law 4, never resolved here.

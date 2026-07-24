@@ -99,8 +99,9 @@ manifests so the tier below executes mechanically. Only the producer commits/pus
 
 ### 4. Standing repo laws (bind every agent — see `projectbrief.md`)
 GLOSSARY tokens only · single source of truth · immutable IDs in `ID_REGISTRY.md`
-blocks · locked files untouched (`ART_BIBLE.yaml`, `UI_ART_SPEC.md`,
-`ENGINEERING_STANDARDS.md`) · every doc ends with `## Open Questions` · validate before
+blocks · change-controlled files (`ART_BIBLE.yaml`, `UI_ART_SPEC.md`,
+`ENGINEERING_STANDARDS.md`) edited only on explicit owner direction, logged in their
+`amendments` ledgers · every doc ends with `## Open Questions` · validate before
 landing · US spelling.
 
 ## Client engineering patterns (locked — `docs/30_engineering/ENGINEERING_STANDARDS.md`)

@@ -13,7 +13,7 @@ steps:
     target: mob_104
     count: 3
 rewards:
-  exp: 9347                      # round(0.095 * 98,392); side band 5-10% of exp_to_next(34) (LEVELING §1 / QUESTS §4)
+  exp: 17726                      # round(0.095 * 186,592); side band 5-10% of exp_to_next(34) (LEVELING §1 / QUESTS §4)
   shards: 216                    # side = mean_shards_normal(34)*4 = 54*4 (QUESTS §5 / DROPS §3)
 flavor: "Emberbrood matrons guard the deepest vents, and nothing rattles easy past their nests -- not even Karnothal's own heat."
 offer_text: "Past the forge, the matrons brood thick. Break a few of their broods and you'll have earned the Stoked Core itself."

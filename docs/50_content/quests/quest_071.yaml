@@ -13,7 +13,7 @@ steps:
     target: mob_111
     count: 10
 rewards:
-  exp: 5885  # side pct=0.08 of exp_to_next(31)=73,564; shards=mean_shards_normal(31)*4=50*4
+  exp: 11576  # side pct=0.08 of exp_to_next(31)=144,699; shards=mean_shards_normal(31)*4=50*4
   shards: 200
 flavor: "Fenn's weighted line keeps snagging on something that isn't kelp, and it isn't friendly either."
 offer_text: "Whatever's tangled around my line, it's got teeth. Thin the shallows out and I'll finally get a clean pull."

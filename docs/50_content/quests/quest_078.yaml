@@ -13,7 +13,7 @@ steps:
     target: mob_128
     count: 1
 rewards:
-  exp: 39194  # main pct=0.28 of exp_to_next(38)=139,977; shards=mean_shards_normal(38)*15=63*15
+  exp: 71030  # main pct=0.28 of exp_to_next(38)=253,680; shards=mean_shards_normal(38)*15=63*15
   shards: 900
 flavor: "Past the vault threshold, the Drowned Warden still keeps a door no living kingdom remembers needing kept."
 offer_text: "You've proven yourself to the archive and the guard both. The door's through there. Whatever's behind it, it's yours to face now."

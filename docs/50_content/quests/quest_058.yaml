@@ -20,7 +20,7 @@ steps:
     zone: broodloom_threshold
     requires_step: 2
 rewards:
-  exp: 15066   # round(0.30 * 53,808); main band 15-30% of exp_to_next(28)=53,808 (LEVELING §1); pct=0.30 (chain finale, top of band)
+  exp: 33014   # round(0.30 * 110,048); main band 15-30% of exp_to_next(28)=110,048 (LEVELING §1); pct=0.30 (chain finale, top of band)
   shards: 675    # main = mean_shards_normal(28)*15 = 45*15 (QUESTS §5 / DROPS §3)
 flavor: "The vault's last defenders guard the archway itself; past them lies the loom, and Mother Gloam."
 offer_text: "Prove yourself against the vault's last brood and stand at the archway's threshold. If you're steady enough, the loom will let you through."

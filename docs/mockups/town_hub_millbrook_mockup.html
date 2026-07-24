@@ -1,0 +1,392 @@
+<!-- Non-binding wireframe mock-up (2026-07-24 md audit). Binding specs: docs/40_assets/UI_ART_SPEC.md, docs/40_assets/ART_BIBLE.yaml, docs/WORLD_PLAN.md §R2 + cited docs. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Millbrook Central Town Hub Mock-up</title>
+<style>
+  :root{
+    --ink:#241726; --shadow:#3a2b40; --stone:#6b6270; --ash:#9a92a0; --bone:#e8e2d8; --white:#fbf7ef;
+    --link:#54b0c6; --emph:#f6c34b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ink);color:var(--bone);font:14px/1.55 ui-sans-serif,system-ui,sans-serif;
+       padding:20px 12px 40px;display:flex;flex-direction:column;align-items:center}
+  h1{font-size:19px;color:var(--emph);margin:0 0 4px;text-align:center}
+  p.sub{margin:0 0 14px;color:var(--ash);font-size:12.5px;max-width:1080px;text-align:center}
+  .stagewrap{border:2px solid var(--stone);background:#000;line-height:0}
+  svg{display:block;image-rendering:pixelated}
+  .px{shape-rendering:crispEdges}
+  .scaletag{font-size:11px;color:var(--ash);margin:8px 0 22px;text-align:center}
+  .scaletag code{color:var(--link);font-family:ui-monospace,monospace}
+  h2{font-size:14px;color:var(--link);margin:6px 0 8px;max-width:1080px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 20px;
+          max-width:1080px;font-size:12px;color:var(--bone)}
+  .legend b{color:var(--emph);font-weight:700;margin-right:4px}
+  .legend .doc{color:var(--stone)}
+  .note{font-size:11.5px;color:var(--ash);margin-top:14px;max-width:1080px;border-left:3px solid var(--link);padding-left:10px}
+  .blink{animation:dlgblink 1.1s steps(2) infinite}
+  @keyframes dlgblink{0%,100%{opacity:1}50%{opacity:.15}}
+</style>
+</head>
+<body>
+
+<h1>Rebillion — Millbrook Central Town Hub Mock-up</h1>
+<p class="sub">Millbrook Central (<code>map_018</code>) street cross-section — old_town biome (earth ramp; "timber, thatch,
+cobble, lantern glow," <code>ART_BIBLE.yaml environment.biome_identity.old_town</code>), the R2 social hub
+(<code>docs/WORLD_PLAN.md</code> §R2). Frames/fonts/name-tag rules per <code>UI_ART_SPEC.md</code>; HUD shell per
+<code>HUD.md</code> §2/§11 (slim, so the scene reads as gameplay). Wireframe rects + simple silhouettes only — no
+authored art. Gold numbered pins are design annotations, not game UI.</p>
+
+<div class="stagewrap">
+<svg width="1280" height="720" viewBox="0 0 640 360" role="img" aria-label="Millbrook Central town hub cross-section mock-up">
+
+  <!-- ============ SKY / FAR PARALLAX — most desaturated (ART_BIBLE depth_layers) ============ -->
+  <g class="px">
+    <rect x="0" y="0" width="640" height="40" fill="#241726"/>
+    <rect x="0" y="40" width="640" height="30" fill="#3a2b40"/>
+    <rect x="0" y="70" width="640" height="25" fill="#6b6270"/>
+    <rect x="0" y="95" width="640" height="22" fill="#9a6f3f"/>
+  </g>
+
+  <!-- ============ MID-PARALLAX — distant Millbrook rooftops + a Rosen Harbor mast hint ============ -->
+  <g class="px" opacity="0.55" fill="#3a2b1e">
+    <path d="M20,168 L40,148 L60,168 Z"/>
+    <path d="M64,172 L90,150 L116,172 Z"/>
+    <path d="M150,170 L172,152 L194,170 Z"/>
+    <path d="M330,172 L352,152 L374,172 Z"/>
+    <path d="M470,170 L494,150 L518,170 Z"/>
+    <rect x="120" y="160" width="26" height="12"/>
+  </g>
+  <g class="px" opacity="0.5" fill="#3a2b40">
+    <line x1="600" y1="176" x2="600" y2="138" stroke="#3a2b40" stroke-width="2"/>
+    <path d="M600,140 L616,150 L600,158 Z"/>
+  </g>
+
+  <!-- depth-band annotation (in-scene labels, ART_BIBLE environment.depth_layers) -->
+  <g font-family="ui-monospace,monospace" fill="#9a92a0">
+    <text x="6" y="12" font-size="5.5">sky / far parallax — most desaturated</text>
+    <text x="6" y="21" font-size="5.5">mid-parallax — distant rooftops, dimmed</text>
+    <text x="6" y="30" font-size="5.5">playfield (1.0×) — full contrast below</text>
+    <text x="6" y="39" font-size="5.5">foreground occluders — darkened (far left post)</text>
+    <text x="6" y="48" font-size="5" font-style="italic" fill="#6b6270">ART_BIBLE.yaml environment.depth_layers</text>
+  </g>
+
+  <!-- ============ PLAYFIELD (1.0x, full contrast) ============ -->
+  <!-- ground: earth-ramp cobblestone street (old_town biome, hand-painted terrain chunk, AB-001) -->
+  <g class="px">
+    <rect x="0" y="300" width="640" height="60" fill="#3a2b1e"/>
+    <rect x="0" y="300" width="640" height="4" fill="#6b4a2d"/>
+    <g fill="#9a6f3f" opacity="0.8">
+      <rect x="26" y="312" width="4" height="3"/><rect x="70" y="330" width="4" height="3"/>
+      <rect x="200" y="316" width="4" height="3"/><rect x="240" y="340" width="4" height="3"/>
+      <rect x="360" y="320" width="4" height="3"/><rect x="410" y="344" width="4" height="3"/>
+      <rect x="520" y="314" width="4" height="3"/><rect x="600" y="336" width="4" height="3"/>
+      <rect x="130" y="350" width="4" height="3"/><rect x="470" y="352" width="4" height="3"/>
+    </g>
+  </g>
+
+  <!-- ==== INN (map_019–026 interior block, WORLD_PLAN §R2) ==== -->
+  <g class="px">
+    <rect x="14" y="212" width="86" height="88" fill="#6b4a2d"/>
+    <path d="M8,212 L30,188 L84,188 L106,212 Z" fill="#3a2b1e"/>
+    <rect x="46" y="256" width="22" height="44" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <rect x="40" y="242" width="34" height="11" fill="#e8e2d8" stroke="#241726" stroke-width="1"/>
+    <text x="57" y="250.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#241726" text-anchor="middle">Inn</text>
+  </g>
+
+  <!-- lantern post -->
+  <g class="px">
+    <rect x="104" y="230" width="3" height="70" fill="#3a2b1e"/>
+    <rect x="101" y="220" width="9" height="10" fill="#3a2b1e" stroke="#6b6270" stroke-width="0.5"/>
+    <circle cx="105.5" cy="225" r="8" fill="#eb7a2c" opacity="0.30"/>
+    <circle cx="105.5" cy="225" r="4" fill="#f6c34b"/>
+  </g>
+
+  <!-- ==== SMITHY (map_019–026 interior block, WORLD_PLAN §R2) ==== -->
+  <g class="px">
+    <rect x="110" y="228" width="74" height="72" fill="#6b4a2d"/>
+    <path d="M104,228 L124,208 L170,208 L190,228 Z" fill="#3a2b1e"/>
+    <rect x="130" y="258" width="20" height="42" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <rect x="124" y="244" width="42" height="11" fill="#e8e2d8" stroke="#241726" stroke-width="1"/>
+    <text x="145" y="252.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#241726" text-anchor="middle">Smithy</text>
+  </g>
+
+  <g class="px">
+    <rect x="188" y="234" width="3" height="66" fill="#3a2b1e"/>
+    <rect x="185" y="224" width="9" height="10" fill="#3a2b1e" stroke="#6b6270" stroke-width="0.5"/>
+    <circle cx="189.5" cy="229" r="8" fill="#eb7a2c" opacity="0.30"/>
+    <circle cx="189.5" cy="229" r="4" fill="#f6c34b"/>
+  </g>
+
+  <!-- ==== MARKET HALL (map_019–026 interior block, WORLD_PLAN §R2) ==== -->
+  <g class="px">
+    <rect x="192" y="202" width="94" height="98" fill="#9a6f3f"/>
+    <path d="M184,202 L214,176 L264,176 L294,202 Z" fill="#3a2b1e"/>
+    <rect x="220" y="248" width="36" height="52" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <line x1="238" y1="248" x2="238" y2="300" stroke="#6b6270" stroke-width="1"/>
+    <rect x="206" y="212" width="60" height="11" fill="#e8e2d8" stroke="#241726" stroke-width="1"/>
+    <text x="236" y="220.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#241726" text-anchor="middle">Market Hall</text>
+    <!-- small stall lean-tos flanking the entrance -->
+    <rect x="194" y="278" width="18" height="22" fill="#c09a54" stroke="#241726" stroke-width="1"/>
+    <rect x="264" y="278" width="18" height="22" fill="#c09a54" stroke="#241726" stroke-width="1"/>
+  </g>
+  <!-- generic townsperson NPC (flavor only — not a named registry entity) -->
+  <g class="px" fill="#6b6270">
+    <rect x="228" y="278" width="7" height="7" fill="#9a92a0"/>
+    <rect x="226" y="285" width="11" height="14"/>
+    <rect x="227" y="299" width="4" height="10" fill="#3a2b1e"/><rect x="233" y="299" width="4" height="10" fill="#3a2b1e"/>
+  </g>
+  <rect x="203" y="264" width="58" height="10" rx="2" fill="#241726" opacity="0.82"/>
+  <text x="232" y="271.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" text-anchor="middle">Townsperson</text>
+
+  <g class="px">
+    <rect x="290" y="230" width="3" height="70" fill="#3a2b1e"/>
+    <rect x="287" y="220" width="9" height="10" fill="#3a2b1e" stroke="#6b6270" stroke-width="0.5"/>
+    <circle cx="291.5" cy="225" r="8" fill="#eb7a2c" opacity="0.30"/>
+    <circle cx="291.5" cy="225" r="4" fill="#f6c34b"/>
+  </g>
+
+  <!-- ==== BANK (map_019–026 interior block, WORLD_PLAN §R2) ==== -->
+  <g class="px">
+    <rect x="296" y="214" width="68" height="86" fill="#6b4a2d"/>
+    <rect x="292" y="203" width="76" height="11" fill="#3a2b1e"/>
+    <rect x="304" y="214" width="6" height="86" fill="#3a2b1e"/>
+    <rect x="350" y="214" width="6" height="86" fill="#3a2b1e"/>
+    <rect x="318" y="256" width="26" height="44" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <rect x="312" y="228" width="36" height="11" fill="#e8e2d8" stroke="#241726" stroke-width="1"/>
+    <text x="330" y="236.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#241726" text-anchor="middle">Bank</text>
+  </g>
+
+  <!-- ==== GUILD HALL — map_024 door (GUILD.md §1) ==== -->
+  <g class="px">
+    <rect x="372" y="212" width="64" height="88" fill="#6b4a2d"/>
+    <path d="M366,212 L388,186 L420,186 L442,212 Z" fill="#3a2b1e"/>
+    <line x1="404" y1="186" x2="404" y2="158" stroke="#3a2b1e" stroke-width="2"/>
+    <path d="M404,158 L404,172 L418,165 Z" fill="none" stroke="#6b6270" stroke-width="1"/>
+    <rect x="390" y="258" width="26" height="42" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <rect x="380" y="222" width="46" height="11" fill="#e8e2d8" stroke="#241726" stroke-width="1"/>
+    <text x="403" y="230.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#241726" text-anchor="middle">Guild Hall</text>
+    <text x="403" y="243" font-family="ui-monospace,monospace" font-size="5" fill="#9a92a0" text-anchor="middle">map_024</text>
+  </g>
+
+  <g class="px">
+    <rect x="440" y="234" width="3" height="66" fill="#3a2b1e"/>
+    <rect x="437" y="224" width="9" height="10" fill="#3a2b1e" stroke="#6b6270" stroke-width="0.5"/>
+    <circle cx="441.5" cy="229" r="8" fill="#eb7a2c" opacity="0.30"/>
+    <circle cx="441.5" cy="229" r="4" fill="#f6c34b"/>
+  </g>
+
+  <!-- ==== COACH STATION KIOSK (MAP_INTERACTABLES §9) ==== -->
+  <g class="px">
+    <rect x="424" y="236" width="66" height="10" fill="#3a2b1e"/>
+    <rect x="428" y="246" width="4" height="54" fill="#3a2b1e"/>
+    <rect x="482" y="246" width="4" height="54" fill="#3a2b1e"/>
+    <rect x="434" y="276" width="52" height="24" fill="#6b4a2d" stroke="#241726" stroke-width="1"/>
+    <text x="457" y="246" font-family="ui-monospace,monospace" font-size="6" font-weight="700" fill="#e8e2d8" text-anchor="middle">COACH</text>
+  </g>
+  <!-- coach_clerk NPC (GLOSSARY Transport; role token coach_clerk, display label ours) -->
+  <g class="px" fill="#6b6270">
+    <rect x="472" y="262" width="7" height="7" fill="#9a92a0"/>
+    <rect x="470" y="269" width="11" height="17"/>
+    <rect x="471" y="286" width="4" height="14" fill="#3a2b1e"/><rect x="477" y="286" width="4" height="14" fill="#3a2b1e"/>
+  </g>
+  <rect x="446" y="248" width="58" height="10" rx="2" fill="#241726" opacity="0.82"/>
+  <text x="475" y="255.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" text-anchor="middle">Coach Clerk</text>
+  <!-- player character (Sable), talking to the clerk -->
+  <g class="px">
+    <rect x="452" y="264" width="8" height="8" fill="#e8e2d8"/>
+    <rect x="450" y="272" width="12" height="16" fill="#eb7a2c"/>
+    <rect x="451" y="288" width="4" height="12" fill="#3a2b1e"/><rect x="457" y="288" width="4" height="12" fill="#3a2b1e"/>
+  </g>
+  <rect x="424" y="250" width="64" height="10" rx="2" fill="#241726" opacity="0.82"/>
+  <text x="456" y="257.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#fbf7ef" text-anchor="middle">Sable · Lv 11 · Keeneye</text>
+
+  <!-- fare board (MAP_CONNECTIONS §3 / ECONOMY §7.1) -->
+  <g class="px">
+    <rect x="499" y="248" width="3" height="52" fill="#3a2b1e"/>
+    <rect x="474" y="214" width="52" height="34" rx="2" fill="#e8e2d8" stroke="#241726" stroke-width="1.5"/>
+    <text x="500" y="226" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#241726" text-anchor="middle">FARES</text>
+    <text x="500" y="236" font-family="ui-monospace,monospace" font-size="5.5" fill="#3a2b40" text-anchor="middle">ECONOMY §7.1</text>
+    <text x="500" y="245" font-family="ui-monospace,monospace" font-size="5.5" fill="#3a2b40" text-anchor="middle">ring-distance</text>
+  </g>
+
+  <!-- ==== UNDERVAULT QUARTER STAIR (WORLD_PLAN §R2 job instructors) ==== -->
+  <g class="px">
+    <rect x="530" y="258" width="50" height="11" fill="#e8e2d8" stroke="#241726" stroke-width="1"/>
+    <text x="555" y="266.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#241726" text-anchor="middle">Undervault</text>
+    <rect x="534" y="276" width="16" height="6" fill="#9a6f3f"/>
+    <rect x="548" y="284" width="16" height="6" fill="#6b4a2d"/>
+    <rect x="562" y="292" width="16" height="6" fill="#3a2b1e"/>
+    <rect x="572" y="298" width="22" height="30" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+  </g>
+  <!-- "Whisper" Vex — flicker instructor -->
+  <g class="px" fill="#6b6270">
+    <rect x="553" y="264" width="7" height="7" fill="#9a92a0"/>
+    <rect x="551" y="271" width="11" height="15" fill="#3a2b40"/>
+    <rect x="552" y="286" width="4" height="10" fill="#3a2b1e"/><rect x="558" y="286" width="4" height="10" fill="#3a2b1e"/>
+  </g>
+  <rect x="524" y="250" width="68" height="10" rx="2" fill="#241726" opacity="0.82"/>
+  <text x="558" y="257.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" text-anchor="middle">"Whisper" Vex</text>
+
+  <g class="px">
+    <rect x="596" y="230" width="3" height="70" fill="#3a2b1e"/>
+    <rect x="593" y="220" width="9" height="10" fill="#3a2b1e" stroke="#6b6270" stroke-width="0.5"/>
+    <circle cx="597.5" cy="225" r="8" fill="#eb7a2c" opacity="0.30"/>
+    <circle cx="597.5" cy="225" r="4" fill="#f6c34b"/>
+  </g>
+
+  <!-- ==== RAID QUARTERMASTER STALL (ITEMS §13) ==== -->
+  <g class="px">
+    <path d="M584,262 L610,244 L638,262 Z" fill="#3a2b1e"/>
+    <rect x="588" y="272" width="48" height="28" fill="#6b4a2d" stroke="#241726" stroke-width="1"/>
+    <rect x="596" y="278" width="34" height="14" fill="#3a2b40" stroke="#241726" stroke-width="0.5"/>
+    <!-- raid_token on the counter -->
+    <circle cx="613" cy="284.5" r="4" fill="#f6c34b" stroke="#241726" stroke-width="0.75"/>
+    <circle cx="613" cy="284.5" r="1.6" fill="#eb7a2c"/>
+  </g>
+  <g class="px" fill="#6b6270">
+    <rect x="608" y="248" width="7" height="7" fill="#9a92a0"/>
+    <rect x="606" y="255" width="11" height="17"/>
+  </g>
+  <rect x="578" y="236" width="72" height="10" rx="2" fill="#241726" opacity="0.85"/>
+  <text x="614" y="243.5" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" text-anchor="middle">Raid Quartermaster</text>
+
+  <!-- ============ FOREGROUND OCCLUDER — darkened (ART_BIBLE depth_layers) ============ -->
+  <g class="px">
+    <rect x="0" y="240" width="6" height="62" fill="#241726"/>
+    <rect x="-2" y="228" width="12" height="14" fill="#241726" stroke="#3a2b40" stroke-width="1"/>
+    <circle cx="4" cy="235" r="6" fill="#3a2b40" opacity="0.65"/>
+  </g>
+
+  <!-- ============ SLIM ALWAYS-ON HUD SHELL (HUD.md §2 / §11) ============ -->
+  <!-- map-name card, top-center, shown mid-fade (frame_system) -->
+  <g>
+    <rect x="250" y="8" width="140" height="18" rx="2" fill="#241726" opacity="0.60" stroke="#6b6270" stroke-width="1"/>
+    <text x="320" y="20.5" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#fbf7ef"
+          text-anchor="middle" opacity="0.85">Millbrook Central</text>
+  </g>
+  <!-- player plate, top-left, slim -->
+  <g>
+    <rect x="6" y="6" width="112" height="14" rx="2" fill="#241726" opacity="0.9" stroke="#6b6270" stroke-width="1"/>
+    <text x="11" y="16" font-family="ui-monospace,monospace" font-size="7.5" font-weight="700" fill="#fbf7ef">Sable</text>
+    <text x="48" y="16" font-family="ui-monospace,monospace" font-size="7.5" fill="#f6c34b">Lv 11</text>
+    <text x="78" y="16" font-family="ui-monospace,monospace" font-size="7" fill="#e8e2d8">Keeneye</text>
+  </g>
+  <!-- minimap, top-right, slim, contents abstract -->
+  <g>
+    <rect x="566" y="6" width="68" height="42" rx="2" fill="#241726" opacity="0.9" stroke="#6b6270" stroke-width="1"/>
+    <rect x="570" y="10" width="60" height="30" fill="#3a2b40"/>
+    <rect x="580" y="24" width="14" height="2" fill="#6b4a2d"/><rect x="602" y="18" width="10" height="2" fill="#6b4a2d"/>
+    <circle cx="600" cy="30" r="2" fill="#f6c34b"/>
+  </g>
+  <!-- chat dock, bottom-left, collapsed (always-on, HUD §10) -->
+  <g opacity="0.75">
+    <rect x="6" y="296" width="132" height="26" rx="2" fill="#241726" opacity="0.7"/>
+    <text x="11" y="306" font-family="ui-monospace,monospace" font-size="6" fill="#9a92a0">[system] Welcome to Millbrook Central.</text>
+    <text x="11" y="315" font-family="ui-monospace,monospace" font-size="6" fill="#e8e2d8">[area] anyone at the guild hall?</text>
+  </g>
+
+  <!-- open frame_dialog — coach_clerk (bottom-center, above the bar; UI_ART_SPEC Windows) -->
+  <g>
+    <rect x="150" y="222" width="340" height="102" rx="2" fill="#241726" opacity="0.97" stroke="#c09a54" stroke-width="2"/>
+    <rect x="160" y="232" width="70" height="70" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/>
+    <circle cx="195" cy="252" r="12" fill="#9a92a0"/>
+    <path d="M175,282 Q195,262 215,282 Z" fill="#9a92a0"/>
+    <text x="240" y="246" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#54b0c6">Coach Clerk</text>
+    <line x1="240" y1="252" x2="478" y2="252" stroke="#6b6270" stroke-width="1"/>
+    <text x="240" y="270" font-family="ui-monospace,monospace" font-size="8" fill="#fbf7ef">Coaches run the ring, fare set by</text>
+    <text x="240" y="286" font-family="ui-monospace,monospace" font-size="8" fill="#fbf7ef">ring-distance. Ride to
+      <tspan fill="#54b0c6" text-decoration="underline">Tidewatch Port</tspan>?</text>
+    <text x="472" y="316" font-family="ui-monospace,monospace" font-size="11" fill="#e8e2d8" class="blink">▼</text>
+  </g>
+
+  <!-- bottom bar (slim, HUD §3) -->
+  <g>
+    <rect x="0" y="328" width="640" height="28" fill="#241726" opacity="0.9"/>
+    <rect x="0" y="328" width="640" height="1" fill="#6b6270"/>
+    <rect x="6" y="331" width="100" height="6" fill="#3a2b40" stroke="#6b6270" stroke-width="0.5"/>
+    <rect x="7" y="332" width="70" height="4" fill="#c8461f"/>
+    <rect x="6" y="339" width="100" height="6" fill="#3a2b40" stroke="#6b6270" stroke-width="0.5"/>
+    <rect x="7" y="340" width="46" height="4" fill="#2f7aa0"/>
+    <g fill="#3a2b40" stroke="#6b6270" stroke-width="1">
+      <rect x="214" y="332" width="14" height="14"/><rect x="230" y="332" width="14" height="14"/>
+      <rect x="246" y="332" width="14" height="14"/><rect x="262" y="332" width="14" height="14"/>
+      <rect x="278" y="332" width="14" height="14"/><rect x="294" y="332" width="14" height="14"/>
+      <rect x="310" y="332" width="14" height="14"/><rect x="326" y="332" width="14" height="14"/>
+    </g>
+    <rect x="346" y="330" width="18" height="18" rx="2" fill="#3a2b40" stroke="#f6c34b" stroke-width="1.5"/>
+    <g fill="#3a2b40" stroke="#6b6270" stroke-width="1">
+      <rect x="372" y="332" width="14" height="14"/><rect x="388" y="332" width="14" height="14"/>
+      <rect x="404" y="332" width="14" height="14"/><rect x="420" y="332" width="14" height="14"/>
+    </g>
+    <path d="M585,340 l5,-7 5,7 -5,7 Z" fill="#f6c34b"/>
+    <text x="600" y="343" font-family="ui-monospace,monospace" font-size="8.5" font-weight="700" fill="#fbf7ef">8,240</text>
+  </g>
+  <rect x="0" y="356" width="640" height="4" fill="#3a2b40"/>
+  <rect x="0" y="356" width="180" height="4" fill="#7a3f9a"/>
+
+  <!-- ============ annotation pins (design-only) ============ -->
+  <g font-family="ui-monospace,monospace" font-size="7.5" font-weight="700">
+    <g><circle cx="320" cy="17" r="7" fill="#f6c34b"/><text x="320" y="20" fill="#241726" text-anchor="middle">1</text></g>
+    <g><circle cx="62" cy="13" r="6.5" fill="#f6c34b"/><text x="62" y="16" fill="#241726" text-anchor="middle">2</text></g>
+    <g><circle cx="600" cy="13" r="6.5" fill="#f6c34b"/><text x="600" y="16" fill="#241726" text-anchor="middle">3</text></g>
+    <g><circle cx="70" cy="311" r="6.5" fill="#f6c34b"/><text x="70" y="314" fill="#241726" text-anchor="middle">4</text></g>
+    <g><circle cx="120" cy="44" r="6.5" fill="#f6c34b"/><text x="120" y="47" fill="#241726" text-anchor="middle">5</text></g>
+    <g><circle cx="57" cy="234" r="6.5" fill="#f6c34b"/><text x="57" y="237" fill="#241726" text-anchor="middle">6</text></g>
+    <g><circle cx="147" cy="252" r="6.5" fill="#f6c34b"/><text x="147" y="255" fill="#241726" text-anchor="middle">7</text></g>
+    <g><circle cx="239" cy="260" r="6.5" fill="#f6c34b"/><text x="239" y="263" fill="#241726" text-anchor="middle">8</text></g>
+    <g><circle cx="330" cy="248" r="6.5" fill="#f6c34b"/><text x="330" y="251" fill="#241726" text-anchor="middle">9</text></g>
+    <g><circle cx="404" cy="248" r="6.5" fill="#f6c34b"/><text x="404" y="251" fill="#241726" text-anchor="middle">10</text></g>
+    <g><circle cx="457" cy="238" r="6.5" fill="#f6c34b"/><text x="457" y="241" fill="#241726" text-anchor="middle">11</text></g>
+    <g><circle cx="475" cy="266" r="6.5" fill="#f6c34b"/><text x="475" y="269" fill="#241726" text-anchor="middle">12</text></g>
+    <g><circle cx="500" cy="212" r="6.5" fill="#f6c34b"/><text x="500" y="215" fill="#241726" text-anchor="middle">13</text></g>
+    <g><circle cx="176" cy="232" r="6.5" fill="#f6c34b"/><text x="176" y="235" fill="#241726" text-anchor="middle">14</text></g>
+    <g><circle cx="456" cy="246" r="6" fill="#f6c34b"/><text x="456" y="248.5" fill="#241726" text-anchor="middle">15</text></g>
+    <g><circle cx="555" cy="272" r="6.5" fill="#f6c34b"/><text x="555" y="275" fill="#241726" text-anchor="middle">16</text></g>
+    <g><circle cx="558" cy="248" r="6" fill="#f6c34b"/><text x="558" y="250.5" fill="#241726" text-anchor="middle">17</text></g>
+    <g><circle cx="612" cy="234" r="6.5" fill="#f6c34b"/><text x="612" y="237" fill="#241726" text-anchor="middle">18</text></g>
+    <g><circle cx="613" cy="284" r="6" fill="#f6c34b"/><text x="613" y="286.5" fill="#241726" text-anchor="middle">19</text></g>
+    <g><circle cx="105" cy="218" r="6" fill="#f6c34b"/><text x="105" y="220.5" fill="#241726" text-anchor="middle">20</text></g>
+    <g><circle cx="90" cy="345" r="6" fill="#f6c34b"/><text x="90" y="347.5" fill="#241726" text-anchor="middle">21</text></g>
+    <g><circle cx="500" cy="342" r="6" fill="#f6c34b"/><text x="500" y="344.5" fill="#241726" text-anchor="middle">22</text></g>
+  </g>
+</svg>
+</div>
+<p class="scaletag">Native render base <code>640×360</code> (16&nbsp;px grid), shown <code>2×</code> — integer scaling,
+nearest filter (<code>ART_BIBLE.yaml pixel.resolution_policy</code>).</p>
+
+<h2>Region captions</h2>
+<div class="legend">
+  <div><b>1</b> Map-name card, top-center, shown mid-fade <span class="doc">UI_ART_SPEC.md (Cursor/minimap)</span></div>
+  <div><b>2</b> Player plate: name / Lv / job (slim) <span class="doc">HUD.md §4</span></div>
+  <div><b>3</b> Minimap, top-right (slim, contents abstract) <span class="doc">HUD.md §5</span></div>
+  <div><b>4</b> Chat dock, collapsed, always-on <span class="doc">HUD.md §10, §11</span></div>
+  <div><b>5</b> Parallax depth annotation (sky→mid→playfield→foreground) <span class="doc">ART_BIBLE.yaml environment.depth_layers</span></div>
+  <div><b>6</b> Inn — wireframe rect + door marker <span class="doc">WORLD_PLAN.md §R2 (map_019–026 block)</span></div>
+  <div><b>7</b> Smithy — wireframe rect + door marker <span class="doc">WORLD_PLAN.md §R2 (map_019–026 block)</span></div>
+  <div><b>8</b> Market Hall + flanking stalls; generic townsperson NPC (flavor, unnamed) <span class="doc">WORLD_PLAN.md §R2</span></div>
+  <div><b>9</b> Bank — wireframe rect + door marker <span class="doc">WORLD_PLAN.md §R2 (map_019–026 block)</span></div>
+  <div><b>10</b> Guild Hall door, <code>map_024</code>; crest left blank — composable per-guild data, not fixed art <span class="doc">GUILD.md §1, §5</span></div>
+  <div><b>11</b> Coach station kiosk (interactable) <span class="doc">MAP_INTERACTABLES.md §9</span></div>
+  <div><b>12</b> <code>coach_clerk</code> NPC (transport-staff role token) <span class="doc">MAP_CONNECTIONS.md §2–§3, GLOSSARY Transport</span></div>
+  <div><b>13</b> Fare board — "fares: ECONOMY §7.1, ring-distance" <span class="doc">MAP_CONNECTIONS.md §3 / ECONOMY.md §7.1</span></div>
+  <div><b>14</b> Open <code>frame_dialog</code>: portrait slot, link-colored clickable keyword, ▼ blinker <span class="doc">UI_ART_SPEC.md (Windows)</span></div>
+  <div><b>15</b> Name tag colors: player = white, npc = link <span class="doc">UI_ART_SPEC.md (Tags/bubbles)</span></div>
+  <div><b>16</b> Undervault Quarter stair, descending into map_018's lower district <span class="doc">WORLD_PLAN.md §R2 (undervault quarter)</span></div>
+  <div><b>17</b> "Whisper" Vex — flicker line instructor <span class="doc">WORLD_PLAN.md (Job instructors); CLAUDE.md (Flicker→Millbrook)</span></div>
+  <div><b>18</b> Raid Quartermaster — <code>raid_token</code> vendor <span class="doc">ITEMS.md §13</span></div>
+  <div><b>19</b> <code>raid_token</code> prop on the counter <span class="doc">ITEMS.md §13, GLOSSARY meta tokens</span></div>
+  <div><b>20</b> Lantern post — "lantern glow" old_town motif <span class="doc">ART_BIBLE.yaml environment.biome_identity.old_town</span></div>
+  <div><b>21</b> Cobblestone street, earth ramp <span class="doc">ART_BIBLE.yaml palette.ramps.earth</span></div>
+  <div><b>22</b> Slim bottom bar: life/essence, 8 skills + Dodge, 4 quickslots, <code>shards</code> wallet, <code>exp</code> strip <span class="doc">HUD.md §3</span></div>
+</div>
+<p class="note">Scene is a compressed single-screen cross-section (town streets in this design run wider than one camera
+frame; buildings are shown closer together than a full walkable street to fit every required surface in one stage).
+Building interiors (inn/smithy/market hall/bank doors) are unauthored Phase-D content — door markers only, no interior
+map IDs asserted beyond the shared <code>map_019</code>–<code>026</code> block. Player name/level/job and NPC dialogue
+text are illustrative placeholders, not content tokens.</p>
+
+</body>
+</html>

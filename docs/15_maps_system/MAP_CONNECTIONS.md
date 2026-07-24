@@ -24,7 +24,7 @@ axes — **paid vs free** and **instant vs scheduled**:
 | **Walk edges** (`edge` portals) | free · instant | intra-region + the authorized cross-region walk edges (`docs/WORLD_PLAN.md` edge tables; §7) | this doc §§1–2, §5 |
 | **Coach** (Harthmoor Coachworks) | paid · **instant** | Harthmoor town↔town network | `docs/WORLD_PLAN.md` (Coachworks); fares `10_systems/ECONOMY.md` §7.1 |
 | **Harborwind Ferry** | paid · **instant** | Emberfoot ↔ Harthmoor island crossing (`map_015`) | `docs/WORLD_PLAN.md`; fare `10_systems/ECONOMY.md` §7.1 |
-| **Longship** (v3) | paid · **scheduled** | arc-2 inter-island network (Harthmoor pier ↔ new islands; `docs/WORLD_PLAN.md` arc-2 edge table) | this doc **§8**; fares `10_systems/ECONOMY.md` §7.2 |
+| **Longship** | paid · **scheduled** | arc-2 inter-island network (Harthmoor pier ↔ new islands; `docs/WORLD_PLAN.md` arc-2 edge table) | this doc **§8**; fares `10_systems/ECONOMY.md` §7.2 |
 | **Millbrook Return Scroll** (`item_use_0013`) | consumable item | escape to bound home town | `10_systems/ITEMS.md`; price `10_systems/ECONOMY.md` §4.1 |
 
 The contrast that fixes the kinds: coaches and the ferry are **paid but instant**; the longship is
@@ -41,7 +41,7 @@ the optional `level_gate` property (§9) — that is a per-portal property, not 
 | `edge` | Most field/dungeon chain links; the cross-region walk edges (`docs/WORLD_PLAN.md`) | Usually intra-region; cross-region only for the edges `docs/WORLD_PLAN.md`'s tables list (§7) |
 | `door` | Town↔interior; every arena's entry gate (`15_maps_system/MAPS_SYSTEM.md` §8); the Harborwind Ferry crossing (`map_015`) and the Deepway (§9.1) | Same-region for town↔interior and arena gates; the ferry and the Deepway are the authored cross-region door cases |
 | `coach` | The paid Harthmoor Coachworks town↔town network (`docs/WORLD_PLAN.md` "Harthmoor Coachworks") | Cross-region within the Harthmoor ring — that is its purpose |
-| `longship` (v3) | Paid **scheduled** arc-2 inter-island transport: pier→deck boarding portal and deck→destination-pier arrival portal (§8) | Cross-island (arc-2 island network) |
+| `longship` | Paid **scheduled** arc-2 inter-island transport: pier→deck boarding portal and deck→destination-pier arrival portal (§8) | Cross-island (arc-2 island network) |
 
 ## 2. Spawn-point naming law
 
@@ -54,6 +54,7 @@ multi-entrance dungeon's `upper_west`) as long as they never collide with the re
 | `main` | Every map, exactly one | Default arrival point — direct teleport, quest-start, and the fallback target for any portal that doesn't name another spawn |
 | `from_<origin_slug>` | Every map that is the destination of an `edge` portal crossing a region boundary | `<origin_slug>` is the origin **region**'s GLOSSARY slug (not a per-map slug — maps have none). An intra-region `edge` targets plain `main` unless the destination map has multiple distinct entrances needing disambiguation |
 | `coach_stop` | Every map with a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9) | The fixed arrival point for all Harthmoor Coachworks transits; exactly one per coach-station map (`docs/00_vision/GLOSSARY.md` Transport token) |
+| `from_ferry` | Every map that is a Harborwind Ferry `door` destination (`map_001`, `map_017`; boarding lands on the deck's `main`) | The ferry-arrival spawn `docs/WORLD_PLAN.md`'s spawn-point convention names; GLOSSARY Transport token |
 
 Each of `docs/WORLD_PLAN.md`'s 8 bidirectional arc-1 cross-region walk edges produces exactly two
 `from_<origin_slug>` spawns (one per endpoint, each named for the *other* side's region) — e.g.

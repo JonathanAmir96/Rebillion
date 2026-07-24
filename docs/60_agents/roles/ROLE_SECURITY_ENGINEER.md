@@ -46,7 +46,7 @@ reviewer, sign-off (or a filed blocker) recorded on every tier-C change and on a
 fix touching money/item/auth paths before it lands.
 
 **Never:** write feature code or run the generic VALIDATION.md gates (it consumes QA's
-verdict and adds security review on top); edit an owning doc's rules, locked files, or the
+verdict and adds security review on top); edit an owning doc's rules, change-controlled files, or the
 autonomy ladder; approve a fix that trusts a client-declared outcome; commit secrets or leave
 them in evidence; build real exploit tooling against anyone but the owner's dev/staging.
 

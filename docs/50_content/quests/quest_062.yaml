@@ -16,7 +16,7 @@ steps:                            # parallel (default): the wings drop from the 
     target: item_etc_0083          # Emberdust Wing, sourced from drop_mob_090 (QUESTS §3.1, warn-check satisfied)
     count: 5
 rewards:
-  exp: 3370                      # round(0.07 * 48,140); side band 5-10% of exp_to_next(27) (LEVELING §1 / QUESTS §4)
+  exp: 6983                      # round(0.07 * 99,760); side band 5-10% of exp_to_next(27) (LEVELING §1 / QUESTS §4)
   shards: 176                    # side = mean_shards_normal(27)*4 = 44*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0002, qty: 2 }   # a pair of Life Tonics for the smoking hollow

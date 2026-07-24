@@ -74,19 +74,20 @@ Design pillars (`docs/00_vision/PILLARS.md` — a pillar wins any conflict):
 - **Social** (`docs/10_systems/social/`): party (2× exp bonus, `party_drop_bonus`),
   4 raids (3–6 players, daily first-clear 2×, raid tokens → quartermaster gear), guild,
   chat, mail, market, trading, party-finder — all designed, all server-deferred.
+- **Combo** (`docs/10_systems/COMBO_SYSTEM.md`): `combo_momentum`/`combo_burst`
+  skill-chaining layer, tier-gated by job tier, consumed inside COMBAT_FORMULA §15's
+  damage envelope; HUD §7.1 draws the counter.
+- **Appearance & entry** (`docs/40_assets/CHARACTER_COMPOSITING.md`,
+  `docs/10_systems/ACCOUNT.md`, `docs/10_systems/DISPLAY.md`): composited paper-doll
+  player sprite (never one baked sheet), 4-slot roster with Maple-style check-name
+  creation, borderless-fullscreen integer-scale 640x360 display.
 
 ## Fundamental constraints (laws — every edit, human or agent)
 
-1. **Tokens are law**: only `docs/00_vision/GLOSSARY.md` tokens for stats/resources/
-   currency/enums. Banned legacy-genre terms live only in `docs/VALIDATION.md` §1.
-2. **Single source of truth**: rules in one system doc, shapes in one schema, content
-   files hold values + references only. Link, never restate.
-3. **IDs are immutable** and must sit inside their `docs/ID_REGISTRY.md` block.
-4. **Flag, don't guess**: unknowns go to the owning doc's `## Open Questions`.
-5. **Locked files**: `docs/40_assets/ART_BIBLE.yaml`, `docs/40_assets/UI_ART_SPEC.md`,
-   `docs/30_engineering/ENGINEERING_STANDARDS.md` — amendment channels only.
-6. **Validate before landing**: `python3 tools/validate.py` (VALIDATION checks 1–6)
-   must pass 0 failures on every batch. US spelling everywhere.
+The six laws live in `CLAUDE.md` ("Laws") — the single source; headline recall only:
+tokens are law · single source of truth · IDs immutable · flag-don't-guess ·
+change-controlled files (owner-directed amendments only) · validate before landing
+(US spelling). On any doubt, read `CLAUDE.md`, not this summary.
 
 ## Reading order for a fresh session
 

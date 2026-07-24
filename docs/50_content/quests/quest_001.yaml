@@ -15,7 +15,7 @@ steps:
     target: mob_001                # forward-ref: monster batch mints mob_001-012
     count: 5
 rewards:
-  exp: 16                          # round(0.20 * 80); main band 15-30% (QUESTS §4), exp_to_next(1)=80
+  exp: 22                          # round(0.20 * 108); main band 15-30% (QUESTS §4), exp_to_next(1)=108
   shards: 75                       # main = mean_shards_normal(1)*15 = 5*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0001, qty: 3 }   # forward-ref: Lesser Life Tonic

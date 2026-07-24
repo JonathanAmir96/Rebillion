@@ -16,7 +16,7 @@ steps:
     target: item_etc_0071
     count: 5
 rewards:
-  exp: 3051   # round(0.08 * 38,135); side band 5-10% of exp_to_next(25)=38,135 (LEVELING §1); pct=0.08
+  exp: 6522   # round(0.08 * 81,530); side band 5-10% of exp_to_next(25)=81,530 (LEVELING §1); pct=0.08
   shards: 164  # side = mean_shards_normal(25)*4 = 41*4 (QUESTS §5 / DROPS §3)
 flavor: "Innes wants one more set of samples from the deep skein before she'll commit her theory to paper."
 offer_text: "One more set of samples and I can finish my notes. The deep skein should give me what the outer bends couldn't."

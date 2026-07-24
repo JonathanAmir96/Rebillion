@@ -15,7 +15,7 @@ steps:
     target: item_etc_0138
     count: 5
 rewards:
-  exp: 30563  # round(0.08*382,041); exp_to_next(52)=round(4*52^1.3)*round(20+0.2*52^2)=681*561
+  exp: 49250  # round(0.08*615,624); exp_to_next(52)=round(4*52^1.3)*round(20+6.6*52+0.2*52^2)=681*904
   shards: 324  # mean_shards_normal(52)*4 = 81*4
 flavor: "The archive's old maps say the Glacierfront pack never used to range this far from the ice ridge."
 offer_text: "Bring me proof from the Glacierfront pack -- the archive needs fresh notes on how far they've spread."

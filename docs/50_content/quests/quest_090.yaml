@@ -13,7 +13,7 @@ steps:
     target: mob_150
     count: 1
 rewards:
-  exp: 6516   # round(0.08*81,450); raid_mainspring handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
+  exp: 12627   # round(0.08*157,832); raid_mainspring handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
   shards: 204 # side = mean_shards_normal(32)*4 = 51*4
   items:
     - { id: item_use_0017, qty: 3 }

@@ -207,14 +207,13 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 - Exact per-quest `pct` within the §4 bands, and the regional ≈25% reconciliation, is Phase D
   authoring work per `10_systems/LEVELING.md` §4's own Open Question; not resolved to the exact
   quest here.
-- **Authored quest `exp` rewards need a mechanical regen pass (stale against the new curve).** The
-  §4 reward is `pct · exp_to_next(quest_level)`, and `exp_to_next` changed with the ratified pacing
-  curve (`10_systems/LEVELING.md` §1). The computed `exp` integers already stored in
-  `docs/50_content/quests/*.yaml` are therefore stale and must be **regenerated mechanically** in a
-  Phase-D content pass against the new `exp_to_next` (the `pct` bands and every rule here are
-  unchanged) — do not hand-edit the content files. `shards` rewards (§5, income-indexed) and monster
-  `stats.exp` (per-kill, `10_systems/LEVELING.md` §3) are **not** stale. Owner: Phase-D content /
-  producer.
+- **Resolved (2026-07-24 md audit): the quest-`exp` regen landed.** All 120
+  `docs/50_content/quests/*.yaml` `exp` integers were regenerated mechanically by
+  `tools/regen_quest_exp.py` against the ratified `exp_to_next`
+  (`10_systems/LEVELING.md` §1): authored `pct`s preserved (round-trip-verified against the old
+  curve), §4 bands unchanged with 0 out-of-band pcts, comments refreshed, two Phase-D authoring
+  slips healed. `shards` rewards (§5) and monster `stats.exp` were never stale and are untouched.
+  Report: `docs/phase_reports/MD_AUDIT_REPORT_2026-07-24.md`.
 - `quest_object` full mechanics (respawn timer, whether non-questers can see/interact with it) are
   owned by `15_maps_system/MAP_INTERACTABLES.md`, not yet authored; this doc only fixes the
   grant-on-interact contract (§3.1).

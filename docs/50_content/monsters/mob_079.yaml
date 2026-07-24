@@ -29,4 +29,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Shudders with a wet flinch, its taut sides rippling."
   die: "Deflates where it lies, sides settling flat and still."
 drop_table: drop_mob_079
-flavor: "A swollen grub packed tight with pressurized spore-gas, waddling toward any heat it senses. It ruptures on contact in a choking grey bloom, indifferent to its own end."
+flavor: "A swollen grub packed tight with pressurized spore-gas, waddling toward any heat it senses. It ruptures on contact in a choking gray bloom, indifferent to its own end."

@@ -17,7 +17,7 @@ steps:                            # sequenced: clear the field pack, then report
     count: 1
     requires_step: 1
 rewards:
-  exp: 91500                      # round(0.20 * exp_to_next(55)=457,500); main band 15-30% (QUESTS §4)
+  exp: 144643                      # round(0.20 * exp_to_next(55)=723,216); main band 15-30% (QUESTS §4)
   shards: 1290                    # mean_shards_normal(55)*15 = 86*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 3 }

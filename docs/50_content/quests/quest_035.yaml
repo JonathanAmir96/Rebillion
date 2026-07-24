@@ -15,7 +15,7 @@ steps:
     target: mob_047                # the region boss, Thornheart Grove arena (map_070)
     count: 1
 rewards:
-  exp: 2087                       # round(0.20 * 10,437)
+  exp: 5204                       # round(0.20 * 26,019)
   shards: 405                     # mean_shards_normal(16)*15 = 27*15
   items:
     - { id: item_use_0007, qty: 2 }   # Essence Tonic

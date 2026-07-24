@@ -15,7 +15,7 @@ within one region's blocks.
 
 **Reads first:** docs/10_systems/WRITING_STYLE.md (the voice bible),
 the region's WORLD_PLAN section, its mob + map manifests (real names for kill/reach
-targets), QUESTS.md reward budgets, the instructor table (WORLD_PLAN v2.3).
+targets), QUESTS.md reward budgets, the instructor table (docs/WORLD_PLAN.md "Job instructors").
 
 **Deliverable contract:** quest steps that target only region-appropriate IDs; rewards
 inside the QUESTS.md envelope; dialog ≤2 sentences per field; collect targets whose

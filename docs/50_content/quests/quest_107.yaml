@@ -12,7 +12,7 @@ steps:
     target: item_etc_0153
     count: 6
 rewards:
-  exp: 56066                      # round(0.075 * exp_to_next(64)=747,549); side band (QUESTS §4)
+  exp: 84333                      # round(0.075 * exp_to_next(64)=1,124,442); side band (QUESTS §4)
   shards: 396                     # mean_shards_normal(64)*4 = 99*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 2 }

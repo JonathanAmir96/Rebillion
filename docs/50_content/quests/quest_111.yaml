@@ -15,7 +15,7 @@ steps:
     target: item_etc_0161
     count: 5
 rewards:
-  exp: 57879  # round(0.07 * 826,848); side band 5-10% (QUESTS §4)
+  exp: 86202  # round(0.07 * 1,231,456); side band 5-10% (QUESTS §4)
   shards: 408  # mean_shards_normal(66)*4 = 102*4 (QUESTS §5 / DROPS §3)
 flavor: "Voidling skitterers have been working the tideline crates all night, and the harbor books are shorter for it."
 offer_text: "They're small, they're fast, and they're stealing us blind. Thin the pack and bring me their silk -- I'll square the books."

@@ -392,26 +392,23 @@ stays viable).
 
 ## Open Questions
 
-- **ID_REGISTRY change proposal (arc-2 re-block + `item_use` mints).** `docs/ID_REGISTRY.md` (owner)
-  should adopt, in a new commit (no minted content exists in these ranges, so re-blocking is legal
-  per its own v2 note): (a) **equip** — carve the old `item_equip_0231`–`0300` growth reserve into
-  arc-2 blocks: weapons `0231`–`0254` (4 lines × T7–T12), armor `0255`–`0284` (5 slots × T7–T12),
-  accessories `0285`–`0300` (16); (b) **boss uniques** — mark `item_equip_0217`–`0222` assigned to
-  bosses #9–#11 (formula `0199+2n`, n = 1..11) and keep `0223`–`0230` reserved; (c) **consumables**
-  — mint `item_use_0017` Sovereign Life Tonic, `0018` Sovereign Essence Tonic, `0019` Mythic Life
-  Tonic, `0020` Mythic Essence Tonic (leaving `0021`–`0060` for raid consumables / Phase D
-  specialties), and update the "five tiers" note to "seven tiers" citing §1.1 here. Per-arc equip
-  counts then are 24 + 24 weapons, 30 + 30 armor, 16 + 16 accessories, 16 + 6 uniques — SCOPE
-  (`00_vision/SCOPE.md`, v2) still lists the arc-1-only ~86 equip / ~30 use totals and needs a v3
-  count revision (owner: SCOPE). Phase D fills toward final counts using the reserved-growth tails
-  on the same §8/§9 value curve, interpolated by `req_level`.
+- **Resolved (2026-07-24 md audit): the ID_REGISTRY arc-2 re-block + `item_use` mints landed.**
+  `docs/ID_REGISTRY.md` carries the full layout (weapons `0231`–`0254`, armor `0255`–`0284`,
+  accessories `0285`–`0300`, uniques `0201`–`0222`, `0223`–`0230` raid gear), the tonics
+  `item_use_0017`–`0020` are minted in `50_content/items/use/consumables.yaml`, §1.1 reads seven
+  tiers, and `00_vision/SCOPE.md` lists the v3 counts (~170 equip).
 - **ENHANCEMENT emberstone band mapping (arc-2) — owner `10_systems/ENHANCEMENT.md`.** §4's twelve
   tiers now need enhancement stones through T12. Recommendation: keep one stone per **two** tiers and
   add **Emberstone VI** at the reserved `item_etc_0198`, re-mapping to the v3 `req_level`s — I → T1–T2
   (Lv 1–14), II → T3–T4 (15–28), III → T5–T6 (29–42), IV → T7–T8 (43–56), V → T9–T10 (57–70),
-  VI → T11–T12 (71–80). Separately, ENHANCEMENT §4's worked example cites a **T6 `blade` base `W`
-  246** — that is now T8 (T6 `W` = 151, §7); the example must be re-pointed to T8 or recomputed at
-  the new T6 `W`. Owner ENHANCEMENT; do not edit from here.
+  VI → T11–T12 (71–80). Owner ENHANCEMENT; do not edit from here. (The stale worked-example
+  clause once flagged here was fixed in ENHANCEMENT §4 — T6 `W` = 151 is cited correctly there.)
+- **`shield` / `overall` slot integration (pending wave).** `docs/ID_REGISTRY.md` reserves
+  `item_equip_0181`–`0200` for the equipment-v2 `shield`/`overall` pieces (GLOSSARY Provisional;
+  semantics in `10_systems/SCROLLS.md`'s companion ITEMS revision), and this doc's §2 nine-slot
+  table does not yet carry them — the §2/§10 roster integration with the v3 T1–T12 ladder is the
+  follow-up wave ID_REGISTRY's own Open Questions name. Owner: this doc + SCROLLS wave. (Made
+  discoverable from here by the 2026-07-24 md audit.)
 - **ECONOMY tonic re-band + new price rows — owner `10_systems/ECONOMY.md` §4.1.** That table still
   carries pre-v2 Lv-100 tonic bands and stops at Prime. It should adopt the seven-tier tier→band
   binding in §1.1 (arc-1 tiers compressed to Lv 1–42) and add `shards` price rows for the two arc-2

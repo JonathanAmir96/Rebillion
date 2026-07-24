@@ -28,4 +28,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Flinches with a full-body shudder and a startled backward scoot."
   die: "Rolls onto its side, legs curling slowly inward as it stills."
 drop_table: drop_mob_071
-flavor: "A dull grey amphibian that noses through the standing water for grubs, blind to almost everything. It fights only when cornered, and badly."
+flavor: "A dull gray amphibian that noses through the standing water for grubs, blind to almost everything. It fights only when cornered, and badly."

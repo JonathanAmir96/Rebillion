@@ -18,7 +18,7 @@ steps:                            # sequenced: prove the vault's wards are faili
     count: 1
     requires_step: 1
 rewards:
-  exp: 134919                     # round(0.20 * exp_to_next(62)=674,595); main band (QUESTS §4)
+  exp: 204858                     # round(0.20 * exp_to_next(62)=1,024,290); main band (QUESTS §4)
   shards: 1440                    # mean_shards_normal(62)*15 = 96*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 3 }

@@ -1,5 +1,9 @@
 # BACKEND_KICKOFF_PROMPT.md — Kickoff Prompt for the Backend Design Session
 
+**STATUS: EXECUTED 2026-07-23 — Phase I complete; results in
+`docs/phase_reports/PHASE_I_BACKEND_REPORT.md` and the landed `docs/70_integrations/` suite.
+Kept verbatim as the historical prompt; do not re-run.**
+
 References: CLAUDE.md, docs/60_agents/roles/ORG.md,
 docs/60_agents/roles/ROLE_INTEGRATION_ENGINEER.md, docs/10_systems/PERSISTENCE.md
 

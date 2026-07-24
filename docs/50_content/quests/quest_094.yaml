@@ -17,7 +17,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 58971  # round(0.20*294,853); exp_to_next(48)=round(4*48^1.3)*round(20+0.2*48^2)=613*481 (main band 15-30%)
+  exp: 97835  # round(0.20*489,174); exp_to_next(48)=round(4*48^1.3)*round(20+6.6*48+0.2*48^2)=613*798 (main band 15-30%)
   shards: 1125  # mean_shards_normal(48)*15 = 75*15 (QUESTS §5 main)
   items:
     - { id: item_use_0017, qty: 2 }

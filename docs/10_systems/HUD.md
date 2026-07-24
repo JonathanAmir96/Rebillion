@@ -231,8 +231,10 @@ position and the always-on-collapsed default (§11).
   fixed 3-stack/4 s timing is unresolved.
 - Fully hiding the chat dock (vs. always-collapsed-visible) is not offered at launch; flag if
   `10_systems/social/CHAT.md` wants a hide option once authored.
-- HUD scaling for uncommon aspect ratios / safe-area guarantees is not addressed here; likely an
-  engineering/`40_assets/ART_BIBLE.yaml` concern once a target resolution locks.
+- HUD scaling for uncommon aspect ratios / safe-area guarantees is not addressed here; the
+  target resolution is locked (`10_systems/DISPLAY.md` — 640x360 render target, integer scale,
+  `ink` letterbox; the HUD draws inside it), so what remains is an
+  engineering/`40_assets/ART_BIBLE.yaml` safe-area call inside that frame.
 - Exact pixel sizes, hex values, and icon art for every element above are
   `40_assets/UI_ART_SPEC.md`'s (Phase C); this doc fixes layout and token usage only.
 - Whether the player plate should ever show a portrait/character-icon is not modeled; default is

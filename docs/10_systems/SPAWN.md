@@ -161,10 +161,16 @@ the instance, per the boss respawn decision in §3 and the re-entry model in
 - How the validator computes `walkable_extent_tiles` from a map file (sum of foothold segment
   lengths at design granularity) is a `20_schemas/map.schema.md` / `tools/` implementation detail;
   flagged for the validator owner.
-- The map schema's filename (§1) is assumed but not confirmed — likely
-  `20_schemas/map.schema.md`, authored at Phase C.
 - `target_count`/`max_concurrent` defaults (§2, §4) are first-pass and tunable per region once
   Phase D populates real zones.
+- **`mob_pool` shape diverges from the adopted schema.** §1 sketches `mob_pool` as
+  `{mob_id, weight}` relative odds (marked illustrative), but `20_schemas/map.schema.md`'s
+  landed `spawn_zones` resolved it as `mobs: [{mob, count}]` — absolute target population per
+  species, `target_count` derived as the sum — a materially different runtime algorithm
+  (target-population maintenance vs weighted-random selection). The schema's own Open Questions
+  ask this doc's owner to confirm. Adopt the absolute-count model in §1 or dispute it back;
+  minted Phase D maps already use the schema shape. Owner: this doc. (Raised by the 2026-07-24
+  md audit.)
 - **Resolved:** the town/interior combat-free rule (§2) is confirmed and owned by
   `15_maps_system/MAPS_SYSTEM.md` §6; if that doc ever allows interior combat, §2's table needs
   a row.

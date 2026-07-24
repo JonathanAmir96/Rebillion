@@ -29,4 +29,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Crumples one wing and staggers sideways through the air."
   die: "Spirals down in a loose, wing-torn spin."
 drop_table: drop_mob_005
-flavor: "A grey moth broad as a spread hand, drifting on the thermals off the cinder fields. It dips to buffet anything that wanders under its lane, then climbs out of reach."
+flavor: "A gray moth broad as a spread hand, drifting on the thermals off the cinder fields. It dips to buffet anything that wanders under its lane, then climbs out of reach."

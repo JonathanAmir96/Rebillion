@@ -19,7 +19,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 288228  # round(0.22 * 1,310,125); main band 15-30% (QUESTS §4)
+  exp: 411368  # round(0.22 * 1,869,855); main band 15-30% (QUESTS §4)
   shards: 1755  # mean_shards_normal(76)*15 = 117*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 2 }

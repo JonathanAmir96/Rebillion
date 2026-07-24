@@ -15,7 +15,7 @@ steps:
     target: item_etc_0132
     count: 6
 rewards:
-  exp: 17843  # round(0.08*223,036); exp_to_next(44)=round(4*44^1.3)*round(20+0.2*44^2)=548*407
+  exp: 30600  # round(0.08*382,504); exp_to_next(44)=round(4*44^1.3)*round(20+6.6*44+0.2*44^2)=548*698
   shards: 276  # mean_shards_normal(44)*4 = 69*4
 flavor: "Something in the Icebound Marsh's frozen banks is thicker-hided than the flats ever bred."
 offer_text: "The marsh-bank pack's been raiding the trade sledges. Cull them and bring proof -- I'll square you up."

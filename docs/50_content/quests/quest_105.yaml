@@ -15,7 +15,7 @@ steps:                            # parallel: the ore comes off the same brood y
     target: item_etc_0152
     count: 6
 rewards:
-  exp: 45510                      # round(0.075 * exp_to_next(60)=606,800); side band (QUESTS §4)
+  exp: 69864                      # round(0.075 * exp_to_next(60)=931,520); side band (QUESTS §4)
   shards: 372                     # mean_shards_normal(60)*4 = 93*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 2 }

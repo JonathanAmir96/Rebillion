@@ -18,7 +18,7 @@ steps:
     target: item_etc_0040          # sourced from mob_035's drop table (parallel monster batch)
     count: 5
 rewards:
-  exp: 297                        # round(0.06 * 4,949)
+  exp: 776                        # round(0.06 * 12,928)
   shards: 84                      # mean_shards_normal(12)*4 = 21*4
 flavor: "The tunnel forks so many times down there that Oskar keeps a tally just to be sure he's not walking in circles."
 offer_text: "Deeper in, the warren doubles back on itself. Thin what's nesting there and bring back a marker of it -- proof I can chart against."

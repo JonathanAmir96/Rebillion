@@ -165,8 +165,8 @@ SKU's value, the system is sink-dominant at every band (`10_systems/ECONOMY.md` 
 
 Gear-modification scrolls occupy a new `item_use` block **`item_use_0061`–`0078`** (18 SKUs =
 3 `slot_family` × 2 `scroll_kind` × 3 `scroll_tier`), with **`0079`–`0090` reserved** for scroll
-growth. `docs/ID_REGISTRY.md` owns these ranges; the registry extension lands in a companion commit
-by the producer (the block sits inside the `item_use_0001`–`0100` space, after the `0017`–`0060`
+growth. `docs/ID_REGISTRY.md` owns these ranges; the registry extension landed in a companion producer
+commit (the block sits inside the `item_use_0001`–`0100` space, after the `0017`–`0060`
 Phase-D reservation). This doc owns only the **intra-block layout convention**:
 
 | Range | `slot_family` | Order within the six |

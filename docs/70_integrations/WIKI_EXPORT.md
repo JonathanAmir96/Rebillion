@@ -42,13 +42,18 @@ The wiki does not include deleted or deprecated content from prior patches — i
 
 ## 4. Pipeline sketch
 
+**Landed tool (2026-07-24):** `tools/wiki_gen.py` (stdlib-only; usage in `tools/README.md`)
+already implements the generator core of this sketch — 805 cross-linked static pages built from
+`docs/50_content/` into the gitignored `wiki/` output. The hosting/versioning design below (CDN,
+version banner, manifest/checksums, release gating) remains future coding-pass scope on top of it.
+
 Prose only: each Phase D content batch passes through the validators in `docs/VALIDATION.md` before landing on the feature branch. When a release is ready, the build system (see `docs/70_integrations/BUILD_DISTRIBUTION.md` for the full pipeline) invokes a static-site generator (implementation language TBD at engineering phase) that reads the validated `50_content/` YAML, resolves cross-references to system docs and schemas, and outputs HTML and/or Markdown files using wiki-page templates. Each page is named by entity ID and includes generated metadata (last-updated timestamp, content version).
 
 The generated wiki is published to static hosting (CDN or GitHub Pages; choice deferred) and versioned by the content version string (see `docs/70_integrations/BUILD_DISTRIBUTION.md`), ensuring players always see the wiki matching their installed game build. A version banner in the wiki footer says "You are reading content for version X.Y"; updating the game updates this banner automatically.
 
 The wiki generation is a **pre-release step** — it runs after content validation and before the game binary ships. Generation failure prevents the release (no partial shipping); it is not on the critical path for the binary build itself. This ensures the wiki is always faithful to shipped content and never lags behind patches. The generator produces a static manifest (JSON or YAML) listing all generated pages, entity counts, and checksums; this manifest is compared against the prior release to detect stale or missing pages.
 
-The generated HTML/Markdown is served with aggressive caching headers (content-hash-based filenames, aggressive expires headers on versioned artifacts). The wiki's version banner, deploy timestamp, and content version are injected at generation time, not runtime. This means the entire wiki is cacheable at CDN edge nodes and requires no server-side logic beyond HTTP serving. Implementation belongs to the future coding pass, not this design run.
+The generated HTML/Markdown is served with aggressive caching headers (content-hash-based filenames, aggressive expires headers on versioned artifacts). The wiki's version banner, deploy timestamp, and content version are injected at generation time, not runtime. This means the entire wiki is cacheable at CDN edge nodes and requires no server-side logic beyond HTTP serving. The hosting/versioning pipeline belongs to the future coding pass; the generator core is already landed as `tools/wiki_gen.py`.
 
 ## 5. Non-goals
 

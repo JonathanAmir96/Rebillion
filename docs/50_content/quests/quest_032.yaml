@@ -18,7 +18,7 @@ steps:
     target: item_etc_0044          # sourced from the region's drop pipeline (parallel monster batch)
     count: 4
 rewards:
-  exp: 585                        # round(0.08 * 7,316)
+  exp: 1508                        # round(0.08 * 18,848)
   shards: 96                      # mean_shards_normal(14)*4 = 24*4
 flavor: "Whatever hollowed that grub-den out is bigger and meaner than anything else down there so far."
 offer_text: "There's a den past the grub-tunnels that isn't grub-sized. Clear it, and bring back proof it won't be denning there again soon."

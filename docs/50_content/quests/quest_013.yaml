@@ -12,7 +12,7 @@ steps:
     target: mob_013
     count: 8
 rewards:
-  exp: 149      # round(0.075*1,980) = 148.5 -> 149 (LEVELING §1 Lv8; QUESTS §4 side band, pct=0.075)
+  exp: 387      # round(0.075*5,160) = 387 -> 387 (LEVELING §1 Lv8; QUESTS §4 side band, pct=0.075)
   shards: 60     # mean_shards_normal(8)*4 = 15*4 (QUESTS §5 / DROPS §3)
 flavor: "Every crate that comes off the Rosen Harbor boats loses a little more to the dock rats than the last one."
 offer_text: "Cargo's crawling with them. Thin the pack out and the ledger might finally balance."

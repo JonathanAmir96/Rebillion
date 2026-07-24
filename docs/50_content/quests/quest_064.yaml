@@ -12,7 +12,7 @@ steps:
     target: item_etc_0087          # Stalker Claw, sourced from drop_mob_094 (QUESTS §3.1, warn-check satisfied)
     count: 5
 rewards:
-  exp: 4198                      # round(0.07 * 59,972); side band 5-10% of exp_to_next(29) (LEVELING §1 / QUESTS §4)
+  exp: 8485                      # round(0.07 * 121,220); side band 5-10% of exp_to_next(29) (LEVELING §1 / QUESTS §4)
   shards: 184                    # side = mean_shards_normal(29)*4 = 46*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0014, qty: 3 }   # three loaves of Hearth Bread, Petra's own thanks

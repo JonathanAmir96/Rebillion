@@ -29,4 +29,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Breaks stride mid-air, wings flaring wide to catch itself."
   die: "Its wings crumple and it spirals down without any lift left."
 drop_table: drop_mob_040
-flavor: "A grey-barred hunting bird that nests in the bramble-choked crowns and owns the air above the trail. It falls out of the canopy in a talon-first stoop, rakes once, and beats back up before you can bring a weapon round."
+flavor: "A gray-barred hunting bird that nests in the bramble-choked crowns and owns the air above the trail. It falls out of the canopy in a talon-first stoop, rakes once, and beats back up before you can bring a weapon round."

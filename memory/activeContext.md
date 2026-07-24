@@ -1,8 +1,9 @@
 # activeContext.md — Current State, Priorities, Open Decisions
 
-> Memory Bank file 4/5. Snapshot as of **2026-07-24** (branch synced to `main`
-> @ `d400bcf`). Newest owner decisions live in root `memory.md`; this file distills
-> what the *next* session must know before generating anything.
+> Memory Bank file 4/5. Snapshot as of **2026-07-24, post md-audit** (branch
+> `claude/md-audit-2026-07-24`, awaiting owner merge review). Newest owner decisions
+> live in root `memory.md`; this file distills what the *next* session must know
+> before generating anything.
 
 ## Current repository state
 
@@ -18,28 +19,35 @@
   audited against the owner's security/performance checklist
   (`BACKEND_CHECKLIST_AUDIT_2026-07-24.md`): 14 of 18 requirements fully covered by the
   suite; 4 flags filed (below). Stack decision owner-confirmed.
-- **Newest design layer** (2026-07-24): the social package — raids as centerpiece
-  (tokens `item_etc_0177`–`0180`, raid gear `item_equip_0223`–`0230`, daily
-  first-clear 2×), `party_drop_bonus` ladder, widened party exp-share band,
-  `social/PARTY_FINDER.md`, guild incentives (`guild_contribution`, weekly goals).
-  All first-pass numbers, flagged tunable.
+- **2026-07-24 design layers** (newest last; details in root `memory.md`): social
+  package + balance pass + `COSMETICS.md` → full-tree contradiction sweep (27 findings,
+  all resolved; UA-001/ES-001) → gameplay-loop review (`UI_WINDOWS.md`, HUD decisions,
+  mockup) → combo layer (`COMBO_SYSTEM.md`, advancement quest lines) → composited
+  character sprites + entry flow + display (`CHARACTER_COMPOSITING.md`, `ACCOUNT.md`,
+  `DISPLAY.md`, 4-slot roster, AB-002) → wiki generator + per-monster animation notes
+  (all 234 authored) → **repo-wide md audit** (this branch: ~27 contradiction rulings,
+  connectivity 117/117, quest-exp regen landed, 6 mock-ups, UA-002/ES-002;
+  `docs/phase_reports/MD_AUDIT_REPORT_2026-07-24.md`).
 - **Pacing retune** (owner-ratified): Lv 40 ≈ 30 h, Lv 80 ≈ 166 h, Lv 100 ≈ 300 h;
-  `kills_per_level = round(20 + 6.6L + 0.20L²)` frozen through Lv 100.
+  `kills_per_level = round(20 + 6.6L + 0.20L²)` frozen through Lv 100. Quest `exp`
+  content is now **regenerated** against it (`tools/regen_quest_exp.py`, 120/120).
 
 ## Immediate priorities (ordered)
 
-1. **Quest-exp regen (mechanical debt).** Every `50_content/quests/*.yaml` `exp` value
-   is stale against the retuned LEVELING curve — regenerate (pct × exp_to_next), then
-   re-validate. Owner doc: `LEVELING.md` §4 handoff.
+1. **Owner merge review of the md-audit branch** (`claude/md-audit-2026-07-24` — report
+   first, merge only on explicit owner approval), then the five owner calls it raised
+   (`MD_AUDIT_REPORT_2026-07-24.md` §8: icon law C3 · SPAWN spawn-model C15 ·
+   reach-step trigger zones C20 · shield/overall integration · ES- channel operator).
 2. **Phase E — coding-pass briefs.** The remaining generation phase: per-feature
    implementation briefs + the VALIDATION §7 Open-Questions rollup index. Route to
    Opus-tier per ORG.md.
 3. **Balance pass (D-gate retune).** ECONOMY prices/fees, tonic bite (overshoots
    ~20–30% target past Superior), DROPS anchors, WORLD_CHANNELS capacity targets
-   (sized against the old two-island world), raid band vs Millbrook ceiling.
-4. **Art pass.** PixelLab briefs per `ART_GENERATION_RUNBOOK.md`; blocked first on the
-   ART_BIBLE tile-scale lock (owner/Agent-3 channel), which also unblocks CAMERA/HUD/
-   COMBAT_FORMULA movement placeholders.
+   (sized against the old two-island world), raid band vs Millbrook ceiling; input:
+   the regenerated quest-exp table (MD_AUDIT_REPORT Appendix A).
+4. **Art pass.** PixelLab briefs per `ART_GENERATION_RUNBOOK.md` — no longer blocked:
+   the 16 px tile-scale lock and the DISPLAY.md resolution law are resolved; the
+   compositing spike gate (base body + 1 outfit + 2 hairs, COMPOSITING §9) runs first.
 5. **Backend coding pass** (post-briefs): Elixir/OTP skeleton per the Phase I suite;
    resolve the four audit flags before the affected subsystems are written.
 
@@ -76,17 +84,17 @@ providers · character-slot expansion pricing · platform priority sign-off
 - `world` chat channel promotion (proposed 1 msg/60 s) — CHAT.md + GLOSSARY call.
 - Emberstone coverage gap: T11–T12 gear has no enhancement stone (Emberstone VI
   `item_etc_0198` reserved, unminted).
-- FTUE: Lv-8 ferry gate now lands ≈1.1 h vs the 60-min intro budget — front-load
-  scripted exp or relax the gate (intro owner).
 - COLLECTIONS set-completion `shards` grant needs a 4th-faucet ECONOMY amendment.
-- ID_REGISTRY re-blocks flagged in ITEMS/JOBS OQs (arc-2 mints, skill-line 001–060
-  layout) — land registry commits before minting content against them.
+- The md audit's five raised flags (priority 1 above). Resolved & removed from this
+  list 2026-07-24: the FTUE Lv-8 gate (front-loaded grants verified — quest sum 3,804
+  ≥ 3,800, `ONBOARDING_FTUE.md` §2) and the ITEMS/JOBS registry re-blocks (landed in
+  `ID_REGISTRY.md` long since; stale OQs closed).
 
 **Known design debts (non-blocking, tracked in owning docs):** shields/overalls/
 scrolls content integration (blocks 0181–0200, `item_use_0061`–`0100` reserved;
-validator `item_use` ceiling needs raising when scrolls mint) · COLLECTIONS/AUDIO/FTUE
-deep hooks · stale Lv-100-era phrasing in a few examples · `map_109` `from_clockwork`
-chute residue.
+validator `item_use` ceiling needs raising when scrolls mint; now discoverable from
+ITEMS.md's own OQ) · COLLECTIONS/AUDIO deep hooks · `map_109` `from_clockwork` chute
+residue · wiki_gen.py generates no job pages yet (WIKI_EXPORT lists 7 page types).
 
 ## Ground rules for this workflow (owner-directed)
 

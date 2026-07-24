@@ -29,4 +29,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Recoils in a tight full-body flinch, tail snapping back."
   die: "Crumples sideways, legs kicking once before going still."
 drop_table: drop_mob_013
-flavor: "A grey wharf-rat grown bold on Millbrook's spilled grain, no bigger than a boot and never found alone. One is a squeak in the dark; the dozen that answer it are the undervault's welcome."
+flavor: "A gray wharf-rat grown bold on Millbrook's spilled grain, no bigger than a boot and never found alone. One is a squeak in the dark; the dozen that answer it are the undervault's welcome."

@@ -1,0 +1,296 @@
+<!-- Non-binding wireframe mock-up (2026-07-24 md audit). Binding specs: docs/WORLD_PLAN.md, docs/15_maps_system/MAP_CONNECTIONS.md, docs/10_systems/ECONOMY.md §7, docs/40_assets/ART_BIBLE.yaml, docs/40_assets/UI_ART_SPEC.md. -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — World Map / Travel Screen Mock-up</title>
+<style>
+  :root{
+    --ink:#241726; --shadow:#3a2b40; --stone:#6b6270; --ash:#9a92a0; --bone:#e8e2d8; --white:#fbf7ef;
+    --link:#54b0c6; --emph:#f6c34b; --warn:#c8461f; --good:#3f9a45;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ink);color:var(--white);font:14px/1.55 ui-sans-serif,system-ui,sans-serif;padding:24px}
+  .wrap{max-width:1320px;margin:0 auto}
+  h1{font-size:20px;color:var(--emph);margin:0 0 4px}
+  h2{font-size:14px;color:var(--link);margin:22px 0 8px}
+  p.sub{margin:0 0 16px;color:var(--ash);font-size:13px}
+  .frame{background:var(--shadow);border:1px solid var(--stone);padding:10px;overflow-x:auto}
+  svg{display:block;width:100%;height:auto;image-rendering:pixelated;max-width:1280px;margin:0 auto}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:6px 20px;margin-top:12px;font-size:12.5px;color:var(--bone)}
+  .legend b{color:var(--emph);font-weight:700}
+  .legend .doc{color:var(--ash)}
+  .note{font-size:12px;color:var(--ash);margin-top:12px;border-left:3px solid var(--warn);padding-left:10px}
+  code{font-family:ui-monospace,monospace;color:var(--link);font-size:0.92em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — World Map / Travel Screen Mock-up</h1>
+<p class="sub">Full-screen travel/world-map UI, native render base <code>640×360</code> shown 2× (<code>1280×720</code>) per
+<code>ART_BIBLE.yaml resolution_policy</code>. Geography: <code>docs/WORLD_PLAN.md</code>; portal/longship rules:
+<code>15_maps_system/MAP_CONNECTIONS.md</code> §§1,3,8,9; fares: <code>10_systems/ECONOMY.md</code> §7; frame chrome:
+<code>40_assets/UI_ART_SPEC.md</code>. Schematic/topological, not to geographic scale — a wireframe, not a painted map.</p>
+
+<div class="frame">
+<svg viewBox="0 0 640 360" role="img" aria-label="World map and travel screen mock-up">
+  <defs>
+    <clipPath id="mapclip"><rect x="4" y="18" width="470" height="320"/></clipPath>
+    <clipPath id="schedclip"><rect x="478" y="18" width="158" height="320"/></clipPath>
+  </defs>
+
+  <!-- ============ STAGE BASE ============ -->
+  <rect x="0" y="0" width="640" height="360" fill="#241726"/>
+  <rect x="0.75" y="0.75" width="638.5" height="358.5" fill="none" stroke="#e8e2d8" stroke-width="1.5"/>
+
+  <!-- ============ TITLE BAR (frame_window) ============ -->
+  <rect x="0" y="0" width="640" height="16" fill="#3a2b40"/>
+  <rect x="0" y="16" width="640" height="1" fill="#e8e2d8"/>
+  <text x="7" y="11" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#fbf7ef">World Map</text>
+  <text x="633" y="11" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="end">Rebillion — Travel Network</text>
+  <g fill="#e8e2d8">
+    <rect x="2" y="2" width="3" height="3"/><rect x="635" y="2" width="3" height="3"/>
+    <rect x="2" y="355" width="3" height="3"/><rect x="635" y="355" width="3" height="3"/>
+  </g>
+
+  <!-- ============ MAP VIEWPORT PANEL ============ -->
+  <rect x="4" y="18" width="470" height="320" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/>
+  <g clip-path="url(#mapclip)">
+    <text x="12" y="29" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">Emberfoot Isle → Harthmoor Isle (ring) → far isles (Arc 2, Lv 40+)</text>
+
+    <!-- ============ LANDMASSES ============ -->
+    <polygon points="150,38 205,36 240,50 270,70 300,95 322,125 330,155 315,180 322,205 300,235 270,258 235,272 195,278 160,272 130,268 105,275 82,255 66,220 62,180 68,145 60,110 75,80 95,58 120,45"
+      fill="#3a2b1e" opacity="0.55" stroke="#6b4a2d" stroke-width="1.2"/>
+    <polygon points="30,278 52,266 76,274 80,292 62,306 36,300" fill="#5a1e14" opacity="0.55" stroke="#8f2d1b" stroke-width="1.2"/>
+    <polygon points="292,212 312,202 330,212 328,232 308,238 290,228" fill="#122a4a" opacity="0.55" stroke="#1e4c78" stroke-width="1.2"/>
+    <polygon points="330,85 355,72 378,82 382,102 362,115 338,108" fill="#1e4c78" opacity="0.5" stroke="#54b0c6" stroke-width="1.2"/>
+    <polygon points="378,58 400,48 420,56 418,75 398,82 380,75" fill="#4b2a78" opacity="0.5" stroke="#7a3f9a" stroke-width="1.2"/>
+    <polygon points="425,42 445,32 462,40 460,58 442,62 424,55" fill="#2a1a4a" opacity="0.6" stroke="#4b2a78" stroke-width="1.2"/>
+
+    <!-- ============ REGION BIOME HALOS (Harthmoor sub-regions, ART_BIBLE ramps) ============ -->
+    <circle cx="88" cy="203" r="16" fill="#256b34" opacity="0.3"/>
+    <circle cx="130" cy="112" r="14" fill="#173a24" opacity="0.35"/>
+    <circle cx="215" cy="58" r="16" fill="#8f2d1b" opacity="0.3"/>
+    <circle cx="292" cy="145" r="16" fill="#1e4c78" opacity="0.3"/>
+    <circle cx="130" cy="256" r="18" fill="#6b4a2d" opacity="0.3"/>
+    <circle cx="205" cy="165" r="14" fill="#9a6f3f" opacity="0.3"/>
+
+    <!-- ============ WALK RING — free, instant (edge portals) ============ -->
+    <g stroke="#9a92a0" stroke-width="1" fill="none">
+      <line x1="130" y1="256" x2="88" y2="203"/>
+      <line x1="88" y1="203" x2="130" y2="112"/>
+      <line x1="130" y1="112" x2="215" y2="58"/>
+      <line x1="215" y1="58" x2="292" y2="145"/>
+      <line x1="292" y1="145" x2="130" y2="256"/>
+      <line x1="108" y1="266" x2="130" y2="256"/>
+      <line x1="215" y1="58" x2="205" y2="165"/>
+      <line x1="130" y1="112" x2="205" y2="165"/>
+      <line x1="292" y1="145" x2="312" y2="222"/>
+    </g>
+
+    <!-- ============ FERRY — paid, instant ============ -->
+    <line x1="60" y1="282" x2="108" y2="266" stroke="#54b0c6" stroke-width="1.5"/>
+    <text x="76" y="271" font-family="ui-monospace,monospace" font-size="5.5" fill="#54b0c6">ferry §7.1</text>
+
+    <!-- ============ COACH NETWORK — paid, instant, dashed ============ -->
+    <g stroke="#e8e2d8" stroke-width="1.3" stroke-dasharray="3 2" fill="none">
+      <line x1="130" y1="256" x2="88" y2="203"/>
+      <line x1="130" y1="256" x2="215" y2="58"/>
+    </g>
+    <text x="176" y="153" font-family="ui-monospace,monospace" font-size="5.5" fill="#e8e2d8" text-anchor="middle">coach §7.1</text>
+
+    <!-- ============ DEEPWAY — free, Lv40+ gated, dotted tunnel ============ -->
+    <line x1="215" y1="58" x2="355" y2="95" stroke="#3f9a45" stroke-width="1.5" stroke-dasharray="1 2.5" stroke-linecap="round"/>
+    <text x="285" y="70" font-family="ui-monospace,monospace" font-size="5.5" fill="#3f9a45" text-anchor="middle">Deepway §9.1</text>
+    <rect x="210" y="46" width="9" height="6" fill="#c8461f"/>
+    <text x="214.5" y="43" font-family="ui-monospace,monospace" font-size="5" fill="#c8461f" text-anchor="middle">Lv40+</text>
+
+    <!-- ============ LONGSHIP ROUTES — paid, scheduled ============ -->
+    <g stroke="#2f7aa0" stroke-width="2" fill="none">
+      <line x1="292" y1="145" x2="355" y2="95"/>
+      <line x1="292" y1="145" x2="400" y2="65"/>
+      <line x1="292" y1="145" x2="445" y2="48"/>
+      <line x1="355" y1="95" x2="400" y2="65"/>
+      <line x1="400" y1="65" x2="445" y2="48"/>
+    </g>
+    <text x="352" y="112" font-family="ui-monospace,monospace" font-size="5.5" fill="#2f7aa0" text-anchor="middle">longship §8 / §7.2</text>
+
+    <!-- ============ NODES + LABELS ============ -->
+    <!-- Emberfoot Isle -->
+    <rect x="57" y="277" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="65" y="281" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef">Emberfoot Village <tspan fill="#9a92a0" font-size="4.8">001</tspan></text>
+    <text x="30" y="317" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#fbf7ef">Emberfoot Isle</text>
+    <text x="30" y="324" font-family="ui-monospace,monospace" font-size="6" fill="#f6c34b">Lv 1–8</text>
+
+    <!-- Rosen Harbor (coach station) -->
+    <circle cx="108" cy="266" r="4.5" fill="none" stroke="#e8e2d8" stroke-width="0.8"/>
+    <rect x="105.5" y="263.5" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="80" y="277" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef" text-anchor="end">Rosen Harbor <tspan fill="#9a92a0" font-size="4.8">017</tspan></text>
+
+    <!-- Millbrook Central (coach station, hub) -->
+    <circle cx="130" cy="256" r="4.5" fill="none" stroke="#e8e2d8" stroke-width="0.8"/>
+    <rect x="127.5" y="253.5" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="138" y="252" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef">Millbrook Central <tspan fill="#9a92a0" font-size="4.8">018</tspan></text>
+    <text x="138" y="259" font-family="ui-monospace,monospace" font-size="5.5" fill="#c09a54">hub · Lv 8–14</text>
+
+    <!-- Mossmere / Verdant (coach station) -->
+    <circle cx="88" cy="203" r="4.5" fill="none" stroke="#e8e2d8" stroke-width="0.8"/>
+    <rect x="85.5" y="200.5" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="58" y="197" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef" text-anchor="end">Mossmere <tspan fill="#9a92a0" font-size="4.8">043</tspan></text>
+    <text x="58" y="204" font-family="ui-monospace,monospace" font-size="5.5" fill="#7ac04b" text-anchor="end">Verdant · Lv 8–16</text>
+
+    <!-- Gloomwood waypoint — ring segment, no town/station -->
+    <rect x="128.5" y="110.5" width="3" height="3" fill="#6b6270"/>
+    <text x="136" y="110" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0">Gloomwood</text>
+    <text x="136" y="117" font-family="ui-monospace,monospace" font-size="5.5" fill="#7ac04b">no station · Lv 20–28</text>
+
+    <!-- Cindershelf / Ashfall (coach station + Deepway mouth) -->
+    <circle cx="215" cy="58" r="4.5" fill="none" stroke="#e8e2d8" stroke-width="0.8"/>
+    <rect x="212.5" y="55.5" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="223" y="61" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef">Cindershelf <tspan fill="#9a92a0" font-size="4.8">125</tspan></text>
+    <text x="223" y="68" font-family="ui-monospace,monospace" font-size="5.5" fill="#eb7a2c">Ashfall · Lv 26–34</text>
+
+    <!-- Clockwork Ruins — endgame center, no station -->
+    <circle cx="205" cy="165" r="10" fill="none" stroke="#9a6f3f" stroke-width="0.8" opacity="0.7"/>
+    <g fill="#9a6f3f">
+      <rect x="203" y="153" width="4" height="3"/><rect x="203" y="174" width="4" height="3"/>
+      <rect x="192" y="163" width="3" height="4"/><rect x="210" y="163" width="3" height="4"/>
+    </g>
+    <polygon points="205,159 211,165 205,171 199,165" fill="#c09a54" stroke="#3a2b1e" stroke-width="0.6"/>
+    <text x="205" y="150" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef" text-anchor="middle">Clockwork Ruins</text>
+    <text x="205" y="183" font-family="ui-monospace,monospace" font-size="5.5" fill="#c09a54" text-anchor="middle">Lv 34–40(+2)</text>
+
+    <!-- Tidewatch Port (coach station + longship pier) -->
+    <circle cx="292" cy="145" r="4.5" fill="none" stroke="#e8e2d8" stroke-width="0.8"/>
+    <rect x="289.5" y="142.5" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="300" y="141" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef">Tidewatch Port <tspan fill="#9a92a0" font-size="4.8">071</tspan></text>
+    <text x="300" y="148" font-family="ui-monospace,monospace" font-size="5.5" fill="#54b0c6">Tidewatch · Lv 14–22</text>
+
+    <!-- Sunken Depths — spur, no station -->
+    <rect x="309.5" y="219.5" width="4" height="4" fill="#9a92a0" stroke="#241726" stroke-width="0.6"/>
+    <text x="319" y="218" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef">Sunken Depths (spur)</text>
+    <text x="319" y="225" font-family="ui-monospace,monospace" font-size="5.5" fill="#54b0c6">Lv 30–38</text>
+
+    <!-- Frosthaven — Frostpeak port, longship pier, no coach -->
+    <rect x="352.5" y="92.5" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="345" y="87" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef" text-anchor="end">Frosthaven <tspan fill="#9a92a0" font-size="4.8">204</tspan></text>
+    <text x="345" y="94" font-family="ui-monospace,monospace" font-size="5.5" fill="#54b0c6" text-anchor="end">Frostpeak Isle · Lv 40–55</text>
+
+    <!-- Spirehaven — Arcane Reach port -->
+    <rect x="397.5" y="62.5" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="405" y="59" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef">Spirehaven <tspan fill="#9a92a0" font-size="4.8">245</tspan></text>
+    <text x="405" y="66" font-family="ui-monospace,monospace" font-size="5.5" fill="#b064c6">Arcane Reach · Lv 53–68</text>
+
+    <!-- Duskwatch Landing — Voidshore port -->
+    <rect x="442.5" y="45.5" width="5" height="5" fill="#e8e2d8" stroke="#241726" stroke-width="0.6"/>
+    <text x="440" y="42" font-family="ui-monospace,monospace" font-size="5.5" fill="#fbf7ef" text-anchor="end">Duskwatch Landing <tspan fill="#9a92a0" font-size="4.8">285</tspan></text>
+    <text x="440" y="49" font-family="ui-monospace,monospace" font-size="5.5" fill="#7a3f9a" text-anchor="end">Voidshore · Lv 66–80</text>
+  </g>
+
+  <!-- ============ SCHEDULE BOARD (frame_system, thin/stone) ============ -->
+  <rect x="478" y="18" width="158" height="320" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/>
+  <g clip-path="url(#schedclip)">
+    <text x="486" y="30" font-family="ui-monospace,monospace" font-size="8.5" font-weight="700" fill="#fbf7ef">Harthmoor Longship Line</text>
+    <text x="486" y="39" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0">Tidewatch Port pier · map_071</text>
+    <line x1="486" y1="44" x2="628" y2="44" stroke="#6b6270" stroke-width="1"/>
+    <text x="486" y="52" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0">route · next sail · fare</text>
+
+    <!-- Row 1 -->
+    <text x="486" y="64" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="#fbf7ef">Tidewatch → Frosthaven</text>
+    <text x="486" y="73" font-family="ui-monospace,monospace" font-size="5.5" fill="#54b0c6">Frostpeak · Lv 40–55</text>
+    <text x="628" y="73" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0" text-anchor="end">short</text>
+    <text x="486" y="84" font-family="ui-monospace,monospace" font-size="6.5" fill="#e8e2d8">next sail 0:47</text>
+    <text x="628" y="84" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#f6c34b" text-anchor="end">300 shards</text>
+    <line x1="486" y1="90" x2="628" y2="90" stroke="#3a2b40" stroke-width="1"/>
+
+    <!-- Row 2 -->
+    <text x="486" y="100" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="#fbf7ef">Tidewatch → Spirehaven</text>
+    <text x="486" y="109" font-family="ui-monospace,monospace" font-size="5.5" fill="#b064c6">Arcane Reach · Lv 53–68</text>
+    <text x="628" y="109" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0" text-anchor="end">medium</text>
+    <text x="486" y="120" font-family="ui-monospace,monospace" font-size="6.5" fill="#e8e2d8">next sail 1:32</text>
+    <text x="628" y="120" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#f6c34b" text-anchor="end">500 shards</text>
+    <line x1="486" y1="126" x2="628" y2="126" stroke="#3a2b40" stroke-width="1"/>
+
+    <!-- Row 3 -->
+    <text x="486" y="136" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="#fbf7ef">Tidewatch → Duskwatch Ldg.</text>
+    <text x="486" y="145" font-family="ui-monospace,monospace" font-size="5.5" fill="#7a3f9a">Voidshore · Lv 66–80</text>
+    <text x="628" y="145" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0" text-anchor="end">long</text>
+    <text x="486" y="156" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#f6c34b">boarding · 0:08</text>
+    <text x="628" y="156" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#f6c34b" text-anchor="end">800 shards</text>
+    <line x1="486" y1="162" x2="628" y2="162" stroke="#3a2b40" stroke-width="1"/>
+
+    <!-- Row 4 -->
+    <text x="486" y="172" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="#fbf7ef">Frosthaven → Spirehaven</text>
+    <text x="486" y="181" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0">isle chain</text>
+    <text x="628" y="181" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0" text-anchor="end">long*</text>
+    <text x="486" y="192" font-family="ui-monospace,monospace" font-size="6.5" fill="#e8e2d8">next sail 2:00</text>
+    <text x="628" y="192" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#f6c34b" text-anchor="end">800 shards*</text>
+    <line x1="486" y1="198" x2="628" y2="198" stroke="#3a2b40" stroke-width="1"/>
+
+    <!-- Row 5 -->
+    <text x="486" y="208" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="#fbf7ef">Spirehaven → Duskwatch Ldg.</text>
+    <text x="486" y="217" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0">isle chain</text>
+    <text x="628" y="217" font-family="ui-monospace,monospace" font-size="5.5" fill="#9a92a0" text-anchor="end">long*</text>
+    <text x="486" y="228" font-family="ui-monospace,monospace" font-size="6.5" fill="#e8e2d8">next sail 0:23</text>
+    <text x="628" y="228" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#f6c34b" text-anchor="end">800 shards*</text>
+    <line x1="486" y1="234" x2="628" y2="234" stroke="#6b6270" stroke-width="1"/>
+
+    <!-- Footer citations -->
+    <text x="486" y="248" font-family="ui-monospace,monospace" font-size="6" fill="#54b0c6">fare tiers — ECONOMY §7.2</text>
+    <text x="486" y="257" font-family="ui-monospace,monospace" font-size="5.5" fill="#e8e2d8">short 300 · medium 500 · long 800</text>
+    <text x="486" y="266" font-family="ui-monospace,monospace" font-size="5" fill="#9a92a0">* isle-chain tier is illustrative —</text>
+    <text x="486" y="273" font-family="ui-monospace,monospace" font-size="5" fill="#9a92a0">route→tier mapping not fixed</text>
+    <text x="486" y="286" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="#3f9a45">1st crossing free</text>
+    <text x="486" y="294" font-family="ui-monospace,monospace" font-size="5" fill="#9a92a0">after Lv 40 2nd advancement</text>
+    <text x="486" y="306" font-family="ui-monospace,monospace" font-size="5.5" fill="#e8e2d8">cadence 120s · sail ~2–3 min</text>
+    <text x="486" y="314" font-family="ui-monospace,monospace" font-size="5" fill="#9a92a0">boarding closes final 30s</text>
+    <text x="486" y="325" font-family="ui-monospace,monospace" font-size="5.5" fill="#54b0c6">MAP_CONNECTIONS §8.1–§8.3</text>
+  </g>
+
+  <!-- ============ BOTTOM LEGEND STRIP ============ -->
+  <line x1="4" y1="339" x2="636" y2="339" stroke="#3a2b40" stroke-width="1"/>
+  <g font-family="ui-monospace,monospace" font-size="5.8" fill="#fbf7ef">
+    <line x1="8" y1="347" x2="18" y2="347" stroke="#9a92a0" stroke-width="1"/>
+    <text x="21" y="349">walk · free</text>
+
+    <line x1="112" y1="347" x2="122" y2="347" stroke="#54b0c6" stroke-width="1.5"/>
+    <text x="125" y="349">ferry · paid, instant · 40 (§7.1)</text>
+
+    <line x1="270" y1="347" x2="282" y2="347" stroke="#e8e2d8" stroke-width="1.3" stroke-dasharray="3 2"/>
+    <text x="285" y="349">coach · paid, instant · 120–320 (§7.1)</text>
+
+    <line x1="446" y1="347" x2="458" y2="347" stroke="#2f7aa0" stroke-width="2"/>
+    <text x="461" y="349">longship · paid, scheduled · 300–800 (§7.2)</text>
+
+    <line x1="8" y1="356" x2="18" y2="356" stroke="#3f9a45" stroke-width="1.5" stroke-dasharray="1 2.5" stroke-linecap="round"/>
+    <text x="21" y="358">deepway · free · gated Lv 40+, Cindershelf only (§9.1)</text>
+
+    <text x="636" y="358" text-anchor="end" fill="#9a92a0">"every crossing is two-way — the old world never closes" — backtracking law, §9.2</text>
+  </g>
+</svg>
+</div>
+
+<h2>Caption key (doc / §)</h2>
+<div class="legend">
+  <div><b>Harborwind Ferry</b> Emberfoot ↔ Rosen Harbor, paid, instant, 40 <code>shards</code> flat <span class="doc">WORLD_PLAN "Crossing (Arc 1)" · ECONOMY §7.1</span></div>
+  <div><b>Harthmoor ring</b> Millbrook↔Verdant↔Gloomwood↔Ashfall↔Tidewatch↔Millbrook, free walk edges, closed loop <span class="doc">WORLD_PLAN "World graph"; MAP_CONNECTIONS §1</span></div>
+  <div><b>Harthmoor Coachworks</b> 5 stations (Rosen Harbor/Millbrook Central/Mossmere/Cindershelf/Tidewatch Port), paid every ride, ring-distance fares, one free novice pilgrimage ride <span class="doc">WORLD_PLAN "Harthmoor Coachworks"; MAP_CONNECTIONS §3; ECONOMY §7.1</span></div>
+  <div><b>Clockwork Ruins</b> the ring's dead brass heart, gates from Ashfall's char ridge and Gloomwood's web vaults, Lv 34–40(+2) <span class="doc">WORLD_PLAN R8</span></div>
+  <div><b>Sunken Depths</b> coastal spur off Tidewatch, deliberate terminus, Lv 30–38 <span class="doc">WORLD_PLAN R7</span></div>
+  <div><b>The Deepway</b> free, Lv 40+ door at Cindershelf only (<code>map_125→201–203→204</code>), surfaces at Frosthaven; the return trip is always ungated <span class="doc">WORLD_PLAN "Arc 2 — the far isles"; MAP_CONNECTIONS §9, §9.1–§9.2</span></div>
+  <div><b>Harthmoor Longship Line</b> paid, scheduled, ~2–3 min real-time sail, cadence 120s (boarding closes final 30s); Tidewatch Port pier to Frosthaven/Spirehaven/Duskwatch Landing plus the isle-to-isle chain; first crossing free after the Lv 40 2nd advancement <span class="doc">MAP_CONNECTIONS §8; ECONOMY §7.2</span></div>
+  <div><b>Far isles</b> Frostpeak Isle (Lv 40–55, tide ramp) · Arcane Reach (Lv 53–68, arcane ramp) · Voidshore (Lv 66–80, arcane ramp gone dark) <span class="doc">WORLD_PLAN R9–R11; ART_BIBLE biome_identity</span></div>
+  <div><b>Backtracking law</b> every crossing is two-way; returning to earlier islands/regions is always ungated, at any level <span class="doc">WORLD_PLAN "Backtracking law"; MAP_CONNECTIONS §9.2</span></div>
+</div>
+
+<p class="note">Longship route→fare-tier assignment shown for the isle-chain legs (Frosthaven↔Spirehaven, Spirehaven↔Duskwatch Landing;
+marked <code>*</code>) is illustrative: <code>WORLD_PLAN.md</code>'s arc-2 edge table lists routes without a tier column, and
+<code>ECONOMY.md</code> §7.2's own Open Questions flags the route→tier mapping as unresolved ("confirm the class count matches the
+fare tiers when that table lands"). Only Tidewatch↔Frosthaven = short/300 is textually certain ("nearest new-island port").
+Next-sail countdowns and biome-halo placement are illustrative UI state, not authored values.</p>
+
+</div>
+</body>
+</html>

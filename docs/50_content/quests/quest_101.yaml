@@ -15,7 +15,7 @@ steps:                            # parallel (default): the shards drop from the
     target: item_etc_0145
     count: 5
 rewards:
-  exp: 30468                      # round(0.075 * exp_to_next(53)=406,236); side band 5-10% (QUESTS §4)
+  exp: 48790                      # round(0.075 * exp_to_next(53)=650,536); side band 5-10% (QUESTS §4)
   shards: 332                     # mean_shards_normal(53)*4 = 83*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 2 }

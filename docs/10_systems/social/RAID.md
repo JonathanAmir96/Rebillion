@@ -101,9 +101,10 @@ counts, spawn sets) are Phase D content authored against these three patterns.
 - **Within an attempt:** individual death, Release, and walk-back re-entry follow
   `10_systems/DEATH_PENALTY.md` §5.3 exactly; the party-side bookkeeping (fallen roster state,
   eligibility while fallen) is `10_systems/social/PARTY.md` §6's. Both are consumed unchanged.
-- **Full wipe** (every member fallen, or every member Released/left the instance): the attempt
-  ends and the instance dissolves. Stage progress does not persist across attempts — a new entry
-  starts at stage 1.
+- **Full wipe** (every member fallen, every member Released/left the instance, or the finale
+  boss's enrage timer expiring — `10_systems/COMBAT_FORMULA.md` §13.3 owns the timer and its
+  12-minute value): the attempt ends and the instance dissolves. Stage progress does not persist
+  across attempts — a new entry starts at stage 1.
 - **Failure is free:** no lockout, no cooldown, no penalty beyond
   `10_systems/DEATH_PENALTY.md`'s ordinary death costs. Retry immediately from the herald.
 - **Clear cooldown (default):** after a successful finale-boss kill, each participating

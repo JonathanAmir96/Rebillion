@@ -5,6 +5,10 @@ All files passed: forbidden-token scan (VALIDATION.md §1), H1 + References head
 Questions` ending, US spelling. No content YAML in this wave; no locked file touched
 (ART_BIBLE.yaml, UI_ART_SPEC.md, ENGINEERING_STANDARDS.md — read-only citations only).
 
+**Status update (2026-07-24, md audit):** the "3-slot symmetry" cited below is superseded — the
+owner raised character slots to **4** the same day (`docs/70_integrations/ACCOUNTS_AUTH.md` §2.2),
+and `10_systems/PERSISTENCE.md` §6's local-save slot count was raised to match.
+
 ## Files created (by dispatch group, per docs/60_agents/roles/ORG.md routing)
 
 - **F-systems (ROLE_SYSTEMS_ARCHITECT, Sonnet):**

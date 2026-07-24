@@ -15,7 +15,7 @@ steps:
     target: item_etc_0019
     count: 4
 rewards:
-  exp: 189      # round(0.075*2,520) (LEVELING §1 Lv9 exp_to_next); side band, pct=0.075
+  exp: 504      # round(0.075*6,720) (LEVELING §1 Lv9 exp_to_next); side band, pct=0.075
   shards: 68     # mean_shards_normal(9)*4 = 17*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0014, qty: 2 }

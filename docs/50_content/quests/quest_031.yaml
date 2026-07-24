@@ -18,7 +18,7 @@ steps:
     target: item_etc_0042          # sourced from mob_037's drop table (parallel monster batch)
     count: 5
 rewards:
-  exp: 423                        # round(0.07 * 6,048)
+  exp: 1098                        # round(0.07 * 15,680)
   shards: 92                      # mean_shards_normal(13)*4 = 23*4
 flavor: "There's a wider crack in that caved-in chamber than there used to be, and Oskar doesn't like what that implies."
 offer_text: "The caved chamber's gotten busier since I last mapped it. Clear a path through and bring back what's denning there."

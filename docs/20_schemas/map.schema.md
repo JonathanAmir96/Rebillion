@@ -161,7 +161,8 @@ ability (`15_maps_system/MAPS_SYSTEM.md` §8), authored on the boss's own monste
 
 ## Example
 
-Illustrative — real instances land in Phase D.
+Illustrative shape only — **not a mirror of the minted map_005.yaml** (Phase D landed; see
+`docs/50_content/maps/map_005.yaml` for the real instance).
 
 ```yaml
 id: map_005

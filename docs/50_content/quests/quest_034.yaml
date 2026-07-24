@@ -18,7 +18,7 @@ steps:
     target: map_067
     zone: grove_threshold
 rewards:
-  exp: 702                        # round(0.08 * 8,775)
+  exp: 1771                        # round(0.08 * 22,140)
   shards: 104                     # mean_shards_normal(15)*4 = 26*4
 flavor: "The Sovereign keeps its own guard at the threshold, and Sable's tired of watching travelers turn back from it."
 offer_text: "Clear the guard from the last root-hall and stand at the threshold yourself. See the grove-light before you decide you're ready for what's past it."

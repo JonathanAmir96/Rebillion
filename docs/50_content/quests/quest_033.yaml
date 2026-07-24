@@ -18,7 +18,7 @@ steps:                            # parallel: kill count applies across the shor
     target: item_etc_0046          # sourced from mob_041's drop table (parallel monster batch)
     count: 6
 rewards:
-  exp: 527                        # round(0.06 * 8,775)
+  exp: 1328                        # round(0.06 * 22,140)
   shards: 104                     # mean_shards_normal(15)*4 = 26*4
 flavor: "The heartwood vault has its own tenants now, thick enough that Sable won't walk in without company."
 offer_text: "The vault past the deep roots is crawling worse than usual. Cull what's nesting in there and bring me proof -- I don't like sending anyone in blind."

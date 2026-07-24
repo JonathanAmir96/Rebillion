@@ -13,7 +13,7 @@ steps:
     target: item_etc_0108
     count: 4
 rewards:
-  exp: 8242  # side pct=0.07 of exp_to_next(36)=117,738; shards=mean_shards_normal(36)*4=57*4
+  exp: 15272  # side pct=0.07 of exp_to_next(36)=218,174; shards=mean_shards_normal(36)*4=57*4
   shards: 228
 flavor: "Voss's archive is missing exactly the kind of specimen only the deep halls still produce."
 offer_text: "If you're going in deeper, bring back anything still intact. My archive's only as good as what survives the trip."

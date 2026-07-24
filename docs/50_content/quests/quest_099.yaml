@@ -12,7 +12,7 @@ steps:
     target: mob_176
     count: 5
 rewards:
-  exp: 14382  # round(0.06*239,700) (LEVELING §1 Lv45 table row); raid_deepfrost intro (RAID.md §3)
+  exp: 24432  # round(0.06*407,208) (LEVELING §1 Lv45 table row); raid_deepfrost intro (RAID.md §3)
   shards: 284  # mean_shards_normal(45)*4 = 71*4 (round(1.5*45+3)=70.5 -> 71)
 flavor: "Skarn won't vouch for a party at the Deepfrost gate until they've proven themselves against the Rimevaults' own guardians."
 offer_text: "Clear a few of the Rimevaults' elites first. I won't muster anyone into the Deepfrost who hasn't shown me their steel."

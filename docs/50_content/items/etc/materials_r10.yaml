@@ -153,7 +153,7 @@ items:
       sell: 90                    # no `buy` on etc rows (not vendor-purchasable, ITEMS §1)
     source_hint: mob_193          # cross-checks drop_mob_193
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "The grey remains of a mage undone by the shards, prized for the raw magic still smoldering in it."
+    flavor: "The gray remains of a mage undone by the shards, prized for the raw magic still smoldering in it."
   - id: item_etc_0160
     name: Unmoored Keystone
     category: etc

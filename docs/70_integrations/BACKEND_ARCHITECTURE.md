@@ -260,7 +260,7 @@ migration seam.
 
 ## 7. Social-deferred systems
 
-All six are designed but server-deferred (their stubs ship "present but dormant" in the solo
+All seven are designed but server-deferred (their stubs ship "present but dormant" in the solo
 build). When un-deferred they land on the **social services** tier (§1); each remains
 `authority: server` (`10_systems/PERSISTENCE.md` §2). Service internals — relay topology, roster
 state, escrow mechanics — are `70_integrations/CHAT_SOCIAL_BACKEND.md`'s (§9); this table fixes only
@@ -274,6 +274,7 @@ where each lands.
 | `TRADING` | Live two-party escrow session | Both online; server-held escrow swap (`10_systems/social/TRADING.md`) |
 | `MARKET` | Async listings board + escrow | Server-held listing escrow; shared board = `server` state (`10_systems/social/MARKET.md`) |
 | `MAIL` | Store-and-forward mailbox + COD | Attachment/`shards`/COD escrow; may deliver `MARKET` proceeds (`10_systems/social/MAIL.md`) |
+| `PARTY_FINDER` | Listings/matchmaking board service | Server-owned listing state, browse/post/request-join routing (`10_systems/social/PARTY_FINDER.md`); internals `70_integrations/CHAT_SOCIAL_BACKEND.md` §3.7 |
 
 `TRADING`/`MARKET`/`MAIL` all move `server`-owned items and `shards`, so they write through the
 wallet ledger and character DB (§5) inside one Postgres transaction (§3), never a client copy — the

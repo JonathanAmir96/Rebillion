@@ -12,7 +12,7 @@ steps:
     target: item_etc_0002
     count: 5
 rewards:
-  exp: 17                          # round(0.08 * 210); side band 5-10% (QUESTS §4)
+  exp: 27                          # round(0.08 * 340); side band 5-10% (QUESTS §4)
   shards: 24                       # side = mean_shards_normal(2)*4 = 6*4
 flavor: "Tansy is always short on cure-stock, and the lower reach is thick with it."
 offer_text: "Bring me a handful of that pale kindling from the lower reach and I'll make it worth your trip."

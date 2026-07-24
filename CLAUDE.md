@@ -3,7 +3,7 @@
 Rebillion is a **design-documentation tree** for a 2D side-scrolling MMORPG platformer
 (Godot 4.3+ target). This run produces docs + machine-loadable YAML content only — no game
 code, no generated art. Read `README.md` for the tree map and
-`docs/phase_reports/` (+ `memory.md` once it exists) for current generation state.
+`docs/phase_reports/`, `memory.md`, and the `memory/` Memory Bank for current generation state.
 
 ## Laws (apply to every edit, human or agent)
 
@@ -42,6 +42,9 @@ code, no generated art. Read `README.md` for the tree map and
   Weaver→Mossmere, Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law.
   Terrain is Maple-style footholds + painted terrain chunks (ART_BIBLE amendment AB-001;
   movement rules in MAP_TRAVERSAL.md).
+- Combat carries a skill-chaining combo layer (owner-directed 2026-07-24,
+  `docs/10_systems/COMBO_SYSTEM.md`): `combo_momentum`/`combo_burst`, tier-gated by job tier,
+  consumed at COMBAT_FORMULA §2 step 8 inside §15's damage envelope; HUD §7.1 draws the counter.
 - Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 **branches** into a permanent specialization —
   bulwark: Ironbrand/Stoneguard/Warcaller · keeneye: Pathstalker/Sureshot · weaver:
   Runeweaver/Cindercall/Frostbind · flicker: Duskstep/Wildcard (rosters in
@@ -85,7 +88,9 @@ code, no generated art. Read `README.md` for the tree map and
 ## For future Claude sessions
 
 Start by reading: `README.md` → `docs/00_vision/GLOSSARY.md` → `docs/WORLD_PLAN.md` →
-`memory.md` (state + decisions log, written at the end of the generation run). When
+`memory.md` (state + decisions log, newest-first) → `memory/` (Memory Bank:
+`projectbrief` → `systemPatterns` → `techContext` → `activeContext` → `progress` — distilled
+current-state context for future sessions and the coding pass). When
 continuing content generation, follow the batch pattern in the phase reports: region-scoped
 sub-agents, exemplar-first, validator-gated.
 
@@ -93,7 +98,7 @@ sub-agents, exemplar-first, validator-gated.
 following links — README's "Start here" section is the tree's index (there is no `docs/` index
 file; README is the root). Run `python3 tools/md_graph.py` to rebuild the link graph and
 BFS-check it (report: `docs/phase_reports/MD_CONNECTIVITY_REPORT.md`); the tree is currently
-one connected component, 98/98 README-reachable. After any wave that adds docs — especially a
+one connected component, 117/117 README-reachable. After any wave that adds docs — especially a
 parallel-session merge — re-run it and link any new "unreferenced" file from its natural index
 (that is exactly how the F/G/H reports and the role files first slipped in undiscoverable).
 

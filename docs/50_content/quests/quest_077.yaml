@@ -13,7 +13,7 @@ steps:
     target: mob_124
     count: 6
 rewards:
-  exp: 12848  # side pct=0.10 of exp_to_next(37)=128,478; shards=mean_shards_normal(37)*4=58*4
+  exp: 23511  # side pct=0.10 of exp_to_next(37)=235,106; shards=mean_shards_normal(37)*4=58*4
   shards: 232
 flavor: "Voss has heard the Warden's guard moving closer to the archive than it ever has before."
 offer_text: "Whatever the Warden's set loose is drifting too close to my shelves. Cull them back before they reach the archive proper."

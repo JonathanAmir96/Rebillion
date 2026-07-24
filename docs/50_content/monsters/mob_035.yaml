@@ -28,4 +28,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Shudders along its bark plating, knothole eye squeezing shut."
   die: "Cracks and slumps, bark plating sagging off its motionless trunk."
 drop_table: drop_mob_035
-flavor: "A grey, bark-scaled thing grown fast to the hollow floor, more stump than beast until it turns its knothole eye on you. It cannot follow, but it never misses the same spot twice, and it loosens a spray of hardwood thorns on a clockwork beat."
+flavor: "A gray, bark-scaled thing grown fast to the hollow floor, more stump than beast until it turns its knothole eye on you. It cannot follow, but it never misses the same spot twice, and it loosens a spray of hardwood thorns on a clockwork beat."

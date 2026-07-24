@@ -48,8 +48,10 @@ until future arcs land. 10_systems/LEVELING.md designs the full curve to 300
   10_systems/MONETIZATION.md — cosmetic-only, no pay-to-win; no store content authored this
   run); character cosmetics beyond equipment and the character-creation appearance set
   (base/hair/face/skin — owner directive 2026-07-24, design in
-  40_assets/CHARACTER_COMPOSITING.md; the zero-stat cosmetic layer MONETIZATION.md §3.1
-  reserves for a future arc stays reserved, and nothing appearance-related is sold this run).
+  40_assets/CHARACTER_COMPOSITING.md; the zero-stat appearance layer MONETIZATION.md §3.1
+  reserved is now anchored for the earned side by 10_systems/COSMETICS.md — its system design
+  is in scope, while store content stays unauthored and nothing appearance-related is sold
+  this run).
 
 ## Deliberate scope limits
 - One weapon type per job line (4 total). Armor is class-agnostic with stat leans.

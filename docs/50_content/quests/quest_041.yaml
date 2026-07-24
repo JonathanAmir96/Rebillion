@@ -12,7 +12,7 @@ steps:
     target: mob_054
     count: 10
 rewards:
-  exp: 1116                  # round(0.09 * 12402); band per QUESTS §4 at Lv17
+  exp: 2719                  # round(0.09 * 30210); band per QUESTS §4 at Lv17
   shards: 112                # mean_shards_normal(17)*4 = 28*4 (QUESTS §5 side / DROPS §3)
 flavor: "Innes has patrolled the Frostspray Bluffs long enough to know the sand-buried lurkers are spreading, not thinning."
 offer_text: "Ten of the lurkers bedded under the frozen strand -- I want to see if thinning them slows the frost's creep at all."

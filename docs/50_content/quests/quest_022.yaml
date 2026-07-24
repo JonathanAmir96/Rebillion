@@ -13,7 +13,7 @@ steps:
     target: mob_023
     count: 10
 rewards:
-  exp: 1210     # round(0.20*6,048) (LEVELING §1 Lv13 exp_to_next); main band, pct=0.20
+  exp: 3136     # round(0.20*15,680) (LEVELING §1 Lv13 exp_to_next); main band, pct=0.20
   shards: 345    # mean_shards_normal(13)*15 = 23*15 (round(1.5*13+3)=22.5 -> 23) (QUESTS §5 / DROPS §3)
 flavor: "Ashe won't send anyone into the catacombs proper until they've proven they can handle the upper tunnels."
 offer_text: "Clear a path through the refuse tunnels first. I want to know the Herald's Hall is reachable before I let you past my post."

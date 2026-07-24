@@ -85,7 +85,7 @@ Ring order: **Millbrook ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔ 
 loop, walkable both directions). **Clockwork Ruins is the island's dead brass heart** —
 Sleepywood-style center with two gates (from Ashfall's char ridge and Gloomwood's web
 vaults). Sunken Depths is a depth spur under the coast and a deliberate terminus.
-Towns on the ring (v2.3): **Rosen Harbor + Millbrook Central** (south), **Mossmere**
+Towns on the ring: **Rosen Harbor + Millbrook Central** (south), **Mossmere**
 (west, in Verdant), **Cindershelf** (north, in Ashfall), **Tidewatch Port** (east) —
 each ring town hosts a job instructor (see Job instructors below).
 
@@ -175,7 +175,7 @@ returning — `map_125`); every longship arrival targets spawn `longship_dock` o
 destination port town (and boarding lands on the deck's `longship_deck` spawn), per
 15_maps_system/MAP_CONNECTIONS.md §8.
 
-**Backtracking law (v3.1, owner directive):** every arc crossing is two-way and the old
+**Backtracking law (owner directive):** every arc crossing is two-way and the old
 world never closes. A Lv 40+ character freely returns to Arc-1 islands — the Deepway's
 `level_gate` guards **entry into the passage at Cindershelf only**; the southbound return
 and all longship legs carry no gate (a returning character trivially satisfies it anyway).
@@ -264,8 +264,8 @@ Cinder-warmed training island around the starter village. Tone: warm, safe, firs
 Harbor district + timber-and-cobble market city; the social heart, and **home of the
 Flicker line** (its instructor keeps the undervault quarter). Tone: cozy, lantern-lit.
 - Maps `017`–`042`: `017` town **Rosen Harbor** (ferry dock, coach station) · `018` town
-  **Millbrook Central** (hub, coach station) · `019`–`026` interiors (inn, smithy, market hall, guild hall,
-  tavern, mayor's house, harbor office, bank) · `027`–`035` fields (west outskirts `027`,
+  **Millbrook Central** (hub, coach station) · `019`–`026` interiors (inn, harbor office, bank,
+  smithy, market hall, guild hall `map_024`, tavern, mayor's house — minted ID order) · `027`–`035` fields (west outskirts `027`,
   east road `028`, farmland, mill lanes) · `036`–`037` dungeons (Millbrook Catacombs) ·
   `038`–`040` dungeons (**raid `raid_undervault` stages**, party-instanced) · `041` secret ·
   `042` arena (The Cellar Deep — also the `raid_undervault` finale instance).

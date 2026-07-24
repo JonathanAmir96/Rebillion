@@ -68,3 +68,10 @@ landed "to fix later."
 - tools/validate.py's `item_use` ID ceiling (0060) predates the scroll block
   `item_use_0061`–`0100` (ID_REGISTRY.md) — raise it when scroll content mints (owner:
   validator/tools).
+- **§6's icon-naming law is documented but unenforced and unmet (2026-07-24 md audit).**
+  `20_schemas/item.schema.md` and `20_schemas/skill.schema.md` hard-require an `icon` field
+  (`ui_icon_item_<id stem>` / `ui_icon_skill_<line>_<NNN>`), yet no minted item/skill row in
+  `50_content/` carries one, tools/validate.py checks nothing for it, and its `ALLOWED["skill"]`
+  set would reject the field as unknown. Owner call needed: (a) mechanical backfill batch +
+  validator enforcement, or (b) amend the schemas to make `icon` derived-implicit (it is 100%
+  derivable from `id`, so storing it is redundant). Owner: schema owners + validator/tools.

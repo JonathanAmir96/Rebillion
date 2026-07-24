@@ -20,7 +20,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 202                        # round(0.08 * 2,520)
+  exp: 538                        # round(0.08 * 6,720)
   shards: 68                      # mean_shards_normal(9)*4 = 17*4
 flavor: "Petra's watch runs light on rest. She'd rather it went to someone who'll actually use the inn's spare room."
 offer_text: "Clear the mossy-steps brood for me, then tell Marta at the inn I sent you -- she keeps a bed open for whoever's doing the walking I can't."
