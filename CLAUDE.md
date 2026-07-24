@@ -75,9 +75,11 @@ Start by reading: `README.md` → `docs/00_vision/GLOSSARY.md` → `docs/WORLD_P
 continuing content generation, follow the batch pattern in the phase reports: region-scoped
 sub-agents, exemplar-first, validator-gated.
 
-**Doc connectivity:** the tree is one connected, top-down-navigable web of markdown — run
-`python3 tools/md_graph.py` to rebuild the link graph and BFS-check it (report:
-`docs/phase_reports/MD_CONNECTIVITY_REPORT.md`). After any wave that adds docs — especially a
+**Doc connectivity (rule):** every markdown doc must be **reachable from `README.md`** by
+following links — README's "Start here" section is the tree's index (there is no `docs/` index
+file; README is the root). Run `python3 tools/md_graph.py` to rebuild the link graph and
+BFS-check it (report: `docs/phase_reports/MD_CONNECTIVITY_REPORT.md`); the tree is currently
+one connected component, 98/98 README-reachable. After any wave that adds docs — especially a
 parallel-session merge — re-run it and link any new "unreferenced" file from its natural index
 (that is exactly how the F/G/H reports and the role files first slipped in undiscoverable).
 
