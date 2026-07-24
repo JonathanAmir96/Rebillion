@@ -1,4 +1,4 @@
-# tools/ — content validator, doc graph, wiki generator
+# tools/ — content validator, doc graph, wiki generator, quest-exp regen
 
 `validate.py` implements the `docs/VALIDATION.md` pass/fail contract (§1–§6) for
 Phase D content batches. **Python 3 standard library only** — it uses PyYAML if it
@@ -19,6 +19,19 @@ python3 tools/wiki_gen.py [--out DIR]     # default DIR = wiki/
 
 The wiki asserts nothing of its own (CLAUDE.md law 2): every number is read from
 the content files, so a wrong wiki value means a wrong YAML value — fix it there.
+
+`regen_quest_exp.py` mechanically regenerates the 120 quest files' `exp` rewards
+against `docs/10_systems/LEVELING.md` §1's ratified curve (the 2026-07-24 pacing
+retune handoff): it parses each quest's authored `pct` from the `exp:` line's
+inline comment, round-trip-verifies it against the old curve, recomputes
+`round(pct * exp_to_next(L))`, refreshes the comment's numbers, flags (never
+clamps) out-of-band pcts, and prints the before/after table plus the
+ONBOARDING_FTUE §2 Emberfoot budget check. Self-tests against the LEVELING §1 /
+QUESTS §4 tables before touching anything; stdlib only.
+
+```
+python3 tools/regen_quest_exp.py [--apply] [--table-out PATH]   # default: dry run
+```
 
 ## Usage
 

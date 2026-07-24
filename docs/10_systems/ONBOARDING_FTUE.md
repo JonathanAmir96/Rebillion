@@ -205,8 +205,11 @@ system already uses. This keeps the FTUE fully inside the authority model
 - **Resolved (2026-07-24 contradiction fix): Lv-8 gate vs the 60-minute intro.** Decision in §2:
   the intro front-loads scripted first-clear/guided-quest `exp` (top-of-band quest `pct`s +
   LEVELING §4 "other" one-time grants) so Lv 8 lands inside the hour; the ferry gate stays a real
-  60-minute promise. Remaining work is Phase D's: author `quest_001`–`010` to the §2 budget and
-  sanity-check real kills-to-Lv-8 against LEVELING's unmeasured ≈480-kills/hour assumption.
+  60-minute promise. **Budget verified at the 2026-07-24 quest-exp regen:** the authored
+  `quest_001`–`010` block sums to 3,804 `exp` on the ratified curve — ≥ the 3,800 §2 target even
+  before the one-time first-clear grants (`tools/regen_quest_exp.py`;
+  `docs/phase_reports/MD_AUDIT_REPORT_2026-07-24.md`). Still open: sanity-check real
+  kills-to-Lv-8 against LEVELING's unmeasured ≈480-kills/hour assumption once playable.
 - Whether the Kiln Heart arena portal (`map_016`) should carry a soft level-suggestion gate (a
   sign/dialogue warning, not a hard block) for a player who rushes there under-leveled is undecided
   (§12); default per this doc is no gate, consistent with the no-invisible-walls stance, but flagged

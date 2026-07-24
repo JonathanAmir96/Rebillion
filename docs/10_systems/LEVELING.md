@@ -312,12 +312,12 @@ Voidshore maps and the two arc-2 raids until arc 3 authors Lv 80+ regions.
   the quadratic from emitting absurd near-cap values. The real Lv 100–300 pacing is future-arc design
   and must be re-tabled per arc against that arc's content, quests, and any rested-`exp` system,
   without touching the frozen Lv 1–100 curve. Owner: LEVELING.md, future arcs.
-- **Authored quest-content `exp` rewards are now stale against this curve (regen handoff).** The
-  `docs/50_content/quests/*.yaml` files store computed `exp` reward integers (= `pct · exp_to_next`,
-  §4 / `10_systems/QUESTS.md` §4). Because `exp_to_next` changed, those integers must be
-  mechanically regenerated in a **Phase-D content pass** against the new curve — do **not** hand-edit
-  them here. Monster `stats.exp` (per-kill `exp_per_kill_normal`, §3) is **unchanged** and not stale.
-  Owner: Phase-D content / producer.
+- **Resolved (2026-07-24 md audit): the quest-`exp` regen landed.** All 120
+  `docs/50_content/quests/*.yaml` `exp` integers were mechanically regenerated against this §1
+  curve by `tools/regen_quest_exp.py` (authored `pct`s preserved and round-trip-verified; inline
+  comments refreshed; two Phase-D authoring slips healed; 0 out-of-band pcts). Before/after table
+  and the FTUE budget verification: `docs/phase_reports/MD_AUDIT_REPORT_2026-07-24.md`. Monster
+  `stats.exp` (per-kill `exp_per_kill_normal`, §3) was never stale and is untouched.
 - **Resolved (2026-07-24 contradiction fix): the FTUE Lv 1→8 reconciliation.**
   `10_systems/ONBOARDING_FTUE.md` §2 now fixes the lever: the Emberfoot intro front-loads scripted
   first-clear/guided-quest `exp` — top-of-band quest `pct`s plus one-time grants budgeted from this
