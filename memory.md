@@ -5,6 +5,22 @@ Companion Memory Bank (distilled current state, coding-pass context):
 `memory/projectbrief.md` → `memory/systemPatterns.md` → `memory/techContext.md` →
 `memory/activeContext.md` → `memory/progress.md`.
 
+## 2026-07-24 — md-audit wave merged; the six audit calls ruled (owner-directed)
+
+Owner approved: the audit branch merged to `main` (merge `4bba402`, 217 files) and all six
+flag-don't-guess calls from `MD_AUDIT_REPORT_2026-07-24.md` §8 ruled the same day (branch
+`claude/md-audit-followups-2026-07-24`): **(C3)** the `icon` field is **derived-implicit** —
+never stored in content; asset id derives 1:1 from the entity `id` (item.schema rule 16 /
+skill.schema rule 10 / VALIDATION §6; validate.py's unknown-field gate now enforces it, no tool
+change needed). **(C15)** SPAWN §1 adopts map.schema's **absolute-count** spawn model
+(`{mob, count}`, `target_count` = sum) — the shape all minted maps use. **(C20)** MAPS_SYSTEM §1
+declares optional **`trigger_zones`** (named SPAWN-style rects) for quest `reach` steps;
+validator wiring + map backfill deferred to Phase E. **(C26)** Agent-3 operates **all three**
+amendment channels (AB-/UA-/ES-), coordinating with the engineering roles on substantive ES-
+entries. **(C29)** ECONOMY §7.1's 3+-segment coach tier stays as **explicit future headroom**
+(no current pair spans 3+; 2-segment row carries the real longest hop, Mossmere ↔ Tidewatch
+Port). Shield/overall (call 4) stays tracked debt for its integration wave. Gates clean.
+
 ## 2026-07-24 — repo-wide md audit, cleanup & consistency pass (owner-directed)
 
 Branch `claude/md-audit-2026-07-24` — **presented for owner review; nothing merged to `main`
