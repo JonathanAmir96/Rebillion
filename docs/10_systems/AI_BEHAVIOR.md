@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md,
 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/COMBAT_FORMULA.md, 10_systems/SPAWN.md, 10_systems/PARTY.md,
+10_systems/COMBAT_FORMULA.md, 10_systems/SPAWN.md, 10_systems/social/PARTY.md,
 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md, 40_assets/ART_BIBLE.yaml,
 15_maps_system/MAPS_SYSTEM.md, docs/VALIDATION.md, docs/ID_REGISTRY.md
 
@@ -248,8 +248,9 @@ falls under §2's telegraph requirement the same as `elite`, with no exceptions.
 `10_systems/STATUS_EFFECTS.md` §1 already defines `phase_shift`'s behavior (no new status
 applications; existing DoTs/CC suspended; invulnerable/untargetable by convention) — this doc only
 triggers entry into it, never redefines what happens inside it. Bosses are immune to hard CC
-(`10_systems/STATUS_EFFECTS.md` §3); Rift raid bosses are immune to all CC — neither is restated
-here.
+(`10_systems/STATUS_EFFECTS.md` §3); a boss/phase may additionally flag immunity to all CC via its
+`20_schemas/monster.schema.md` data — neither is restated here. There is no raid tier (Decision
+Contract C9).
 
 A boss monster file declares an ordered `phases[]` list (full field typing owned by
 `20_schemas/monster.schema.md`; this doc specifies the AI-relevant contents that schema must
@@ -298,6 +299,7 @@ above; set false only if a specific boss needs a softer transition — flag it i
   non-boss monster.
 - Exact tile-to-pixel size for `aggro_radius`/`aggro_vertical_band` units is owned by
   `40_assets/ART_BIBLE.yaml`; not fixed here.
-- `phase_shift_duration_s` and whether it should scale by boss tier (regional vs Rift raid) is a
-  first-pass default; owner `10_systems/COMBAT_FORMULA.md`/`10_systems/PARTY.md` may retune for
-  raids.
+- `phase_shift_duration_s` and whether it should scale for the party-quest finale bosses (fought
+  party-instanced) vs the open region bosses is a first-pass default; owner
+  `10_systems/COMBAT_FORMULA.md` may retune, confirming finale specifics with
+  `10_systems/social/PARTY_QUEST.md` (Agent C).

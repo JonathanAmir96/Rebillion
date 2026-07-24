@@ -190,7 +190,7 @@ sets a forced-target override for a duration).
 | `radius` | float tiles | no | for `aoe_circle` taunts (0 = single target) | Area taunt (e.g. `skill_bulwark_002`). |
 
 **Targets:** hostiles (AI monsters only). **Composition:** honored per `10_systems/AI_BEHAVIOR.md`;
-`boss`/`boss_scripted` and raid entities may flag **taunt-immune** in `20_schemas/monster.schema.md`
+`boss`/`boss_scripted` entities may flag **taunt-immune** in `20_schemas/monster.schema.md`
 (consistent with their CC immunity, `10_systems/STATUS_EFFECTS.md` §3). No PvP in scope, so `taunt`
 never targets players. **Scales:** none (duration is flat/`level_data`).
 
@@ -315,9 +315,9 @@ it only declares ops and parameters.
 - **`on_hit_proc` trigger set** (`on_deal`/`on_take`/`on_crit`/`on_kill`/`on_dodge`/`on_cast`) is
   the current vocabulary; if a passive design needs another hook (e.g. `on_status_applied`), add it
   here rather than inventing a new op. Flagged.
-- **`taunt` immunity flag** for `boss`/raid entities lives in `20_schemas/monster.schema.md`;
-  confirm the flag name when that schema is authored (default: bosses taunt-immune, matching CC
-  immunity).
+- **`taunt` immunity flag** for `boss`/`boss_scripted` entities lives in
+  `20_schemas/monster.schema.md`; confirm the flag name when that schema is authored (default:
+  bosses taunt-immune, matching CC immunity).
 - **`condition` enum** for `passive_stat_bonus`/`on_hit_proc` (`below_life_pct`, `while_veiled`,
   `vs_marked`, …) is open-ended; the concrete list should be frozen at the C gate so
   `docs/VALIDATION.md` can enum-check it. Until then, authors use only the examples named here.
