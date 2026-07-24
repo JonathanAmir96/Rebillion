@@ -29,6 +29,8 @@ spawn_zones:
     max_concurrent: 8
 npcs: []
 platform_brief: |
-  Stage 2: a collect-and-deposit room (RAID.md §4 pattern) around a stalled flywheel,
-  elites guarding the stage items. Party-instanced per SPAWN §7; no verticality gimmick.
+  Stage 2 of 3 -- COLLECT-AND-DEPOSIT (RAID.md §4): loose cogs gathered off the vault
+  floor and fed to the stalled flywheel, elites guarding them. "The beat" runs through
+  it -- the flywheel only accepts a cog on its up-stroke, so deposits are timed, not
+  spammed. Party-instanced per SPAWN §7; no verticality gimmick.
 flavor: "A vault of stalled flywheels where the muster gathers what the Custodian's guardians won't give up easily."

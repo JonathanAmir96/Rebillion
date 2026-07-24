@@ -40,17 +40,21 @@ Line** — see *Arc 2 — the far isles* below.
 | # | Region | Slug | Level | Biome key (ramp) | Maps | N | E | B |
 |---|--------|------|-------|------------------|------|---|---|---|
 | 1 | Emberfoot Isle | `emberfoot` | 1–8 | emberfoot (ember) | 16 | 10 | 1 | 1 |
-| 2 | Millbrook & Rosen Harbor (hub) | `millbrook` | 8–14 | old_town (earth) | 26 | 12 | 2 | 1 |
+| 2 | Millbrook & Rosen Harbor (hub) | `millbrook` | 8–14 | old_town (earth) | 27 | 12 | 2 | 1 |
 | 3 | Verdant Hollow | `verdant` | 8–16 | verdant_hollow (verdant) | 28 | 16 | 3 | 1 |
 | 4 | Tidewatch Coast | `tidewatch` | 14–22 | tidewatch (tide) | 27 | 16 | 3 | 1 |
 | 5 | Gloomwood | `gloomwood` | 20–28 | gloomwood (verdant dark) | 27 | 16 | 3 | 1 |
 | 6 | Ashfall Barrens | `ashfall` | 26–34 | ashfall (ember/ash) | 27 | 16 | 3 | 1 |
 | 7 | Sunken Depths | `sunken` | 30–38 | tidewatch_dark (tide) | 25 | 16 | 4 | 1 |
-| 8 | Clockwork Ruins (endgame) | `clockwork` | 34–40(+2) | clockwork (earth/stone) | 24 | 16 | 5 | 1 |
-| 9 | Frostpeak Isle | `frostpeak` | 40–55(+2) | frostpeak (tide) | 44 | 20 | 7 | 1 |
+| 8 | Clockwork Ruins (endgame) | `clockwork` | 34–40(+2) | clockwork (earth/stone) | 25 | 16 | 5 | 1 |
+| 9 | Frostpeak Isle | `frostpeak` | 40–55(+2) | frostpeak (tide) | 45 | 20 | 7 | 1 |
 | 10 | Arcane Reach | `arcane_reach` | 53–68(+2) | arcane_reach (arcane) | 40 | 20 | 7 | 1 |
-| 11 | Voidshore | `voidshore` | 66–80(+2) | voidshore (arcane, dark) | 40 | 20 | 7 | 1 |
-| — | **TOTAL** | | | | **324** | **178** | **45** | **11** |
+| 11 | Voidshore | `voidshore` | 66–80(+2) | voidshore (arcane, dark) | 41 | 20 | 7 | 1 |
+| — | **TOTAL** | | | | **328** | **178** | **45** | **11** |
+
+Each of the four raid regions carries one extra map over its contiguous block: the raid **bonus
+room** (`10_systems/social/RAID.md` §6.E), minted in `docs/ID_REGISTRY.md`'s `map_325`–`map_328`
+extension range because every region block is full. Region totals above include them.
 
 Rows 1–8 are Arc 1 (Lv 1–42); rows 9–11 are Arc 2 (Lv 40–82).
 
@@ -225,13 +229,17 @@ Four instanced co-op runs; each ends at an existing boss arena (no extra boss sl
 players may still fight every raid boss via the arena's open (non-raid) entry at reduced
 reward. Raid rules/rewards are owned by RAID.md (reference, never restated here).
 - **`raid_undervault` — Undervault Heist** (Lv 15–22, party 3–6): stages `map_038`–`map_040`
-  → finale arena `map_042` (The Cellar King).
+  → finale arena `map_042` (The Cellar King) → bonus room `map_325` (The Undervault Cache).
 - **`raid_mainspring` — Mainspring Trial** (Lv 32–40, party 3–6): stages `map_195`–`map_197`
-  → finale arena `map_200` (The Custodian).
+  → finale arena `map_200` (The Custodian) → bonus room `map_326` (The Mainspring Treasury).
 - **`raid_deepfrost` — the Deepfrost** (Lv 45–55, party 3–6): stages `map_240`–`map_242`
-  → finale arena `map_244` (Skoldir, the Rimewyrm; `mob_178`).
+  → finale arena `map_244` (Skoldir, the Rimewyrm; `mob_178`) → bonus room `map_327` (The Deepfrost Hoard).
 - **`raid_voidtide` — the Voidtide** (Lv 70–80, party 3–6): stages `map_320`–`map_322`
-  → finale arena `map_324` (Nyxaris, the Tidesunder; `mob_234`).
+  → finale arena `map_324` (Nyxaris, the Tidesunder; `mob_234`) → bonus room `map_328` (The Voidtide Trove).
+
+Every raid runs the same shape — three stages → finale arena → bonus room — on one 30-minute run
+clock, and only one party per channel may hold a given raid at a time (`10_systems/social/RAID.md`
+§3/§4.1/§6.E; `70_integrations/WORLD_CHANNELS.md` §2.1).
 
 A **Raid Quartermaster** NPC (the `raid_token` vendor, `10_systems/ITEMS.md` §13) stands in
 **Millbrook Central** (`map_018`, the social hub) as the world's shared raid-rewards counter;

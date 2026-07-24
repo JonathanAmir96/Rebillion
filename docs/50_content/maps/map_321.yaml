@@ -29,7 +29,8 @@ spawn_zones:
     max_concurrent: 4
 npcs: []
 platform_brief: |
-  The stage chain's second hall, sequential and one-way forward (RAID.md §4) --
-  no reverse portal is authored back to stage 1. An ordinary combat dungeon per
-  SPAWN §7, its exit locked until the hall's objective clears.
+  Stage 2 of 3 -- the KILL GATE (RAID.md §4): the gallery door holds until the void-spawn
+  are down, and "the tide" governs them -- each surge floods the low floor and brings the
+  next wave in with it, so the party fights the clock as much as the count. Party-
+  instanced per SPAWN §7.
 flavor: "Black light pools in the Eclipse Gallery like standing water, and something in it is watching back."

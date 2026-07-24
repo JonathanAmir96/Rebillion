@@ -28,7 +28,9 @@ spawn_zones:
     max_concurrent: 6
 npcs: []
 platform_brief: |
-  Stage 3: the puzzle room before the finale (RAID.md §4 reach/quest_object
-  pattern), a short gauntlet of elites guarding the throne door. Party-instanced;
-  no verticality gimmick.
+  Stage 3 of 3 -- the PUZZLE (RAID.md §4 reach/quest_object): four throne-door levers
+  set into the approach walls, thrown simultaneously by members standing apart, which
+  is why "the haul" ends here -- nobody can be carrying when the levers drop. The elite
+  pair is pressure on the lever-holders, not the gate itself: the stage clears on the
+  levers, never on a kill count. Party-instanced per SPAWN §7; no verticality gimmick.
 flavor: "The last stretch before the Cellar King's throne room, grain-dust thick in the air and the squeaking gone eerily quiet."

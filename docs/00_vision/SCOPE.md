@@ -10,7 +10,7 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 |---|---|---|
 | Islands | 5 | Emberfoot Isle (Lv 1–8) → ferry → Harthmoor Isle (Lv 8–40) → Deepway/longship → Frostpeak Isle (40–55), Arcane Reach (53–68), Voidshore (66–80) |
 | Regions | 11 | Level-banded Lv 1 → 82 (authored arcs 1–2); see WORLD_PLAN.md |
-| Maps | 324 | 12 towns, 30 interiors (incl. ferry + 3 longship decks), 153 fields, 95 dungeons (incl. 12 raid stage maps + 3 Deepway), 23 secrets, 11 boss arenas |
+| Maps | 328 | 12 towns, 30 interiors (incl. ferry + 3 longship decks), 153 fields, 95 dungeons (incl. 12 raid stage maps + 3 Deepway), 27 secrets (incl. 4 raid bonus rooms, `10_systems/social/RAID.md` §6.E), 11 boss arenas |
 | Monsters | 234 | 178 normal + 45 elite + 11 boss |
 | Raids | 4 | `raid_undervault` (15–22), `raid_mainspring` (32–40), `raid_deepfrost` (45–55), `raid_voidtide` (70–80); social/RAID.md |
 | Drop tables | 234 + 11 pools | One per monster, plus one equip pool per region |

@@ -143,6 +143,14 @@ Phase D content against DROPS.md's shapes): `normal` mobs carry scroll rows at t
 bucket (`10_systems/DROPS.md` §2); `elite` mobs at `uncommon`; bosses may carry `bold`/`perilous`
 rows. Exact rows and which SKU sits where are Phase D drop-table content.
 
+**Raid bonus rooms.** The four raid bonus rooms (`10_systems/social/RAID.md` §6.E, `map_325`–
+`map_328`) are a named scroll source: every `reactor` there rolls its raid's bonus table, which
+carries `steady` at `uncommon`, `bold` at `rare`, and `perilous` at `epic`. The `slot_family` (§3)
+stocked is banded to that raid's level band. This is a better *rate* than the field, never an
+exclusive — the same SKUs drop and vendor elsewhere (§4.1–§4.2), so a solo player is never locked
+out of a scroll tier (`00_vision/PILLARS.md` P2). The rates and the per-room node count are
+RAID.md §6.E's and are flagged there, not set here; the faucet they add is open in §4.4.
+
 ### 4.2 Vendor / shard shop
 Only `steady`-tier scrolls are vendor-purchasable — a pure recurring `shards` sink. `bold` and
 `perilous` scrolls are **drop-/quest-only** (chase items), never on a vendor shelf. Prices are

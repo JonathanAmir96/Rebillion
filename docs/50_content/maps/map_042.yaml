@@ -20,6 +20,12 @@ portals:
     target_map: map_037
     target_spawn: main
     dead_end: false      # ordinary open-entry pairing with map_037's to_cellar_deep door (MAPS_SYSTEM §8: arena's dedicated door entrance); raid stage chain also arrives here one-way via map_040 (RAID.md §7 solo fallback kept alongside the raid finale)
+  - id: to_undervault_cache
+    kind: door
+    at: { tile: [60, 18] }
+    target_map: map_325
+    target_spawn: main
+    dead_end: true       # The Undervault Cache, the raid bonus room (RAID.md §6.E). Authored like map_037's door to the stage chain: the world graph carries the edge, the RULES layer gates it -- this door opens only on a raid-entry finale kill and never for an open-arena (non-raid) kill (RAID.md §6.E/§7).
 npcs: []
 platform_brief: |
   A single flooded grain-store throne room, one screen wide, the region's final

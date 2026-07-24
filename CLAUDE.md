@@ -34,7 +34,7 @@ code, no generated art. Read `README.md` for the tree map and
   **Arc 2 (Lv 40–80):** the Deepway — a 3-map underground passage from Cindershelf,
   level-gated Lv 40 — surfaces on Frostpeak Isle (40–55); Arcane Reach (53–68) and
   Voidshore (66–80) complete the far isles, linked by the paid, scheduled **longship**
-  network from Tidewatch Port (2–3 min real-time sails). Totals: 324 maps, 234 monsters
+  network from Tidewatch Port (2–3 min real-time sails). Totals: 328 maps, 234 monsters
   (178/45/11), 11 bosses, 4 **raids** (`raid_undervault`/`raid_mainspring`/`raid_deepfrost`/
   `raid_voidtide` — the instanced co-op runs; owner doc `docs/10_systems/social/RAID.md`).
   Town travel is the paid Harthmoor Coachworks (shards) — no free warps. Each job line has a
@@ -53,6 +53,14 @@ code, no generated art. Read `README.md` for the tree map and
   166 h · Lv 100 ≈ 300 h of `/played`; curve `kills_per_level(L) = round(20 + 6.6·L + 0.2·L²)`.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
+- Raids are staged co-op runs (owner-directed 2026-07-24,
+  `docs/10_systems/social/RAID.md`): three stages → finale arena → **bonus room**, each raid
+  carrying a distinct *signature* mechanic (haul/beat/thaw/tide) and three different stage
+  patterns. One **30-min run clock** covers the whole run with the boss's 12-min enrage nested
+  inside it; the bonus room runs a separate 90-s clock over one-shot `reactor` nodes rolling a
+  chance table (gear-mod scrolls, consumables, an extra `raid_token`). **One party per raid per
+  channel** — a claim on `(channel, raid_token)`, MapleStory-style channel-hopping, but each
+  party still gets a private instance (`docs/70_integrations/WORLD_CHANNELS.md` §2.1).
 - Live-ops (owner addition 2026-07-24): the **Wayfarer's Charter** battle pass
   (`docs/10_systems/BATTLE_PASS.md`) — 30-day seasons (`season_NNN`), free + gilt reward
   lanes, gilt bought with **shards** (6,000, ECONOMY §4.4; real money never touches the
@@ -85,7 +93,8 @@ code, no generated art. Read `README.md` for the tree map and
 - Generation is phased A→E with hard gates (vision → systems → schemas/assets → content →
   coding-pass briefs); each phase emits a report in `docs/phase_reports/`.
 - **Phase status (2026-07-24):** A (vision), B (systems), C (schemas/assets gate), D (content —
-  all 324 maps / 234 monsters / drops / NPCs / quests / skills / items), plus the post-plan
+  all 324 maps / 234 monsters / drops / NPCs / quests / skills / items; the 4 raid bonus rooms
+  `map_325`–`map_328` were added later by the raid-stage wave), plus the post-plan
   waves **F** (integrations), **G** (equipment), **H** (consistency), and **I** (backend design)
   are complete — see their phase reports and `docs/phase_reports/SYNC_AUDIT_v3_2026-07-23.md`.
   The **pacing curve was
@@ -110,7 +119,7 @@ sub-agents, exemplar-first, validator-gated.
 following links — README's "Start here" section is the tree's index (there is no `docs/` index
 file; README is the root). Run `python3 tools/md_graph.py` to rebuild the link graph and
 BFS-check it (report: `docs/phase_reports/MD_CONNECTIVITY_REPORT.md`); the tree is currently
-one connected component, 117/117 README-reachable. After any wave that adds docs — especially a
+one connected component, 119/119 README-reachable (re-verified 2026-07-24, raid-stage wave). After any wave that adds docs — especially a
 parallel-session merge — re-run it and link any new "unreferenced" file from its natural index
 (that is exactly how the F/G/H reports and the role files first slipped in undiscoverable).
 

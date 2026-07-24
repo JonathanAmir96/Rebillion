@@ -185,6 +185,12 @@ The earlier free-warp "waygate" mechanism is retired — that token is invalid i
   `bold` · `perilous`), `slot_family` (`weapon_family` · `armor_family` ·
   `accessory_family`); owner 10_systems/SCROLLS.md. Promote when Phase D scroll content
   lands.
+- Raid-stage family (owner: 10_systems/social/RAID.md; added 2026-07-24, promote at the next
+  gate): `raid_run_timer` (the 30-min whole-run clock, RAID §4.1) · `raid_bonus_timer` (the
+  90-s bonus-room clock, §6.E) · `raid_channel_claim` (the one-party-per-channel entry claim,
+  §3 / 70_integrations/WORLD_CHANNELS.md §2.1) · `raid_signature` (a raid's single
+  identity mechanic — `haul` · `beat` · `thaw` · `tide`, §4). Prose-only at this revision;
+  promote before any of them appears in a content file's field.
 - Charter family (owner: 10_systems/BATTLE_PASS.md; added 2026-07-24, promote at the next
   gate): `charter` (the 30-day seasonal reward ledger — in-world the Wayfarer's Charter) ·
   `charter_free` / `charter_gilt` (track enum: free lane / `shards`-purchased gilt lane) ·

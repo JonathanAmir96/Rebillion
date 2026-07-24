@@ -1,0 +1,72 @@
+id: map_328
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, RAID, DROPS]
+name: The Voidtide Trove
+region: voidshore
+map_type: secret
+level_band: { min: 80, max: 80 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 44, h: 22 }
+bgm: bgm_voidshore
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [6, 16] }
+portals:
+  - id: to_voidtide_staging
+    kind: door
+    at: { tile: [40, 16] }
+    target_map: map_318
+    target_spawn: main
+    dead_end: true       # one-way out to the herald's staging map (RAID.md §6.E: the party is returned there on bonus-clock expiry or on leaving). The INBOUND edge is authored on the finale arena's side, opened only by a raid-entry kill.
+interactables:
+  - type: reactor
+    id: reactor_tide_cist_a
+    at_tile: [10, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_voidtide
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_tide_cist_b
+    at_tile: [16, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_voidtide
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_tide_cist_c
+    at_tile: [22, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_voidtide
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_drowned_hold_a
+    at_tile: [28, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_voidtide
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_drowned_hold_b
+    at_tile: [34, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_voidtide
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_pearl_reliquary
+    at_tile: [22, 10]
+    params:
+      drop_table_ref: drop_raid_bonus_voidtide
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+npcs: []
+platform_brief: |
+  The Voidtide's bonus room (RAID.md §6.E): the Tidesunder's trove below the Maw,
+  opened by the portal that appears in map_324 on a raid-entry kill. One screen, flat,
+  no traversal gimmick -- the 90 s bonus clock is the only pressure, the tide does not
+  run here, and no monsters spawn. Every node is one-shot (respawn_timer_s past clock).
+flavor: "Whatever the tide took, it brought here -- and for ninety seconds it lets go."

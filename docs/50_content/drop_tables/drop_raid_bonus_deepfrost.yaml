@@ -1,0 +1,23 @@
+id: drop_raid_bonus_deepfrost
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, RAID, SCROLLS]
+# Bonus-room reactor table for raid_deepfrost (10_systems/social/RAID.md §6.E) -- the third drop-table
+# shape alongside drop_mob_NNN and pools.yaml (20_schemas/drop_table.schema.md). Its `owner` is a
+# raid token, not a mob: every reactor in map_327 rolls this table independently on harvest.
+owner: raid_deepfrost
+rows:
+  # shards, guaranteed -- the floor that makes every node worth hitting (RAID.md §6.E).
+  # DROPS §3: mean_shards_normal(55) = round(1.5*55 + 3) = 86; range = [round(0.8*mean), round(1.2*mean)].
+  # normal-tier value used as a per-NODE figure (a reactor is not a monster and has no tier);
+  # first-pass, flagged in RAID.md Open Questions alongside the unauthored node count.
+  - { ref: shards, chance: guaranteed, qty_min: 69, qty_max: 103 }
+  # --- ROWS PENDING THEIR ITEM SKUs -------------------------------------------------------
+  # The remaining RAID.md §6.E rows cannot be authored yet: their SKUs are registered in
+  # docs/ID_REGISTRY.md but UNAUTHORED as content, and an unresolved ref is a VALIDATION §2
+  # failure. They land in the same batch as the items themselves, per this schema's batch-order
+  # rule. Shape is fixed by RAID.md §6.E and is NOT restated as design here:
+  #   - { ref: <item_use_0061-0078, steady scroll>,   chance: uncommon, qty_min: 1, qty_max: 1 }
+  #   - { ref: <item_use_0021-0060, raid consumable>, chance: uncommon, qty_min: 1, qty_max: 1 }
+  #   - { ref: <item_use_0061-0078, bold scroll>,     chance: rare,     qty_min: 1, qty_max: 1 }
+  #   - { ref: item_etc_0179,                       chance: rare,     qty_min: 1, qty_max: 1 }  # Deepfrost Shard
+  #   - { ref: <item_use_0061-0078, perilous scroll>, chance: epic,     qty_min: 1, qty_max: 1 }

@@ -1,0 +1,72 @@
+id: map_325
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, RAID, DROPS]
+name: The Undervault Cache
+region: millbrook
+map_type: secret
+level_band: { min: 14, max: 14 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 44, h: 22 }
+bgm: bgm_old_town
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [6, 16] }
+portals:
+  - id: to_undervault_staging
+    kind: door
+    at: { tile: [40, 16] }
+    target_map: map_037
+    target_spawn: main
+    dead_end: true       # one-way out to the herald's staging map (RAID.md §6.E: the party is returned there on bonus-clock expiry or on leaving). The INBOUND edge is authored on the finale arena's side, opened only by a raid-entry kill.
+interactables:
+  - type: reactor
+    id: reactor_strongbox_a
+    at_tile: [10, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_undervault
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_strongbox_b
+    at_tile: [16, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_undervault
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_strongbox_c
+    at_tile: [22, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_undervault
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_grain_sack_a
+    at_tile: [28, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_undervault
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_grain_sack_b
+    at_tile: [34, 16]
+    params:
+      drop_table_ref: drop_raid_bonus_undervault
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+  - type: reactor
+    id: reactor_ledger_chest
+    at_tile: [22, 10]
+    params:
+      drop_table_ref: drop_raid_bonus_undervault
+      respawn_timer_s: 120        # > the 90 s bonus clock (RAID.md §6.E): every node is one-shot
+      harvest_prompt: Prise open
+npcs: []
+platform_brief: |
+  The Undervault Heist's bonus room (RAID.md §6.E): the Cellar King's own hoard,
+  reached only by the portal that opens in map_042 on a raid-entry kill. One screen,
+  flat, deliberately trivial to traverse -- the 90 s bonus clock is the only pressure
+  and no monsters spawn here. Every node is one-shot (respawn_timer_s past the clock).
+flavor: "What the Cellar King actually hoarded, stacked in the dark behind his throne -- and ninety seconds to carry it out."

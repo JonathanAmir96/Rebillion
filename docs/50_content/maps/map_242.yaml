@@ -29,7 +29,8 @@ spawn_zones:
     max_concurrent: 8
 npcs: []
 platform_brief: |
-  Stage 3: the puzzle room before the finale (RAID.md §4 reach/quest_object pattern), a
-  short gauntlet of elites guarding the antechamber door. Party-instanced; no verticality
-  gimmick.
+  Stage 3 of 3 -- the KILL GATE (RAID.md §4): rime-thralls hold the antechamber door
+  until the pack is down. "The thaw" persists as terrain -- the ice underfoot is still
+  slick where no brazier reaches. No puzzle on this stage. Party-instanced per SPAWN §7;
+  no verticality gimmick.
 flavor: "The last chamber before Skoldir's crevasse, ice-slick and lit by whatever cold light the Rimewyrm gives off in its sleep."

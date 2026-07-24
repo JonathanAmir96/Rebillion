@@ -29,6 +29,8 @@ spawn_zones:
     max_concurrent: 8
 npcs: []
 platform_brief: |
-  Stage 1 of the Deepfrost muster: a kill-gate room (RAID.md §4 pattern) barring the sundered
-  gate until the trash count clears. Party-instanced per SPAWN §7; no verticality gimmick.
+  Deepfrost stage 1 of 3 -- COLLECT-AND-DEPOSIT (RAID.md §4), which opens the signature
+  "the thaw": embers carried from the outer fires to the gate braziers, melting the ice
+  seal a stage at a time. An ember burns down while carried, so the route matters more
+  than the count. Brazier count and melt duration are Phase D. Party-instanced, SPAWN §7.
 flavor: "The Deepfrost's outer gate, sundered by Skoldir's own coils long before any muster reached it."

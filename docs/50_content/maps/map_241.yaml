@@ -29,6 +29,8 @@ spawn_zones:
     max_concurrent: 8
 npcs: []
 platform_brief: |
-  Stage 2: a collect-and-deposit room (RAID.md §4 pattern) around a frozen cistern, elites
-  guarding the stage items. Party-instanced per SPAWN §7; no verticality gimmick.
+  Stage 2 of 3 -- the PUZZLE (RAID.md §4 reach/quest_object): the cistern is crossed on
+  platforms that thaw when a brazier is lit and refreeze when it burns out, so the party
+  must stage its heat to keep a path open long enough for everyone across. "The thaw" at
+  its most literal. Party-instanced per SPAWN §7.
 flavor: "A cistern of black ice where the muster gathers what the Rimewyrm's guardians won't give up easily."

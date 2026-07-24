@@ -117,6 +117,13 @@ MAP_BLOCKS = [
     ("sunken", 152, 176), ("clockwork", 177, 200), ("frostpeak", 201, 244),
     ("arcane_reach", 245, 284), ("voidshore", 285, 324),
 ]
+# Raid bonus rooms (10_systems/social/RAID.md §6.E) — one per raid, each belonging to its
+# raid's region but placed in an appended extension range, because every region block above
+# is contiguous and full (CLAUDE.md Law 3: extend ranges, never renumber).
+MAP_EXT_BLOCKS = [
+    ("millbrook", 325, 325), ("clockwork", 326, 326),
+    ("frostpeak", 327, 327), ("voidshore", 328, 328),
+]
 # Mob region blocks: (slug, normal_lo, normal_hi, elite_lo, elite_hi, boss)
 MOB_BLOCKS = [
     ("emberfoot", 1, 10, 11, 11, 12), ("millbrook", 13, 24, 25, 26, 27),
@@ -128,7 +135,7 @@ MOB_BLOCKS = [
 ]
 # Category overall numeric ranges (prefix -> (lo, hi, digit_width))
 ID_RANGES = {
-    "map": (1, 324, 3), "mob": (1, 234, 3), "drop_mob": (1, 234, 3),
+    "map": (1, 328, 3), "mob": (1, 234, 3), "drop_mob": (1, 234, 3),
     "npc": (1, 120, 3), "quest": (1, 120, 3),
     "item_equip": (1, 300, 4), "item_use": (1, 60, 4), "item_etc": (1, 200, 4),
     "skill": (1, 60, 3),  # per line; novice caps at 10 but 1-60 is the block
@@ -616,10 +623,11 @@ def validate_map(rep, path, ln, data):
         enum_check(rep, path, ln, "region", data["region"], "region")
         n = parse_id_num(data.get("id"))
         if n is not None:
-            block = next((b for b in MAP_BLOCKS if b[0] == data["region"]), None)
-            if block and not (block[1] <= n <= block[2]):
-                rep.fail(4, path, ln, "map_%03d not in region %s block [%d,%d]"
-                         % (n, data["region"], block[1], block[2]))
+            blocks = [b for b in MAP_BLOCKS + MAP_EXT_BLOCKS if b[0] == data["region"]]
+            if blocks and not any(lo <= n <= hi for _, lo, hi in blocks):
+                rep.fail(4, path, ln, "map_%03d not in region %s block(s) %s"
+                         % (n, data["region"],
+                            ", ".join("[%d,%d]" % (lo, hi) for _, lo, hi in blocks)))
     if data.get("map_type") is not None:
         enum_check(rep, path, ln, "map_type", data["map_type"], "map_type")
     if data.get("layers_preset") is not None:

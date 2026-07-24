@@ -55,7 +55,8 @@ Size guidance is authoring guidance for Phase D, not a `docs/VALIDATION.md` hard
 | `secret` | Bonus/reward pocket off the main path | ≤2 screens any dimension (~≤80 tiles) | ≤2 screens (~≤45 tiles) | Optional, sparse — `10_systems/SPAWN.md` §2 |
 
 Counts per type are fixed by `docs/WORLD_PLAN.md`/`00_vision/SCOPE.md` (153 field · 95 dungeon ·
-12 town · 30 interior · 11 arena · 23 secret = 324); this doc governs shape, not allocation.
+12 town · 30 interior · 11 arena · 27 secret = 328, the 4 added secrets being the raid bonus
+rooms `map_325`-`map_328`, `10_systems/social/RAID.md` §6.E); this doc governs shape, not allocation.
 
 ## 3. Naming conventions (`display_name`)
 

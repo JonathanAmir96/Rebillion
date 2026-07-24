@@ -33,12 +33,16 @@ registry does not exist.
 Placement (which maps, which region, which boss slot) is owned by `docs/WORLD_PLAN.md`; this
 table lists the roster by reference and fixes the **rule-side** columns (band, party size):
 
-| Token | Name | Level band | Party | Stage chain | Finale arena | Finale boss |
-|---|---|---|---|---|---|---|
-| `raid_undervault` | Undervault Heist | 15–22 | 3–6 | `map_038`–`map_040` | `map_042` | `mob_027` |
-| `raid_mainspring` | Mainspring Trial | 32–40 | 3–6 | `map_195`–`map_197` | `map_200` | `mob_150` |
-| `raid_deepfrost` | Deepfrost | 45–55 | 3–6 | `map_240`–`map_242` | `map_244` (Frostpeak Isle) | `mob_178` |
-| `raid_voidtide` | Voidtide | 70–80 | 3–6 | `map_320`–`map_322` | `map_324` (Voidshore) | `mob_234` |
+| Token | Name | Level band | Party | Stage chain | Finale arena | Finale boss | Bonus room (§6.E) |
+|---|---|---|---|---|---|---|---|
+| `raid_undervault` | Undervault Heist | 15–22 | 3–6 | `map_038`–`map_040` | `map_042` | `mob_027` | `map_325` |
+| `raid_mainspring` | Mainspring Trial | 32–40 | 3–6 | `map_195`–`map_197` | `map_200` | `mob_150` | `map_326` |
+| `raid_deepfrost` | Deepfrost | 45–55 | 3–6 | `map_240`–`map_242` | `map_244` (Frostpeak Isle) | `mob_178` | `map_327` |
+| `raid_voidtide` | Voidtide | 70–80 | 3–6 | `map_320`–`map_322` | `map_324` (Voidshore) | `mob_234` | `map_328` |
+
+Every raid runs the same shape: **three stages → finale arena → bonus room**, on one 30-minute run
+clock (§4.1) with a separate 90-second bonus clock (§6.E). The per-raid *signature* that keeps the
+three stages from feeling interchangeable is §4's.
 
 The two arc-1 raids end at **existing region bosses** (no extra boss slots — their finale arenas
 double as the regions' open boss arenas, `docs/WORLD_PLAN.md` R2/R8). The two arc-2 raids and
@@ -67,6 +71,26 @@ identities are `docs/WORLD_PLAN.md`'s (cite the mob IDs above, nothing more).
 - **Party size 3–6.** Entry requires a party (mechanics, roster, and leadership entirely
   `10_systems/social/PARTY.md`'s) of 3–6 members, all on the herald's map. The **leader**
   initiates entry through the herald; the whole party is moved into the fresh instance together.
+- **Channel claim — one party per raid, per channel.** A raid is **claimed** on the channel its
+  party entered from (`70_integrations/WORLD_CHANNELS.md` §2 owns the claim's server-side shape).
+  While `raid_undervault` is claimed on channel 3, no second party on channel 3 may enter it —
+  they must switch channels to find a free one, or wait. The claim is **per raid token, not per
+  raid map**: a claim on `raid_undervault` never blocks `raid_mainspring` on the same channel.
+  - **The instance is still private.** This is a *gate on entry*, not a shared map — the party
+    that claims the raid still receives its own instance (§4), so the claim never exposes a run to
+    another party's spawns, loot, or wipes. It is scarcity at the door, not a contested dungeon.
+  - **Claim lifetime:** taken at instance creation, released the moment the instance dissolves —
+    on clear, on any §5 wipe cause, or on the instance emptying. A disconnected party releases its
+    claim on the same 60 s disconnect grace that governs the instance
+    (`70_integrations/WORLD_CHANNELS.md` §2), so a dropped group cannot strand a channel.
+  - **The herald reports it.** Standing at a herald on a channel where the raid is claimed gives a
+    refusal line naming the state ("the vault is already spoken for"), not a silent failure — the
+    player is told to change channels, which is the intended loop.
+  - **Why a claim and not a queue:** channel-hopping to find a free raid is the intended social
+    texture (the MapleStory-inspired feel this system is named for), and it stays legible — a
+    player can see and act on it. A queue would hide the same scarcity behind a wait with no
+    player agency. Whether scarcity is wanted *at all* once the game is live is flagged in Open
+    Questions; it is a lever, not a law.
 - No entry fee at this revision (a `shards` fee is an economy lever, not assumed — see Open
   Questions).
 
@@ -93,18 +117,70 @@ opens the finale arena, where the raid boss waits.
 | Puzzle | `reach` + `quest_object` | Members trigger zones or operate interactables in the right order or simultaneously — the co-op platforming stage |
 
 There is no escort verb in `10_systems/QUESTS.md` and therefore **no escort stages** — the verb
-set is fixed; a raid may not invent one. Per-raid stage scripts (which pattern on which stage,
-counts, spawn sets) are Phase D content authored against these three patterns.
+set is fixed; a raid may not invent one.
+
+**No-repeat law.** A raid's three stages must use **three different patterns** — one kill gate, one
+collect-and-deposit, one puzzle, in whatever order that raid's signature calls for. A raid that
+runs the same pattern twice is invalid content (`docs/VALIDATION.md` §2). This is what keeps a run
+from reading as three rooms of the same fight.
+
+**Signature mechanic (one per raid).** Beyond the pattern, each raid carries a **signature** — a
+single environmental rule that colors all three of its stages and gives the raid its identity. A
+signature is built from the same fixed verb set and `quest_object`/`reactor` interactables; it
+invents no new verb and no new interactable type. The four signatures and the stage line-ups they
+produce:
+
+| Raid | Signature | Stage 1 | Stage 2 | Stage 3 |
+|---|---|---|---|---|
+| `raid_undervault` | **The haul** — carried stage items slow their carrier and draw the vault's wardens; the party must cover whoever is loaded | `map_038` the Sunken Larders — *kill gate* | `map_039` the Flooded Ledger Vaults — *collect-and-deposit* | `map_040` the Grain King's Approach — *puzzle* (simultaneous levers) |
+| `raid_mainspring` | **The beat** — hazards fire on a fixed clockwork cycle, identical every run; the stage is learned, not out-statted | `map_195` the Sundered Cogworks — *puzzle* (plates in beat order) | `map_196` the Flywheel Vault — *collect-and-deposit* | `map_197` the Escapement Antechamber — *kill gate* |
+| `raid_deepfrost` | **The thaw** — ice gates and frozen footing yield only to heat carried brazier to brazier | `map_240` the Sundered Gate — *collect-and-deposit* (embers to braziers) | `map_241` the Frozen Cistern — *puzzle* (melting/refreezing platforms) | `map_242` the Rimewyrm's Antechamber — *kill gate* |
+| `raid_voidtide` | **The tide** — the water level cycles on a timer; footing, reachable ledges, and what spawns all change with it | `map_320` the Sunken Approach — *puzzle* (cross at low tide) | `map_321` the Eclipse Gallery — *kill gate* (spawns per surge) | `map_322` the Last Approach — *collect-and-deposit* (gathered between surges) |
+
+Map placement is `docs/WORLD_PLAN.md`'s and the map IDs above are cited from it, never minted here.
+Concrete per-stage numbers (required counts, spawn sets, lever counts, cycle periods) are Phase D
+content authored against the pattern + signature this table fixes.
+
+### 4.1 The run clock
+
+A raid run is **timed end to end** — one clock for the whole run, not one per stage:
+
+```
+raid_run_timer = 30 min          # all four raids, first pass
+```
+
+- **Starts** the moment the party is placed in stage 1, and runs continuously across every stage
+  and the finale arena. It does **not** pause between stages, on death, or during the boss fight.
+- **Expiry is a wipe**, on §5's terms exactly — the attempt ends, the instance dissolves, stage
+  progress does not persist, and there is **no** penalty beyond `10_systems/DEATH_PENALTY.md`'s
+  ordinary death costs. Retry immediately from the herald.
+- **Stops** on the finale-boss kill. The bonus stage (§6.E) runs on its own separate clock and is
+  never charged against this one.
+- **The boss enrage timer nests inside it.** `10_systems/COMBAT_FORMULA.md` §13.3's 12-minute
+  enrage is unchanged and starts when the finale arena is entered; whichever of the two clocks
+  expires first ends the attempt. Because the run clock never pauses, a party that spends 25
+  minutes on the stage chain meets the boss with 5 minutes of run clock, not 12 — the stage chain
+  and the boss draw on one budget. That coupling is the point: it makes stage play matter *to* the
+  boss fight instead of being a toll paid before it.
+- **One clock rather than per-stage clocks** is deliberate: a party may bank time on a stage it
+  knows and spend it on one it does not, which is the pacing decision worth having. The budget
+  stays legible and identical for every party — no hidden rescaling (`00_vision/PILLARS.md` P1).
+- The clock is **server-authoritative** (§8) and drawn by `10_systems/HUD.md` §6.2, with warning
+  states at 5:00 and 1:00 remaining.
+
+The 30-minute value is a first pass sized against the ≈25-minute modeled clear (Open Questions) —
+about 20% headroom for a party still learning the stages. Flagged for telemetry, not settled.
 
 ## 5. Failure, wipe, re-entry & lockout
 
 - **Within an attempt:** individual death, Release, and walk-back re-entry follow
   `10_systems/DEATH_PENALTY.md` §5.3 exactly; the party-side bookkeeping (fallen roster state,
   eligibility while fallen) is `10_systems/social/PARTY.md` §6's. Both are consumed unchanged.
-- **Full wipe** (every member fallen, every member Released/left the instance, or the finale
-  boss's enrage timer expiring — `10_systems/COMBAT_FORMULA.md` §13.3 owns the timer and its
-  12-minute value): the attempt ends and the instance dissolves. Stage progress does not persist
-  across attempts — a new entry starts at stage 1.
+- **Full wipe** — any one of four causes: every member fallen; every member Released/left the
+  instance; the **run clock** expiring (§4.1, 30 min); or the finale boss's **enrage timer**
+  expiring (`10_systems/COMBAT_FORMULA.md` §13.3 owns that timer and its 12-minute value). In every
+  case the attempt ends and the instance dissolves. Stage progress does not persist across
+  attempts — a new entry starts at stage 1, on a fresh run clock.
 - **Failure is free:** no lockout, no cooldown, no penalty beyond
   `10_systems/DEATH_PENALTY.md`'s ordinary death costs. Retry immediately from the herald.
 - **Clear cooldown (default):** after a successful finale-boss kill, each participating
@@ -181,6 +257,49 @@ token). There is **no weekly lockout and no clear cap** — this daily beat is t
 together" rhythm, a carrot that rewards showing up each day, not a tax that punishes running more.
 The first-of-the-day state (per character, per raid) is server-tracked (§8).
 
+**E. The bonus stage (the chance payoff).** On a **raid-entry** finale-boss kill, a portal opens in
+the finale arena onto that raid's **bonus room** — a separate instanced map, one per raid
+(`map_325` Undervault Cache · `map_326` Mainspring Treasury · `map_327` Deepfrost Hoard ·
+`map_328` Voidtide Trove, `docs/ID_REGISTRY.md`). This is the run's chance-based payoff, distinct
+from every guaranteed grant above.
+
+- **Raid entry only.** An open-arena solo kill of the same boss (§7) opens no portal and has no
+  bonus room. Same entry-context distinction the rest of §6 runs on — no other reward math forks.
+- **Its own clock:** `bonus_timer = 90 s`, starting when the first member enters. It is **separate
+  from the run clock** (§4.1), which has already stopped on the boss kill — a slow stage chain
+  never shortens the payoff. On expiry every member is returned to the herald's staging map and
+  the instance dissolves.
+- **One-way, no re-entry.** The portal closes behind the party; a member who leaves early does not
+  get back in. There is no failure state — the bonus room is pure upside, and leaving with nothing
+  is only possible by ignoring it.
+- **Contents:** the room is filled with `reactor` interactables
+  (`15_maps_system/MAP_INTERACTABLES.md` §4 — the existing type, no new mechanic), each carrying
+  the raid's bonus `drop_table_ref`. `respawn_timer_s` is set beyond the 90 s clock so every node
+  is **one-shot**: the room holds a fixed pool of rolls, and racing it is a co-op scramble, not a
+  DPS check. No monsters spawn in a bonus room.
+- **The chance table.** Every reactor rolls the raid's bonus table, built only from
+  `10_systems/DROPS.md` §2's existing named buckets — this doc fixes the row shape, `10_systems/DROPS.md`
+  owns the bucket values and Phase D owns the concrete per-raid SKUs:
+
+| Row | Bucket | Notes |
+|---|---|---|
+| `shards` | `guaranteed` (1.00) | small per node; the floor that makes every node worth hitting |
+| Gear-modification scroll, `steady` tier | `uncommon` (0.15) | `10_systems/SCROLLS.md` (`item_use_0061`–`0078`), `slot_family` banded to the raid |
+| Raid-exclusive consumable | `uncommon` (0.15) | the `item_use_0021`–`0060` block already reserved below |
+| Gear-modification scroll, `bold` tier | `rare` (0.04) | a chase tier — never vendor-sold (`10_systems/SCROLLS.md` §4.2) |
+| One extra `raid_token` | `rare` (0.04) | a small bump on top of §6.B's guaranteed grant |
+| Gear-modification scroll, `perilous` tier | `epic` (0.008) | the top chase tier |
+
+This makes the raid bonus room a **named acquisition source for gear-modification scrolls**
+(`10_systems/SCROLLS.md` §4.1 carries the reciprocal line). It is a *chance* stream by design:
+§6.A–D already guarantee a clear's worth in `exp` and tokens, so the bonus room adds variance and a
+reason to run one more time without ever being the thing a player must farm. Nothing here is
+power-exclusive — the scrolls are the same SKUs the field and vendors supply
+(`10_systems/SCROLLS.md` §4.1–§4.2), so the bonus room is a better *rate*, not a locked door (P2).
+
+Who receives each reactor's `loot_drop` is `10_systems/social/PARTY.md` §5's loot-share rule over
+`10_systems/DROPS.md` §7's tag-eligibility — consumed unchanged, exactly as field loot is.
+
 Supporting reward rules (unchanged in shape):
 
 - **Boss uniques.** The finale boss's uniques come from **the boss's normal drop table**
@@ -216,13 +335,26 @@ Raid instancing is `authority: server` end to end (`10_systems/PERSISTENCE.md` �
 `00_vision/PILLARS.md` P6): instance allocation, stage-objective state, the fixed `N`, loot/`exp`
 arbitration, the guaranteed `raid_token` grants (§6.B/§6.D), the per-character/per-raid
 first-clear-of-the-day flags (§6.D), and the §5 clear-cooldown timers are all server truth a client
-may not self-certify.
+may not self-certify. The timers and rolls added by this revision are the same:
+- **The run clock** (§4.1) and the **bonus clock** (§6.E) are server-held countdowns. The client
+  renders them (`10_systems/HUD.md` §6.2) from server ticks and may not author expiry — a client
+  claiming "still 3 minutes left" past the server's expiry is refused, like any other
+  `authority: server` field.
+- **Bonus-room reactor rolls** (§6.E) are rolled server-side against the raid's `drop_table_ref`,
+  the same path every other drop takes (`10_systems/DROPS.md` §1); the client never rolls loot.
+- **Bonus-room eligibility** — whether the portal opens at all — is the server's entry-context
+  record of the kill (raid entry vs. open arena, §7), not a client assertion.
 **In the interim solo build, raids ship present but dormant** — the party system is dormant
 (`10_systems/social/PARTY.md` §Server Dependency), so no party ever forms and no herald entry
 succeeds; heralds stand in the world with a "gather a party" refusal line. The solo player's path
 to all four bosses is §7's open arena entry, which works fully offline. The `GameState` facade
 (`10_systems/PERSISTENCE.md` §5) still carries the raid-side fields (first-ever-clear flags,
 first-clear-of-the-day flags, cooldown timers) so the live server swap changes no calling code.
+The stage chain, the run clock, and the bonus rooms (`map_325`–`map_328`) are dormant with the rest
+of the raid — the four bonus-room maps ship authored and unreachable, since the only door into one
+is a raid-entry boss kill (§6.E) and no raid entry can succeed. They need no `GameState` field:
+both clocks and the bonus roll are per-instance transient state that exists only inside a live run,
+never across a save.
 
 ## Open Questions
 
@@ -286,3 +418,43 @@ first-clear-of-the-day flags, cooldown timers) so the live server swap changes n
 - **"Raid herald" term.** Coined here as the entry-NPC role name; needs a Provisional entry in
   `00_vision/GLOSSARY.md` if it is to appear in content files (NPC `role` fields) rather than
   prose only. Owner: GLOSSARY gatekeeper at the next phase gate.
+- **Run-clock value (§4.1).** `raid_run_timer = 30 min` is a first pass, derived from the
+  ≈25-minute modeled clear plus ~20% learning headroom — it is **not** measured. The number is
+  wrong in a specific direction if the model is wrong: the four raids span Lv 15–22 to Lv 70–80 and
+  currently share one flat value, so a single clock may be generous for `raid_undervault` (three
+  short low-level stages) and tight for `raid_voidtide` (tide cycles gate movement, so the stage
+  chain has a hard floor no amount of DPS removes). Alternatives if telemetry says so: per-raid
+  values, or a clock derived from stage count × a per-pattern budget. Deliberately **not** split
+  per-raid at this revision — one number is easier to falsify than four. Owner: this doc with
+  `10_systems/LEVELING.md` at the balance pass.
+- **Signature mechanics need a per-stage authoring pass (§4).** The four signatures (haul / beat /
+  thaw / tide) fix each raid's identity and the pattern each stage runs, but the numbers that make
+  them playable are unauthored: the haul's carry penalty magnitude, the beat's cycle period, the
+  thaw's brazier count and melt duration, the tide's surge period and its interaction with
+  `15_maps_system/MAP_TRAVERSAL.md` footholds. Each is Phase D content; none can be validated by
+  `docs/VALIDATION.md` until authored. Flagged rather than guessed per CLAUDE.md Law 4. Owner:
+  Phase D content pass against this doc's §4 table.
+- **Do the tide/beat signatures need a new interactable param?** §4 asserts every signature is
+  buildable from the existing `quest_object` / `reactor` types with no new param, and the haul and
+  thaw clearly are. The **beat** (a hazard firing on a fixed cycle) and the **tide** (a map-wide
+  water level on a cycle) both imply a *periodic, map-owned* state that
+  `15_maps_system/MAP_INTERACTABLES.md` does not currently model — its `respawn_timer_s` is
+  per-node, not a shared map clock. Either those two signatures are expressed as many
+  independently-timed nodes (works, but drifts out of phase and loses the "learnable" property
+  that is the whole point of the beat), or MAP_INTERACTABLES gains one shared-cycle param. Not
+  resolved here because the owning doc is not this one. Owner:
+  `15_maps_system/MAP_INTERACTABLES.md`, raised by this doc.
+- **Bonus-room table values (§6.E).** The row shape is fixed here; the bucket assignments
+  (`uncommon` for `steady` scrolls, `rare` for `bold`, `epic` for `perilous`) are a first pass
+  chosen to mirror `10_systems/SCROLLS.md` §4.1's field-drop ordering, and the **node count per
+  bonus room is unauthored** — which matters more than the per-node rates, since expected yield is
+  `nodes × rate` and only the product is balanceable. Until node counts land, the scroll faucet
+  this adds cannot be checked against `10_systems/SCROLLS.md` §4.4's sink-dominant requirement or
+  `10_systems/ECONOMY.md` §6's inflation guard. Owner: `10_systems/SCROLLS.md` and
+  `10_systems/ECONOMY.md` jointly, at the same pass that authors the node counts.
+- **Does the bonus room want a floor?** As authored, a party that clears the boss with a bad set of
+  rolls leaves with `shards` only. That is honest variance and §6.A–D already guarantee the clear's
+  real value — but it is also the most likely source of "the bonus room felt bad" feedback. A
+  pity/floor rule (e.g. one guaranteed `steady` scroll per clear) is the obvious lever and is
+  deliberately **not** taken at this revision: adding a floor later is a one-line change, removing
+  one after players have it is not. Owner: this doc, post-telemetry.

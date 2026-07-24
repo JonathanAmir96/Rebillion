@@ -293,6 +293,12 @@ raid_damage      = normal_power(L) · 2.5           # FIXED — never scaled by 
 enrage_timer     = 12 min                           # boss wipes the party on expiry
 ```
 
+This 12-minute enrage is **not** the only clock on a raid-entry fight: it runs *inside*
+`10_systems/social/RAID.md` §4.1's 30-minute run clock, which started back at stage 1 and never
+paused. Whichever expires first ends the attempt, so a party that spent 25 minutes on the stage
+chain effectively fights this boss on a 5-minute enrage. This doc still owns the 12-minute value
+and the boss's own behavior on expiry; the run clock is RAID.md's and is not restated here.
+
 Because both `raid_life` and total party DPS scale linearly in `N`, time-to-kill is essentially
 `N`-independent and holds at the §14 midpoint across the whole legal `3–6` range (worked below).
 Raid boss `damage` is **not** `N`-scaled — more players means more bodies to cover mechanics, not a
