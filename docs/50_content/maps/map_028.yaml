@@ -25,7 +25,7 @@ portals:
     kind: edge
     at: { edge: right }
     target_map: map_076
-    target_spawn: main
+    target_spawn: from_millbrook              # cross-region edge targets from_<origin_slug> (MAP_CONNECTIONS §2)
     dead_end: false
 spawn_zones:
   - id: east_road_zone
