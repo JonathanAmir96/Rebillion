@@ -77,7 +77,7 @@ ID sub-blocks per `docs/ID_REGISTRY.md` (cosmetics block, owner this doc):
 
 | Channel | IDs | Rule owner |
 |---|---|---|
-| **Raid** — Raid Quartermaster, `raid_token`-bought; one `title` + one cosmetic effect (`skin`-family) per raid | `item_cosmetic_0001`–`0008` | Prices `10_systems/ITEMS.md` §13; token faucet `10_systems/social/RAID.md` §6 |
+| **Raid** — Raid Quartermaster, `raid_token`-bought; one `title` + one cosmetic effect (`skin`-family) per raid | `item_cosmetic_0001`–`0008` (first four raids) + `0065`–`0066` (`raid_orrery`, appended 2026-07-24 — the channel is deliberately discontiguous, `docs/ID_REGISTRY.md`) | Prices `10_systems/ITEMS.md` §13; token faucet `10_systems/social/RAID.md` §6 |
 | **Guild** — guild-level unlocks (levels 3–5) and crest options | `item_cosmetic_0009`–`0032` | Pacing `10_systems/social/GUILD.md` §9; crest data rules `GUILD` §5 |
 | **Event / charter** — live-ops/seasonal grants; assigned 2026-07-24 to the Wayfarer's Charter season lanes (up to 6 per season: free capstone + gilt pieces) | `item_cosmetic_0033`–`0048` | Lane rules `10_systems/BATTLE_PASS.md` §5 |
 | **Capsule** — Cogwork Capsule gacha exclusives (tickets earnable free + PA-001 real-money packs) | `item_cosmetic_0049`–`0064` | Pool/odds `10_systems/GACHAPON.md` §5; PA-001 caps §1 there |

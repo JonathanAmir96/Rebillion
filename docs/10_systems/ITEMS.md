@@ -363,14 +363,17 @@ The **Raid Quartermaster** is a vendor NPC (placement in the raid staging towns 
 loot loop (`00_vision/PILLARS.md` P3) — desirable, but **not** required to progress (P2, solo
 stays viable).
 
-- **Raid-exclusive equipment — `item_equip_0223`–`0230`, two per raid** (undervault `0223`–`0224`
-  · mainspring `0225`–`0226` · deepfrost `0227`–`0228` · voidtide `0229`–`0230`). `req_level` = the
+- **Raid-exclusive equipment — two per raid** (undervault `item_equip_0223`–`0224`
+  · mainspring `0225`–`0226` · deepfrost `0227`–`0228` · voidtide `0229`–`0230` · orrery
+  `0301`–`0302`, the appended fifth-raid pair — the family is deliberately discontiguous,
+  `docs/ID_REGISTRY.md`). `req_level` = the
   raid's level band; `rarity` `epic`. Built to the §7–§10 base+affix budget for that band with
   **one signature flourish line** (like a boss unique, §11), but the total item pe is capped at the
   ordinary `epic` budget — deliberately a **side-grade** with a distinctive identity, **not** a
   strict upgrade over same-band boss uniques or top-tier crafted gear. A solo player who never
   raids is never behind the power curve; the raid gear is a *flavor and prestige* choice.
-- **Raid cosmetics — `item_cosmetic_0001`–`0008`, one title + one cosmetic effect per raid.** No
+- **Raid cosmetics — `item_cosmetic_0001`–`0008` (first four raids) + `0065`–`0066` (`raid_orrery`),
+  one title + one cosmetic effect per raid.** No
   stats (`10_systems/MONETIZATION.md` cosmetic-only charter; `00_vision/PILLARS.md` anti-pay-to-win).
   Purely the "I cleared the Voidtide" flex that drives social prestige.
 - **Pricing (locked 2026-07-24, `raid_token`s).** Prices are set so a piece takes **several
@@ -394,7 +397,7 @@ stays viable).
 
 - **Resolved (2026-07-24 md audit): the ID_REGISTRY arc-2 re-block + `item_use` mints landed.**
   `docs/ID_REGISTRY.md` carries the full layout (weapons `0231`–`0254`, armor `0255`–`0284`,
-  accessories `0285`–`0300`, uniques `0201`–`0222`, `0223`–`0230` raid gear), the tonics
+  accessories `0285`–`0300`, uniques `0201`–`0222`, `0223`–`0230` + `0301`–`0302` raid gear), the tonics
   `item_use_0017`–`0020` are minted in `50_content/items/use/consumables.yaml`, §1.1 reads seven
   tiers, and `00_vision/SCOPE.md` lists the v3 counts (~170 equip).
 - **ENHANCEMENT emberstone band mapping (arc-2) — owner `10_systems/ENHANCEMENT.md`.** §4's twelve

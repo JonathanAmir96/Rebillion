@@ -151,7 +151,7 @@ progression behind luck (pity, §3, bounds the material and fee cost).
 - Emberstone vendor purchase / crafting from region materials (`item_etc` per region) is deferred;
   if added it belongs to `10_systems/ECONOMY.md` (a `shards`/material sink) referencing this doc's
   tier mapping (§1), not a new drop rule.
-- Whether the arc-2 raids (`raid_deepfrost`/`raid_voidtide`, `10_systems/social/RAID.md`) drop a
+- Whether the arc-2 raids (`10_systems/social/RAID.md` §2's roster) drop a
   distinct high-tier emberstone or reuse Emberstone V is deferred (`10_systems/DROPS.md`);
   default reuses V (and VI if adopted).
 - Enhancement above +9 (e.g., a +10..+12 "starforce" extension) is explicitly **not** in scope this

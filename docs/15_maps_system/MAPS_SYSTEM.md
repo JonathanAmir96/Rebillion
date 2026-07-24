@@ -124,8 +124,8 @@ already cleared would be exactly that kind of sting).
 (`15_maps_system/MAP_INTERACTABLES.md` §2) from its adjoining field/dungeon map — arenas never
 have a second walkable entrance, satisfying `docs/VALIDATION.md` §5 reachability with exactly one
 edge. Default gate = open (no level lock, no quest lock — P1, the player chooses engagements). A
-per-arena quest-flag override is an optional Phase D authoring choice, not a rule here. The four
-raid finale arenas (`map_042`/`map_200`/`map_244`/`map_324`) double as their raids' finale
+per-arena quest-flag override is an optional Phase D authoring choice, not a rule here. The five
+raid finale arenas (`map_042`/`map_200`/`map_244`/`map_284`/`map_324`) double as their raids' finale
 instances: the raid entry — party 3–6, through the raid herald and the party-instanced stage chain
 (`10_systems/social/RAID.md` §3–§4, `10_systems/SPAWN.md` §7) — is a separate path that never
 touches the arena's own `door`, which stays the ungated open solo entry (`RAID.md` §7). Regional
