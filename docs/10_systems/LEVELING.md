@@ -32,6 +32,10 @@ exp_per_kill_normal(L) = round(4 · L^1.3)        # §3, base per-kill reward (a
 cumulative_total(L)  = Σ exp_to_next(i), i = 1..L-1
 ```
 
+`exp_into_level` = the `exp` accumulated inside the current level (`0 ≤ exp_into_level <
+exp_to_next(L)`); it is the field `10_systems/DEATH_PENALTY.md` and `10_systems/PERSISTENCE.md`
+operate on.
+
 **Ratified pacing anchors (owner, 2026-07-24):** **Lv 40 ≈ 30 h · Lv 80 ≈ 166 h · Lv 100 ≈ 300 h**
 of `/played`. The two coupled formulas keep their shape and coupling; only `kills_per_level` sets the
 pace, and it is **frozen through Lv 100** (the Lv-100 anchor is owner-ratified; §1.2).
@@ -39,8 +43,9 @@ pace, and it is **frozen through Lv 100** (the Lv-100 anchor is owner-ratified; 
 `kills_per_level` grows quadratically through the authored range, so **early levels are minutes and
 the top of arc 2 (Lv 70–80) is multi-hour sessions per level** (P2); the quadratic is softened past
 Lv 100 (§1.2). The `/played` estimate charges each level's **full** `kills_per_level` against an
-effective **≈ 336 at-level-kill-equivalents/hour**: 480 raw kills/hour of peak hunting (one kill per
-≈ 7.5 s, `10_systems/COMBAT_FORMULA.md` §14), discounted by the **0.70 hunting duty-cycle** — the
+effective **≈ 336 at-level-kill-equivalents/hour**: 480 raw kills/hour of peak hunting (≈ 4.5 s
+at-level TTK per `10_systems/COMBAT_FORMULA.md` §14 + ≈ 3 s repositioning ≈ 7.5 s per kill),
+discounted by the **0.70 hunting duty-cycle** — the
 30% of a level that arrives from quests/first-clears (§4) plus travel, aggro, and turn-in downtime
 clears at a slower blended rate. So `/played(L) = kills_per_level(L) / 336` (= `/ (480 · 0.70)`).
 

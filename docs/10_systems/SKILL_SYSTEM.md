@@ -128,9 +128,10 @@ the bracketing rows. This keeps skill files to four authored rows instead of ten
 A skill declares exactly one **targeting shape** (`00_vision/GLOSSARY.md`, owner = this doc). The
 shape selects the candidate set; each effect op then applies to the candidates of its class
 (offensive ops → hostiles, support ops → self/allies; `10_systems/SKILL_EFFECTS.md` composition).
-Ranges are in **tiles** — 1 tile = the `40_assets/ART_BIBLE.yaml` grid unit; the pixel value is
-pending the tile-scale lock (`10_systems/COMBAT_FORMULA.md` §10 Open Question), so all numbers here
-are scale-free. Angles are degrees in the vertical facing plane (2D side-scroller).
+Ranges are in **tiles** — 1 tile = the `40_assets/ART_BIBLE.yaml` grid unit, locked at **16 px**
+(`base_unit_px: 16`; `10_systems/COMBAT_FORMULA.md` §10), so every tile figure below converts
+exactly (e.g., the `party` default radius 8 tiles = 128 px); numbers stay tile-first, px derived.
+Angles are degrees in the vertical facing plane (2D side-scroller).
 
 | Shape | Geometry & parameters | Platformer notes |
 |---|---|---|
@@ -181,9 +182,9 @@ content file recomputes interpolation or cost — it declares rows and constants
   characters feel starved or over-flush against the branched 13-skill kit, `10_systems/LEVELING.md`
   (owner of the trigger) and this doc jointly retune (e.g., a small advancement lump or a per-arc
   point cap). Default holds at flat +1/level.
-- **Tile → pixel scale** for all §6 ranges inherits `10_systems/COMBAT_FORMULA.md` §10's open scale
-  lock (`40_assets/ART_BIBLE.yaml`); numbers here are tile-relative and unaffected by the eventual
-  px value, but reticle/aim feel can't be tuned until it lands.
+- **Resolved (2026-07-24): tile → pixel scale for §6 ranges.** The `40_assets/ART_BIBLE.yaml` grid
+  is locked at 16 px (`10_systems/COMBAT_FORMULA.md` §10), so all §6 tile ranges convert exactly
+  (1 tile = 16 px); reticle/aim feel tuning is unblocked and moves to playtesting.
 - **Free skill respec with no `shards` cost** (§3) is the generous default; if `10_systems/ECONOMY.md`
   needs a nominal sink, a small fee may be added there without changing this doc's mechanics.
 - **Cast/recovery windows** per skill interact with `haste` attack-speed (`10_systems/STATS.md` §5);

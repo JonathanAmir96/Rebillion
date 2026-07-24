@@ -17,7 +17,8 @@ acquisition/targeting/level_data are `10_systems/SKILL_SYSTEM.md`, effect-op par
 **v3 owner revision (2026-07-23):** the 2nd advancement (Lv 40) now **branches** into per-line
 specializations — a character picks **one** and keeps it for life. This repeals the earlier
 "linear, no branching" model (repealed in `00_vision/SCOPE.md` at the v3 revision). Level cap is
-**300** (`00_vision/SCOPE.md`); this run authors two arcs, Lv 1–82.
+**300** (`00_vision/SCOPE.md`); this run authors two arcs to Lv 80 (Voidshore elites overshoot
+to 82).
 
 ## 0. Token proposals (GLOSSARY Provisional → promote at the gate)
 
@@ -51,7 +52,8 @@ names, spec #2/#3 are **new** and proposed for promotion):
 - **Bands.** `novice` Lv 1–7 (shared kit, §6) → **1st** advancement at **Lv 8** (choose a line,
   permanent) → **2nd** advancement at **Lv 40** (choose a **specialization** of that line,
   permanent) → **3rd** tier reserved for a **future arc** (default gate Lv 80, Open Questions).
-  Level cap **300** (`00_vision/SCOPE.md`); this run authors two arcs, Lv 1–82.
+  Level cap **300** (`00_vision/SCOPE.md`); this run authors two arcs to Lv 80 (Voidshore
+  elites overshoot to 82).
 - **Two permanent choices.** The **line** is chosen at the 1st advancement (Lv 8) and is permanent;
   the **specialization** is chosen at the 2nd advancement (Lv 40) and is likewise permanent — a
   character is one line + one spec for life. Stat identity is undifferentiated during `novice`

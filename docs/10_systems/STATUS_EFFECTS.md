@@ -133,8 +133,9 @@ Notes:
 - `veil` is pierced by `arcane` sources (`10_systems/ELEMENTS.md` §5): an `arcane` attack or an
   `arcane`-flagged monster senses and can target a veiled entity; taking any offensive action
   also breaks `veil`.
-- `clarity`'s `essence`-cost reduction applies to `restore_essence`-relevant skill costs at cast
-  time (`10_systems/SKILL_SYSTEM.md` owns cost resolution).
+- `clarity`'s **−15%** `essence`-cost reduction applies to **all** `essence` skill costs, as a
+  multiplier on the resolved cost at cast time (`10_systems/SKILL_SYSTEM.md` §5 owns cost
+  resolution).
 
 ## 5. Application & authority
 
