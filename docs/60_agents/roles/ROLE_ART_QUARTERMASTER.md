@@ -1,7 +1,8 @@
 # ROLE_ART_QUARTERMASTER — PixelLab Budget Gate & Generation Router
 
 References: ORG.md, ROLE_ART_DIRECTOR.md, docs/40_assets/ART_BIBLE.yaml,
-docs/40_assets/UI_ART_SPEC.md, docs/40_assets/SPRITESHEET_SPEC.md
+docs/40_assets/UI_ART_SPEC.md, docs/40_assets/SPRITESHEET_SPEC.md,
+docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md
 
 **Mission:** PixelLab generations are a scarce, metered resource. Every request to
 generate art passes through this role *before* any PixelLab MCP call. The quartermaster
@@ -55,6 +56,13 @@ role's brief, and — always — a **fresh balance** (step 1 below).
 | `create_portrait_character` | 20 (1K) / 25 (2K) |
 | `create_font` | 20 (1K) / 25 (2K) |
 | Tileset tools (`create_sidescroller_tileset`, `create_topdown_tileset`, `create_tiles_pro`, `create_building_kit`, `create_path_tiles`) | not stated in the tool contract — measure via balance delta on first use and record here |
+| `create_map_object` | not stated — measure on first use. **The most-used tool in `PIXELLAB_PROMPT_LIBRARY.md`** (anchored parts, terrain chunks, set-pieces, parallax), so measure it before the first region batch or step 2 cannot run for most of the pass |
+| `create_character_state` | not stated — measure on first use. Load-bearing for `jump`/`fall` on every humanoid and for the library's §2.3 Lane B; it re-renders every rotation, so do not assume it is cheaper than the v3 clip it replaces |
+
+The `animate_character` v3 band above is stated against **character** size, but the vendor formula
+scales on **canvas**, which comes out materially larger (`PIXELLAB_PROMPT_LIBRARY.md` §0.1(4)) —
+enough to push a size class across a rounding boundary. Treat the bands as a floor and reconcile
+against measured balance deltas; a `boss` in particular bills above this table.
 
 Pro modes require a no-cost preview call first (`confirm_cost=false`) — always surface
 that price in the ledger before confirming.
@@ -82,6 +90,14 @@ credits as Red band until the owner sets a spend ceiling.
 **Retry rule:** one cheap re-roll (template/v3) is allowed after a QA rejection in Green;
 in Yellow/Red, escalate to the owner instead of re-rolling. Follow the quality ladder
 template → v3 → pro; `delete_animation` before any retry.
+
+**Hard stop on the ladder's top rung — `animate_character` pro is forbidden** for any entity
+carrying a locked frame budget (every player and monster asset): pro *ignores* `frame_count` and
+substitutes a size-derived constant that no `ART_BIBLE.yaml` `animation.frame_budgets` range can
+accommodate, and nothing downstream catches it (the runbook's QA lines do not check frame count;
+`docs/VALIDATION.md` has no atlas-manifest check). A QA rejection on an animation escalates to a
+re-rolled **v3**, never to pro. Correctness beats the quality ladder — see
+`docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md` §3.2.
 
 ## Lane A deliverable contract (self-generated assets)
 

@@ -17,7 +17,9 @@ change-controlled core values move only by owner-directed amendment), all PixelL
 instances, art QA verdicts.
 
 **Reads first:** ART_BIBLE.yaml (including amendments — AB-001 foothold terrain),
-UI_ART_SPEC.md, ANIMATION_STATES.md matrix, the relevant brief template.
+UI_ART_SPEC.md, ANIMATION_STATES.md matrix, the relevant brief template, and
+docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md (the concrete call recipes, its blocked-recipe list,
+and the Open Questions it routes to this role).
 
 **Deliverable contract:** amendments as numbered dated entries (AB-NNN) stating what is
 added and what stays binding; QA verdicts against the SPRITESHEET_SPEC.md checklist

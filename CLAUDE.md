@@ -94,8 +94,9 @@ code, no generated art. Read `README.md` for the tree map and
   **Phase E** (coding-pass briefs), the **art pass** (PixelLab briefs). `memory.md` (newest-first)
   is the authoritative live log.
 - PixelLab (art generation, later pass): the **claude.ai PixelLab connector**, authorized
-  interactively by the owner via `/mcp` — there is no API token to store, in this repo or in the
-  environment (verified 2026-07-24; the earlier `PIXELLAB_SECRET` env-var plan was never real).
+  interactively by the owner via `/mcp` — no MCP tool consumes an API token, so there is none to
+  store in this repo or the environment (verified 2026-07-24 across the tool surface; the earlier
+  `PIXELLAB_SECRET` env-var plan was never real).
   Call recipes live in `docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md`; run the pass through the
   `pixellab-art-pass` skill.
 
