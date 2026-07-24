@@ -31,7 +31,7 @@ handful of Lesser tonics; §4).
 | Sink | Owner of the number | Scales with |
 |---|---|---|
 | Consumables (tonics/cleanses/scrolls/foods) | §4 (this doc) | level band (§4) |
-| Travel (Harborwind Ferry + Harthmoor Coachworks fares) | §4.3 (this doc) | ring distance |
+| Travel (Harborwind Ferry + Harthmoor Coachworks fares) | §7 (this doc) | ring distance |
 | Enhancement fee | §3 (this doc) | gear tier × target `+` |
 | Stat free-point reallocation | §3.1 (this doc) | `level` |
 | Guild creation | `10_systems/social/GUILD.md` (fee reserved here) | flat, endgame |
@@ -135,15 +135,9 @@ stops keeping pace) — the upgrade cadence is itself a rising sink (§6).
 | Accessory-family `aspect` | 600 | 150 |
 | Accessory-family `temper` | 900 | 225 |
 
-### 4.3 Travel fares (`docs/WORLD_PLAN.md` — Harborwind Ferry & Harthmoor Coachworks)
+### 4.3 Travel fares (pointer)
 
-| Ride | Fare (`shards`) |
-|---|---|
-| Harborwind Ferry, per crossing (`map_001` ↔ `map_017`) | 25 |
-| Coach, between stations | `100 × hops` (100–400) |
-
-`hops` counts stations along the shortest coach-route path (stations: Rosen Harbor, Millbrook
-Central, Mossmere, Cindershelf, Tidewatch Port; Rosen Harbor ↔ Millbrook Central counts as 1).
+Travel fare numbers live in **§7** (ferry & coach §7.1, longship §7.2) — one table, one owner.
 Each fresh character's **one free ride** from Rosen Harbor to their job instructor's town (the
 advancement pilgrimage, `docs/WORLD_PLAN.md`) waives the fare once and only once, server-tracked.
 Fares are deliberately below one minute of at-band hunting income (§5) — paid convenience, never
@@ -292,7 +286,9 @@ server-authoritative flag (`10_systems/PERSISTENCE.md`); every later crossing pa
   `shards` in either direction — no monetization faucet or sink may ever appear in this doc.
 - §7 fares (ferry 40; coach 120/220/320 by ring distance; longship 300/500/800 by route length)
   are first-pass, anchored to §5 income and §3's `mean_shards_normal`. §7.1 also *fills*
-  `docs/WORLD_PLAN.md`'s previously-unwritten ferry/coach fare delegation; if that owner intended a
+  `docs/WORLD_PLAN.md`'s previously-unwritten ferry/coach fare delegation (§4.3's earlier sketch —
+  ferry 25, coach `100 × hops` — is superseded; §4.3 is now a pointer, resolved 2026-07-24); if
+  that owner intended a
   different band, retune here (never the `10_systems/DROPS.md` faucet). Route→length-class mapping
   for §7.2 is `docs/WORLD_PLAN.md`'s arc-2 edge table's; confirm the class count matches the fare
   tiers when that table lands.
