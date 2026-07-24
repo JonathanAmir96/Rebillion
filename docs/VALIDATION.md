@@ -38,10 +38,19 @@ Every ID is globally unique, matches its prefix format, and falls inside its res
 ID_REGISTRY.md (including tier layout for mobs — e.g., a boss ID slot may not hold a normal).
 
 ## 5. World-graph soundness
-Every portal targets an existing map **and** an existing spawn point on that map; every map is
-reachable from `map_001`; no dead-end portals. One-way or intentionally terminal exits must be
-marked `dead_end: true` in the map file. Cross-region edges must match WORLD_PLAN.md's edge
-table exactly.
+Every portal targets an existing map **and** an existing spawn point on that map. Every map is
+reachable from `map_001` via walk portals (`edge`/`door`); the test is **reachability, not
+acyclicity** — the world is the Harthmoor **ring**, so cycle-forming edges are expected, not
+faults, in particular the Tidewatch→Ashfall ring closure (`map_088`→`map_140`) and the two
+Clockwork gates (`map_141`→`map_177` and `map_121`→`map_188`). Every walk portal must have a
+matching reverse portal on its destination map **unless** it is a one-way or intentionally
+terminal exit (e.g. the Sunken Depths spur), which must be marked `dead_end: true` in the map
+file; a `dead_end: true` portal is exempt from the reverse-portal requirement, and **no
+unmarked** one-way portal may exist. The set of cross-region walk edges must be **exactly**
+`WORLD_PLAN.md`'s "Cross-region walk edges" table — every table row present, and no
+cross-region walk edge beyond that table. `coach`-kind portals are a menu-driven paid service
+between fixed coach stations, **not** walk edges: they are excluded from the
+cross-region-edge match and from the reverse-portal / `dead_end` checks.
 
 ## 6. Asset contract
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
