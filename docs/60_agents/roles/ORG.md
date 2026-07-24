@@ -73,6 +73,19 @@ Deliverables: <exact file paths>.
 Report back: files written, tokens/IDs consumed, open questions.
 ```
 
+## Non-canonical role files (v3 lineage, pending owner decision)
+
+Two role files arrived with the v3-lineage backend suite and are **not part of the v2 canon
+chart above** — in v2, backend/platform/pipeline design is `ROLE_INTEGRATION_ENGINEER`'s.
+They are listed here only so the tree stays link-connected (CLAUDE.md doc-connectivity law);
+their canonical status waits on the `70_integrations/` pruning decision (`memory.md` MERGE
+NOTE):
+- `ROLE_BACKEND_ENGINEER.md`
+- `ROLE_SECURITY_ENGINEER.md`
+
 ## Open Questions
 - Should future sessions add a ROLE_AUDIO_DESIGNER once AUDIO_DESIGN.md exists? Default:
   fold under ROLE_ART_DIRECTOR until audio scope grows.
+- The two non-canonical backend role files above: fold into ROLE_INTEGRATION_ENGINEER,
+  promote to canon, or drop with the rest of the v3 backend material — owner call at the
+  v3-pruning pass.
