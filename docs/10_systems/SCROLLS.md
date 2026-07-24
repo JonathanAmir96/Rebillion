@@ -148,8 +148,14 @@ rows. Exact rows and which SKU sits where are Phase D drop-table content.
 carries `steady` at `uncommon`, `bold` at `rare`, and `perilous` at `epic`. The `slot_family` (§3)
 stocked is banded to that raid's level band. This is a better *rate* than the field, never an
 exclusive — the same SKUs drop and vendor elsewhere (§4.1–§4.2), so a solo player is never locked
-out of a scroll tier (`00_vision/PILLARS.md` P2). The rates and the per-room node count are
-RAID.md §6.E's and are flagged there, not set here; the faucet they add is open in §4.4.
+out of a scroll tier (`00_vision/PILLARS.md` P2). The rates are RAID.md §6.E's; the node count is
+**6 per room**, authored on `map_325`–`map_328`. That makes the faucet computable and it has not
+been checked against §4.4's sink-dominant requirement — per clear, per member, 6 nodes pay ≈0.9
+`steady` · 0.24 `bold` · 0.048 `perilous`, and if the per-member-copy reading of
+`10_systems/social/PARTY.md` §5 holds, a 6-member party multiplies that by 6. A repeatable run
+paying ≈1.4 `bold` and ≈0.3 `perilous` per clear would contradict §4.2's "drop-/quest-only chase
+item" stance. Flagged in RAID.md's Open Questions and owed to §4.4 before bonus-room content is
+final.
 
 ### 4.2 Vendor / shard shop
 Only `steady`-tier scrolls are vendor-purchasable — a pure recurring `shards` sink. `bold` and

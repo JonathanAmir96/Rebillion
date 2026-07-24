@@ -59,7 +59,8 @@ extension range because every region block is full. Region totals above include 
 Rows 1–8 are Arc 1 (Lv 1–42); rows 9–11 are Arc 2 (Lv 40–82).
 
 Map-type totals (all 11 regions): 12 towns · 30 interiors (incl. ferry + 3 longship decks) ·
-153 fields · 95 dungeons (incl. 12 raid-stage maps + the 3-map Deepway) · 23 secrets ·
+153 fields · 95 dungeons (incl. 12 raid-stage maps + the 3-map Deepway) · 27 secrets (incl. the
+4 raid bonus rooms `map_325`–`map_328`, `10_systems/social/RAID.md` §6.E) ·
 11 arenas. Authored content spans Lv 1–82 (Voidshore elites top out at 82); the game cap is
 300 (initial design), so leveling past Arc 2 is a slow grind on endgame maps/raids until
 future arcs land. ART_BIBLE biome keys `frostpeak` / `arcane_reach` / `voidshore` are now

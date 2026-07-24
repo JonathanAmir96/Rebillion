@@ -317,7 +317,12 @@ highest authored raid boss):
 | 6 | 14.88 M | ≈ 31 200 | ≈ 7.9 min |
 
 `N` = 3 (the entry floor) clears in ≈ 7.9 min — inside the §14 6–10 min band with margin under the
-12-minute enrage — so the floor needs no retune. Because TTK is `N`-independent at the fixed 0.85
+12-minute enrage — so the floor needs no retune *against the enrage*. It does **not** clear the run
+clock: `10_systems/social/RAID.md` §4.1 sizes a full run at 30 min against an ≈25-minute modeled
+clear, so the modeled party reaches this boss with ≈5 minutes remaining — below the 7.9-minute TTK.
+Against the run clock this floor has no margin at all, and a party entering the arena under ≈8
+minutes cannot win at any `N`. Whether that is intended pressure or a retune is owned jointly with
+RAID.md §4.1's Open Questions. Because TTK is `N`-independent at the fixed 0.85
 coordination factor, larger parties do **not** clear faster; any real large-party coordination
 falloff (Open Questions) only pushes `N` = 6 toward the slow end of the band, never outside it.
 

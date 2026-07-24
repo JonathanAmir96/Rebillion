@@ -19,7 +19,7 @@ portals:
     at: { tile: [54, 12] }
     target_map: map_241
     target_spawn: main
-    dead_end: true  # stage chain is sequential and one-way forward (RAID.md §4); this exit unlocks once the stage's kill gate clears
+    dead_end: true  # stage chain is sequential and one-way forward (RAID.md §4); this exit unlocks once the stage's COLLECT-AND-DEPOSIT clears (embers to braziers -- RAID.md §4 signature table)
 spawn_zones:
   - id: sundered_gate_zone
     rect_tiles: { x: 16, y: 22, w: 32, h: 10 }

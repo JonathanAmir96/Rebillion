@@ -19,7 +19,7 @@ portals:
     at: { tile: [48, 10] }
     target_map: map_042
     target_spawn: main
-    dead_end: true       # raid finale entry; one-way into the shared arena instance (RAID.md §4, SPAWN §7)
+    dead_end: true       # raid finale entry; one-way into the party's own finale instance (RAID.md §3-§4: private per party, SPAWN §7)
 spawn_zones:
   - id: grain_kings_approach_zone
     rect_tiles: { x: 14, y: 18, w: 28, h: 10 }

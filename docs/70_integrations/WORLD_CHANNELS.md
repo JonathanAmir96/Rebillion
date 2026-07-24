@@ -15,7 +15,7 @@ instances for raid content — and never restates it; this doc fixes *how many* 
 *which* maps, selected *how*, torn down *when*, and how party/chat/market state keeps working
 across them. It never restates a value owned elsewhere: respawn timers stay `10_systems/SPAWN.md`'s,
 exp-share math stays `10_systems/social/PARTY.md`'s, fares stay `10_systems/ECONOMY.md`'s. It
-consumes `docs/WORLD_PLAN.md`'s map allocation (v3: 324 maps across two authored arcs) and
+consumes `docs/WORLD_PLAN.md`'s map allocation (v3: two authored arcs; that doc owns the count) and
 `docs/ID_REGISTRY.md`'s ID blocks as given facts, not decisions of its own.
 
 ## 1. Channel-eligible maps
@@ -49,7 +49,11 @@ independent channel copies would fork that shared-reset design for no benefit th
 this doc adds no occupancy cap to arenas and spawns no second channel for one, full stop. `boss`-tier
 respawn is `10_systems/SPAWN.md` §3's, restated nowhere here.
 
-**Exemption 2 — raid stage/finale maps are true instances, not channels.** Covered in §2.
+**Exemption 2 — raid stage, finale *and bonus-room* maps are true instances, not channels.**
+Covered in §2. This explicitly includes the four bonus rooms `map_325`–`map_328`
+(`10_systems/social/RAID.md` §6.E), which carry `map_type: secret` and would otherwise be swept up
+by the `secret` entry in the eligible list above — a channelled bonus room would let any passing
+player harvest another party's one-shot nodes, which is the opposite of the design.
 
 **Channel identity is ops/routing metadata, not a game-content ID.** A channel is addressed as
 `map_NNN` + a small integer index (e.g. "map_017, channel 2") for gateway routing, telemetry, and
@@ -69,6 +73,10 @@ occupancy-capped the way §7's channels are:
 | `raid_mainspring` | `map_195`–`map_197` | `map_200` | `mob_150` (The Custodian) |
 | `raid_deepfrost` | `map_240`–`map_242` | `map_244` | `mob_178` |
 | `raid_voidtide` | `map_320`–`map_322` | `map_324` | `mob_234` |
+
+Each raid's **bonus room** (`map_325` / `map_326` / `map_327` / `map_328`,
+`10_systems/social/RAID.md` §6.E) is part of the same instance and is covered by every rule in this
+section — it is never a channel of itself, despite being `map_type: secret`.
 
 (`docs/ID_REGISTRY.md` "Maps," `10_systems/social/RAID.md` §2 — cited, not restated.) Party
 size is owned split: the 3-member floor by `10_systems/social/RAID.md` §2/§3, the 6-cap by

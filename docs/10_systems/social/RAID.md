@@ -72,15 +72,19 @@ identities are `docs/WORLD_PLAN.md`'s (cite the mob IDs above, nothing more).
   `10_systems/social/PARTY.md`'s) of 3–6 members, all on the herald's map. The **leader**
   initiates entry through the herald; the whole party is moved into the fresh instance together.
 - **Channel claim — one party per raid, per channel.** A raid is **claimed** on the channel its
-  party entered from (`70_integrations/WORLD_CHANNELS.md` §2 owns the claim's server-side shape).
+  party entered from (`70_integrations/WORLD_CHANNELS.md` §2.1 owns the claim's server-side shape).
   While `raid_undervault` is claimed on channel 3, no second party on channel 3 may enter it —
   they must switch channels to find a free one, or wait. The claim is **per raid token, not per
   raid map**: a claim on `raid_undervault` never blocks `raid_mainspring` on the same channel.
   - **The instance is still private.** This is a *gate on entry*, not a shared map — the party
     that claims the raid still receives its own instance (§4), so the claim never exposes a run to
     another party's spawns, loot, or wipes. It is scarcity at the door, not a contested dungeon.
-  - **Claim lifetime:** taken at instance creation, released the moment the instance dissolves —
-    on clear, on any §5 wipe cause, or on the instance emptying. A disconnected party releases its
+  - **Claim lifetime:** taken at instance creation, released on **instance-worker teardown**
+    (`70_integrations/WORLD_CHANNELS.md` §2.1, which owns the definition). Teardown follows a wipe
+    (§5) immediately, but a *clear* does not tear down at the boss kill — the bonus room (§6.E) is
+    part of the same instance and the same claim, so the claim persists until the bonus room
+    resolves. "The instance dissolves on clear" (§5) means *after* §6.E, never at the kill itself;
+    the party must still be standing in the finale arena for the bonus portal to open. A disconnected party releases its
     claim on the same 60 s disconnect grace that governs the instance
     (`70_integrations/WORLD_CHANNELS.md` §2), so a dropped group cannot strand a channel.
   - **The herald reports it.** Standing at a herald on a channel where the raid is claimed gives a
@@ -162,6 +166,13 @@ raid_run_timer = 30 min          # all four raids, first pass
   minutes on the stage chain meets the boss with 5 minutes of run clock, not 12 — the stage chain
   and the boss draw on one budget. That coupling is the point: it makes stage play matter *to* the
   boss fight instead of being a toll paid before it.
+  **But 5 minutes is not "tight," it is lost.** `10_systems/COMBAT_FORMULA.md` §13.3 puts raid-boss
+  time-to-kill at ≈7.9 min and — because `raid_life` and party DPS both scale linearly in `N` — that
+  floor does **not** move with party size, gear, or skill. A party entering the finale arena with
+  less than ≈8 minutes of run clock cannot win, at any composition. The run clock must therefore be
+  read as "≈22 minutes for the stage chain, ≈8 for the boss," not as one fungible 30. Whether the
+  arena door should *refuse* entry under the TTK floor rather than let a party walk into a
+  guaranteed loss is an open question below — as written, nothing gates it.
 - **One clock rather than per-stage clocks** is deliberate: a party may bank time on a stage it
   knows and spend it on one it does not, which is the pacing decision worth having. The budget
   stays legible and identical for every party — no hidden rescaling (`00_vision/PILLARS.md` P1).
@@ -265,17 +276,32 @@ from every guaranteed grant above.
 
 - **Raid entry only.** An open-arena solo kill of the same boss (§7) opens no portal and has no
   bonus room. Same entry-context distinction the rest of §6 runs on — no other reward math forks.
-- **Its own clock:** `bonus_timer = 90 s`, starting when the first member enters. It is **separate
+- **Its own clock:** `raid_bonus_timer = 90 s`, starting when the first member enters. It is **separate
   from the run clock** (§4.1), which has already stopped on the boss kill — a slow stage chain
   never shortens the payoff. On expiry every member is returned to the herald's staging map and
   the instance dissolves.
 - **One-way, no re-entry.** The portal closes behind the party; a member who leaves early does not
-  get back in. There is no failure state — the bonus room is pure upside, and leaving with nothing
-  is only possible by ignoring it.
+  get back in.
+- **Damage-free, so "pure upside" is literally true.** No monsters spawn, no hazards are authored,
+  and any lingering `10_systems/STATUS_EFFECTS.md` damage-over-time carried out of the boss fight is
+  **cleared on entry**. Without this a player could be killed in the bonus room by a carried DoT,
+  and `10_systems/DEATH_PENALTY.md` — which keys defeat on `life` reaching 0, not on a monster being
+  present — would charge them its ordinary Release cost and eject them from a room they cannot
+  re-enter. A "no failure state" room has to actually have no failure state.
+- **Fallen members are carried in.** A member who is fallen at the moment of the finale kill
+  (`10_systems/DEATH_PENALTY.md` §5.3 — fallen characters have no action but Release, and Release
+  leaves the instance) is **placed into the bonus room with the party and restored**, not stranded.
+  Otherwise dying at 95% boss progress would forfeit the entire payoff for a player who fought the
+  whole fight, which is not what "no failure state" can mean.
 - **Contents:** the room is filled with `reactor` interactables
   (`15_maps_system/MAP_INTERACTABLES.md` §4 — the existing type, no new mechanic), each carrying
-  the raid's bonus `drop_table_ref`. `respawn_timer_s` is set beyond the 90 s clock so every node
-  is **one-shot**: the room holds a fixed pool of rolls, and racing it is a co-op scramble, not a
+  the raid's bonus `drop_table_ref`. A bonus-room harvest grants its roll **directly to the
+  harvester's inventory** rather than spawning a ground `loot_drop` — the ordinary
+  `15_maps_system/MAP_INTERACTABLES.md` §4→§5 path pops a drop that bounce-settles over ~0.5 s, and
+  in a room that dissolves on a hard 90 s boundary a node harvested at t=89.9 s would be rolled
+  server-side and then destroyed before it could be picked up. This is the one place the bonus room
+  departs from field-harvest behavior, and it exists so the clock cannot eat a granted reward.
+  `respawn_timer_s` is set beyond the 90 s clock so every node is **one-shot**: the room holds a fixed pool of rolls, and racing it is a co-op scramble, not a
   DPS check. No monsters spawn in a bonus room.
 - **The chance table.** Every reactor rolls the raid's bonus table, built only from
   `10_systems/DROPS.md` §2's existing named buckets — this doc fixes the row shape, `10_systems/DROPS.md`
@@ -297,8 +323,16 @@ reason to run one more time without ever being the thing a player must farm. Not
 power-exclusive — the scrolls are the same SKUs the field and vendors supply
 (`10_systems/SCROLLS.md` §4.1–§4.2), so the bonus room is a better *rate*, not a locked door (P2).
 
-Who receives each reactor's `loot_drop` is `10_systems/social/PARTY.md` §5's loot-share rule over
-`10_systems/DROPS.md` §7's tag-eligibility — consumed unchanged, exactly as field loot is.
+**Who receives a bonus-room drop is not settled by the existing rules, and this doc does not
+pretend otherwise.** `10_systems/social/PARTY.md` §5's loot-share modes arbitrate *the single
+discrete equip drop* — and this table contains **no equip row**, so §5 is a no-op here. Its
+fall-through rule ("materials, use items, and `shards` are not mode-gated: every eligible same-map
+member receives their own copy") would mean each of `N` members receives their own roll of every
+node, i.e. `nodes × N` rolls per clear rather than `nodes`. Separately,
+`10_systems/DROPS.md` §7's tag-eligibility is defined by *dealing or taking damage*, which a
+`reactor` never involves — so on a literal read no one is eligible at all. Both gaps are flagged
+in Open Questions and belong to `10_systems/DROPS.md` and `10_systems/social/PARTY.md`; until they
+resolve, the faucet arithmetic in §6.E's table cannot be closed.
 
 Supporting reward rules (unchanged in shape):
 
@@ -415,9 +449,93 @@ never across a save.
   `docs/ID_REGISTRY.md`'s extended blocks, and the `frostpeak`/`arcane_reach`/`voidshore`
   slugs are live in `00_vision/GLOSSARY.md` (only `rift` stays reserved-future). Phase D
   landed the content and `docs/VALIDATION.md`'s checks pass — nothing remains open here.
-- **"Raid herald" term.** Coined here as the entry-NPC role name; needs a Provisional entry in
-  `00_vision/GLOSSARY.md` if it is to appear in content files (NPC `role` fields) rather than
-  prose only. Owner: GLOSSARY gatekeeper at the next phase gate.
+- **Resolved — "raid herald" is minted.** `00_vision/GLOSSARY.md` carries `raid_herald` as a
+  Provisional NPC archetype with exactly the promotion condition this entry asked for ("promote if
+  Phase D NPC content uses it as a field value"). No content file uses it as a field value yet, so
+  the entry correctly stays Provisional — but the request itself is satisfied. Nothing open here.
+- **BLOCKING — the channel claim (§3) has no working release valve at this game's target
+  population.** §3 tells a refused party to "switch channels to find a free one" and calls that the
+  intended loop. That loop does not exist as the tree is currently written.
+  `70_integrations/WORLD_CHANNELS.md` §3 spins up channel 2 **only when channel 1 is at cap**, and
+  §7 sets that cap at **60 concurrent players** for a `dungeon` map. All four raid staging maps
+  (`map_037` / `map_194` / `map_238` / `map_318`) are `map_type: dungeon`, and at the "hundreds-to-
+  low-thousands concurrent" scale WORLD_CHANNELS §2 targets, a deep staging dungeon will essentially
+  never hold 60 players at once. So there is exactly **one** channel, therefore exactly **one**
+  claim, therefore **one party per raid per world node** — a global mutex held for up to 30 minutes,
+  on the content §6 calls "the social centerpiece."
+  Two things make it worse: §5's "failure is free" means a party can enter, idle, wipe on the run
+  clock at zero cost and immediately re-enter — holding that mutex indefinitely for the price of
+  standing still — and the 15-minute cooldown cannot restrain it, because the cooldown fires only on
+  a *successful* kill while every squatting path ends in a wipe. The 60 s disconnect grace is also
+  undefined as per-member or per-party, so reconnect-chaining may hold a claim indefinitely too.
+  **This must be resolved before the claim ships.** The options, none of them taken here: give raid
+  staging maps demand-driven channel spin-up (a refused party can open a channel) plus an explicit
+  channel picker instead of §3's fill-lowest-first; or replace the per-channel claim with a
+  per-node concurrency cap (WORLD_CHANNELS §7 already carries a 40-instances-per-token headroom
+  number that would serve); or drop the claim and return to unrestricted instancing, which §3 itself
+  allows for — it calls the claim "a lever, not a law." Owner: this doc with
+  `70_integrations/WORLD_CHANNELS.md`; raised by the 2026-07-24 raid-stage review.
+- **Nothing gates finale-arena entry on remaining run clock (§4.1).** Time-to-kill is ≈7.9 min and
+  `N`-independent (`10_systems/COMBAT_FORMULA.md` §13.3), so a party crossing into the arena under
+  ≈8 minutes is in an unwinnable fight and is told nothing. A soft gate (the arena door refuses, or
+  warns hard, under the TTK floor) is the obvious fix and is deliberately not taken here because it
+  is an entry rule with `15_maps_system/` implications. Related: because the modeled clear reaches
+  the boss with ≈5 minutes, the 12-minute enrage almost never binds — two clocks are documented and
+  one is nearly always inert. `10_systems/COMBAT_FORMULA.md` §13.3's "the floor needs no retune"
+  conclusion is argued against 12 minutes and has not been re-argued against the effective figure.
+- **Bonus-room and stage-map portals have no state gate, so §8's "unreachable" is not enforceable.**
+  §8 says the bonus rooms ship unreachable because the only door opens on a raid-entry kill. But
+  `15_maps_system/MAP_INTERACTABLES.md` §2's portal params offer no state/flag/context condition —
+  only `level_gate` — so the rule lives in a YAML comment on `map_042`/`map_200`/`map_244`/`map_324`
+  and in nothing the validator or the runtime can read. The same gap already covers the herald door
+  (`map_037` says so in its own comment) and every stage exit "locked until the objective
+  completes." One optional portal param (an `open_condition`) would close all three; it belongs to
+  MAP_INTERACTABLES, not here. Until then the world graph certifies the bonus rooms as ordinary
+  doors off public arenas.
+- **Reactor loot has no eligibility rule, and the per-member reading may multiply the faucet by `N`.**
+  §6.E can no longer claim PARTY §5 / DROPS §7 are "consumed unchanged" — §5 arbitrates only a
+  discrete *equip* drop and this table has none, while §7's tag-eligibility is defined by dealing or
+  taking damage, which harvesting a `reactor` never does. `15_maps_system/MAP_INTERACTABLES.md` §4's
+  `owner_window` punts harvest-credit to `10_systems/DROPS.md`, which only ever defines *kill*
+  credit — the ownership question is circular between the two docs. Whether a bonus room pays
+  `nodes` rolls or `nodes × N` is the single biggest lever on the scroll faucet above. Owner:
+  `10_systems/DROPS.md` (harvest credit) with `10_systems/social/PARTY.md` (share rule).
+- **Death, disconnect and re-entry inside an instance are unrouted.** Three gaps the stage chain and
+  bonus room now make concrete: (a) no rule defines where a character logs in if their saved map is
+  an instanced raid map, and stage maps have no open portals — so a crash mid-run can leave a
+  character saved into a dissolved instance whose only exit is objective-locked; (b) the walk-back
+  route after Release is circular — `10_systems/DEATH_PENALTY.md` §5.3 says re-entry routing is this
+  doc's §3/§5, and §5 says death and re-entry follow DEATH_PENALTY §5.3 exactly, so neither states
+  the route, and it now costs a never-pausing run clock; (c) there is no **abandon-run** action
+  anywhere in this doc, PARTY.md or DEATH_PENALTY.md, so a party that cannot complete a stage — e.g.
+  a 3-member party that loses one member before a 3-actor simultaneous puzzle — can only wait out
+  the run clock or log out into (a). A Phase D authoring constraint (simultaneous-actor count ≤ the
+  3-member entry floor) covers the puzzle case; (a) and (b) need owner rulings in
+  `10_systems/PERSISTENCE.md` and `10_systems/DEATH_PENALTY.md`.
+- **Disconnect grace: 60 s here, 90 s in the tree's only authority.** §3 and
+  `70_integrations/WORLD_CHANNELS.md` §2.1 both cite a "60 s disconnect grace… that governs the
+  instance" and each attributes it to the other; §5 never defines it, and the string does not appear
+  anywhere else in this doc. Meanwhile `70_integrations/ACCOUNTS_AUTH.md` §4.3 *sets* a reconnect
+  grace of **90 seconds** and `70_integrations/NETWORK_PROTOCOL.md` defers to it explicitly. So a
+  dropped raider's session survives 90 s while their instance and claim are asserted to die at 60 s.
+  Either §5 sets 60 s with a stated reason for diverging, or both citations defer to ACCOUNTS_AUTH
+  §4.3. Not resolved here because this doc does not own the number.
+- **Bonus-room `level_band` sits outside its own raid's entry band.** `map_325` is banded
+  `{14, 14}` while `raid_undervault` admits Lv 15–22 — no player who can legally enter the raid is
+  inside its bonus room's band. The other three rooms use their raid's ceiling and happen to line
+  up. The band follows the *region* because `docs/ID_REGISTRY.md` requires it and
+  `tools/validate.py` enforces `level_band` ⊆ the region's band (millbrook is 8–14, so `{15, 22}`
+  would fail validation) — the same mismatch the pre-existing stage maps `map_038`–`map_042` already
+  carry. Fixing it means deciding whether raid-instanced maps follow the raid band or the region
+  band, which is `docs/ID_REGISTRY.md`'s and `15_maps_system/MAPS_SYSTEM.md`'s call, not this doc's.
+- **Stage `exp` is banked before anything that costs a cooldown.** §6.A grants `raid_stage_exp` "the
+  moment that stage's objective completes," §5 makes failure free, and the 15-minute cooldown fires
+  only on a successful kill. A party can therefore clear stage 1, wipe deliberately, re-enter at
+  once, and farm the stage grant while skipping the boss, the enrage, and the cooldown entirely —
+  at a rate comparable to the intended full-clear loop. This predates the run clock but the run
+  clock makes the loop cheap and legible. Fix candidates: escrow the stage grants and pay them on
+  the finale kill, or forfeit banked stage `exp` on a wipe. Owner: this doc with
+  `10_systems/LEVELING.md` §3.1.
 - **Run-clock value (§4.1).** `raid_run_timer = 30 min` is a first pass, derived from the
   ≈25-minute modeled clear plus ~20% learning headroom — it is **not** measured. The number is
   wrong in a specific direction if the model is wrong: the four raids span Lv 15–22 to Lv 70–80 and
@@ -444,14 +562,37 @@ never across a save.
   that is the whole point of the beat), or MAP_INTERACTABLES gains one shared-cycle param. Not
   resolved here because the owning doc is not this one. Owner:
   `15_maps_system/MAP_INTERACTABLES.md`, raised by this doc.
+  **Revised after review — the gap is wider than this entry first claimed, and §4's "invents no new
+  interactable type" assertion does not hold.** (a) The **beat**'s stated fallback (many
+  independently-timed nodes) is not merely imprecise, it is *non-functional*: a `reactor`'s
+  `respawn_timer_s` starts on harvest, so an untouched node has no cycle at all — the opposite of a
+  fixed rhythm identical every run. There is also **no interactable type that deals damage**, so a
+  "hazard firing on a cycle" has no representation. (b) The **tide** needs three things nothing
+  owns: map-wide cycling state, runtime mutation of footholds/collision (static per
+  `15_maps_system/MAP_LAYERS.md` / `MAP_TRAVERSAL.md`), and phase-gated spawning — and
+  `10_systems/SPAWN.md` §7 explicitly says wave spawning is a boss's `phases[].added_abilities`, not
+  a SPAWN concept, on stage maps that have no boss. (c) The **haul** was called "clearly buildable"
+  and is not: slow-while-carrying needs a status keyed to inventory contents
+  (`10_systems/STATUS_EFFECTS.md` has no such status) and "draws the wardens" needs runtime aggro
+  modification (`10_systems/AI_BEHAVIOR.md` models aggro as static per-monster tunables). Only the
+  **thaw** is close, and its one plausible gate — `quest_object`'s `required_quest_flag` — cannot be
+  driven, because §3 fixes that repeat clears set no quest flags. Either §4's signature table is
+  scoped down to what the current interactable set can express, or MAP_INTERACTABLES / SPAWN /
+  STATUS_EFFECTS / AI_BEHAVIOR take scoped additions through their own Open-Questions channels.
+  This is a real blocker on authoring the signatures, not a detail.
 - **Bonus-room table values (§6.E).** The row shape is fixed here; the bucket assignments
   (`uncommon` for `steady` scrolls, `rare` for `bold`, `epic` for `perilous`) are a first pass
-  chosen to mirror `10_systems/SCROLLS.md` §4.1's field-drop ordering, and the **node count per
-  bonus room is unauthored** — which matters more than the per-node rates, since expected yield is
-  `nodes × rate` and only the product is balanceable. Until node counts land, the scroll faucet
-  this adds cannot be checked against `10_systems/SCROLLS.md` §4.4's sink-dominant requirement or
-  `10_systems/ECONOMY.md` §6's inflation guard. Owner: `10_systems/SCROLLS.md` and
-  `10_systems/ECONOMY.md` jointly, at the same pass that authors the node counts.
+  chosen to mirror `10_systems/SCROLLS.md` §4.1's field-drop ordering. **The node count is now
+  authored: 6 reactors per bonus room** (`map_325`–`map_328`), so the blocker this entry previously
+  named is cleared and the faucet **can** be computed — it just has not been. Per clear, per member,
+  6 nodes pay ≈0.9 `steady` · 0.24 `bold` · 0.048 `perilous` scrolls and ≈0.24 extra `raid_token`.
+  **If** the per-member-copy reading of `10_systems/social/PARTY.md` §5 holds (see the loot entry
+  below), a 6-member party multiplies all of that by 6 — ≈5.4 `steady` · 1.4 `bold` · 0.3
+  `perilous` per clear — which would put a **`perilous`-tier faucet on a repeatable run**, against
+  `10_systems/SCROLLS.md` §4.2's "drop-/quest-only chase item" intent and §4.4's sink-dominant
+  requirement. That check is now owed, not blocked. Owner: `10_systems/SCROLLS.md` and
+  `10_systems/ECONOMY.md` jointly, and it should run before any bonus-room content is considered
+  final.
 - **Does the bonus room want a floor?** As authored, a party that clears the boss with a bad set of
   rolls leaves with `shards` only. That is honest variance and §6.A–D already guarantee the clear's
   real value — but it is also the most likely source of "the bonus room felt bad" feedback. A
