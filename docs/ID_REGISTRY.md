@@ -133,8 +133,8 @@ appearance parts and palette swatches only — a worn equip's sprite part reuses
 | Skin swatches | `style_skin_00`–`style_skin_09` | 5 (palette-remap data only, no art); rest reserved |
 | Hair-color swatches | `style_haircolor_00`–`style_haircolor_09` | 6 (palette-remap data only, no art); rest reserved |
 
-Swatch color values are not canon until the ART_BIBLE skin/hair ramp amendment lands
-(CHARACTER_COMPOSITING.md §5 / Open Questions).
+Swatch color values are canon per ART_BIBLE.yaml amendment AB-002 (`skin_NN` / `hair_*`
+ramp keys; binding in CHARACTER_COMPOSITING.md §5).
 
 ## Party quests — `pq_undervault` · `pq_mainspring`
 Owner: 10_systems/social/PARTY_QUEST.md. Future PQs mint `pq_<name>` tokens here first.

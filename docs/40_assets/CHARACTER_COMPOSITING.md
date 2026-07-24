@@ -148,11 +148,13 @@ off-palette colors; a remap between authored ramps cannot leave palette):
 - **`style_haircolor_NN`** — remaps the hair part's ramp the same way; every `style_hair_NN`
   is authored once in the canonical ramp and shipped in all swatches.
 
-Constraint flag: `ART_BIBLE.yaml` `palette.ramps` (locked) contains no dedicated skin-tone
-ramps, and hair colors beyond the five existing ramps + neutrals would be off-palette. A
-proposed amendment (skin-tone ramp set + hair-color swatch list) is flagged for Agent-3 in
-Open Questions — swatch **counts** are reserved in `docs/ID_REGISTRY.md` now, but no swatch
-color values are canon until that amendment lands.
+Swatch values are canon via `ART_BIBLE.yaml` amendment **AB-002** (owner-authorized
+2026-07-24): five 4-step skin ramps (`skin_00`–`skin_04`, the only new colors) and six 3-step
+hair swatches (`hair_black`/`brown`/`blonde`/`red`/`blue`/`violet`, composed entirely of
+existing palette values). Catalog entries map 1:1: `style_skin_NN` → `skin_NN`,
+`style_haircolor_00`–`05` → the six `hair_*` keys in AB-002's listed order. These ramps are
+layer-restricted (skin → `base` only, hair swatches → `hair` only) and do not count as a
+part's accent ramp — both rules are AB-002's, cited here, never restated with values.
 
 ## 6. Per-part export contract
 
@@ -209,10 +211,10 @@ entries:
     name: "Millbrook Crop"
   - id: style_haircolor_00
     layer: hair            # swatch entries carry the layer they remap
-    ramp: TBD              # ART_BIBLE amendment pending (§5) — no color values until then
+    ramp: hair_black       # ART_BIBLE AB-002 swatch key (§5) — key reference, never hex values
   - id: style_skin_00
     layer: base
-    ramp: TBD
+    ramp: skin_00
   - id: style_face_01
     layer: face
     name: "Steady Gaze"
@@ -266,10 +268,9 @@ nearest/no-mipmap/pixel-snap all inherit unchanged.
 
 ## Open Questions
 
-- **Skin/hair swatch ramps need an ART_BIBLE amendment (Agent-3).** `palette.ramps` (locked)
-  has no skin-tone ramps and no hair-color set; §5's swatch channels reserve counts only.
-  Proposed: one 4-step skin ramp family (~5 tones) and ~6 hair swatches derived from existing
-  ramp values where possible. No swatch is canon until an `amendments[]` entry lands.
+- ~~Skin/hair swatch ramps need an ART_BIBLE amendment (Agent-3).~~ **Resolved 2026-07-24:**
+  landed as `ART_BIBLE.yaml` `amendments[]` AB-002 (owner-authorized) — 5 skin ramps + 6
+  hair swatches, layer-restricted; §5 binds the catalog to those keys.
 - **`20_schemas/item.schema.md` needs the visual fields.** `covers`/`hides` (§2) and an
   implicit "this equip has a sprite part" marker are not in the item schema today; flagged
   for that schema's owner. Until then, Phase D equip content must not author these fields.

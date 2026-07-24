@@ -92,4 +92,39 @@ amendments:
          unchanged to terrain chunks."
     followup: "40_assets tileset briefs split into structure tilesets + terrain chunk
          briefs; SPRITE_PIPELINE covers chunk QA."
+  - id: AB-002
+    date: 2026-07-24
+    authorized_by: "owner (chat directive: composited player sprites + appearance swatches)"
+    summary: "Composited player model + skin/hair appearance palette"
+    changes:
+      - "the player character is a composited layer stack per
+         40_assets/CHARACTER_COMPOSITING.md, never one baked sheet. export_contract applies
+         PER PART for the player: atlas/padding/pivot/import law unchanged, and
+         frame_naming's {entity_id} position takes the part's ID (style_* per
+         docs/ID_REGISTRY.md, or the worn item's item_equip_NNNN)."
+      - "palette addition — skin ramp family (new colors, base layer only). 4-step ramps,
+         shadow to light, outline/internal-line rules unchanged:
+         skin_00 fair   [#9a5a4a, #d18a66, #f0b58a, #fbe0c0]
+         skin_01 tan    [#7a4434, #b06a48, #d99a6c, #f2c896]
+         skin_02 bronze [#5f3428, #94553a, #c07f52, #e0a877]
+         skin_03 umber  [#43241f, #6e3c2c, #96593c, #bd7f55]
+         skin_04 deep   [#301a1c, #502c26, #743f30, #9a5c40]"
+      - "palette addition — hair swatch set (hair layer only). 3-step ramps composed ENTIRELY
+         of existing palette values (zero new colors):
+         hair_black  [ink #241726, shadow #3a2b40, stone #6b6270]   (neutrals)
+         hair_brown  [#3a2b1e, #6b4a2d, #9a6f3f]                    (earth 1-3)
+         hair_blonde [#9a6f3f, #c09a54, #e3c67a]                    (earth 3-5)
+         hair_red    [#8f2d1b, #c8461f, #eb7a2c]                    (ember 2-4)
+         hair_blue   [#1e4c78, #2f7aa0, #54b0c6]                    (tide 2-4)
+         hair_violet [#4b2a78, #7a3f9a, #b064c6]                    (arcane 3-5)"
+      - "palette.usage_rules clarification for composites: the 1-dominant-ramp rule applies
+         PER PART; the skin/hair ramps above do not count as a part's accent; composite
+         readability (worst-case pairing) is judged per CHARACTER_COMPOSITING.md §1. The
+         reserve-arcane-for-magic/rare/elite rule is waived for hair_violet only."
+      - "pixellab_defaults.per_asset_injects_only gains two injects for part generation:
+         part_layer (which layer, part-only transparent output) and pose_ref (base-body
+         frames as pose guide), per CHARACTER_COMPOSITING.md §9."
+    followup: "CHARACTER_COMPOSITING.md §5/§8 swatch TBDs now bind to the ramp keys above;
+         style_skin_NN / style_haircolor_NN catalog entries map 1:1 to skin_NN / hair_*;
+         validator should eventually enforce layer-restricted use of these ramps."
 open_questions: ["confirm bitmap font choice+license","confirm boss size policy when >96px"]
