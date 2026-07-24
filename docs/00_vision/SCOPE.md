@@ -10,9 +10,9 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 |---|---|---|
 | Islands | 2 | Emberfoot Isle (training, Lv 1–8, 16 maps) → ferry → Harthmoor Isle (Lv 8–40, 184 maps) |
 | Regions | 8 | Level-banded Lv 1 → 42 (authored arc); see WORLD_PLAN.md |
-| Maps | 200 | 6 towns, 20 interiors (incl. ferry), 99 fields, 53 dungeons (incl. 6 PQ maps), 14 secrets, 8 boss arenas |
+| Maps | 200 | 6 towns, 20 interiors (incl. ferry), 99 fields, 53 dungeons (incl. 6 raid maps), 14 secrets, 8 boss arenas |
 | Monsters | 150 | 118 normal + 24 elite + 8 boss |
-| Party quests | 2 | `pq_undervault` (Lv 15–22), `pq_mainspring` (Lv 32–40); social/PARTY_QUEST.md |
+| Raids | 2 | `raid_undervault` (Lv 15–22), `raid_mainspring` (Lv 32–40); social/RAID.md |
 | Drop tables | 150 + 8 pools | One per monster, plus one equip pool per region |
 | Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40) → 3rd (Lv 80, gate canonized; content ships with future arcs) |
 | Skills | 56 | 13 per job line (6 first / 7 second, passives included) + 4 novice; `skill_<line>_014`–`021` reserved (3rd tier) |
@@ -20,7 +20,7 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Items — use | ~30 | Tonics, cleanses, scrolls, foods (batched table) |
 | Items — etc | ~133 | 16 materials per region + 5 emberstone tiers (batched tables) |
 | NPCs | 84 | Town-weighted; see ID_REGISTRY.md |
-| Quests | 90 | Region-banded kill/collect/talk/reach chains, incl. 4 PQ handler quests |
+| Quests | 90 | Region-banded kill/collect/talk/reach chains, incl. 4 raid handler quests |
 | Elements | 6 | Owner: 10_systems/ELEMENTS.md (`arcane` mobs appear only in Clockwork) |
 | Status effects | 16 | Owner: 10_systems/STATUS_EFFECTS.md |
 | AI profiles | 12 | Owner: 10_systems/AI_BEHAVIOR.md |
@@ -29,7 +29,7 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 
 The game's level cap is **300 (initial design, owner revision)**. This run authors the
 **first arc**: maps and monsters span Lv 1–42, and leveling past the arc is a slow grind on
-endgame maps and party quests until future arcs land. 10_systems/LEVELING.md owns the curve
+endgame maps and raids until future arcs land. 10_systems/LEVELING.md owns the curve
 (formula-first) with detail tables for the authored range; the Lv 100–300 tail segment law
 is an explicit Open Question there. Owner-ratified pacing anchors (2026-07-24, Decision
 Contract C3 as amended by C3′ in `memory.md`): Lv 40 ≈ 30 h · Lv 42 (arc end) ≈ 33.5 h ·

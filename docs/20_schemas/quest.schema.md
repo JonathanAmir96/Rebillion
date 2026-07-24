@@ -26,7 +26,7 @@ tag-eligibility rule, or the zone-declaration mechanism — it cites them.
   The file's `id` is its filename stem; both immutable.
 - **Region ↔ ID block.** A quest's `id` must fall inside its `region`'s sub-range in
   `docs/ID_REGISTRY.md`'s Quests table (e.g. Emberfoot `quest_001`–`010`); this schema does not
-  restate the eight per-region ranges (plus the `quest_087`–`090` PQ handler quests).
+  restate the eight per-region ranges (plus the `quest_087`–`090` raid handler quests).
 - Job-advancement trainer quests are **ordinary quest files** — `10_systems/QUESTS.md` §2 fixes
   that no separate "job-gate" field exists; the trainer relationship is expressed entirely through
   `quest_type: main` + `prereqs` (the prior tier's trainer quest) + the giver being a trainer NPC.
@@ -60,7 +60,7 @@ gates, step progress, and turn-in grants are **server-authoritative**
 | `steps[].count` | int ≥1 | `kill`/`collect`: yes; `talk`/`reach`: no — default `1` | `10_systems/QUESTS.md` §3 | Repeat count. |
 | `steps[].requires_step` | int (1-based index into this quest's own `steps`) | no | `10_systems/QUESTS.md` §3 | Forces sequencing (same prereq-linking pattern as quest-level `prereqs`, §2/§3). Default: all steps open in parallel. Indexing scheme is this schema's own choice — QUESTS.md names the feature but not an addressing mechanism (Open Questions). `server`. |
 | `rewards` | map | yes | `10_systems/QUESTS.md` §4–§5 | Sub-fields below. No reward *numbers* are authored by this schema (cited, not restated). |
-| `rewards.exp` | int | **yes (every quest)** | `10_systems/QUESTS.md` §4; `10_systems/LEVELING.md` §1 | `= round(pct · exp_to_next(quest_level))`, `pct` ∈ the `quest_type`'s §4 band. There is **no** Rift/no-exp band (`memory.md` C9): the Clockwork PQ handler quests `quest_087`–`090` **do** pay `exp` on the normal `main`/`side` bands (`10_systems/QUESTS.md` §4). `server`. |
+| `rewards.exp` | int | **yes (every quest)** | `10_systems/QUESTS.md` §4; `10_systems/LEVELING.md` §1 | `= round(pct · exp_to_next(quest_level))`, `pct` ∈ the `quest_type`'s §4 band. There is **no** Rift/no-exp band (`memory.md` C9): the Clockwork raid handler quests `quest_087`–`090` **do** pay `exp` on the normal `main`/`side` bands (`10_systems/QUESTS.md` §4). `server`. |
 | `rewards.shards` | int | yes | `10_systems/QUESTS.md` §5; `10_systems/DROPS.md` §3 | `side = mean_shards_normal(quest_level)·4`; `main = mean_shards_normal(quest_level)·15` (exact formula, not a band). `server`. |
 | `rewards.items` | list `{id, qty}` | no | `10_systems/ITEMS.md`; `20_schemas/item.schema.md` | No budget cap fixed by `10_systems/QUESTS.md` (Phase D authors against `ITEMS`/`ECONOMY` value bands). Each `id` resolves; `qty` ≥1. `server`. |
 | `flavor` | string | yes | `00_vision/PILLARS.md` P1 | ≤2 sentences, US spelling; quest-log/journal description. `client`. |
@@ -139,7 +139,7 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4).
 8. **Reward — `exp` (hard).** `rewards.exp == round(pct · exp_to_next(level))`
    for some `pct` inside the `quest_type`'s `10_systems/QUESTS.md` §4 band, `exp_to_next` from
    `10_systems/LEVELING.md` §1 at `level_requirement`. **Every** quest pays `exp` — including the
-   Clockwork PQ handler quests `quest_087`–`090` (there is no Rift/no-exp band, `memory.md` C9;
+   Clockwork raid handler quests `quest_087`–`090` (there is no Rift/no-exp band, `memory.md` C9;
    `10_systems/QUESTS.md` §4).
 9. **Reward — `shards` (hard).** Equals the `10_systems/QUESTS.md` §5 formula exactly
    (`mean_shards_normal(level_requirement)` from `10_systems/DROPS.md` §3, ×4 for `side`, ×15 for
@@ -218,6 +218,6 @@ complete_text: "{<=2 sentences, turn-in's dialog voice}"
   data (`15_maps_system/MAP_INTERACTABLES.md` §10's `required_quest_flag`), not by anything in this
   quest file — this schema cannot and does not distinguish the two mechanisms; validation rule 5
   is warn-only for exactly this reason.
-- **Party quest-credit sharing** is explicitly deferred to `10_systems/social/PARTY.md` (not yet
+- **Party-shared quest credit** is explicitly deferred to `10_systems/social/PARTY.md` (not yet
   authored, `10_systems/QUESTS.md` OQ); this schema assumes unshared (each character needs their
   own kill tag/collect item) and carries no field for it.

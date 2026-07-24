@@ -130,7 +130,7 @@ A `boss`-tier `mob_NNN` may never appear in `mobs` (`10_systems/SPAWN.md` §1 �
 | Sub-field | Type | Required | Notes |
 |---|---|---|---|
 | `boss_mob_id` | string `mob_NNN` | yes | Named field per `15_maps_system/MAPS_SYSTEM.md` §8 (`boss_mob_id`); must be `boss`-tier and match this region's `docs/WORLD_PLAN.md` boss seed |
-| `gate` | `{type, required_flag?, party_min?}` | yes | `type: open\|quest_flag`, default `open` (`15_maps_system/MAPS_SYSTEM.md` §8); `required_flag` (quest-stage ref) required iff `type: quest_flag`; `party_min` (int) is meaningful only for the two party-quest **finale** arenas `map_042` / `map_200` when entered via their PQ — its rule (party size 3–6, owned by `10_systems/social/PARTY_QUEST.md`). Every ordinary regional arena never requires a party, and both PQ finales keep an open solo entry |
+| `gate` | `{type, required_flag?, party_min?}` | yes | `type: open\|quest_flag`, default `open` (`15_maps_system/MAPS_SYSTEM.md` §8); `required_flag` (quest-stage ref) required iff `type: quest_flag`; `party_min` (int) is meaningful only for the two raid **finale** arenas `map_042` / `map_200` when entered via their raid — its rule (party size 3–6, owned by `10_systems/social/RAID.md`). Every ordinary regional arena never requires a party, and both raid finales keep an open solo entry |
 | `reset_grace_s` | float | no, default 30 | `15_maps_system/MAPS_SYSTEM.md` §8's `arena_reset_grace_s`; per-arena override hook |
 | `hazards` | list of `{tier, at_tile\|rect_tiles}` | no | `tier` enum owned by `15_maps_system/MAP_TRAVERSAL.md` §6 (`minor`\|`standard`\|`severe`) |
 | `camera_locks` | list of `{phase_id, params:{}}` | no | Phase-triggered per the boss's `phases[]` (`10_systems/AI_BEHAVIOR.md` §15); exact `params` shape is `10_systems/CAMERA.md`'s, not authored in this pass (Open Questions) |
@@ -239,8 +239,8 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
    inside this map's `region`'s mob block (`docs/ID_REGISTRY.md`). A `boss`-tier id may never
    appear in `spawn_zones` (`10_systems/SPAWN.md` §1).
 7. **Arena boss match.** `arena_config.boss_mob_id` must be the boss `docs/WORLD_PLAN.md` names for
-   this map's region. The two party-quest finale arenas reuse their region boss — `map_042` → The
-   Cellar King (`mob_027`), `map_200` → The Custodian (`mob_150`) (`10_systems/social/PARTY_QUEST.md`).
+   this map's region. The two raid finale arenas reuse their region boss — `map_042` → The
+   Cellar King (`mob_027`), `map_200` → The Custodian (`mob_150`) (`10_systems/social/RAID.md`).
 8. **Combat-free map types.** `spawn_zones` must be empty/absent on `town` and `interior` maps
    (`15_maps_system/MAPS_SYSTEM.md` §6, `10_systems/SPAWN.md` §2). `spawn_zones` must also be
    empty/absent on `arena` maps (boss-scripted only, no zone spawner). `arena_config` must be

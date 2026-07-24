@@ -2,12 +2,12 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, 10_systems/STATS.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/SPAWN.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/social/PARTY.md, 10_systems/social/PARTY_QUEST.md, 10_systems/LEVELING.md,
+10_systems/social/PARTY.md, 10_systems/social/RAID.md, 10_systems/LEVELING.md,
 10_systems/ECONOMY.md, 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_CONNECTIONS.md,
 40_assets/ANIMATION_STATES.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
 
 Owner doc for what happens when a player character is defeated: the exp cost, what is (and is
-deliberately not) lost, where the character respawns, how context (field/dungeon/arena/party-quest)
+deliberately not) lost, where the character respawns, how context (field/dungeon/arena/raid)
 changes that flow, and the current boundary around revival. Nothing here redefines combat,
 status, or travel rules owned elsewhere — it only defines the *consequence* of `life` reaching 0.
 
@@ -86,20 +86,20 @@ Whether cleared trash mobs or other zone state reset on a death is a zone-reset 
 `15_maps_system/MAPS_SYSTEM.md` — this doc governs only the player's own respawn point and
 stat/currency/exp consequences, never zone content state.
 
-### 5.2 Boss arena deaths (regional + party-quest finales)
+### 5.2 Boss arena deaths (regional + raid finales)
 Same flow as §5.1. The boss encounter itself resets on the player's exit/respawn — re-entering the
 arena starts a fresh attempt at full boss life. This covers both the 8 open region-boss arenas and
-the two party-quest finale instances (`10_systems/social/PARTY_QUEST.md`; the Cellar King `map_042`,
-the Custodian `map_200`) — there is no raid tier (Decision Contract C9). Boss respawn/instancing
+the two raid finale instances (`10_systems/social/RAID.md`; the Cellar King `map_042`,
+the Custodian `map_200`) — there is no separate raid-boss monster tier (Decision Contract C9). Boss respawn/instancing
 mechanics are owned by `10_systems/SPAWN.md` (timer policy) and `15_maps_system/MAPS_SYSTEM.md`
 (arena scripting); this doc does not redefine them, only that the player's own consequence is the
 standard §2/§3/§4 flow.
 
-### 5.3 Party-quest death & re-entry
-Inside a party-quest instance, a defeated member follows the standard §2/§3 flow (penalties by level
+### 5.3 Raid death & re-entry
+Inside a raid instance, a defeated member follows the standard §2/§3 flow (penalties by level
 bracket) and respawns at its **bound town** per §4 — there is no special fallen/Release/staging-shard
-system. Whether a released member may re-enter a still-live PQ instance, and how a full-party wipe
-ends the run, are owned by `10_systems/social/PARTY_QUEST.md` (party-side rules) and
+system. Whether a released member may re-enter a still-live raid instance, and how a full-party wipe
+ends the run, are owned by `10_systems/social/RAID.md` (party-side rules) and
 `15_maps_system/MAPS_SYSTEM.md` (instance reset), not here. On-the-spot revival of a fallen ally is
 not available in this pass — see §6.
 
@@ -111,14 +111,14 @@ affect entities still standing. Mid-encounter revival (a party member picking up
 intentionally **not implemented** in this pass and requires a new effect op proposed by
 `10_systems/SKILL_EFFECTS.md` — and promoted through the `00_vision/GLOSSARY.md` Provisional
 process — before any skill can grant it. Until that lands, respawn (§4) is the only recovery path in
-all contexts, including party quests (§5.3).
+all contexts, including raids (§5.3).
 
 ## Open Questions
 - Exact `pct` values (§2) are first-pass balance; owner for retuning is this doc, informed by
   `10_systems/LEVELING.md`'s eventual exp curve.
-- Whether a defeated party-quest member (§5.3) still shows on party frames, counts for loot
+- Whether a defeated raid member (§5.3) still shows on party frames, counts for loot
   eligibility, or may re-enter a live instance is `10_systems/social/PARTY.md` /
-  `10_systems/social/PARTY_QUEST.md`'s call — flagged for Agent C to confirm.
+  `10_systems/social/RAID.md`'s call — flagged for Agent C to confirm.
 - Rebind cost: is resting at a new inn free, or does it cost `shards`/carry a cooldown? Default
   assumed **free**; owner `10_systems/ECONOMY.md` may add a fee.
 - A revive skill effect op (§6) is proposed for `10_systems/SKILL_EFFECTS.md` to pick up as

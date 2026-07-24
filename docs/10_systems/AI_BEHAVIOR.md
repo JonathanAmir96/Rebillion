@@ -249,7 +249,7 @@ falls under §2's telegraph requirement the same as `elite`, with no exceptions.
 applications; existing DoTs/CC suspended; invulnerable/untargetable by convention) — this doc only
 triggers entry into it, never redefines what happens inside it. Bosses are immune to hard CC
 (`10_systems/STATUS_EFFECTS.md` §3); a boss/phase may additionally flag immunity to all CC via its
-`20_schemas/monster.schema.md` data — neither is restated here. There is no raid tier (Decision
+`20_schemas/monster.schema.md` data — neither is restated here. There is no separate raid-boss monster tier (raids reuse region bosses, `10_systems/social/RAID.md`) (Decision
 Contract C9).
 
 A boss monster file declares an ordered `phases[]` list (full field typing owned by
@@ -299,7 +299,7 @@ above; set false only if a specific boss needs a softer transition — flag it i
   non-boss monster.
 - Exact tile-to-pixel size for `aggro_radius`/`aggro_vertical_band` units is owned by
   `40_assets/ART_BIBLE.yaml`; not fixed here.
-- `phase_shift_duration_s` and whether it should scale for the party-quest finale bosses (fought
+- `phase_shift_duration_s` and whether it should scale for the raid finale bosses (fought
   party-instanced) vs the open region bosses is a first-pass default; owner
   `10_systems/COMBAT_FORMULA.md` may retune, confirming finale specifics with
-  `10_systems/social/PARTY_QUEST.md` (Agent C).
+  `10_systems/social/RAID.md` (Agent C).

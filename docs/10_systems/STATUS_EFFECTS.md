@@ -77,10 +77,10 @@ tier (`normal` · `elite` · `boss`, `20_schemas/monster.schema.md`):
 | Damage debuff (`sunder`, `weaken`) | 100% | 100% | 50% magnitude |
 | DoT (`burn`, `poison`) | 100% | 100% | 100% |
 
-The 8 region bosses and the two party-quest finale bosses (`docs/WORLD_PLAN.md`;
-`10_systems/social/PARTY_QUEST.md`) may flag **immune to all CC**, hard and soft, in their
+The 8 region bosses and the two raid finale bosses (`docs/WORLD_PLAN.md`;
+`10_systems/social/RAID.md`) may flag **immune to all CC**, hard and soft, in their
 `20_schemas/monster.schema.md` data (a per-boss/per-phase choice, e.g. an enrage phase); DoTs and
-damage debuffs still apply at the `boss` row. There is no raid tier (Decision Contract C9).
+damage debuffs still apply at the `boss` row. There is no separate raid-boss monster tier (raids reuse region bosses, `10_systems/social/RAID.md`) (Decision Contract C9).
 `10_systems/COMBAT_FORMULA.md` may override per-boss values.
 
 ## 4. Registry — the 16 statuses
@@ -160,7 +160,7 @@ apply to DoT ticks exactly as to direct hits.
   boss encounters. Owner: `10_systems/COMBAT_FORMULA.md`.
 - Whether a given boss/phase uses full CC-immunity or the `boss` soft-CC row is a per-boss
   `20_schemas/monster.schema.md` flag; confirm the finale-boss choices with
-  `10_systems/social/PARTY_QUEST.md` (Agent C).
+  `10_systems/social/RAID.md` (Agent C).
 - Max simultaneous statuses (12) is tied to the HUD icon budget; confirm against
   `40_assets/UI_ART_SPEC.md` when the HUD is specced.
 - `regen` and healing scaling: currently % of receiver max `life`; if healer output should scale

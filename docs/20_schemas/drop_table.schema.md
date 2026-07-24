@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/DROPS.md, 10_systems/ITEMS.md, 10_systems/ENHANCEMENT.md, 10_systems/ECONOMY.md,
-10_systems/social/PARTY.md, 10_systems/social/PARTY_QUEST.md, 10_systems/PERSISTENCE.md,
+10_systems/social/PARTY.md, 10_systems/social/RAID.md, 10_systems/PERSISTENCE.md,
 20_schemas/monster.schema.md, 20_schemas/item.schema.md, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md,
 docs/VALIDATION.md
 
@@ -48,7 +48,7 @@ marks who owns the *runtime effect* the field drives (`10_systems/PERSISTENCE.md
 |---|---|---|---|---|
 | `id` | string `drop_mob_NNN` | yes | `docs/ID_REGISTRY.md` Drop tables | Zero-padded; immutable; must equal the filename stem. `server`. |
 | `schema` | string | yes | this file | Literal `20_schemas/drop_table.schema.md` (`docs/VALIDATION.md` §3). |
-| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[DROPS, ITEMS]`; add `ENHANCEMENT` when any row refs an emberstone; add `WORLD_PLAN` for `boss` tables (region-order boss-unique mapping, rule 6); add `PARTY_QUEST` for the two PQ-finale boss tables (`drop_mob_027`, `drop_mob_150`; party-instanced loot ownership). |
+| `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Baseline `[DROPS, ITEMS]`; add `ENHANCEMENT` when any row refs an emberstone; add `WORLD_PLAN` for `boss` tables (region-order boss-unique mapping, rule 6); add `RAID` for the two raid-finale boss tables (`drop_mob_027`, `drop_mob_150`; party-instanced loot ownership). |
 | `owner` | string `mob_NNN` | yes | `10_systems/DROPS.md` §1 | Must equal `mob_<this file's own NNN>` (task's explicit "owner matches filename" rule). `server`. |
 | `rows` | list[row] | yes (≥1) | `10_systems/DROPS.md` §1, §5 | Independently rolled on the monster's death. Shape requirements per this mob's tier — Validation. `server`. |
 | `rows[].ref` | string | yes | `item.schema.md` IDs; literal `shards`; `pools.yaml` IDs | A concrete `item_equip_*`/`item_use_*`/`item_etc_*` id, the literal token `shards`, or a `pool_equip_r01`–`r08` id (§6). Must resolve (`docs/VALIDATION.md` §2). |
@@ -56,7 +56,7 @@ marks who owns the *runtime effect* the field drives (`10_systems/PERSISTENCE.md
 | `rows[].qty_min` | int ≥1 | yes | `10_systems/DROPS.md` §1 | Uniform-roll lower bound. `1` fixed when `ref` is an equip id (unstacked, §1). |
 | `rows[].qty_max` | int ≥ `qty_min` | yes | `10_systems/DROPS.md` §1 | Uniform-roll upper bound. `1` fixed when `ref` is an equip id. |
 | `rows[].rarity_source` | enum | **only when `ref` is a pool id** | `10_systems/DROPS.md` §5.5/§6 | `elite`\|`boss` — selects which §5.5 rarity-weight row instantiates the pooled equip's `rarity` (only two rows exist; no raid). Forbidden on non-pool rows (Validation). `server`. |
-| `rows[].first_clear_guaranteed` | bool | no — default `false` | `10_systems/DROPS.md` §5.3 | Marks this row as the one granted on a character's first-ever clear of this boss (the §5.3 bad-luck-protection guarantee). **Added by this schema** — DROPS.md describes the behavior but names no field for it (see Open Questions); the actual once-per-character bookkeeping is server-tracked state (`10_systems/PERSISTENCE.md`), not expressed here. Boss unique rows only (including the two PQ-finale bosses). `server`. |
+| `rows[].first_clear_guaranteed` | bool | no — default `false` | `10_systems/DROPS.md` §5.3 | Marks this row as the one granted on a character's first-ever clear of this boss (the §5.3 bad-luck-protection guarantee). **Added by this schema** — DROPS.md describes the behavior but names no field for it (see Open Questions); the actual once-per-character bookkeeping is server-tracked state (`10_systems/PERSISTENCE.md`), not expressed here. Boss unique rows only (including the two raid-finale bosses). `server`. |
 
 ### `pools.yaml`
 
@@ -158,9 +158,9 @@ referential integrity, §3 schema conformance/front-matter, §4 ID uniqueness+ra
      region-material row(s); emberstone row(s) — 1 `guaranteed` + 1 `uncommon`; exactly one
      `guaranteed` pool-roll row (`rarity_source: boss`); exactly the boss's two unique
      `item_equip` refs (mapping per rule 6 below) each on an `epic`-or-`legendary` row, with
-     exactly one carrying `first_clear_guaranteed: true`. The two **party-quest finale** bosses
+     exactly one carrying `first_clear_guaranteed: true`. The two **raid finale** bosses
      (`mob_027` Cellar King, `mob_150` Custodian) use this same `boss` shape party-instanced
-     (`10_systems/DROPS.md` §5.4, `10_systems/social/PARTY_QUEST.md`) — there is **no raid tier or
+     (`10_systems/DROPS.md` §5.4, `10_systems/social/RAID.md`) — there is **no separate raid-boss tier or
      raid-token block** (`memory.md` C9).
 5. **`rarity_source` gating (hard).** Present if and only if `ref` is a pool id; value matches the
    owner tier's expected source (`elite`/`boss` per rule 4).
@@ -168,13 +168,13 @@ referential integrity, §3 schema conformance/front-matter, §4 ID uniqueness+ra
    `docs/ID_REGISTRY.md` boss-unique block may appear **only** in a `boss`-tier owner's table ("boss
    uniques only in boss tables"), and must be one of the two IDs that doc's boss-unique mapping
    assigns to this owner's region-order number `n` (region order = `docs/WORLD_PLAN.md` Region
-   overview R1–R8; 8 region bosses, no raid tier — the same derivation
+   overview R1–R8; 8 region bosses, no separate raid-boss tier — the same derivation
    `20_schemas/item.schema.md`'s `unique_of` rule uses, cited once, not restated twice).
 7. **Equip `qty` (hard).** `qty_min == qty_max == 1` whenever `ref` is an `item_equip_*` id
    (unstacked, `10_systems/DROPS.md` §1).
 8. **`shards` row math (hard).** For the `guaranteed` `shards` row, `[qty_min, qty_max]` equals
    `[round(0.8·mean), round(1.2·mean)]` where `mean = mean_shards_normal(owner.level) ·
-   tier_mult` (`10_systems/DROPS.md` §3: `tier_mult` = 1/4/15 for `normal`/`elite`/`boss` — no raid tier).
+   tier_mult` (`10_systems/DROPS.md` §3: `tier_mult` = 1/4/15 for `normal`/`elite`/`boss` — no separate raid-boss tier).
 9. **`pools.yaml` shape (hard).** Exactly 8 `pools[]` entries; `id` = `pool_equip_r<NN>` where
    `NN` matches `region`'s order number; `entries[].item` resolves to an existing `item_equip` id
    (`20_schemas/item.schema.md`). **Tier fit (warn):** each entry's item `tier` should sit in the
@@ -190,7 +190,7 @@ referential integrity, §3 schema conformance/front-matter, §4 ID uniqueness+ra
 # --- drop_mob_NNN.yaml ---
 id: drop_mob_{NNN}
 schema: 20_schemas/drop_table.schema.md
-references: [DROPS, ITEMS]        # add ENHANCEMENT if any emberstone row; WORLD_PLAN for boss tables; PARTY_QUEST for the two PQ-finale boss tables (drop_mob_027, drop_mob_150)
+references: [DROPS, ITEMS]        # add ENHANCEMENT if any emberstone row; WORLD_PLAN for boss tables; RAID for the two raid-finale boss tables (drop_mob_027, drop_mob_150)
 owner: mob_{NNN}                  # must equal this file's own NNN
 rows:
   - { ref: shards, chance: guaranteed, qty_min: {int}, qty_max: {int} }   # every table has this row
@@ -200,7 +200,7 @@ rows:
   # - { ref: item_etc_{emberstone_id}, chance: uncommon, qty_min: 1, qty_max: 1 }
   # - { ref: pool_equip_r{NN}, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: elite }
   # --- boss (DROPS §5.3): guaranteed materials + emberstone(s) + guaranteed pool + 2 unique rows ---
-  # (the two PQ-finale bosses mob_027 / mob_150 use this same boss shape party-instanced, DROPS §5.4)
+  # (the two raid-finale bosses mob_027 / mob_150 use this same boss shape party-instanced, DROPS §5.4)
   # - { ref: pool_equip_r{NN}, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
   # - { ref: item_equip_{unique_id_1}, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
   # - { ref: item_equip_{unique_id_2}, chance: legendary, qty_min: 1, qty_max: 1 }
@@ -237,8 +237,8 @@ pools:
 - **Per-slot pool weighting.** `10_systems/DROPS.md` §6's own Open Question (uniform-across-slots
   vs. weighting toward a player's line weapon) is unresolved; `entries[].weight` supports either
   resolution without a schema change, so this schema takes no position.
-- **PQ-finale loot distribution.** Which party member receives a PQ-finale boss table's rolled rows
-  (`drop_mob_027`, `drop_mob_150`) is `10_systems/social/PARTY.md` / `10_systems/social/PARTY_QUEST.md`'s
+- **raid-finale loot distribution.** Which party member receives a raid-finale boss table's rolled rows
+  (`drop_mob_027`, `drop_mob_150`) is `10_systems/social/PARTY.md` / `10_systems/social/RAID.md`'s
   (not yet fully authored); this schema fixes only the table shape (`10_systems/DROPS.md` §5.4, the
   `boss` shape), not who gets what.
 - **Ownership-timer values (60 s/120 s) and per-zone shortening** are `10_systems/DROPS.md` §7's own

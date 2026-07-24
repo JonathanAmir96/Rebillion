@@ -139,9 +139,9 @@ Because reward and the §1 curve share this term, `exp/hour` stays smooth across
 |---|---|---|
 | `normal` | ×1 | The pacing anchor. |
 | `elite` | ×5 | ×6 `life` (COMBAT_FORMULA §13.2) for ×5 `exp` → marginally less `exp/hour` than normals; elites are speed-bumps and drop-density, not `exp` farms. |
-| `boss` | ×25 | ×35 `life`; a region `boss` is a progression/loot event, not an `exp/hour` play. The 8 arc bosses (`docs/WORLD_PLAN.md`) all pay `boss` reward; party quests (`10_systems/social/PARTY_QUEST.md`) end at an existing boss and share this reward per `10_systems/social/PARTY.md`. |
+| `boss` | ×25 | ×35 `life`; a region `boss` is a progression/loot event, not an `exp/hour` play. The 8 arc bosses (`docs/WORLD_PLAN.md`) all pay `boss` reward; raids (`10_systems/social/RAID.md`) end at an existing boss and share this reward per `10_systems/social/PARTY.md`. |
 
-There is no raid tier (Decision Contract C9): `mob_145`–`150` are Clockwork elites and the Custodian
+There is no separate raid-boss monster tier (raids reuse region bosses, `10_systems/social/RAID.md`) (Decision Contract C9): `mob_145`–`150` are Clockwork elites and the Custodian
 boss, not raid bosses. Arc monster levels top out at 42 (Clockwork elites, `docs/WORLD_PLAN.md`).
 
 | Mob Lv | `normal` ×1 | `elite` ×5 | `boss` ×25 |
@@ -203,8 +203,8 @@ design)**. Within the arc:
   (`10_systems/STATS.md` §4.2), skill points (`10_systems/SKILL_SYSTEM.md`), and gear tiers through
   the Lv-40 band (`10_systems/ITEMS.md`, C7) all cover the arc.
 - **Past Lv 42**, arc-1 content runs out: leveling toward the Lv 80 3rd-job gate and beyond is a
-  slow grind on the endgame Clockwork maps and the two party quests
-  (`10_systems/social/PARTY_QUEST.md`) until future arcs add content. The §1 anchors (Lv 60 ≈ 80 h,
+  slow grind on the endgame Clockwork maps and the two raids
+  (`10_systems/social/RAID.md`) until future arcs add content. The §1 anchors (Lv 60 ≈ 80 h,
   Lv 80 ≈ 166 h, Lv 100 ≈ 300 h) are the ratified pacing target for that tail.
 
 **The Lv 100–300 tail segment law is an explicit Open Question, deferred to a future arc.** The

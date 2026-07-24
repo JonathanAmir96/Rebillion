@@ -241,9 +241,9 @@ primary/`life`/`armor`/`warding`/`haste`; `gloves` may also roll `crit_rate`/`pr
 
 Each of the **8** region bosses (`docs/WORLD_PLAN.md`) owns **two** uniques at
 `item_equip_0201`–`0216` — **16 uniques** total (mapping owned by `docs/ID_REGISTRY.md`: boss #n →
-`0199+2n`, `0200+2n`; Cindermaw `0201`–`0202` … Custodian `0215`–`0216`). There is no raid tier
-(Decision Contract C9); the two party-quest finales end at existing region bosses (the Cellar King
-and the Custodian, `10_systems/social/PARTY_QUEST.md`) and use those bosses' own uniques — no extra
+`0199+2n`, `0200+2n`; Cindermaw `0201`–`0202` … Custodian `0215`–`0216`). There is no separate raid-boss monster tier (raids reuse region bosses, `10_systems/social/RAID.md`)
+(Decision Contract C9); the two raid finales end at existing region bosses (the Cellar King
+and the Custodian, `10_systems/social/RAID.md`) and use those bosses' own uniques — no extra
 unique slots. Rules:
 
 - **Rarity `epic` or `legendary`.** `req_level` = the boss's level band; slot/type is the unique's

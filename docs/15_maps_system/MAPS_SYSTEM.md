@@ -3,7 +3,7 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, docs/WORLD_PLAN.md,
 docs/ID_REGISTRY.md, docs/VALIDATION.md, 10_systems/SPAWN.md, 10_systems/DEATH_PENALTY.md,
 10_systems/AI_BEHAVIOR.md, 10_systems/HUD.md, 10_systems/social/PARTY.md,
-10_systems/social/PARTY_QUEST.md,
+10_systems/social/RAID.md,
 15_maps_system/MAP_TRAVERSAL.md, 15_maps_system/MAP_INTERACTABLES.md,
 15_maps_system/MAP_LAYERS.md, 15_maps_system/MAP_CONNECTIONS.md, 40_assets/ART_BIBLE.yaml
 
@@ -55,7 +55,7 @@ Size guidance is authoring guidance for Phase D, not a `docs/VALIDATION.md` hard
 | `secret` | Bonus/reward pocket off the main path | ≤2 screens any dimension (~≤80 tiles) | ≤2 screens (~≤45 tiles) | Optional, sparse — `10_systems/SPAWN.md` §2 |
 
 Counts per type are fixed by `docs/WORLD_PLAN.md`/`00_vision/SCOPE.md` (6 town · 20 interior
-(incl. the Harborwind Ferry) · 99 field · 53 dungeon (incl. 6 party-quest maps) · 14 secret ·
+(incl. the Harborwind Ferry) · 99 field · 53 dungeon (incl. 6 raid maps) · 14 secret ·
 8 arena = 200); this doc governs shape, not allocation.
 
 ## 3. Naming conventions (`display_name`)
@@ -124,10 +124,10 @@ already cleared would be exactly that kind of sting).
 have a second walkable entrance, satisfying `docs/VALIDATION.md` §5 reachability with exactly one
 edge. Default gate = open (no level lock, no quest lock — P1, the player chooses engagements). A
 per-arena quest-flag override is an optional Phase D authoring choice, not a rule here. The two
-party-quest **finale** arenas (`map_042` The Cellar Deep, `pq_undervault`; `map_200` The Mainspring,
-`pq_mainspring`) additionally support a party-instanced entry with a party-size gate
-(`10_systems/social/PARTY_QUEST.md`, `docs/WORLD_PLAN.md`); the same two arenas keep an open
-(non-PQ) solo entry at reduced reward. Every other regional arena never requires a party.
+raid **finale** arenas (`map_042` The Cellar Deep, `raid_undervault`; `map_200` The Mainspring,
+`raid_mainspring`) additionally support a party-instanced entry with a party-size gate
+(`10_systems/social/RAID.md`, `docs/WORLD_PLAN.md`); the same two arenas keep an open
+(non-raid) solo entry at reduced reward. Every other regional arena never requires a party.
 
 **`boss_bar` hookup.** An arena map declares `boss_mob_id: mob_NNN` identifying its boss. The
 client shows `10_systems/HUD.md`'s `boss_bar` element bound to that mob's `life` the moment its AI
@@ -141,9 +141,9 @@ per-party-instanced. It resets to phase 1 at full life once it has been empty of
 `arena_reset_grace_s` = **30 s** — long enough that a same-party wipe-and-retry doesn't reset
 mid-corpse-run, short enough that a later group never inherits a stale fight. This satisfies
 `10_systems/SPAWN.md` §3's "no long timer" intent while keeping regional bosses simple, single-
-instance content (P3, one connected world); the two party-quest finale arenas (`map_042`,
-`map_200`) are the sole party-instanced exception when entered via their PQ
-(`10_systems/social/PARTY_QUEST.md`) — their open solo entry behaves as an ordinary shared regional
+instance content (P3, one connected world); the two raid finale arenas (`map_042`,
+`map_200`) are the sole party-instanced exception when entered via their raid
+(`10_systems/social/RAID.md`) — their open solo entry behaves as an ordinary shared regional
 arena. `10_systems/DEATH_PENALTY.md` §5.2's "re-entering starts a
 fresh attempt" is the solo-player special case of this same rule (an empty arena after one
 player's death/respawn).

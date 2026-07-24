@@ -16,10 +16,13 @@ list; the validator exempts `VALIDATION.md` and nothing else). Anywhere else —
 content, comments — their presence makes the file invalid. Matching is case-sensitive on
 whole words:
 
-`STR` · `DEX` · `INT` · `LUK` · `HP` · `MP` · `meso` · `mesos`
+`STR` · `DEX` · `INT` · `LUK` · `HP` · `MP` · `meso` · `mesos` · `PQ` · `party quest` ·
+`pq_` (as an ID prefix)
 
 Use the GLOSSARY.md replacements (`might`/`finesse`/`focus`/`fortune`, `life`, `essence`,
-`shards`).
+`shards`), and **raid** / `raid_<name>` for the instanced co-op runs (owner ruling
+2026-07-24; owner doc `10_systems/social/RAID.md`). `party quest` matches
+case-insensitively and hyphenated (`party-quest`); `PQ` matches case-sensitive whole-word.
 
 ## 2. Referential integrity
 Every named reference must resolve to its owner registry: `element` →

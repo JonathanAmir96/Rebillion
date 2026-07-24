@@ -56,7 +56,7 @@ authoritative; the table is the checksum. Tier multiplies the mean.
 ```
 mean_shards_normal(L) = round( 1.5·L + 3 )
 range                 = [ round(0.8·mean), round(1.2·mean) ]
-tier multiplier: normal ×1 · elite ×4 · boss ×15    (no raid tier — Decision Contract C9)
+tier multiplier: normal ×1 · elite ×4 · boss ×15    (no separate raid-boss tier — raids reuse `boss`; Decision Contract C9)
 ```
 
 Arc rows are Lv 1–42; rows below the rule are reference anchors beyond the authored arc.
@@ -128,8 +128,8 @@ within these shapes; the guarantees are the contract.
   (or `legendary` for the more prized one). **First-ever clear guarantees one** of the two
   (bad-luck protection, P2); later kills roll the chance.
 
-### 5.4 Party-quest finale bosses
-The two party quests (`10_systems/social/PARTY_QUEST.md`) end at existing region bosses (the Cellar
+### 5.4 Raid finale bosses
+The two raids (`10_systems/social/RAID.md`) end at existing region bosses (the Cellar
 King, `map_042`; the Custodian, `map_200`) fought party-instanced. They drop the **`boss` table
 shape** (§5.3) — including the boss's own uniques — with party loot distribution owned by
 `10_systems/social/PARTY.md`, not this doc. There is no separate raid tier or raid-token block
@@ -161,7 +161,7 @@ armor/accessories) whose `tier` matches that region's level band (`10_systems/IT
 
 Pools are region-scoped so a monster drops **level-appropriate** gear (P2 legible progression). A
 pool `ref` in a `drop_mob` row means "roll this pool," not a specific item. Boss uniques are **not**
-in pools — they are direct `ref` rows (§5.3; PQ finales reuse the boss shape, §5.4).
+in pools — they are direct `ref` rows (§5.3; raid finales reuse the boss shape, §5.4).
 
 ## 7. World drop, tagging & ownership
 
@@ -204,9 +204,9 @@ client may re-roll a table or self-assign a rarity.
 - The `fortune` cap (+100%, §4) and whether it should also nudge `shards` slightly are open;
   default keeps `shards` `fortune`-free for steady income. Owner: this doc with
   `10_systems/ECONOMY.md`.
-- Party-quest finale loot distribution (which member receives the `boss`-shape rolls and the boss
-  uniques, §5.4) is owned by `10_systems/social/PARTY.md` / `10_systems/social/PARTY_QUEST.md`, not
-  yet authored; this doc fixes only that PQ finales use the §5.3 `boss` table shape. Flagged for
+- Raid finale loot distribution (which member receives the `boss`-shape rolls and the boss
+  uniques, §5.4) is owned by `10_systems/social/PARTY.md` / `10_systems/social/RAID.md`, not
+  yet authored; this doc fixes only that raid finales use the §5.3 `boss` table shape. Flagged for
   Agent C.
 - Ownership-timer values (60 s / 120 s) and whether dungeons/arenas shorten them are first-pass;
   confirm against `10_systems/social/PARTY.md` loot rules and `15_maps_system/MAPS_SYSTEM.md` zone

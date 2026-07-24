@@ -94,6 +94,17 @@ by ring hop · ferry 150 · Return Scroll 2,500 as a paid recall).
 - 2026-07-24 (producer) — Millbrook Return Scroll kept as `item_use_0013` but ruled a
   shard-priced vendor consumable (2,500) — no free warps of any kind (C5); coach/ferry
   fares published in ECONOMY §7.
+- 2026-07-24 (owner, post-merge) — **Raid convention ruling:** "raid" replaces the
+  "party quest"/"PQ" phrasing tree-wide (MapleStory-notation avoidance; the mode itself
+  stays MapleStory-inspired). Amends C8's naming only — the world stays v2: two raids
+  (`raid_undervault`, `raid_mainspring`) reusing the 8 region bosses; **no separate raid
+  monster tier** (C9 unchanged). `social/PARTY_QUEST.md` → `social/RAID.md` (v2-scoped,
+  replacing the v3 4-raid doc); `pq_*` retired and added to VALIDATION §1's banned list.
+- 2026-07-24 (producer, post-merge sweep) — the merge had silently kept v3 versions of
+  files our branch never edited: GLOSSARY.md (v3), CLAUDE.md (v3), WORLD_PLAN.md (v2/v3
+  auto-merge chimera), TRADING.md (0201–0222). All restored/rewritten to v2 canon + raid
+  convention; README/HUD/PERSISTENCE/MAIL/MARKET/SPRITESHEET_SPEC kept (main's edits were
+  benign).
 
 ## Open questions rollup (live copies live in each doc's own section)
 

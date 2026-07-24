@@ -23,47 +23,49 @@ code, no generated art. Read `README.md` for the tree map and
 6. **Validate before landing:** the checks in `docs/VALIDATION.md` run on every content
    batch (see `tools/` once the validator lands). US spelling everywhere.
 
-## Current design state (v3, owner revision 2026-07-23)
+## Current design state (v2 canon, reconciled + merged 2026-07-24)
 
-- Five islands, two authored arcs (Lv 1–82; game cap 300, initial design). **Arc 1:**
-  Emberfoot Isle (training, maps 001–016) → Harborwind Ferry (paid) → Harthmoor Isle, a
-  Victoria-style **ring** (Millbrook south hub ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔
-  Millbrook) around the Clockwork Ruins center, with Sunken Depths as a coastal spur.
-  **Arc 2 (Lv 40–80):** the Deepway — a 3-map underground passage from Cindershelf,
-  level-gated Lv 40 — surfaces on Frostpeak Isle (40–55); Arcane Reach (53–68) and
-  Voidshore (66–80) complete the far isles, linked by the paid, scheduled **longship**
-  network from Tidewatch Port (2–3 min real-time sails). Totals: 324 maps, 234 monsters
-  (178/45/11), 11 bosses, 4 **raids** (`raid_undervault`/`raid_mainspring`/`raid_deepfrost`/
-  `raid_voidtide` — "raid" replaces the retired party-quest term). Town travel is the paid
-  Harthmoor Coachworks (shards) — no free warps. Each job line has a home ring town with its
-  instructor (Bulwark→Cindershelf, Keeneye→Tidewatch Port, Weaver→Mossmere,
-  Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law. Terrain is
-  Maple-style footholds + painted terrain chunks (ART_BIBLE amendment AB-001; movement
-  rules in MAP_TRAVERSAL.md).
-- Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 **branches** into a permanent specialization —
-  bulwark: Ironbrand/Stoneguard/Warcaller · keeneye: Pathstalker/Sureshot · weaver:
-  Runeweaver/Cindercall/Frostbind · flicker: Duskstep/Wildcard (rosters in
-  `docs/10_systems/JOBS.md`); 3rd-tier jobs named-and-reserved for future arcs.
+- **Two islands, one authored arc** (Lv 1–42 content; game cap 300, initial design; job
+  gates 8 / 40 / 80-reserved): Emberfoot Isle (training, maps 001–016) → Harborwind Ferry
+  (paid) → Harthmoor Isle, a Victoria-style **ring** (Millbrook south hub ↔ Verdant ↔
+  Gloomwood ↔ Ashfall ↔ Tidewatch ↔ Millbrook) around the Clockwork Ruins center, with
+  Sunken Depths as a coastal spur. Totals: **200 maps, 150 monsters (118/24/8), 8 bosses,
+  2 raids** (`raid_undervault` / `raid_mainspring` — "raid" is the owner-ruled term for the
+  instanced co-op runs, replacing the retired party-quest phrasing; owner doc
+  `docs/10_systems/social/RAID.md`; no separate raid monster tier — finales reuse region
+  bosses). Town travel is the paid Harthmoor Coachworks (shards, fares in ECONOMY §7) —
+  no free warps. Each job line has a home ring town with its instructor
+  (Bulwark→Cindershelf, Keeneye→Tidewatch Port, Weaver→Mossmere, Flicker→Millbrook); maps
+  follow the WORLD_PLAN monster-gradient law. Terrain is Maple-style footholds + painted
+  terrain chunks (ART_BIBLE amendment AB-001; movement rules in MAP_TRAVERSAL.md).
+- Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 (linear, no branching this arc); **3rd job at
+  Lv 80 — gate canonized, content reserved for future arcs** (rosters in
+  `docs/10_systems/JOBS.md`). Pacing (owner-ratified C3′, `memory.md`): Lv 40 ≈ 30 h ·
+  Lv 80 ≈ 166 h · Lv 100 ≈ 300 h of `/played`.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
 - Monetization (owner amendment MON-001, 2026-07-23): cosmetic-only + in-world sponsor
   billboards, hard no-pay-to-win charter — `docs/10_systems/MONETIZATION.md`. Direction only;
   no store content is authored this run.
+- **v3-lineage material** (5 islands / 11 regions / arc 2 / branching specs — the parallel
+  lineage merged over on 2026-07-24) is **non-canonical**: its content files and extra docs
+  remain in-tree pending owner pruning or re-ratification. See `memory.md` MERGE NOTE and
+  the ID_REGISTRY repeal note. Do not build on it.
 
 ## Git & generation workflow
 
-- Work lands on the designated feature branch (currently
-  `claude/fable-design-docs-eaubpt`); push with `git push -u origin <branch>`. One concern
-  per commit; content commits separate from doc/rule commits.
+- Work lands on the session's designated feature branch; push with
+  `git push -u origin <branch>`. One concern per commit; content commits separate from
+  doc/rule commits.
 - Generation is phased A→E with hard gates (vision → systems → schemas/assets → content →
   coding-pass briefs); each phase emits a report in `docs/phase_reports/`.
-- **Phase status (2026-07-24):** A (vision), B (systems), C (schemas/assets gate), D (content —
-  all 324 maps / 234 monsters / drops / NPCs / quests / skills / items, strict `validate.py`
-  0/0), plus the post-plan waves **F** (integrations), **G** (equipment v2), **H** (consistency),
-  and **I** (backend design) are all **complete and reconciled to v3.1** — see their reports and
-  `SYNC_AUDIT_v3_2026-07-23.md`. **Nothing needs re-running.** Not yet started (forward work, not
-  re-runs): **Phase E** (coding-pass briefs — the A→E tail), the **art pass** (PixelLab briefs),
-  and the **arc-1/arc-2 balance pass**. `memory.md` (newest-first) is the authoritative live log.
+- **Phase status (2026-07-24, v2 canon):** A (vision), B (systems), C (schemas/assets), and
+  the **B2 v2-reconciliation + C3′ pacing retune** (`PHASE_B2_REPORT.md`) are complete.
+  **Phase D (content) has not started against v2 canon** — the `50_content/` tree presently
+  in-repo was authored by the non-canonical v3 lineage and must be pruned or re-ratified
+  before or during D (see `memory.md` MERGE NOTE). `tools/validate.py` is v3-configured and
+  must be re-aimed at v2 canon before gating (VALIDATION Open Questions). `memory.md` is
+  the authoritative live log.
 - PixelLab (art generation, later pass): MCP tools + owner's API token. The token is
   **deliberately not stored in this repo** — ask the owner or use the environment secret
   (suggested var: `PIXELLAB_SECRET`) configured in the Claude Code environment settings.

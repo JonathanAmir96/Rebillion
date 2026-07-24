@@ -111,7 +111,7 @@ A region's total quest `exp` should land near **≈25%** of the `exp` needed to 
 level band (`10_systems/LEVELING.md` §4 — cited, not restated); Phase D sums each region's
 authored quests against that target and tunes individual `pct` within the bands above, per
 `10_systems/LEVELING.md`'s own Open Question on this reconciliation. There is no Rift band
-(Decision Contract C9): the Clockwork PQ/handler quests **`quest_085`–`090`** are ordinary arc
+(Decision Contract C9): the Clockwork raid/handler quests **`quest_085`–`090`** are ordinary arc
 quests (region 8, Lv 34–42) and **pay `exp` on the normal `main`/`side` bands above** — they are
 not exempt.
 
@@ -186,7 +186,7 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
 
 ## Open Questions
 
-- Party quest-credit sharing (does a party member's kill/collect count for everyone nearby?) is
+- Party-shared quest credit (does a party member's kill/collect count for everyone nearby?) is
   deferred to `10_systems/social/PARTY.md`, not yet authored; default until then is **unshared** —
   each member individually needs the kill tag / the collect item.
 - Exact per-quest `pct` within the §4 bands, and the regional ≈25% reconciliation, is Phase D

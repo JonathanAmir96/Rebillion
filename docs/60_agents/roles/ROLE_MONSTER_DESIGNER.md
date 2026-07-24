@@ -36,7 +36,7 @@ mob's level and tier (elites/bosses via the tier multiplier — no free-hand sta
 reference only existing `ai_profile`, `element`, `status`, and effect `op` tokens; manifests
 listing id, name, level, tier, role, `ai_profile`, and drop-pool ref per row, pre-computed so
 Haiku can execute mechanically; bosses declare `telegraph` states (VALIDATION §6) and any
-CC-immunity re-homed to the region/PQ bosses.
+CC-immunity re-homed to the region/raid-finale bosses.
 
 **Definition of done:** every mob level sits inside its region band and ID block; tier
 counts match WORLD_PLAN (118 normal / 24 elite / 8 boss for the arc); stat-blocks pass

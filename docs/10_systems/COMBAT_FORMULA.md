@@ -263,10 +263,10 @@ their script marks contact-hot.
 
 Worked checks: elite Lv 30 `life` = 4355×6 ≈ 26 150; boss Lv 40 `life` = 7395×35 ≈ 258 800; boss
 Lv 40 `power` = 126×2 = 252. The 8 region bosses (`docs/WORLD_PLAN.md`) copy the `boss` row for
-their level and phase-tune within it. There is no raid tier (Decision Contract C9): the party quests
-(`10_systems/social/PARTY_QUEST.md`) end at an existing region boss fought party-instanced, using the
-same `boss` row — party scaling of boss `life` for the PQ finales, if any, is owned by
-`10_systems/social/PARTY_QUEST.md`, not here.
+their level and phase-tune within it. There is no separate raid-boss monster tier (raids reuse region bosses, `10_systems/social/RAID.md`) (Decision Contract C9): the raids
+(`10_systems/social/RAID.md`) end at an existing region boss fought party-instanced, using the
+same `boss` row — party scaling of boss `life` for the raid finales, if any, is owned by
+`10_systems/social/RAID.md`, not here.
 
 ## 14. Time-to-kill targets (design contract)
 
@@ -278,7 +278,7 @@ and the §15 DPS curve; balance retunes toward the **midpoint**, never outside t
 | normal mob | 3–6 s | 4.5 s (`life` / effective DPS) | §13, §15 |
 | `elite` | 20–40 s | ≈ 30 s (×6 `life`, +mitigation/dodging) | §13.2 |
 | region `boss` | 2–4 min | ≈ 2.5 min base + phase/mechanic downtime | §13.2 |
-| PQ finale `boss` (party 3–6) | 3–6 min | ≈ 4 min, party-instanced | §13.2, `social/PARTY_QUEST.md` |
+| raid finale `boss` (party 3–6) | 3–6 min | ≈ 4 min, party-instanced | §13.2, `social/RAID.md` |
 
 ## 15. Player DPS assumption table (backs §14)
 
@@ -315,9 +315,9 @@ intended tutorial pacing (P2) and stays inside the "snappy" spirit of the band.
 - `base_move_speed` (200 px/s) and `base_attack_interval` (0.90 s) are placeholders until the tile
   scale is locked in `40_assets/ART_BIBLE.yaml`; the `haste` percentages (STATS §5) are scale-free,
   but the px value is not. Owner: COMBAT_FORMULA at the C gate.
-- PQ finale party scaling (whether the PQ-instanced boss `life` scales with party size `N`, and the
-  legal party range 3–6) is owned by `10_systems/social/PARTY_QUEST.md` / `10_systems/social/PARTY.md`,
-  not here; §14's PQ finale TTK band assumes a mid party and the unscaled `boss` row. Confirm the
+- raid finale party scaling (whether the raid-instanced boss `life` scales with party size `N`, and the
+  legal party range 3–6) is owned by `10_systems/social/RAID.md` / `10_systems/social/PARTY.md`,
+  not here; §14's raid finale TTK band assumes a mid party and the unscaled `boss` row. Confirm the
   scaling model there and reconcile the band if it lands. Flagged for Agent C.
 - `power_ref`/`mult m` (§15) assume typical gear budgets from `10_systems/ITEMS.md` and skill
   coefficients from `10_systems/SKILL_SYSTEM.md` that are not yet authored; if those land far from

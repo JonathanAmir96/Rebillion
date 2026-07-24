@@ -19,8 +19,8 @@ started); this is the only permitted kind of re-blocking — never renumber mint
 | 7 Sunken Depths (`sunken`) | `map_152`–`map_176` |
 | 8 Clockwork Ruins (`clockwork`) | `map_177`–`map_200` |
 
-**Convention:** the last ID of each block is the region's boss arena. Party-quest stage maps
-are `map_038`–`map_040` (`pq_undervault`) and `map_195`–`map_197` (`pq_mainspring`).
+**Convention:** the last ID of each block is the region's boss arena. Raid stage maps
+are `map_038`–`map_040` (`raid_undervault`) and `map_195`–`map_197` (`raid_mainspring`).
 
 ## Monsters — `mob_001`–`mob_150` (normals first, then elites, boss last)
 
@@ -82,7 +82,7 @@ reference them before item files exist (stats authored in Phase D):
 
 Tonic tiers bind to level bands per 10_systems/ITEMS.md (v2: five tiers across the
 authored Lv 1–42 arc).
-`0017`–`0060` reserved for Phase D (region specialties, PQ consumables, quest consumables).
+`0017`–`0060` reserved for Phase D (region specialties, raid consumables, quest consumables).
 
 **Gear-modification scrolls (equipment-v2 wave; semantics 10_systems/SCROLLS.md):**
 `0061`–`0078` = 18 SKUs, 3 slot families × 2 kinds × 3 tiers, laid out `0061`–`0066`
@@ -129,11 +129,11 @@ reserved growth. `skill_novice_001`–`010` reserved for the novice kit (up to 4
 | 3 Verdant | 025–036 | 12 | 7 Sunken | 069–078 | 10 |
 | 4 Tidewatch | 037–048 | 12 | 8 Clockwork | 079–086 | 8 |
 
-Party-quest intro/handler quests: `quest_087`–`090` (2 per PQ; owner region R2/R8 casts).
+Raid intro/handler quests: `quest_087`–`090` (2 per raid; owner region R2/R8 casts).
 `quest_091`–`120` reserved. Total authored: 90.
 
-## Party quests — `pq_undervault` · `pq_mainspring`
-Owner: 10_systems/social/PARTY_QUEST.md. Future PQs mint `pq_<name>` tokens here first.
+## Raids — `raid_undervault` · `raid_mainspring`
+Owner: 10_systems/social/RAID.md. Future raids mint `raid_<name>` tokens here first.
 
 ## Packet opcodes — `op_0001`–`op_9999` (13 domain blocks)
 

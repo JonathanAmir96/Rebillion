@@ -4,21 +4,21 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md, 10
 10_systems/LEVELING.md, 10_systems/COMBAT_FORMULA.md, 10_systems/DROPS.md, 10_systems/INVENTORY.md,
 10_systems/ECONOMY.md, 10_systems/QUESTS.md, 10_systems/DEATH_PENALTY.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/SPAWN.md, 10_systems/HUD.md, 10_systems/CONTROLS.md,
-10_systems/social/CHAT.md, 10_systems/social/PARTY_QUEST.md, 15_maps_system/MAPS_SYSTEM.md,
+10_systems/social/CHAT.md, 10_systems/social/RAID.md, 15_maps_system/MAPS_SYSTEM.md,
 10_systems/PERSISTENCE.md, docs/WORLD_PLAN.md
 
 Owner doc for the **party**: membership and roster, invite/kick/leave and leader powers, the
 exp-share split, loot-share modes, and the HUD data contract. Kill/`exp`
 math is `10_systems/LEVELING.md`/`10_systems/COMBAT_FORMULA.md`; drop tagging and table shape are
 `10_systems/DROPS.md`; death/release-and-reenter is `10_systems/DEATH_PENALTY.md`. The two
-party quests (`pq_undervault`, `pq_mainspring`) — their party-size gates, stage flow, and
-instanced rewards — are owned by `10_systems/social/PARTY_QUEST.md`, which consumes this doc's
+raids (`raid_undervault`, `raid_mainspring`) — their party-size gates, stage flow, and
+instanced rewards — are owned by `10_systems/social/RAID.md`, which consumes this doc's
 share rules. This doc consumes all of those and never restates them — it owns only who is in a
 party and how shared rewards split among them.
 
 ## 1. Membership & roster
 
-- **Size cap: 6.** Flat cap, no tiers — every party (field, dungeon, or party quest) shares the
+- **Size cap: 6.** Flat cap, no tiers — every party (field, dungeon, or raid) shares the
   same ceiling.
 - One party per character. A pending invite (§2) does not count as membership.
 - Roster fields: member list in join order, each member's `level`, job line
@@ -47,8 +47,8 @@ Each party member (including fallen ones, §6) renders a HUD plate for every oth
 plate's visual design, layout, and animation are entirely `10_systems/HUD.md`'s. This doc fixes
 only the **data** a plate consumes: member name, `level`, job line icon token, current `life`/
 `essence` as a percentage of max (`10_systems/STATS.md` §2), same-map indicator, and alive/fallen
-state (`10_systems/DEATH_PENALTY.md`; party-quest fallen bookkeeping in
-`10_systems/social/PARTY_QUEST.md` §7). See Open Questions — `10_systems/HUD.md`'s current
+state (`10_systems/DEATH_PENALTY.md`; raid fallen bookkeeping in
+`10_systems/social/RAID.md` §7). See Open Questions — `10_systems/HUD.md`'s current
 layout has no reserved region for this yet.
 
 ## 4. Exp share
@@ -110,14 +110,14 @@ Questions — whether this duplicates the material/`shards` faucet per member is
 **Default: `round_robin`** for pool rolls and boss uniques. The leader may toggle the mode
 (§2) at any time; a change applies to the next roll, never retroactively.
 
-## 6. Party quests
+## 6. Raids
 
-The two instanced co-op party quests — `pq_undervault` (finale `map_042`, The Cellar King) and
-`pq_mainspring` (finale `map_200`, The Custodian) — are owned by
-`10_systems/social/PARTY_QUEST.md`. Their party-size gate (3–6), level bands, stage flow,
+The two instanced co-op raids — `raid_undervault` (finale `map_042`, The Cellar King) and
+`raid_mainspring` (finale `map_200`, The Custodian) — are owned by
+`10_systems/social/RAID.md`. Their party-size gate (3–6), level bands, stage flow,
 instance allocation, and reduced-reward solo open-arena path live there. Those runs consume
 **this** doc's rules unchanged: roster/leadership (§1–§2), the exp-share split (§4), and the
-loot-share modes (§5). This doc adds no party-quest-specific party rules beyond confirming the
+loot-share modes (§5). This doc adds no raid-specific party rules beyond confirming the
 same flat size cap of 6 (§1) applies.
 
 ## Server Dependency
@@ -126,8 +126,8 @@ Roster membership, HUD plate data, and exp/loot arbitration are all
 `authority: server` (`10_systems/PERSISTENCE.md` §1–§2; `00_vision/PILLARS.md` P6) — a client
 cannot self-certify who is in range or award itself a kill's exp/loot. **The interim solo build
 ships the entire party system present but dormant**: the invite/roster UI exists but has no other
-character to reach, so no party ever forms (and the party quests in
-`10_systems/social/PARTY_QUEST.md` stay unreachable, since each requires an entering 3–6 party).
+character to reach, so no party ever forms (and the raids in
+`10_systems/social/RAID.md` stay unreachable, since each requires an entering 3–6 party).
 
 ## Open Questions
 
