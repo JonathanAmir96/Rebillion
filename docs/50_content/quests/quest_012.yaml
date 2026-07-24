@@ -10,8 +10,8 @@ recommended_level: 40
 prereqs: [quest_011]
 steps:
   - type: reach
-    target: map_180                 # forward-ref: a Clockwork Ruins trial chamber (R8 batch, not yet authored)
-    zone: spec_trial_gate
+    target: map_180                 # the flicker trial ground, Brassvein Terraces (WORLD_PLAN §Job instructors / JOBS §1.1)
+    zone: flicker_trial_ground
   - type: talk
     target: npc_017
     count: 1

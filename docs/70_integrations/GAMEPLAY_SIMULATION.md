@@ -207,7 +207,9 @@ vectors pin the RNG algorithm and a rounding convention — `10_systems/COMBAT_F
 fix one for `round(raw)` (`10_systems/SKILL_SYSTEM.md` §4 fixes round-half-up only for rank
 interpolation), so the vectors pin **round-half-up** pending that doc's owner confirming it (Open
 Questions); the
-`empower`/`weaken` damage-dealt multiplier (§8); and the level-difference dampener (§9). Snapshotted DoT
+`empower`/`weaken`/`combo_momentum` damage-dealt multipliers (§8; chain state per
+`10_systems/COMBO_SYSTEM.md`, tracked server-side per player like any other combat state); and the
+level-difference dampener (§9). Snapshotted DoT
 ticks (`10_systems/STATUS_EFFECTS.md` §1) are vectors too — a DoT tick is an ordinary `CombatMath` call
 on the application-time snapshot (`10_systems/COMBAT_FORMULA.md` §4).
 
@@ -271,7 +273,8 @@ event, no second timer.
 
 The full `10_systems/COMBAT_FORMULA.md` §2 pipeline: hit/miss (§3), immunity short-circuit, base
 offense × coefficient, mitigation curve (§5), element multiplier (§6), crit (§4), ±8 % variance (§7),
-`empower`/`weaken` (§8), level-difference dampener (§9), `max(1, round(raw))` floor. Hit classing,
+`empower`/`weaken`/`combo_momentum` (§8; `10_systems/COMBO_SYSTEM.md`), level-difference dampener
+(§9), `max(1, round(raw))` floor. Hit classing,
 hitstun, knockback impulse, and size-class scaling are `10_systems/COMBAT_FORMULA.md` §11; a heavy hit's
 cast-interrupt and boss super-armor / `phase_shift` invulnerability are §11 and
 `10_systems/STATUS_EFFECTS.md` §1. The resolved `HitResult` and any death (§12) are pushed as immediate

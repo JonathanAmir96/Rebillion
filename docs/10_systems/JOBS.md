@@ -2,7 +2,8 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/STATS.md, 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md,
-10_systems/SKILL_SYSTEM.md, 10_systems/SKILL_EFFECTS.md, 10_systems/LEVELING.md,
+10_systems/SKILL_SYSTEM.md, 10_systems/SKILL_EFFECTS.md, 10_systems/COMBO_SYSTEM.md,
+10_systems/LEVELING.md,
 10_systems/COMBAT_FORMULA.md, 10_systems/QUESTS.md, 20_schemas/monster.schema.md,
 docs/ID_REGISTRY.md, docs/WORLD_PLAN.md
 
@@ -69,14 +70,14 @@ names, spec #2/#3 are **new** and proposed for promotion):
   above **and** (b) completing that line's **job-trainer quest** from the line's home-town
   instructor. Trainer geography is owned by `docs/WORLD_PLAN.md` (§Job instructors, v2.3): each
   line has a home ring-town instructor who issues **both** advancements, and the Lv 40 trial routes
-  through the Clockwork Ruins. Pattern only, not concrete IDs (authored Phase D,
-  `10_systems/QUESTS.md`, `docs/ID_REGISTRY.md`):
+  through the Clockwork Ruins. The quest-line anatomy per advancement is §1.1; the minted quest
+  IDs live in `docs/ID_REGISTRY.md` / `docs/50_content/quests/`:
 
-  | Advancement | Level | Instructor (`docs/WORLD_PLAN.md` §Job instructors) | Quest (pattern) |
+  | Advancement | Level | Instructor (`docs/WORLD_PLAN.md` §Job instructors) | Quest line (§1.1) |
   |---|---|---|---|
-  | 1st (line) | 8 | the line's home-town instructor (the "advancement pilgrimage") | a Lv 8 line-town trainer quest |
-  | 2nd (specialization) | 40 | the **same** home-town instructor; trial routes through the Clockwork Ruins | a Lv 40 trainer quest + a Clockwork Ruins trial |
-  | 3rd | future arc (default 80) | reserved — future arc | reserved (Open Questions) |
+  | 1st (line) | 8 | the line's home-town instructor (the "advancement pilgrimage") | one Lv 8 line-town trainer quest ("First Rite") |
+  | 2nd (specialization) | 40 | the **same** home-town instructor; trial routes through the Clockwork Ruins | the two-quest **Second Rite chain**: First Rite (prereq) → Lv 40 rite with the line's Clockwork trial ground |
+  | 3rd | future arc (default 80) | reserved — future arc | reserved three-quest line, `quest_121`–`132` (§1.1; unauthored) |
 
   Trainer-quest `exp` counts toward the region quest budget (`10_systems/LEVELING.md` §4 /
   `10_systems/QUESTS.md`).
@@ -97,6 +98,43 @@ names, spec #2/#3 are **new** and proposed for promotion):
   Authored per line: `bulwark` 27, `keeneye` 20, `weaver` 27, `flicker` 20 (+ 4 novice = 98).
   Counts checked in §7. A single **character** ranks at most the 6 first-job + its one spec's 7 = 13
   line skills; the other specs are line content it can never reach.
+
+## 1.1 Advancement quest lines (anatomy; quests themselves are ordinary `10_systems/QUESTS.md` content)
+
+Advancement quests are **ordinary `main` quests** chained by `prereqs`
+(`10_systems/QUESTS.md` §2 — no job-gate field exists); this section owns only their designed
+shape. Trainer geography stays `docs/WORLD_PLAN.md` §Job instructors'.
+
+- **1st advancement — "First Rite" (Lv 8, one quest per line).** A short prove-yourself task
+  issued by the line's home-town instructor at the end of the advancement pilgrimage. The four
+  First Rites are mutually exclusive per character (`10_systems/QUESTS.md` §2); turn-in sets the
+  line. Minted: `quest_059` (bulwark) · `quest_037` (keeneye) · `quest_025` (weaver) ·
+  `quest_011` (flicker).
+- **2nd advancement — the "Second Rite" chain (Lv 40, two-quest line per line).** The First Rite
+  is the `prereqs` link; the Second Rite quest itself carries the trial: an optional line-flavored
+  proving leg in the line's home region, then a `reach` step into the line's **trial ground** in
+  the Clockwork Ruins (zone token `<line>_trial_ground`; chambers assigned in
+  `docs/WORLD_PLAN.md` §Job instructors), then the return `talk`/turn-in at the instructor, where
+  the specialization is declared (permanent, §1). Minted: `quest_060` (bulwark) · `quest_038`
+  (keeneye) · `quest_036` (weaver) · `quest_012` (flicker).
+  - **The trial ground is a scripted solo gauntlet**, run map-side at the zone (scripting
+    mechanism is `15_maps_system/MAP_INTERACTABLES.md`/`10_systems/AI_BEHAVIOR.md` territory, not
+    a quest step type): three wave-spawns of at-level Clockwork constructs (normal-tier,
+    Lv 38–40, from the region's `mob_129`–`144` block), during which the character must land a
+    **6-link chain** (`combo_momentum` tier II, `10_systems/COMBO_SYSTEM.md` §3 — reachable by
+    every 1st-job kit) at least once. The trial literally examines the chaining fluency the spec
+    kits deepen. Death fails only the attempt: the gauntlet is re-enterable immediately, no cost,
+    no penalty (`00_vision/PILLARS.md` P2). The quest tracks only `reach` + `talk`; the gauntlet
+    gates the zone's completion trigger.
+- **3rd advancement — reserved three-quest line (future arc, default gate Lv 80).**
+  `quest_121`–`132` are **reserved, unauthored** (`docs/ID_REGISTRY.md`; 3 per line in line
+  order: bulwark `121`–`123` · keeneye `124`–`126` · weaver `127`–`129` · flicker `130`–`132`).
+  Designed shape, to be authored with the 3rd-tier arc alongside `skill_<line>_028`–`045`:
+  **(a) the Calling** — the home-town instructor's summons once the character proves itself in
+  the far isles; **(b) the Pilgrimage trial** — a multi-step journey across the arc-2 isles
+  recovering the line's lost regalia; **(c) the Naming rite** — a capstone trial that confers
+  the reserved 3rd-tier name (Aegis / Skypiercer / Highweaver / Nightdancer, §0). Geography is
+  reserved in `docs/WORLD_PLAN.md`; nothing in this run's content references these IDs.
 
 ## 2. Bulwark line (`bulwark` · `might` · `blade`)
 
@@ -440,6 +478,32 @@ Pathstalker falcon/zone; Cindercall `burn`-burst vs Frostbind hard-control vs Ru
 swap/support; Wildcard `on_dodge` riposte vs Duskstep `veil`/stealth), so no two rosters in a line
 duplicate a signature (`00_vision/PILLARS.md` P4).
 
+## 7.1 Roster coverage law — passives & multi-target (holds for every authored and future tier)
+
+Two invariants the §7 table already satisfies, stated as law so future rosters (3rd tier
+included) inherit them:
+
+1. **Every kit teaches passives.** Each first-job kit and each spec roster carries exactly **2
+   passives** (`passive_stat_bonus` and/or `on_hit_proc` builds, `10_systems/SKILL_EFFECTS.md`);
+   passives are always-on and never slotted (`10_systems/SKILL_SYSTEM.md` §7).
+2. **Every line can hit a crowd — but not every spec.** Each **line** carries at least one
+   multi-target offensive active (`aoe_circle`, multi-target `melee_arc`, or piercing
+   `line`/`projectile`) in every tier it authors; multi-target **depth is deliberately uneven
+   across specs** — it is a spec identity axis, not a checklist. Current coverage: `bulwark` is
+   arc/slam-rich in every spec (Ground Slam, Break Their Line); `keeneye` splits hard —
+   Pathstalker zones crowds (Arrow Rain, Barrage) while **Sureshot is the deliberate
+   single-target outlier** (its only multi-hit reach is piercing `line` shots); `weaver` is the
+   AoE-richest line (Fireball, Frost Nova, Meteor Strike, Frozen Ground, Gravity Well, Arcane
+   Detonation); `flicker` splits likewise — Wildcard sweeps packs (Whirlblade) while Duskstep
+   stays a single-target assassin (arcs and Smoke Bomb aside). A player who wants wide clears
+   picks a spec that supports them; the asymmetry is the choice (`00_vision/PILLARS.md` P4).
+
+Both axes feed the combo layer: `combo_momentum`/`combo_burst` multiply **per damage instance**
+(`10_systems/COMBO_SYSTEM.md` §3–§4), so the AoE-supporting specs convert combos into pack-wide
+payoffs while single-target specs convert the same chains into boss damage — same system,
+spec-shaped outcomes. 3rd-tier rosters (`028`–`045`, future arc) must satisfy both invariants
+per line when authored.
+
 ## Open Questions
 
 - **ID_REGISTRY re-block (proposed, not yet landed).** `docs/ID_REGISTRY.md` still carries the v2
@@ -467,10 +531,13 @@ duplicate a signature (`00_vision/PILLARS.md` P4).
   total; a character now accesses 13 line skills (6 first-job + one spec's 7) + 4 novice, so the
   point-vs-rank ratio changed from the v2 21-skill assumption. `10_systems/SKILL_SYSTEM.md` §1 is
   patched to reflect branching; the exact end-state (Lv 300) point budget is flagged there.
-- Job-trainer NPC IDs and the advancement quest IDs per line are **Phase D** content
-  (`10_systems/QUESTS.md`, `docs/ID_REGISTRY.md`); §1 fixes only the level gates (8/40) and defers
-  trainer geography to `docs/WORLD_PLAN.md` §Job instructors. Confirm the home-town instructor NPC
-  allocations fit each town's `npc` block when quests are authored.
+- Trainer NPC IDs and the 1st/2nd advancement quest IDs are **minted** (§1.1 lists them); the
+  3rd-advancement line is reserved (`quest_121`–`132`, unauthored) — author it with the
+  3rd-tier arc. The Lv 40 trial-ground **gauntlet scripting mechanism** (wave-spawns + the
+  tier-II chain check gating the `reach` zone, §1.1) has no owner mechanism yet in
+  `15_maps_system/MAP_INTERACTABLES.md`/`10_systems/AI_BEHAVIOR.md`; it must land there (or in
+  `10_systems/SPAWN.md`'s scripted-spawn vocabulary) before the coding pass implements the
+  trials.
 - Whether a small `shards` cost or item gate should accompany the trainer quests (beyond the quest
   itself) is an `10_systems/ECONOMY.md`/`10_systems/QUESTS.md` call; default is quest-only.
 - Prerequisite chains among a spec's skills (e.g., a passive feeding off an earlier skill's rank)

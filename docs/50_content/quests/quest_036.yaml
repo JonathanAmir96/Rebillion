@@ -14,8 +14,8 @@ level_requirement: 40
 recommended_level: 40
 steps:
   - type: reach
-    target: map_177                 # the Clockwork Ruins trial (JOBS.md §1: "trial routes through the Clockwork Ruins")
-    zone: clockwork_trial_grounds
+    target: map_177                 # the weaver trial ground, East Gate (WORLD_PLAN §Job instructors / JOBS §1.1)
+    zone: weaver_trial_ground
   - type: talk
     target: npc_033
     count: 1

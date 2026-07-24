@@ -43,6 +43,10 @@ field is needed. The four 1st-advancement trainer quests (one per line) are **mu
 exclusive by authoring convention**: completing one sets the character's line
 (`10_systems/JOBS.md` §1) and the other three must stop being offered to that character from then
 on; this doc fixes the exclusivity, Phase D wires it through each trainer NPC's quest list.
+The designed **shape** of each advancement quest line (the Lv 40 two-quest Second Rite chain with
+its Clockwork trial ground, and the reserved 3rd-advancement three-quest line `quest_121`–`132`)
+is `10_systems/JOBS.md` §1.1's; to this doc and its schema they are ordinary chained `main`
+quests.
 
 ## 3. Step types (four — fixed set)
 

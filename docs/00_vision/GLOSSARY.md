@@ -146,6 +146,11 @@ WORLD_PLAN.md/MAP_CONNECTIONS.md) · `longship` (paid
 The earlier free-warp "waygate" mechanism is retired — that token is invalid in content.
 
 ## Provisional (pending promotion at a phase gate)
+- `combo_momentum` — the player-only sustained damage-dealt multiplier built by chaining
+  distinct damage sources (basic attack + `deal_damage` actives) inside the chain window ·
+  `combo_burst` — the finisher reward for a three-distinct-source sequence. Owner:
+  10_systems/COMBO_SYSTEM.md (which also owns all magnitudes/timing). Promote both at the
+  next phase gate once content or schemas consume them as field values.
 - `gleam` — premium cosmetic-only currency (real money; account-bound; never converts to or
   from `shards`). Owner: 10_systems/MONETIZATION.md (MON-001). OQ: promote or rename at the
   next phase gate.

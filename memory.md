@@ -2,6 +2,47 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-24 — combo layer + HUD stance + advancement quest lines (owner-directed)
+
+Branch `claude/game-hud-combo-system-9n1wim` (rebased onto main). Owner directives: (1) HUD is
+MapleStory-*inspired*, never a copy; (2) add a skill-chaining combo system (basic attack + distinct
+offensive skills → higher sustained damage); (3) confirm passives + multi-target offensive
+coverage (deliberately not every spec); (4) real quest lines for the 2nd and 3rd advancements.
+
+- **New owner doc `10_systems/COMBO_SYSTEM.md`** — `combo_momentum` (chain counter; links grow
+  only on source *change*, 3.0 s window; tiers ×1.05/×1.10/×1.15 at 3/6/10 links, tier cap gated
+  by job tier: novice I / 1st job II / 2nd job III / 3rd reserved) and `combo_burst` (three
+  distinct consecutive sources incl. ≥2 actives → ×1.25 on the bursting cast + 5% max `essence`
+  refund, 8 s ICD). Not a status (no 12-cap slot, uncleansable), player-only, per-instance (AoE
+  finishers burst on every target). Consumed at COMBAT_FORMULA §2 step 8 (`damage_dealt_mult` =
+  `empower` × `weaken` × `combo_momentum`); the whole ≈+15% envelope lives **inside** §15's
+  `mult m`, so §14 TTK bands are untouched (non-comboer ≈5.2 s, still in band). Input model =
+  sequences on existing bindings, no chords (CONTROLS §3.1; owner's `Ctrl+X+V` chord idea mapped
+  deliberately to sequenced presses for gamepad/rebind parity). HUD §7.1 owns the counter
+  drawing. New GLOSSARY Provisional tokens `combo_momentum`/`combo_burst`. Backend citations
+  synced (GAMEPLAY_SIMULATION §5.1/§5.2).
+- **HUD §0 design stance** — classic side-scroller shell grammar (bottom bar, exp strip, minimap)
+  as *inspiration*; zero copied layout/art; everything resolves through the locked
+  UI_ART_SPEC/ART_BIBLE tokens; named deliberate divergences (Dodge slot, phase pips, combo
+  counter, party column). Mirrors UI_WINDOWS's original-identity stance.
+- **JOBS §7.1 roster coverage law** — every kit keeps 2 passives; every *line* keeps ≥1
+  multi-target offensive active per authored tier, but multi-target depth is a spec identity
+  axis (Sureshot and Duskstep are the deliberate single-target outliers). 3rd-tier rosters
+  inherit both invariants.
+- **Advancement quest lines (JOBS §1.1)** — 1st = the four minted First Rites (011/025/037/059).
+  2nd = the two-quest Second Rite chain (First Rite prereq → minted 012/036/038/060), now with a
+  canonical per-line **trial ground** in the Clockwork Ruins (`<line>_trial_ground` zones;
+  chambers fixed in WORLD_PLAN §Job instructors: bulwark map_186 · keeneye map_190 · weaver
+  map_177 · flicker map_180) and a designed solo gauntlet (3 waves of Lv 38–40 constructs + one
+  6-link tier-II chain; death-free retry). Content fixes: quest_012/036 zones standardized;
+  **quest_060 gained its missing Clockwork `reach` leg** (was Ashfall-only — contradiction with
+  JOBS §1's "trial routes through the Clockwork Ruins"). 3rd = reserved three-quest line
+  `quest_121`–`132` (ID_REGISTRY extension, 3/line: Calling → Pilgrimage → Naming rite),
+  unauthored until the 3rd-tier arc (with `skill_<line>_028`–`045`).
+- Gates clean after all edits: `validate.py` 0/0; `md_graph.py` 1 component / 0 orphans
+  (114 files). Open: gauntlet scripting mechanism owner (MAP_INTERACTABLES/AI_BEHAVIOR/SPAWN),
+  combo magnitudes to the balance pass, 3rd-tier momentum cap with the future arc.
+
 ## 2026-07-24 — full-tree contradiction sweep (post social/cosmetics merge)
 
 Six-cluster parallel review of `main` (commit `0b1a632`), every finding hand-verified; report:
