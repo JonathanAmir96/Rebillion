@@ -13,7 +13,8 @@ abandon/retry/repeat policy, and the quest-log UX hook. `exp` curve math is
 `10_systems/LEVELING.md`; `shards` faucet/sink balance is `10_systems/ECONOMY.md`; item
 definitions are `10_systems/ITEMS.md`; kill-credit tagging is `10_systems/DROPS.md` §7. This doc
 never restates those — it only sets the *quest-side* budget and shape. The authored quests and
-their per-region ID blocks (arc-1 `quest_001`–`090`, arc-2 `quest_091`–`120`) are
+their per-region ID blocks (arc-1 `quest_001`–`090`, arc-2 `quest_091`–`120`; owner-directed
+arc-2 expansion to `quest_133`–`247` planned — Open Questions) are
 `docs/ID_REGISTRY.md`'s; `docs/WORLD_PLAN.md` supplies region level bands. `20_schemas/quest.schema.md` (Phase C) formalizes field types; this
 doc owns the anatomy and the numbers Phase D content copies.
 
@@ -225,6 +226,60 @@ without its accept gates (§2, §6) and step-completion criteria (§3) actually 
   the Wayfarer's Charter (`10_systems/BATTLE_PASS.md`) is that system — its daily/weekly tasks
   reuse this doc's §3 step grammar and credit rules unchanged; quests themselves remain one-time
   (§7) and charter tasks never appear in the quest log (§8).
+- **Owner-directed arc-2 quest expansion (2026-07-24) — planned, not yet authored.** Grow the
+  authored set 120 → **~235** (+115 all-`side` quests), concentrated in arc 2 (Lv 40–82).
+  Post-expansion arc 2 ≈ **145 quests ≈ 1.6× arc-1's per-level density and ≈ 0.4× its per-hour
+  density** — deliberately between per-level and per-hour parity (arc 2 is ≈ 82% of the `/played` to
+  Lv 80 — `10_systems/LEVELING.md` §1.1 — but only ≈ 25% of today's quests). The wave also **corrects
+  an existing `10_systems/LEVELING.md` §4 undershoot** (see `exp` envelope). Design:
+  - **All new quests are `side`** (§7 one-time still holds; **no new `main`**). The only mandatory
+    quests remain the job-advancement trainer quests (`10_systems/JOBS.md`); raid handler quests are
+    already `side` (elective, solo-fallback per `10_systems/social/RAID.md` §7). "Story spines" are
+    prereq-linked `side` chains (§2), not `main`.
+  - **Allocation & IDs** (`docs/ID_REGISTRY.md`): Frostpeak +36 / Arcane Reach +36 / Voidshore +32,
+    Deepway seam +6, +5 flex = **+115** → new quest block **`quest_133`–`247`** (skips the reserved
+    `121`–`132` 3rd-tier job block) and NPCs **`npc_121`–`150`** (reuse-first — the 36 existing arc-2
+    NPCs host 2–3 each; ≈ 24–28 minted). `collect` steps **reuse existing arc-2 region materials**
+    (`item_etc_0129`–`0176` — the `quest_107` pattern) or a `quest_object` node (§3.1); **no new
+    `item_etc`** (`0177`–`0200` is fully minted/reserved — raid tokens + Emberstone I–V).
+  - **Archetype variety (§3):** deliberately lift the under-used `talk`/`reach` steps —
+    hunt / gather / investigate / **pathfind** / courier / scout / capstone: **narrative labels over
+    the four unchanged step types** (`kill`/`collect`/`talk`/`reach`), so no schema change. **No
+    "escort"** — the verb set is fixed and no escort/defend verb exists or is added
+    (`10_systems/social/RAID.md` §4).
+  - **`exp` envelope (§4; `10_systems/LEVELING.md` §4) — an *addition* that fixes an existing
+    undershoot, not a trim.** Arc 2 currently pays only ≈ **6–9 %** of each region's band in quest
+    `exp` (a ≈ 88/7/5 split, off §4's 70/25/5); the +115 side quests **raise** each region toward
+    ≈ 25 % (required side-avg `pct` ≈ **6.8–8.2 %**, inside the 5–10 % band — feasible, no overshoot).
+    Net direction is to **add** new side `exp`; `pct` trims only where a region's retained `main` load
+    overshoots (**Arcane Reach**, whose 4 mains eat ≈ 24 % of its budget). Implement + gate with
+    `tools/regen_quest_exp.py` extended to emit new `exp` and report each region's Σ-vs-25 %,
+    reconciled against the **once-counted** arc-2 band (region bands overlap at the isle seams — use
+    the traversed-once total, not the sum of the three, or the arc runs ≈ 2 pts hot).
+  - **Endgame quest share stays 25 % (resolved: do *not* raise to 30–35 %).** A higher share is
+    arithmetically blocked all-`side` (35 % needs side `pct` above the 10 % ceiling) and would perturb
+    the frozen 0.70 hunting duty-cycle, drifting Lv 66–80 off the ratified 166 h `/played` anchor
+    (`10_systems/LEVELING.md` §1/§4). "Worth doing at endgame" is met by keeping each quest
+    **`exp`-positive** (time-cost < its hunting-equiv payout), not by inflating share.
+  - **Repeatable endgame content — split correctly.** The **Wayfarer's Charter**
+    (`10_systems/BATTLE_PASS.md`) provides repeatable *cosmetic/item* engagement but pays **no `exp`
+    and no `shards`** (its §3/§5), so it does **not** close the *recurring-`exp`* beat the Lv 60+ grind
+    wants (`docs/phase_reports/GAMEPLAY_LOOP_REVIEW_2026-07-24.md` §3.5). That beat — a rotating hunt
+    bonus / first-kill-of-day / rested-`exp` — is a **deferred `10_systems/LEVELING.md` §4 owner
+    item**, not resolved by this wave or the Charter. One-time "bounty-ladder" side chains (the
+    `quest_018`/`quest_095` flavor) are in scope; a hub bounty-board, if wanted, would *surface*
+    Charter tasks, not add a parallel engine.
+  - **Kill-rate / MapleStory throughput alignment** is a separate `10_systems/LEVELING.md` §1 decision
+    (ratified curve + `10_systems/COMBAT_FORMULA.md` §14 TTK + spawn density), **not** folded in.
+  - **Open owner items (Law 4 — flag, don't guess):** (a) does §5 permit value-capped **item rewards
+    on `side` capstones** (§5's item-reward text is `main`-scoped) — or are all-`side` capstones
+    `exp`+`shards`-only? (b) §8's **20-active concurrency cap** and its "120 quests total" rationale
+    need revisiting for the ≈ 3× arc-2 density. (c) the recurring-`exp` beat above.
+  - **Required companion edits when content lands:** `docs/ID_REGISTRY.md` (quest + npc blocks with
+    per-region sub-blocks); `tools/validate.py` `ID_RANGES` cap bump (`quest`→247, `npc`→150 —
+    `item_etc` untouched); `tools/regen_quest_exp.py` (drop the hardcoded 120-file assumption, extend
+    the exp table to the Lv 82 band); `docs/00_vision/SCOPE.md` quest count. Authored as region-scoped,
+    exemplar-first, validator-gated batches (phase-report pattern).
 - Whether a quest may ever require an equipped item level / job line beyond `level_requirement`
   (e.g., a line-specific side quest) is not modeled; default is any character meeting the level +
   prereqs may accept any quest.
