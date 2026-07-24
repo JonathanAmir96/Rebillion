@@ -32,8 +32,8 @@ The game's level cap is **300 (initial design, owner revision)**. This run autho
 endgame maps and party quests until future arcs land. 10_systems/LEVELING.md owns the curve
 (formula-first) with detail tables for the authored range; the Lv 100–300 tail segment law
 is an explicit Open Question there. Owner-ratified pacing anchors (2026-07-24, Decision
-Contract C3 in `memory.md`): Lv 40 ≈ 18 h · Lv 42 (arc end) ≈ 21 h · Lv 80 (3rd job) ≈
-134 h — about one month at 4–5 h/day.
+Contract C3 as amended by C3′ in `memory.md`): Lv 40 ≈ 30 h · Lv 42 (arc end) ≈ 33.5 h ·
+Lv 80 (3rd job) ≈ 166 h · Lv 100 ≈ 300 h.
 
 ## In scope (this run)
 - All docs and content listed in GENERATE.md §2, including locked Appendices A–C verbatim.

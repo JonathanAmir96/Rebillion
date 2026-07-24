@@ -52,6 +52,19 @@ Recorded verbatim from DESIGN_ORG_REVIEW_2026-07-24.md §6:
 >     marked "reserved for future arcs" notes. mob_145–150 are Clockwork elites + the
 >     Custodian boss per ID_REGISTRY.
 
+### C3′ — pacing amendment (owner directive, 2026-07-24, later same day)
+
+The owner reviewed the C3 anchors mid-run and ruled the pace too fast: **"is too quick to
+level 40 I think need 30hours... lvl 100 for now 300hours."** Amended curve (same
+exp-per-kill formula, same ÷(480 × 0.70) played-time model):
+
+> kills_per_level(L) = round(20 + 6.6·L + 0.2·L²)
+
+Ratified anchors (supersede C3's): **Lv 40 ≈ 30 h · Lv 100 ≈ 300 h** ("for now").
+Derived anchors: Lv 8 ≈ 1 h · Lv 42 ≈ 33.5 h · Lv 60 ≈ 80 h · **Lv 80 ≈ 166 h** — the
+3rd-job gate moves from ≈1 month to ≈5–6 weeks at 4–5 h/day; flagged to the owner at
+amendment time, not objected to. The Lv 100–300 tail stays an Open Question per C3.
+
 C7 implementation note: the six v2 towns are Emberfoot Village, Rosen Harbor, Millbrook
 Central, Mossmere, Tidewatch Port, Cindershelf (WORLD_PLAN v2.3). The Lv-40 gear tier
 minted inside existing `item_equip` sub-block slack (28 weapons / 35 armor authored) —
