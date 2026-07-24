@@ -22,19 +22,19 @@ Questions); this doc specifies the required contents:
 |---|---|
 | `zone_id` | Unique within the map, `snake_case` (e.g. `field_west_upper`) |
 | `rect` | `x, y, width, height` in tiles, map-local, top-left origin |
-| `mob_pool` | List of `{mob_id, weight}` pairs — which `mob_NNN` (`docs/ID_REGISTRY.md`) may spawn here, and their relative odds |
-| `target_count` | How many concurrent mobs this zone tries to maintain |
+| `mob_pool` | List of `{mob, count}` entries — which `mob_NNN` (`docs/ID_REGISTRY.md`) lives here and its **absolute target population** (owner ruling 2026-07-24: the `20_schemas/map.schema.md` `spawn_zones` count model is adopted; the earlier `{mob_id, weight}` relative-odds sketch is retired) |
+| `target_count` | How many concurrent mobs this zone tries to maintain — **derived as the sum of `mob_pool[].count`** (`20_schemas/map.schema.md`), never authored independently |
 | `max_concurrent` | Hard ceiling this zone's spawner will never exceed (§4); `target_count ≤ max_concurrent` |
 
-Illustrative shape only — not the authoritative schema:
+Shape matches the authoritative `20_schemas/map.schema.md` `spawn_zones`:
 ```yaml
 spawn_zones:
   - zone_id: field_west_upper
     rect: { x: 12, y: 4, width: 18, height: 6 }
     mob_pool:
-      - { mob_id: mob_005, weight: 3 }
-      - { mob_id: mob_006, weight: 1 }
-    target_count: 4
+      - { mob: mob_005, count: 3 }
+      - { mob: mob_006, count: 1 }
+    target_count: 4        # = sum of counts
     max_concurrent: 6
 ```
 
@@ -163,14 +163,10 @@ the instance, per the boss respawn decision in §3 and the re-entry model in
   flagged for the validator owner.
 - `target_count`/`max_concurrent` defaults (§2, §4) are first-pass and tunable per region once
   Phase D populates real zones.
-- **`mob_pool` shape diverges from the adopted schema.** §1 sketches `mob_pool` as
-  `{mob_id, weight}` relative odds (marked illustrative), but `20_schemas/map.schema.md`'s
-  landed `spawn_zones` resolved it as `mobs: [{mob, count}]` — absolute target population per
-  species, `target_count` derived as the sum — a materially different runtime algorithm
-  (target-population maintenance vs weighted-random selection). The schema's own Open Questions
-  ask this doc's owner to confirm. Adopt the absolute-count model in §1 or dispute it back;
-  minted Phase D maps already use the schema shape. Owner: this doc. (Raised by the 2026-07-24
-  md audit.)
+- **Resolved (2026-07-24, owner ruling): the absolute-count spawn model is adopted.** §1 now
+  carries the `20_schemas/map.schema.md` `{mob, count}` shape (target-population maintenance;
+  `target_count` = sum) — the model all minted Phase D maps already use. The old weighted-random
+  sketch is retired.
 - **Resolved:** the town/interior combat-free rule (§2) is confirmed and owned by
   `15_maps_system/MAPS_SYSTEM.md` §6; if that doc ever allows interior combat, §2's table needs
   a row.
