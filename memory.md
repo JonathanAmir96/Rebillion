@@ -24,6 +24,49 @@ record; patch queue + open rulings indexed in `memory/activeContext.md`):
   Opus = architecture/complex logic/audit; Sonnet = manifest-bounded execution;
   Haiku = mechanical fill. ORG.md amendment queued.
 
+## 2026-07-24 — social-package balance pass + cosmetics system (owner-directed follow-ups)
+
+The two follow-ups left open by the social package (below) are done; all first-pass magnitudes are
+now **balanced numbers with the arithmetic shown in the owning docs**, and the cosmetics ID block
+has an owner doc.
+
+**A — Balance pass (magnitudes locked against the retuned curve):**
+- **Raid `exp` retuned** (`LEVELING.md` §3.1): the first-pass values missed the 10–15%-of-a-band-
+  level target badly (undervault full clear ≈ 83% of a mid-band level; voidtide ≈ 8%). New
+  structure `raid_clear_exp = 5 · raid_stage_exp` (full clear = 8 × stage ≈ 11% of band-midpoint
+  `exp_to_next`): undervault 500/2,500 · mainspring 3,000/15,000 · deepfrost 8,000/40,000 ·
+  voidtide 25,000/125,000 (9–18% across each band). First-clear-of-the-day 2× + bonus token
+  unchanged. **15-min clear cooldown confirmed** (`RAID.md` §5): even back-to-back chaining pays
+  less `exp`/h than at-level hunting.
+- **`party_drop_bonus` locked** (`DROPS.md` §4.1): 1.00/1.05/1.10/1.16/1.22/1.30 final. Combined
+  ceiling `m·party·guild` = ×2.73 theoretical / ×1.77 realistic; 0.95 clamp binds only on `common`
+  rows at the theoretical max; aggregate item supply +30% over six solos (shards untouched).
+- **Widened exp-share band confirmed** (`PARTY.md` §4): 0–15/16–20/21–25/26+ is safe — the pool's
+  anchor-keyed `exp_diff_mult` craters down-farming, and a max-gap passenger earns ≈ 47%/h vs
+  ≈ 108%/h self-hunting.
+- **Guild numbers set** (`GUILD.md`): raid clear +10 / party-hunt milestone (100 kills) +5
+  `guild_contribution` (≈ 24 pts/h/member either way); guild levels 1–5 at 0/2k/6k/15k/30k
+  (modeled active guild → L5 in ≈ 4–5 months); levels 2–5 unlock further **paid** +10 roster steps
+  to a ceiling of **100**; grouping buff locked flat **+5%/+5%** (no guild-level scaling; stacked
+  exp ceiling ×2.10); weekly goal alternates 25 raid clears / 60 milestones, reward = next week's
+  buff at +10%/+10%.
+- **Raid Quartermaster prices locked** (`ITEMS.md` §13): equip **10** · title **15** · cosmetic
+  effect **20** `raid_token`s (full per-raid catalog 55 ≈ 4 weeks of daily first-clears).
+- Open Questions in each doc resolved or narrowed to telemetry-only retunes. VALIDATION untouched
+  (producer-owned).
+
+**B — Cosmetics system authored:** new owner doc **`10_systems/COSMETICS.md`** — categories
+`title`/`dye`/`skin`/`crest_flourish` (GLOSSARY Provisional, owner COSMETICS), the
+`item_cosmetic_NNNN` row shape (unlock entries: no price/stats/effects/stack), earn channels
+(raid Quartermaster / guild levels / events), the 5-slot zero-stat appearance loadout
+(MON-001 §3.1's reserved seam now anchored), and the server-deferred boundary (collection titles
+solo-live; raid/guild cosmetics dormant with their sources). `ID_REGISTRY.md` cosmetic block now
+owner-assigned and sub-blocked (0001–0008 raid / 0009–0032 guild / 0033–0048 event / 0049–0064
+growth); pointers updated in ITEMS/GUILD/COLLECTIONS/MONETIZATION/RAID/PERSISTENCE/item.schema.
+Ownership falls under ROLE_SYSTEMS_ARCHITECT's blanket `10_systems/*` charter (no ORG.md change
+needed). A VALIDATION zero-stat check on `item_cosmetic_*` rows is **proposed** in COSMETICS
+Open Questions. `md_graph.py`: 1 component, 0 orphans; `validate.py`: clean.
+
 ## 2026-07-24 — social package: encourage party hunting + raids (owner-directed)
 
 Owner goal: **encourage grouping (party hunting + raids) to build in-game social play** —

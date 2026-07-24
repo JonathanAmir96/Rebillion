@@ -126,14 +126,23 @@ Enhancement materials: `item_etc_0193`–`0197` = Emberstone I–V (band mapping
 10_systems/ENHANCEMENT.md); `0198`–`0200` reserved (`0198` proposed as Emberstone VI for the
 arc-2 bands — pending the ENHANCEMENT.md mapping decision, see Open Questions).
 
-## Cosmetics — `item_cosmetic_0001`–`0064` (reserved block)
+## Cosmetics — `item_cosmetic_0001`–`0064`
 Cosmetic-only rewards (titles, dyes, crest flourishes, weapon/armor skins) per the
 cosmetic-only charter (`10_systems/MONETIZATION.md`); they carry no stats (`00_vision/PILLARS.md`
-anti-pay-to-win). **Raid-exclusive cosmetics** `0001`–`0008` (one per raid to start: a title +
-a cosmetic effect, Quartermaster-bought with `raid_token`s); `0009`–`0064` reserved (guild
-cosmetics, event/growth). Owner of the cosmetic system + earn/equip rules: to be assigned when
-cosmetic content is authored (`10_systems/MONETIZATION.md` holds the charter; not authored this
-run beyond these reservations).
+anti-pay-to-win). **Owner of the cosmetic system + earn/equip rules: `10_systems/COSMETICS.md`**
+(assigned 2026-07-24). Sub-blocks (carved before any cosmetic ID was minted — the permitted kind
+of re-blocking):
+
+| Sub-block | Range | Channel (`10_systems/COSMETICS.md` §4) |
+|---|---|---|
+| Raid-exclusive | `0001`–`0008` | One title + one cosmetic effect per raid, Quartermaster-bought with `raid_token`s |
+| Guild | `0009`–`0032` | Guild-level unlocks + crest options (`10_systems/social/GUILD.md` §9) |
+| Event | `0033`–`0048` | Live-ops/seasonal (future live-service arc) |
+| Growth | `0049`–`0064` | Reserved, unassigned |
+
+No cosmetic content is authored this run beyond these reservations; the 23 collection titles
+(`10_systems/COLLECTIONS.md` §7) are server grant flags, not IDs, and deliberately sit outside
+this block.
 
 ## Skills — `skill_<line>_001`–`060` per job line (blocks for branched 2nd jobs)
 Line tokens (owner 10_systems/JOBS.md): `bulwark` (might), `keeneye` (finesse), `weaver`

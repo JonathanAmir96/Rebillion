@@ -22,7 +22,10 @@
   (tokens `item_etc_0177`–`0180`, raid gear `item_equip_0223`–`0230`, daily
   first-clear 2×), `party_drop_bonus` ladder, widened party exp-share band,
   `social/PARTY_FINDER.md`, guild incentives (`guild_contribution`, weekly goals).
-  All first-pass numbers, flagged tunable.
+  **Balance pass done same day** — raid exp, drop-bonus ladder, exp-share band, guild
+  curve/buffs, and Quartermaster prices are locked with arithmetic in the owning docs;
+  plus a new cosmetics owner doc (`10_systems/COSMETICS.md`, `item_cosmetic_*` block
+  owner-assigned in ID_REGISTRY).
 - **Pacing retune** (owner-ratified): Lv 40 ≈ 30 h, Lv 80 ≈ 166 h, Lv 100 ≈ 300 h;
   `kills_per_level = round(20 + 6.6L + 0.20L²)` frozen through Lv 100.
 
@@ -59,9 +62,10 @@
 3. **Phase E — coding-pass briefs.** The remaining generation phase: per-feature
    implementation briefs + the VALIDATION §7 Open-Questions rollup index. Route to
    Opus-tier per ORG.md.
-4. **Balance pass (D-gate retune).** ECONOMY prices/fees, tonic bite (overshoots
-   ~20–30% target past Superior), DROPS anchors, WORLD_CHANNELS capacity targets
-   (sized against the old two-island world), raid band vs Millbrook ceiling.
+4. **Balance pass (D-gate retune) — remaining slice.** The social-package slice locked
+   2026-07-24; still owed: ECONOMY prices/fees, tonic bite (overshoots ~20–30% target
+   past Superior), DROPS anchors, WORLD_CHANNELS capacity targets (sized against the
+   old two-island world), raid band vs Millbrook ceiling.
 5. **Art pass.** PixelLab briefs per `ART_GENERATION_RUNBOOK.md`; blocked first on the
    ART_BIBLE tile-scale lock (owner/Agent-3 channel), which also unblocks CAMERA/HUD/
    COMBAT_FORMULA movement placeholders.

@@ -16,7 +16,8 @@
 | Drops / Economy / Items / Inventory | 🟡 | Complete rules; all numbers first-pass, retune at balance pass |
 | Mob AI / Spawn / Status effects / Elements | ✅ | 12 profiles, boss phase contract, telegraph law |
 | Maps system (footholds, traversal, layers, connections) | ✅ | AB-001 foothold model; minor `map_109` residue |
-| Social suite (party/raid/guild/chat/mail/market/trading/party-finder) | ✅ (design) | **Server-deferred**; fees/limits jointly owed with ECONOMY |
+| Social suite (party/raid/guild/chat/mail/market/trading/party-finder) | ✅ (design) | **Server-deferred**; social-package magnitudes locked 2026-07-24; market/chat fees/limits jointly owed with ECONOMY |
+| Cosmetics (`COSMETICS.md`) | ✅ (design) | New owner doc 2026-07-24; `item_cosmetic_*` sub-blocked; zero-stat validator check proposed |
 | Persistence boundary (authority tags) | ✅ | §4 resolved by delegation to GAMEPLAY_SIMULATION §2 |
 | Monetization / Collections / Audio / FTUE / Lore / Camera / HUD / Controls | 🟡 | Designed; tile-scale-dependent values + deep hooks open |
 
@@ -62,7 +63,8 @@ Not minted (reserved blocks): shields/overalls `item_equip_0181`–`0200`, scrol
 | **Owner-ruling patch wave** | Apply D1/D2/D3 to owning docs + content; re-validate 0/0 | ⬜ next, before E |
 | **Quest-exp regen** | Mechanical regen vs retuned curve | ⬜ next (blocks nothing else) |
 | **E — Coding-pass briefs** | Implementation briefs + OQ rollup index | ⬜ |
-| **Balance pass** | Economy/tonics/drops/capacity retune | ⬜ after E |
+| Social balance pass + cosmetics | Raid exp/drop ladder/guild curve/prices locked; `COSMETICS.md` | ✅ 2026-07-24 |
+| **Balance pass (remaining)** | Economy/tonics/drops/capacity retune | ⬜ after E |
 | **Art pass** | PixelLab generation per runbook | ⬜ blocked on tile-scale lock |
 | **Backend coding pass** | Elixir/OTP server, resolve flags S4/S6/S9/P9 | ⬜ after E |
 | **Client coding pass** | Godot per ENGINEERING_STANDARDS | ⬜ after E |

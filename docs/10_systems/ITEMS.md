@@ -371,10 +371,22 @@ stays viable).
 - **Raid cosmetics — `item_cosmetic_0001`–`0008`, one title + one cosmetic effect per raid.** No
   stats (`10_systems/MONETIZATION.md` cosmetic-only charter; `00_vision/PILLARS.md` anti-pay-to-win).
   Purely the "I cleared the Voidtide" flex that drives social prestige.
-- **Pricing (first-pass, `raid_token`s).** Prices are set so a piece takes **several clears**, not
-  one — aspirational but attainable: a raid gives 1 token/clear (2 on the first-of-day). First-pass
-  targets flagged in Open Questions and tuned with `10_systems/ECONOMY.md`: an equip ≈ 8–12 tokens,
-  a cosmetic ≈ 15–20. Concrete SKUs authored in Phase D.
+- **Pricing (locked 2026-07-24, `raid_token`s).** Prices are set so a piece takes **several
+  clears**, not one — aspirational but attainable against the faucet of 1 token/clear (2 on the
+  first-of-day, `10_systems/social/RAID.md` §6.D):
+
+  | Quartermaster SKU | Price (`raid_token`) | Clears to earn (daily first-clear / casual) |
+  |---|---|---|
+  | Raid-exclusive equip (each of the 2) | **10** | 5 days of first-clears / 10 clears |
+  | Raid title (`item_cosmetic`, per raid) | **15** | 8 days / 15 clears |
+  | Raid cosmetic effect (`item_cosmetic`, per raid) | **20** | 10 days / 20 clears |
+
+  A raid's full catalog (2 equips + title + effect) is 55 tokens ≈ four weeks of daily
+  first-clears — a season-scale chase, never a single lucky night. Prices sit mid/high in the old
+  first-pass target bands (equip 8–12, cosmetic 15–20) because the token faucet is guaranteed
+  (no drop luck to compensate). Equips remain **side-grades** (capped at the ordinary `epic`
+  budget above — never best-in-slot over same-band boss uniques). Tokens are per-raid variants, so
+  each catalog is chased by running *its* raid. Concrete SKUs authored in Phase D.
 
 ## Open Questions
 
@@ -423,8 +435,8 @@ stays viable).
 - Set bonuses (wearing N pieces of a themed group) are **not** in this pass; if wanted they attach
   to boss-unique groups (§11) via `passive_stat_bonus` and need a `set_id` field in
   `20_schemas/item.schema.md`. Flagged, not designed.
-- (MON-001) A zero-stat cosmetic appearance layer (overlay slots rendered above the equipment
-  slots) is reserved by `10_systems/MONETIZATION.md` §3.1. Slot list and
-  `20_schemas/item.schema.md` fields land in a future amendment — settle before the Phase E
-  coding pass fixes the character render/paper-doll layering. No cosmetic items are authored
-  this run.
+- (MON-001) **Resolved owner (2026-07-24):** the zero-stat cosmetic appearance layer reserved by
+  `10_systems/MONETIZATION.md` §3.1 is now owned by `10_systems/COSMETICS.md` — its §5 fixes the
+  loadout slot list (title / weapon skin / outfit skin / dye / crest flourish) rendered above this
+  doc's §2 equipment slots. Still open here: the paper-doll layer *ordering* must be settled with
+  the Phase E render-stack pass. No cosmetic items are authored this run.

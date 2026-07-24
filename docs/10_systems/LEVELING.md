@@ -195,20 +195,33 @@ member** (not a pool to split, so the whole party is rewarded for finishing). Ea
 
 | Raid (band) | `raid_stage_exp` (each stage cleared) | `raid_clear_exp` (finale completion) |
 |---|---|---|
-| `raid_undervault` (Lv 15–22) | 3,000 | 20,000 |
-| `raid_mainspring` (Lv 32–40) | 6,000 | 40,000 |
-| `raid_deepfrost` (Lv 45–55) | 10,000 | 60,000 |
-| `raid_voidtide` (Lv 70–80) | 16,000 | 100,000 |
+| `raid_undervault` (Lv 15–22) | 500 | 2,500 |
+| `raid_mainspring` (Lv 32–40) | 3,000 | 15,000 |
+| `raid_deepfrost` (Lv 45–55) | 8,000 | 40,000 |
+| `raid_voidtide` (Lv 70–80) | 25,000 | 125,000 |
 
-Values are **fixed and predictable**: a `raid_voidtide` stage always pays 16,000 on clear, every run,
-to each member; its finale always pays the 100,000 completion bonus — the run's **best single `exp`
+Values are **fixed and predictable**: a `raid_voidtide` stage always pays 25,000 on clear, every run,
+to each member; its finale always pays the 125,000 completion bonus — the run's **best single `exp`
 reward**. A full clear (all stages + finale) is worth roughly **10–15% of a band-level to each
 member** — a genuinely great grouped session, deliberately more rewarding than the same wall-clock
 spent hunting solo, so raids are something a group *wants* to run (`00_vision/PILLARS.md` P3), while
 solo leveling stays fully viable (P2, encourage-not-mandate). Each stage grants its
-`raid_stage_exp` the moment that stage's objective (`10_systems/social/RAID.md` §4) completes. The
-numbers rise across the bands only because each raid is authored with its own fixed values — there
-is no per-level scaling formula.
+`raid_stage_exp` the moment that stage's objective (`10_systems/social/RAID.md` §4) completes.
+Values remain flat authored numbers, not a formula — but they were **sized at the 2026-07-24
+balance pass** against the §1 curve to hit the 10–15% target. Each raid follows one structure
+(`raid_clear_exp = 5 · raid_stage_exp`; full clear = 3 stages + finale = `8 · raid_stage_exp`),
+anchored to ≈ 11% of `exp_to_next` at the band midpoint. The full-clear grant total against
+`exp_to_next` at band floor / midpoint / ceiling:
+
+| Raid | Full-clear grants | @ floor | @ midpoint | @ ceiling |
+|---|---|---|---|---|
+| `raid_undervault` | 4,000 | 18.1% (÷ 22,140 @ 15) | 11.5% (÷ 34,884 @ 18) | 6.9% (÷ 58,164 @ 22) |
+| `raid_mainspring` | 24,000 | 15.2% (÷ 157,832 @ 32) | 11.0% (÷ 218,174 @ 36) | 8.2% (÷ 292,336 @ 40) |
+| `raid_deepfrost` | 64,000 | 15.7% (÷ 407,208 @ 45) | 11.6% (÷ 549,950 @ 50) | 8.8% (÷ 723,216 @ 55) |
+| `raid_voidtide` | 200,000 | 13.7% (÷ 1,464,924 @ 70) | 11.1% (÷ 1,797,440 @ 75) | 9.2% (÷ 2,177,148 @ 80) |
+
+(The prior first-pass values missed the target badly at the extremes — an Undervault full clear
+paid 29,000 ≈ **83%** of a mid-band level, while a Voidtide clear paid ≈ 8% — hence this retune.)
 
 **First-clear-of-the-day bonus.** The first successful clear of a given raid, per character, per day
 (day boundary per `10_systems/PERSISTENCE.md`), pays **2× that raid's `raid_clear_exp`** plus one
@@ -325,11 +338,16 @@ Voidshore maps and the two arc-2 raids until arc 3 authors Lv 80+ regions.
   contribution-weighted base + presence-bonus mechanics in `10_systems/social/PARTY.md` §4; the
   ≈ 21,960 / ≈ 35,730 per-member figures here assume the even-split degenerate case at `N` = 5.
   Reconcile the exact per-member share with PARTY §4 at the next gate.
-- **Raid stage/completion `exp` values (§3.1) are first-pass fixed numbers.** Authored per raid as
-  flat amounts (not a formula, not a fraction of a level), so a clear's reward is fully predictable;
-  retune the numbers themselves with telemetry against the `10_systems/social/RAID.md` §5 clear
-  cooldown so raiding never beats hunting as the pacing anchor. Owner: this doc with
-  `10_systems/social/RAID.md` / `10_systems/ECONOMY.md`.
+- **Raid stage/completion `exp` values (§3.1) — balanced 2026-07-24; telemetry retune remains.**
+  The flat per-raid amounts are now sized against the ratified §1 curve (clear = 5 × stage; full
+  clear ≈ 11% of the band-midpoint `exp_to_next`, 9–18% across each band — arithmetic in §3.1).
+  Chaining check for the `10_systems/social/RAID.md` §5 15-minute cooldown: even at back-to-back
+  ≈ 25-minute clears, grant `exp`/hour (e.g. `raid_deepfrost` ≈ 64,000 × 2.4 ≈ 154 K/h) stays
+  below at-level solo hunting (≈ 336 × 647 ≈ 217 K/h effective at Lv 50), so raiding never beats
+  hunting as the pacing anchor even before travel/regroup time. What remains open is only the
+  telemetry pass on real run lengths: if live clears run much faster than ≈ 25 minutes, retune the
+  amounts (not the structure). Owner: this doc with `10_systems/social/RAID.md` /
+  `10_systems/ECONOMY.md`.
 - **The party exp bonus (`10_systems/social/PARTY.md` §4) accelerates grouped pacing.** The §1
   `/played` estimates are solo (pure hunting); a full party earns `party_bonus`-boosted `exp` (up to
   a **doubled** pool at `N` = 6) and clears faster, so grouped `/played` is shorter than the table.
