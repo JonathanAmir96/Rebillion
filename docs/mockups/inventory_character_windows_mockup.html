@@ -1,0 +1,309 @@
+<!-- Non-binding wireframe mock-up (2026-07-24 md audit). Binding specs: docs/40_assets/UI_ART_SPEC.md, docs/40_assets/ART_BIBLE.yaml, docs/10_systems/UI_WINDOWS.md + cited docs. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Inventory &amp; Character Windows Mock-up</title>
+<style>
+  :root{
+    --ink:#241726; --shadow:#3a2b40; --stone:#6b6270; --ash:#9a92a0; --bone:#e8e2d8; --white:#fbf7ef;
+    --link:#54b0c6; --emph:#f6c34b; --warn:#c8461f; --good:#3f9a45;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ink);color:var(--bone);font:14px/1.55 ui-sans-serif,system-ui,sans-serif;padding:24px}
+  .wrap{max-width:1320px;margin:0 auto}
+  h1{font-size:20px;color:var(--emph);margin:0 0 4px}
+  h2{font-size:14px;color:var(--link);margin:22px 0 8px;font-weight:600}
+  p.sub{margin:0 0 18px;color:var(--ash);font-size:13px;max-width:1100px}
+  .frame{background:var(--shadow);border:1px solid var(--stone);padding:10px;overflow-x:auto}
+  svg{display:block;width:100%;max-width:1280px;height:auto;image-rendering:pixelated}
+  .px{shape-rendering:crispEdges}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:5px 18px;margin-top:12px;font-size:12.5px;color:var(--bone)}
+  .legend b{color:var(--emph);font-weight:700;margin-right:4px}
+  .legend .doc{color:var(--ash)}
+  .note{font-size:12px;color:var(--ash);margin-top:10px;border-left:3px solid var(--warn);padding-left:10px}
+  code{font-family:ui-monospace,monospace;color:var(--link);font-size:0.92em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — Inventory &amp; Character Windows Mock-up</h1>
+<p class="sub">The classic two-window loop: <code>K</code> Character (left) + <code>I</code> Inventory (right), open together over a dimmed
+field scene, per <code>UI_WINDOWS.md §1–§3</code>. Frames/fonts/slot-states/tooltip anatomy per <code>UI_ART_SPEC.md</code>; palette
+locked to <code>ART_BIBLE.yaml</code> (<code>rarity_code</code> + neutrals); derived-stat formulas owned by <code>STATS.md §2</code>;
+every stat label is a <code>GLOSSARY.md</code> token, spelled exactly. Stage <code>1280×720</code> (native <code>640×360</code> at 2×,
+integer scale per <code>ART_BIBLE.yaml resolution_policy</code>). Wireframe only — no AI art, no final type/icon assets.</p>
+
+<div class="frame">
+<svg viewBox="0 0 640 360" width="1280" height="720" role="img" aria-label="Inventory and Character window mock-up over a dimmed field scene">
+
+  <!-- ============================================================ -->
+  <!-- SYMBOL DEFS — wireframe glyphs, stroke=currentColor          -->
+  <!-- ============================================================ -->
+  <defs>
+    <symbol id="ic-weapon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5,19 L17,5"/><path d="M13,7 L17,5 L15,9"/><circle cx="5" cy="19" r="1.6" fill="currentColor" stroke="none"/></g></symbol>
+    <symbol id="ic-head" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M6,16 A6,6 0 0 1 18,16"/><path d="M4,16 H20"/></g></symbol>
+    <symbol id="ic-body" viewBox="0 0 24 24"><path d="M8,5 H16 L18,19 H6 Z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="ic-legs" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M7,5 H17 L17,19 L14,19 L13,10 L11,19 L8,19 Z"/></g></symbol>
+    <symbol id="ic-boots" viewBox="0 0 24 24"><path d="M9,4 V13 H16 V18 H6 V4 Z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="ic-gloves" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M8,18 V10 A4,4 0 0 1 16,10 V18 Z"/><path d="M8,13 H5 V16"/></g></symbol>
+    <symbol id="ic-cape" viewBox="0 0 24 24"><path d="M12,4 L19,19 H5 Z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="ic-ring" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="15" r="5.5"/><path d="M12,4 L15,8 L12,12 L9,8 Z" fill="currentColor" stroke="none"/></g></symbol>
+    <symbol id="ic-amulet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor"><path d="M5,4 L12,12 L19,4" stroke-width="1.5"/><circle cx="12" cy="16" r="4" stroke-width="2"/></g></symbol>
+    <symbol id="ic-potion" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="10" width="6" height="9" rx="1"/><rect x="10.5" y="5" width="3" height="5"/></g></symbol>
+    <symbol id="ic-material" viewBox="0 0 24 24"><path d="M12,5 L18,10 L15,19 L9,19 L6,10 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="ic-deny" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><line x1="6" y1="6" x2="18" y2="18"/></g></symbol>
+  </defs>
+
+  <g font-family="ui-monospace, 'Courier New', monospace">
+
+  <!-- ============================================================ -->
+  <!-- BACKGROUND — dimmed field strip (context only)                -->
+  <!-- ============================================================ -->
+  <g class="px">
+    <rect x="0" y="0" width="640" height="360" fill="#241726"/>
+    <rect x="0" y="0" width="640" height="150" fill="#6b6270"/>
+    <path d="M0,196 L70,160 L150,188 L230,150 L320,192 L410,158 L500,190 L640,168 L640,200 L0,200 Z" fill="#3a2b40"/>
+    <rect x="0" y="190" width="640" height="170" fill="#3a2b40"/>
+    <rect x="0" y="190" width="640" height="3" fill="#9a92a0" opacity="0.55"/>
+    <g fill="#9a92a0" opacity="0.5">
+      <rect x="40" y="186" width="3" height="5"/><rect x="118" y="186" width="3" height="5"/>
+      <rect x="498" y="186" width="3" height="5"/><rect x="588" y="186" width="3" height="5"/>
+    </g>
+  </g>
+  <!-- dim overlay: the field reads dimmed behind the open windows -->
+  <rect x="0" y="0" width="640" height="360" fill="#241726" opacity="0.62"/>
+  <text x="12" y="352" font-size="6" fill="#9a92a0">field scene, dimmed behind open windows — context only, not this doc's subject</text>
+
+  <!-- ============================================================ -->
+  <!-- CHARACTER WINDOW (K) — left, UI_WINDOWS.md §3                -->
+  <!-- ============================================================ -->
+  <g>
+    <rect x="8" y="22" width="256" height="318" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1.5"/>
+    <rect x="8" y="22" width="256" height="16" fill="#6b6270"/>
+    <text x="15" y="34" font-size="9" font-weight="700" fill="#fbf7ef">Character (K)</text>
+    <text x="256" y="34" font-size="8" fill="#e8e2d8" text-anchor="end">✕</text>
+
+    <!-- tab chips -->
+    <rect x="15" y="42" width="64" height="13" rx="2" fill="#3a2b40" stroke="#f6c34b" stroke-width="1.2"/>
+    <text x="47" y="51" font-size="7" fill="#f6c34b" text-anchor="middle">Character</text>
+    <rect x="83" y="42" width="40" height="13" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/>
+    <text x="103" y="51" font-size="7" fill="#e8e2d8" text-anchor="middle">Skills</text>
+
+    <!-- left ring column: head / cape / weapon / gloves -->
+    <g class="px">
+      <rect x="41" y="60" width="20" height="20" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <use href="#ic-head" x="43" y="62" width="16" height="16" style="color:#6b6270"/>
+      <rect x="41" y="84" width="20" height="20" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <use href="#ic-cape" x="43" y="86" width="16" height="16" style="color:#6b6270"/>
+      <!-- weapon: FILLED, rare ring -->
+      <rect x="41" y="108" width="20" height="20" fill="#241726" stroke="#2f7aa0" stroke-width="1.8"/>
+      <use href="#ic-weapon" x="43" y="110" width="16" height="16" style="color:#fbf7ef"/>
+      <!-- gloves: FILLED, common ring -->
+      <rect x="41" y="132" width="20" height="20" fill="#241726" stroke="#9a92a0" stroke-width="1.8"/>
+      <use href="#ic-gloves" x="43" y="134" width="16" height="16" style="color:#fbf7ef"/>
+    </g>
+    <g font-size="5.5" fill="#e8e2d8" text-anchor="end">
+      <text x="39" y="73">head</text><text x="39" y="97">cape</text>
+      <text x="39" y="121">weapon</text><text x="39" y="145">gloves</text>
+    </g>
+
+    <!-- right ring column: amulet / ring / body / legs / boots -->
+    <g class="px">
+      <rect x="124" y="60" width="20" height="20" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <use href="#ic-amulet" x="126" y="62" width="16" height="16" style="color:#6b6270"/>
+      <rect x="124" y="82" width="20" height="20" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <use href="#ic-ring" x="126" y="84" width="16" height="16" style="color:#6b6270"/>
+      <!-- body: FILLED, epic ring -->
+      <rect x="124" y="104" width="20" height="20" fill="#241726" stroke="#7a3f9a" stroke-width="1.8"/>
+      <use href="#ic-body" x="126" y="106" width="16" height="16" style="color:#fbf7ef"/>
+      <rect x="124" y="126" width="20" height="20" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <use href="#ic-legs" x="126" y="128" width="16" height="16" style="color:#6b6270"/>
+      <rect x="124" y="148" width="20" height="20" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+      <use href="#ic-boots" x="126" y="150" width="16" height="16" style="color:#6b6270"/>
+    </g>
+    <g font-size="5.5" fill="#e8e2d8" text-anchor="start">
+      <text x="146" y="73">amulet</text><text x="146" y="95">ring</text><text x="146" y="117">body</text>
+      <text x="146" y="139">legs</text><text x="146" y="161">boots</text>
+    </g>
+
+    <!-- doll box: paper-doll wireframe silhouette, idle preview -->
+    <rect x="68" y="60" width="48" height="128" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <g fill="#6b6270" class="px">
+      <circle cx="92" cy="82" r="8"/>
+      <path d="M79,94 H105 L100,142 H84 Z"/>
+      <rect x="82" y="142" width="6" height="30"/><rect x="94" y="142" width="6" height="30"/>
+      <rect x="70" y="98" width="6" height="26"/><rect x="108" y="98" width="6" height="26"/>
+    </g>
+    <text x="92" y="182" font-size="6" font-style="italic" fill="#6b6270" text-anchor="middle">idle preview</text>
+
+    <!-- provisional shield / overall — reserved doll positions only -->
+    <rect x="72" y="192" width="12" height="12" fill="none" stroke="#6b6270" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="78" y="201" font-size="7" fill="#6b6270" text-anchor="middle">?</text>
+    <rect x="100" y="192" width="12" height="12" fill="none" stroke="#6b6270" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="106" y="201" font-size="7" fill="#6b6270" text-anchor="middle">?</text>
+    <text x="92" y="212" font-size="6.5" fill="#6b6270" text-anchor="middle">shield / overall</text>
+    <text x="92" y="221" font-size="6" font-style="italic" fill="#6b6270" text-anchor="middle">reserved (provisional)</text>
+
+    <!-- stats column: label start=172, value end=230, [+] start=236 -->
+    <g font-size="7.5">
+      <text x="172" y="68" fill="#e8e2d8">might</text><text x="230" y="68" fill="#fbf7ef" font-weight="700" text-anchor="end">96</text><text x="236" y="68" fill="#3f9a45" font-weight="700">[+]</text>
+      <text x="172" y="81.5" fill="#e8e2d8">finesse</text><text x="230" y="81.5" fill="#fbf7ef" font-weight="700" text-anchor="end">40</text><text x="236" y="81.5" fill="#3f9a45" font-weight="700">[+]</text>
+      <text x="172" y="95" fill="#e8e2d8">focus</text><text x="230" y="95" fill="#fbf7ef" font-weight="700" text-anchor="end">38</text><text x="236" y="95" fill="#3f9a45" font-weight="700">[+]</text>
+      <text x="172" y="108.5" fill="#e8e2d8">fortune</text><text x="230" y="108.5" fill="#fbf7ef" font-weight="700" text-anchor="end">42</text><text x="236" y="108.5" fill="#3f9a45" font-weight="700">[+]</text>
+      <text x="172" y="120" font-size="6.5" fill="#9a92a0">unspent: 2</text>
+      <line x1="172" y1="126" x2="258" y2="126" stroke="#6b6270" stroke-width="1"/>
+      <text x="172" y="140" fill="#c8461f">life</text><text x="250" y="140" fill="#fbf7ef" font-weight="700" text-anchor="end">1104</text>
+      <text x="172" y="154" fill="#2f7aa0">essence</text><text x="250" y="154" fill="#fbf7ef" font-weight="700" text-anchor="end">314</text>
+      <text x="172" y="168" fill="#e8e2d8">power</text><text x="250" y="168" fill="#fbf7ef" font-weight="700" text-anchor="end">236</text>
+      <text x="172" y="182" fill="#e8e2d8">spellpower</text><text x="250" y="182" fill="#fbf7ef" font-weight="700" text-anchor="end">78</text>
+      <text x="172" y="196" fill="#e8e2d8">armor</text><text x="250" y="196" fill="#fbf7ef" font-weight="700" text-anchor="end">162</text>
+      <text x="172" y="210" fill="#e8e2d8">warding</text><text x="250" y="210" fill="#fbf7ef" font-weight="700" text-anchor="end">47</text>
+      <text x="172" y="224" fill="#e8e2d8">precision</text><text x="250" y="224" fill="#fbf7ef" font-weight="700" text-anchor="end">172</text>
+      <text x="172" y="238" fill="#e8e2d8">evasion</text><text x="250" y="238" fill="#fbf7ef" font-weight="700" text-anchor="end">6.8%</text>
+      <text x="172" y="252" fill="#e8e2d8">crit_rate</text><text x="250" y="252" fill="#fbf7ef" font-weight="700" text-anchor="end">11.4%</text>
+      <text x="172" y="266" fill="#e8e2d8">crit_power</text><text x="250" y="266" fill="#fbf7ef" font-weight="700" text-anchor="end">1.71×</text>
+      <text x="172" y="280" fill="#e8e2d8">haste</text><text x="250" y="280" fill="#fbf7ef" font-weight="700" text-anchor="end">6</text>
+    </g>
+
+    <!-- footer strip: level / job / exp -->
+    <rect x="8" y="320" width="256" height="18" fill="#6b6270"/>
+    <text x="15" y="332" font-size="8.5" font-weight="700" fill="#fbf7ef">Lv 34 · Ironbrand</text>
+    <text x="172" y="332" font-size="7" fill="#7a3f9a">exp</text>
+    <rect x="190" y="327" width="44" height="6" fill="#241726" stroke="#9a92a0" stroke-width="1"/>
+    <rect x="191" y="328" width="17" height="4" fill="#7a3f9a"/>
+    <text x="258" y="332" font-size="7" font-weight="700" fill="#fbf7ef" text-anchor="end">41%</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- CENTRAL GAP — tooltip / drag arrow / deny cursor annotations  -->
+  <!-- ============================================================ -->
+
+  <!-- open item tooltip: hovering the legendary ring in the grid -->
+  <g>
+    <rect x="284" y="50" width="110" height="84" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <line x1="394" y1="90" x2="440" y2="72" stroke="#9a92a0" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="292" y="66" font-size="8" font-weight="700"><tspan fill="#f6c34b">+3 </tspan><tspan fill="#eb7a2c">Wireframe Ring</tspan></text>
+    <text x="292" y="78" font-size="6.5" fill="#e8e2d8">ring · req_level 32</text>
+    <line x1="292" y1="84" x2="386" y2="84" stroke="#6b6270" stroke-width="1"/>
+    <text x="292" y="95" font-size="7" fill="#3f9a45">+18 fortune</text>
+    <text x="292" y="106" font-size="7" fill="#3f9a45">+4.0% crit_rate</text>
+    <text x="292" y="119" font-size="6.5" font-style="italic" fill="#9a92a0">"a dull gleam, a sharp edge"</text>
+  </g>
+
+  <!-- drag arrow: grid -> doll (stays inside the gap, points at the doll's ring column) -->
+  <g>
+    <line x1="396" y1="150" x2="268" y2="150" stroke="#f6c34b" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M268,150 L278,145 L278,155 Z" fill="#f6c34b"/>
+    <text x="332" y="163" font-size="7.5" font-weight="700" fill="#f6c34b" text-anchor="middle">drag equip → doll</text>
+    <text x="332" y="174" font-size="6" fill="#54b0c6" text-anchor="middle">(UI_WINDOWS §2 drag)</text>
+  </g>
+
+  <!-- illegal drag: deny cursor -->
+  <g>
+    <use href="#ic-deny" x="323" y="231" width="18" height="18" style="color:#c8461f"/>
+    <text x="332" y="262" font-size="7" fill="#e8e2d8" text-anchor="middle">illegal drag = deny cursor</text>
+    <text x="332" y="273" font-size="6" fill="#54b0c6" text-anchor="middle">(UI_ART_SPEC cursor)</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- INVENTORY WINDOW (I) — right, UI_WINDOWS.md §2                -->
+  <!-- ============================================================ -->
+  <g>
+    <rect x="400" y="22" width="232" height="190" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1.5"/>
+    <rect x="400" y="22" width="232" height="16" fill="#6b6270"/>
+    <text x="408" y="34" font-size="9" font-weight="700" fill="#fbf7ef">Inventory (I)</text>
+    <text x="628" y="34" font-size="8" fill="#e8e2d8" text-anchor="end">✕</text>
+
+    <!-- tab chips -->
+    <rect x="408" y="40" width="40" height="13" rx="2" fill="#3a2b40" stroke="#f6c34b" stroke-width="1.2"/>
+    <text x="428" y="49" font-size="7" fill="#f6c34b" text-anchor="middle">equip</text>
+    <rect x="452" y="40" width="32" height="13" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/>
+    <text x="468" y="49" font-size="7" fill="#e8e2d8" text-anchor="middle">use</text>
+    <rect x="488" y="40" width="30" height="13" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/>
+    <text x="503" y="49" font-size="7" fill="#e8e2d8" text-anchor="middle">etc</text>
+
+    <!-- 6x4 grid, frame_slot, base 24 slots -->
+    <g class="px">
+      <!-- empty slot lattice -->
+      <g fill="#241726" stroke="#6b6270" stroke-width="1">
+        <rect x="440" y="60" width="24" height="24"/><rect x="466" y="60" width="24" height="24"/><rect x="492" y="60" width="24" height="24"/><rect x="518" y="60" width="24" height="24"/><rect x="544" y="60" width="24" height="24"/><rect x="570" y="60" width="24" height="24"/>
+        <rect x="440" y="86" width="24" height="24"/><rect x="466" y="86" width="24" height="24"/><rect x="492" y="86" width="24" height="24"/><rect x="518" y="86" width="24" height="24"/><rect x="544" y="86" width="24" height="24"/><rect x="570" y="86" width="24" height="24"/>
+        <rect x="440" y="112" width="24" height="24"/><rect x="466" y="112" width="24" height="24"/><rect x="492" y="112" width="24" height="24"/><rect x="518" y="112" width="24" height="24"/><rect x="544" y="112" width="24" height="24"/><rect x="570" y="112" width="24" height="24"/>
+        <rect x="440" y="138" width="24" height="24"/><rect x="466" y="138" width="24" height="24"/><rect x="492" y="138" width="24" height="24"/><rect x="518" y="138" width="24" height="24"/><rect x="544" y="138" width="24" height="24"/><rect x="570" y="138" width="24" height="24"/>
+      </g>
+
+      <!-- r1c1: legendary ring (equip, tooltip target) -->
+      <rect x="440" y="60" width="24" height="24" fill="#241726" stroke="#eb7a2c" stroke-width="1.8"/>
+      <use href="#ic-ring" x="443" y="63" width="18" height="18" style="color:#fbf7ef"/>
+      <!-- r1c2: uncommon equip -->
+      <rect x="466" y="60" width="24" height="24" fill="#241726" stroke="#3f9a45" stroke-width="1.8"/>
+      <use href="#ic-head" x="469" y="63" width="18" height="18" style="color:#fbf7ef"/>
+      <!-- r1c4: use-tab reference (quantity badge, no rarity ring) -->
+      <rect x="518" y="60" width="24" height="24" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+      <use href="#ic-potion" x="521" y="63" width="18" height="18" style="color:#e8e2d8"/>
+      <rect x="531" y="75" width="11" height="9" fill="#241726" stroke="#9a92a0" stroke-width="0.5"/>
+      <text x="536.5" y="82" font-size="6" font-weight="700" fill="#fbf7ef" text-anchor="middle">12</text>
+      <!-- r1c5: etc-tab reference (quantity badge, no rarity ring) -->
+      <rect x="544" y="60" width="24" height="24" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+      <use href="#ic-material" x="547" y="63" width="18" height="18" style="color:#e8e2d8"/>
+      <rect x="557" y="75" width="11" height="9" fill="#241726" stroke="#9a92a0" stroke-width="0.5"/>
+      <text x="562.5" y="82" font-size="6" font-weight="700" fill="#fbf7ef" text-anchor="middle">47</text>
+      <!-- r1c6: selected empty slot -->
+      <rect x="570" y="60" width="24" height="24" fill="none" stroke="#f6c34b" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <!-- r2c2: common equip -->
+      <rect x="466" y="86" width="24" height="24" fill="#241726" stroke="#9a92a0" stroke-width="1.8"/>
+      <use href="#ic-legs" x="469" y="89" width="18" height="18" style="color:#fbf7ef"/>
+      <!-- r2c3: locked slot -->
+      <rect x="492" y="86" width="24" height="24" fill="#171020" stroke="#6b6270" stroke-width="1"/>
+      <text x="504" y="102" font-size="9" fill="#6b6270" text-anchor="middle">&#128274;</text>
+    </g>
+    <text x="516" y="172" font-size="6.5" fill="#9a92a0" text-anchor="middle">base 24 slots · +8 rows to 48 (INVENTORY §1)</text>
+    <text x="516" y="182" font-size="6" fill="#54b0c6" text-anchor="middle">qty badges shown = use/etc reference</text>
+
+    <!-- footer: shards wallet + Sort + Sell -->
+    <rect x="400" y="188" width="232" height="18" fill="#6b6270"/>
+    <path d="M414,197 L420,189 L426,197 L420,205 Z" fill="#f6c34b"/>
+    <text x="432" y="200" font-size="9" font-weight="700" fill="#fbf7ef">12,480 shards</text>
+    <rect x="518" y="190" width="42" height="14" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1"/>
+    <text x="539" y="199.5" font-size="7.5" fill="#e8e2d8" text-anchor="middle">Sort</text>
+    <rect x="566" y="190" width="42" height="14" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1"/>
+    <text x="587" y="199.5" font-size="7.5" fill="#e8e2d8" text-anchor="middle">Sell</text>
+  </g>
+  <text x="516" y="221" font-size="6" fill="#9a92a0" text-anchor="middle">Sell shown only while a vendor is open (§2)</text>
+
+  </g>
+</svg>
+</div>
+
+<h2>Caption index (region → owning doc/§)</h2>
+<div class="legend">
+  <div><b>Shared chrome</b> title bar, close glyph, tab chips <span class="doc">UI_WINDOWS §1; frames UI_ART_SPEC</span></div>
+  <div><b>Inventory grid</b> frame_slot, 6 cols, base 24 = 4 rows <span class="doc">UI_WINDOWS §2; INVENTORY §1</span></div>
+  <div><b>Slot states shown</b> empty / filled+rarity-ring / selected / locked / quantity badge <span class="doc">UI_ART_SPEC "Slots &amp; icons"</span></div>
+  <div><b>Rarity ring colors</b> common/uncommon/rare/epic/legendary <span class="doc">ART_BIBLE.yaml rarity_code</span></div>
+  <div><b>Inventory footer</b> shards wallet readout + Sort + Sell <span class="doc">UI_WINDOWS §2; wallet INVENTORY §3</span></div>
+  <div><b>Paper-doll + 9 ring slots</b> weapon/head/body/legs/boots/gloves/cape/ring/amulet <span class="doc">UI_WINDOWS §3; GLOSSARY equip slots</span></div>
+  <div><b>Idle preview</b> composited layer stack, in-window <span class="doc">CHARACTER_COMPOSITING §2</span></div>
+  <div><b>shield / overall</b> reserved doll positions only, no mechanics yet <span class="doc">UI_WINDOWS §3; GLOSSARY Provisional</span></div>
+  <div><b>Stats column</b> 4 primaries + [+] while unspent, then the 11-stat derived block <span class="doc">UI_WINDOWS §3; formulas STATS §2</span></div>
+  <div><b>Character footer</b> level · job · exp fraction <span class="doc">UI_WINDOWS §3; HUD mirror HUD §3</span></div>
+  <div><b>Item tooltip</b> name in rarity color → type/req → stat lines → flavor <span class="doc">UI_ART_SPEC tooltip anatomy</span></div>
+  <div><b>Enhancement note</b> "+3" prefix on the tooltip name <span class="doc">UI_WINDOWS §3; ENHANCEMENT.md</span></div>
+  <div><b>Drag interactions</b> grid ↔ doll equip/unequip <span class="doc">UI_WINDOWS §2 drag interactions</span></div>
+  <div><b>Deny cursor</b> illegal drag target (level/req_line fail) <span class="doc">UI_ART_SPEC cursor states; ITEMS.md equip legality</span></div>
+  <div><b>Palette</b> neutrals + rarity + life/essence/exp accents <span class="doc">ART_BIBLE.yaml</span></div>
+  <div><b>Stat tokens</b> might/finesse/focus/fortune + 11 derived, spelled exactly <span class="doc">GLOSSARY.md</span></div>
+</div>
+
+<p class="note">Numbers (stat values, shards balance, exp%, item names) are illustrative placeholders for anatomy only — no
+authored content is asserted as canon (CLAUDE.md Law 4: flag, don't guess). "Wireframe Ring" is a placeholder label: no
+legendary-rarity <code>ring</code> exists yet in <code>docs/50_content/items/equip/</code> (only legendary weapons were sampled
+there; rings top out at <code>epic</code> in the checked uniques) — nothing prevents one, it's simply unauthored, so a generic
+name is used rather than inventing canon.</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!-- Non-binding wireframe mock-up (2026-07-24 md audit). Binding specs: docs/40_assets/UI_ART_SPEC.md, docs/40_assets/ART_BIBLE.yaml, docs/10_systems/ACCOUNT.md, docs/40_assets/CHARACTER_COMPOSITING.md, docs/10_systems/DISPLAY.md. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Entry Flow Mock-up (Title · Roster · Creation)</title>
+<style>
+  :root{
+    --ink:#241726; --shadow:#3a2b40; --stone:#6b6270; --ash:#9a92a0; --bone:#e8e2d8; --white:#fbf7ef;
+    --ember0:#5a1e14; --ember1:#8f2d1b; --ember2:#c8461f; --ember3:#eb7a2c; --ember4:#f6c34b;
+    --verdant0:#173a24; --verdant1:#256b34; --verdant2:#3f9a45; --verdant3:#7ac04b; --verdant4:#c6e37a;
+    --tide0:#122a4a; --tide1:#1e4c78; --tide2:#2f7aa0; --tide3:#54b0c6; --tide4:#a7e0e3;
+    --arcane0:#2a1a4a; --arcane1:#4b2a78; --arcane2:#7a3f9a; --arcane3:#b064c6; --arcane4:#e0a7e3;
+    --earth0:#3a2b1e; --earth1:#6b4a2d; --earth2:#9a6f3f; --earth3:#c09a54; --earth4:#e3c67a;
+    --link:#54b0c6; --emph:#f6c34b; --warn:#c8461f; --good:#3f9a45;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--shadow);color:var(--white);font:14px/1.55 ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+  body{padding:24px 0 40px}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+  h1{font-size:20px;color:var(--emph);margin:0 0 4px;letter-spacing:0.5px}
+  h2{font-size:15px;color:var(--link);margin:30px 0 8px}
+  p.sub{margin:0 0 16px;color:var(--bone);font-size:12.5px;max-width:1060px}
+  code{font-family:inherit;color:var(--link);font-size:0.95em}
+  .stagewrap{overflow-x:auto;padding:4px 0 18px}
+  .stage{width:1280px;height:720px;background:var(--ink);margin:0 auto;outline:1px solid var(--stone)}
+  .stage svg{display:block;width:1280px;height:720px}
+  .px{shape-rendering:crispEdges}
+  .blink{animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:.15}}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 18px;margin-top:10px;font-size:12px;color:var(--bone)}
+  .legend b{color:var(--emph);font-weight:700;margin-right:4px}
+  .legend .doc{color:var(--ash)}
+  .note{font-size:12px;color:var(--bone);margin:10px 0 0;border-left:3px solid var(--warn);padding-left:10px}
+  .note.link{border-color:var(--link)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — Entry Flow Mock-up: Title, Roster &amp; Character Creation</h1>
+<p class="sub">Three stacked screens at the locked render base <code>640×360</code>, each shown here at integer <code>2×</code> — a
+<code>1280×720</code> stage on solid <code>ink</code>, exactly the letterbox law in <code>ART_BIBLE.yaml pixel.resolution_policy</code> /
+<code>DISPLAY.md §2</code>. Frame/font/button-state vocabulary is <code>UI_ART_SPEC.md</code>'s (<code>frame_window</code>,
+<code>frame_input</code>, <code>frame_button</code>, <code>frame_dialog</code> all appear below); monospace stands in for the bitmap
+font "GameSans-Pixel". Flow and copy are <code>ACCOUNT.md</code> §1–§3; appearance parts, z-order and swatch hexes are
+<code>CHARACTER_COMPOSITING.md</code> and <code>ART_BIBLE.yaml</code> amendment AB-002 (real values, not placeholders). Wireframe
+fidelity only — flat rects/swatches/simple silhouettes, no AI-generated art. Gold numbered pins are design annotations, not
+game UI.</p>
+
+<h2>1 · Title screen (press-enter gate)</h2>
+<p class="sub">On launch the player sees the wordmark and a press-to-continue prompt — see annotation 4 for why this is a
+title/splash gate rather than a login form in the current build.</p>
+<div class="stagewrap"><div class="stage">
+<svg viewBox="0 0 640 360" width="1280" height="720" role="img" aria-label="Title screen mock-up">
+  <rect x="0" y="0" width="640" height="360" fill="var(--ink)"/>
+  <g class="px">
+    <rect x="0" y="0" width="640" height="170" fill="var(--ember0)"/>
+    <rect x="0" y="120" width="640" height="55" fill="var(--ember1)"/>
+    <rect x="0" y="160" width="640" height="45" fill="var(--ember2)"/>
+    <rect x="0" y="196" width="640" height="20" fill="var(--ember3)"/>
+    <circle cx="518" cy="66" r="22" fill="var(--ember4)" opacity="0.9"/>
+    <circle cx="518" cy="66" r="12" fill="var(--bone)" opacity="0.35"/>
+    <g fill="var(--bone)" opacity="0.55">
+      <rect x="58" y="38" width="2" height="2"/><rect x="138" y="24" width="2" height="2"/>
+      <rect x="228" y="52" width="2" height="2"/><rect x="338" y="30" width="2" height="2"/>
+      <rect x="430" y="44" width="2" height="2"/><rect x="600" y="34" width="2" height="2"/>
+      <rect x="90" y="70" width="2" height="2"/><rect x="380" y="20" width="2" height="2"/>
+    </g>
+  </g>
+  <!-- hill/kiln silhouette + ground: one solid ink mass (Emberfoot dusk motif, ART_BIBLE biome_identity) -->
+  <path class="px" d="M0,236 L60,214 L120,228 L190,206 L260,224 L340,200 L420,222 L500,206 L580,220 L640,210 L640,360 L0,360 Z" fill="var(--ink)"/>
+  <!-- logo lockup -->
+  <g>
+    <rect x="140" y="118" width="360" height="70" fill="var(--shadow)" opacity="0.6" stroke="var(--bone)" stroke-width="1"/>
+    <rect x="140" y="118" width="360" height="3" fill="var(--emph)"/>
+    <rect x="140" y="185" width="360" height="3" fill="var(--emph)"/>
+    <text x="322" y="167" font-family="ui-monospace,monospace" font-size="44" font-weight="900" letter-spacing="5" fill="var(--ink)" text-anchor="middle">REBILLION</text>
+    <text x="320" y="165" font-family="ui-monospace,monospace" font-size="44" font-weight="900" letter-spacing="5" fill="var(--white)" text-anchor="middle">REBILLION</text>
+  </g>
+  <text class="blink" x="320" y="222" font-family="ui-monospace,monospace" font-size="15" font-weight="700" letter-spacing="3" fill="var(--bone)" text-anchor="middle">PRESS ENTER</text>
+  <text x="320" y="248" font-family="ui-monospace,monospace" font-size="8" fill="var(--ash)" text-anchor="middle">Alt+Enter — windowed ⇄ fullscreen (fullscreen default)</text>
+  <text x="12" y="342" font-family="ui-monospace,monospace" font-size="7" fill="var(--ash)">interim solo build — no login step this arc</text>
+  <text x="12" y="352" font-family="ui-monospace,monospace" font-size="6" fill="var(--stone)">640×360 @ 2× integer scale · remainder letterboxed in ink</text>
+  <g font-family="ui-monospace,monospace" font-size="8" font-weight="700">
+    <g><circle cx="150" cy="126" r="7" fill="var(--emph)"/><text x="150" y="129" fill="var(--ink)" text-anchor="middle">1</text></g>
+    <g><circle cx="320" cy="234" r="7" fill="var(--emph)"/><text x="320" y="237" fill="var(--ink)" text-anchor="middle">2</text></g>
+    <g><circle cx="470" cy="248" r="7" fill="var(--emph)"/><text x="470" y="251" fill="var(--ink)" text-anchor="middle">3</text></g>
+    <g><circle cx="8" cy="334" r="6.5" fill="var(--emph)"/><text x="8" y="337" fill="var(--ink)" text-anchor="middle">4</text></g>
+    <g><circle cx="614" cy="16" r="7" fill="var(--emph)"/><text x="614" y="19" fill="var(--ink)" text-anchor="middle">5</text></g>
+  </g>
+</svg>
+</div></div>
+<div class="legend">
+  <div><b>1</b> Wordmark — blocky logotype; monospace stands in for the bitmap font "GameSans-Pixel" <span class="doc">UI_ART_SPEC.md Font</span></div>
+  <div><b>2</b> Press-Enter gate → advances straight to the roster screen <span class="doc">ACCOUNT.md §1</span></div>
+  <div><b>3</b> <code>display_mode</code> hint: Alt+Enter toggle, fullscreen is default <span class="doc">DISPLAY.md §1, §3</span></div>
+  <div><b>4</b> Interim solo build has no credential/login step — §3 (handle+password, session tokens) is dormant until a server exists; title/splash gate only, not a login form <span class="doc">ACCOUNTS_AUTH.md §7</span></div>
+  <div><b>5</b> Locked <code>640×360</code> render base, integer 2× shown here; true letterbox remainder is solid <code>ink</code> <span class="doc">ART_BIBLE.yaml pixel.resolution_policy, DISPLAY.md §2</span></div>
+</div>
+<p class="note">Sky/hill art is flavor filler (Emberfoot dusk motif) — not canon key art. The brief calls this screen
+"title/login"; per <code>ACCOUNTS_AUTH.md</code> §7 the interim-solo scope in play right now has no login UI at all (§2.3–§6 are
+all dormant), so this stage is the title/splash gate only — see annotation 4.</p>
+
+<h2>2 · Character roster (up to 4 slots)</h2>
+<p class="sub">Landing screen after the title gate. Two filled example slots, two empty. Selecting a character enters the
+world; there is no gameplay outside a selected character.</p>
+<div class="stagewrap"><div class="stage">
+<svg viewBox="0 0 640 360" width="1280" height="720" role="img" aria-label="Character roster screen mock-up">
+  <rect x="0" y="0" width="640" height="360" fill="var(--ink)"/>
+  <text x="16" y="26" font-family="ui-monospace,monospace" font-size="14" font-weight="700" letter-spacing="2" fill="var(--white)">SELECT CHARACTER</text>
+  <text x="16" y="38" font-family="ui-monospace,monospace" font-size="7" fill="var(--ash)">4 character slots — 2 filled, 2 empty</text>
+  <text x="624" y="18" font-family="ui-monospace,monospace" font-size="7" fill="var(--ash)" text-anchor="end">interim solo build</text>
+  <text x="624" y="28" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--ash)" text-anchor="end">1 install = 1 account</text>
+
+  <!-- ============ SLOT CARD 1: Ember (filled, selected) ============ -->
+  <g class="px">
+    <rect x="36" y="40" width="136" height="204" fill="none" stroke="var(--emph)" stroke-width="1" opacity="0.45"/>
+    <rect x="38" y="42" width="132" height="200" fill="var(--shadow)" stroke="var(--emph)" stroke-width="2"/>
+    <!-- ornate-corner ticks (frame_window motif), demonstrated once -->
+    <g stroke="var(--bone)" stroke-width="1">
+      <path d="M38,48 L38,42 L44,42" fill="none"/><path d="M164,42 L170,42 L170,48" fill="none"/>
+      <path d="M38,236 L38,242 L44,242" fill="none"/><path d="M164,242 L170,242 L170,236" fill="none"/>
+    </g>
+    <rect x="38" y="42" width="132" height="16" fill="var(--ink)"/>
+    <text x="46" y="53" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--ash)">Slot 1</text>
+    <!-- delete icon -->
+    <circle cx="158" cy="50" r="7" fill="var(--ink)" stroke="var(--warn)" stroke-width="1.5"/>
+    <path d="M155,47 L161,53 M155,53 L161,47" stroke="var(--warn)" stroke-width="1.5"/>
+    <!-- wireframe paper-doll silhouette (idle) -->
+    <rect x="90" y="76" width="28" height="24" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="84" y="100" width="40" height="46" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="86" y="146" width="16" height="34" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="106" y="146" width="16" height="34" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <text x="104" y="204" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="var(--white)" text-anchor="middle">Ember</text>
+    <text x="104" y="218" font-family="ui-monospace,monospace" font-size="8" fill="var(--ash)" text-anchor="middle">Lv 21 · Bulwark</text>
+  </g>
+
+  <!-- ============ SLOT CARD 2: Sable (filled) ============ -->
+  <g class="px">
+    <rect x="182" y="42" width="132" height="200" fill="var(--shadow)" stroke="var(--ash)" stroke-width="1"/>
+    <rect x="182" y="42" width="132" height="16" fill="var(--ink)"/>
+    <text x="190" y="53" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--ash)">Slot 2</text>
+    <circle cx="302" cy="50" r="7" fill="var(--ink)" stroke="var(--warn)" stroke-width="1.5"/>
+    <path d="M299,47 L305,53 M299,53 L305,47" stroke="var(--warn)" stroke-width="1.5"/>
+    <rect x="234" y="76" width="28" height="24" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="228" y="100" width="40" height="46" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="230" y="146" width="16" height="34" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="250" y="146" width="16" height="34" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <text x="248" y="204" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="var(--white)" text-anchor="middle">Sable</text>
+    <text x="248" y="218" font-family="ui-monospace,monospace" font-size="8" fill="var(--ash)" text-anchor="middle">Lv 3 · Novice</text>
+  </g>
+
+  <!-- ============ SLOT CARD 3: empty ============ -->
+  <g class="px">
+    <rect x="326" y="42" width="132" height="200" fill="var(--shadow)" stroke="var(--ash)" stroke-width="1"/>
+    <rect x="326" y="42" width="132" height="16" fill="var(--ink)"/>
+    <text x="334" y="53" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--ash)">Slot 3</text>
+    <rect x="388" y="112" width="8" height="40" fill="var(--stone)"/>
+    <rect x="372" y="128" width="40" height="8" fill="var(--stone)"/>
+    <rect x="358" y="163" width="2" height="20" fill="var(--ink)"/>
+    <rect x="356" y="161" width="72" height="20" fill="var(--ink)" stroke="var(--bone)" stroke-width="1"/>
+    <text x="392" y="174" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="var(--white)" text-anchor="middle">Create</text>
+  </g>
+
+  <!-- ============ SLOT CARD 4: empty ============ -->
+  <g class="px">
+    <rect x="470" y="42" width="132" height="200" fill="var(--shadow)" stroke="var(--ash)" stroke-width="1"/>
+    <rect x="470" y="42" width="132" height="16" fill="var(--ink)"/>
+    <text x="478" y="53" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--ash)">Slot 4</text>
+    <rect x="532" y="112" width="8" height="40" fill="var(--stone)"/>
+    <rect x="516" y="128" width="40" height="8" fill="var(--stone)"/>
+    <rect x="502" y="163" width="2" height="20" fill="var(--ink)"/>
+    <rect x="500" y="161" width="72" height="20" fill="var(--ink)" stroke="var(--bone)" stroke-width="1"/>
+    <text x="536" y="174" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="var(--white)" text-anchor="middle">Create</text>
+  </g>
+
+  <!-- ============ bottom action row ============ -->
+  <text x="38" y="262" font-family="ui-monospace,monospace" font-size="7" fill="var(--ash)">select a character to enter the world — no gameplay outside a selected character</text>
+  <rect x="471" y="251" width="132" height="28" fill="var(--ink)"/>
+  <rect x="470" y="250" width="132" height="28" fill="var(--emph)" stroke="var(--ink)" stroke-width="1"/>
+  <text x="536" y="268" font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="var(--ink)" text-anchor="middle">ENTER WORLD</text>
+
+  <!-- ============ delete flow inset (frame_dialog, earth trim, screen dimmer) ============ -->
+  <text x="20" y="288" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="var(--ash)">DELETE FLOW — destructive, no undo</text>
+  <rect x="20" y="292" width="310" height="60" fill="var(--ink)" opacity="0.55"/>
+  <rect x="34" y="298" width="282" height="48" fill="var(--shadow)" stroke="var(--earth3)" stroke-width="1"/>
+  <text x="44" y="310" font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="var(--white)">Delete "Sable"?</text>
+  <text x="44" y="322" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--ash)">Type nickname to confirm:</text>
+  <rect x="44" y="325" width="90" height="14" fill="var(--ink)" stroke="var(--ash)" stroke-width="1"/>
+  <text x="49" y="335" font-family="ui-monospace,monospace" font-size="7" fill="var(--white)">Sable</text>
+  <rect x="141" y="326" width="60" height="14" fill="var(--ink)"/>
+  <rect x="140" y="325" width="60" height="14" fill="var(--warn)" stroke="var(--ink)" stroke-width="1"/>
+  <text x="170" y="335" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="var(--bone)" text-anchor="middle">Delete</text>
+  <rect x="206" y="325" width="54" height="14" fill="var(--shadow)" stroke="var(--ash)" stroke-width="1"/>
+  <text x="233" y="335" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--white)" text-anchor="middle">Cancel</text>
+
+  <g font-family="ui-monospace,monospace" font-size="8" font-weight="700">
+    <g><circle cx="104" cy="122" r="7" fill="var(--emph)"/><text x="104" y="125" fill="var(--ink)" text-anchor="middle">1</text></g>
+    <g><circle cx="392" cy="132" r="7" fill="var(--emph)"/><text x="392" y="135" fill="var(--ink)" text-anchor="middle">2</text></g>
+    <g><circle cx="36" cy="40" r="6.5" fill="var(--emph)"/><text x="36" y="43" fill="var(--ink)" text-anchor="middle">3</text></g>
+    <g><circle cx="602" cy="250" r="7" fill="var(--emph)"/><text x="602" y="253" fill="var(--ink)" text-anchor="middle">4</text></g>
+    <g><circle cx="176" cy="42" r="6.5" fill="var(--emph)"/><text x="176" y="45" fill="var(--ink)" text-anchor="middle">5</text></g>
+    <g><circle cx="330" cy="294" r="6.5" fill="var(--emph)"/><text x="330" y="297" fill="var(--ink)" text-anchor="middle">6</text></g>
+    <g><circle cx="16" cy="16" r="6.5" fill="var(--emph)"/><text x="16" y="19" fill="var(--ink)" text-anchor="middle">7</text></g>
+  </g>
+</svg>
+</div></div>
+<div class="legend">
+  <div><b>1</b> Slot card: nickname / Lv / job display name / composited idle sprite <span class="doc">ACCOUNT.md §1</span></div>
+  <div><b>2</b> Empty slot → Create <span class="doc">ACCOUNT.md §1</span></div>
+  <div><b>3</b> Selected slot: emphasis outline + corner ticks (<code>frame_window</code> ornate-corner motif, shown once for clarity) <span class="doc">UI_ART_SPEC.md</span></div>
+  <div><b>4</b> Enter World (<code>frame_button</code>, primary/emphasis): selecting a character enters the world; no gameplay outside a selected character <span class="doc">ACCOUNT.md §1</span></div>
+  <div><b>5</b> Delete (per filled slot, <code>frame_button</code> icon-only): explicit type-the-nickname confirmation, destructive, no undo <span class="doc">ACCOUNT.md §1</span></div>
+  <div><b>6</b> Delete dialog is <code>frame_dialog</code> (earth trim) over a screen dimmer; confirming frees the slot and releases the nickname back into the pool <span class="doc">ACCOUNT.md §1; ACCOUNTS_AUTH.md §4.1/§5</span></div>
+  <div><b>7</b> 4-slot quota, single source of truth <span class="doc">ACCOUNTS_AUTH.md §2.2</span></div>
+</div>
+<p class="note">Card sprites are flat wireframe silhouettes (no AI art) standing in for the real composited <code>idle</code> sprite —
+see the layered live preview on the creation screen (§3) for the actual <code>base → face → hair</code> composite per
+<code>CHARACTER_COMPOSITING.md</code>. "Ember" shows a 1st-job display name (<code>Bulwark</code>, earned at Lv 8); a fresh slot
+always starts <code>Novice</code>.</p>
+
+<h2>3 · Character creation (3 linear steps)</h2>
+<p class="sub">Nickname → Appearance → Confirm, cancellable at any point back to the roster. Appearance is shown expanded
+since it carries the richest widgetry (pickers + live preview); nickname is recapped top-left, confirm summarized in the
+footer bar.</p>
+<div class="stagewrap"><div class="stage">
+<svg viewBox="0 0 640 360" width="1280" height="720" role="img" aria-label="Character creation screen mock-up">
+  <rect x="0" y="0" width="640" height="360" fill="var(--ink)"/>
+
+  <!-- ============ step rail ============ -->
+  <g class="px">
+    <rect x="126" y="8" width="116" height="19" fill="var(--shadow)" stroke="var(--good)" stroke-width="1"/>
+    <circle cx="142" cy="17.5" r="7" fill="var(--good)"/>
+    <text x="142" y="20.5" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="var(--ink)" text-anchor="middle">✓</text>
+    <text x="160" y="21" font-family="ui-monospace,monospace" font-size="7.5" fill="var(--white)">Nickname</text>
+    <line x1="242" y1="17.5" x2="262" y2="17.5" stroke="var(--stone)" stroke-width="2"/>
+    <rect x="262" y="8" width="116" height="19" fill="var(--ink)" stroke="var(--emph)" stroke-width="2"/>
+    <circle cx="278" cy="17.5" r="7" fill="var(--emph)"/>
+    <text x="278" y="20.5" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="var(--ink)" text-anchor="middle">2</text>
+    <text x="296" y="21" font-family="ui-monospace,monospace" font-size="7.5" font-weight="700" fill="var(--emph)">Appearance</text>
+    <line x1="378" y1="17.5" x2="398" y2="17.5" stroke="var(--stone)" stroke-width="2"/>
+    <rect x="398" y="8" width="116" height="19" fill="var(--shadow)" stroke="var(--stone)" stroke-width="1"/>
+    <circle cx="414" cy="17.5" r="7" fill="var(--stone)"/>
+    <text x="414" y="20.5" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="var(--ink)" text-anchor="middle">3</text>
+    <text x="432" y="21" font-family="ui-monospace,monospace" font-size="7.5" fill="var(--ash)">Confirm</text>
+  </g>
+
+  <!-- ============ step 1 recap: nickname + check-name widget ============ -->
+  <g class="px">
+    <rect x="8" y="32" width="210" height="86" fill="var(--shadow)" stroke="var(--ash)" stroke-width="1"/>
+    <text x="16" y="44" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="var(--ash)">NICKNAME (frame_input)</text>
+    <rect x="16" y="48" width="140" height="16" fill="var(--ink)" stroke="var(--ash)" stroke-width="1"/>
+    <text x="22" y="59.5" font-family="ui-monospace,monospace" font-size="8" fill="var(--white)">Wren</text>
+    <rect class="blink" x="52" y="51" width="2" height="11" fill="var(--bone)"/>
+    <rect x="161" y="49" width="54" height="16" fill="var(--ink)"/>
+    <rect x="160" y="48" width="54" height="16" fill="var(--bone)" stroke="var(--ink)" stroke-width="1"/>
+    <text x="187" y="59" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="var(--ink)" text-anchor="middle">Check Name</text>
+    <rect x="16" y="70" width="92" height="16" fill="none" stroke="var(--good)" stroke-width="1.5"/>
+    <text x="62" y="81.5" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="var(--good)" text-anchor="middle">✓ Available</text>
+    <rect x="112" y="70" width="92" height="16" fill="none" stroke="var(--warn)" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="158" y="81.5" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--warn)" text-anchor="middle">✕ Taken</text>
+    <text x="112" y="94" font-family="ui-monospace,monospace" font-size="5.5" fill="var(--stone)">(other possible answer)</text>
+  </g>
+
+  <!-- ============ appearance pickers (left column) ============ -->
+  <g class="px">
+    <!-- HAIR -->
+    <text x="8" y="130" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="var(--ash)">HAIR · style_hair_NN</text>
+    <text x="180" y="130" font-family="ui-monospace,monospace" font-size="6" fill="var(--stone)">(12 total)</text>
+    <g stroke="var(--ink)" stroke-width="1">
+      <rect x="8" y="132" width="22" height="22" fill="var(--ash)"/><rect x="10" y="130" width="10" height="5" fill="var(--stone)"/>
+      <rect x="34" y="132" width="22" height="22" fill="var(--emph)" stroke="var(--emph)" stroke-width="2"/><rect x="38" y="129" width="14" height="6" fill="var(--stone)"/>
+      <rect x="60" y="132" width="22" height="22" fill="var(--ash)"/><rect x="63" y="131" width="8" height="4" fill="var(--stone)"/>
+      <rect x="86" y="132" width="22" height="22" fill="var(--ash)"/><rect x="87" y="129" width="16" height="6" fill="var(--stone)"/>
+      <rect x="112" y="132" width="22" height="22" fill="var(--ash)"/><rect x="115" y="130" width="12" height="5" fill="var(--stone)"/>
+      <rect x="138" y="132" width="22" height="22" fill="var(--ash)"/><rect x="139" y="129" width="18" height="6" fill="var(--stone)"/>
+    </g>
+    <rect x="164" y="132" width="22" height="22" fill="none" stroke="var(--ash)" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="175" y="146.5" font-family="ui-monospace,monospace" font-size="6" font-weight="700" fill="var(--ash)" text-anchor="middle">+6</text>
+
+    <!-- FACE -->
+    <text x="8" y="168" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="var(--ash)">FACE · style_face_NN</text>
+    <text x="160" y="168" font-family="ui-monospace,monospace" font-size="6" fill="var(--stone)">(8 total)</text>
+    <g>
+      <circle cx="19" cy="182" r="11" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/><rect x="15" y="180" width="1.5" height="1.5" fill="var(--ink)"/><rect x="21" y="180" width="1.5" height="1.5" fill="var(--ink)"/>
+      <circle cx="45" cy="182" r="11" fill="var(--ash)" stroke="var(--emph)" stroke-width="2"/><rect x="41" y="180" width="1.5" height="1.5" fill="var(--ink)"/><rect x="47" y="180" width="1.5" height="1.5" fill="var(--ink)"/>
+      <circle cx="71" cy="182" r="11" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/><rect x="67" y="180" width="1.5" height="1.5" fill="var(--ink)"/><rect x="73" y="180" width="1.5" height="1.5" fill="var(--ink)"/>
+      <circle cx="97" cy="182" r="11" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/><rect x="93" y="180" width="1.5" height="1.5" fill="var(--ink)"/><rect x="99" y="180" width="1.5" height="1.5" fill="var(--ink)"/>
+      <circle cx="123" cy="182" r="11" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/><rect x="119" y="180" width="1.5" height="1.5" fill="var(--ink)"/><rect x="125" y="180" width="1.5" height="1.5" fill="var(--ink)"/>
+      <circle cx="149" cy="182" r="11" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/><rect x="145" y="180" width="1.5" height="1.5" fill="var(--ink)"/><rect x="151" y="180" width="1.5" height="1.5" fill="var(--ink)"/>
+    </g>
+    <rect x="164" y="171" width="22" height="22" fill="none" stroke="var(--ash)" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="175" y="185.5" font-family="ui-monospace,monospace" font-size="6" font-weight="700" fill="var(--ash)" text-anchor="middle">+2</text>
+
+    <!-- HAIR COLOR (AB-002 real ramps) -->
+    <text x="8" y="206" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="var(--ash)">HAIR COLOR · style_haircolor_00–05</text>
+    <g stroke="var(--ink)" stroke-width="1">
+      <rect x="8" y="206" width="24" height="9" fill="var(--ink)"/><rect x="8" y="215" width="24" height="9" fill="var(--shadow)"/><rect x="8" y="224" width="24" height="9" fill="var(--stone)"/>
+      <rect x="36" y="206" width="24" height="9" fill="var(--earth0)"/><rect x="36" y="215" width="24" height="9" fill="var(--earth1)"/><rect x="36" y="224" width="24" height="9" fill="var(--earth2)"/>
+      <rect x="64" y="206" width="24" height="9" fill="var(--earth2)"/><rect x="64" y="215" width="24" height="9" fill="var(--earth3)"/><rect x="64" y="224" width="24" height="9" fill="var(--earth4)"/>
+      <rect x="92" y="206" width="24" height="9" fill="var(--ember1)"/><rect x="92" y="215" width="24" height="9" fill="var(--ember2)"/><rect x="92" y="224" width="24" height="9" fill="var(--ember3)"/>
+      <rect x="120" y="206" width="24" height="9" fill="var(--tide1)"/><rect x="120" y="215" width="24" height="9" fill="var(--tide2)"/><rect x="120" y="224" width="24" height="9" fill="var(--tide3)"/>
+      <rect x="148" y="206" width="24" height="9" fill="var(--arcane1)" stroke="var(--emph)" stroke-width="2"/><rect x="148" y="215" width="24" height="9" fill="var(--arcane2)"/><rect x="148" y="224" width="24" height="9" fill="var(--arcane3)"/>
+    </g>
+    <g font-family="ui-monospace,monospace" font-size="5.5" fill="var(--stone)" text-anchor="middle">
+      <text x="20" y="241">00</text><text x="48" y="241">01</text><text x="76" y="241">02</text><text x="104" y="241">03</text><text x="132" y="241">04</text><text x="160" y="241">05</text>
+    </g>
+
+    <!-- SKIN (AB-002 real ramps) -->
+    <text x="8" y="252" font-family="ui-monospace,monospace" font-size="6.5" font-weight="700" fill="var(--ash)">SKIN · style_skin_00–04</text>
+    <g stroke="var(--ink)" stroke-width="1">
+      <rect x="8" y="252" width="26" height="7" fill="#9a5a4a"/><rect x="8" y="259" width="26" height="7" fill="#d18a66"/><rect x="8" y="266" width="26" height="7" fill="#f0b58a"/><rect x="8" y="273" width="26" height="7" fill="#fbe0c0"/>
+      <rect x="38" y="252" width="26" height="7" fill="#7a4434" stroke="var(--emph)" stroke-width="2"/><rect x="38" y="259" width="26" height="7" fill="#b06a48"/><rect x="38" y="266" width="26" height="7" fill="#d99a6c"/><rect x="38" y="273" width="26" height="7" fill="#f2c896"/>
+      <rect x="68" y="252" width="26" height="7" fill="#5f3428"/><rect x="68" y="259" width="26" height="7" fill="#94553a"/><rect x="68" y="266" width="26" height="7" fill="#c07f52"/><rect x="68" y="273" width="26" height="7" fill="#e0a877"/>
+      <rect x="98" y="252" width="26" height="7" fill="#43241f"/><rect x="98" y="259" width="26" height="7" fill="#6e3c2c"/><rect x="98" y="266" width="26" height="7" fill="#96593c"/><rect x="98" y="273" width="26" height="7" fill="#bd7f55"/>
+      <rect x="128" y="252" width="26" height="7" fill="#301a1c"/><rect x="128" y="259" width="26" height="7" fill="#502c26"/><rect x="128" y="266" width="26" height="7" fill="#743f30"/><rect x="128" y="273" width="26" height="7" fill="#9a5c40"/>
+    </g>
+    <g font-family="ui-monospace,monospace" font-size="5.5" fill="var(--stone)" text-anchor="middle">
+      <text x="21" y="288">00 fair</text><text x="51" y="288">01 tan</text><text x="81" y="288">02 bronze</text><text x="111" y="288">03 umber</text><text x="141" y="288">04 deep</text>
+    </g>
+  </g>
+
+  <!-- ============ live preview pane (right column) ============ -->
+  <g class="px">
+    <rect x="340" y="32" width="292" height="268" fill="var(--shadow)" stroke="var(--ash)" stroke-width="1"/>
+    <g stroke="var(--bone)" stroke-width="1">
+      <path d="M340,38 L340,32 L346,32" fill="none"/><path d="M626,32 L632,32 L632,38" fill="none"/>
+      <path d="M340,294 L340,300 L346,300" fill="none"/><path d="M626,300 L632,300 L632,294" fill="none"/>
+    </g>
+  </g>
+  <text x="350" y="46" font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="var(--white)">LIVE PREVIEW</text>
+  <text x="618" y="46" font-family="ui-monospace,monospace" font-size="6" fill="var(--stone)" text-anchor="end">composited</text>
+
+  <!-- exploded layer stack: z-order per CHARACTER_COMPOSITING §2 -->
+  <g class="px">
+    <rect x="356" y="58" width="16" height="20" fill="#b06a48" stroke="var(--ink)" stroke-width="1"/>
+    <circle cx="398" cy="68" r="8" fill="var(--ash)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="424" y="58" width="18" height="14" fill="var(--arcane2)" stroke="var(--ink)" stroke-width="1"/>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="var(--ash)" text-anchor="middle">
+    <text x="380" y="72">+</text><text x="414" y="72">+</text><text x="452" y="72">=</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="5.5" fill="var(--ash)" text-anchor="middle">
+    <text x="364" y="84">base</text><text x="398" y="84">face</text><text x="433" y="84">hair</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="5" fill="var(--stone)" text-anchor="middle">
+    <text x="364" y="91">z1</text><text x="398" y="91">z6</text><text x="433" y="91">z7</text>
+  </g>
+
+  <!-- big composite: base -> face -> hair, skin_01 / hair_violet selected -->
+  <g class="px">
+    <rect x="472" y="176" width="16" height="30" fill="var(--shadow)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="494" y="176" width="16" height="30" fill="var(--shadow)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="470" y="206" width="20" height="10" fill="var(--ink)" stroke="var(--stone)" stroke-width="1"/>
+    <rect x="492" y="206" width="20" height="10" fill="var(--ink)" stroke="var(--stone)" stroke-width="1"/>
+    <rect x="458" y="136" width="10" height="32" fill="var(--stone)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="514" y="136" width="10" height="32" fill="var(--stone)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="458" y="168" width="10" height="8" fill="#b06a48" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="514" y="168" width="10" height="8" fill="#b06a48" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="468" y="132" width="42" height="44" fill="var(--stone)" stroke="var(--ink)" stroke-width="1"/>
+    <rect x="474" y="110" width="24" height="22" fill="#b06a48" stroke="var(--ink)" stroke-width="1.5"/>
+    <rect x="482" y="120" width="2" height="2" fill="var(--ink)"/><rect x="492" y="120" width="2" height="2" fill="var(--ink)"/>
+    <rect x="470" y="100" width="32" height="18" fill="var(--arcane2)" stroke="var(--ink)" stroke-width="1.5"/>
+  </g>
+  <text x="486" y="232" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="var(--white)" text-anchor="middle">Wren — preview</text>
+  <text x="486" y="244" font-family="ui-monospace,monospace" font-size="6" fill="var(--ash)" text-anchor="middle">base fixed: style_base_00 (§7)</text>
+  <text x="486" y="254" font-family="ui-monospace,monospace" font-size="6" fill="var(--stone)" text-anchor="middle">no equip layers yet (cape/body/…)</text>
+
+  <!-- ============ confirm summary footer ============ -->
+  <rect x="0" y="304" width="640" height="56" fill="var(--shadow)"/>
+  <rect x="0" y="304" width="640" height="1" fill="var(--stone)"/>
+  <text x="14" y="320" font-family="ui-monospace,monospace" font-size="7" font-weight="700" letter-spacing="1" fill="var(--ash)">READY TO CREATE</text>
+  <text x="14" y="336" font-family="ui-monospace,monospace" font-size="9" font-weight="700">
+    <tspan fill="var(--white)">Wren</tspan><tspan fill="var(--ash)"> · </tspan><tspan fill="var(--bone)">Novice</tspan><tspan fill="var(--ash)"> · spawns </tspan><tspan fill="var(--link)">Emberfoot Village</tspan><tspan fill="var(--ash)" font-size="7"> (map_001)</tspan>
+  </text>
+  <text x="14" y="350" font-family="ui-monospace,monospace" font-size="6.5" fill="var(--stone)">no job choice at creation — every character starts Novice; advancement begins at Lv 8</text>
+  <g class="px">
+    <rect x="470" y="318" width="64" height="22" fill="var(--ink)"/>
+    <rect x="468" y="316" width="64" height="22" fill="var(--shadow)" stroke="var(--ash)" stroke-width="1"/>
+    <text x="500" y="330" font-family="ui-monospace,monospace" font-size="7.5" fill="var(--white)" text-anchor="middle">Cancel</text>
+    <rect x="544" y="314" width="86" height="26" fill="var(--ink)"/>
+    <rect x="542" y="312" width="86" height="26" fill="var(--emph)" stroke="var(--ink)" stroke-width="1.5"/>
+    <text x="585" y="329" font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="var(--ink)" text-anchor="middle">CONFIRM</text>
+  </g>
+
+  <g font-family="ui-monospace,monospace" font-size="8" font-weight="700">
+    <g><circle cx="270" cy="30" r="6.5" fill="var(--emph)"/><text x="270" y="33" fill="var(--ink)" text-anchor="middle">1</text></g>
+    <g><circle cx="204" cy="40" r="6.5" fill="var(--emph)"/><text x="204" y="43" fill="var(--ink)" text-anchor="middle">2</text></g>
+    <g><circle cx="192" cy="143" r="6.5" fill="var(--emph)"/><text x="192" y="146" fill="var(--ink)" text-anchor="middle">3</text></g>
+    <g><circle cx="192" cy="182" r="6.5" fill="var(--emph)"/><text x="192" y="185" fill="var(--ink)" text-anchor="middle">4</text></g>
+    <g><circle cx="192" cy="220" r="6.5" fill="var(--emph)"/><text x="192" y="223" fill="var(--ink)" text-anchor="middle">5</text></g>
+    <g><circle cx="176" cy="266" r="6.5" fill="var(--emph)"/><text x="176" y="269" fill="var(--ink)" text-anchor="middle">6</text></g>
+    <g><circle cx="460" cy="66" r="6.5" fill="var(--emph)"/><text x="460" y="69" fill="var(--ink)" text-anchor="middle">7</text></g>
+    <g><circle cx="620" cy="320" r="6.5" fill="var(--emph)"/><text x="620" y="323" fill="var(--ink)" text-anchor="middle">8</text></g>
+    <g><circle cx="330" cy="248" r="6.5" fill="var(--emph)"/><text x="330" y="251" fill="var(--ink)" text-anchor="middle">9</text></g>
+  </g>
+</svg>
+</div></div>
+<div class="legend">
+  <div><b>1</b> Step rail: Nickname → Appearance → Confirm, linear + cancellable at any point <span class="doc">ACCOUNT.md §2</span></div>
+  <div><b>2</b> Nickname is a <code>frame_input</code> (sunken) field; Check Name is a <code>frame_button</code> (raised, normal state); both possible answers shown — available (good) / taken (warn) <span class="doc">ACCOUNT.md §2.1</span></div>
+  <div><b>3</b> Hair — 12 <code>style_hair_NN</code> options (6 shown + count) <span class="doc">CHARACTER_COMPOSITING.md §7, docs/ID_REGISTRY.md</span></div>
+  <div><b>4</b> Face — 8 <code>style_face_NN</code> options (6 shown + count); abstract at 32px, no separate mouth layer <span class="doc">CHARACTER_COMPOSITING.md §3.1, §7</span></div>
+  <div><b>5</b> Hair color — 6 <code>style_haircolor_NN</code> swatches, real 3-step ramps; <code>hair_violet</code> is exempt from the reserve-arcane-for-rare/elite rule <span class="doc">ART_BIBLE.yaml amendment AB-002</span></div>
+  <div><b>6</b> Skin — 5 <code>style_skin_NN</code> swatches, real 4-step ramps <span class="doc">ART_BIBLE.yaml amendment AB-002</span></div>
+  <div><b>7</b> Live preview composites as picks change; exploded stack shows z-order <code>base(z1) → face(z6) → hair(z7)</code>; base body fixed <code>style_base_00</code> <span class="doc">CHARACTER_COMPOSITING.md §2, §7</span></div>
+  <div><b>8</b> Confirm mints the record — always <code>Novice</code>, spawns at <code>map_001</code> Emberfoot Village; disabled until the name check returns available (<code>frame_button</code> disabled state) <span class="doc">ACCOUNT.md §2.2–§2.3, §3; JOBS.md; WORLD_PLAN.md</span></div>
+  <div><b>9</b> Picks must fall inside their <code>docs/ID_REGISTRY.md</code> reserved block (hair 12/40, face 8/20, skin 5/10, haircolor 6/10) <span class="doc">ID_REGISTRY.md "Appearance styles"</span></div>
+</div>
+<p class="note link">Cancel returns to the roster; any nickname hold from step 1 is released — availability is session-scoped,
+never a permanent hold. Swatch/thumbnail counts shown are illustrative subsets to keep the wireframe legible; the real
+catalog is <code>50_content/styles/style_catalog.yaml</code> <span class="doc">ACCOUNT.md §2; CHARACTER_COMPOSITING.md §8</span></p>
+
+<p class="sub" style="margin-top:20px">This mock-up fills the gap both owner docs flag but leave open: <code>ACCOUNT.md</code>
+Open Questions "Roster/creation screen UI spec" and <code>CHARACTER_COMPOSITING.md</code> Open Questions
+"Character-creation screen UI" — both point at <code>UI_ART_SPEC.md</code>'s change-controlled amendment channel for the real
+spec. This file is wireframe reference only, not that amendment.</p>
+
+</div>
+</body>
+</html>

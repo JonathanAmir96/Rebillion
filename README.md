@@ -25,12 +25,17 @@ Start here:
   `PHASE_H_CONSISTENCY_REPORT.md`, `PHASE_I_BACKEND_REPORT.md`,
   `SYNC_AUDIT_v3_2026-07-23.md`, `MD_CONNECTIVITY_REPORT.md`,
   `BACKEND_CHECKLIST_AUDIT_2026-07-24.md`, `DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md`,
-  `GAMEPLAY_LOOP_REVIEW_2026-07-24.md`) · `tools/validate.py` — the
+  `GAMEPLAY_LOOP_REVIEW_2026-07-24.md`, `MD_AUDIT_REPORT_2026-07-24.md`) ·
+  `tools/validate.py` — the
   batch validator, usage in `tools/README.md` (VALIDATION checks 1–6);
   `tools/md_graph.py` — the doc connectivity graph; `tools/wiki_gen.py` — static reference
-  wiki built from `docs/50_content/` (gitignored `wiki/` output)
-- `docs/mockups/` — non-binding HTML wireframe mock-ups (gameplay scene; referenced from
-  `docs/40_assets/UI_ART_SPEC.md`)
+  wiki built from `docs/50_content/` (gitignored `wiki/` output); `tools/regen_quest_exp.py`
+  — the quest-`exp` regen vs `docs/10_systems/LEVELING.md` §1
+- `docs/mockups/` — non-binding HTML wireframe mock-ups, referenced from
+  `docs/40_assets/UI_ART_SPEC.md` (UA-003): `gameplay_scene_mockup.html`,
+  `entry_roster_creation_mockup.html`, `town_hub_millbrook_mockup.html`,
+  `inventory_character_windows_mockup.html`, `world_travel_mockup.html`,
+  `raid_boss_hud_mockup.html`
 - `memory.md` — generation state & decisions log (newest-first) · `memory/` — Memory Bank
   (`projectbrief` → `systemPatterns` → `techContext` → `activeContext` → `progress`),
   distilled current-state context for future sessions
