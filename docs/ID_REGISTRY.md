@@ -96,6 +96,25 @@ Line tokens (owner 10_systems/JOBS.md): `bulwark` (might), `keeneye` (finesse), 
 `007`–`013` second-job); `014`–`021` reserved for the deferred 3rd-job tier; `022`–`030`
 reserved growth. `skill_novice_001`–`010` reserved for the novice kit (up to 4 authored).
 
+## Player appearance layers — `pc_<layer>_NNN`
+
+Owner of layer semantics: 40_assets/CHARACTER_COMPOSITION.md (layer tokens provisional in
+GLOSSARY.md pending C-gate promotion). One ID per authored **sheet**, palette variants included
+(each recolor mints its own ID); equips reference these via `appearance`
+(20_schemas/item.schema.md) many-to-one — sheet count is intentionally far below equip count.
+
+| Layer | Block | Layer | Block |
+|---|---|---|---|
+| `pc_base` | `001`–`010` | `pc_head` | `001`–`050` |
+| `pc_face` | `001`–`020` | `pc_body` | `001`–`050` |
+| `pc_hair` | `001`–`040` | `pc_legs` | `001`–`050` |
+| `pc_weapon` | `001`–`060` | `pc_boots` | `001`–`050` |
+| `pc_cape` | `001`–`030` | `pc_gloves` | `001`–`050` |
+
+Skill FX clips (`fx_<skill_id>_<part>`, 40_assets/SKILL_ANIMATION.md) and UI icons
+(`ui_icon_*`, 40_assets/UI_ART_SPEC.md) are **derived 1:1 from already-registered IDs** and mint
+no blocks here.
+
 ## NPCs — `npc_001`–`npc_120`
 
 | Region | Block | Count | Region | Block | Count |

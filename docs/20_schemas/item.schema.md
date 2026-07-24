@@ -4,7 +4,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md,
 10_systems/ITEMS.md, 10_systems/ENHANCEMENT.md, 10_systems/DROPS.md, 10_systems/ECONOMY.md,
 10_systems/INVENTORY.md, 10_systems/STATS.md, 10_systems/SKILL_EFFECTS.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/PERSISTENCE.md, 20_schemas/monster.schema.md,
-20_schemas/drop_table.schema.md, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md, docs/VALIDATION.md
+20_schemas/drop_table.schema.md, 40_assets/CHARACTER_COMPOSITION.md, 40_assets/UI_ART_SPEC.md,
+docs/ID_REGISTRY.md, docs/WORLD_PLAN.md, docs/VALIDATION.md
 
 ## Purpose
 
@@ -80,6 +81,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].price.buy` | int | equip/use: yes; etc: **omit** | `ECONOMY` §4.1 (use)/§4.2 (equip) | Etc items are not vendor-purchasable (`10_systems/ITEMS.md` §1 "mostly vendor/trade value"; emberstones specifically never purchasable, `10_systems/ENHANCEMENT.md` §6) — omit `buy` entirely for `etc` rows. |
 | `items[].price.sell` | int | yes | `ECONOMY` §4 | Equip/use: `= round(0.25 · buy)` (hard, `ECONOMY` §4). Etc: authored directly (no `buy` to derive from — see Open Questions, `ECONOMY.md` prices only `use`/`equip`). |
 | `items[].flavor` | string | no | `00_vision/PILLARS.md` P1 | ≤2 sentences, US spelling, optional (task brief marks it optional here, unlike monster/skill `flavor`). `client`. |
+| `items[].icon` | string (ui icon id) | yes | `40_assets/UI_ART_SPEC.md` icon naming (`ui_icon_{category}_{name}`, category `item`) | Must equal `ui_icon_item_<this row's id stem>` — e.g. `item_equip_0002` → `ui_icon_item_equip_0002`. A 1:1 derivation, authored explicitly so tooling/UI never re-derives (same precedent as `line_hint`). Rarity ring/border comes from `rarity` + `40_assets/ART_BIBLE.yaml` `rarity_code` at the slot frame, never baked into the icon. `client`. |
 
 ### Row — `equip` only
 
@@ -88,6 +90,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `items[].slot` | enum | yes | `10_systems/ITEMS.md` §2 (GLOSSARY Equipment slots) | One of the 9 tokens. `server`. |
 | `items[].weapon_type` | enum | `slot: weapon` only | `10_systems/ITEMS.md` §3 (GLOSSARY Weapon types) | `blade`\|`bow`\|`staff`\|`dirk`. Forbidden on non-weapon slots (Validation). `server`. |
 | `items[].line_hint` | enum | `slot: weapon` only | `10_systems/JOBS.md` / GLOSSARY Job lines | The job line this weapon equips (fixed 1:1 by `weapon_type`, `10_systems/ITEMS.md` §3). Redundant with `weapon_type` by design — authored explicitly so tooling/UI never re-derives the mapping (see Open Questions). Must equal the fixed mapping (Validation, hard). `server`/`client`. |
+| `items[].appearance` | string `pc_<slot>_NNN` | visible slots yes; `ring`/`amulet` **forbidden** | `40_assets/CHARACTER_COMPOSITION.md` §6; `docs/ID_REGISTRY.md` Player appearance layers | The paper-doll layer sheet this equip renders as on the character. Required for the seven visible slots (`weapon`/`head`/`body`/`legs`/`boots`/`gloves`/`cape`); must sit in the `pc_` block matching this row's own `slot`. Many items sharing one sheet (tier reskins, palette variants) is the norm — sharing rules there, not here. `client`. |
 | `items[].tier` | int 1–10 | yes | `10_systems/ITEMS.md` §4 | The `T1`–`T10` gear tier; keys the §7–§9 base-line lookup. Must correspond to `req_level` per the §4 table (Validation). `server`. |
 | `items[].stats` | map `{base, affixes}` | yes | `10_systems/ITEMS.md` §6–§10 | The base+affix stat-line budget (§6: "base lines + affix lines"). Sub-fields below. `server`. |
 | `items[].stats.base` | map `{<stat token>: value}` | yes | `ITEMS` §7 (weapon `W`) / §8 (armor+warding by slot×tier) / §9 (accessory by tier) | Rarity-independent; one entry per this slot's fixed base-line set (§2 table, e.g. `body` → `armor`+`warding`). Values copied exactly from the formula for this row's `slot`×`tier` (Validation, hard). |
@@ -128,6 +131,8 @@ Every enum value comes from its owning registry; this schema points, never redef
 | `items[].stats.base`/`affixes[].stat` keys | `10_systems/STATS.md` (GLOSSARY primary/derived stat tokens); slot eligibility `10_systems/ITEMS.md` §10. |
 | `items[].stats.affixes[].op` (flourish) | `10_systems/SKILL_EFFECTS.md` §13/§16 only: `passive_stat_bonus`·`on_hit_proc` (not the full 14-op set — flourishes are stat-adjacent, `ITEMS` §11). |
 | `items[].unique_of` | `docs/ID_REGISTRY.md` Monsters (must resolve to a `tier: boss` entry, `20_schemas/monster.schema.md`). |
+| `items[].appearance` | `docs/ID_REGISTRY.md` Player appearance layers (`pc_<slot>_NNN`); semantics `40_assets/CHARACTER_COMPOSITION.md` §6. |
+| `items[].icon` | `40_assets/UI_ART_SPEC.md` icon naming (derived 1:1 from `items[].id`, no registry needed). |
 | `items[].effects[].op` (use rows) | `10_systems/SKILL_EFFECTS.md`, restricted subset: `heal`·`restore_essence`·`cleanse_status`·`apply_status`. |
 | `items[].effects[].status` (on `apply_status`) | `10_systems/STATUS_EFFECTS.md` (GLOSSARY Status effects). |
 | `items[].effects[].tag` (on `cleanse_status`) | `10_systems/STATUS_EFFECTS.md` §2 cleanse tags. |
@@ -158,6 +163,8 @@ items:
                                         # budget @Lv10 = 1 line x cap(10)=round(1.4x4)=6 pe: 4<=6 OK
     enhance_max: 9
     price: { buy: 300, sell: 75 }       # ECONOMY §4.2: T2 base_buy 120 x uncommon (x2.5) = 300
+    icon: ui_icon_item_equip_0002
+    appearance: pc_weapon_002            # paper-doll layer sheet (CHARACTER_COMPOSITION §6)
     flavor: "A gladeforged blade that hums faintly when swung near living wood."
   # ... item_equip_0001, 0003-0040 (this schema's ID range for equip/weapons.yaml)
 ```
@@ -177,6 +184,7 @@ restore `amount` is Phase D's):
       - { op: heal, scaling: flat, amount: 120 }   # magnitude: Phase D tunes vs Lv1-9 life band
     use_cooldown: 1.0                    # first-pass; see Open Questions
     stack: 100
+    icon: ui_icon_item_use_0001
     flavor: "A watered cordial that dulls the day's scrapes."
 ```
 
@@ -191,6 +199,7 @@ restore `amount` is Phase D's):
     price: { sell: 8 }                   # no buy — etc items are not vendor-purchasable
     source_hint: mob_010                 # Cinder Houndmaster (elite, cross-checked vs drop_mob_010)
     stack: 999
+    icon: ui_icon_item_etc_0001
     flavor: "A blunt fang still warm from the kiln-hound's jaw."
 ```
 
@@ -248,6 +257,12 @@ referential integrity, §3 schema conformance/front-matter/unknown-fields, §4 I
     order rule, File conventions).
 15. **Rarity mechanical scope (warn).** `rarity` on `use`/`etc` rows has no budget consequence
     (rule 4 applies to `equip` only) — see Open Questions.
+16. **Icon derivation (hard).** `icon` equals exactly `ui_icon_item_<id stem>` for this row's `id`
+    (`40_assets/UI_ART_SPEC.md` naming; `docs/VALIDATION.md` §6).
+17. **Appearance gating (hard, `equip` rows).** `appearance` is present if and only if `slot` is
+    one of the seven visible slots (`40_assets/CHARACTER_COMPOSITION.md` §2/§6 — forbidden on
+    `ring`/`amulet` and on all `use`/`etc` rows), matches the `pc_<slot>_NNN` format for this
+    row's own `slot`, and falls inside that layer's `docs/ID_REGISTRY.md` block.
 
 ## Template
 
@@ -267,6 +282,7 @@ items:
     price:
       buy: {int}                         # omit entirely for etc rows
       sell: {int}                        # equip/use: round(0.25*buy); etc: authored directly
+    icon: ui_icon_item_{equip|use|etc}_{NNNN}   # = this row's id stem (rule 16)
     # flavor: "{<=2 sentences}"          # optional
 
     # --- equip only (forbidden on use/etc): ---
@@ -281,6 +297,7 @@ items:
     #     # uniques.yaml only, in place of/alongside ordinary lines:
     #     # - { op: {passive_stat_bonus|on_hit_proc}, {params per SKILL_EFFECTS}, flourish: true }
     # enhance_max: 9
+    # appearance: pc_{slot}_{NNN}              # visible slots only (never ring/amulet), rule 17
     # unique_of: mob_{NNN}                     # uniques.yaml only
 
     # --- use only (forbidden on equip/etc): ---

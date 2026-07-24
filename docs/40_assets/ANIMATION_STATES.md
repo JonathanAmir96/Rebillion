@@ -19,10 +19,9 @@ numbers themselves (`40_assets/ART_BIBLE.yaml`, cited in §2, never re-derived);
 `ai_profile` enters `windup`/`chase`/`flee`/etc., or which profile does what
 (`10_systems/AI_BEHAVIOR.md`, cited throughout); jump/fall/climb kinematics and platforming physics
 (`15_maps_system/MAP_TRAVERSAL.md`, cited in §1/§3); exact per-frame hit-frame indices and
-clip-length timing (owned by `ANIMATION_TIMING`, §4 — not yet authored in this tree); and per-skill
+clip-length timing (owned by `40_assets/ANIMATION_TIMING.md`, §4); and per-skill
 animation clip **IDs** (owned by `40_assets/SKILL_ANIMATION.md`, cited by
-`20_schemas/skill.schema.md`, also not yet authored — a different namespace than the state tokens
-this doc owns).
+`20_schemas/skill.schema.md` — a different namespace than the state tokens this doc owns).
 
 ## 1. The 12-state registry
 
@@ -145,8 +144,8 @@ damage never on a duplicate timer." This doc does not assign a frame index, does
 from `haste` (attack-speed conversion is `10_systems/STATS.md` §5's, and it scales the whole clip's
 *playback rate*, not this doc's frame *count* — no reason found here to reopen
 `00_vision/GLOSSARY.md`'s closed haste-split question on that basis), and does not restate
-`10_systems/SKILL_EFFECTS.md`'s damage-scaling math. See Open Questions for `ANIMATION_TIMING`'s
-status.
+`10_systems/SKILL_EFFECTS.md`'s damage-scaling math. That contract now lives in
+`40_assets/ANIMATION_TIMING.md` §3.
 
 ## 5. Required-set matrix (per entity class)
 
@@ -229,7 +228,10 @@ owning content file's immutable `id`:
 
 - Monster (any tier, including summon templates): `mob_NNN` (`docs/ID_REGISTRY.md`).
 - NPC: `npc_NNN` (`docs/ID_REGISTRY.md`).
-- Player: no `entity_id` token is registered anywhere in the tree today — see Open Questions.
+- Player: **plural** — the player is a composed paper-doll with no single sheet; each appearance
+  layer's `pc_<layer>_NNN` id (`docs/ID_REGISTRY.md`; `40_assets/CHARACTER_COMPOSITION.md` §7)
+  serves as the `{entity_id}`, and every layer authors the player-class state set at the canonical
+  rig's fixed frame counts (that doc's §3).
 
 `NN` indexes `0` .. `count-1` for whichever frame count the asset actually authors inside its
 state's locked (§2.1) or proposed (§2.2) `[min, max]` budget — the budget is a range Phase D/asset
@@ -261,15 +263,12 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   union of its tier row and the summon row (e.g., still needing `telegraph`), or whether
   `summon_owner` presence caps it at the summon row regardless of tier, is not resolved by that
   schema's single-axis `tier` field. Not decided here.
-- **Player has no registered `entity_id` or content schema.** `40_assets/ART_BIBLE.yaml`
-  `export_contract.frame_naming` needs `{entity_id}_{state}_{NN}` for the player exactly as it does
-  for `mob_NNN`/`npc_NNN`, but no ID prefix exists for the player character anywhere in the tree
-  (`00_vision/GLOSSARY.md`'s ID-prefix list has none) and no `player.schema.md` exists.
-  Consequently the player row in §5 is a spec for the Phase E coding pass
-  (`30_engineering/ENGINEERING_STANDARDS.md`, `60_agents/`), not a Phase D `animation_states`-field
-  check the way `docs/VALIDATION.md` check 6 currently runs for monsters — flag whether the player
-  needs its own schema/ID block, or whether the job-line tokens
-  (`bulwark`/`keeneye`/`weaver`/`flicker`) double as the export `entity_id`.
+- ~~Player has no registered `entity_id` or content schema.~~ **Resolved (C):**
+  `40_assets/CHARACTER_COMPOSITION.md` answers this — the player is a layered paper-doll and each
+  layer sheet's `pc_<layer>_NNN` id (`docs/ID_REGISTRY.md`) is the export `entity_id` (its §7);
+  job-line tokens are explicitly **not** used. The §5 player row binds to every `pc_*` sheet via
+  the canonical rig (its §3), checkable by `docs/VALIDATION.md` §6 once those sheets land; no
+  separate `player.schema.md` is needed.
 - **`20_schemas/npc.schema.md` has no `animation_states` field at all.** This doc's `idle`
   required/`walk` optional NPC row has nothing to attach to today — that schema defines no
   `animation_states`, `ai_profile`, or movement field, and (consistent with this doc's exemption) no
@@ -285,12 +284,9 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   `10_systems/COMBAT_FORMULA.md` §11–12 states whether a landed hit forcibly dismounts a climbing
   player into `hit`/`fall`, or whether damage is simply absorbed without interrupting `climb`. Not
   assumed either way here.
-- **`ANIMATION_TIMING` does not exist in the tree yet.** This doc's hit-frame boundary (§4) defers
-  exact per-frame damage timing to `ANIMATION_TIMING`, per
-  `30_engineering/ENGINEERING_STANDARDS.md`'s existing citation of it — but no
-  `40_assets/ANIMATION_TIMING.md` (or equivalent) file exists today, the same forward-reference
-  situation as `40_assets/SKILL_ANIMATION.md` (cited by `20_schemas/skill.schema.md`, also
-  unauthored). Both need to land before hit-frame-accurate combat can be implemented.
+- ~~`ANIMATION_TIMING` does not exist in the tree yet.~~ **Resolved (C):** both forward
+  references have landed — `40_assets/ANIMATION_TIMING.md` (hit-frame + playback law) and
+  `40_assets/SKILL_ANIMATION.md` (skill clip-id namespace). This doc's §4 boundary is unchanged.
 - **Monster tier-count discrepancy (not this doc's to fix, but touches the boss/elite rows
   above).** `docs/ID_REGISTRY.md` and `00_vision/SCOPE.md` both total the 150 monsters as 118
   `normal`/24 `elite`/8 `boss`; `20_schemas/monster.schema.md`'s own Purpose section states

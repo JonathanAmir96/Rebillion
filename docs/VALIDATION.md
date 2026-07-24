@@ -41,7 +41,13 @@ table exactly.
 ## 6. Asset contract
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
 every state required for their entity class (e.g., elites/bosses must include `telegraph`).
-Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming.
+Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming (`<skill_id>_cast`, actives
+only); skill `icon` equals `ui_icon_skill_<line>_<NNN>` and item `icon` equals
+`ui_icon_item_<id stem>` (40_assets/SKILL_ANIMATION.md §5 / 40_assets/UI_ART_SPEC.md naming).
+Equip `appearance` refs are `pc_<slot>_NNN`, match the row's own `slot`, sit inside their
+ID_REGISTRY.md block, and appear only on the seven visible slots
+(40_assets/CHARACTER_COMPOSITION.md). Once `pc_*` sheets/manifests land, every layer sheet
+must match the canonical rig's states and frame counts (CHARACTER_COMPOSITION.md §3).
 
 ## 7. Open Questions rollup
 Every doc ends with `## Open Questions`. Phase E collects every entry into the index at the

@@ -108,7 +108,8 @@ arc; the game cap is 300 (initial design; see SCOPE.md).
 
 ## ID prefixes (ranges owned by docs/ID_REGISTRY.md)
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
-`skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN`
+`skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN` ·
+`pc_<layer>_NNN` (provisional, see below)
 
 ## Region slugs (owner: docs/WORLD_PLAN.md; v2 two-island world)
 `emberfoot` · `millbrook` · `verdant` · `tidewatch` · `gloomwood` · `ashfall` · `sunken` ·
@@ -129,8 +130,16 @@ reserved for future expansions — invalid in this run's content.
 "waygate" mechanism is retired — that token is invalid in content.
 
 ## Provisional (pending promotion at a phase gate)
-- None currently. (Job lines, cleanse tags, and crest shapes were promoted at the B gate.)
+- **Player sprite layers** (owner: 40_assets/CHARACTER_COMPOSITION.md; pending C-gate
+  promotion): identity layers `base` · `face` · `hair`, plus the seven visible Equipment-slot
+  tokens above reused as layer names (`ring`/`amulet` have no layer). ID prefix `pc_<layer>_NNN`
+  (blocks in docs/ID_REGISTRY.md).
+- **Skill FX parts** (owner: 40_assets/SKILL_ANIMATION.md; pending C-gate promotion):
+  `cast` · `proj` · `impact` · `proc`, used only inside derived `fx_<skill_id>_<part>` names —
+  never as animation-state tokens (that set stays fixed at 12).
 
 ## Open Questions
 - ~~Split `haste` into move/attack tokens?~~ **Resolved at B gate:** kept combined; conversion
   percentages owned by 10_systems/STATS.md §5. Reopen only if animation breakpoints demand it.
+- Promote the Provisional player-sprite-layer and skill-FX-part tokens at the C gate (owners:
+  40_assets/CHARACTER_COMPOSITION.md, 40_assets/SKILL_ANIMATION.md).
