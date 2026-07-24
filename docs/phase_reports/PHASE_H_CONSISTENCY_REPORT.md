@@ -4,6 +4,11 @@ Status: **complete** (2026-07-23, single-session wave). Scope: close the debt st
 the tree and Phase D — the never-run B-revision straggler wave, two declared-but-missing owner
 docs, four blocked C-gate decisions, the batch validator, and the F/G cross-doc leftovers.
 
+**Status update (2026-07-24, md audit):** the v2 world shape this wave re-anchored to (two
+islands, 8 regions/bosses, 2 PQs) was itself superseded the same day by the v3 owner revision —
+see `docs/phase_reports/ARC2_PLAN_REPORT.md` and current `docs/WORLD_PLAN.md` (five islands,
+11 regions/bosses, 4 raids, "raid" vocabulary).
+
 ## 1. v2 straggler wave (the B-revision SCOPE.md flagged)
 
 ~30 docs still described the v1 world (Lv 100 cap, 12 regions, Rift raids, free waygates).

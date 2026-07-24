@@ -1,5 +1,8 @@
 # DESIGN_REVIEW_CONTRADICTIONS_2026-07-24.md — Cross-Doc Contradiction Sweep of `main`
 
+**Status (2026-07-24): all 27 findings below are resolved — 25 fixed same-day on `main`, 2 landed
+as owner amendments (UA-001 / ES-001). See §5 Resolution log.**
+
 Scope: a full-tree contradiction sweep of `main` as of 2026-07-24 (post social-package /
 cosmetics merge, commit `0b1a632`). Six parallel reviewers covered the tree in clusters —
 combat/stats, economy/items, social, world/maps, UI/assets, cross-cutting/GLOSSARY — and every

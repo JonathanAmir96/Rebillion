@@ -3,6 +3,10 @@
 Status: **complete**. 8 sub-agents (3 Opus, 4 Sonnet groups + Opus core), 32 docs, ~5,550
 lines. All files passed: forbidden-token scan, H1 + References header, Open Questions ending.
 
+**Status update (2026-07-24, md audit):** the "~201h to cap" pacing figure below is superseded —
+see `docs/10_systems/LEVELING.md` §1 for the ratified anchors (Lv 40 ≈ 30 h · Lv 80 ≈ 166 h ·
+Lv 100 ≈ 300 h; cap 300 with the Lv > 100 curve provisional).
+
 ## Files created (by dispatch group)
 - **B-core (Opus):** STATS, ELEMENTS, STATUS_EFFECTS
 - **B-combat (Opus):** COMBAT_FORMULA (incl. the load-bearing monster stat budget §13 and

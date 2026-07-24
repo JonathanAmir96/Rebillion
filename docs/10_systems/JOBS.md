@@ -506,16 +506,10 @@ per line when authored.
 
 ## Open Questions
 
-- **ID_REGISTRY re-block (proposed, not yet landed).** `docs/ID_REGISTRY.md` still carries the v2
-  per-line budget (`001`–`030`, 13 authored). v3 needs the block widened to `skill_<line>_001`–`060`
-  with the layout in §1: `001`–`006` first-job · `007`–`013` spec #1 · `014`–`020` spec #2 ·
-  `021`–`027` spec #3 (`bulwark`/`weaver` only; `keeneye`/`flicker` reserve `021`–`027`) · `028`–`045`
-  reserved 3rd tier · `046`–`060` reserved growth. `skill_novice_001`–`010` unchanged. Re-blocking is
-  legal (no content YAML minted); ID_REGISTRY owner to land it in a new commit.
-- **GLOSSARY promotion of the 6 new spec tokens** — `stoneguard`, `warcaller`, `sureshot`,
-  `cindercall`, `frostbind`, `wildcard` — for the `00_vision/GLOSSARY.md` Job-lines block (the four
-  spec #1 tokens are already promoted as the v2 second-job names). Flag if any collides with a
-  later-authored token.
+- **Resolved (2026-07-24 md audit): the skill-block re-block and spec-token promotion both
+  landed.** `docs/ID_REGISTRY.md` carries the `skill_<line>_001`–`060` layout exactly as §1
+  specifies, and all six specialization tokens are canonical in `00_vision/GLOSSARY.md`'s
+  Job-lines table.
 - **`00_vision/SCOPE.md` linear-advancement / 56-skills lines — resolved:** SCOPE's v3 revision
   (2026-07-23) now states branching at Lv 40 (10 specs) and 98 authored skills, matching this doc.
 - **3rd-tier mapping.** The four reserved 3rd-job names (Aegis/Skypiercer/Highweaver/Nightdancer)

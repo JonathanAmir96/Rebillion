@@ -27,5 +27,5 @@ Start here:
   batch validator, usage in `tools/README.md` (VALIDATION checks 1–6);
   `tools/md_graph.py` — the doc connectivity graph
 
-Rules of the tree: content files hold values and references, never rule text; every reference
-must resolve; unknown terms are proposed in GLOSSARY, never invented silently.
+Rules of the tree: `CLAUDE.md` Laws 1–6 (glossary tokens · single source of truth · immutable
+IDs · flag-don't-guess · change-controlled files · validate before landing).
