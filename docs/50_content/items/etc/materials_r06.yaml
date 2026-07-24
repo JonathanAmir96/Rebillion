@@ -13,7 +13,7 @@ items:
       sell: 45                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
     source_hint: mob_088          # drops from Cinder Swarmling (cross-checks drop_mob_088)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A pinch of grey ash that stays warm in the palm long after the swarm is gone. Barrens tanners bank it into fire-hardening dust."
+    flavor: "A pinch of gray ash that stays warm in the palm long after the swarm is gone. Barrens tanners bank it into fire-hardening dust."
   - id: item_etc_0082
     name: Jackal Fang
     category: etc
@@ -53,7 +53,7 @@ items:
       sell: 48                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
     source_hint: mob_092          # drops from Dustback Grazer (cross-checks drop_mob_092)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A dust-caked scute pried from a grazer's back, grey clean through. Masons grind it into a heat-shedding grit."
+    flavor: "A dust-caked scute pried from a grazer's back, gray clean through. Masons grind it into a heat-shedding grit."
   - id: item_etc_0086
     name: Scoria Clinker
     category: etc
@@ -93,7 +93,7 @@ items:
       sell: 51                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
     source_hint: mob_096          # drops from Ashwing Harrier (cross-checks drop_mob_096)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A stiff flight-feather, vanes soot-grey and reeking of carrion. Fletchers set them on bolts meant for the barrens."
+    flavor: "A stiff flight-feather, vanes soot-gray and reeking of carrion. Fletchers set them on bolts meant for the barrens."
   - id: item_etc_0090
     name: Ashpriest Cinder-Bead
     category: etc
@@ -143,7 +143,7 @@ items:
       sell: 54                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
     source_hint: mob_101          # drops from Barrens Vulture (cross-checks drop_mob_101)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A broad, ragged quill dusted the dead grey of the flats. Scribes render it down for a stubborn black ink."
+    flavor: "A broad, ragged quill dusted the dead gray of the flats. Scribes render it down for a stubborn black ink."
   - id: item_etc_0095
     name: Slag Brute Sinew
     category: etc

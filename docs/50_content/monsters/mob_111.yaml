@@ -30,4 +30,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   die: "Curls its legs under its shell and goes still."
 drop_table: drop_mob_111
 # bottom-grazer that flees; fights only when cornered (AI_BEHAVIOR §4) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
-flavor: "A flat grey crab the size of a dinner plate, grazing the algae off sunken flagstones and skittering into the nearest crack at the first tremor of a footfall. It fights only when there is nowhere left to run."
+flavor: "A flat gray crab the size of a dinner plate, grazing the algae off sunken flagstones and skittering into the nearest crack at the first tremor of a footfall. It fights only when there is nowhere left to run."

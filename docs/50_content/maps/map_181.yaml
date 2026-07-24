@@ -38,10 +38,10 @@ interactables:
     id: sign_ashcog_flats
     at_tile: [20, 21]
     params:
-      text: "A drift of grey ash coats the flats, shaken loose from something still grinding overhead."
+      text: "A drift of gray ash coats the flats, shaken loose from something still grinding overhead."
       interact_prompt: Read
 npcs: []
 platform_brief: |
   A wide, flat expanse of ash-caked plating, easiest crossing in the chain. No verticality
   gimmick; a single continuous foothold end to end (ART_BIBLE AB-001, MAP_TRAVERSAL v2.4).
-flavor: "Ash sifts down from some unseen furnace above, settling grey over brass that never cools."
+flavor: "Ash sifts down from some unseen furnace above, settling gray over brass that never cools."

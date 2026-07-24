@@ -31,7 +31,7 @@ items:
     price: { sell: 74 }
     source_hint: mob_211          # Brinebound Hulk
     stack: 999
-    flavor: "A palm-broad plate of brine-fused shell, heavy as slate and just as grey. Barnacles cling to it even after the kill."
+    flavor: "A palm-broad plate of brine-fused shell, heavy as slate and just as gray. Barnacles cling to it even after the kill."
   - id: item_etc_0164
     name: Drowned Pearl
     category: etc

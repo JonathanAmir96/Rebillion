@@ -14,7 +14,7 @@ items:
       sell: 22                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
     source_hint: mob_068          # drops from Silkcreep Lurker (cross-checks drop_mob_068)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A skein of grey, ground-hugging web still gritty with leaf-mold. Fen weavers prize it for cord that holds a knot in the wet."
+    flavor: "A skein of gray, ground-hugging web still gritty with leaf-mold. Fen weavers prize it for cord that holds a knot in the wet."
 
   - id: item_etc_0066
     name: Sporeback Cap

@@ -27,4 +27,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Splinters with a jolt, sagging back toward the ground."
   die: "Collapses flat again, this time for good, settling like dead timber."
 drop_table: drop_mob_036
-flavor: "A slab of grey deadwood lying exactly where a bridge-plank ought to be, until you set a foot on it and it folds up around the leg. Once it has missed its ambush it fights like anything else, slow and mean, but that first snap is the whole of its cunning."
+flavor: "A slab of gray deadwood lying exactly where a bridge-plank ought to be, until you set a foot on it and it folds up around the leg. Once it has missed its ambush it fights like anything else, slow and mean, but that first snap is the whole of its cunning."

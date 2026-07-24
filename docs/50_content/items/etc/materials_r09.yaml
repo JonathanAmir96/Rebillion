@@ -116,7 +116,7 @@ items:
       sell: 57                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
     source_hint: mob_161          # drops from this R9 species (cross-checks drop_mob_161)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A grey carapace indistinguishable from loose talus until it twitches. Smiths grind it into a grit that bites through rust."
+    flavor: "A gray carapace indistinguishable from loose talus until it twitches. Smiths grind it into a grit that bites through rust."
   - id: item_etc_0140
     name: Glimmerfrost Mote
     category: etc
@@ -136,7 +136,7 @@ items:
       sell: 60                    # no `buy` on etc rows (ITEMS §1); etc sell first-pass
     source_hint: mob_163          # drops from this R9 species (cross-checks drop_mob_163)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A stripped flight-quill from a high-pass scavenger, wind-worn to a fine grey taper. It carries the reek of the carrion it rode the thermals for."
+    flavor: "A stripped flight-quill from a high-pass scavenger, wind-worn to a fine gray taper. It carries the reek of the carrion it rode the thermals for."
   - id: item_etc_0142
     name: Icehide Fur
     category: etc

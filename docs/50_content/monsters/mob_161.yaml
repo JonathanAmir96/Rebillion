@@ -29,4 +29,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Shell rocks and claws draw back defensively."
   die: "Claws splay open and the shell tips onto its back."
 drop_table: drop_mob_161
-flavor: "A rock-crab that sits still as loose stone on the talus slopes until a boot lands beside it. Its shell is grey scree; its claws are not."
+flavor: "A rock-crab that sits still as loose stone on the talus slopes until a boot lands beside it. Its shell is gray scree; its claws are not."

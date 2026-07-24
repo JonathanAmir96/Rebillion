@@ -30,4 +30,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Yelps and flinches sideways, scrambling to reset its footing."
   die: "Crumples onto its side, legs twitching once before going still."
 drop_table: drop_mob_089
-flavor: "A lean, soot-grey scavenger that runs the barrens in scrabbling packs, its paws long since hardened to the scalding ground. It hunts the heat-struck and the slow."
+flavor: "A lean, soot-gray scavenger that runs the barrens in scrabbling packs, its paws long since hardened to the scalding ground. It hunts the heat-struck and the slow."

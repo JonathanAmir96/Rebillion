@@ -30,4 +30,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Lurches off-balance, wings flaring wide."
   die: "Tumbles from the air in a heavy sprawl of wing and bone."
 drop_table: drop_mob_101
-flavor: "A heavy, bald-necked scavenger that has grown fat on all the barrens kills, wings dusted the same dead grey as the ground. It comes down hard and jealous of a carcass."
+flavor: "A heavy, bald-necked scavenger that has grown fat on all the barrens kills, wings dusted the same dead gray as the ground. It comes down hard and jealous of a carcass."

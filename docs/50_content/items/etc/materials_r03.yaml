@@ -26,7 +26,7 @@ items:
       sell: 13
     source_hint: mob_029          # drops from Hollow Vole (cross-checks drop_mob_029)
     stack: 999
-    flavor: "A scrap of soft grey underfur from a hollow vole, warm and quick to felt. Trappers sell them by the sack to line a winter boot."
+    flavor: "A scrap of soft gray underfur from a hollow vole, warm and quick to felt. Trappers sell them by the sack to line a winter boot."
 
   - id: item_etc_0035
     name: Thornvine Coil
@@ -92,7 +92,7 @@ items:
       sell: 16
     source_hint: mob_035          # drops from Rootbound Sentinel (cross-checks drop_mob_035)
     stack: 999
-    flavor: "A plate of grey sentinel-bark, hard as a shield-boss and ringed like old timber. The count of its rings is a lie; a sentinel grows a ring for every kill, not every year."
+    flavor: "A plate of gray sentinel-bark, hard as a shield-boss and ringed like old timber. The count of its rings is a lie; a sentinel grows a ring for every kill, not every year."
 
   - id: item_etc_0041
     name: Deadwood Splinter

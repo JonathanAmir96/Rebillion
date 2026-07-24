@@ -92,7 +92,7 @@ items:
       sell: 17
     source_hint: mob_055          # drops from Strand Gull (cross-checks drop_mob_055)
     stack: 999
-    flavor: "A broad grey wing-feather crusted stiff with sea salt, reeking faintly of gutted fish. Fletchers wash and split them for cheap, serviceable vanes."
+    flavor: "A broad gray wing-feather crusted stiff with sea salt, reeking faintly of gutted fish. Fletchers wash and split them for cheap, serviceable vanes."
 
   - id: item_etc_0057
     name: Chillspray Bladder

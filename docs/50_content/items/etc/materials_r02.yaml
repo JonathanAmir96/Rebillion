@@ -14,7 +14,7 @@ items:
       sell: 8                     # no `buy` on etc rows (ITEMS §1); etc sell first-pass
     source_hint: mob_013          # drops from Cellar Rat (cross-checks drop_mob_013)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A scaly grey tail, still faintly warm, that the Millbrook ratcatchers pay a copper a dozen for. Proof of a clean kill, and nothing more."
+    flavor: "A scaly gray tail, still faintly warm, that the Millbrook ratcatchers pay a copper a dozen for. Proof of a clean kill, and nothing more."
   - id: item_etc_0018
     name: Mangy Pelt
     category: etc

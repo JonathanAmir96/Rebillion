@@ -31,4 +31,4 @@ animation_notes:               # per-state visual brief (monster.schema rule 11)
   hit: "Flinches and hunkers lower beneath its plates."
   die: "Folds its legs under and settles flat, plates going still."
 drop_table: drop_mob_092
-flavor: "A hunched, plated browser that crops the few scorched lichens the barrens still grows, fleeing at the first crunch of gravel. Its hide is caked grey with the dust it wallows in against the heat."
+flavor: "A hunched, plated browser that crops the few scorched lichens the barrens still grows, fleeing at the first crunch of gravel. Its hide is caked gray with the dust it wallows in against the heat."

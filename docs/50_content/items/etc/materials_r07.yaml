@@ -46,7 +46,7 @@ items:
       sell: 34                    # no `buy` on etc rows (ITEMS §1); etc sell has no ECONOMY owner (item.schema OQ) -- first-pass
     source_hint: mob_111          # drops from Ruin Scuttler (cross-checks drop_mob_111)
     stack: 999                    # etc tab fixed stack (INVENTORY §2)
-    flavor: "A dish-flat crab shell, grey as the ruin's stone and nearly as hard. Smiths grind the rim into a grit that polishes brass without scratching it."
+    flavor: "A dish-flat crab shell, gray as the ruin's stone and nearly as hard. Smiths grind the rim into a grit that polishes brass without scratching it."
 
   - id: item_etc_0101
     name: Chillspine Barb
