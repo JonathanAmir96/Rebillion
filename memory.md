@@ -26,10 +26,13 @@ examples now mirror minted rows); GUILD's weekly +10% lift kept, DROPS ceiling r
 baseline / ×2.86 lift week; `life` checksum table's round-to-5 rule stated; 16 px tile-scale lock
 consumed by CAMERA/INVENTORY/SKILL_SYSTEM; arc phrasing standardized ("two arcs to Lv 80,
 Voidshore elites overshoot to 82"); ferry/Millbrook spawn targets re-minted per MAP_CONNECTIONS
-§2 (`from_ferry` spawn added to map_001). **Deferred (locked, Agent-3 amendment channel):**
-UI_ART_SPEC 16/24/32 vs ART_BIBLE 16/24 icon grids (C-17); ENGINEERING_STANDARDS "Health"
-component naming vs `life` (C-27c). Post-fix gates clean (`validate.py` 0/0; `md_graph.py`
-1 component / 0 orphans).
+§2 (`from_ferry` spawn added to map_001). The two change-controlled-file findings landed as
+**owner-directed amendments**: UA-001 (UI_ART_SPEC icon grids 16/24/32 → 16/24, matching
+ART_BIBLE; nothing used 32 px) and ES-001 (ENGINEERING_STANDARDS component `Health` → `Life` per
+the `life` token). **CLAUDE.md law 5 updated (owner-directed):** "Locked files — do not edit" →
+"Change-controlled files" — agent-initiated edits still forbidden; edits land only on explicit
+owner direction and are logged in the file's `amendments` section (`AB-`/`UA-`/`ES-` ids).
+Post-fix gates clean (`validate.py` 0/0; `md_graph.py` 1 component / 0 orphans).
 
 ## 2026-07-24 — social-package balance pass + cosmetics system (owner-directed follow-ups)
 

@@ -16,10 +16,12 @@ code, no generated art. Read `README.md` for the tree map and
    ranges in a new commit if needed; never renumber.
 4. **Flag, don't guess.** Unknown token/rule/number → add to the owning doc's
    `## Open Questions` (every doc ends with that section).
-5. **Locked files — do not edit:** `docs/40_assets/ART_BIBLE.yaml`,
+5. **Change-controlled files:** `docs/40_assets/ART_BIBLE.yaml`,
    `docs/40_assets/UI_ART_SPEC.md`, `docs/30_engineering/ENGINEERING_STANDARDS.md`
-   (owner Agent-3 / master brief). Changes go through their `amendments` /
-   Open-Questions channels.
+   (owner Agent-3 / master brief). Agents do not edit them on their own initiative —
+   proposals go through the Open-Questions channels. Edits land only on **explicit owner
+   direction** and every such edit is recorded in the file's `amendments` log
+   (`AB-`/`UA-`/`ES-` ids) with date + directive (precedents: AB-001, UA-001, ES-001).
 6. **Validate before landing:** the checks in `docs/VALIDATION.md` run on every content
    batch (see `tools/` once the validator lands). US spelling everywhere.
 

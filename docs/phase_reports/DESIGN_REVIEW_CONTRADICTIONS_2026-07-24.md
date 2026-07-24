@@ -298,8 +298,11 @@ So the next sweep doesn't re-plow it, these were explicitly cross-checked and ho
 
 ## 5. Resolution log (applied 2026-07-24, owner-directed)
 
-The owner directed a fix pass the same day. **25 of 27 findings are resolved** on this branch;
-the two locked-file findings are deferred to the Agent-3 amendment channel. Resolutions chosen:
+The owner directed a fix pass the same day. **All 27 findings are resolved** on this branch —
+the two change-controlled-file findings landed as owner-directed amendments (UA-001, ES-001),
+and CLAUDE.md law 5 was updated (owner-directed) from a hard lock to a change-controlled rule:
+agent edits still forbidden without explicit owner direction, every directed edit logged in the
+file's `amendments` section. Resolutions chosen:
 
 - **C-01 fixed** — §7.1's fares won (newer, anchored to the §5 income model); ECONOMY §4.3 is
   now a pointer, the §2 sink index points at §7, and the §7 OQ records the supersession.
@@ -333,8 +336,9 @@ the two locked-file findings are deferred to the Agent-3 amendment channel. Reso
   tile-first convention kept); the genuinely-open default-zoom question stays open.
 - **C-16 fixed** — standardized phrasing "two arcs to Lv 80 (Voidshore elites overshoot to 82)"
   in GLOSSARY and JOBS.
-- **C-17 DEFERRED** — locked-vs-locked (UI_ART_SPEC 16/24/32 icons vs ART_BIBLE 16/24): needs an
-  Agent-3 amendment on one side; not editable here (law 5).
+- **C-17 fixed (amendment UA-001, owner-directed)** — ART_BIBLE's 16/24 won (no authored asset
+  or doc used a 32 px icon grid); UI_ART_SPEC narrowed to 16/24 with the amendment logged in the
+  file.
 - **C-18/C-19 fixed** — Party window added to HUD §1/§11; CONTROLS renamed the `P` window and
   corrected five→six; party-plate fields now match PARTY §3's contract; UI_WINDOWS states its
   actual roster field set.
@@ -353,14 +357,15 @@ the two locked-file findings are deferred to the Agent-3 amendment channel. Reso
 - **C-26 fixed** — MONETIZATION rule 1 splits rendering (client) vs entitlements (server);
   `exp_into_level` defined in LEVELING §1; PERSISTENCE social row de-stubbed with TRADING/MAIL
   owners + a COLLECTIONS progress row added; COLLECTIONS §7 title paragraph unstaled.
-- **C-27 (a,b,d) fixed** — AUDIO toast cite §9; mockup crit uses the element tint; stale
-  weapons/enhancement YAML header claims dropped. **C-27c DEFERRED** — ENGINEERING_STANDARDS
-  "Health" component naming is locked; amendment-channel item.
+- **C-27 fixed** — AUDIO toast cite §9; mockup crit uses the element tint; stale
+  weapons/enhancement YAML header claims dropped; (c) ENGINEERING_STANDARDS' survival-pool
+  component renamed `Health` → `Life` (amendment ES-001, owner-directed) per its own
+  stat-names-from-GLOSSARY rule.
 
 Post-fix gates: `tools/validate.py` 0 failures / 0 warnings; `tools/md_graph.py` 1 component,
 0 orphans, 0 unreferenced, 0 dead-ends.
 
 ## Open Questions
 
-- None owned here — this is a review report. The two deferred findings (C-17, C-27c) live with
-  the Agent-3 amendment channel; everything else above is resolved per §5's log.
+- None owned here — this is a review report. All 27 findings are resolved per §5's log (C-17 and
+  C-27c via owner-directed amendments UA-001/ES-001).
