@@ -70,20 +70,23 @@ This is a party-specific anti-power-leveling gate distinct from `10_systems/COMB
 `exp_diff_mult` below) — without it, a low-level character parked beside a far higher-level
 partner would draw that dampener's flat "killing up" bonus indefinitely.
 
-**Party exp bonus (MapleStory-inspired).** Being grouped **multiplies the shared pool** so a
-coordinated party out-earns the same players hunting alone — the core reason to party (`00_vision/PILLARS.md`
-P3, the world is a hunt-and-hangout loop). The bonus grows with the number of same-map eligible
-members:
+**Party exp bonus — MapleStory-inspired (the "Party Bonus EXP").** Being grouped **multiplies the
+shared pool**, and the bonus climbs **steeply** with party size so a full party genuinely out-earns
+the same players hunting alone — the core reason to party (`00_vision/PILLARS.md` P3, a
+hunt-and-hangout world). It is a **fixed lookup** on the number of same-map eligible members (a flat
+table, like MapleStory's own — not a smooth formula):
 
-| `n_eligible` | 1 | 2 | 3 | 4 | 5 | 6 |
+| same-map eligible members | 1 | 2 | 3 | 4 | 5 | 6 |
 |---|---|---|---|---|---|---|
-| `party_bonus` | 1.00 | 1.05 | 1.10 | 1.15 | 1.20 | 1.25 |
+| `party_bonus` (× the pool) | 1.00 | 1.10 | 1.25 | 1.45 | 1.70 | **2.00** |
 
-`party_bonus(n) = 1 + 0.05 · (n − 1)` (first-pass). It scales the pool **before** the split, so
-every member's share rises with it, and a solo-in-party member (everyone else off-map) draws `1.00`
-— no bonus without company. The bonus is a faucet lever `10_systems/LEVELING.md` / `10_systems/ECONOMY.md`
-may retune (Open Questions); it does **not** touch the `10_systems/LEVELING.md` §1 curve, only how
-fast a grouped player travels it (that doc's `/played` estimates are solo — grouped pace is faster).
+A full party of 6 **doubles** the shared `exp` pool before it is split, and each added member is
+worth more than the last — so filling the party is aspirational, exactly the MapleStory party-play
+pull. It scales the pool **before** the split, so every member's share rises with it; a
+solo-in-party member (everyone else off-map) draws `1.00` — no bonus without company. The table is a
+first-pass faucet lever `10_systems/LEVELING.md` / `10_systems/ECONOMY.md` may retune (Open
+Questions); it does **not** touch the `10_systems/LEVELING.md` §1 curve, only how fast a grouped
+player travels it (that doc's `/played` estimates are solo — grouped pace is faster).
 
 **Split — party-bonus pool, contribution-weighted base + presence bonus.**
 
@@ -167,12 +170,12 @@ character to reach, so no party ever forms, and raids stay unreachable
 
 - The 70/30 contribution/presence split and the range_mult bands (§4) are first-pass balance;
   retune once real damage-share telemetry exists. Owner: this doc with `10_systems/ECONOMY.md`.
-- The **party exp bonus** curve (§4, `+5%`/eligible member, cap `×1.25` at `N` = 6) is first-pass:
-  enough to make grouping net-positive without inflating the faucet. It accelerates grouped pacing
-  past `10_systems/LEVELING.md` §1's solo `/played` estimates — reconcile grouped pace against the
-  solo curve at the next gate. Whether the bonus should also weight toward more members (a steeper
-  curve, MapleStory-style leech deterrence) is open. Owner: this doc with `10_systems/LEVELING.md` /
-  `10_systems/ECONOMY.md`.
+- The **party exp bonus** table (§4, climbing to `×2.00` — a doubled pool — at `N` = 6) is
+  first-pass: steep enough to make a full party genuinely inspiring (MapleStory-style) while the
+  same-map presence gate and the range_mult falloff keep it from becoming a power-level faucet. It
+  accelerates grouped pacing past `10_systems/LEVELING.md` §1's solo `/played` estimates — reconcile
+  grouped pace against the solo curve at the next gate. Owner: this doc with `10_systems/LEVELING.md`
+  / `10_systems/ECONOMY.md`.
 - This doc's §4 contribution-weighted split is the arbiter of `10_systems/LEVELING.md` §3's
   raid-boss **150× total** (`10_systems/social/RAID.md` §6 routes the finale-boss `exp` pool here);
   LEVELING §3's per-member figures assume the even-split degenerate case (`N` = 5), which this split

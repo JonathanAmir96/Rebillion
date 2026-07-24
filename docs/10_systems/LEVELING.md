@@ -292,9 +292,9 @@ Lv 80+ regions.
   cooldown so raiding never beats hunting as the pacing anchor. Owner: this doc with
   `10_systems/social/RAID.md` / `10_systems/ECONOMY.md`.
 - **The party exp bonus (`10_systems/social/PARTY.md` §4) accelerates grouped pacing.** The §1
-  `/played` estimates are solo (pure hunting); a full party earns `party_bonus`-boosted `exp` and
-  clears faster, so grouped `/played` is shorter than the table. First-pass `+5%`/eligible member is
-  modest, but reconciling the grouped pace against the solo curve is flagged. Owner: this doc with
+  `/played` estimates are solo (pure hunting); a full party earns `party_bonus`-boosted `exp` (up to
+  a **doubled** pool at `N` = 6) and clears faster, so grouped `/played` is shorter than the table.
+  Reconciling the grouped pace against the solo curve is flagged. Owner: this doc with
   `10_systems/social/PARTY.md`.
 - The ≈ 480 kills/hour pacing assumption (and the 0.70 duty-cycle behind the ≈ 336 effective rate)
   folds in travel/aggro/turn-in downtime that has not been measured; if real spawn density
