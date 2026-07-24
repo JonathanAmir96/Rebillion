@@ -9,7 +9,7 @@ References: 00_vision/GLOSSARY.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md, docs
 
 The content schema for one NPC in the 84-NPC cast (`docs/ID_REGISTRY.md`) — formalizing the YAML
 typing for a town cast entry (`docs/WORLD_PLAN.md`) whose service ultimately opens an interactable
-(inn bed, storage chest, waygate console; `15_maps_system/MAP_INTERACTABLES.md`) priced by
+(inn bed, storage chest, coach station; `15_maps_system/MAP_INTERACTABLES.md`) priced by
 `10_systems/ECONOMY.md`. This doc never restates those — it fixes field names, types, the `role`
 enum, and the schema-local checks a validator runs on top of them. Read by: Phase D region-batch
 authors writing `npc_NNN.yaml` files; `10_systems/QUESTS.md` content authors wiring
@@ -48,7 +48,7 @@ never reconciled), or `shared` (none of this schema's fields need it; see
 | `map` | string `map_NNN` | yes | `20_schemas/map.schema.md` | That map's `npcs` list must include this NPC's `id`, and vice versa. `server` (world-placement fact). |
 | `role` | enum, ≤12 tokens | yes | this schema (see Enums) | Proposed for `00_vision/GLOSSARY.md` Provisional promotion at the C gate, mirroring `10_systems/JOBS.md` §0's pattern for job-line tokens. `server` (gates which services/UI the NPC may serve). |
 | `shop` | `{items: [item id]}` | no | `10_systems/ITEMS.md`; `10_systems/ECONOMY.md` §4 | `item_equip_*`/`item_use_*`/`item_etc_*` ids only — **no price field anywhere in this file**; price is always read from the item's own ECONOMY.md band. `server` (transactions are server-authoritative economy state). |
-| `services` | list of enum | no | `15_maps_system/MAP_INTERACTABLES.md`; `10_systems/ENHANCEMENT.md`; `10_systems/PERSISTENCE.md` | See Enums; role-service consistency in Validation. `server` — `inn_rest`/`storage`/`waygate` trigger server-authoritative state elsewhere (bind point, bank contents, waygate unlock set) that this file does not itself store. |
+| `services` | list of enum | no | `15_maps_system/MAP_INTERACTABLES.md`; `10_systems/ENHANCEMENT.md`; `10_systems/PERSISTENCE.md` | See Enums; role-service consistency in Validation. `server` — `inn_rest`/`storage`/`coach` trigger server-authoritative state elsewhere (bind point, bank contents, coach fare/economy) that this file does not itself store. |
 | `dialog` | `{greeting, idle?, farewell?}` | `greeting` required; `idle`/`farewell` optional | — | Each ≤2 sentences. `client`. |
 | `portrait` | string, token | no | `40_assets/` (not yet authored) | Asset resolved at Phase C/D; no file path. Proposed convention `portrait_<npc_id>` (this schema's own first-pass, see Open Questions). `client`. |
 | `flavor` | string, ≤2 sentences | yes | `docs/VALIDATION.md` §7 | General descriptive blurb about the NPC, distinct from what they *say* (`dialog`). `client`. |
@@ -65,12 +65,12 @@ Aligned to `docs/WORLD_PLAN.md`'s town casts and `15_maps_system/MAP_INTERACTABL
 | `merchant` | General-goods town shop interior (outfitter, fishmonger, chandlery, market hall) | Typically carries `shop`; no forced `services` |
 | `innkeeper` | Inn interior, one per bind town (`10_systems/DEATH_PENALTY.md` §4) | `services` ⊇ {`inn_rest`} |
 | `blacksmith` | Smithy interior (equipment vendor) | Typically carries `shop`; may also carry `enhance` (see Open Questions) |
-| `enchanter` | Dedicated enchanter interior (e.g. Arcane Sanctum) or a town's smithy | `services` ⊇ {`enhance`} |
+| `enchanter` | A town's enchanter or smithy interior (`docs/WORLD_PLAN.md`) | `services` ⊇ {`enhance`} |
 | `banker` | Co-located with a `storage_chest` (`15_maps_system/MAP_INTERACTABLES.md` §8) | `services` ⊇ {`storage`}; optional flavor around what is otherwise a self-service object |
 | `quest_giver` | Any interior/town/field NPC who offers or accepts a quest | No forced `services`; should be named as `giver_npc`/`turn_in_npc` by ≥1 quest file (soft cross-file check, see Open Questions) |
-| `waygate_keeper` | Co-located with a `waygate_console` (`15_maps_system/MAP_INTERACTABLES.md` §9) | `services` ⊇ {`waygate`}; optional flavor around what is otherwise a self-service object |
+| `coach_keeper` | The coachman at a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9; five coach towns) | `services` ⊇ {`coach`}; optional flavor around what is otherwise a self-service station |
 | `guide` | Tutorial/help-lean NPC, e.g. near a `main` spawn or a starter town | No forced `services` |
-| `handler` | Camp/outpost logistics (e.g. Rift-camp vendors/handlers, `docs/WORLD_PLAN.md` R12) | No forced `services`; `shop`/`services` authored per instance |
+| `handler` | Camp/outpost logistics (e.g. a frontier camp or dungeon-mouth vendor, `docs/WORLD_PLAN.md`) | No forced `services`; `shop`/`services` authored per instance |
 | `flavor` | Pure ambiance/lore NPC | No `shop`, no `services` |
 
 A role's implied minimum is a **floor, not a ceiling** — an NPC may carry additional `services`
@@ -82,8 +82,8 @@ separate enchanter interior).
 `inn_rest` (`15_maps_system/MAP_INTERACTABLES.md` §7, `10_systems/DEATH_PENALTY.md` §4) ·
 `storage` (`15_maps_system/MAP_INTERACTABLES.md` §8, `10_systems/INVENTORY.md` §7) · `enhance`
 (`10_systems/ENHANCEMENT.md` — no matching `MAP_INTERACTABLES` object; this service is NPC-driven
-only) · `waygate` (`15_maps_system/MAP_INTERACTABLES.md` §9, `15_maps_system/MAP_CONNECTIONS.md`
-§3)
+only) · `coach` (`15_maps_system/MAP_INTERACTABLES.md` §9 `coach_station`,
+`15_maps_system/MAP_CONNECTIONS.md` §3; the retired `waygate` service is invalid)
 
 ## Example
 
@@ -112,7 +112,7 @@ flavor: "Mira has run Emberfoot's inn since before the kiln went quiet, and miss
 Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
 
 1. **Role-service consistency.** `innkeeper` → `services` ⊇ {`inn_rest`}; `enchanter` → ⊇
-   {`enhance`}; `banker` → ⊇ {`storage`}; `waygate_keeper` → ⊇ {`waygate`}. Other roles carry no
+   {`enhance`}; `banker` → ⊇ {`storage`}; `coach_keeper` → ⊇ {`coach`}. Other roles carry no
    forced minimum. A role never *caps* `services` (see Enums).
 2. **Shop resolution.** Every `shop.items[]` id resolves to an existing `item_equip_*`/
    `item_use_*`/`item_etc_*` content entry (`docs/VALIDATION.md` §2); no price field may appear
@@ -128,9 +128,9 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
 6. **No quest fields.** This schema defines no `quest`/`quests`/`giver_for`/similar field; a
    content file adding one fails schema conformance (`docs/VALIDATION.md` §3) per the
    single-source rule above.
-7. **Service/object co-location (soft).** If `services` includes `inn_rest`/`storage`/`waygate`,
-   the home map's `interactables` (or, for `waygate`, its `portals`) should include a matching
-   `inn_bed`/`storage_chest`/`waygate_console` object (`20_schemas/map.schema.md`) — a cross-file
+7. **Service/object co-location (soft).** If `services` includes `inn_rest`/`storage`/`coach`,
+   the home map's `interactables` (or, for `coach`, its `portals`) should include a matching
+   `inn_bed`/`storage_chest`/`coach_station` object (`20_schemas/map.schema.md`) — a cross-file
    consistency expectation, not enforceable from this file alone.
 8. **Dialog/flavor length.** `dialog.greeting`/`idle`/`farewell` and `flavor` are each ≤2 sentences
    (mechanical linting is `docs/VALIDATION.md` §7's existing warn-only proposal, not a hard fail
@@ -141,14 +141,14 @@ Schema-specific checks beyond `docs/VALIDATION.md`'s globals (§1–§7 there):
 ```yaml
 id: npc_{NNN}
 schema: 20_schemas/npc.schema.md
-references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY] # add PERSISTENCE if services non-empty; add ENHANCEMENT if role: enchanter or services includes enhance; add DEATH_PENALTY if services includes inn_rest; add MAP_CONNECTIONS if role: waygate_keeper or services includes waygate
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY] # add PERSISTENCE if services non-empty; add ENHANCEMENT if role: enchanter or services includes enhance; add DEATH_PENALTY if services includes inn_rest; add MAP_CONNECTIONS if role: coach_keeper or services includes coach
 name: "{Display Name}"
 region: { region_slug }
 map: map_{NNN}
-role: { merchant|innkeeper|blacksmith|enchanter|banker|quest_giver|waygate_keeper|guide|handler|flavor }
+role: { merchant|innkeeper|blacksmith|enchanter|banker|quest_giver|coach_keeper|guide|handler|flavor }
 # shop:                          # optional
 #   items: [item_{category}_{NNNN}]
-# services: [ { inn_rest|storage|enhance|waygate } ]   # optional
+# services: [ { inn_rest|storage|enhance|coach } ]   # optional
 dialog:
   greeting: "{≤2 sentences}"
   # idle: "{≤2 sentences}"       # optional
@@ -160,15 +160,14 @@ flavor: "{≤2 sentences}"
 ## Open Questions
 
 - `blacksmith` vs. `enchanter` role boundary: `10_systems/ENHANCEMENT.md` §5 ties the `enhance`
-  service's fee to "a town smith interior," but `docs/WORLD_PLAN.md`'s per-town interior lists name
-  an explicit "smithy" only at Millbrook and an explicit "enchanter" only at Arcane Sanctum —
-  Emberfoot's and Tidewatch's interior lists name neither. Whether every bind town needs an
-  enhance-service NPC, and which role carries it where no smithy/enchanter interior is named, is
-  unresolved; flagged for `docs/WORLD_PLAN.md`/`10_systems/ENHANCEMENT.md`'s owners.
-- Millbrook's guild hall/tavern/mayor's-house and Arcane Reach's athenaeum/observatory interiors
-  (`docs/WORLD_PLAN.md`) don't map cleanly onto one obvious `role` from the enum above. Phase D may
-  reuse `quest_giver`/`flavor`/`guide` for these, or a future revision may add 1–2 roles within the
-  ≤12 cap. Not resolved here.
+  service's fee to "a town smith interior," while `docs/WORLD_PLAN.md`'s v2 per-town interior lists
+  name a "smithy" only at some towns and no dedicated stand-alone "enchanter" interior (the v1
+  "Arcane Sanctum" was retired, `memory.md` C6). Whether every bind town needs an enhance-service
+  NPC, and which role carries it where no smithy/enchanter interior is named, is unresolved; flagged
+  for `docs/WORLD_PLAN.md`/`10_systems/ENHANCEMENT.md`'s owners.
+- Millbrook's guild hall/tavern/mayor's-house interiors (`docs/WORLD_PLAN.md`) don't map cleanly
+  onto one obvious `role` from the enum above. Phase D may reuse `quest_giver`/`flavor`/`guide` for
+  these, or a future revision may add 1–2 roles within the ≤12 cap. Not resolved here.
 - `quest_giver`'s "should appear on ≥1 quest file" expectation is a soft, cross-file-only check —
   this schema cannot enforce it from a single NPC file, and the single-source rule forbids the NPC
   file itself from carrying a quest reference. A real check needs a later reconciliation pass,
@@ -176,7 +175,7 @@ flavor: "{≤2 sentences}"
   owner.
 - `portrait`'s token convention (`portrait_<npc_id>`, proposed here) has no owner in `40_assets/`
   yet; flag for a future `40_assets/` doc or an `40_assets/ART_BIBLE.yaml` amendment.
-- Whether `banker`/`waygate_keeper` NPCs are ever mechanically required (vs. purely optional
+- Whether `banker`/`coach_keeper` NPCs are ever mechanically required (vs. purely optional
   flavor standing near a self-service interactable) is not settled by any system doc; this schema
-  treats both roles as optional — a bind town's bank/waygate can function per
+  treats both roles as optional — a bind town's bank/coach station can function per
   `15_maps_system/MAP_INTERACTABLES.md` with no NPC present at all.

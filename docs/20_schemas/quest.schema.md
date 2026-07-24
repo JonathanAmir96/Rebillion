@@ -25,8 +25,8 @@ tag-eligibility rule, or the zone-declaration mechanism — it cites them.
   `quest_001`–`quest_090` authored (`091`–`120` reserved, `docs/ID_REGISTRY.md` Quests block).
   The file's `id` is its filename stem; both immutable.
 - **Region ↔ ID block.** A quest's `id` must fall inside its `region`'s sub-range in
-  `docs/ID_REGISTRY.md`'s Quests table (e.g. Emberfoot `quest_001`–`008`); this schema does not
-  restate the twelve per-region ranges.
+  `docs/ID_REGISTRY.md`'s Quests table (e.g. Emberfoot `quest_001`–`010`); this schema does not
+  restate the eight per-region ranges (plus the `quest_087`–`090` PQ handler quests).
 - Job-advancement trainer quests are **ordinary quest files** — `10_systems/QUESTS.md` §2 fixes
   that no separate "job-gate" field exists; the trainer relationship is expressed entirely through
   `quest_type: main` + `prereqs` (the prior tier's trainer quest) + the giver being a trainer NPC.
@@ -50,8 +50,8 @@ gates, step progress, and turn-in grants are **server-authoritative**
 | `quest_type` | enum | yes | `10_systems/QUESTS.md` §1 (this doc's own enum) | `main`\|`side`. Drives the §4/§5 reward-budget bands. **Added by this schema** — the task's field list omitted it, but §4/§5's formulas cannot be validated without it (see Open Questions). `server`. |
 | `giver_npc` | string `npc_NNN` | yes | `docs/ID_REGISTRY.md` NPCs | The offering NPC. Must exist and live in `region`'s NPC block (Validation). `server`. |
 | `turn_in_npc` | string `npc_NNN` | no — defaults to `giver_npc` | `10_systems/QUESTS.md` §1 | If present, must exist and live in `region`'s NPC block (Validation). `server`. |
-| `level_requirement` | int 1–100 | yes | `10_systems/QUESTS.md` §6 | Hard accept gate. `server`. |
-| `recommended_level` | int 1–100 | yes | `10_systems/QUESTS.md` §6 | Display-only; no mechanical gate. Normally equals `level_requirement` for `main` (warn if not, §6). `client`. |
+| `level_requirement` | int 1–42 | yes | `10_systems/QUESTS.md` §6 | Hard accept gate. Bounded to the authored arc (Lv 1–42); game cap is 300 but no arc-1 quest gates above 42. `server`. |
+| `recommended_level` | int 1–42 | yes | `10_systems/QUESTS.md` §6 | Display-only; no mechanical gate. Normally equals `level_requirement` for `main` (warn if not, §6). `client`. |
 | `prereqs` | list[`quest_NNN`] | no — default `[]` | `10_systems/QUESTS.md` §2 | Must-already-be-completed quests; both this and `level_requirement` gate acceptance. Every entry resolves; the full prereq graph is acyclic (Validation, hard — task's explicit rule). `server`. |
 | `steps` | list[step] | yes (≥1) | `10_systems/QUESTS.md` §3 | Guideline 1–3, up to 4 for a chain-establisher. Default parallel (any order); see `requires_step`. Sub-fields below. `server`. |
 | `steps[].type` | enum | yes | `10_systems/QUESTS.md` §3 (this doc's own fixed 4-value set, not a GLOSSARY family) | `kill`\|`collect`\|`talk`\|`reach`. |
@@ -60,7 +60,7 @@ gates, step progress, and turn-in grants are **server-authoritative**
 | `steps[].count` | int ≥1 | `kill`/`collect`: yes; `talk`/`reach`: no — default `1` | `10_systems/QUESTS.md` §3 | Repeat count. |
 | `steps[].requires_step` | int (1-based index into this quest's own `steps`) | no | `10_systems/QUESTS.md` §3 | Forces sequencing (same prereq-linking pattern as quest-level `prereqs`, §2/§3). Default: all steps open in parallel. Indexing scheme is this schema's own choice — QUESTS.md names the feature but not an addressing mechanism (Open Questions). `server`. |
 | `rewards` | map | yes | `10_systems/QUESTS.md` §4–§5 | Sub-fields below. No reward *numbers* are authored by this schema (cited, not restated). |
-| `rewards.exp` | int | yes, **except** `region: rift` `quest_type: main`/`side` at Lv100+ (§4) | `10_systems/QUESTS.md` §4; `10_systems/LEVELING.md` §1 | `= round(pct · exp_to_next(quest_level))`, `pct` ∈ the `quest_type`'s §4 band. Rift-band quests (`quest_085`–`090`) pay **no** `exp` — omit or `0` (Validation, hard). `server`. |
+| `rewards.exp` | int | **yes (every quest)** | `10_systems/QUESTS.md` §4; `10_systems/LEVELING.md` §1 | `= round(pct · exp_to_next(quest_level))`, `pct` ∈ the `quest_type`'s §4 band. There is **no** Rift/no-exp band (`memory.md` C9): the Clockwork PQ handler quests `quest_087`–`090` **do** pay `exp` on the normal `main`/`side` bands (`10_systems/QUESTS.md` §4). `server`. |
 | `rewards.shards` | int | yes | `10_systems/QUESTS.md` §5; `10_systems/DROPS.md` §3 | `side = mean_shards_normal(quest_level)·4`; `main = mean_shards_normal(quest_level)·15` (exact formula, not a band). `server`. |
 | `rewards.items` | list `{id, qty}` | no | `10_systems/ITEMS.md`; `20_schemas/item.schema.md` | No budget cap fixed by `10_systems/QUESTS.md` (Phase D authors against `ITEMS`/`ECONOMY` value bands). Each `id` resolves; `qty` ≥1. `server`. |
 | `flavor` | string | yes | `00_vision/PILLARS.md` P1 | ≤2 sentences, US spelling; quest-log/journal description. `client`. |
@@ -82,7 +82,7 @@ Every enum value comes from its owning registry; this schema points, never redef
 
 ```yaml
 # illustrative — real instances land in Phase D. Numbers are exact per LEVELING.md §1 (Lv10
-# exp_to_next=3,200) and DROPS.md §3 (Lv10 boss-mean=270) via QUESTS.md §4-§5's own formulas.
+# exp_to_next=3,680) and DROPS.md §3 (Lv10 shards boss-mean=270) via QUESTS.md §4-§5's own formulas.
 id: quest_004
 schema: 20_schemas/quest.schema.md
 references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
@@ -102,7 +102,7 @@ steps:
     count: 1
     requires_step: 1        # must finish the kill step before this talk unlocks
 rewards:
-  exp: 640                  # round(0.20 * 3,200); main band 15-30% = 480-960 (QUESTS §4)
+  exp: 736                  # round(0.20 * 3,680); main band 15-30% = 552-1,104 (QUESTS §4)
   shards: 270                # mean_shards_normal(10)*15 = 18*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0001, qty: 3 }
@@ -110,7 +110,7 @@ flavor: "The last hound of the old kiln still smolders in the tunnels. Emberfoot
   easy until it's put out for good."
 offer_text: "One more ember to snuff, then Emberfoot's yours to leave behind. Bring me its
   claw and I'll vouch for you at the gate."
-complete_text: "Cold to the touch — good. Verdant Hollow's waiting for you now."
+complete_text: "Cold to the touch — good. The Harborwind Ferry to Rosen Harbor's waiting for you now."
 ```
 
 ## Validation rules
@@ -136,10 +136,11 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4).
 7. **`requires_step` resolution (hard).** Each `steps[].requires_step` is a valid 1-based index
    into this same quest's `steps` list, not self-referential, and introduces no cycle among the
    quest's own steps (same acyclic principle as rule 6, applied locally).
-8. **Reward — `exp` (hard).** For non-Rift quests, `rewards.exp == round(pct · exp_to_next(level))`
+8. **Reward — `exp` (hard).** `rewards.exp == round(pct · exp_to_next(level))`
    for some `pct` inside the `quest_type`'s `10_systems/QUESTS.md` §4 band, `exp_to_next` from
-   `10_systems/LEVELING.md` §1 at `level_requirement`. Rift-band quests (`quest_085`–`090`) carry
-   no `exp` (§4).
+   `10_systems/LEVELING.md` §1 at `level_requirement`. **Every** quest pays `exp` — including the
+   Clockwork PQ handler quests `quest_087`–`090` (there is no Rift/no-exp band, `memory.md` C9;
+   `10_systems/QUESTS.md` §4).
 9. **Reward — `shards` (hard).** Equals the `10_systems/QUESTS.md` §5 formula exactly
    (`mean_shards_normal(level_requirement)` from `10_systems/DROPS.md` §3, ×4 for `side`, ×15 for
    `main`) — a fixed formula, not a tunable band.
@@ -163,8 +164,8 @@ name: "{Display Name}"
 region: {region_slug}
 quest_type: {main|side}
 giver_npc: npc_{NNN}
-level_requirement: {1..100}
-recommended_level: {1..100}         # usually == level_requirement for main
+level_requirement: {1..42}
+recommended_level: {1..42}          # usually == level_requirement for main
 steps:
   - type: {kill|collect|talk|reach}
     target: {mob_NNN | [mob_NNN, ...] | item_etc_NNNN | item_use_NNNN | npc_NNN | map_NNN}
@@ -172,7 +173,7 @@ steps:
     count: {int}                    # required for kill/collect; default 1 for talk/reach
   # add more step objects (guideline 1-3, up to 4); requires_step forces sequencing
 rewards:
-  exp: {int}                        # round(pct * exp_to_next(level)); omit/0 for Rift quests
+  exp: {int}                        # round(pct * exp_to_next(level)); required for every quest (no Rift/no-exp band)
   shards: {int}                     # mean_shards_normal(level) * 4 (side) or *15 (main)
   # items: [{ id: item_{equip|use|etc}_{NNNN}, qty: {int} }]   # optional
 flavor: "{<=2 sentences}"

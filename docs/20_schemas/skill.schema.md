@@ -8,8 +8,9 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/JOBS.md,
 
 ## Purpose
 
-Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the 84
-line skills + 4 novice skills in `00_vision/SCOPE.md` / `10_systems/JOBS.md`. A skill file is the
+Defines the content shape of one **skill** (`skill_<line>_NNN`, plus `skill_novice_NNN`) — the **52
+line skills** (13 per line × 4 lines) **+ 4 novice skills = 56** authored this run
+(`00_vision/SCOPE.md` / `10_systems/JOBS.md` §7, `memory.md` C4). A skill file is the
 data a Phase D author fills and the coding pass loads: an identity that must match a
 `10_systems/JOBS.md` roster row exactly, a targeting shape from `10_systems/SKILL_SYSTEM.md` §6, an
 `essence` cost and cooldown, and a `level_data` table of ordered effect ops drawn from the
@@ -25,9 +26,10 @@ math, the op parameter schemas, cost/cooldown bands, or status rules — it cite
   {`bulwark`, `keeneye`, `weaver`, `flicker`, `novice`} and the folder name equals the line. Novice
   skills live in `50_content/skills/novice/skill_novice_NNN.yaml`.
 - **ID ranges** (`docs/ID_REGISTRY.md` Skills; `10_systems/JOBS.md` §1): per line
-  `skill_<line>_001`–`021` authored (`022`–`030` reserved), in tier order — `001`–`006` first-job,
-  `007`–`013` second-job, `014`–`021` third-job. Novice: `skill_novice_001`–`010` reserved, `001`–
-  `004` authored. The file's `id` is its filename stem; both immutable.
+  `skill_<line>_001`–`013` authored, in tier order — `001`–`006` first-job, `007`–`013` second-job.
+  `014`–`021` are **reserved for the deferred 3rd tier** (Lv 80, `memory.md` C2 — not authored this
+  run); `022`–`030` reserved growth. Novice: `skill_novice_001`–`010` reserved, `001`–`004` authored.
+  The file's `id` is its filename stem; both immutable.
 - **`line` field naming note.** The master-brief format anchor wrote this identity field as `job`;
   this schema names it **`line`** to match the task's explicit field list and the `00_vision/GLOSSARY.md`
   "Line token" vocabulary. See Open Questions — flagged, not silently chosen.
@@ -47,7 +49,7 @@ cost/cooldown/`level_data` resolution and targeting are **server-authoritative**
 | `references` | list[doc name] | yes | `docs/VALIDATION.md` §3 | Bare `SYSTEM_DOC_NAMES`. Baseline `[SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]`; drop `STATUS_EFFECTS`/`ELEMENTS` only if the kit truly uses neither (rare). |
 | `name` | string | yes | `10_systems/JOBS.md` §2–§6 roster | Must match the roster row **exactly** (Validation). `client`. |
 | `line` | enum | yes | `10_systems/JOBS.md` / GLOSSARY Job lines | `bulwark`\|`keeneye`\|`weaver`\|`flicker`\|`novice`. `server`. |
-| `tier` | enum | yes | `10_systems/JOBS.md` §1 | `novice`\|`first`\|`second`\|`third` — the job tier that unlocks the skill; must agree with the ID sub-block (Validation). `server`. |
+| `tier` | enum | yes | `10_systems/JOBS.md` §1 | `novice`\|`first`\|`second` authored this run — the job tier that unlocks the skill; must agree with the ID sub-block (Validation). `third` is a canonized-but-reserved value (Lv 80, `014`–`021`) not authored this run. `server`. |
 | `kind` | enum | yes | `10_systems/JOBS.md` roster (A/P) | `active`\|`passive`. Passives are never slotted and always-on (`10_systems/SKILL_SYSTEM.md` §7). `server`. |
 | `targeting` | token \| map | yes | `10_systems/SKILL_SYSTEM.md` §6 | One of the 6 GLOSSARY shapes as a bare token (uses §6 geometry defaults) **or** `{shape, <geometry per §6>}`. Passives use `self` (auras use `party`, see `kind`). `server`. |
 | `cost` | map `{essence: int}` | yes | `10_systems/SKILL_SYSTEM.md` §5; `10_systems/STATS.md` (`essence`) | Flat default `essence` cost across ranks; **`0` for passives**. Per-rank scaling is expressed in `level_data` (see below). `server`. |
@@ -77,7 +79,7 @@ Every enum value comes from its owning registry; this schema points, never redef
 | Field | Owning registry |
 |---|---|
 | `line` | `10_systems/JOBS.md` / `00_vision/GLOSSARY.md` Job lines (+`novice`): `bulwark`·`keeneye`·`weaver`·`flicker`·`novice`. |
-| `tier` | `10_systems/JOBS.md` §1 job bands: `novice`·`first`·`second`·`third`. |
+| `tier` | `10_systems/JOBS.md` §1 job bands: `novice`·`first`·`second` (authored); `third` reserved (Lv 80, not authored this run). |
 | `kind` | **This schema**, matched to the `10_systems/JOBS.md` roster A/P column: `active`·`passive`. |
 | `targeting` (shape) | `10_systems/SKILL_SYSTEM.md` §6 (GLOSSARY Skill targeting): `melee_arc`·`line`·`projectile`·`aoe_circle`·`self`·`party`. |
 | `level_data[].effects[].op` | `10_systems/SKILL_EFFECTS.md` §3–§16 (GLOSSARY Skill effect ops, all 14). |
@@ -137,8 +139,9 @@ flavor: "A packed bloom of essence-fire lobbed onto a point and left to smolder.
 Passive pattern (illustrative, `skill_weaver_005` "Attunement"): `kind: passive`, `targeting: self`,
 `cost: { essence: 0 }`, `cooldown: 0`, a single `level_data[].effects` row of one
 `{ op: passive_stat_bonus, stats: { spellpower: ..., essence: ... } }` scaled across ranks; no
-`animation`. Proc passives use one `on_hit_proc` op instead; hybrid passives (e.g.
-`skill_flicker_021`) use `passive_stat_bonus` + `on_hit_proc`.
+`animation`. Proc passives use one `on_hit_proc` op instead (e.g. `skill_weaver_006` "Essence Flow").
+A hybrid `passive_stat_bonus` + `on_hit_proc` passive first appears in the **reserved** 3rd tier
+(e.g. `skill_flicker_021`), not in this run's authored set.
 
 ## Validation rules
 
@@ -146,8 +149,9 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4, §6).
 
 1. **Identity ↔ roster (hard).** `line`, `tier`, `kind`, and `name` must match the
    `10_systems/JOBS.md` §2–§6 roster row for this `id` **exactly** (name string included). The tier
-   must agree with the ID sub-block (`001`–`006`→`first`, `007`–`013`→`second`, `014`–`021`→`third`,
-   `skill_novice_*`→`novice`; `10_systems/JOBS.md` §1). `id` in-range (`docs/VALIDATION.md` §4).
+   must agree with the ID sub-block (`001`–`006`→`first`, `007`–`013`→`second`,
+   `skill_novice_*`→`novice`; `10_systems/JOBS.md` §1). The `014`–`021`→`third` mapping is reserved
+   and not authored this run. `id` in-range (`docs/VALIDATION.md` §4).
 2. **Ops validate (hard).** Every `effects[]` op token is one of the 14
    (`10_systems/SKILL_EFFECTS.md`) and every param validates against that op's schema (§3–§16):
    required params present, enums from their owners, values in the op's authoring bounds.
@@ -161,7 +165,9 @@ Schema-specific checks, beyond `docs/VALIDATION.md` globals (§1–§4, §6).
 5. **Passive shape (hard).** `kind: passive` ⇒ `cost.essence: 0`, `cooldown: 0` (or omitted),
    `targeting` ∈ {`self`, `party`}, and `effects[]` uses only `passive_stat_bonus` and/or
    `on_hit_proc` (no direct offensive ops); `party` targeting requires the `passive_stat_bonus`
-   `scope: party_aura` (`10_systems/SKILL_EFFECTS.md` §13, e.g. `skill_bulwark_019`).
+   `scope: party_aura` (`10_systems/SKILL_EFFECTS.md` §13; party-aura passives such as
+   `skill_bulwark_019` first appear in the reserved 3rd tier — this run's authored passives all use
+   `self`).
 6. **`max_level` (hard).** If present, `max_level == 10` (`10_systems/SKILL_SYSTEM.md` §2).
 7. **Prerequisites (hard).** Each `prerequisites[].skill` is a **same-line** skill id that exists,
    with `min_rank` 1–10; no self-reference; no cycles (`10_systems/SKILL_SYSTEM.md` §2).
@@ -179,7 +185,7 @@ schema: 20_schemas/skill.schema.md
 references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
 name: "{exact JOBS.md roster name}"
 line: {bulwark|keeneye|weaver|flicker|novice}
-tier: {novice|first|second|third}      # must agree with the ID sub-block
+tier: {novice|first|second}            # must agree with the ID sub-block; third reserved (Lv 80), not authored this run
 kind: {active|passive}
 targeting: {shape token, or { shape: {token}, <geometry per SKILL_SYSTEM §6> }}   # passives: self (auras: party)
 cost: { essence: {int} }               # 0 for passives
@@ -212,9 +218,10 @@ flavor: "{<=2 sentences}"
   owner, but that asset doc is a sibling Phase C deliverable not yet authored; the anchor form
   `skill_<line>_NNN_cast` is the interim pattern. Reconcile the naming rule (and any multi-clip skills
   needing more than one animation id) once it exists.
-- **Summon `entity_ref` targets.** Skills with `summon_entity` (`skill_keeneye_010`,
-  `skill_weaver_017`, `skill_flicker_015`) reference a summon-template entity whose ID block is the
-  open `20_schemas/monster.schema.md` / `docs/ID_REGISTRY.md` question; confirm the ref format at the
+- **Summon `entity_ref` targets.** The one `summon_entity` skill authored this run is
+  `skill_keeneye_010` ("Falcon"); the reserved 3rd tier adds `skill_weaver_017` and
+  `skill_flicker_015`. Each references a summon-template entity whose ID block is the open
+  `20_schemas/monster.schema.md` / `docs/ID_REGISTRY.md` question; confirm the ref format at the
   C gate (`10_systems/SKILL_EFFECTS.md` §12 OQ).
 - **Per-skill cast/recovery window.** `10_systems/SKILL_SYSTEM.md` §5 describes a per-skill
   cast+recovery input-lock separate from `cooldown`; whether it is authored as a field here or
