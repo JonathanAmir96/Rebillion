@@ -42,21 +42,35 @@ Boss-tier `mob_NNN` IDs (`20_schemas/monster.schema.md` entity tiers) are never 
 regular `spawn_zones` entry — bosses spawn via arena-entry (§3), not the zone spawner. A single
 zone may mix `normal` and `elite` entries in one `mob_pool`.
 
-## 2. Density budgets by map type
+## 2. Density budgets by map type (tile-anchored)
 
-Budgeted as **mobs per screen-width** rather than a fixed per-map total, so a longer map is denser
-only in proportion to its length rather than needing a separate size tier. Working assumption:
-**1 screen-width ≈ 20 tiles** at default camera zoom — provisional pending the real viewport spec
-in `30_engineering/ENGINEERING_STANDARDS.md` (Open Questions). A map's total zone population,
-summed across its `target_count`s, should land near `width_screens × per-screen budget` below.
+Budgeted per **20 tiles of walkable extent** — a fixed world-space unit, deliberately **not**
+"per screen": maps vary widely in size (a compact 60-tile connector up to a 400-tile-wide
+crossing, and tall vertical shafts), and camera zoom is a presentation choice
+(`10_systems/CAMERA.md` §5) that must never change how densely a map is populated. **Walkable
+extent** = the summed horizontal length, in tiles, of a map's foothold-bearing play space across
+all its platform tiers (`15_maps_system/MAP_TRAVERSAL.md` footholds) — so a two-story map counts
+both stories, and a tall map with short floors is budgeted by what a player can actually stand on,
+not by its bounding rect. (Reference: the locked render base is 640×360 = 40×22.5 tiles,
+`15_maps_system/MAP_TRAVERSAL.md`; at a 2× default zoom one visible screen ≈ 20 tiles — the unit
+below matches that feel target but no longer depends on the zoom decision.)
 
-| Map type | Normal / screen-width | Elite presence | Rationale |
+A map's total zone population, summed across its `target_count`s, should land near
+`(walkable_extent_tiles / 20) × per-unit budget`, rounded, with a floor of 1 per declared zone.
+
+| Map type | Normals / 20 walkable tiles | Elite presence | Rationale |
 |---|---|---|---|
-| `field` | 3 | Rare — 1 elite per 3–4 screens, own small zone | Open exploration; the player chooses engagements (P1) |
-| `dungeon` | 4 | Common — 1 elite zone per 2 screens | Corridor gauntlet; more committed combat |
+| `field` | 3 | Rare — 1 elite per 60–80 walkable tiles, own small zone | Open exploration; the player chooses engagements (P1) |
+| `dungeon` | 4 | Common — 1 elite zone per 40 walkable tiles | Corridor gauntlet; more committed combat |
 | `secret` | 2 | Elevated `mob_pool` weight toward elite entries | Bonus content — sparser overall, but richer per encounter |
 | `town` / `interior` | 0 | 0 | Combat-free (`docs/WORLD_PLAN.md` open item; assumed pending `15_maps_system/MAPS_SYSTEM.md` confirmation) |
 | `arena` | n/a — exempt | n/a | Boss/wave-scripted, not zone-density-budgeted (`15_maps_system/MAPS_SYSTEM.md`) |
+
+Because the budget is linear in walkable extent, a 3-screen map and a 10-screen map need no
+separate size tiers — they simply carry proportionally more zones (or larger `rect`s with higher
+`target_count`s). Very small combat maps (< 20 walkable tiles) take the floor: one zone,
+`target_count` 1–2. §4's `max_concurrent` defaults are per **zone** and unchanged by map size —
+a big map gets more zones, never one giant unbounded zone.
 
 ## 3. Respawn timers by tier
 
@@ -139,9 +153,14 @@ the instance, per the boss respawn decision in §3 and the re-entry model in
 `10_systems/social/RAID.md` §5.
 
 ## Open Questions
-- The `1 screen-width ≈ 20 tiles` assumption (§2) is provisional pending the real camera/viewport
-  spec in `30_engineering/ENGINEERING_STANDARDS.md`; every density number in §2/§4 scales directly
-  if that changes.
+- **Resolved (2026-07-24 contradiction fix):** §2 is re-anchored to a fixed world-space unit
+  (per 20 tiles of walkable extent) instead of "per screen-width," removing the dependency on the
+  undecided default camera zoom (`10_systems/CAMERA.md` §5 Open Question) and covering the full
+  dynamic range of map sizes. If CAMERA later locks a zoom whose visible width differs sharply
+  from ≈20 tiles, revisit the *feel* of the per-unit numbers — the unit itself no longer moves.
+- How the validator computes `walkable_extent_tiles` from a map file (sum of foothold segment
+  lengths at design granularity) is a `20_schemas/map.schema.md` / `tools/` implementation detail;
+  flagged for the validator owner.
 - The map schema's filename (§1) is assumed but not confirmed — likely
   `20_schemas/map.schema.md`, authored at Phase C.
 - `target_count`/`max_concurrent` defaults (§2, §4) are first-pass and tunable per region once

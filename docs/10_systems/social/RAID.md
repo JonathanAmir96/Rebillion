@@ -52,9 +52,15 @@ identities are `docs/WORLD_PLAN.md`'s (cite the mob IDs above, nothing more).
   concrete NPC IDs per each region's NPC block in `docs/ID_REGISTRY.md`). The herald is the
   only entrance to the stage chain; the stage maps have no open portals.
 - **Intro/handler quest pattern.** Each raid carries an intro quest (unlocks the herald dialog,
-  explains the run) and a handler quest (the repeatable turn-in wrapper for clears), authored as
-  ordinary `10_systems/QUESTS.md` quests. Arc-1 slots are `quest_087`–`090`
-  (`docs/ID_REGISTRY.md`); arc-2 raids mint theirs in the registry the same way.
+  explains the run) and a handler quest (a **one-time** first-clear turn-in that closes the intro
+  arc), both authored as ordinary `10_systems/QUESTS.md` quests under that doc's §7
+  one-time-per-character launch policy — **repeat clears are not a quest**: every reward for a
+  repeat clear (stage/completion `exp` grants, the first-clear-of-the-day bonus, `raid_token`
+  income, loot) flows through this doc's own clear mechanics (§5–§6) and
+  `10_systems/LEVELING.md` §3.1, with no re-acceptable quest wrapper. (Resolved 2026-07-24 —
+  this bullet previously called the handler "repeatable," contradicting QUESTS §7.) Arc-1 slots
+  are `quest_087`–`090` (`docs/ID_REGISTRY.md`); arc-2 raids mint theirs in the registry the
+  same way.
 - **Level band gate — hard, both ends.** Every member's `level` must lie inside the raid's band
   (inclusive) at instance creation. A member who levels past the ceiling mid-run is not ejected;
   the gate applies only at entry.
