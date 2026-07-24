@@ -23,7 +23,7 @@ code, no generated art. Read `README.md` for the tree map and
 6. **Validate before landing:** the checks in `docs/VALIDATION.md` run on every content
    batch (see `tools/` once the validator lands). US spelling everywhere.
 
-## Current design state (v3, owner revision 2026-07-23)
+## Current design state
 
 - Five islands, two authored arcs (Lv 1–82; game cap 300, initial design). **Arc 1:**
   Emberfoot Isle (training, maps 001–016) → Harborwind Ferry (paid) → Harthmoor Isle, a
@@ -34,16 +34,18 @@ code, no generated art. Read `README.md` for the tree map and
   Voidshore (66–80) complete the far isles, linked by the paid, scheduled **longship**
   network from Tidewatch Port (2–3 min real-time sails). Totals: 324 maps, 234 monsters
   (178/45/11), 11 bosses, 4 **raids** (`raid_undervault`/`raid_mainspring`/`raid_deepfrost`/
-  `raid_voidtide` — "raid" replaces the retired party-quest term). Town travel is the paid
-  Harthmoor Coachworks (shards) — no free warps. Each job line has a home ring town with its
-  instructor (Bulwark→Cindershelf, Keeneye→Tidewatch Port, Weaver→Mossmere,
-  Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law. Terrain is
-  Maple-style footholds + painted terrain chunks (ART_BIBLE amendment AB-001; movement
-  rules in MAP_TRAVERSAL.md).
+  `raid_voidtide` — the instanced co-op runs; owner doc `docs/10_systems/social/RAID.md`).
+  Town travel is the paid Harthmoor Coachworks (shards) — no free warps. Each job line has a
+  home ring town with its instructor (Bulwark→Cindershelf, Keeneye→Tidewatch Port,
+  Weaver→Mossmere, Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law.
+  Terrain is Maple-style footholds + painted terrain chunks (ART_BIBLE amendment AB-001;
+  movement rules in MAP_TRAVERSAL.md).
 - Jobs: novice → 1st at Lv 8 → 2nd at Lv 40 **branches** into a permanent specialization —
   bulwark: Ironbrand/Stoneguard/Warcaller · keeneye: Pathstalker/Sureshot · weaver:
   Runeweaver/Cindercall/Frostbind · flicker: Duskstep/Wildcard (rosters in
   `docs/10_systems/JOBS.md`); 3rd-tier jobs named-and-reserved for future arcs.
+- Pacing (owner ruling 2026-07-24, `docs/10_systems/LEVELING.md`): Lv 40 ≈ 30 h · Lv 80 ≈
+  166 h · Lv 100 ≈ 300 h of `/played`; curve `kills_per_level(L) = round(20 + 6.6·L + 0.2·L²)`.
 - Social/economy systems are designed but server-deferred; the interim build is solo with a
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
 - Monetization (owner amendment MON-001, 2026-07-23): cosmetic-only + in-world sponsor
@@ -52,18 +54,20 @@ code, no generated art. Read `README.md` for the tree map and
 
 ## Git & generation workflow
 
-- Work lands on the designated feature branch (currently
-  `claude/fable-design-docs-eaubpt`); push with `git push -u origin <branch>`. One concern
-  per commit; content commits separate from doc/rule commits.
+- `main` is the single source of truth; finished work lands on `main`. Session work lands on
+  its designated feature branch, pushed with `git push -u origin <branch>` and merged to
+  `main` when done. One concern per commit; content commits separate from doc/rule commits.
 - Generation is phased A→E with hard gates (vision → systems → schemas/assets → content →
   coding-pass briefs); each phase emits a report in `docs/phase_reports/`.
 - **Phase status (2026-07-24):** A (vision), B (systems), C (schemas/assets gate), D (content —
-  all 324 maps / 234 monsters / drops / NPCs / quests / skills / items, strict `validate.py`
-  0/0), plus the post-plan waves **F** (integrations), **G** (equipment v2), **H** (consistency),
-  and **I** (backend design) are all **complete and reconciled to v3.1** — see their reports and
-  `SYNC_AUDIT_v3_2026-07-23.md`. **Nothing needs re-running.** Not yet started (forward work, not
-  re-runs): **Phase E** (coding-pass briefs — the A→E tail), the **art pass** (PixelLab briefs),
-  and the **arc-1/arc-2 balance pass**. `memory.md` (newest-first) is the authoritative live log.
+  all 324 maps / 234 monsters / drops / NPCs / quests / skills / items), plus the post-plan
+  waves **F** (integrations), **G** (equipment), **H** (consistency), and **I** (backend design)
+  are complete — see their phase reports and `docs/phase_reports/SYNC_AUDIT_v3_2026-07-23.md`.
+  The **pacing curve was
+  retuned 2026-07-24** (`LEVELING.md`); the authored **quest content's `exp` rewards need a
+  mechanical regen** against the new curve (see LEVELING/QUESTS Open Questions). Not yet started:
+  **Phase E** (coding-pass briefs), the **art pass** (PixelLab briefs). `memory.md` (newest-first)
+  is the authoritative live log.
 - PixelLab (art generation, later pass): MCP tools + owner's API token. The token is
   **deliberately not stored in this repo** — ask the owner or use the environment secret
   (suggested var: `PIXELLAB_SECRET`) configured in the Claude Code environment settings.
