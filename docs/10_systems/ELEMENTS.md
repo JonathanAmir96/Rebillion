@@ -72,12 +72,6 @@ per-element gear resistances, no attunement loadouts. (The actual `armor`/`wardi
 reduction-percentage curve is `10_systems/COMBAT_FORMULA.md`; this doc only routes element →
 which stat mitigates it.)
 
-This element→stat routing applies even when a **physical** weapon carries an **elemental**
-skill (e.g., a `blade` skill dealing `fire`): the damage instance uses its skill-declared
-element to pick `armor` vs `warding` (so a `fire` blade hit → `warding`), per the pipeline hook
-in `10_systems/COMBAT_FORMULA.md` §2 step 4 (`defstat = attuned(skill.element) ? D.warding :
-D.armor`).
-
 ## 4. Where elements appear
 
 | Surface | Role | Owner (reference, not restated here) |
@@ -127,7 +121,11 @@ guideline to a **stated intent** is anti-stealth: `arcane` is the element that c
   a region-attunement consumable)? Default **no** — `warding` + status only. Flag for possible
   `10_systems/ITEMS.md` affix consideration; would require a GLOSSARY note if it introduces
   per-element tokens.
+- Mitigation routing when a **physical** weapon carries an **elemental** skill (e.g., a `blade`
+  skill dealing `fire`): default is that the damage instance uses its skill-declared element to
+  pick `armor` vs `warding` (so that `fire` blade hit → `warding`). Confirm with
+  `10_systems/SKILL_SYSTEM.md` / `10_systems/COMBAT_FORMULA.md`.
 - "True"/unmitigated damage that bypasses both `armor` and `warding` is **not** in scope; flag if
-  a future-arc raid tier ever needs it. Default: no such damage type.
+  a future boss design needs it. Default: no such damage type.
 - The element→status pairing (§5) is a guideline; if content authoring needs it mechanically
   enforced, promote it to a rule. Owner call: keep as guideline for now.

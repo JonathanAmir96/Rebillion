@@ -112,9 +112,10 @@ Port** (`map_071`). A ride between any two stations costs **shards** (fares owne
 10_systems/ECONOMY.md, scaling with ring distance); the Harborwind Ferry likewise charges a
 small shard fare per crossing. One exception: the Rosen Harbor coachman gives each fresh
 novice **one free ride to their job instructor's town** (the advancement pilgrimage).
-There are **no free warps** otherwise: the ring is walked, coaches are the paid shortcut,
-and the Millbrook Return Scroll (`item_use_0013`) remains the magic escape home. Rules +
-fares hook per 15_maps_system/MAP_CONNECTIONS.md.
+There are **no free warps** at all: the ring is walked, coaches are the paid shortcut,
+and the Millbrook Return Scroll (`item_use_0013`) is a **shard-priced vendor consumable**
+— a paid, one-way recall to Millbrook Central, priced by 10_systems/ECONOMY.md like every
+other travel sink. Rules + fares hook per 15_maps_system/MAP_CONNECTIONS.md.
 
 **Spawn-point convention:** every map defines spawn `main`. Cross-region walk portals target
 spawn `from_<origin_slug>` on the destination map; ferry doors target `from_ferry`; coach

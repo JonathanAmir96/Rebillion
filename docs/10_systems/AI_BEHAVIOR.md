@@ -54,7 +54,7 @@ statuses (`10_systems/STATUS_EFFECTS.md` §1), regardless of which state the mon
 - **Telegraph requirement:** any `windup` on an elite- or boss-tier monster must use the
   `telegraph` animation state (`40_assets/ANIMATION_STATES.md`; required by `docs/VALIDATION.md`
   §6). Normal-tier monsters may use a short, untelegraphed windup unless a profile states
-  otherwise (`kamikaze_burster` is the one stated exception, §12).
+  otherwise (`kamikaze_burster` is the one stated exception, §13).
 - **Ground edge behavior (default):** ground profiles avoid walking off a platform edge or into a
   one-way-platform drop during `idle`/`patrol`/`chase`, unless their entry below explicitly says
   they drop-through or charge through edges.
@@ -248,7 +248,9 @@ falls under §2's telegraph requirement the same as `elite`, with no exceptions.
 `10_systems/STATUS_EFFECTS.md` §1 already defines `phase_shift`'s behavior (no new status
 applications; existing DoTs/CC suspended; invulnerable/untargetable by convention) — this doc only
 triggers entry into it, never redefines what happens inside it. Bosses are immune to hard CC
-(`10_systems/STATUS_EFFECTS.md` §3) — not restated here.
+(`10_systems/STATUS_EFFECTS.md` §3); a boss/phase may additionally flag immunity to all CC via its
+`20_schemas/monster.schema.md` data — neither is restated here. There is no raid tier (Decision
+Contract C9).
 
 A boss monster file declares an ordered `phases[]` list (full field typing owned by
 `20_schemas/monster.schema.md`; this doc specifies the AI-relevant contents that schema must
@@ -282,9 +284,10 @@ combat resumes), `phase_transition_lock` true (life-threshold crossings always i
 above; set false only if a specific boss needs a softer transition — flag it in that boss's data).
 
 ## Open Questions
-- **Boss/monster ability ID prefix — resolved at the C gate:**
-  `docs/ID_REGISTRY.md` now reserves `mob_ability_<mob_NNN>_01`–`_08` (per-monster namespace)
-  and `mob_151`–`mob_160` for summon templates.
+- Boss/monster ability IDs (§15 `added_abilities`) have no reserved prefix in
+  `docs/ID_REGISTRY.md` today (only `skill_<line>_NNN` for player job-line skills). Needs an
+  ID_REGISTRY decision before Phase D authors boss kits — proposing a
+  `mob_ability_<mob_NNN>_NN` convention or similar; flagged, not decided here.
 - An on-death-detonate variant of `kamikaze_burster` (explodes even if killed before its windup
   completes) is not defined; if a later design wants it, it should be a monster-authored
   `on_hit_proc`/death effect (`10_systems/SKILL_EFFECTS.md`), not a change to this profile's base
@@ -296,6 +299,7 @@ above; set false only if a specific boss needs a softer transition — flag it i
   non-boss monster.
 - Exact tile-to-pixel size for `aggro_radius`/`aggro_vertical_band` units is owned by
   `40_assets/ART_BIBLE.yaml`; not fixed here.
-- `phase_shift_duration_s` and whether it should scale for raid finales
-  (`10_systems/social/RAID.md`) is a first-pass default; owner
-  `10_systems/COMBAT_FORMULA.md`/`10_systems/social/PARTY.md` may retune.
+- `phase_shift_duration_s` and whether it should scale for the party-quest finale bosses (fought
+  party-instanced) vs the open region bosses is a first-pass default; owner
+  `10_systems/COMBAT_FORMULA.md` may retune, confirming finale specifics with
+  `10_systems/social/PARTY_QUEST.md` (Agent C).

@@ -14,15 +14,21 @@ approved briefs → **Haiku/Sonnet** (the "art generator" sub-mode).
 **Owns:** docs/40_assets/* (ART_BIBLE.yaml and UI_ART_SPEC.md via their channels only —
 locked core values are never edited), all PixelLab brief instances, art QA verdicts.
 
+**ART_GENERATION_RUNBOOK ownership (org decision 2026-07-24):** the runbook file itself is
+owned by ROLE_INTEGRATION_ENGINEER at the canonical path
+`docs/70_integrations/ART_GENERATION_RUNBOOK.md` (future file — not created yet). The art
+director does **not** author that file; the art director holds a **QA veto over its
+outputs** — every asset the runbook produces still passes this role's checklist before it
+lands.
+
 **Reads first:** ART_BIBLE.yaml (including amendments — AB-001 foothold terrain),
 UI_ART_SPEC.md, ANIMATION_STATES.md matrix, the relevant brief template.
 
 **Deliverable contract:** amendments as numbered dated entries (AB-NNN) stating what is
-added and what stays binding; QA verdicts against the SPRITESHEET_SPEC.md checklist
+added and what stays binding; QA verdicts against the SPRITESHEET_SPEC checklist
 (palette-locked ramps, silhouette-first, size-class fit, pivot feet-center, state list
-complete); generation runs per docs/70_integrations/ART_GENERATION_RUNBOOK.md. Every generation run is
-cost-routed through ROLE_ART_QUARTERMASTER *before* any PixelLab call (balance check +
-self-vs-PixelLab lane decision); the art director judges quality, not spend.
+complete); generation runs per docs/70_integrations/ART_GENERATION_RUNBOOK.md once
+ROLE_INTEGRATION_ENGINEER authors it (this role holds QA veto over its outputs).
 
 **Definition of done (QA):** asset passes every checklist line or is rejected with the
 specific violated rule — never "close enough."

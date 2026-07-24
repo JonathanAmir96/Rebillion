@@ -5,6 +5,11 @@ coding pass later implements this same contract as a CI validator (see
 30_engineering/ENGINEERING_STANDARDS.md). Seeded at Phase A; finalized at Phase E with the
 Open Questions rollup.
 
+**Ownership:** this file is **producer-owned**. Any role that needs a check added or reworded
+(most often ROLE_SYSTEMS_ARCHITECT, whose Definition-of-Done implies validation rules)
+**proposes the wording to the producer for sign-off** — the producer is the only role that
+edits VALIDATION.md. This resolves the earlier producer-vs-architect ownership tangle.
+
 ## 1. No forbidden tokens
 The legacy-genre terms below may appear **in this file only** (it is the canonical banned
 list; the validator exempts `VALIDATION.md` and nothing else). Anywhere else — docs, schemas,
@@ -33,13 +38,22 @@ Every ID is globally unique, matches its prefix format, and falls inside its res
 ID_REGISTRY.md (including tier layout for mobs — e.g., a boss ID slot may not hold a normal).
 
 ## 5. World-graph soundness
-Every portal targets an existing map **and** an existing spawn point on that map; every map is
-reachable from `map_001`; no dead-end portals. One-way or intentionally terminal exits must be
-marked `dead_end: true` in the map file. Cross-region edges must match the **authorized edge
-set** exactly: WORLD_PLAN.md's edge tables (arc 1 + arc 2).
-**Warn-only:** spawn-zone monster levels rise monotonically along ascending field-map ID order
-on a region's main path (WORLD_PLAN.md §"Map order & monster gradient law") — a violation
-warns, never fails.
+Every portal targets an existing map **and** an existing spawn point on that map. Every map is
+reachable from `map_001` via walk portals (`edge`/`door`); the test is **reachability, not
+acyclicity** — the world is the Harthmoor **ring**, so cycle-forming edges are expected, not
+faults, in particular the Tidewatch→Ashfall ring closure (`map_088`→`map_140`) and the two
+Clockwork gates (`map_141`→`map_177` and `map_121`→`map_188`). Every walk portal must have a
+matching reverse portal on its destination map **unless** it is a one-way or intentionally
+terminal exit (e.g. the Sunken Depths spur), which must be marked `dead_end: true` in the map
+file; a `dead_end: true` portal is exempt from the reverse-portal requirement, and **no
+unmarked** one-way portal may exist. The set of cross-region walk edges must be **exactly**
+`WORLD_PLAN.md`'s "Cross-region walk edges" table — every table row present, and no
+cross-region walk edge beyond that table. `coach`-kind portals are a menu-driven paid service
+between fixed coach stations, **not** walk edges: they are excluded from the
+cross-region-edge match and from the reverse-portal / `dead_end` checks.
+**Warn-only:** spawn-zone monster levels rise monotonically along ascending field-map ID
+order on a region's main path (WORLD_PLAN.md §"Map order & monster gradient law") — a
+violation warns, never fails.
 
 ## 6. Asset contract
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
@@ -59,6 +73,7 @@ landed "to fix later."
 ## Open Questions
 - (Phase E) Should the CI validator also lint flavor-text length (≤2 sentences) mechanically?
   Default: yes, warn-only.
-- tools/validate.py's `item_use` ID ceiling (0060) predates the scroll block
-  `item_use_0061`–`0100` (ID_REGISTRY.md) — raise it when scroll content mints (owner:
-  validator/tools).
+- `tools/validate.py` was authored against the v3-lineage counts (11 regions, 324 maps,
+  T1–T12) and predates both the v2 reconciliation merge and the `item_use_0061`–`0100`
+  scroll block — its configuration must be re-aimed at the v2 canon (ID_REGISTRY.md) before
+  it gates any batch (owner: producer/tools).

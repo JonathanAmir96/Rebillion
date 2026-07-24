@@ -2,118 +2,99 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, docs/WORLD_PLAN.md, docs/VALIDATION.md,
 docs/ID_REGISTRY.md, 10_systems/DEATH_PENALTY.md, 10_systems/COMBAT_FORMULA.md,
-10_systems/LEVELING.md, 10_systems/PERSISTENCE.md, 10_systems/ECONOMY.md, 10_systems/social/RAID.md,
+10_systems/LEVELING.md, 10_systems/PERSISTENCE.md, 10_systems/ECONOMY.md,
 10_systems/HUD.md, 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_INTERACTABLES.md
 
-Owner doc for the **rules** portals, spawns, and the transport network follow between maps.
-`docs/WORLD_PLAN.md`'s "Cross-region walk edges," "Harthmoor Coachworks," and arc-2 longship
-tables are the sole authoritative source for *which* `map_NNN` pairs connect — they are cited,
-never reproduced, here. This doc formalizes the spawn-naming convention `docs/WORLD_PLAN.md`
-previews, the paid coach-network rule, death-return routing, `dead_end` marking, the
-region-progression gate policy, the arc-2 longship and `level_gate` primitives (§§8–9), and
-records the v3 retirement of the old terminus drop chutes (§7). Portal object params are
-`15_maps_system/MAP_INTERACTABLES.md` §2's; this doc owns only the rules governing them.
-
-## Transport taxonomy (v3)
-
-Every way a character moves between maps, and where each mode is owned. The kinds are fixed by two
-axes — **paid vs free** and **instant vs scheduled**:
-
-| Mode | Cost / timing | Scope | Rules / fare owner |
-|---|---|---|---|
-| **Walk edges** (`edge` portals) | free · instant | intra-region + the authorized cross-region walk edges (`docs/WORLD_PLAN.md` edge tables; §7) | this doc §§1–2, §5 |
-| **Coach** (Harthmoor Coachworks) | paid · **instant** | Harthmoor town↔town network | `docs/WORLD_PLAN.md` (Coachworks); fares `10_systems/ECONOMY.md` §7.1 |
-| **Harborwind Ferry** | paid · **instant** | Emberfoot ↔ Harthmoor island crossing (`map_015`) | `docs/WORLD_PLAN.md`; fare `10_systems/ECONOMY.md` §7.1 |
-| **Longship** (v3) | paid · **scheduled** | arc-2 inter-island network (Harthmoor pier ↔ new islands; `docs/WORLD_PLAN.md` arc-2 edge table) | this doc **§8**; fares `10_systems/ECONOMY.md` §7.2 |
-| **Millbrook Return Scroll** (`item_use_0013`) | consumable item | escape to bound home town | `10_systems/ITEMS.md`; price `10_systems/ECONOMY.md` §4.1 |
-
-The contrast that fixes the kinds: coaches and the ferry are **paid but instant**; the longship is
-**paid and scheduled** — a real-time deck ride (§8). The ferry stays instant at launch (its
-scheduled-sailing idea remains `docs/WORLD_PLAN.md`'s existing Open Question, untouched here).
+Owner doc for the **rules** portals, spawns, and the Harthmoor Coachworks follow between maps.
+`docs/WORLD_PLAN.md`'s "Cross-region walk edges" and "Harthmoor Coachworks" tables are the sole
+authoritative source for *which* `map_NNN` pairs connect and *where* coach stations sit — they
+are cited, never reproduced, here. This doc formalizes the spawn-naming convention
+`docs/WORLD_PLAN.md` previews, the paid coach-travel rules, the Harborwind Ferry rules,
+death-return routing, `dead_end` marking, and the region-progression gate policy. Portal object
+params are `15_maps_system/MAP_INTERACTABLES.md` §2's; this doc owns only the rules governing them.
 
 ## 1. Portal kind semantics between regions
 
-The four portal kinds are `edge` · `door` · `coach` · `longship`; any kind may additionally carry
-the optional `level_gate` property (§9) — that is a per-portal property, not a kind of its own.
-
 | Kind | Typical use | Region span |
 |---|---|---|
-| `edge` | Most field/dungeon chain links; the cross-region walk edges (`docs/WORLD_PLAN.md`) | Usually intra-region; cross-region only for the edges `docs/WORLD_PLAN.md`'s tables list (§7) |
-| `door` | Town↔interior; every arena's entry gate (`15_maps_system/MAPS_SYSTEM.md` §8); the Harborwind Ferry crossing (`map_015`) and the Deepway (§9.1) | Same-region for town↔interior and arena gates; the ferry and the Deepway are the authored cross-region door cases |
-| `coach` | The paid Harthmoor Coachworks town↔town network (`docs/WORLD_PLAN.md` "Harthmoor Coachworks") | Cross-region within the Harthmoor ring — that is its purpose |
-| `longship` (v3) | Paid **scheduled** arc-2 inter-island transport: pier→deck boarding portal and deck→destination-pier arrival portal (§8) | Cross-island (arc-2 island network) |
+| `edge` | Most field/dungeon chain links; the 8 cross-region walk edges (`docs/WORLD_PLAN.md`) | Usually intra-region; cross-region for the 8 listed walk edges |
+| `door` | Town↔interior; every arena's entry gate (`15_maps_system/MAPS_SYSTEM.md` §8); both Harborwind Ferry ends | Same-region, except the two ferry doors that bridge Emberfoot↔Millbrook |
+| `coach` | The paid Harthmoor Coachworks town-to-town network (`docs/WORLD_PLAN.md` "Harthmoor Coachworks") | Cross-region by design — that is its purpose |
+
+The retired free-warp `waygate` kind (v1) no longer exists; `coach` is the only long-distance
+transit kind, and it always charges a `shards` fare (§3). Per `00_vision/GLOSSARY.md`'s Transport
+section, `waygate` / `waygate_console` are invalid tokens in all content.
 
 ## 2. Spawn-point naming law
 
 Formalizes the convention `docs/WORLD_PLAN.md`'s "Spawn-point convention" paragraph previews.
-Three tokens are **reserved**; a map may also author additional freely-named spawns (e.g. a
+Reserved spawn tokens are listed below; a map may also author additional freely-named spawns (e.g. a
 multi-entrance dungeon's `upper_west`) as long as they never collide with the reserved set.
 
 | Spawn name | Required on | Meaning |
 |---|---|---|
 | `main` | Every map, exactly one | Default arrival point — direct teleport, quest-start, and the fallback target for any portal that doesn't name another spawn |
 | `from_<origin_slug>` | Every map that is the destination of an `edge` portal crossing a region boundary | `<origin_slug>` is the origin **region**'s GLOSSARY slug (not a per-map slug — maps have none). An intra-region `edge` targets plain `main` unless the destination map has multiple distinct entrances needing disambiguation |
-| `coach_stop` | Every map with a `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9) | The fixed arrival point for all Harthmoor Coachworks transits; exactly one per coach-station map (`docs/00_vision/GLOSSARY.md` Transport token) |
+| `from_ferry` | Both Harborwind Ferry endpoint maps (`map_001` dock, `map_017` Rosen Harbor) and the ferry interior (`map_015`) | The fixed arrival point for a Harborwind Ferry `door` crossing |
+| `coach_stop` | Every town map that hosts a coach station (`15_maps_system/MAP_INTERACTABLES.md` §9) | The fixed arrival point for all Harthmoor Coachworks transits; exactly one per coach-bearing town |
 
-Each of `docs/WORLD_PLAN.md`'s 8 bidirectional arc-1 cross-region walk edges produces exactly two
+Each of `docs/WORLD_PLAN.md`'s 8 bidirectional cross-region walk edges produces exactly two
 `from_<origin_slug>` spawns (one per endpoint, each named for the *other* side's region) — e.g.
 the Millbrook↔Verdant edge gives Verdant's endpoint a `from_millbrook` spawn and Millbrook's
-endpoint a `from_verdant` spawn. (Arc-2's Deepway and longship crossings use their own reserved
-transport spawns — `from_deepway`, `longship_deck`/`longship_dock` — per `docs/WORLD_PLAN.md`'s
-arc-2 spawn convention and §8.)
+endpoint a `from_verdant` spawn.
 
-**v3 (longship transport spawns):** §8 reserves two further transport-network spawns following
-this same law — `longship_deck` (the boarding point on every longship deck map) and
-`longship_dock` (the arrival point on every longship destination pier) — analogous to
-`docs/WORLD_PLAN.md`'s existing `coach_stop` / `from_ferry` transport spawns. They are proposed as
-`docs/00_vision/GLOSSARY.md` Transport tokens alongside `coach_stop`.
+## 3. Harthmoor Coachworks — paid town transport
 
-## 3. Coach network — the Harthmoor Coachworks
+Replaces the retired free-warp network (v2.2). The Coachworks is a **paid** `shards` service, not a
+free unlock-and-warp loop — travel is a deliberate sink, walked by default and short-cut by coach
+(P3: a legible world you can traverse, not teleport across for free).
 
-**The ring is walked; the coach is the paid shortcut, never a free warp** (P3: travel is a
-low-friction loop, but low-friction is not free). The rules live here; the concrete stations and
-their edges are `docs/WORLD_PLAN.md`'s ("Harthmoor Coachworks"), cited never restated; the `shards`
-fares are `10_systems/ECONOMY.md` §7.1's.
+- **Coach stations** sit in the five Harthmoor ring towns per `docs/WORLD_PLAN.md`'s "Harthmoor
+  Coachworks" table: **Rosen Harbor** (`map_017`), **Millbrook Central** (`map_018`), **Mossmere**
+  (`map_043`), **Cindershelf** (`map_125`), and **Tidewatch Port** (`map_071`). Emberfoot Village
+  (`map_001`, the training island) has no coach station; it connects to Harthmoor only by the ferry
+  (§3.1). `docs/WORLD_PLAN.md` owns which towns carry a station — this doc never adds one.
+- Each station places a `coach_stop` spawn (§2) and a `coach_station` interactable
+  (`15_maps_system/MAP_INTERACTABLES.md` §9). Interacting opens a destination menu
+  (`10_systems/HUD.md`) listing every *other* coach station; choosing one charges the fare (below)
+  and lands the player on the destination's `coach_stop` spawn.
+- **Fares cost `shards`, owned by `10_systems/ECONOMY.md`, scaling with ring distance.** This doc
+  does **not** set fare numbers; it only asserts the pricing *model*: a ride's cost rises with how
+  many ring hops separate the two stations along `docs/WORLD_PLAN.md`'s ring order
+  (Millbrook ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔ Millbrook), with **Millbrook Central as
+  the hub** most rides route through conceptually. If `10_systems/ECONOMY.md` has not yet published
+  a coach fare table, that is flagged in this doc's Open Questions and handed to ECONOMY's owner —
+  no fare number is invented here.
+- **No cooldown, no unlock gate.** Any character may ride between any two stations at any level; the
+  fare is the only cost. There is no per-character "unlocked stations" set (that was the retired
+  waygate mechanic) — every station is always available to anyone standing at another station.
+- **One free novice pilgrimage ride.** The Rosen Harbor coachman gives each fresh novice **one free
+  ride to their job instructor's town** — the advancement pilgrimage (`docs/WORLD_PLAN.md` "Job
+  instructors"; instructor towns are Cindershelf / Tidewatch Port / Mossmere / Millbrook per line).
+  This is a one-time, server-authoritative per-character grant (`10_systems/PERSISTENCE.md`); every
+  ride thereafter is paid. Cindershelf (the Bulwark line) is deliberately the boldest first trip.
+- **The Millbrook Return Scroll** (`item_use_0013`, `docs/ID_REGISTRY.md`) remains the only magic
+  escape home and is a consumable item, not a coach — its rules are `10_systems/ITEMS.md`'s /
+  `10_systems/ECONOMY.md`'s, not this doc's. There are **no free warps** otherwise.
 
-- **Stations, always open.** A `coach_station` (`15_maps_system/MAP_INTERACTABLES.md` §9) sits in
-  each Harthmoor ring town `docs/WORLD_PLAN.md` names. Every station is available to every character
-  from creation — there is **no per-character unlock, no unlock set, and no cooldown** (the
-  free-forever unlock model this section once carried is retired with the token it belonged to).
-- **Fare, paid every ride.** Interacting with a `coach_station` opens a destination menu
-  (`10_systems/HUD.md`) of the other stations; selecting one charges the `shards` fare
-  (`10_systems/ECONOMY.md` §7.1, scaling with ring distance) and triggers the co-located
-  `portal(kind: coach)` (`15_maps_system/MAP_INTERACTABLES.md` §2) to that station's `coach_stop`
-  spawn. The fare is charged **at selection**; an aborted or unaffordable choice moves no one and
-  costs nothing.
-- **One free novice pilgrimage.** The Rosen Harbor coach gives each character exactly one free ride
-  to their job-line instructor's town (`docs/WORLD_PLAN.md`'s advancement pilgrimage) — a one-time,
-  per-character, server-authoritative flag (`10_systems/PERSISTENCE.md`). Every ride after that pays
-  the §7.1 fare.
-- **No free warps otherwise.** Emberfoot Isle has no coach — its island crossing is the paid
-  Harborwind Ferry (§1) — and the Millbrook Return Scroll (`item_use_0013`) remains the only
-  item-based escape home (`10_systems/ITEMS.md`). Nothing on the map graph teleports for free.
+### 3.1 Harborwind Ferry
+
+The **Harborwind Ferry** (`map_015`, a combat-free `interior` map) connects Emberfoot Village's dock
+(`map_001`) to Rosen Harbor (`map_017`) via a `door` portal at each end, targeting the `from_ferry`
+spawn. It charges a **small `shards` fare per crossing** (fare owned by `10_systems/ECONOMY.md`);
+transit is instant at launch (scheduled sailings are flavor — see `docs/WORLD_PLAN.md` Open
+Questions). The ferry is the sole crossing between the two islands. Its fare and the coach fares are
+separate line items in `10_systems/ECONOMY.md`.
 
 ## 4. Death-return routing
 
-`10_systems/DEATH_PENALTY.md` owns death **policy**: §4 the bind mechanic and the respawn
-destination (a bound town's `main` spawn), and §5.3 the in-raid death/Release rule, consumed
-unchanged by `10_systems/social/RAID.md` §5. Neither is restated here. This doc owns only the *world-graph* consequence — where a respawned or
-released character lands, and how it travels back — and fixes one rule: **the route back to the
-frontier is ordinary travel, never a death-only path.**
-
-- **Standard respawn.** A defeated character lands at its bound town's `main`
-  (`10_systems/DEATH_PENALTY.md` §4) and reaches the frontier exactly as anyone does: walking the
-  ring, paying a coach (§3) where the bound town carries a Coachworks station, taking the ferry (§1)
-  or an arc-2 longship (§8), or spending a Millbrook Return Scroll. **Death grants no free,
-  discounted, or special-cased transit** — the paid modes cost precisely what they cost in life (the
-  old free-warp-home routing is gone with the retired free-warp model it belonged to). There is no world-graph
-  guarantee a bound town even has a coach station: a character bound outside the Harthmoor ring
-  (e.g. Emberfoot Village) simply walks, ferries, or scrolls back, uncharged for having died.
-- **Raid release.** Death, Release, and walk-back re-entry inside a `raid_*` instance are
-  `10_systems/social/RAID.md` §5's, which consumes `10_systems/DEATH_PENALTY.md` §5.3 unchanged; a
-  full wipe dissolves the instance and a fresh entry starts from the raid herald (`RAID.md` §3/§5).
-  Nothing about a raid death is a world-graph special case, so nothing more is stated here (see
-  Open Questions on §5.3's own stale map refs).
+`10_systems/DEATH_PENALTY.md` §4 owns the bind mechanic and respawn destination (a bound town's
+`main` spawn) — not restated here. This doc owns only *getting back out*: every valid bind town is
+one of the six v2 towns (`docs/WORLD_PLAN.md`), five of which host a coach station, so a respawned
+character can pay for a coach ride back toward the frontier as ordinary paid travel (§3) — never a
+special death-only routing path, and never free. A character bound at Emberfoot Village (no station)
+returns to Harthmoor via the ferry (§3.1). Coach travel does not check the player's state on death
+any more than on any other turn: it is the same paid service either way.
 
 ## 5. `dead_end` marking
 
@@ -121,192 +102,77 @@ Per `docs/VALIDATION.md` §5: any portal with **no matching reverse portal** on 
 must carry `dead_end: true`, authored on the portal that *leads into* the one-way transition (not
 on the destination side). This is a validator-exemption flag only — it tells the world-graph
 checker "do not require a reverse portal here" — not a required visible UI marker, though a map UI
-may optionally surface it (`10_systems/HUD.md`'s call, not specified here). Ordinary `edge`/`door`/
-`coach` portals, which always pair with a reverse, are never marked `dead_end`.
+may optionally surface it (`10_systems/HUD.md`'s call, not specified here). Ordinary `edge` / `door`
+portals, which always pair with a reverse, are never marked `dead_end`. Coach transits are not
+graph edges in the reachability sense (they are a menu-driven service between fixed stations, not a
+walk portal), so they are neither part of the cross-region walk-edge set nor subject to `dead_end`.
 
 ## 6. Region-progression gate policy: none
 
-**Decision: no authored region-to-region progression gate exists anywhere in the arc-1 portal
-system** — no level lock, quest-flag lock, or item-key lock on any region boundary (contrast with
-an optional *per-arena* quest-flag gate, `15_maps_system/MAPS_SYSTEM.md` §8, a narrower, different
-concern). A Lv 1 character can walk into a Lv 90 region; nothing here stops them. The only gate is
-the emergent difficulty curve: `10_systems/COMBAT_FORMULA.md` §9's level-difference dampener makes
-a badly under-level fight genuinely hard well before it's mechanically blocked, reinforced by
+**Decision: no authored region-to-region progression gate exists anywhere in the portal system** —
+no level lock, quest-flag lock, or item-key lock on any region boundary (contrast with an optional
+*per-arena* quest-flag gate, `15_maps_system/MAPS_SYSTEM.md` §8, a narrower, different concern). A
+Lv 1 character can walk into a Lv 40 region; nothing here stops them. The only gate is the emergent
+difficulty curve: `10_systems/COMBAT_FORMULA.md` §9's level-difference dampener makes a badly
+under-level fight genuinely hard well before it's mechanically blocked, reinforced by
 `10_systems/LEVELING.md`'s exp curve (which consumes that same §9 table) cratering reward for
-over-level kills, and `docs/WORLD_PLAN.md`'s world-graph spine naturally lands a region-by-region
-player roughly in-band anyway. This is deliberate (P2 — no trap walls, only a hard-but-not-
-impossible curve) and matches §3's coach network, which also never gates on `level`.
+over-level kills, and `docs/WORLD_PLAN.md`'s ring-shaped world spine naturally lands a
+region-by-region player roughly in-band anyway. This is deliberate (P2 — no trap walls, only a
+hard-but-not-impossible curve). Coach travel (§3) likewise never checks level — the fare is the only
+friction, and a player who pays to ride into a deadly region simply finds it deadly.
 
-**v3 scope note:** the "none" policy above describes the **arc-1 Harthmoor ring**, where no boundary
-is gated and every portal is ungated. Arc-2 introduces exactly one deliberate exception *primitive* —
-the `level_gate` portal property (§9), debuting on the Deepway (Lv 40+). It is a **visible,
-signposted** requirement (the player sees the door and the level it wants), not a hidden trap wall,
-so it honors the same P2 intent this section serves; it gates a single authored arc-1→arc-2
-threshold, not the emergent region curve, which §6 still governs everywhere else.
+## 7. Termini — the ring, the spur, and the endgame heart
 
-## 7. The authorized cross-region edge set — drop chutes retired (v3)
+`docs/WORLD_PLAN.md`'s "Cross-region walk edges" table is the **complete, authoritative** set of
+authorized cross-region walk edges — this doc adds none and invents no drop-chutes (the v1
+Frostpeak/Clockwork chutes are retired along with the reserved biomes). The world graph is a
+**ring**, not a tree, so it legitimately contains a cycle and two deliberate termini:
 
-**The complete authorized cross-region connection set is exactly `docs/WORLD_PLAN.md`'s edge
-tables**: the arc-1 "Cross-region walk edges" table plus the arc-2 edge table (the Deepway door
-chain and the longship links, §§8–9). This doc adds no edges of its own; `docs/VALIDATION.md` §5's
-"must match `docs/WORLD_PLAN.md`'s edge table exactly" reads literally.
+- **Ring closure.** The Tidewatch north strand → Ashfall east dunes edge (`map_088` → `map_140`)
+  closes the Millbrook ↔ Verdant ↔ Gloomwood ↔ Ashfall ↔ Tidewatch ↔ Millbrook loop. This is a
+  legitimate cycle-forming edge, not a duplicate or an error.
+- **Clockwork Ruins (endgame heart).** The island's dead brass center is reached by **two** gates —
+  Ashfall's char ridge → Clockwork east gate (`map_141` → `map_177`) and Gloomwood's web vaults →
+  Clockwork west gate (`map_121` → `map_188`). Both are authorized edges; Clockwork is a Sleepywood-
+  style deep center, not a dead end (it has two ways in and out).
+- **Sunken Depths (deliberate depth spur terminus).** Reached from the Tidewatch sea cave
+  (`map_094` → `map_152`). Sunken is a coastal spur with a single walk connection and no coach
+  station; the intended exit is to walk back to Tidewatch or use the Millbrook Return Scroll. If
+  Phase D authors the Sunken entrance as one-way, that portal carries `dead_end: true` (§5); if it
+  authors a reverse walk edge, both endpoints pair normally. Either way this is the design intent,
+  not a graph fault.
 
-The pre-v3 revision of this section authored two extra one-way "terminus drop chutes"
-(`map_108`→`map_073` and `map_144`→`map_109`, answering a since-superseded `docs/WORLD_PLAN.md`
-open question about walk-chain termini). **Both are retired.** They are geographically impossible
-in the v3 world: "Frostpeak" is now the Arc-2 *island* R9 (`map_201`–`map_244`, reached by
-Deepway/longship, not a walk chain), Clockwork's arena is `map_200`, and the four chute-endpoint
-IDs all sit inside mid-ring arc-1 blocks (Tidewatch/Gloomwood/Ashfall per `docs/ID_REGISTRY.md`)
-where no terminus arena exists. The termini that remain (Sunken Depths; Clockwork as the ring's
-deep heart) are deliberate, served by the Millbrook Return Scroll and ordinary travel; a future
-cross-arc shortcut, if any, lands via `docs/WORLD_PLAN.md`'s reserved boss-connectivity hook using
-§9's `level_gate` primitive — not by reviving chutes here.
-
-## 8. `longship` — paid scheduled island transport (v3)
-
-The arc-2 inter-island network, and the taxonomy's only **scheduled** mode. Unlike the ferry (paid,
-instant) and coaches (paid, instant), a longship is a real-time deck ride on a fixed cadence
-(MapleStory-ferry-style). Routes at launch connect the Harthmoor pier at **Tidewatch Port**
-(`map_071`) to each new-island port, plus inter-island routes; the concrete `route_id` set and its
-endpoint maps live in `docs/WORLD_PLAN.md`'s arc-2 edge table (cited, never restated). Fares are
-`10_systems/ECONOMY.md` §7.2.
-
-### 8.1 Ride flow
-1. **Pay & board.** A **pier officer** NPC on the origin pier takes the route fare (`10_systems/ECONOMY.md`
-   §7.2 — charged *at this step*, not before); the co-located `portal(kind: longship)` then admits
-   the player to the route's **deck map**, landing on spawn `longship_deck`.
-2. **Deck.** The deck is a combat-free `interior` map (`docs/00_vision/GLOSSARY.md` map type).
-   Players may walk, chat, and emote and share the deck for the sailing; **no combat at launch**
-   (mid-sail ambush/boarding event deferred — Open Questions).
-3. **Depart & sail.** The ship departs on its fixed cadence and sails for `sail_duration_s` of
-   real time.
-4. **Arrive.** At sail end the arrival portal opens and delivers each passenger to the destination
-   pier's `longship_dock` spawn.
-
-### 8.2 `longship` portal fields (design granularity)
-Extends the `portal` object — `15_maps_system/MAP_INTERACTABLES.md` §2 owns the concrete param
-shape (its kind enum + field table must add these, flagged in Open Questions); this doc owns the
-rules and names the fields the kind needs:
-
-| Field | Meaning |
-|---|---|
-| `kind: longship` | Selects the scheduled-ride behavior of this section |
-| `route_id` | The route this portal serves; identity + endpoint maps owned by `docs/WORLD_PLAN.md` arc-2 edge table |
-| `fare_ref` | Hook to the route's `10_systems/ECONOMY.md` §7.2 fare row (charged at boarding, §8.1) |
-| `cadence_s` | Real-time interval between departures (default §8.3) |
-| `sail_duration_s` | Real-time deck-ride length (default §8.3) |
-| `target_map` / `target_spawn` | Boarding portal → deck map / `longship_deck`; deck arrival portal → destination pier / `longship_dock` |
-
-### 8.3 Cadence, sail time & edge cases (defaults — tuning flagged)
-- **Cadence:** one departure every `cadence_s` = **120 s**, the boarding portal open for the final
-  **30 s** before each departure and closed during the sail. The pier officer / boarding portal
-  surfaces a "next departure in N s" status (`10_systems/HUD.md` hook).
-- **Sail time:** `sail_duration_s` = **150 s** (2.5 min) default; a per-route override up to
-  ~**180 s** is allowed for longer inter-island crossings (producer range 120–180 s).
-- **Miss departure:** **no fare is lost** — the fare is charged only at boarding (§8.1). The player
-  simply waits on the pier for the next boarding window (≤ `cadence_s`).
-- **Log out / disconnect mid-sail:** the crossing is **committed at boarding** (fare already
-  spent), so the default is player-favorable — on next login the character arrives at the
-  destination pier's `longship_dock`, exactly as if the sail had completed. No `shards` are ever
-  spent for a crossing that lands nowhere. (Tuning flag: a "return to origin + refund" model is the
-  alternative; destination-arrival is chosen as the low-feel-bad default — Open Questions.)
-- **Spawns:** `longship_deck` (deck boarding) and `longship_dock` (destination-pier arrival) are
-  reserved per §2.
-
-### 8.4 Server authority, no combat
-The sail is server-authoritative (`10_systems/PERSISTENCE.md`, matching the solo-with-server-boundary
-build): departure timing, in-transit state, and arrival placement resolve server-side. The deck
-carries no monster spawns and no `10_systems/SPAWN.md` zones at launch — it is a social interlude,
-not a combat map.
-
-## 9. Level-gated portals (`level_gate`) — v3
-
-A portal may carry an optional integer property **`level_gate: N`** — the minimum character `level`
-required to pass. It extends the `portal` field model (`15_maps_system/MAP_INTERACTABLES.md` §2)
-uniformly across kinds (`edge` / `door` / `longship` / …); **absent = no gate**, which is the
-default and the state of every arc-1 portal (§6).
-
-**UX rule:** a `level_gate` portal is **visible and approachable** — never hidden. On an attempt to
-pass with `level` < N, the transition is refused (no teleport occurs) and a message hook fires
-(`10_systems/HUD.md`, e.g. *"The Deepway is sealed to you — return at Lv N."*). At `level` ≥ N it
-behaves exactly as its underlying kind. This is a **soft, signposted** gate (P2 — the player sees
-the door and the requirement, no invisible trap wall), and is the single deliberate exception to
-§6's no-region-gate policy.
-
-### 9.1 Debut: the Deepway (Lv 40+)
-The property's first use is the **Deepway** in Cindershelf (`map_125`): a `door` into an underground
-passage (`map_201`–`map_203`) surfacing at the Frostpeak port (`map_204`) — the walking route into
-arc-2. The Deepway door carries `level_gate: 40`. The passage's concrete map IDs, its internal
-edges, and the Frostpeak-side allocation are owned by `docs/WORLD_PLAN.md`'s arc-2 revision and
-`docs/ID_REGISTRY.md`'s arc-2 block (cited, not minted here). Being a two-way walking `door` into
-new content, it needs no `dead_end` marking (a reverse door returns from `map_201` to `map_125`).
-
-### 9.2 Gates are per-portal-side — backtracking is never gated (v3.1)
-A `level_gate` sits on **one portal**, i.e. one direction of a crossing; the reverse portal
-carries no gate unless separately authored. Standing rule (owner directive, WORLD_PLAN
-"Backtracking law"): progression gates guard **entry into higher content only** — returning
-to earlier islands/regions is always ungated, at any level. Future cross-arc shortcuts
-(WORLD_PLAN's reserved boss-connectivity hook: high-level boss access placed inside
-low-level islands) reuse exactly this primitive — an additive gated portal on an existing
-map, no new mechanism.
+Return from any terminus is by walking back along the ring/spur, paying for a coach ride from the
+nearest coach town (Tidewatch Port for the Sunken/Tidewatch side; Cindershelf for the Ashfall/
+Clockwork side), or the Millbrook Return Scroll — never a free warp. Phase D authors every
+cross-region portal directly from `docs/WORLD_PLAN.md`'s edge table; this section only classifies
+the three cases so `docs/VALIDATION.md` §5 does not mistake a legitimate ring/terminus edge for a
+fault (see Open Questions).
 
 ## Map-level edge table
 
-Authored by the Phase D world-graph reconciler after all 324 maps exist.
+Authored by the Phase D world-graph reconciler after all 200 maps exist, directly from
+`docs/WORLD_PLAN.md`'s "Cross-region walk edges" table.
 
 ## Open Questions
 
-- **Drop-chute retirement (v3, resolved here; residue flagged).** §7's former terminus drop chutes
-  (`map_108`→`map_073`, `map_144`→`map_109`) are retired; `docs/VALIDATION.md` §5's "must match
-  `docs/WORLD_PLAN.md`'s edge table exactly" once again reads literally with no §7 rider.
-  `docs/WORLD_PLAN.md` no longer carries a terminus-shortcut open question (its successor is the
-  reserved cross-arc boss-connectivity hook, §7/§9.2). One stale chute residue survives in content:
-  `50_content/maps/map_109.yaml` still authors a `from_clockwork` chute-arrival spawn and a
-  platform-brief mention — flagged for the Phase D world-graph reconciler to strip.
-- Freely-authored extra spawn names on multi-entrance maps (§2) have no stricter naming
-  convention yet; flag if Phase D authoring shows collisions or ambiguity in practice.
+- ~~`docs/VALIDATION.md` §5 could falsely fail the legitimate ring-closure edge
+  (`map_088`→`map_140`), the second Clockwork gate (`map_121`→`map_188`), and the one-way Sunken
+  spur terminus.~~ **Resolved 2026-07-24:** VALIDATION.md §5 now tests reachability (not
+  acyclicity), carves out `dead_end: true` portals, and excludes `coach` portals from the
+  walk-edge match — exactly the rewording this doc's §7 required.
+- ~~**Coach fare table.** `10_systems/ECONOMY.md` owns the `shards` fare per ride (scaling with ring
+  distance) and the ferry fare. As of this revision ECONOMY has no published coach fare table
+  (it is being retabled concurrently); this doc references the model only. Handed to ECONOMY's
+  owner to publish the fare table; flag if the ring-distance/Millbrook-hub pricing model here needs
+  adjustment once those numbers land.~~ **Resolved 2026-07-24:** `10_systems/ECONOMY.md` §7 now
+  publishes the coach fare table (ring-hop pricing, Millbrook-hub, full station-pair matrix), the
+  Harborwind Ferry fare (§7.2), and the Millbrook Return Scroll price (§4.1/§7.3), all derived from
+  the `10_systems/DROPS.md` §3 shard faucet — exactly the model §3/§3.1 of this doc asserts. Rules
+  stay here; numbers live there. The ring-distance/Millbrook-hub model needed no adjustment.
+- Whether the free novice pilgrimage ride (§3) should also cover the *return* trip, or only the
+  outbound leg to the instructor's town, is a light design call — default here is outbound-only.
+- Freely-authored extra spawn names on multi-entrance maps (§2) have no stricter naming convention
+  yet; flag if Phase D authoring shows collisions or ambiguity in practice.
 - Whether a map UI visually flags a `dead_end` portal before the player commits to it (§5) is
   `10_systems/HUD.md`'s design call, not decided here.
-- The in-raid release destination (`10_systems/DEATH_PENALTY.md` §5.3, consumed by
-  `10_systems/social/RAID.md` §5) is those docs' rule, not this one's — but §5.3's own text still
-  carries pre-v3 map refs (a retired "R12" staging-shard layout) that contradict the v3 raid
-  roster (`RAID.md` §2). Flagged for `10_systems/DEATH_PENALTY.md`'s v3 reconciliation; §4 here
-  deliberately cites the rule without repeating any map IDs.
-- **v2.2 coach reconciliation (resolved):** §§1–4 previously described the retired free-forever
-  town-warp mechanism (`docs/00_vision/GLOSSARY.md`'s retired token); this pass reconciled them to
-  the **paid** Harthmoor Coachworks — renamed the
-  kind through §§1–3, made it paid-per-ride (fares `10_systems/ECONOMY.md` §7.1) with no unlock set,
-  and re-derived §4 death-return routing off ordinary travel rather than free warp-home. The debt is
-  closed; recorded here only as a change marker.
-- **`from_longship` vs `longship_dock` (cross-doc) — resolved at the v3 gate:**
-  `docs/WORLD_PLAN.md`'s arc-2 spawn convention now targets `longship_dock` (with
-  `longship_deck` for boarding), matching this doc's §2/§8.
-- **Coach/longship token promotion:** the interactable and NPC tokens this reconciliation relies on —
-  `coach_station` (interactable), `coach_clerk` / `pier_officer` (NPC roles), and the `coach` /
-  `longship` NPC services — are proposed for `docs/00_vision/GLOSSARY.md` promotion at the C gate
-  alongside the already-flagged `longship_deck` / `longship_dock` spawns (§2). `coach` and
-  `coach_stop` are already GLOSSARY Transport tokens.
-- **§7 terminus vs arc-2 geography — resolved:** the flagged geography debt is closed by this
-  pass's §7 rewrite (chutes retired; the authorized set is `docs/WORLD_PLAN.md`'s edge tables
-  alone). Recorded here only as a change marker.
-- **Longship mid-sail logout model (§8.3):** default is destination-arrival on relog (fare honored,
-  no feel-bad). Alternative is return-to-origin + refund. Confirm at the arc-2 D gate once the
-  server transit-state model (`10_systems/PERSISTENCE.md`) is concrete.
-- **Longship cadence/sail tuning (§8.3):** `cadence_s` 120 s / `sail_duration_s` 150 s (per-route
-  up to 180 s) are first-pass; retune against real inter-island distances and playtest wait-time
-  tolerance once `docs/WORLD_PLAN.md`'s arc-2 route set lands.
-- **Mid-sail ambush / boarding event (§8.1):** deferred at launch (deck is combat-free) — mirrors
-  `docs/WORLD_PLAN.md`'s existing ferry on-deck-ambush Open Question. Revisit when arc-2 combat
-  content is authored; would need `10_systems/SPAWN.md` deck zones + a defeat/return rule.
-- **`level_gate` param registration (§9) — resolved:** `15_maps_system/MAP_INTERACTABLES.md` §2's
-  portal `kind` enum and param table now carry `coach`/`longship`, the optional `level_gate` field,
-  and the longship `route_id`/`fare_ref`/`cadence_s`/`sail_duration_s` params, and
-  `20_schemas/map.schema.md` mirrors the enum + fields (`docs/VALIDATION.md` §3). This doc still owns
-  only the rules; the param shape is registered as of this pass.
-- **`level_gate` reuse (§9):** whether other arc-2 thresholds (Arcane Reach / Voidshore ports)
-  also carry a `level_gate`, and at what levels, is `docs/WORLD_PLAN.md`'s arc-2 call — only the
-  Deepway (Lv 40) is fixed here.
-- **Reserved arc-2 map/slug promotion:** the Deepway debut references `map_201`–`map_204` and the
-  `frostpeak` region slug, both currently *reserved/invalid this run* (`docs/00_vision/GLOSSARY.md`,
-  `docs/ID_REGISTRY.md`). Their promotion to valid arc-2 content is owned by those registries'
-  arc-2 revision — this doc cites them as forward references only, minting nothing.

@@ -4,13 +4,14 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/COMBAT_FORMU
 10_systems/STATS.md, 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md,
 10_systems/AI_BEHAVIOR.md, 10_systems/SPAWN.md, 10_systems/DROPS.md,
 10_systems/SKILL_SYSTEM.md, 10_systems/SKILL_EFFECTS.md, 10_systems/LEVELING.md,
-10_systems/PERSISTENCE.md, 10_systems/social/RAID.md, 20_schemas/drop_table.schema.md, 40_assets/ART_BIBLE.yaml,
+10_systems/PERSISTENCE.md, 20_schemas/drop_table.schema.md, 40_assets/ART_BIBLE.yaml,
 40_assets/ANIMATION_STATES.md, docs/ID_REGISTRY.md, docs/WORLD_PLAN.md, docs/VALIDATION.md
 
 ## Purpose
 
-Defines the content shape of one **monster** (`mob_NNN`) — the 234 designs in `00_vision/SCOPE.md`
-(178 `normal` + 45 `elite` + 11 `boss`, `docs/ID_REGISTRY.md` v3; summon templates are authored the same way outside those counts). A
+Defines the content shape of one **monster** (`mob_NNN`) — the 150 designs
+(**118 `normal` + 24 `elite` + 8 `boss`**, `docs/ID_REGISTRY.md` / `memory.md` C4; summon templates
+authored the same way). A
 monster file is the data a Phase D author fills and the coding pass loads: a stat block copied from
 the `10_systems/COMBAT_FORMULA.md` §13 budget, an `ai_profile` from `10_systems/AI_BEHAVIOR.md`, an
 element affinity set from `10_systems/ELEMENTS.md`, elite/boss abilities composed from the
@@ -27,12 +28,15 @@ owner `20_schemas/monster.schema.md`) and the entity that `10_systems/SKILL_EFFE
 ## File conventions
 
 - **One entity per file.** `50_content/monsters/mob_NNN.yaml`, zero-padded three digits,
-  `mob_001`–`mob_234` (`docs/ID_REGISTRY.md` Monsters block). No batch tables — monsters carry
+  `mob_001`–`mob_150` (`docs/ID_REGISTRY.md` Monsters block). No batch tables — monsters carry
   per-entity AI, abilities, and affinities, so each is its own file.
 - The file's `id` **is** its filename stem; both are immutable (`docs/ID_REGISTRY.md`).
 - **Tier is fixed by the ID slot.** `docs/ID_REGISTRY.md` lays out each region's block as
   normals-first, then elites, then boss(es); a file's `tier` must match the slot its `mob_NNN`
-  occupies (`docs/VALIDATION.md` §4). This schema does not restate the per-region slot numbers.
+  occupies (`docs/VALIDATION.md` §4). This schema does not restate the per-region slot numbers. The
+  **8 `boss` slots** are the region-boss IDs (`mob_012`/`027`/`047`/`067`/`087`/`107`/`128`/`150`)
+  named in `docs/WORLD_PLAN.md`; `mob_145`–`149` are Clockwork **elites** (Lv 40–42) and `mob_150`
+  is the Custodian **boss** — there is **no raid tier** (`memory.md` C9).
 - Region, level band, biome ramp, and element mix for a monster's `mob_NNN` are its region section
   in `docs/WORLD_PLAN.md`; a Phase D region batch treats that section as its brief.
 
@@ -54,9 +58,9 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `weak_to` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×1.5 elements. Mutually exclusive with `resists`/`immune_to`. Keep lists short/thematic (`10_systems/ELEMENTS.md` §2). `server`. |
 | `resists` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×0.5 elements. `server`. |
 | `immune_to` | list[element] | no — default `[]` | `10_systems/ELEMENTS.md` §2 | ×0 elements (short-circuits at pipeline step 2). Rare. `server`. |
-| `level` | int | yes | `10_systems/COMBAT_FORMULA.md` §13; `docs/WORLD_PLAN.md` | Authored 1–82 (the two authored arcs top out with Voidshore's Lv-82 elites, `00_vision/SCOPE.md` v3); the field is legal to 300 (the game cap), but higher levels are future-arc content. Keys the stat budget, `exp`, level dampener, and CC tier scaling. `server`. |
+| `level` | int | yes | `10_systems/COMBAT_FORMULA.md` §13; `docs/WORLD_PLAN.md` | **1–42** — the authored arc (Clockwork elites `mob_145`–`149` top out at Lv 40–42, the Custodian boss `mob_150` at Lv 42; `docs/WORLD_PLAN.md`). Keys the stat budget, `exp`, level dampener, and CC tier scaling. Game cap is 300, but no monster above Lv 42 is authored this run. `server`. |
 | `size_class` | enum | yes | `40_assets/ART_BIBLE.yaml` `sizing.size_classes` | `tiny`\|`small`\|`medium`\|`large`\|`boss`. Drives sprite size **and** the knockback/CC size multiplier (`10_systems/COMBAT_FORMULA.md` §11 — `boss` size = knockback-immune). `shared`. |
-| `stats` | map | yes | `10_systems/COMBAT_FORMULA.md` §13/§13.2, §13.3; `10_systems/LEVELING.md` §3 | Sub-fields below. **All values are copied from the §13 monster budget** (formulas authoritative, §13.2 tier multipliers; §13.3 party scaling is runtime-applied for raid finales (`10_systems/social/RAID.md` §7), never baked into the file) — this schema never restates them. `server`. |
+| `stats` | map | yes | `10_systems/COMBAT_FORMULA.md` §13/§13.2; `10_systems/LEVELING.md` §3 | Sub-fields below. **All values are copied from the §13 monster budget** (formulas authoritative; §13.2 tier multipliers `elite`/`boss` only — no raid tier, `memory.md` C9) — this schema never restates them. `server`. |
 | `stats.life` | int | yes | `COMBAT_FORMULA` §13 | Survival pool. Within ±15% of budget (Validation). |
 | `stats.power` | int | yes | `COMBAT_FORMULA` §13 | Weapon rating; drives touch damage (§13.1) and ability scaling (`10_systems/SKILL_EFFECTS.md` §1). |
 | `stats.spellpower` | int | **no** (casters) | `COMBAT_FORMULA` §13 | Present only when the mob's abilities/touch scale on magic (parity with `power`, §13). Budget-checked if present. |
@@ -64,7 +68,7 @@ presentation; `shared` = both, client-predicts). Front-matter obeys `docs/VALIDA
 | `stats.warding` | int | yes | `COMBAT_FORMULA` §13 | Magic defense. |
 | `stats.precision` | int | yes | `COMBAT_FORMULA` §13 | At-level hit baseline (`4·level`). |
 | `stats.evasion` | float (%) | yes | `COMBAT_FORMULA` §13 | Kept low by budget; monsters barely dodge. |
-| `stats.exp` | int | yes | `10_systems/LEVELING.md` §3 | Per-kill `exp` reward = `exp_per_kill_normal(level) × tier_mult` (`normal` ×1 · `elite` ×5 · `boss` ×25, §3). The level-difference dampener is applied at award time (`10_systems/COMBAT_FORMULA.md` §9), **not** stored here. |
+| `stats.exp` | int | yes | `10_systems/LEVELING.md` §3 | Per-kill `exp` reward = `exp_per_kill_normal(level) × tier_mult` (`10_systems/LEVELING.md` §3: `normal` ×1 / `elite` ×5 / `boss` ×25 — no raid tier). The level-difference dampener is applied at award time (`10_systems/COMBAT_FORMULA.md` §9), **not** stored here. |
 | `ai_profile` | enum | yes | `10_systems/AI_BEHAVIOR.md` | Exactly one of the 12 profiles. `server`. |
 | `ai_params` | map | no | `10_systems/AI_BEHAVIOR.md` §2–§13 | Overrides **only** tunables the chosen profile declares (plus shared §2 tunables it has, e.g. `leash_radius`, `aggro_vertical_band`). Values are `snake_case` → number/bool. `server`. |
 | `abilities` | list | **elite/boss only** | `10_systems/SKILL_EFFECTS.md` §17; `10_systems/SKILL_SYSTEM.md` §6 | Named ability rows composed from the op registry. **Forbidden on `normal`** (Validation); required (≥1) on `elite`/`boss`. `server`. Sub-fields below. |
@@ -109,8 +113,8 @@ members.
 
 ```yaml
 # illustrative — real instances land in Phase D. Values here are the §13 budget for a
-# Lv 10 elite (Emberfoot); tune per WORLD_PLAN R1 during the region batch.
-id: mob_010
+# Lv 10 elite (Emberfoot elite slot mob_011 per ID_REGISTRY); tune per WORLD_PLAN R1 during the batch.
+id: mob_011
 schema: 20_schemas/monster.schema.md
 references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
 name: Cinder Houndmaster
@@ -143,7 +147,7 @@ abilities:
       - { op: deal_damage, element: fire, mult: 1.6 }
       - { op: apply_status, status: burn, chance: 0.5, dur: 6 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
-drop_table: drop_mob_010
+drop_table: drop_mob_011
 respawn_override: 120
 flavor: "A scarred alpha that herds the kiln's fire-hounds by scent and snarl. It slams the
   ground to scatter cinders before it charges."
@@ -159,8 +163,8 @@ contract).
    Monsters table for its region (normals / elites / boss). A boss ID slot may not hold a `normal`,
    etc. (`docs/VALIDATION.md` §4).
 2. **Stat budget ±15% (hard).** Compute the `10_systems/COMBAT_FORMULA.md` §13 budget for this
-   `level`, apply the §13.2 tier multipliers (§13.3 party scaling for raid finales is runtime-only, never stored):
-   `life`, `power`, `spellpower` (if present), `precision`, and `evasion` must each land within
+   `level`, apply the §13.2 tier multipliers (`elite`/`boss` only — there is no raid tier,
+   `memory.md` C9): `life`, `power`, `spellpower` (if present), `precision`, and `evasion` must each land within
    ±15% of their budgeted value; `armor` + `warding` are checked as a **sum** against the defense
    budget (±15%), since §13 permits reallocation between them (neither may be negative or zero).
    `exp` must be within ±15% of the `10_systems/LEVELING.md` §3 value for the mob's `level` and
@@ -187,7 +191,7 @@ contract).
    flourish, `10_systems/SPAWN.md` §6); `boss_scripted` must additionally include `phase_shift`
    (`10_systems/AI_BEHAVIOR.md` §14–§15) when any phase sets `enter_telegraph: true`; every animated
    monster includes `idle` and `die`. `40_assets/ANIMATION_STATES.md` is the authority on the full
-   per-class set (§5 Required-set matrix).
+   per-class set (it lands this phase).
 9. **Drop-table pairing (hard).** `drop_table` equals `drop_mob_<this mob's NNN>` and resolves to a
    file/entry under `50_content/drop_tables/` (`10_systems/DROPS.md` §1, `docs/VALIDATION.md` §2).
 10. **Size ↔ knockback (advisory).** `size_class: boss` implies knockback/CC immunity
@@ -203,7 +207,7 @@ references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS]   # a
 name: "{Display Name}"
 tier: {normal|elite|boss}
 element: {neutral|fire|frost|nature|arcane|shadow}
-level: {1..82}
+level: {1..42}
 size_class: {tiny|small|medium|large|boss}
 stats:
   life: {int}
@@ -265,16 +269,10 @@ flavor: "{<=2 sentences}"
 - **Monster crit/haste/essence.** The §13 budget names no `crit_rate`/`crit_power`/`haste`/`essence`
   for monsters, so this schema authors none (system defaults; monster abilities are cooldown-gated,
   not `essence`-gated). Flag if a specific boss needs authored crit or haste.
-- **`animation_states` required-set — resolved by `40_assets/ANIMATION_STATES.md` §5.** The
-  Required-set matrix (§5) is now authored and owns the per-class required set: normal mob =
-  `idle`/`walk`/`attack`/`hit`/`die` (+`cast` per §5.1, +`telegraph` for `kamikaze_burster` per
-  §5.2); elite = normal mob's set + `telegraph` + `spawn`; boss = elite's set + `phase_shift`;
-  summon = normal mob's set + `spawn`. Validation rule 8 above now defers to that matrix as the
-  authority; note its prior abbreviated "known-required" list omitted `walk`/`attack`/`hit` for
-  normal mobs, which §5 requires. **Still open:** §5 requires `phase_shift` on every `boss`
-  unconditionally, while this schema's rule 8 only requires it when a phase sets
-  `enter_telegraph: true` — that gating conflict is not resolved here
-  (`40_assets/ANIMATION_STATES.md` §5.4 itself flags the same conflict as open).
+- **`animation_states` required-set finalization.** `40_assets/ANIMATION_STATES.md` is cited as the
+  owner of the per-class required set but lands in this same phase; the known-required subset in
+  Validation §8 is drawn from `docs/VALIDATION.md` §6, `10_systems/SPAWN.md` §6, and
+  `10_systems/AI_BEHAVIOR.md`. Reconcile once that asset doc is authored.
 - **`size_class` default.** This schema requires `size_class` (it drives knockback §11 and art); it
   is intentionally not defaulted so a physics-relevant value is never silently assumed. Confirm no
   batch process wants a `medium` default.

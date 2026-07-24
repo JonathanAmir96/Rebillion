@@ -4,23 +4,23 @@ This run produces the **design-documentation tree only**: prose system docs, sch
 machine-loadable YAML content. No game code, no generated art, no backend. A later coding pass
 (briefed in `60_agents/`) implements against these docs in Godot 4.3+.
 
-## Content totals (authoritative counts — v3, owner revision 2026-07-23)
+## Content totals (authoritative counts — v2, owner revision 2026-07-21)
 
 | Category | Count | Notes |
 |---|---|---|
-| Islands | 5 | Emberfoot Isle (Lv 1–8) → ferry → Harthmoor Isle (Lv 8–40) → Deepway/longship → Frostpeak Isle (40–55), Arcane Reach (53–68), Voidshore (66–80) |
-| Regions | 11 | Level-banded Lv 1 → 82 (authored arcs 1–2); see WORLD_PLAN.md |
-| Maps | 324 | 12 towns, 30 interiors (incl. ferry + 3 longship decks), 153 fields, 95 dungeons (incl. 12 raid stage maps + 3 Deepway), 23 secrets, 11 boss arenas |
-| Monsters | 234 | 178 normal + 45 elite + 11 boss |
-| Raids | 4 | `raid_undervault` (15–22), `raid_mainspring` (32–40), `raid_deepfrost` (45–55), `raid_voidtide` (70–80); social/RAID.md |
-| Drop tables | 234 + 11 pools | One per monster, plus one equip pool per region |
-| Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40, **branching: choose 1 of 2–3 specializations**, 10 specs total); 3rd tier deferred to future arcs |
-| Skills | 98 | Per line: 6 first-job + 7 per specialization (bulwark/weaver ×3, keeneye/flicker ×2) + 4 novice |
-| Items — equip | ~162 | 48 weapons, 60 armor, 32 accessories (T1–T12, Lv 1–78), 22 boss uniques (batched tables) |
-| Items — use | ~34 | Tonics (7 tiers), cleanses, scrolls, foods (batched table) |
-| Items — etc | ~181 | 16 materials per region (×11) + emberstone tiers (batched tables) |
-| NPCs | 120 | Town-weighted; see ID_REGISTRY.md |
-| Quests | 120 | Region-banded kill/collect/talk/reach chains, incl. 8 raid handler quests |
+| Islands | 2 | Emberfoot Isle (training, Lv 1–8, 16 maps) → ferry → Harthmoor Isle (Lv 8–40, 184 maps) |
+| Regions | 8 | Level-banded Lv 1 → 42 (authored arc); see WORLD_PLAN.md |
+| Maps | 200 | 6 towns, 20 interiors (incl. ferry), 99 fields, 53 dungeons (incl. 6 PQ maps), 14 secrets, 8 boss arenas |
+| Monsters | 150 | 118 normal + 24 elite + 8 boss |
+| Party quests | 2 | `pq_undervault` (Lv 15–22), `pq_mainspring` (Lv 32–40); social/PARTY_QUEST.md |
+| Drop tables | 150 + 8 pools | One per monster, plus one equip pool per region |
+| Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40) → 3rd (Lv 80, gate canonized; content ships with future arcs) |
+| Skills | 56 | 13 per job line (6 first / 7 second, passives included) + 4 novice; `skill_<line>_014`–`021` reserved (3rd tier) |
+| Items — equip | ~95 | 28 weapons, 35 armor (7 tiers: Lv 1/8/15/22/29/36/40), 16 accessories, 16 boss uniques (batched tables) |
+| Items — use | ~30 | Tonics, cleanses, scrolls, foods (batched table) |
+| Items — etc | ~133 | 16 materials per region + 5 emberstone tiers (batched tables) |
+| NPCs | 84 | Town-weighted; see ID_REGISTRY.md |
+| Quests | 90 | Region-banded kill/collect/talk/reach chains, incl. 4 PQ handler quests |
 | Elements | 6 | Owner: 10_systems/ELEMENTS.md (`arcane` mobs appear only in Clockwork) |
 | Status effects | 16 | Owner: 10_systems/STATUS_EFFECTS.md |
 | AI profiles | 12 | Owner: 10_systems/AI_BEHAVIOR.md |
@@ -28,11 +28,12 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Animation states | 12 | Owner: 40_assets/ANIMATION_STATES.md |
 
 The game's level cap is **300 (initial design, owner revision)**. This run authors the
-**first two arcs**: arc 1 spans Lv 1–42 on Emberfoot/Harthmoor; arc 2 (v3 revision) spans
-Lv 40–82 across the three far isles, reached via the Lv-40 Deepway passage and the paid
-longship network. Leveling past arc 2 is a slow grind on Voidshore endgame maps and raids
-until future arcs land. 10_systems/LEVELING.md designs the full curve to 300
-(formula-first) with detail tables for the authored range.
+**first arc**: maps and monsters span Lv 1–42, and leveling past the arc is a slow grind on
+endgame maps and party quests until future arcs land. 10_systems/LEVELING.md owns the curve
+(formula-first) with detail tables for the authored range; the Lv 100–300 tail segment law
+is an explicit Open Question there. Owner-ratified pacing anchors (2026-07-24, Decision
+Contract C3 as amended by C3′ in `memory.md`): Lv 40 ≈ 30 h · Lv 42 (arc end) ≈ 33.5 h ·
+Lv 80 (3rd job) ≈ 166 h · Lv 100 ≈ 300 h.
 
 ## In scope (this run)
 - All docs and content listed in GENERATE.md §2, including locked Appendices A–C verbatim.
@@ -44,21 +45,17 @@ until future arcs land. 10_systems/LEVELING.md designs the full curve to 300
 ## Out of scope (this run)
 - GDScript/scenes/engine work of any kind; art or audio asset generation (PixelLab briefs are
   templates only); networking/backend; balancing beyond first-pass budget tables; localization
-  (US English only); monetization implementation (direction fixed by owner amendment MON-001 in
-  10_systems/MONETIZATION.md — cosmetic-only, no pay-to-win; no store content authored this
-  run); character cosmetics beyond equipment (a zero-stat cosmetic layer is reserved by
-  MONETIZATION.md §3.1 for a future arc).
+  (US English only); monetization (none planned); character cosmetics beyond equipment.
 
 ## Deliberate scope limits
 - One weapon type per job line (4 total). Armor is class-agnostic with stat leans.
-- The 2nd advancement (Lv 40) **branches**: each line chooses one of 2–3 permanent
-  specializations (v3 revision; rules and rosters in JOBS.md). **3rd-tier jobs are designed
-  in name only** — their skills, quests, and regions ship with future arcs on the road to
-  cap 300, and their skill IDs stay reserved in ID_REGISTRY.md.
-- The ART_BIBLE `rift` biome is reserved for future islands/expansions and unused in this
-  run's content (frostpeak / arcane_reach / voidshore entered use with arc 2).
+- Job advancement is linear (no branching); **3rd jobs are designed in name only**
+  (JOBS.md future-expansion section) — their skills, quests, and regions ship with future
+  arcs on the road to cap 300, and their skill IDs stay reserved in ID_REGISTRY.md.
+- Four ART_BIBLE biomes (frostpeak, arcane_reach, voidshore, rift) are reserved for future
+  islands/expansions and unused in this run's content.
 - Palette-swap monster variants are permitted later but are **not** authored here and do not
-  count toward the 234 designs.
+  count toward the 150 designs.
 - Map YAMLs describe structure (zones, spawns, portals, interactables) at design granularity,
   not geometry; exact foothold segments and terrain-chunk placement happen in the engine
   pass (v2.4: terrain is Maple-style footholds + painted chunks per ART_BIBLE amendment
@@ -73,6 +70,7 @@ until future arcs land. 10_systems/LEVELING.md designs the full curve to 300
 
 ## Open Questions
 - Should secret maps count toward region completion metrics used by quests? Default: no.
-- The v2 B-revision wave landed (docs/phase_reports/, phases F–H); the v3.1 straggler sync is
-  tracked in docs/phase_reports/SYNC_AUDIT_v3_2026-07-23.md — flag any remaining straggler
-  references there.
+- ~~v2 revision arrived after Phase B: system docs written for the Lv 100 world are patched
+  by the B-revision wave.~~ **Resolved 2026-07-24:** the reconciliation run driven by
+  `docs/phase_reports/DESIGN_ORG_REVIEW_2026-07-24.md` (report: PHASE_B2_REPORT.md) is that
+  wave; residual v1 references found later are validation failures, not pending work.

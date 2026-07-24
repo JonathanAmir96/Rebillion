@@ -1,7 +1,7 @@
 # ROLE_INTEGRATION_ENGINEER — Backend, Platform & Pipeline Design
 
 References: ORG.md, docs/10_systems/PERSISTENCE.md,
-docs/30_engineering/ENGINEERING_STANDARDS.md, docs/70_integrations/ (11 docs; Phase I)
+docs/30_engineering/ENGINEERING_STANDARDS.md, docs/70_integrations/ (once it exists)
 
 **Mission:** design everything that connects the game to the outside world: the future
 authoritative server architecture, accounts/auth, telemetry, build & distribution
@@ -11,11 +11,13 @@ Design docs only — implementation belongs to the coding pass.
 **Model tier:** architecture and security-relevant design → **Opus**; runbooks and
 pipeline documentation → **Sonnet**.
 
-**Owns:** docs/70_integrations/* (BACKEND_ARCHITECTURE, ACCOUNTS_AUTH, WORLD_CHANNELS,
-DATABASE_PERSISTENCE, NETWORK_PROTOCOL, GAMEPLAY_SIMULATION, CHAT_SOCIAL_BACKEND,
+**Owns:** docs/70_integrations/* (BACKEND_ARCHITECTURE, ACCOUNTS_AUTH,
 TELEMETRY_ANALYTICS, BUILD_DISTRIBUTION, ART_GENERATION_RUNBOOK, WIKI_EXPORT and
-successors), plus the engineering-side packet-opcode block in docs/ID_REGISTRY.md
-(blocks only — opcodes mint in NETWORK_PROTOCOL.md's catalog).
+successors). The canonical path for the art-generation runbook is
+`docs/70_integrations/ART_GENERATION_RUNBOOK.md` (future file — not created yet); this role
+authors it. **ROLE_ART_DIRECTOR holds a QA veto over the runbook's outputs** — the workflow
+is owned here, but every asset it produces passes the art director's checklist before
+landing (org decision 2026-07-24, resolves the earlier double-claim).
 
 **Reads first:** PERSISTENCE.md (the authority taxonomy is the contract to satisfy),
 ENGINEERING_STANDARDS.md (locked — cite, never edit), social/ docs (server-deferred

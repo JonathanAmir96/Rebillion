@@ -49,8 +49,8 @@ A skill may override with `scaling: power \| spellpower`. This is identical to
 - **Snapshot timing.** Damage-dealt multipliers and DoT snapshots follow
   `10_systems/STATUS_EFFECTS.md` §1 and `10_systems/COMBAT_FORMULA.md` §4 — a scaling status
   snapshots `source_power`/`crit_power` at apply time.
-- **Multiple same-op effects are allowed** (e.g., a multi-element barrage listing one
-  `deal_damage` per element); each resolves independently in order.
+- **Multiple same-op effects are allowed** (e.g., three `deal_damage` for
+  `skill_weaver_020 Elemental Cataclysm`); each resolves independently in order.
 
 Ranges below are **first-pass authoring bounds**, not hard limits; per-rank numbers live in
 `level_data` (`10_systems/SKILL_SYSTEM.md` §4). "tiles" = `40_assets/ART_BIBLE.yaml` grid unit.
@@ -177,8 +177,7 @@ A ballistic arc to a location — the vertical mover (platformer jumps/slams), d
 | `iframes` | bool | no | default false | Airborne i-frames if true (`10_systems/COMBAT_FORMULA.md` §12). |
 
 **Targets:** `self`. **Composition:** landing effects are the *next* effects in the list (a
-`leap` then `aoe_circle` `deal_damage` = slam, e.g. `skill_bulwark_025` Break Their Line,
-`10_systems/JOBS.md` §2.4). **Scales:** flat.
+`leap` then `aoe_circle` `deal_damage` = slam, e.g. `skill_bulwark_014`). **Scales:** flat.
 
 ## 11. `taunt`
 
@@ -192,9 +191,8 @@ sets a forced-target override for a duration).
 
 **Targets:** hostiles (AI monsters only). **Composition:** honored per `10_systems/AI_BEHAVIOR.md`;
 `boss`/`boss_scripted` entities may flag **taunt-immune** in `20_schemas/monster.schema.md`
-(consistent with their CC immunity, `10_systems/STATUS_EFFECTS.md` §3; raid finale bosses fought
-via raid entry are fully CC-immune per `10_systems/COMBAT_FORMULA.md` §13.2). No PvP in scope, so
-`taunt` never targets players. **Scales:** none (duration is flat/`level_data`).
+(consistent with their CC immunity, `10_systems/STATUS_EFFECTS.md` §3). No PvP in scope, so `taunt`
+never targets players. **Scales:** none (duration is flat/`level_data`).
 
 ## 12. `summon_entity`
 
@@ -223,8 +221,8 @@ An always-on stat modifier from a learned **passive** (`10_systems/JOBS.md` mark
 |---|---|---|---|---|
 | `stats` | map | yes | `{<GLOSSARY stat>: value}` | Each value flat or `pct` (see `mode`). Stat tokens from `10_systems/STATS.md`. |
 | `mode` | enum | no | `flat`\|`pct` (default `flat`) | Per-entry mode may be given as `{value, mode}`. |
-| `scope` | enum | no | `self`\|`party_aura` (default `self`) | `party_aura` grants to nearby party (`10_systems/social/PARTY.md`), e.g. `skill_bulwark_020`. |
-| `condition` | enum | no | frozen set (§16): `below_life_pct:X` · `while_veiled` · `vs_marked` · `while_stance` | Optional gate; the bonus applies only while true. |
+| `scope` | enum | no | `self`\|`party_aura` (default `self`) | `party_aura` grants to nearby party (`10_systems/social/PARTY.md`), e.g. `skill_bulwark_019`. |
+| `condition` | enum | no | e.g. `while_veiled`, `below_life_pct:X`, `while_stance` | Optional gate; the bonus applies only while true. |
 
 **Targets:** `self` (or party for auras). **Stacking:** multiple passives **add**; folded into the
 `10_systems/STATS.md` §7 compute order exactly like gear — flat primary bonuses at step 1, flat/pct
@@ -275,7 +273,7 @@ Used by passives (thorns, lifesteal, crit-refund) and by actives that grant a pr
 | `chance` | float | no | 0.0–1.0, default 1.0 | Proc probability. |
 | `effect` | op | yes | any of §3–§15 (**not** another `on_hit_proc`) | The payload; nesting depth = 1 (no recursion). |
 | `icd` | float s | no | internal cooldown | Rate-limits high-frequency triggers (`10_systems/SKILL_SYSTEM.md` §5). |
-| `condition` | enum | no | frozen set (§16): `below_life_pct:X` · `while_veiled` · `vs_marked` · `while_stance` | Optional gate on top of the trigger. |
+| `condition` | enum | no | e.g. `below_life_pct:X`, `vs_marked`, `while_veiled` | Optional gate on top of the trigger. |
 
 **Targets:** inherited from the wrapped `effect`'s class (payload `deal_damage` → the triggering
 hostile; payload `heal`/`restore_essence` → the caster). **Composition:** the sole branching
@@ -288,8 +286,8 @@ is hit (thorns, e.g. `skill_bulwark_017`), `on_crit`/`on_kill`/`on_dodge`/`on_ca
 Elite and boss abilities in `20_schemas/monster.schema.md` are authored with the **same shape** —
 a targeting shape plus an ordered `effects: [...]` list drawn from these 14 ops — substituting the
 monster's offense rating (§1) and its `ai_profile` (`10_systems/AI_BEHAVIOR.md`) for pacing/
-telegraphs. A boss's scripted slam is a `leap`+`aoe_circle` `deal_damage`+`apply_status` just
-like `skill_bulwark_025`; a caster mob's nuke is a `projectile` `deal_damage` like
+telegraphs. A boss's scripted slam is a `leap`+`aoe_circle` `deal_damage`+`apply_status(stun)` just
+like `skill_bulwark_014`; a caster mob's nuke is a `projectile` `deal_damage` like
 `skill_weaver_001`. There is **no separate monster-ability op set** (`00_vision/PILLARS.md` P4,
 compose-don't-enumerate). Tier-based CC/knockback resistance and `phase_shift`/`die` interactions
 apply to monster-applied effects exactly as authored in `10_systems/STATUS_EFFECTS.md` §1/§3 and
@@ -317,11 +315,9 @@ it only declares ops and parameters.
 - **`on_hit_proc` trigger set** (`on_deal`/`on_take`/`on_crit`/`on_kill`/`on_dodge`/`on_cast`) is
   the current vocabulary; if a passive design needs another hook (e.g. `on_status_applied`), add it
   here rather than inventing a new op. Flagged.
-- **`taunt` immunity flag** for `boss` entities lives in `20_schemas/monster.schema.md`; confirm
-  the flag name when that schema is authored (default: bosses taunt-immune, matching CC immunity;
-  the raid-boss tier, `10_systems/COMBAT_FORMULA.md` §13.2, is fully CC-immune and therefore
-  taunt-immune by the same default).
-- **`condition` enum — frozen at the C gate** to exactly four values:
-  `below_life_pct:X` (X an integer percent) · `while_veiled` · `vs_marked` · `while_stance`.
-  `docs/VALIDATION.md` §2/§3 enum-checks against this list; a new condition is added here first,
-  never invented in content.
+- **`taunt` immunity flag** for `boss`/`boss_scripted` entities lives in
+  `20_schemas/monster.schema.md`; confirm the flag name when that schema is authored (default:
+  bosses taunt-immune, matching CC immunity).
+- **`condition` enum** for `passive_stat_bonus`/`on_hit_proc` (`below_life_pct`, `while_veiled`,
+  `vs_marked`, …) is open-ended; the concrete list should be frozen at the C gate so
+  `docs/VALIDATION.md` can enum-check it. Until then, authors use only the examples named here.
