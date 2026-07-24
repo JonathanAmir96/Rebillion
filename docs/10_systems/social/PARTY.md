@@ -186,8 +186,19 @@ character to reach, so no party ever forms, and raids stay unreachable
 
 ## Open Questions
 
-- The 70/30 contribution/presence split and the range_mult bands (§4) are first-pass balance;
-  retune once real damage-share telemetry exists. Owner: this doc with `10_systems/ECONOMY.md`.
+- The 70/30 contribution/presence split is first-pass balance; retune once real damage-share
+  telemetry exists. Owner: this doc with `10_systems/ECONOMY.md`.
+- **`range_mult` bands (§4) — confirmed at the 2026-07-24 balance pass.** The widened band
+  (0–15 = 1.00 / 16–20 = 0.66 / 21–25 = 0.33 / 26+ = 0) does not enable power-leveling, because
+  the pool is keyed to `exp_diff_mult(anchor_level − mob.level)` (`10_systems/COMBAT_FORMULA.md`
+  §9): a Lv-40 anchor farming Lv-25 mobs to feed a Lv-25 friend craters the pool to ×0.05 (the
+  ≥+15 anti-boost row). The remaining vector — a max-gap passenger idling beside the anchor on the
+  **anchor's** at-level mobs — pays only the presence share: a Lv-25 passenger with a Lv-40 anchor
+  on Lv-40 mobs draws 0.15 × 484 × 1.10 ≈ 80 `exp`/kill ≈ 38.4 K/h at ≈ 480 kills/h — ≈ 47% of a
+  Lv-25 level per hour, versus ≈ 108%/h hunting at level solo (336 effective kills vs
+  `kills_per_level(25)` = 310). Passive leeching is strictly worse than playing at every gap
+  (×0.66 → ≈ 31%/h), so the wide band is a social carrot, not a boost path. Only telemetry-level
+  retunes remain. Owner: this doc with `10_systems/LEVELING.md`.
 - The **party exp bonus** table (§4, climbing to `×2.00` — a doubled pool — at `N` = 6) is
   first-pass: steep enough to make a full party genuinely inspiring (MapleStory-style) while the
   same-map presence gate and the range_mult falloff keep it from becoming a power-level faucet. It
