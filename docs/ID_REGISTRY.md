@@ -46,13 +46,19 @@ Exactly one per monster, number matching its `mob_NNN`. Region equip pools:
 
 | Sub-block | Range | Authored (v2 plan) |
 |---|---|---|
-| Weapons (4 lines × 6 tiers: Lv 1/8/15/22/29/36) | `0001`–`0040` | 24 |
-| Armor (head/body/legs/boots/gloves × 6 tiers) | `0041`–`0140` | 30 |
+| Weapons (4 lines × 7 tiers: Lv 1/8/15/22/29/36/40) | `0001`–`0040` | 28 |
+| Armor (head/body/legs/boots/gloves × 7 tiers) | `0041`–`0140` | 35 |
 | Accessories (cape/ring/amulet) | `0141`–`0180` | 16 |
 | Reserved (growth) | `0181`–`0200` | — |
 | Boss uniques (2 per boss, boss order #1–#8) | `0201`–`0216` | 16 |
 | Reserved (uniques growth / future bosses) | `0217`–`0230` | — |
 | Reserved (growth) | `0231`–`0300` | — |
+
+**Tier-7 note (owner Decision Contract C7, 2026-07-24):** a seventh gear tier at Lv 40 was
+added so the Lv 40–42 endgame band has non-unique gear coverage. The new tier's IDs mint
+inside the existing weapon/armor sub-block slack — an authored-count extension, not a
+renumbering; no previously planned ID moves. Tier→band semantics owned by
+10_systems/ITEMS.md and 10_systems/ENHANCEMENT.md.
 
 Boss unique mapping: boss #n (region order) owns `item_equip_{0199+2n}` and `{0200+2n}`
 (Cindermaw 0201–0202, Cellar King 0203–0204, Thornback 0205–0206, Morva 0207–0208, Gloam
