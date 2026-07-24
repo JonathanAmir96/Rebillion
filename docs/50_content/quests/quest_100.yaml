@@ -13,7 +13,7 @@ steps:
     target: mob_178
     count: 1
 rewards:
-  exp: 19176  # round(0.08*239,700); raid_deepfrost handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
+  exp: 32577  # round(0.08*407,208); raid_deepfrost handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
   shards: 284  # mean_shards_normal(45)*4 = 71*4
   items:
     - { id: item_use_0017, qty: 3 }

@@ -17,7 +17,7 @@ steps:
     target: item_etc_0105
     count: 5
 rewards:
-  exp: 23728  # main pct=0.22 of exp_to_next(35)=107,855; shards=mean_shards_normal(35)*15=56*15
+  exp: 44412  # main pct=0.22 of exp_to_next(35)=201,872; shards=mean_shards_normal(35)*15=56*15
   shards: 840
 flavor: "Adric's research ends at the gate; Voss has spent years further in, and needs to know what you find there."
 offer_text: "Clear what's past the gate and gather what the deep halls give up. Carry it to Voss -- she's kept the deep archive alive longer than anyone."

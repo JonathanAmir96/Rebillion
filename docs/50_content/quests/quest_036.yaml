@@ -21,7 +21,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 32912                      # round(0.20 * 164,560)
+  exp: 58467                      # round(0.20 * 292,336)
   shards: 945                     # mean_shards_normal(40)*15 = 63*15
   items:
     - { id: item_use_0010, qty: 2 }   # Prime Essence Tonic

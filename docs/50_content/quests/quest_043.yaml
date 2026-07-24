@@ -17,7 +17,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 2616                  # round(0.18 * 14535); band per QUESTS §4 at Lv18
+  exp: 6279                  # round(0.18 * 34884); band per QUESTS §4 at Lv18
   shards: 450                # mean_shards_normal(18)*15 = 30*15 (QUESTS §5 main / DROPS §3)
 flavor: "A ledger long missing from the harbormaster's records surfaced in gossip about a hidden ridge cache packed in drifter-bladder ice."
 offer_text: "Find whatever's hidden past Barnacle Ridge and bring back proof of what they were icing and moving through my harbor unlogged."

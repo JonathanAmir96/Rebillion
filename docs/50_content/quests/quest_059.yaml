@@ -13,7 +13,7 @@ steps:                            # 1st advancement pilgrimage (JOBS §1) -- no 
     zone: shield_rack
     count: 1
 rewards:
-  exp: 396                       # round(0.20 * 1,980); main band 15-30% of exp_to_next(8) (LEVELING §1 / QUESTS §4)
+  exp: 1032                       # round(0.20 * 5,160); main band 15-30% of exp_to_next(8) (LEVELING §1 / QUESTS §4)
   shards: 225                    # main = mean_shards_normal(8)*15 = 15*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0001, qty: 3 }   # a Bulwark's first gift: three Lesser Life Tonics for the walk back

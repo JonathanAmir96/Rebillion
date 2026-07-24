@@ -17,7 +17,7 @@ steps:
     target: item_etc_0033          # sourced from mob_028's drop table (parallel monster batch)
     count: 5
 rewards:
-  exp: 139                        # round(0.07 * 1,980)
+  exp: 361                        # round(0.07 * 5,160)
   shards: 60                      # mean_shards_normal(8)*4 = 15*4
 flavor: "The outskirts are supposed to be the easy stretch. Petra would like them to stay that way."
 offer_text: "The path's crawling with root-stalkers past the marker. Thin the pack and bring back proof -- Mossmere folk walk this way too."

@@ -16,7 +16,7 @@ steps:                            # parallel: the plating comes off the same con
     target: item_etc_0157
     count: 5
 rewards:
-  exp: 165370                     # round(0.20 * exp_to_next(66)=826,848); main band (QUESTS §4)
+  exp: 246291                     # round(0.20 * exp_to_next(66)=1,231,456); main band (QUESTS §4)
   shards: 1530                    # mean_shards_normal(66)*15 = 102*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 4 }

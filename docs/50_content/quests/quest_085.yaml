@@ -16,7 +16,7 @@ steps:
     target: item_etc_0125
     count: 5
 rewards:
-  exp: 37908  # round(0.25*151,632) (LEVELING §1 Lv39); main band 15-30%
+  exp: 68094  # round(0.25*272,376) (LEVELING §1 Lv39); main band 15-30%
   shards: 930 # main = mean_shards_normal(39)*15 = 62*15 (QUESTS §5 / DROPS §3)
 flavor: "Sable is certain the Custodian's own shadow falls across the mainspring approach, longer than the light should allow."
 offer_text: "Push into the mainspring approach proper. Bring back its guardians' cores and whatever component still ticks."

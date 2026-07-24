@@ -16,7 +16,7 @@ steps:
     target: item_etc_0066
     count: 5
 rewards:
-  exp: 1806   # round(0.08 * 22,572); side band 5-10% of exp_to_next(21)=22,572 (LEVELING §1); pct=0.08
+  exp: 4130   # round(0.08 * 51,623); side band 5-10% of exp_to_next(21)=51,623 (LEVELING §1); pct=0.08
   shards: 140  # side = mean_shards_normal(21)*4 = 35*4 (QUESTS §5 / DROPS §3)
 flavor: "Whatever answered the eaves watch's call lives further in than Yarrow's charms can reach."
 offer_text: "You cleared the eaves, but the wood's still watching from deeper in. Bring me what you find there."

@@ -12,7 +12,7 @@ steps:
     target: mob_231
     count: 3
 rewards:
-  exp: 180360  # round(0.18 * 1,002,000); main band 15-30% (QUESTS §4)
+  exp: 263686  # round(0.18 * 1,464,924); main band 15-30% (QUESTS §4)
   shards: 1620  # mean_shards_normal(70)*15 = 108*15 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 3 }

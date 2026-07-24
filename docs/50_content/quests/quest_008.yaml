@@ -16,7 +16,7 @@ steps:
     target: npc_010                # Kiln Marshal Ordo -- grants passage into the tunnels
     requires_step: 1
 rewards:
-  exp: 221                         # round(0.20 * 1,107); main band, exp_to_next(6)=1,107
+  exp: 549                         # round(0.20 * 2,747); main band, exp_to_next(6)=2,747
   shards: 180                      # mean_shards_normal(6)*15 = 12*15
   items:
     - { id: item_use_0011, qty: 2 }   # forward-ref: Antidote -- kiln fumes below

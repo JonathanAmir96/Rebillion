@@ -12,7 +12,7 @@ steps:
     target: mob_088
     count: 8
 rewards:
-  exp: 2995                      # round(0.07 * 42,780); side band 5-10% of exp_to_next(26) (LEVELING §1 / QUESTS §4)
+  exp: 6318                      # round(0.07 * 90,252); side band 5-10% of exp_to_next(26) (LEVELING §1 / QUESTS §4)
   shards: 168                    # side = mean_shards_normal(26)*4 = 42*4 (QUESTS §5 / DROPS §3)
 flavor: "Cinder swarmlings breed fast enough to choke the road if no one thins them, and Kessa's tired of doing it alone."
 offer_text: "Fresh recruit, are you? Good timing -- the swarmlings are nesting thick along the approach. Cull them and I'll make it worth the ash in your boots."

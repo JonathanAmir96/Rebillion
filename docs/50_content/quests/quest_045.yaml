@@ -12,7 +12,7 @@ steps:
     target: item_etc_0060
     count: 6
 rewards:
-  exp: 846                  # round(0.05 * 16928); band per QUESTS §4 at Lv19
+  exp: 2006                  # round(0.05 * 40112); band per QUESTS §4 at Lv19
   shards: 128                # mean_shards_normal(19)*4 = 32*4 (QUESTS §5 side / DROPS §3)
 flavor: "Mirelle wants a fresh set of undertow-bank samples before she risks a deeper dive past the caves."
 offer_text: "Six samples off the undertow banks -- I want a baseline before I go looking for what's stirring the deep."

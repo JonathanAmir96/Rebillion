@@ -12,7 +12,7 @@ steps:
     target: mob_147
     count: 5
 rewards:
-  exp: 4887   # round(0.06*81,450) (LEVELING §1 Lv32); raid_mainspring intro (RAID.md §3)
+  exp: 9470   # round(0.06*157,832) (LEVELING §1 Lv32); raid_mainspring intro (RAID.md §3)
   shards: 204 # side = mean_shards_normal(32)*4 = 51*4 (QUESTS §5 / DROPS §3)
 flavor: "Torvane won't vouch for a party at the Mainspring gate until they've proven themselves against the gearworks' own guardians."
 offer_text: "Clear a few of the gearworks' escapement guardians first. I won't muster anyone into the Mainspring who hasn't shown me their steel."

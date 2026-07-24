@@ -17,7 +17,7 @@ steps:
     target: map_061
     zone: warren_mouth
 rewards:
-  exp: 277                        # round(0.07 * 3,960)
+  exp: 737                        # round(0.07 * 10,530)
   shards: 80                      # mean_shards_normal(11)*4 = 20*4
 flavor: "Oskar's charted the warren's mouth twice over. He's never once gone further than the first turn alone."
 offer_text: "Clear the clearing's worst first -- then step into the warren mouth so I know the way's still open. Don't go deeper than that, mind."

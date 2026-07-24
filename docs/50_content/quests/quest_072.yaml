@@ -17,7 +17,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 14661  # main pct=0.18 of exp_to_next(32)=81,450; shards=mean_shards_normal(32)*15=51*15
+  exp: 28410  # main pct=0.18 of exp_to_next(32)=157,832; shards=mean_shards_normal(32)*15=51*15
   shards: 765
 flavor: "Perrine's notes point toward the drowned gate itself, but she wants the approach clear before she'll send word ahead."
 offer_text: "Clear the approach for me, then carry my notes to Adric at the gatefront -- he'll want to hear this before you go further."

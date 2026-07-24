@@ -15,7 +15,7 @@ steps:                            # parallel (default): the pinions drop from th
     target: item_etc_0089          # Harrier Pinion, sourced from drop_mob_096 (QUESTS §3.1, warn-check satisfied)
     count: 5
 rewards:
-  exp: 4662                      # round(0.07 * 66,600); side band 5-10% of exp_to_next(30) (LEVELING §1 / QUESTS §4)
+  exp: 9277                      # round(0.07 * 132,534); side band 5-10% of exp_to_next(30) (LEVELING §1 / QUESTS §4)
   shards: 192                    # side = mean_shards_normal(30)*4 = 48*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0015, qty: 2 }   # a pair of Sharpening Oils, Tolvic's own kit

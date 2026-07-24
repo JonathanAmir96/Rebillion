@@ -12,7 +12,7 @@ steps:
     target: mob_143
     count: 8
 rewards:
-  exp: 13647  # round(0.09*151,632) (LEVELING §1 Lv39); side band 5-10%
+  exp: 24514  # round(0.09*272,376) (LEVELING §1 Lv39); side band 5-10%
   shards: 248 # side = mean_shards_normal(39)*4 = 62*4 (QUESTS §5 / DROPS §3)
 flavor: "Sable wants the proving floor's approach thinned before she risks another survey pass through the deep."
 offer_text: "The escapement guardians have been swarming the approach again. Thin them before I take my next reading."

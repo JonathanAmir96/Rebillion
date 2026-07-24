@@ -13,7 +13,7 @@ steps:
     target: mob_027
     count: 1
 rewards:
-  exp: 585      # round(0.08*7,316); raid_undervault handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
+  exp: 1508      # round(0.08*18,848); raid_undervault handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
   shards: 96     # mean_shards_normal(14)*4 = 24*4
   items:
     - { id: item_use_0005, qty: 3 }

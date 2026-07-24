@@ -16,7 +16,7 @@ steps:
     target: item_etc_0003
     count: 5
 rewards:
-  exp: 160                         # round(0.20 * 800); main band, exp_to_next(5)=800
+  exp: 371                         # round(0.20 * 1856); main band, exp_to_next(5)=1856
   shards: 165                      # mean_shards_normal(5)*15 = 11*15
   items:
     - { id: item_use_0007, qty: 2 }   # forward-ref: Essence Tonic

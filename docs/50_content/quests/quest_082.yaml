@@ -13,7 +13,7 @@ steps:
     target: item_etc_0119
     count: 6
 rewards:
-  exp: 10278  # round(0.08*128,478) (LEVELING §1 Lv37); side band 5-10%
+  exp: 18808  # round(0.08*235,106) (LEVELING §1 Lv37); side band 5-10%
   shards: 232 # side = mean_shards_normal(37)*4 = 58*4 (QUESTS §5 / DROPS §3)
 flavor: "Deeper under the verdigris, Ione suspects, sits something the statues themselves were built to guard."
 offer_text: "Six clean relic-shards this time, no cracks. The good ones sit deeper than the surface scrapings."

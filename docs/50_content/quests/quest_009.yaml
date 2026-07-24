@@ -16,7 +16,7 @@ steps:
     target: mob_009
     count: 8
 rewards:
-  exp: 300                         # round(0.20 * 1,500); main band, exp_to_next(7)=1,500
+  exp: 760                         # round(0.20 * 3,800); main band, exp_to_next(7)=3,800
   shards: 210                      # mean_shards_normal(7)*15 = 14*15
   items:
     - { id: item_use_0015, qty: 1 }   # forward-ref: Sharpening Oil -- edge your blade before the Heart

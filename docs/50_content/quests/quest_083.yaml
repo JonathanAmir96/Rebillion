@@ -12,7 +12,7 @@ steps:
     target: mob_145
     count: 5
 rewards:
-  exp: 12598  # round(0.09*139,977) (LEVELING §1 Lv38); side band 5-10%
+  exp: 22831  # round(0.09*253,680) (LEVELING §1 Lv38); side band 5-10%
   shards: 240 # side = mean_shards_normal(38)*4 = 60*4 (QUESTS §5 / DROPS §3)
 flavor: "The proving floor's guardian constructs have been drifting off their old patrol lines, right toward the sigil ring."
 offer_text: "Every line's trial deserves an undisturbed floor. Put the drifting guardians back to sleep for me."

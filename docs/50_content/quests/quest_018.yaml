@@ -12,7 +12,7 @@ steps:
     target: [mob_021, mob_022]
     count: 6
 rewards:
-  exp: 297      # round(0.075*3,960) (LEVELING §1 Lv11 exp_to_next); side band, pct=0.075
+  exp: 790      # round(0.075*10,530) (LEVELING §1 Lv11 exp_to_next); side band, pct=0.075
   shards: 80     # mean_shards_normal(11)*4 = 20*4 (QUESTS §5 / DROPS §3)
 flavor: "The board's got a standing bounty on the shadow-cloaked cutpurses working the Sunken Row -- Thorne says it's been up too long."
 offer_text: "Bring down six of the Sunken Row cutpurses, either breed, and the bounty's yours."

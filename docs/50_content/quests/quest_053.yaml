@@ -15,7 +15,7 @@ steps:
     target: item_etc_0069
     count: 5
 rewards:
-  exp: 2379   # round(0.08 * 29,736); side band 5-10% of exp_to_next(23)=29,736 (LEVELING §1); pct=0.08
+  exp: 5249   # round(0.08 * 65,608); side band 5-10% of exp_to_next(23)=65,608 (LEVELING §1); pct=0.08
   shards: 152  # side = mean_shards_normal(23)*4 = 38*4 (QUESTS §5 / DROPS §3)
 flavor: "Rowe won't admit it, but his stubborn rival line needs the same clearing Coss's did."
 offer_text: "Don't tell Coss I asked, but my line's in the same state hers was. Clear it and keep it between us."

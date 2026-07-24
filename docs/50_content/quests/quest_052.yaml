@@ -16,7 +16,7 @@ steps:
     target: item_etc_0068
     count: 5
 rewards:
-  exp: 2078   # round(0.08 * 25,974); side band 5-10% of exp_to_next(22)=25,974 (LEVELING §1); pct=0.08
+  exp: 4653   # round(0.08 * 58,164); side band 5-10% of exp_to_next(22)=58,164 (LEVELING §1); pct=0.08
   shards: 144  # side = mean_shards_normal(22)*4 = 36*4 (QUESTS §5 / DROPS §3)
 flavor: "Coss wants her lines proven safe for a full season before she'll trust the wood again."
 offer_text: "One good season's proof and I'll believe the worst has passed. Clear the bend again and bring me what's left behind."

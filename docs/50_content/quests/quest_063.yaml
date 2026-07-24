@@ -12,7 +12,7 @@ steps:
     target: item_etc_0085          # Dustback Plate, sourced from drop_mob_092 (QUESTS §3.1, warn-check satisfied)
     count: 6
 rewards:
-  exp: 3767                      # round(0.07 * 53,808); side band 5-10% of exp_to_next(28) (LEVELING §1 / QUESTS §4)
+  exp: 7703                      # round(0.07 * 110,048); side band 5-10% of exp_to_next(28) (LEVELING §1 / QUESTS §4)
   shards: 180                    # side = mean_shards_normal(28)*4 = 45*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0016, qty: 2 }   # a pair of Ironhide Draughts, Orin's own brew for the forge-hands

@@ -18,7 +18,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 32912                  # round(0.20 * 164560); band per QUESTS §4 at Lv40
+  exp: 58467                  # round(0.20 * 292336); band per QUESTS §4 at Lv40
   shards: 945                # mean_shards_normal(40)*15 = 63*15 (QUESTS §5 main / DROPS §3)
   items:
     - { id: item_use_0010, qty: 2 }

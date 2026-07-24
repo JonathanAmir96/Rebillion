@@ -15,7 +15,7 @@ steps:
     target: item_etc_0142
     count: 4
 rewards:
-  exp: 45750  # round(0.10*457,500) (LEVELING §1 Lv55 table row)
+  exp: 72322  # round(0.10*723,216) (LEVELING §1 Lv55 table row)
   shards: 344  # mean_shards_normal(55)*4 = 86*4 (round(1.5*55+3)=85.5 -> 86)
 flavor: "Something bigger than the usual den-pack has moved into the Frozen Maw, and Guld's trap-lines keep coming back empty."
 offer_text: "My trap-lines through the Maw have gone quiet -- something's eating the game and the traps both. Handle it and bring proof."

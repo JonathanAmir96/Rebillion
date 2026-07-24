@@ -12,7 +12,7 @@ steps:
     target: mob_020
     count: 10
 rewards:
-  exp: 990      # round(0.20*4,949) (LEVELING §1 Lv12 exp_to_next); main band, pct=0.20
+  exp: 2586      # round(0.20*12,928) (LEVELING §1 Lv12 exp_to_next); main band, pct=0.20
   shards: 315    # mean_shards_normal(12)*15 = 21*15 (round(1.5*12+3)=21) (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0002, qty: 2 }

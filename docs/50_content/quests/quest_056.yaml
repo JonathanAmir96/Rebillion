@@ -15,7 +15,7 @@ steps:
     target: item_etc_0072
     count: 5
 rewards:
-  exp: 3422   # round(0.08 * 42,780); side band 5-10% of exp_to_next(26)=42,780 (LEVELING §1); pct=0.08
+  exp: 7220   # round(0.08 * 90,252); side band 5-10% of exp_to_next(26)=90,252 (LEVELING §1); pct=0.08
   shards: 168  # side = mean_shards_normal(26)*4 = 42*4 (QUESTS §5 / DROPS §3)
 flavor: "Ilse wards the fen road alone and has run short of the charms she needs to keep it that way."
 offer_text: "Clear the canopy stalkers pressing toward the road and bring me what I need to renew my wards."

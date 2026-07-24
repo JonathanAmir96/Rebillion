@@ -15,7 +15,7 @@ steps:                            # parallel (default): the pelts drop from the 
     target: item_etc_0129          # sourced from drop_mob_151 (QUESTS §3.1, warn-check satisfied)
     count: 5
 rewards:
-  exp: 12342                      # side band 5-10% of exp_to_next(40)=164,560 (LEVELING §1); pct=0.075
+  exp: 21925                      # side band 5-10% of exp_to_next(40)=292,336 (LEVELING §1); pct=0.075
   shards: 252                     # side = mean_shards_normal(40)*4 = 63*4 (QUESTS §5 / DROPS §3)
   items:
     - { id: item_use_0017, qty: 2 }   # a pair of Sovereign Life Tonics for the climb ahead

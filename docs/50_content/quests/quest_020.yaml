@@ -12,7 +12,7 @@ steps:
     target: npc_018
     count: 1
 rewards:
-  exp: 240      # round(0.075*3,200) (LEVELING §1 Lv10 exp_to_next); side band, pct=0.075
+  exp: 636      # round(0.075*8,480) (LEVELING §1 Lv10 exp_to_next); side band, pct=0.075
   shards: 72     # mean_shards_normal(10)*4 = 18*4 (QUESTS §5 / DROPS §3)
 flavor: "The Millwheel's regulars won't stop talking about the noise coming up through the undervault seal at night."
 offer_text: "Go ask Captain Alders what the Watch makes of it. He'll talk straighter to you than he does to me."

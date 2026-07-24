@@ -14,7 +14,7 @@ steps:
     target: mob_234
     count: 1
 rewards:
-  exp: 180360  # round(0.18 * 1,002,000); main band 15-30% (QUESTS §4)
+  exp: 263686  # round(0.18 * 1,464,924); main band 15-30% (QUESTS §4)
   shards: 1620  # mean_shards_normal(70)*15 = 108*15 (QUESTS §5 / DROPS §3)
 flavor: "Ossuin keeps a standing account with every party that walks the Voidtide chain to its end and comes back having felled Nyxaris herself."
 offer_text: "Fell Nyxaris at the end of the chain and come tell me yourself. I'll see the Redoubt hears of it too."

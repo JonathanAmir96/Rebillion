@@ -17,7 +17,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 32912    # round(0.20*164,560) (LEVELING §1 Lv40 exp_to_next); main band, pct=0.20
+  exp: 58467    # round(0.20*292,336) (LEVELING §1 Lv40 exp_to_next); main band, pct=0.20
   shards: 945    # mean_shards_normal(40)*15 = 63*15 (round(1.5*40+3)=63) (QUESTS §5 / DROPS §3)
 flavor: "The Clockwork Ruins keep their own trials for a reason -- Vex says it's the only place that tells the truth about what you've become."
 offer_text: "You've grown past the first lesson. Reach the Mainspring's trial chamber, pass its judgment, and come tell me which road you'll walk for good."

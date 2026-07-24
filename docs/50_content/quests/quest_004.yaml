@@ -16,7 +16,7 @@ steps:
     target: map_007
     zone: windbreak_ridge           # named waypoint on map_007 (QUESTS §3, MAPS_SYSTEM pending)
 rewards:
-  exp: 75                          # round(0.20 * 374); main band, exp_to_next(3)=374
+  exp: 143                          # round(0.20 * 714); main band, exp_to_next(3)=714
   shards: 120                      # mean_shards_normal(3)*15 = 8*15
   items:
     - { id: item_use_0006, qty: 2 }   # forward-ref: Lesser Essence Tonic

@@ -12,7 +12,7 @@ steps:
     target: item_etc_0004
     count: 6
 rewards:
-  exp: 89                          # round(0.08 * 1,107); side band, exp_to_next(6)=1,107
+  exp: 220                          # round(0.08 * 2,747); side band, exp_to_next(6)=2,747
   shards: 48                       # mean_shards_normal(6)*4 = 12*4
 flavor: "Doss trades favors for supplies same as anyone else posted this far from town."
 offer_text: "The smoking verge sheds a fair bit of scale. Bring me some and I'll square you for the trouble."

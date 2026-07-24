@@ -19,7 +19,7 @@ steps:
     count: 1
     requires_step: 1
 rewards:
-  exp: 5643    # round(0.25 * 22,572); main band 15-30% of exp_to_next(21)=22,572 (LEVELING §1); pct=0.25
+  exp: 12906    # round(0.25 * 51,623); main band 15-30% of exp_to_next(21)=51,623 (LEVELING §1); pct=0.25
   shards: 525   # main = mean_shards_normal(21)*15 = 35*15 (QUESTS §5 / DROPS §3)
 flavor: "Coss's trap-lines are being torn apart faster than she can reset them, and she suspects it's more than one culprit."
 offer_text: "Clear what's chewing my lines and bring proof. And while you're at it -- go rattle Rowe's cage for me, see what he knows."

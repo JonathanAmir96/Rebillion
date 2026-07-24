@@ -13,7 +13,7 @@ steps:
     target: item_etc_0055
     count: 5
 rewards:
-  exp: 744                  # round(0.06 * 12402); band per QUESTS §4 at Lv17
+  exp: 1813                  # round(0.06 * 30210); band per QUESTS §4 at Lv17
   shards: 112                # mean_shards_normal(17)*4 = 28*4 (QUESTS §5 side / DROPS §3)
 flavor: "Innes wants a set of lurker eye-stalks sent up the ring -- the harborwatch nails them over hatches as an old superstition against ambush."
 offer_text: "Five whole eye-stalks off the lurkers, undamaged if you can manage it."

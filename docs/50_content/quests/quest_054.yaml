@@ -19,7 +19,7 @@ steps:
     zone: trunk_hollow_marker
     requires_step: 2
 rewards:
-  exp: 9412    # round(0.28 * 33,615); main band 15-30% of exp_to_next(24)=33,615 (LEVELING §1); pct=0.28
+  exp: 20498    # round(0.28 * 73,206); main band 15-30% of exp_to_next(24)=73,206 (LEVELING §1); pct=0.28
   shards: 585   # main = mean_shards_normal(24)*15 = 39*15 (QUESTS §5 / DROPS §3)
 flavor: "Innes needs fresh specimens and a marked reading taken at the mouth of the trunk warrens themselves."
 offer_text: "Bring me specimens and their egg-clutches both, then stand at the warrens' mouth and take a reading for me. I need it firsthand."
