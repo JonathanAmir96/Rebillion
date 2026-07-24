@@ -37,6 +37,48 @@ fully resolved on main (§5 log) — nothing to fix; both gates clean before sta
   match some `ai_profile` expectations (e.g. two `kamikaze_burster` normals without
   `telegraph`: mob_079, mob_216) — pre-existing, untouched, for the schema/AI_BEHAVIOR owners.
 
+## 2026-07-24 — composited character sprites + entry flow + display (owner-directed)
+
+Branch `claude/customizable-character-sprites-gq2eq3` (merged origin/main mid-session — it had
+moved to the v3 five-island world, so all of the below is reconciled against that state). Owner
+directives: (1) MapleStory-style customizable player sprites motivated by PixelLab token economy;
+(2) up to 4 characters per account; (3) Maple-style "check name" nickname-taken check at creation;
+(4) game launches fullscreen.
+
+- **New owner doc `40_assets/CHARACTER_COMPOSITING.md`** — player = paper-doll layer stack (10
+  layers, fixed z-order), never one baked sheet. Animated parts (base body + body/legs/boots/gloves
+  equips, full ~34-frame sets) vs **anchored parts** (hair/face/hat/cape/weapon: 1–3 stills placed
+  per frame by the base body's anchor map; `grip_pose` selects among 3 weapon orientation rows).
+  Per-part export reuses SPRITESHEET_SPEC verbatim (part ID in the `{entity_id}` position —
+  resolves the export-naming half of the old player-`entity_id` question). Generation cost linear
+  in parts: arc-1 wardrobe ≈ 1k frames vs ~34/look baked. **Spike before Phase D wardrobe
+  authoring:** base body + 1 outfit + 2 hairs to validate pose-guided part alignment.
+- **AB-002 (ART_BIBLE amendments[], owner-authorized)** — 5 skin ramps (only new colors) + 6 hair
+  swatches reusing existing palette hexes; layer-restricted; composited export blessed;
+  `part_layer`/`pose_ref` PixelLab injects. GLOSSARY: "Player sprite layers" section +
+  `style_<category>_NN` prefix; ID_REGISTRY: "Appearance styles" block (base 1 / hair 12 / face 8
+  / 5+6 swatches, growth reserved). SCOPE cosmetics line narrowed: creation appearance in scope;
+  MONETIZATION §3.1's reserved cosmetic layer untouched. Distinct from `item_cosmetic`
+  skins/dyes (COSMETICS.md) — relation flagged in the compositing doc's Open Questions, incl.
+  pending `shield`/`overall` slot-integration wave (overall maps onto the `covers: [legs]`
+  mechanism).
+- **Entry flow** — new `10_systems/ACCOUNT.md` (player-facing roster + 3-step creation:
+  check-name → appearance → confirm; always `novice`; availability answered through the
+  `GameState` facade so solo/live share one code path). Quota **raised 3→4** in its owner
+  `70_integrations/ACCOUNTS_AUTH.md` §2.2 (+ §2.4/§4.1/OQ mirrors) and PERSISTENCE §6; nickname
+  law stays ACCOUNTS_AUTH §5's (not restated). `nickname` meta token added to GLOSSARY.
+- **New `10_systems/DISPLAY.md`** — borderless fullscreen default, largest-integer-factor scaling
+  of the locked 640x360 base, `ink` letterbox, `display_mode` client setting (frame_system +
+  Alt+Enter). Resolves CAMERA/HUD's "once a target resolution is fixed" flags.
+- **Backend wiring (follow-up, same directive):** DATABASE_PERSISTENCE §3.1 `character` gains the
+  four appearance columns (style ids, range-checked on write). NETWORK_PROTOCOL mints: §9.2
+  `op_0105`/`op_0194` name-check pair (full §5 gate, session-scoped reservation), `op_0103/0193`
+  extended with appearance picks + `invalid_appearance`, `op_0191` roster corrected 3→4 slots +
+  per-entry appearance descriptor for roster-screen compositing; §9.5 `op_0401` player spawns
+  carry the appearance descriptor (`style_*` + `worn_visible` ids only — clients resolve to local
+  atlases, no pixels on the wire), new `op_0406 appearance_delta` re-broadcast on visible-slot
+  equip change (§9.9 rows cross-cite). COMPOSITING §10 documents the peer-render path.
+
 ## 2026-07-24 — combo layer + HUD stance + advancement quest lines (owner-directed)
 
 Branch `claude/game-hud-combo-system-9n1wim` (rebased onto main). Owner directives: (1) HUD is

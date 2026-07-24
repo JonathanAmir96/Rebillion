@@ -55,11 +55,13 @@ _(BACKEND_ARCHITECTURE.md §9 cites this section for account/character binding +
 
 ### 2.2 Character slots
 
-An account has **3 character slots at launch**, matching `10_systems/PERSISTENCE.md` §6's 3 local
-save slots exactly — deliberate, so the interim solo build's slot shape and the live account's slot
-shape are identical and migration is a re-homing, not a reshaping. Slot expansion beyond 3 is a
-**future monetization question**, not decided here (Open Questions); the schema must not hard-code 3
-as a structural limit — it is a per-account quota, server-owned.
+An account has **4 character slots at launch** (owner directive 2026-07-24; raised from the
+original 3), matching `10_systems/PERSISTENCE.md` §6's 4 local save slots exactly — deliberate, so
+the interim solo build's slot shape and the live account's slot shape are identical and migration is
+a re-homing, not a reshaping. This section is the quota's single source of truth (the player-facing
+roster/creation flow is `10_systems/ACCOUNT.md`, which mirrors this count). Slot expansion beyond 4
+is a **future monetization question**, not decided here (Open Questions); the schema must not
+hard-code 4 as a structural limit — it is a per-account quota, server-owned.
 
 ### 2.3 Account creation & migration entry point
 
@@ -74,8 +76,8 @@ as a structural limit — it is a per-account quota, server-owned.
   character in a local save slot (`10_systems/PERSISTENCE.md` §5–§6). When a live account exists, each
   local character is imported **once, one-way, on binding to an account** (§2.4), reusing
   `10_systems/PERSISTENCE.md` §9's offline→online import intent (never the reverse; a live character
-  never exports back to a local save). The 3-slot symmetry (§2.2) means an install's 3 locals map
-  cleanly onto an account's 3 slots.
+  never exports back to a local save). The 4-slot symmetry (§2.2) means an install's 4 locals map
+  cleanly onto an account's 4 slots.
 
 ### 2.4 Import validation pass (answers `10_systems/PERSISTENCE.md` §9's open question)
 
@@ -263,9 +265,9 @@ bypass** auth (`70_integrations/BACKEND_ARCHITECTURE.md` §8) — there is no un
 
 _(BACKEND_ARCHITECTURE.md §9 cites this section for the reconnect-grace window; anchor held.)_
 
-### 4.1 Character-select & the 3-slot model
+### 4.1 Character-select & the 4-slot model
 
-After login (§3.3), the auth service returns the account's character roster — up to **3 slots**
+After login (§3.3), the auth service returns the account's character roster — up to **4 slots**
 (§2.2, mirroring `10_systems/PERSISTENCE.md` §6). Selecting a slot binds that character to the session
 (one active character per session, §3.4). Empty slots offer character creation (name gated by §5);
 slot deletion frees the slot and frees the name back into the pool (§5). Character-select is the
@@ -393,9 +395,9 @@ can revoke (§3).
 
 ## Open Questions
 
-- **Slot expansion & pricing.** Whether accounts can buy character slots beyond 3, and at what price,
+- **Slot expansion & pricing.** Whether accounts can buy character slots beyond 4, and at what price,
   is a monetization decision deferred to the owner (`00_vision/SCOPE.md` lists none planned this run).
-  The schema keeps 3 as a server-owned quota, not a structural cap, so raising it is data.
+  The schema keeps 4 as a server-owned quota, not a structural cap, so raising it is data.
 - **SSO providers (owner/vendor-priced).** Which platform/storefront identities are supported, and
   their token-exchange contracts, are owner-priced and `70_integrations/BACKEND_ARCHITECTURE.md`'s to
   wire.

@@ -327,14 +327,16 @@ notes.
 | `op_0100` | `client_hello` | `c2s` | `protocol_version: uint32 — intent`, `client_version: string — intent`, `content_version: string — intent` | `—` (§4 negotiation window; `70_integrations/BUILD_DISTRIBUTION.md` §2/§3 version gate) | `op_0190` |
 | `op_0101` | `login_request` | `c2s` | `handle: string — intent`, `password: string — intent` (submitted over TLS, never persisted verbatim, `70_integrations/ACCOUNTS_AUTH.md` §3.2) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §3.2–§3.5: rate-limit/lockout gate before hash compare, Argon2id verify, uniform failure message) | `op_0191` |
 | `op_0102` | `character_select_request` | `c2s` | `slot_index: uint8 — intent` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §4.1/§4.2 gateway bind) | `op_0192` |
-| `op_0103` | `character_create_request` | `c2s` | `slot_index: uint8 — intent`, `name: string — intent` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §5 name-policy gate: allowed set/length, reserved+profanity filter, global uniqueness) | `op_0193` |
+| `op_0103` | `character_create_request` | `c2s` | `slot_index: uint8 — intent`, `name: string — intent`, `hair: string — intent`, `face: string — intent`, `hair_color: string — intent`, `skin: string — intent` (the four `style_*` creation picks, `10_systems/ACCOUNT.md` §3) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §5 name-policy gate: allowed set/length, reserved+profanity filter, global uniqueness; each `style_*` id range-checked against `docs/ID_REGISTRY.md` "Appearance styles" — an out-of-range id rejects, never defaults) | `op_0193` |
+| `op_0105` | `name_check_request` | `c2s` | `name: string — intent` (the pre-creation "check name" probe, `10_systems/ACCOUNT.md` §2 step 1) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §5 — same full gate as creation itself, so a passing probe cannot be a false promise) | `op_0194` |
 | `op_0104` | `logout_request` | `c2s` | (empty map) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §3.6 revocation — invalidates refresh-token family) | `op_0093` (§9.1) |
 | `op_0190` | `server_hello` | `s2c` | `accepted: bool — server`, `agreed_protocol_version: uint32 — server`, `min_required_client_version: string — server`, `reject_reason: enum{version_too_old, none} — server` | `—` (§4) | `—` |
-| `op_0191` | `login_result` | `s2c` | `success: bool — server`, `character_roster: array — server` (up to 3 slots, `70_integrations/ACCOUNTS_AUTH.md` §2.2), `fail_reason: enum{invalid_credentials, account_locked} — server` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §3.3–§3.5) | `—` |
+| `op_0191` | `login_result` | `s2c` | `success: bool — server`, `character_roster: array — server` (up to 4 slots, `70_integrations/ACCOUNTS_AUTH.md` §2.2; each entry carries `name`/`level`/`job` plus the appearance descriptor of §9.5's `op_0401`, so the roster screen can composite each character's `idle` sprite, `10_systems/ACCOUNT.md` §1), `fail_reason: enum{invalid_credentials, account_locked} — server` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §3.3–§3.5) | `—` |
 | `op_0192` | `character_select_result` | `s2c` | `character_id: string — server`, `level: uint16 — server`, `map_id: string — server`, `position: vec2 — shared`, `life: uint32 — server`, `essence: uint32 — server`, `shards: uint32 — server` (initial `GameState` pointer, `10_systems/PERSISTENCE.md` §1) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §4.1/§4.2) | `—` |
-| `op_0193` | `character_create_result` | `s2c` | `success: bool — server`, `character_id: string — server`, `fail_reason: enum{name_taken, invalid_name, slot_occupied} — server` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §5) | `—` |
+| `op_0193` | `character_create_result` | `s2c` | `success: bool — server`, `character_id: string — server`, `fail_reason: enum{name_taken, invalid_name, slot_occupied, invalid_appearance} — server` | `—` (`70_integrations/ACCOUNTS_AUTH.md` §5; appearance range check per `op_0103`) | `—` |
+| `op_0194` | `name_check_result` | `s2c` | `available: bool — server`, `fail_reason: enum{name_taken, invalid_name, reserved} — server` (an `available` answer is a creation-session-scoped reservation only, released on cancel — `10_systems/ACCOUNT.md` §2; never a permanent hold) | `—` (`70_integrations/ACCOUNTS_AUTH.md` §5) | `—` |
 
-`op_0105`–`op_0189` and `op_0194`–`op_0199` remain **unminted/reserved** in this block.
+`op_0106`–`op_0189` and `op_0195`–`op_0199` remain **unminted/reserved** in this block.
 
 ### 9.3 Channel & instance management — `op_0200`–`op_0299`
 Validating layer: `70_integrations/WORLD_CHANNELS.md` §3 (channel select/switch) and §6 (map-transition
@@ -387,11 +389,12 @@ spawn/despawn, death, `phase_shift`, boss-phase events — intent only animates 
 | Opcode | Name | Dir | Payload fields (`field: type` — wire annotation, §7.2) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
 |---|---|---|---|---|---|
 | `op_0400` | `entity_snapshot` | `s2c` | `entities: array<{entity_id: string, position: vec2 — shared, velocity: vec2 — shared, animation_state: enum — server, status_icons: array — server}>` | `§1.1` (10 Hz broadcast, visible-entity set) | `—` |
-| `op_0401` | `entity_spawn` | `s2c` | `entity_id: string — server`, `entity_kind: enum{mob, player, summon} — server`, `mob_id: string — server` (when a mob), `position: vec2 — shared` (same §4 pairing as `op_0400`; the spawn coordinate seeds the client's tracked copy), `tier: enum{normal, elite, boss} — server` | `§13` (spawn maintenance; elite/boss `spawn`-flourish invulnerability window, `10_systems/SPAWN.md` §6) | `—` |
+| `op_0401` | `entity_spawn` | `s2c` | `entity_id: string — server`, `entity_kind: enum{mob, player, summon} — server`, `mob_id: string — server` (when a mob), `appearance: map — server` (when a player: `{name: string, hair: string, face: string, hair_color: string, skin: string, worn_visible: array<item_equip id>}` — everything a peer client needs to composite the sprite per `40_assets/CHARACTER_COMPOSITING.md` §2's layer registry; hidden slots `ring`/`amulet` never ride the wire), `position: vec2 — shared` (same §4 pairing as `op_0400`; the spawn coordinate seeds the client's tracked copy), `tier: enum{normal, elite, boss} — server` | `§13` (spawn maintenance; elite/boss `spawn`-flourish invulnerability window, `10_systems/SPAWN.md` §6) | `—` |
 | `op_0402` | `entity_despawn` | `s2c` | `entity_id: string — server`, `reason: enum{out_of_range, leash_return, expired} — server` | `§13` | `—` |
 | `op_0403` | `entity_death` | `s2c` | `entity_id: string — server`, `killer_character_id: string — server` | `§5.2`/`§13` (death pushed as an immediate event) | credited kill triggers `op_0792` `kill_reward_delta` (§9.8) |
 | `op_0404` | `boss_phase_shift` | `s2c` | `entity_id: string — server`, `phase_index: uint8 — server`, `invulnerable: bool — server` | `§13` (`life_threshold_pct` crossing, `boss_scripted` AI, `10_systems/AI_BEHAVIOR.md` §15) | `—` |
 | `op_0405` | `death_penalty_delta` | `s2c` | `exp_lost: uint32 — server`, `exp_into_level: uint32 — server` (post-penalty), `respawn_map_id: string — server` (the stored bind point, `10_systems/DEATH_PENALTY.md` §4), `raid_override: bool — server` (party-instance fallen/Release flow instead of respawn, `10_systems/DEATH_PENALTY.md` §5.3) | `§12` (server-computed exp cost + bind-point respawn; follows the character's own `op_0403`) | `—` |
+| `op_0406` | `appearance_delta` | `s2c` | `entity_id: string — server`, `appearance: map — server` (same shape as `op_0401`'s player descriptor, sent in full — a peer client rebuilds the layer stack from scratch rather than patching, keeping the delta idempotent) | `§7` (pushed to the visible-entity set whenever a server-validated equip/unequip changes a **visible** slot — `40_assets/CHARACTER_COMPOSITING.md` §2; a `ring`/`amulet` swap emits nothing) | `—` |
 
 Note: this domain is deliberately `s2c`-only (§9.0's direction rule still holds — every opcode is
 unidirectional) because the client requests nothing here; it only ever animates what the server pushes
@@ -399,7 +402,7 @@ unidirectional) because the client requests nothing here; it only ever animates 
 is the first `entity_snapshot`/`entity_spawn` set pushed right after `op_0291`/`op_0192` (§9.3/§9.2)
 completes the handoff — no separate "give me the snapshot" request exists.
 
-`op_0406`–`op_0499` remain **unminted/reserved** in this block.
+`op_0407`–`op_0499` remain **unminted/reserved** in this block.
 
 ### 9.6 Combat — `op_0500`–`op_0599`
 Validating section: `70_integrations/GAMEPLAY_SIMULATION.md` §5 (the `hit_event` on the hit-frame
@@ -458,8 +461,8 @@ authoritative inventory + recomputed-stat delta.
 | Opcode | Name | Dir | Payload fields (`field: type` — wire annotation, §7.2) | Server validation (`GAMEPLAY_SIMULATION.md §N`) | Response / delta packet(s) |
 |---|---|---|---|---|---|
 | `op_0800` | `item_move_request` | `c2s` | `tab: enum{use, etc, equip} — intent`, `from_slot: uint8 — intent`, `to_slot: uint8 — intent`, `qty: uint16 — intent` | `§11` (inventory & bank addendum → `10_systems/INVENTORY.md` §1–§2 slot/stack ceilings) | `op_0890` |
-| `op_0801` | `item_equip_request` | `c2s` | `item_id: string — intent`, `from_slot: uint8 — intent`, `equip_slot: enum — intent` (GLOSSARY equipment-slot token) | `§7` (derived-stat recompute as the sole truth; the server's stored equip-set is never overridden by a client claim) | `op_0890`, `op_0891` |
-| `op_0802` | `item_unequip_request` | `c2s` | `equip_slot: enum — intent` | `§7` | `op_0890`, `op_0891` |
+| `op_0801` | `item_equip_request` | `c2s` | `item_id: string — intent`, `from_slot: uint8 — intent`, `equip_slot: enum — intent` (GLOSSARY equipment-slot token) | `§7` (derived-stat recompute as the sole truth; the server's stored equip-set is never overridden by a client claim) | `op_0890`, `op_0891`; visible-slot change also broadcasts `op_0406` `appearance_delta` (§9.5) to peers |
+| `op_0802` | `item_unequip_request` | `c2s` | `equip_slot: enum — intent` | `§7` | `op_0890`, `op_0891`; visible-slot change also broadcasts `op_0406` (§9.5) |
 | `op_0803` | `item_use_request` | `c2s` | `item_id: string — intent`, `from_slot: uint8 — intent`, `target_entity_id: string — intent` (optional, self-target default) | `§11` (inventory & bank addendum; consumable pool restore recomputes through §6.2's `heal`/`restore_essence` caps) | `op_0890`, `op_0693` (§9.7, pool-restore delta) |
 | `op_0804` | `bank_deposit_request` | `c2s` | `tab: enum{use, etc, equip} — intent`, `from_slot: uint8 — intent`, `qty: uint16 — intent` | `§11` (inventory & bank addendum → `10_systems/INVENTORY.md` §7 bank ceilings; committed per `70_integrations/DATABASE_PERSISTENCE.md`) | `op_0890` |
 | `op_0805` | `bank_withdraw_request` | `c2s` | `bank_tab: enum{use, etc, equip} — intent`, `bank_slot: uint8 — intent`, `qty: uint16 — intent` | `§11` (inventory & bank addendum → `10_systems/INVENTORY.md` §7) | `op_0890` |

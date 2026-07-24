@@ -251,6 +251,25 @@ code-intrinsic, not stored per line — SERVER_LOGGING_SPEC.md §1/§3).
 `600`–`999` are **reserved (future channels)** — a new channel claims the next free 100-wide block
 in a new commit; existing blocks never move.
 
+## Appearance styles — `style_<category>_NN`
+
+Owner: 40_assets/CHARACTER_COMPOSITING.md (owner directive 2026-07-24). Character-creation
+appearance parts and palette swatches only — a worn equip's sprite part reuses its own
+`item_equip_NNNN`, cosmetic skins/dyes stay in the `item_cosmetic_NNNN` block above
+(10_systems/COSMETICS.md), and player characters themselves are server-minted opaque ids,
+never registry ids (70_integrations/ACCOUNTS_AUTH.md §2.1) — nothing here overlaps either.
+
+| Category | Block | Authored (arc-1 plan) |
+|---|---|---|
+| Base body | `style_base_00`–`style_base_04` | 1 (`style_base_00`, the canonical skeleton); rest reserved |
+| Hair | `style_hair_01`–`style_hair_40` | 12; rest reserved |
+| Face | `style_face_01`–`style_face_20` | 8; rest reserved |
+| Skin swatches | `style_skin_00`–`style_skin_09` | 5 (palette-remap data only, no art); rest reserved |
+| Hair-color swatches | `style_haircolor_00`–`style_haircolor_09` | 6 (palette-remap data only, no art); rest reserved |
+
+Swatch color values are canon per ART_BIBLE.yaml amendment AB-002 (`skin_NN` / `hair_*`
+ramp keys; binding in CHARACTER_COMPOSITING.md §5).
+
 ## Open Questions
 - Reserved-growth blocks assume no category outgrows its range before the coding pass; if
   one does, extend the range here in a new commit — never renumber existing IDs.

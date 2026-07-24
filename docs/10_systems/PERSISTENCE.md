@@ -31,7 +31,7 @@ tags. There is no fourth tag; a field that seems to need one is a modeling error
 
 | Data | Owning doc |
 |---|---|
-| Character identity | (future account system) |
+| Character identity (`nickname`, `job`, appearance, roster slot) | `70_integrations/ACCOUNTS_AUTH.md` §2/§5 (player-facing flow: `10_systems/ACCOUNT.md`) |
 | `level` / `exp` / `exp_into_level` | `10_systems/LEVELING.md` |
 | Primary stats, free-point allocation, derived-stat recompute | `10_systems/STATS.md` §7–§8 |
 | Inventory contents (all 3 tabs) + bank | `10_systems/INVENTORY.md` |
@@ -109,9 +109,12 @@ territory.
 
 ## 6. Save slots & autosave cadence (solo build)
 
-- **3 character save slots** per install, each an independent character (own `server`-tagged
-  state, §2). Keybinds and UI prefs (§3) live in one shared **account-level** client config file,
-  independent of the 3 slots, so rebinding a key is not per-character.
+- **4 character save slots** per install (quota owned by `70_integrations/ACCOUNTS_AUTH.md`
+  §2.2, raised 3→4 by owner directive 2026-07-24 — this doc only mirrors the count; the
+  player-facing roster flow is `10_systems/ACCOUNT.md`), each an independent character
+  (own `server`-tagged state, §2). Keybinds and UI prefs (§3) live in one shared
+  **account-level** client config file, independent of the slots, so rebinding a key is not
+  per-character.
 - **Autosave triggers** (write the active slot's `GameState` to disk):
 
 | Trigger | Rationale |

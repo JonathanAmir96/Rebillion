@@ -46,8 +46,10 @@ until future arcs land. 10_systems/LEVELING.md designs the full curve to 300
   templates only); networking/backend; balancing beyond first-pass budget tables; localization
   (US English only); monetization implementation (direction fixed by owner amendment MON-001 in
   10_systems/MONETIZATION.md — cosmetic-only, no pay-to-win; no store content authored this
-  run); character cosmetics beyond equipment (a zero-stat cosmetic layer is reserved by
-  MONETIZATION.md §3.1 for a future arc).
+  run); character cosmetics beyond equipment and the character-creation appearance set
+  (base/hair/face/skin — owner directive 2026-07-24, design in
+  40_assets/CHARACTER_COMPOSITING.md; the zero-stat cosmetic layer MONETIZATION.md §3.1
+  reserves for a future arc stays reserved, and nothing appearance-related is sold this run).
 
 ## Deliberate scope limits
 - One weapon type per job line (4 total). Armor is class-agnostic with stat leans.

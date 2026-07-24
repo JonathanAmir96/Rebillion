@@ -47,6 +47,7 @@ anywhere else in the tree is a validation failure.
 | `party_drop_bonus` | Drop-chance multiplier from same-map party size (owner: 10_systems/DROPS.md; the loot analogue of PARTY.md §4's exp party bonus) |
 | `guild_contribution` | Points a guild accrues from members' raids and party hunts, driving guild level/unlocks (owner: 10_systems/social/GUILD.md) |
 | `party_finder` | The server-side listing board for forming parties/raids (owner: 10_systems/social/PARTY_FINDER.md) |
+| `nickname` | Player-chosen unique character name (name law: 70_integrations/ACCOUNTS_AUTH.md §5; player-facing flow: 10_systems/ACCOUNT.md) |
 
 ## Entity tiers (owner: 20_schemas/monster.schema.md)
 `normal` · `elite` · `boss`
@@ -112,10 +113,16 @@ this run authors two arcs to Lv 80 (Voidshore elites overshoot to 82); the game 
 ## Guild crest shapes (owner: 40_assets/UI_ART_SPEC.md; data rules in social/GUILD.md)
 `heater` · `round` · `banner` · `diamond` · `crest_ornate`
 
+## Player sprite layers (owner: 40_assets/CHARACTER_COMPOSITING.md; owner directive 2026-07-24)
+`base` · `face` · `hair`, plus the seven visible equipment-slot tokens (`weapon` · `head` ·
+`body` · `legs` · `boots` · `gloves` · `cape`) reused verbatim as layer names; `ring`/`amulet`
+render no layer. Z-order and part classes live in the owner doc, never restated.
+
 ## ID prefixes (ranges owned by docs/ID_REGISTRY.md)
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
 `item_cosmetic_NNNN` · `skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` ·
-`pool_equip_rNN`
+`pool_equip_rNN` · `style_<category>_NN` (category ∈ `base`/`hair`/`face`/`skin`/`haircolor`;
+40_assets/CHARACTER_COMPOSITING.md)
 
 ## Region slugs (owner: docs/WORLD_PLAN.md; five-island world)
 `emberfoot` · `millbrook` · `verdant` · `tidewatch` · `gloomwood` · `ashfall` · `sunken` ·

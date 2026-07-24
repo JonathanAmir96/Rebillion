@@ -53,6 +53,14 @@ code, no generated art. Read `README.md` for the tree map and
 - Monetization (owner amendment MON-001, 2026-07-23): cosmetic-only + in-world sponsor
   billboards, hard no-pay-to-win charter — `docs/10_systems/MONETIZATION.md`. Direction only;
   no store content is authored this run.
+- Player sprite is **composited** (Maple-style paper-doll), never one baked sheet:
+  layer stack + anchor map in `docs/40_assets/CHARACTER_COMPOSITING.md`, appearance palette
+  via ART_BIBLE amendment AB-002, `style_*` IDs in ID_REGISTRY. Generation cost is linear in
+  parts, not combinations (owner revision 2026-07-24).
+- Entry flow (owner revision 2026-07-24): roster + creation screens in
+  `docs/10_systems/ACCOUNT.md`; character-slot quota is **4** and the nickname law lives in
+  `docs/70_integrations/ACCOUNTS_AUTH.md` §2.2/§5 (Maple-style server-checked "check name").
+  Game launches borderless fullscreen at integer scale (`docs/10_systems/DISPLAY.md`).
 
 ## Git & generation workflow
 
