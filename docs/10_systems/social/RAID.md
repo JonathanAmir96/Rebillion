@@ -453,28 +453,37 @@ never across a save.
   Provisional NPC archetype with exactly the promotion condition this entry asked for ("promote if
   Phase D NPC content uses it as a field value"). No content file uses it as a field value yet, so
   the entry correctly stays Provisional — but the request itself is satisfied. Nothing open here.
-- **BLOCKING — the channel claim (§3) has no working release valve at this game's target
-  population.** §3 tells a refused party to "switch channels to find a free one" and calls that the
-  intended loop. That loop does not exist as the tree is currently written.
-  `70_integrations/WORLD_CHANNELS.md` §3 spins up channel 2 **only when channel 1 is at cap**, and
-  §7 sets that cap at **60 concurrent players** for a `dungeon` map. All four raid staging maps
-  (`map_037` / `map_194` / `map_238` / `map_318`) are `map_type: dungeon`, and at the "hundreds-to-
-  low-thousands concurrent" scale WORLD_CHANNELS §2 targets, a deep staging dungeon will essentially
-  never hold 60 players at once. So there is exactly **one** channel, therefore exactly **one**
-  claim, therefore **one party per raid per world node** — a global mutex held for up to 30 minutes,
-  on the content §6 calls "the social centerpiece."
-  Two things make it worse: §5's "failure is free" means a party can enter, idle, wipe on the run
-  clock at zero cost and immediately re-enter — holding that mutex indefinitely for the price of
-  standing still — and the 15-minute cooldown cannot restrain it, because the cooldown fires only on
-  a *successful* kill while every squatting path ends in a wipe. The 60 s disconnect grace is also
-  undefined as per-member or per-party, so reconnect-chaining may hold a claim indefinitely too.
-  **This must be resolved before the claim ships.** The options, none of them taken here: give raid
-  staging maps demand-driven channel spin-up (a refused party can open a channel) plus an explicit
-  channel picker instead of §3's fill-lowest-first; or replace the per-channel claim with a
-  per-node concurrency cap (WORLD_CHANNELS §7 already carries a 40-instances-per-token headroom
-  number that would serve); or drop the claim and return to unrestricted instancing, which §3 itself
-  allows for — it calls the claim "a lever, not a law." Owner: this doc with
-  `70_integrations/WORLD_CHANNELS.md`; raised by the 2026-07-24 raid-stage review.
+- **Claim throughput — how many parties per node should be able to raid at once?** The claim keys
+  on `(channel, raid_token)`, so the four raids are independent: one channel carries **four**
+  concurrent parties, one per raid, up to ~24 players. Channel-hopping is a real release valve —
+  `70_integrations/WORLD_CHANNELS.md` §4 gives players an explicit channel picker (30 s cooldown,
+  combat-locked) — and channel supply is demand-driven: §3 spins up the next channel when a map
+  hits its §7 occupancy cap (60 for a `dungeon`, which the staging maps are), so a crowd contending
+  for a raid is itself what creates the next slot, at roughly one slot per 60 players gathered on
+  the staging map. (An earlier draft of this entry claimed the picker was a no-op because
+  fill-lowest-first would re-route a manual switch; that is wrong — §3's fill-lowest-first governs
+  *arrival* routing only.)
+  What remains genuinely open is whether that throughput is the intended one, because two numbers in
+  `70_integrations/WORLD_CHANNELS.md` now pull in different directions: §7 sets a headroom target of
+  **40 concurrently active instances per raid token** (160 across four), explicitly sized as ~5% of
+  the 2,000-player node target engaging raid content at once — while the claim admits one per token
+  per channel. Reaching 40 requires 40 channels of one staging map, i.e. ~2,400 players standing on
+  it. The claim, not the headroom figure, is the binding constraint, and the two were written
+  independently. Also note the four bands are **disjoint** (15–22 · 32–40 · 45–55 · 70–80), so a
+  given player is ever eligible for exactly one raid — "four raids are open" is true of the server,
+  not of the player deciding whether to queue. Owner ruling wanted on the target: keep the claim as
+  scarcity-with-agency, or replace it with a per-node concurrency cap sized off the §7 headroom
+  number. §3 already calls the claim "a lever, not a law."
+- **Claim squatting is free and unbounded, and this one is not throughput tuning.** §5 makes
+  failure free — no cooldown, and a party that kills nothing takes no damage and so pays no
+  `10_systems/DEATH_PENALTY.md` cost either. A party can therefore enter, stand still, let the §4.1
+  run clock expire at 30:00, and re-enter within seconds, holding their band's slot on that channel
+  indefinitely at zero cost. The 15-minute cooldown cannot restrain it because it fires only on a
+  *successful* kill, and every squatting path ends in a wipe. The 60 s disconnect grace is also
+  undefined as per-member or per-party, so reconnect-chaining may hold a claim the same way.
+  Candidate fixes, none taken here: dissolve an instance on no-progress (no stage objective advanced
+  in N minutes), or apply a short re-entry cooldown specifically to a zero-progress wipe while
+  keeping genuine failure free. Owner: this doc with `70_integrations/WORLD_CHANNELS.md` §2.1.
 - **Nothing gates finale-arena entry on remaining run clock (§4.1).** Time-to-kill is ≈7.9 min and
   `N`-independent (`10_systems/COMBAT_FORMULA.md` §13.3), so a party crossing into the arena under
   ≈8 minutes is in an unwinnable fight and is told nothing. A soft gate (the arena door refuses, or
