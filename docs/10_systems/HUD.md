@@ -120,6 +120,12 @@ Minimap sits in `frame_system`, top-right (locked position). The compact quest t
 (`10_systems/QUESTS.md` §8) sits directly beneath it, also `frame_system`, showing up to 3
 tracked quests' name + current-step progress. Both are ambient chrome, not draggable windows.
 
+The minimap is only the innermost of three spatial tiers: it shows the **current map**, while a
+hotkey opens the zoom-out **Island Map / World Map** overlay (every non-hidden map of the island,
+then all five islands, each with a "you are here" marker). That overlay — its map-visibility rule,
+island grouping, and view-only/no-teleport stance — is owned by `10_systems/WORLD_MAP.md`, not this
+doc; the minimap here is unchanged by it.
+
 ## 6. `boss_bar` — top-center
 
 A wide `frame_system` bar, contextual (§11): appears on boss/flagged-elite aggro, disappears on its

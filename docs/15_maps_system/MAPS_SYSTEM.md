@@ -58,6 +58,11 @@ Counts per type are fixed by `docs/WORLD_PLAN.md`/`00_vision/SCOPE.md` (153 fiel
 12 town · 30 interior · 11 arena · 28 secret = 329, the 5 added secrets being the raid bonus
 rooms `map_325`-`map_329`, `10_systems/social/RAID.md` §6.E); this doc governs shape, not allocation.
 
+`map_type` also drives **World/Island-Map visibility** (the zoom-out spatial UI), per the rule owned
+by `10_systems/WORLD_MAP.md` §2 (with the optional per-map `world_map` override,
+`20_schemas/map.schema.md`). This doc owns the type token; that doc owns which types show or hide on
+the map screen — not restated here, to keep one source of truth.
+
 ## 3. Naming conventions (`display_name`)
 
 Patterns below are authoring law for the *shape* of a name; the specific name for any given
