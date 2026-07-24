@@ -31,7 +31,8 @@ specific violated rule — never "close enough."
 
 **Never:** edit change-controlled values without explicit owner direction; accept off-palette
 colors without an amendment; let
-credentials (PixelLab token) into the repo — environment secret only.
+PixelLab credentials into the repo — the connector is authorized interactively by the owner
+and there is no token to hold (`docs/70_integrations/ART_GENERATION_RUNBOOK.md` §2).
 
 **Escalation:** owner (the human) for identity-level changes.
 

@@ -82,9 +82,10 @@ triggers, `docs/60_agents/AUTONOMOUS_MAINTENANCE.md`).
 - Client autoloads: EventBus, GameState (save facade + authority tags), Database,
   SceneManager. Testing: GUT (client) + ExUnit (server) sharing language-neutral
   `CombatMath`/drop/enhancement fixture vectors (GAMEPLAY_SIMULATION §3).
-- Art pass: PixelLab MCP tools; API token is **not in the repo** (env secret, e.g.
-  `PIXELLAB_SECRET`); every generation batch pairs with `get_balance` via
-  ART_QUARTERMASTER.
+- Art pass: PixelLab MCP tools, reached through the **claude.ai PixelLab connector**
+  (owner authorizes interactively via `/mcp`; no API token exists to store, in repo or
+  env — verified 2026-07-24). Call recipes: `40_assets/PIXELLAB_PROMPT_LIBRARY.md`; every
+  generation batch pairs with `get_balance` via ART_QUARTERMASTER.
 
 ## Runtime constraints (load-bearing numbers)
 

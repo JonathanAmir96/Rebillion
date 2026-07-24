@@ -99,8 +99,9 @@ ledger entry. A PixelLab call made without a same-batch balance check is a proto
 violation, not a judgment call.
 
 **Never:** guess or reuse a stale balance; confirm a pro-mode cost without logging it;
-spend into the reserve; let the PixelLab token into the repo (environment secret only,
-per CLAUDE.md); overrule an ART_DIRECTOR QA verdict.
+spend into the reserve; let PixelLab credentials into the repo (the connector is authorized
+interactively by the owner; there is no token to hold —
+`docs/70_integrations/ART_GENERATION_RUNBOOK.md` §2); overrule an ART_DIRECTOR QA verdict.
 
 **Escalation:** owner (the human) for band-threshold changes, reserve spend, and all
 Yellow/Red Tier-H approvals.

@@ -23,7 +23,7 @@ version wrongly deferred them *back* to that doc, a ping-pong the architecture r
 one-line rationale and rejected alternatives (§3–§4). Only real price-tag items — SSO/storefront
 vendors and the email-provider contract — remain owner-priced Open Questions. Secrets (hash pepper,
 token-signing keys) stay environment-managed and uncommitted (`70_integrations/BACKEND_ARCHITECTURE.md`
-§10; the `PIXELLAB_SECRET` precedent).
+§10).
 
 ## 1. Scope & relationship to PERSISTENCE
 

@@ -93,9 +93,11 @@ code, no generated art. Read `README.md` for the tree map and
   mechanical regen** against the new curve (see LEVELING/QUESTS Open Questions). Not yet started:
   **Phase E** (coding-pass briefs), the **art pass** (PixelLab briefs). `memory.md` (newest-first)
   is the authoritative live log.
-- PixelLab (art generation, later pass): MCP tools + owner's API token. The token is
-  **deliberately not stored in this repo** — ask the owner or use the environment secret
-  (suggested var: `PIXELLAB_SECRET`) configured in the Claude Code environment settings.
+- PixelLab (art generation, later pass): the **claude.ai PixelLab connector**, authorized
+  interactively by the owner via `/mcp` — there is no API token to store, in this repo or in the
+  environment (verified 2026-07-24; the earlier `PIXELLAB_SECRET` env-var plan was never real).
+  Call recipes live in `docs/40_assets/PIXELLAB_PROMPT_LIBRARY.md`; run the pass through the
+  `pixellab-art-pass` skill.
 
 ## For future Claude sessions
 
