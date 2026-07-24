@@ -14,7 +14,8 @@ Start here:
 - `docs/20_schemas/` — entity shapes · `docs/50_content/` — values only, referencing the above
   (conventions in `docs/50_content/README.md`)
 - `docs/30_engineering/` + `docs/40_assets/` — engineering standards and art/UI bible (locked)
-- `docs/60_agents/` — coding-pass phase briefs · `docs/VALIDATION.md` — pass/fail rules
+- `docs/60_agents/` — coding-pass phase briefs, role charters, and the autonomous-maintenance
+  loop (`AUTONOMOUS_MAINTENANCE.md`) · `docs/VALIDATION.md` — pass/fail rules
 - `docs/70_integrations/` — platform & pipeline design (backend, accounts/auth, telemetry,
   build/distribution, PixelLab art-pass runbook, wiki export)
 - `docs/phase_reports/` — per-phase generation reports (`PHASE_A_REPORT.md`,
