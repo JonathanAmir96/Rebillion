@@ -1,0 +1,13 @@
+id: npc_091
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ENHANCEMENT]
+name: Enchanter Vask
+region: frostpeak
+map: map_221
+role: enchanter
+services: [enhance]
+dialog:
+  greeting: "Bring your gear to the hearth-side bench. The cold makes the rune-work slower, not sloppier."
+  farewell: "Come back when the enhancement's worth the risk."
+portrait: portrait_npc_091
+flavor: "Vask works the hold hall's enchanting bench between hearth-tending shifts, unbothered by the draft."

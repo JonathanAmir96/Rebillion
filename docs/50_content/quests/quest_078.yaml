@@ -1,0 +1,20 @@
+id: quest_078
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Last Door of a Drowned Kingdom
+region: sunken
+quest_type: main
+giver_npc: npc_075
+level_requirement: 38
+recommended_level: 38
+prereqs: [quest_076, quest_077]
+steps:
+  - type: kill
+    target: mob_128
+    count: 1
+rewards:
+  exp: 39194  # main pct=0.28 of exp_to_next(38)=139,977; shards=mean_shards_normal(38)*15=63*15
+  shards: 900
+flavor: "Past the vault threshold, the Drowned Warden still keeps a door no living kingdom remembers needing kept."
+offer_text: "You've proven yourself to the archive and the guard both. The door's through there. Whatever's behind it, it's yours to face now."
+complete_text: "The Warden's watch is finally over. Sunken Depths owes you a debt it can't pay in shards alone."

@@ -1,0 +1,33 @@
+id: map_044
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Mossmere Weaving Athenaeum
+region: verdant
+map_type: interior
+level_band: { min: 8, max: 8 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 34, h: 18 }              # interior: <=1 screen (MAPS_SYSTEM §2)
+bgm: bgm_town_verdant                      # interior inherits its town's tag (MAPS_SYSTEM §5)
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [8, 14] }
+portals:
+  - id: to_mossmere_square
+    kind: door
+    at: { tile: [3, 14] }
+    target_map: map_043
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: lore_marker
+    id: marker_weaver_roots
+    at_tile: [24, 13]
+    params:
+      text: "Root-carved staves line the walls, each one a Weaver's first working, kept long after the hand that shaped it moved on."
+      interact_prompt: Read
+npcs: [npc_033]                            # Elder Yewna, the Weaver instructor
+platform_brief: |
+  A single vaulted room, root-beams overhead, no verticality gimmick. Study tables and a
+  rune-worn lectern fill the floor; the only traversal is a flat walk from door to lectern.
+flavor: "Sap-lamps hang from living root-beams overhead, and the air smells of dried herbs and warm parchment."

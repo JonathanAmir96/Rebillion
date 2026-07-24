@@ -1,0 +1,21 @@
+id: quest_063
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Plated for the Forge
+region: ashfall
+quest_type: side
+giver_npc: npc_065                # Smith Orin, Cindershelf's blacksmith (shield hall)
+level_requirement: 28
+recommended_level: 28
+steps:
+  - type: collect
+    target: item_etc_0085          # Dustback Plate, sourced from drop_mob_092 (QUESTS §3.1, warn-check satisfied)
+    count: 6
+rewards:
+  exp: 3767                      # round(0.07 * 53,808); side band 5-10% of exp_to_next(28) (LEVELING §1 / QUESTS §4)
+  shards: 180                    # side = mean_shards_normal(28)*4 = 45*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0016, qty: 2 }   # a pair of Ironhide Draughts, Orin's own brew for the forge-hands
+flavor: "Orin swears a dustback's scute tempers better than any barrens ore, if you can pry enough of them loose."
+offer_text: "Bring me dustback plate -- a good half-dozen -- and I'll turn it into steel worth carrying."
+complete_text: "Grey clean through, just as I like it. Come back when your shield needs re-tempering."

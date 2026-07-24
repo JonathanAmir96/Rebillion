@@ -1,0 +1,13 @@
+id: npc_034
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, MAP_CONNECTIONS, ECONOMY, PERSISTENCE]
+name: Coachman Ollum
+region: verdant
+map: map_043
+role: coach_clerk                 # co-located with map_043's coach_station (npc.schema role enum)
+services: [coach]                 # role floor: coach_clerk -> services >= {coach} (npc.schema rule 1)
+dialog:
+  greeting: "Ring road or a ride, either gets you there. Shards for the ride, patience for the road."
+  farewell: "Safe travels. Mind the fare's the same coming back."
+portrait: portrait_npc_034
+flavor: "Ollum has driven the Mossmere coach since the Coachworks first strung its line through the hollow, and knows every rut in the ring road by feel."

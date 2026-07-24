@@ -1,0 +1,94 @@
+id: item_table_enhancement
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, ENHANCEMENT]
+# The enhancement-material table: item_etc_0193-0197, Emberstone I-V (docs/ID_REGISTRY.md;
+# ENHANCEMENT §1 tier->stone mapping). One batch, all five rows; 0198-0200 stay reserved
+# (0198 proposed as a future Emberstone VI per ITEMS.md/ID_REGISTRY.md Open Questions -- not
+# minted here). No `WORLD_PLAN` reference (etc/enhancement.yaml is explicitly excluded from the
+# region-theming reference add, item.schema Table-level Fields note: "no WORLD_PLAN -- emberstones
+# aren't region-themed").
+#
+# Never vendor-purchasable (ENHANCEMENT §6, ITEMS §1: "not vendor-purchasable at launch... a hunt
+# reward"): `price.buy` omitted on every row (item.schema rule 11). `price.sell` has no ECONOMY.md
+# owner (item.schema Open Questions: "etc price has no ECONOMY.md owner") -- first-pass numbers,
+# escalating by stone tier, flagged for ECONOMY.md to adopt formally.
+#
+# `req_level` is authored as the ITEMS §4 req_level of the LOWER of the two gear tiers each stone
+# enhances -- which matches the lower bound of ENHANCEMENT §1's "Item req_level range" column
+# (that table now carries the v3 T1-T12 bands, Lv1-78 ladder), so the tier->stone mapping and the
+# level column agree.
+# `source_hint` names the arc region whose elite/boss monsters are this stone's primary drop
+# source (ENHANCEMENT §6: emberstones drop from elite/boss, keyed to the region's level band);
+# picked as the region matching the LOWER of the stone's two gear tiers per ITEMS §4's own
+# "Region context" column, one region per stone (a Phase D authoring choice -- multiple regions
+# legitimately drop each stone's tier band, this names only the earliest/primary one).
+#
+# rarity steps common->legendary across the five stones as a purely cosmetic display tier
+# (ITEMS §5; no mechanical effect on an etc row, item.schema Open Questions "Rarity's mechanical
+# scope on use/etc"), signaling the escalating late-game value of the higher stones.
+items:
+  - id: item_etc_0193
+    name: Emberstone I
+    category: etc
+    rarity: common
+    req_level: 1                    # ITEMS §4 T1 req_level (enhances T1-T2, ENHANCEMENT §1)
+    price:
+      sell: 200                     # no `buy` (ENHANCEMENT §6, not vendor-purchasable); first-pass sell
+    source_hint: emberfoot           # R1, home of T1; earliest elite/boss source (ENHANCEMENT §6)
+    stack: 999                      # etc tab fixed stack (INVENTORY §2)
+    flavor: "A dull red cinder that never cools, pulled warm from a kiln-hound's own hide."
+
+  - id: item_etc_0194
+    name: Emberstone II
+    category: etc
+    rarity: uncommon
+    req_level: 15                   # ITEMS §4 T3 req_level (enhances T3-T4, ENHANCEMENT §1)
+    price:
+      sell: 500                     # no `buy`; first-pass sell
+    source_hint: verdant             # R3, home of T3; ring's mid-tier elite/boss source
+    stack: 999
+    flavor: "Moss-veined and faintly warm, as though it grew rather than formed."
+
+  - id: item_etc_0195
+    name: Emberstone III
+    category: etc
+    rarity: rare
+    req_level: 29                   # ITEMS §4 T5 req_level (enhances T5-T6, ENHANCEMENT §1)
+    price:
+      sell: 1200                    # no `buy`; first-pass sell
+    source_hint: ashfall             # R6, home of T5; ring's upper-tier elite/boss source
+    stack: 999
+    flavor: "Ash-black and cracked through with a vein of steady orange heat."
+
+  - id: item_etc_0196
+    name: Emberstone IV
+    category: etc
+    rarity: epic
+    req_level: 43                   # ITEMS §4 T7 req_level (enhances T7-T8, ENHANCEMENT §1)
+    price:
+      sell: 2500                    # no `buy`; first-pass sell
+    source_hint: frostpeak           # R9, home of T7; arc-2's first island elite/boss source
+    stack: 999
+    flavor: "Cold to the eye and hot to the touch, as if the frost itself caught fire."
+
+  - id: item_etc_0197
+    name: Emberstone V
+    category: etc
+    rarity: legendary
+    req_level: 57                   # ITEMS §4 T9 req_level (enhances T9-T10, ENHANCEMENT §1)
+    price:
+      sell: 5000                    # no `buy`; first-pass sell
+    source_hint: arcane_reach        # R10, home of T9; arc-2 mid-island elite/boss source
+    stack: 999
+    flavor: "A shard of banked fire suspended in glass, humming faintly with dead sorcery."
+
+# Open Questions (flagged for the owning docs, not resolved here -- content files carry no
+# ## Open Questions section of their own, per 50_content/README.md's exemplar convention):
+# - `req_level`/`source_hint` here follow ENHANCEMENT §1's tier->stone column (still accurate)
+#   rather than its req_level-range column (stale pre-v3 numbers, per ITEMS.md's own Open
+#   Question); ENHANCEMENT.md should adopt the ITEMS.md-recommended v3 remap (I->T1-T2 Lv1-14,
+#   II->T3-T4 Lv15-28, III->T5-T6 Lv29-42, IV->T7-T8 Lv43-56, V->T9-T10 Lv57-70, plus a new
+#   Emberstone VI at the reserved item_etc_0198 for T11-T12) so its own table matches what this
+#   file already had to infer.
+# - `price.sell` has no ECONOMY.md formula to check against (item.schema's own Open Question);
+#   the five values here are a first-pass escalating curve, not derived from a cited band.

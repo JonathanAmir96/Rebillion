@@ -1,0 +1,40 @@
+id: map_183
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, Verdigris Plaza
+region: clockwork
+map_type: field
+level_band: { min: 37, max: 38 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_tolling_row
+    kind: edge
+    at: { edge: left }
+    target_map: map_182
+    target_spawn: main
+    dead_end: false
+  - id: to_grinding_span
+    kind: edge
+    at: { edge: right }
+    target_map: map_184
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: verdigris_plaza_zone
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_135, count: 3 }
+      - { mob: mob_136, count: 2 }
+    max_concurrent: 6
+npcs: [npc_079]
+platform_brief: |
+  A copper-green plaza ringed by fallen statuary, wide and flat with no verticality
+  gimmick. Relic-Warden Ione keeps a small survey post at the plaza's center.
+flavor: "Verdigris has claimed every statue in this plaza, their brass faces long unreadable."

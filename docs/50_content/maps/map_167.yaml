@@ -1,0 +1,42 @@
+id: map_167
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Drowned Colonnade
+region: sunken
+map_type: dungeon
+level_band: { min: 36, max: 37 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 70, h: 50 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 40] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_166
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_168
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_dungeon_167
+    rect_tiles: { x: 15, y: 32, w: 40, h: 10 }
+    mobs:
+      - { mob: mob_121, count: 2 }
+      - { mob: mob_122, count: 2 }
+    max_concurrent: 8
+interactables: []
+npcs: []
+platform_brief: |
+  A long colonnade room-loop, denser combat pacing than the fields (SPAWN §2). Column-top
+  ledges string together in the doubled 10-tile water-physics jump distance.
+flavor: "A processional colonnade, its columns still upright, still holding a ceiling no one alive has seen dry."

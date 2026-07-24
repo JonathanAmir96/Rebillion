@@ -1,0 +1,34 @@
+id: map_196
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN, RAID]
+name: Mainspring Trial, the Flywheel Vault
+region: clockwork
+map_type: dungeon
+level_band: { min: 37, max: 40 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 60, h: 40 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_dust]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 30] }
+portals:
+  - id: to_escapement_antechamber
+    kind: door
+    at: { tile: [54, 12] }
+    target_map: map_197
+    target_spawn: main
+    dead_end: true  # one-way stage exit (RAID.md §4)
+spawn_zones:
+  - id: flywheel_vault_zone
+    rect_tiles: { x: 16, y: 22, w: 32, h: 10 }
+    mobs:
+      - { mob: mob_145, count: 2 }
+      - { mob: mob_146, count: 2 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  Stage 2: a collect-and-deposit room (RAID.md §4 pattern) around a stalled flywheel,
+  elites guarding the stage items. Party-instanced per SPAWN §7; no verticality gimmick.
+flavor: "A vault of stalled flywheels where the muster gathers what the Custodian's guardians won't give up easily."

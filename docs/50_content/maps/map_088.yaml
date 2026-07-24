@@ -1,0 +1,48 @@
+id: map_088
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: North Strand
+region: tidewatch
+map_type: field
+level_band: { min: 22, max: 22 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 190, h: 34 }
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [20, 20] }
+  - { id: from_ashfall, tile: [180, 20] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_087
+    target_spawn: main
+    dead_end: false
+  - id: to_ashfall
+    kind: edge
+    at: { edge: right }
+    target_map: map_140
+    target_spawn: from_tidewatch  # cross-region ring closure, WORLD_PLAN edge table -- forward-ref, Ashfall batch
+    dead_end: false
+  - id: to_siren_shoal
+    kind: door
+    at: { tile: [95, 18] }
+    target_map: map_097
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: field_main_088
+    rect_tiles: { x: 10, y: 18, w: 170, h: 10 }
+    mobs:
+      - { mob: mob_062, count: 3 }
+      - { mob: mob_063, count: 2 }
+      - { mob: mob_066, count: 1 }
+    max_concurrent: 8
+npcs: [npc_054]
+platform_brief: |
+  A single walkable band with gentle 1-2 tile rises, well within a standing jump.
+  No verticality gimmick beyond the coastal terrain dressing (ART_BIBLE AB-001) --
+  open exploration ground, gaps never exceed the 5-tile running-jump figure.
+flavor: "The coast bends north here into Ashfall's dune country, closing the Harthmoor ring at last."

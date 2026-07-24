@@ -1,0 +1,24 @@
+id: quest_113
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Hounds at the Threshold
+region: voidshore
+quest_type: main
+giver_npc: npc_118
+level_requirement: 77
+recommended_level: 77
+steps:
+  - type: kill
+    target: mob_222
+    count: 10
+  - type: collect
+    target: item_etc_0173
+    count: 5
+rewards:
+  exp: 273521  # round(0.20 * 1,367,604); main band 15-30% (QUESTS §4)
+  shards: 1770  # mean_shards_normal(77)*15 = 118*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 3 }
+flavor: "The wraithtide hounds have massed at the Sunder Deeps' threshold, and Padrig won't clear anyone through until they scatter."
+offer_text: "No one walks into the Deeps past a hound pack that size. Break it, bring me their fangs, and the threshold's yours."
+complete_text: "Fangs enough for a season's count. The Deeps are yours to walk now -- mind every step of it."

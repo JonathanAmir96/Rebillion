@@ -35,8 +35,11 @@ ID_REGISTRY.md (including tier layout for mobs — e.g., a boss ID slot may not 
 ## 5. World-graph soundness
 Every portal targets an existing map **and** an existing spawn point on that map; every map is
 reachable from `map_001`; no dead-end portals. One-way or intentionally terminal exits must be
-marked `dead_end: true` in the map file. Cross-region edges must match WORLD_PLAN.md's edge
-table exactly.
+marked `dead_end: true` in the map file. Cross-region edges must match the **authorized edge
+set** exactly: WORLD_PLAN.md's edge tables (arc 1 + arc 2).
+**Warn-only:** spawn-zone monster levels rise monotonically along ascending field-map ID order
+on a region's main path (WORLD_PLAN.md §"Map order & monster gradient law") — a violation
+warns, never fails.
 
 ## 6. Asset contract
 Animated entities declare `animation_states` using only ANIMATION_STATES.md tokens and include
@@ -44,10 +47,8 @@ every state required for their entity class (e.g., elites/bosses must include `t
 Skill `animation` IDs follow 40_assets/SKILL_ANIMATION.md naming (`<skill_id>_cast`, actives
 only); skill `icon` equals `ui_icon_skill_<line>_<NNN>` and item `icon` equals
 `ui_icon_item_<id stem>` (40_assets/SKILL_ANIMATION.md §5 / 40_assets/UI_ART_SPEC.md naming).
-Equip `appearance` refs are `pc_<slot>_NNN`, match the row's own `slot`, sit inside their
-ID_REGISTRY.md block, and appear only on the seven visible slots
-(40_assets/CHARACTER_COMPOSITION.md). Once `pc_*` sheets/manifests land, every layer sheet
-must match the canonical rig's states and frame counts (CHARACTER_COMPOSITION.md §3).
+Appearance-style references resolve to the ID_REGISTRY.md `style_<category>_NN` blocks
+(40_assets/CHARACTER_COMPOSITING.md).
 
 ## 7. Open Questions rollup
 Every doc ends with `## Open Questions`. Phase E collects every entry into the index at the
@@ -62,3 +63,6 @@ landed "to fix later."
 ## Open Questions
 - (Phase E) Should the CI validator also lint flavor-text length (≤2 sentences) mechanically?
   Default: yes, warn-only.
+- tools/validate.py's `item_use` ID ceiling (0060) predates the scroll block
+  `item_use_0061`–`0100` (ID_REGISTRY.md) — raise it when scroll content mints (owner:
+  validator/tools).

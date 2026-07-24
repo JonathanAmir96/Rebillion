@@ -1,0 +1,25 @@
+id: quest_110
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Before the Anchor Slips
+region: arcane_reach
+quest_type: main
+giver_npc: npc_108                # Sentinel-Scholar Rho, Sanctum Hall
+prereqs: [quest_108]
+level_requirement: 68
+recommended_level: 68
+steps:                            # parallel: clear the Stair's guardians and bring proof of the Vault's state
+  - type: kill
+    target: mob_204
+    count: 6
+  - type: collect
+    target: item_etc_0160
+    count: 5
+rewards:
+  exp: 182385                     # round(0.20 * exp_to_next(68)=911,925); main band (QUESTS §4)
+  shards: 1575                    # mean_shards_normal(68)*15 = 105*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 5 }
+flavor: "The Unmoored Stair's last guardians circle closer to the Anchor Vault every season, and Rho fears Aetheron itself is what's stirring them."
+offer_text: "Clear the Stair's last watchers and bring me whatever's still humming on them. I need to know how much longer the Anchor Vault holds before someone faces what's inside."
+complete_text: "Just as I feared -- it's not sleeping, it's straining. Whoever goes into that Vault next should go in knowing that."

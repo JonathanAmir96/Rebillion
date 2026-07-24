@@ -1,0 +1,24 @@
+id: mob_001
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Tuftmoth Grub
+tier: normal                     # ID slot 001 = first R1 normal (ID_REGISTRY Monsters)
+element: neutral                 # R1 element split is neutral/fire (WORLD_PLAN); this is a neutral critter
+level: 1
+size_class: tiny
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 1
+  life: 65                       # 4*(1+3)^2
+  power: 9                       # 6+3*1 (touch dmg = round(0.5*power), neutral, §13.1)
+  armor: 6                       # 6*1  (armor+warding sum = 12 = 12*1)
+  warding: 6                     # 6*1
+  precision: 4                   # 4*1
+  evasion: 3.0                   # 3 + 0.03*1 (%)
+  exp: 4                         # exp_per_kill_normal(1)=round(4*1^1.3) (LEVELING §3)
+ai_profile: passive_wanderer     # ambient wildlife; ignores the player unless struck (AI_BEHAVIOR §3)
+ai_params:                       # override only passive_wanderer-declared tunables
+  wander_radius: 5
+  flee_duration_s: 4
+  corner_wait_s: 2
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_001
+flavor: "A fat, downy grub that chews the warm meadow grass and pays a passing adventurer no mind at all. The first thing every Emberfoot novice ever swings at."

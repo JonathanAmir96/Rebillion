@@ -1,0 +1,11 @@
+id: drop_mob_181
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone/pool row
+owner: mob_181
+rows:
+  # shards guaranteed. mean_shards_normal(54)=round(1.5*54+3)=84; range=[round(0.8*84),round(1.2*84)] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 67, qty_max: 101 }
+  # region material, common (DROPS §5.1); item_etc_0147 is this mob's R10 material
+  - { ref: item_etc_0147, chance: common, qty_min: 1, qty_max: 2 }
+  # a use item at rare (DROPS §5.1); Sovereign Essence Tonic serves the Lv 53-68 band
+  - { ref: item_use_0018, chance: rare, qty_min: 1, qty_max: 1 }

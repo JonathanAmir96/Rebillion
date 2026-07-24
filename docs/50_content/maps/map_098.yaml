@@ -1,0 +1,49 @@
+id: map_098
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Gloomwood Eaves, Outer Verge
+region: gloomwood
+map_type: field
+level_band: { min: 20, max: 20 }        # region floor; entrance from Verdant's deep hollow
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 150, h: 28 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 20] }
+  - { id: from_verdant, tile: [8, 20] }     # WORLD_PLAN cross-region edge: Verdant deep hollow (map_060) -> here
+portals:
+  - id: to_verdant_hollow
+    kind: edge
+    at: { edge: left }
+    target_map: map_060                     # forward-ref: Verdant Hollow (R3, not yet authored)
+    target_spawn: from_gloomwood
+    dead_end: false
+  - id: to_first_shadow
+    kind: edge
+    at: { edge: right }
+    target_map: map_099
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: eaves_outer_verge
+    rect_tiles: { x: 24, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_068, count: 4 }
+      - { mob: mob_069, count: 2 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_eaves_trailhead
+    at_tile: [14, 19]
+    params:
+      text: "The last light of Verdant Hollow fades behind you; the canopy ahead swallows it whole."
+      interact_prompt: Read
+npcs: [npc_055]
+platform_brief: |
+  A single low terrace under the first closing canopy, gaps within the standard running-jump
+  budget (MAP_TRAVERSAL §1.1). Terrain is foothold segments dressed with painted gloomwood
+  terrain_chunks (ART_BIBLE AB-001). No verticality gimmick -- the wood simply darkens.
+flavor: "The trees close overhead before the trail even properly begins, and the hush arrives well before the dark does."

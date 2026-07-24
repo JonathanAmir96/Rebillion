@@ -1,0 +1,22 @@
+id: quest_117
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Coral Older Than the Wardshells
+region: voidshore
+quest_type: side
+giver_npc: npc_114
+level_requirement: 75
+recommended_level: 75
+steps:
+  - type: kill
+    target: mob_220
+    count: 8
+  - type: collect
+    target: item_etc_0172
+    count: 5
+rewards:
+  exp: 75295  # round(0.06 * 1,254,920); side band 5-10% (QUESTS §4)
+  shards: 464  # mean_shards_normal(75)*4 = 116*4 (QUESTS §5 / DROPS §3)
+flavor: "The umbral wardshells armor themselves in coral grown black under a sunless tide, and Sella pays well for a sample."
+offer_text: "Crack a few wardshells and bring me their coral plating. I want to know how old that reef really is."
+complete_text: "Older than the Heights themselves, by the look of it. That's a worrying answer, but an answer all the same."

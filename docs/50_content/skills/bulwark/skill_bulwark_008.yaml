@@ -1,0 +1,41 @@
+id: skill_bulwark_008
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Ground Slam
+line: bulwark
+tier: second
+kind: active
+targeting: { shape: aoe_circle, radius: 2.5, origin: self }   # roster target `aoe_circle` (SKILL_SYSTEM §6)
+cost: { essence: 13 }
+cooldown: 12.0
+level_data:
+  - level: 1
+    essence_cost: 13
+    cooldown: 12.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.1 }
+      - { op: apply_status, status: stun, chance: 0.35 }        # base dur = STATUS_EFFECTS §4.1 (1.5 s, hard-CC DR applies)
+      - { op: knockback, distance: 1.5, vertical: 1.0, direction: away_from_source }
+  - level: 4
+    essence_cost: 16
+    cooldown: 11.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.5 }
+      - { op: apply_status, status: stun, chance: 0.45 }
+      - { op: knockback, distance: 1.5, vertical: 1.0, direction: away_from_source }
+  - level: 7
+    essence_cost: 19
+    cooldown: 10.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.9 }
+      - { op: apply_status, status: stun, chance: 0.55 }
+      - { op: knockback, distance: 1.5, vertical: 1.0, direction: away_from_source }
+  - level: 10
+    essence_cost: 22
+    cooldown: 9.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 2.3 }
+      - { op: apply_status, status: stun, chance: 0.65 }
+      - { op: knockback, distance: 1.5, vertical: 1.0, direction: away_from_source }
+animation: skill_bulwark_008_cast
+flavor: "Both fists into the ground hard enough to buckle knees in every direction. The Ironbrand's answer to a crowd."

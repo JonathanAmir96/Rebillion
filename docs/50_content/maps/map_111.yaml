@@ -1,0 +1,54 @@
+id: map_111
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Sunken Canopy, Dead Light
+region: gloomwood
+map_type: field
+level_band: { min: 26, max: 27 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 32 }
+bgm: bgm_gloomwood
+ambience: [amb_canopy_drip, amb_web_creak]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_110
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_112
+    target_spawn: main
+    dead_end: false
+  - id: to_hollow_trunk_warrens
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_115
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_canopy_dead_light
+    rect_tiles: { x: 26, y: 22, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_080, count: 3 }
+      - { mob: mob_081, count: 3 }
+    max_concurrent: 6
+interactables:
+  - type: sign
+    id: sign_trunk_hollow_mouth
+    at_tile: [70, 23]
+    params:
+      text: "A split in a titan root drops down into pitch dark -- the trunk warrens begin below."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A dead, lightless stretch where a split root forms a sheer drop down into the trunk
+  warrens (the map's one verticality gimmick, edge:bottom portal). The horizontal chain
+  otherwise stays within the standard jump budget (MAP_TRAVERSAL §1.1, ART_BIBLE AB-001).
+flavor: "No canopy filters anything here -- the dark is total, and a split root drops straight down into more of it."

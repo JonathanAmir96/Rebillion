@@ -1,0 +1,58 @@
+id: map_247
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: The Runewake
+region: arcane_reach
+map_type: interior                        # combat-free longship deck (MAP_CONNECTIONS §8.2, §8.4)
+level_band: { min: 53, max: 68 }           # serves every Reach-touching route; spans the region band
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 38, h: 20 }               # interior: <=1 screen (MAPS_SYSTEM §2)
+bgm: bgm_interior_hushed                    # hushed variant per MAPS_SYSTEM §5's interior option
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [19, 14] }
+  - { id: longship_deck, tile: [19, 14] }    # boarding arrival point (MAP_CONNECTIONS §2/§8)
+portals:
+  - id: to_tidewatch_pier                     # arrival portal: sail's end delivers to Tidewatch Port
+    kind: longship
+    at: { tile: [8, 14] }
+    target_map: map_071                        # forward-ref: Tidewatch Port pier (R4, not yet authored)
+    target_spawn: longship_dock
+    route_id: route_arcane_reach_tidewatch
+    fare_ref: fare_longship_medium
+    cadence_s: 120.0
+    sail_duration_s: 165.0
+  - id: to_frosthaven_pier                    # arrival portal: sail's end delivers to Frosthaven
+    kind: longship
+    at: { tile: [19, 6] }
+    target_map: map_204                        # Frostpeak's port town (R9, already authored)
+    target_spawn: longship_dock
+    route_id: route_frostpeak_arcane_reach
+    fare_ref: fare_longship_short
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+  - id: to_duskwatch_pier                     # arrival portal: sail's end delivers to Duskwatch Landing
+    kind: longship
+    at: { tile: [30, 14] }
+    target_map: map_285                        # forward-ref: Voidshore's port town (R11, not yet authored)
+    target_spawn: longship_dock
+    route_id: route_arcane_reach_voidshore
+    fare_ref: fare_longship_short
+    cadence_s: 120.0
+    sail_duration_s: 150.0
+interactables:
+  - type: sign
+    id: sign_runewake_rail
+    at_tile: [19, 13]
+    params:
+      text: "Mind the rail past the third bell. The mist below doesn't always show you the drop."
+      interact_prompt: Read
+npcs: [npc_103]
+platform_brief: |
+  One open deck, flat and railed, no verticality gimmick beyond the ship's own gentle list --
+  a social interlude, not a combat map (MAP_CONNECTIONS §8.2/§8.4). Foothold segments dressed
+  in painted deckwork terrain_chunks (ART_BIBLE AB-001); the three gangways sit at bow, stern,
+  and rail, one per route this vessel serves.
+flavor: "The Reach's own longship, its hull threaded with the same dead runework that keeps the shards aloft."

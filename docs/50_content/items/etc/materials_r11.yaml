@@ -1,0 +1,151 @@
+id: item_table_materials_r11
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, INVENTORY, DROPS, WORLD_PLAN]
+# R11 Voidshore monster materials: item_etc_0161-0176 (ID_REGISTRY etc block). One per R11 species theme.
+# etc rows: no `buy` (not vendor-purchasable, ITEMS §1); `sell` authored directly (no ECONOMY etc owner, first-pass);
+# `stack: 999` (INVENTORY §2 etc tab); req_level = source mob band placement (advisory, not an equip gate).
+items:
+  - id: item_etc_0161
+    name: Voidsilk Strand
+    category: etc
+    rarity: common
+    req_level: 66
+    price: { sell: 70 }
+    source_hint: mob_207          # Voidling Skitterer (cross-checks drop_mob_207)
+    stack: 999
+    flavor: "A thread of living dark spun by the skitterers of the black surf; it drinks the light from a lamp held too near."
+  - id: item_etc_0162
+    name: Umbral Ichor
+    category: etc
+    rarity: common
+    req_level: 67
+    price: { sell: 72 }
+    source_hint: mob_209          # Umbral Lunger
+    stack: 999
+    flavor: "Cold black fluid that beads but never dries. The far-isle alchemists prize it and fear it in equal measure."
+  - id: item_etc_0163
+    name: Tidesunder Scale
+    category: etc
+    rarity: uncommon
+    req_level: 68
+    price: { sell: 74 }
+    source_hint: mob_211          # Brinebound Hulk
+    stack: 999
+    flavor: "A palm-broad plate of brine-fused shell, heavy as slate and just as grey. Barnacles cling to it even after the kill."
+  - id: item_etc_0164
+    name: Drowned Pearl
+    category: etc
+    rarity: uncommon
+    req_level: 66
+    price: { sell: 70 }
+    source_hint: mob_208          # Pale Shoregrazer
+    stack: 999
+    flavor: "A lightless pearl coughed up by the shoregrazers; it holds no shine, only a faint chill against the palm."
+  - id: item_etc_0165
+    name: Shadeglass Shard
+    category: etc
+    rarity: uncommon
+    req_level: 73
+    price: { sell: 80 }
+    source_hint: mob_217          # Shadeglass Caster
+    stack: 999
+    flavor: "A splinter of black glass that shows no reflection. It parts skin without warmth and rings like a struck bell."
+  - id: item_etc_0166
+    name: Nyx-Touched Carapace
+    category: etc
+    rarity: common
+    req_level: 71
+    price: { sell: 78 }
+    source_hint: mob_214          # Void-Barnacle Swarmer
+    stack: 999
+    flavor: "A snapping shell stained through by the void-tide, still faintly clicking hours after the swarm is dead."
+  - id: item_etc_0167
+    name: Eclipse Cinder
+    category: etc
+    rarity: uncommon
+    req_level: 71
+    price: { sell: 78 }
+    source_hint: mob_215          # Eclipse Chanter
+    stack: 999
+    flavor: "A coal that burns black instead of bright, gathered from a chanter's murmured dark. It cools nothing and lights less."
+  - id: item_etc_0168
+    name: Abyssal Brine
+    category: etc
+    rarity: common
+    req_level: 74
+    price: { sell: 82 }
+    source_hint: mob_218          # Drowned Tiderammer
+    stack: 999
+    flavor: "Water from below the torn sky, so dense a dropped coin floats. It tastes of rust and older, colder things."
+  - id: item_etc_0169
+    name: Torn-Sky Fragment
+    category: etc
+    rarity: uncommon
+    req_level: 69
+    price: { sell: 75 }
+    source_hint: mob_212          # Duskwing Shade
+    stack: 999
+    flavor: "A scrap of the sky itself, torn loose and fallen; it flutters against a still hand as if wind still touched it."
+  - id: item_etc_0170
+    name: Gloomfin Roe
+    category: etc
+    rarity: common
+    req_level: 68
+    price: { sell: 74 }
+    source_hint: mob_210          # Gloomtide Spitter
+    stack: 999
+    flavor: "A clutch of black eggs the spitters guard in their gullets. They never hatch on dry land, and no one dares wet them."
+  - id: item_etc_0171
+    name: Void-Barnacle Cluster
+    category: etc
+    rarity: uncommon
+    req_level: 76
+    price: { sell: 86 }
+    source_hint: mob_221          # Sunken Spineturret
+    stack: 999
+    flavor: "A knot of rooted spines and shell prised whole from a turret's base. It still tries to pivot toward warmth."
+  - id: item_etc_0172
+    name: Sable Coral
+    category: etc
+    rarity: uncommon
+    req_level: 75
+    price: { sell: 84 }
+    source_hint: mob_220          # Umbral Wardshell
+    stack: 999
+    flavor: "Coral grown black under a sunless tide, hard as iron and sharp as intent. Wardshells armor themselves in it for a reason."
+  - id: item_etc_0173
+    name: Duskmaw Fang
+    category: etc
+    rarity: uncommon
+    req_level: 77
+    price: { sell: 90 }
+    source_hint: mob_222          # Wraithtide Hound
+    stack: 999
+    flavor: "A curved, spectral tooth that stays cold to the bone. It keeps its edge long after the hound that bore it has faded."
+  - id: item_etc_0174
+    name: Drift-Wraith Essence
+    category: etc
+    rarity: rare
+    req_level: 79
+    price: { sell: 94 }
+    source_hint: mob_225          # Sable Tidecaller
+    stack: 999
+    flavor: "A caught wisp of a tidecaller's last breath, sealed in a jar that frosts from within. It hums when the sea is near."
+  - id: item_etc_0175
+    name: Leviathan Bone
+    category: etc
+    rarity: rare
+    req_level: 78
+    price: { sell: 92 }
+    source_hint: mob_224          # Leviathan Calf
+    stack: 999
+    flavor: "A single rib of a young deep-thing, longer than a tall man and lighter than driftwood. Even the calf's bones are vast."
+  - id: item_etc_0176
+    name: Tidecaller's Horn
+    category: etc
+    rarity: rare
+    req_level: 80
+    price: { sell: 98 }
+    source_hint: mob_226          # Voidshore Harbinger
+    stack: 999
+    flavor: "A spiral horn the harbingers sound to summon the black tide. Held to the ear, it carries the roar of a sea that should not be."

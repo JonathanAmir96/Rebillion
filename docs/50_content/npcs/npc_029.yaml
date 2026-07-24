@@ -1,0 +1,12 @@
+id: npc_029
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS, RAID, PERSISTENCE]
+name: Herald Mirek Dusk
+region: millbrook
+map: map_037
+role: handler
+dialog:
+  greeting: "The Undervault Heist doesn't open for one alone. Muster a party, prove your steel, and I'll see you through."
+  farewell: "Mind the flooded ledgers. The Cellar King doesn't forgive a careless step."
+portrait: portrait_npc_029
+flavor: "Dusk has called musters into the Undervault Heist since the catacombs first flooded, and keeps a tally of every party that's come back whole."

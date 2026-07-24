@@ -1,0 +1,52 @@
+id: map_067
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Root Warrens, The Last Root
+region: verdant
+map_type: dungeon
+level_band: { min: 15, max: 16 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 60, h: 50 }
+bgm: bgm_verdant_hollow
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [30, 8] }
+portals:
+  - id: to_heartwood_vault
+    kind: edge
+    at: { edge: top }
+    target_map: map_066
+    target_spawn: main
+    dead_end: false
+  - id: to_thornheart_grove
+    kind: door                              # arena's mandated single door-kind entrance (MAPS_SYSTEM §8)
+    at: { tile: [30, 42] }
+    target_map: map_070
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: last_root_hall
+    rect_tiles: { x: 14, y: 18, w: 32, h: 20 }
+    mobs:
+      - { mob: mob_042, count: 3 }
+  - id: last_root_elite_guard
+    rect_tiles: { x: 12, y: 36, w: 36, h: 6 }
+    mobs:
+      - { mob: mob_046, count: 1 }        # elite, guards the arena approach
+    max_concurrent: 2
+    respawn_override: 90
+interactables:
+  - type: sign
+    id: sign_last_root
+    at_tile: [22, 17]
+    params:
+      text: "The root-walls stop dead ahead, and open ground and thorn-light show through. Thornheart Grove waits."
+      interact_prompt: Read
+npcs: [npc_040]
+platform_brief: |
+  A short final hall opening onto a guarded threshold, gaps within the 5-tile/3.5-tile
+  jump caps (MAP_TRAVERSAL §1.1). Foothold segments dressed in root-tunnel terrain_chunks
+  (ART_BIBLE AB-001); the elite guard zone spans the approach to the arena door.
+flavor: "The tunnel ends here in open thorn-light -- the Sovereign's grove is only a door away now."

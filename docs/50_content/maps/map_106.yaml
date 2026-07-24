@@ -1,0 +1,41 @@
+id: map_106
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Cobweb Hollow, Middle Skein
+region: gloomwood
+map_type: field
+level_band: { min: 24, max: 24 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_gloomwood
+ambience: [amb_web_creak, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_105
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_107
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: cobweb_middle_skein
+    rect_tiles: { x: 26, y: 20, w: 64, h: 8 }
+    mobs:
+      - { mob: mob_075, count: 3 }
+      - { mob: mob_076, count: 3 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  Web-draped terraces narrow the walkable band but every gap stays within the standard
+  jump budget (MAP_TRAVERSAL §1.1). Terrain is foothold segments under painted gloomwood
+  terrain_chunks (ART_BIBLE AB-001); the webbing itself is unclimbable dressing.
+flavor: "The strands overhead thicken into ropes here, though nothing has yet shown itself to spin them."

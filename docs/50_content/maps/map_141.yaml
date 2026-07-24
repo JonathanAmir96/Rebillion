@@ -1,0 +1,41 @@
+id: map_141
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Ashfall Char Ridge
+region: ashfall
+map_type: field
+level_band: { min: 32, max: 33 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 150, h: 26 }
+bgm: bgm_ashfall
+ambience: [amb_wind, amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 20] }
+  - { id: from_clockwork, tile: [140, 20] }  # arrival from Clockwork Ruins' east gate
+portals:
+  - id: to_140
+    kind: edge
+    at: { edge: left }
+    target_map: map_140
+    target_spawn: main
+    # gate to Clockwork Ruins' east gate (WORLD_PLAN edge table); forward-ref, R8 sibling batch
+  - id: to_clockwork
+    kind: edge
+    at: { edge: right }
+    target_map: map_177
+    target_spawn: from_ashfall
+spawn_zones:
+  - id: map_141_zone
+    rect_tiles: { x: 30, y: 16, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_101, count: 3 }
+      - { mob: mob_102, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  The ridge climbs in three short shelves, each within the 3.5-tile rise cap
+  (MAP_TRAVERSAL §1.1); the final shelf overlooks Clockwork's brass towers below.
+  Terrain is foothold segments under painted char terrain_chunks (ART_BIBLE AB-001).
+flavor: "The barrens end at a blackened ridge overlooking the brass towers of the Clockwork Ruins below."

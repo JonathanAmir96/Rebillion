@@ -86,7 +86,7 @@ locked max), `rows=9`. `cell_box = 34x34`. `sheet_content = 272x306` → `sheet 
 spawn`; `size_class: boss` → `cw=ch=96`): `cols=8`, `rows=9`. `cell_box = 98x98`.
 `sheet_content = 784x882` → `sheet = 1024x1024`.
 
-In the boss example, `attack`'s row is index 2 (canonical-order position, §4); if that row's
+In the boss example, `attack`'s row is index 2 (canonical-order position, §3); if that row's
 `hit_frame` is 2 (`40_assets/ANIMATION_TIMING.md` default formula for a 5-frame clip), its content
 rect is `content_x = 2*98+1 = 197`, `content_y = 2*98+1 = 197`, size `96x96`.
 
@@ -154,10 +154,9 @@ snapping) are unchanged and cited, not restated (§8).
 Every packed cell corresponds to exactly one `40_assets/ART_BIBLE.yaml` `export_contract.frame_naming`
 identity, verbatim: `{entity_id}_{state}_{NN}` (`NN` = 2-digit, zero-based, per that key). `{state}`
 is always one of the 12 exact `40_assets/ANIMATION_STATES.md` §1 tokens; `{entity_id}` is `mob_NNN`
-or `npc_NNN` (`docs/ID_REGISTRY.md`) for monsters/NPCs. The player is a composed paper-doll with
-no single sheet — each appearance layer's `pc_<layer>_NNN` id serves as the `{entity_id}` and each
-layer sheet is its own atlas+manifest under this same contract
-(`40_assets/CHARACTER_COMPOSITION.md` §7). This naming
+or `npc_NNN` (`docs/ID_REGISTRY.md`) for monsters/NPCs. The player has no registered `entity_id`
+today (see Open Questions, inherited from `40_assets/ANIMATION_STATES.md`'s own flag) — examples
+below use the placeholder literal `player`, which is illustrative only, not a minted ID. This naming
 identifies a frame whether it is still a loose exported PNG (pre-packing) or a cell inside the packed
 atlas (post-packing, §1); the manifest (§7) is what maps a given name to its packed cell.
 
@@ -178,11 +177,11 @@ references: [ART_BIBLE, ANIMATION_STATES, ANIMATION_TIMING]
 size_class: large                  # 40_assets/ART_BIBLE.yaml sizing.size_classes key
 sheet:
   file: mob_010.png
-  dimensions_px: [1024, 512]        # power-of-two, padding included (§2.1)
+  dimensions_px: [512, 512]         # power-of-two, padding included (§2.1)
   cell_content_px: [64, 64]         # = size_class dims (§4)
   padding_px: 1
   extruded: true
-  cols: 8                           # §2.2 — max frame_count across this entity's declared states
+  cols: 6                           # §2.2 — max frame_count across this entity's declared states
 pivot:
   mode: feet-center                 # ART_BIBLE.yaml sizing.pivot
   content_px: [32, 64]              # §5 table value for this size_class — exact, per-asset
@@ -190,9 +189,9 @@ states:                             # keys: subset of the 12 canonical tokens th
   idle:     { row: 0, frame_count: 3, fps_ref: idle }
   walk:     { row: 1, frame_count: 6, fps_ref: walk }
   attack:   { row: 2, frame_count: 5, fps_ref: attack, hit_frame: 2 }
-  telegraph:{ row: 3, frame_count: 3, fps_ref: telegraph }
-  hit:      { row: 4, frame_count: 3, fps_ref: hit }
-  die:      { row: 5, frame_count: 5, fps_ref: die }
+  hit:      { row: 3, frame_count: 3, fps_ref: hit }
+  die:      { row: 4, frame_count: 5, fps_ref: die }
+  telegraph:{ row: 5, frame_count: 3, fps_ref: telegraph }
   spawn:    { row: 6, frame_count: 4, fps_ref: spawn }
 ```
 
@@ -249,11 +248,20 @@ contract is specifically for **animated entities** — the classes `40_assets/AN
 defines (player, monster tiers, summon, npc) — not for tiles/props/projectiles/fx/ui, whose atlas
 shapes (if any) are a different, not-yet-authored contract (Open Questions).
 
+**Player exception (composited entity):** the player is never one baked sheet — it renders as
+a layer stack per `40_assets/CHARACTER_COMPOSITING.md`, and **each part** (base body, hair,
+face, visible-equip visual) is packed as its own entity under this doc's full contract, with
+the part's ID (`style_*` / `item_equip_NNNN`) standing in the `{entity_id}` position. That doc
+also owns the two manifest extensions its parts carry (`anchors` on the base body, `origin_px`
+on anchored parts); everything else in §1–§8 applies to player parts unchanged.
+
 ```
 assets/
   characters/
-    player/                      # one subfolder per layer family; pc_<layer>_NNN sheets —
-      ...                        # concrete tree owned by 40_assets/CHARACTER_COMPOSITION.md §7
+    player/
+      <layer>/<part_id>/         # composited parts — see 40_assets/CHARACTER_COMPOSITING.md §6
+        <part_id>.png
+        <part_id>.atlas.yaml
     monsters/
       mob_NNN/
         mob_NNN.png
@@ -280,11 +288,10 @@ One folder per `mob_NNN`/`npc_NNN` (rather than a flat `monsters/mob_010.png` al
   same doc, or a distinct, not-yet-authored companion (e.g., the frames→atlas build tooling of §1,
   as opposed to this doc's static contract), is unconfirmed. This doc treats itself as satisfying
   that citation; flagged for `ENGINEERING_STANDARDS.md`'s owner to reconcile the name.
-- ~~Player has no registered `entity_id`.~~ **Resolved (C):** `40_assets/CHARACTER_COMPOSITION.md`
-  fixes the convention — the player is layered, each layer sheet's `pc_<layer>_NNN` id
-  (`docs/ID_REGISTRY.md`) is the `{entity_id}`, and every `pc_*` sheet follows this doc's
-  atlas+manifest contract at the canonical rig's fixed frame counts (its §3/§7). §2.3's worked
-  "small player" example remains valid as written for any single layer sheet.
+- **Player has no registered `entity_id`.** Inherits `40_assets/ANIMATION_STATES.md`'s own flagged
+  gap (no ID prefix, no `player.schema.md`). This doc's `player/` folder and manifest `id` use the
+  placeholder literal `player` illustratively only; the real convention (a minted prefix, or the
+  job-line tokens doubling as `entity_id`) is that doc's open question, not resolved here.
 - **Telegraph/phase_shift/spawn budgets are still proposed, not blessed.** `40_assets/ANIMATION_STATES.md`
   §2.2's three frame-count ranges are pending Agent-3 sign-off into `40_assets/ART_BIBLE.yaml`
   `amendments[]`. This doc's worked examples (§2.3) using those states' frame counts will need
@@ -294,10 +301,9 @@ One folder per `mob_NNN`/`npc_NNN` (rather than a flat `monsters/mob_010.png` al
   Flag if a future texture-memory budget pass wants the tighter layout instead.
 - **Per-ability clip granularity does not exist yet.** `20_schemas/monster.schema.md` `abilities[]`
   rows carry no clip id of their own — every elite/boss ability that plays through `cast` (or
-  `attack`) shares that one state row's `hit_frame`/frame count in this doc's manifest. Whether a
-  future per-ability animation-id layer (parallel to `40_assets/SKILL_ANIMATION.md`'s FX namespace
-  for player skills — that doc has since landed but scopes itself player-only, its §3) is needed
-  for monster kits is not resolved here.
+  `attack`) shares that one state row's `hit_frame`/frame count in this doc's manifest.
+  `40_assets/SKILL_ANIMATION.md` is now authored and covers player skills; whether a parallel
+  per-ability animation-id layer is needed for monster kits is not resolved here.
 - **`docs/VALIDATION.md` has no check for this manifest.** §6 there validates an entity's
   `animation_states` field and skill `animation` ID naming, but nothing yet checks the atlas
   manifest sidecar itself (power-of-two dimensions, `hit_frame` present on every `attack`/`cast` row,

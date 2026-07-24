@@ -1,0 +1,18 @@
+id: drop_mob_234
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN, PARTY]   # boss table (emberstone + boss-order uniques); raid finale (PARTY loot-split)
+owner: mob_234
+rows:
+  # shards guaranteed, boss x15. mean_shards_normal(80)=round(1.5*80+3)=123; x15 mean=1845; +-20%=[1476,2214] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 1476, qty_max: 2214 }
+  # region materials guaranteed (crafting/quest mats, DROPS §5.3)
+  - { ref: item_etc_0176, chance: guaranteed, qty_min: 1, qty_max: 2 }
+  - { ref: item_etc_0175, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  # emberstone(s): 1 guaranteed + a 2nd at uncommon (DROPS §5.3, ENHANCEMENT §1)
+  - { ref: item_etc_0197, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0197, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one guaranteed pool roll, rarity_source boss (DROPS §5.3/§5.5). Raid-entry kill instead rolls the §5.5 raid row at runtime (RAID.md §6) — not re-authored here
+  - { ref: pool_equip_r11, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss uniques: Nyxaris owns item_equip_0221/0222 (ID_REGISTRY boss #11). First-ever clear guarantees one (DROPS §5.3)
+  - { ref: item_equip_0221, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0222, chance: legendary, qty_min: 1, qty_max: 1 }

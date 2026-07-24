@@ -1,0 +1,47 @@
+id: map_274
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Rune Vaults, the Last Ledge
+region: arcane_reach
+map_type: dungeon
+level_band: { min: 69, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 65, h: 68 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 60] }
+portals:
+  - id: to_guttering_hall
+    kind: edge
+    at: { edge: bottom }
+    target_map: map_273
+    target_spawn: main
+    dead_end: false
+  - id: to_deepest_chamber
+    kind: edge
+    at: { edge: top }
+    target_map: map_275
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: last_ledge_chamber
+    rect_tiles: { x: 18, y: 26, w: 30, h: 26 }
+    mobs:
+      - { mob: mob_198, count: 2 }
+    max_concurrent: 8
+  - id: last_ledge_flourish
+    rect_tiles: { x: 20, y: 10, w: 20, h: 10 }
+    mobs:
+      - { mob: mob_200, count: 1 }
+      - { mob: mob_201, count: 1 }
+    max_concurrent: 3
+interactables: []
+npcs: []
+platform_brief: |
+  A narrow ledge circling the vault's last intact chamber below. One climb within the
+  3.5-tile rise cap (MAP_TRAVERSAL §1.1) reaches the elevated flourish zone. Dense corridor
+  combat holding through to the vault's deepest room (SPAWN §2).
+flavor: "Past this ledge the vault stops pretending to be a library and starts looking like a cage."

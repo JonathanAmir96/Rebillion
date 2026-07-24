@@ -1,0 +1,13 @@
+id: npc_090
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, INVENTORY, PERSISTENCE]
+name: Banker Holfrek
+region: frostpeak
+map: map_220
+role: banker
+services: [storage]
+dialog:
+  greeting: "Wyrmcrag's vault is the only warm stone for three fields in any direction. Store what you like."
+  farewell: "It'll keep. Everything keeps up here."
+portrait: portrait_npc_090
+flavor: "Holfrek minds Wyrmcrag Hold's strongbox, a post he treats as gravely as any garrison duty."

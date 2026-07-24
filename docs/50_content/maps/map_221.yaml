@@ -1,0 +1,31 @@
+id: map_221
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Wyrmcrag Hold Hall
+region: frostpeak
+map_type: interior
+level_band: { min: 51, max: 51 }
+biome: frostpeak
+tileset: tileset_frostpeak
+size_tiles: { w: 32, h: 18 }
+bgm: bgm_town_frostpeak
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 14] }
+portals:
+  - id: to_wyrmcrag_hold
+    kind: door
+    at: { tile: [4, 14] }
+    target_map: map_220
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: inn_bed
+    id: bed_hold_hall
+    at_tile: [24, 14]
+    params: {}
+npcs: [npc_091, npc_092, npc_094]
+platform_brief: |
+  A long stone hall, hearth-fire down the center line, benches either side. No verticality,
+  no combat -- the hold's shared hearth room doubling as inn, enchanter's bench, and archive.
+flavor: "Wyrmcrag's shared hearth hall, half inn and half archive, where the hold's few residents keep the mountain's records and its fires both."

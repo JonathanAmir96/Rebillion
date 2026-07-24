@@ -1,0 +1,43 @@
+id: mob_104
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Emberbrood Matron
+tier: elite                      # ID slot 104 = R6 elite (ID_REGISTRY ashfall)
+element: fire
+weak_to: [frost]
+resists: [fire]
+level: 34
+size_class: large
+stats:                           # §13 normal Lv 34 x §13.2 elite multipliers
+  life: 32856                    # 5476 x6
+  power: 162                     # 108 x1.5
+  armor: 265                     # 204 x1.3  (armor+warding sum ~= 12*34 x1.3)
+  warding: 265                   # 204 x1.3
+  precision: 150                 # 136 x1.1
+  evasion: 6.0                   # 4.0 + 2% (§13.2 elite)
+  exp: 1960                     # exp_per_kill_normal(34)=392 x5 (LEVELING §3 elite)
+ai_profile: pack_hunter
+ai_params:
+  aggro_radius: 6
+  pack_call_radius: 12
+  pack_max_size: 5
+abilities:
+  - id: cinder_call
+    name: Cinder Call
+    targeting: self
+    cooldown: 16.0
+    telegraph_s: 1.2
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
+      - { op: summon_entity, entity_ref: mob_088, count: 2, dur: 20 }
+  - id: searing_bite
+    name: Searing Bite
+    targeting: melee_arc
+    cooldown: 6.0
+    telegraph_s: 0.9
+    effects:
+      - { op: deal_damage, element: fire, mult: 1.4 }
+      - { op: apply_status, status: burn, chance: 0.6, dur: 6 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_104
+flavor: "The brood-heart of a cinder swarm, grown to a hunched, ember-veined bulk that births her clouds anew when they thin. Where she settles, the ash itself starts to glow."

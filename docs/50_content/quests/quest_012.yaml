@@ -1,0 +1,24 @@
+id: quest_012
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, JOBS]
+name: The Clockwork Reckoning
+region: millbrook
+quest_type: main
+giver_npc: npc_017
+level_requirement: 40
+recommended_level: 40
+prereqs: [quest_011]
+steps:
+  - type: reach
+    target: map_180                 # the flicker trial ground, Brassvein Terraces (WORLD_PLAN §Job instructors / JOBS §1.1)
+    zone: flicker_trial_ground
+  - type: talk
+    target: npc_017
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 32912    # round(0.20*164,560) (LEVELING §1 Lv40 exp_to_next); main band, pct=0.20
+  shards: 945    # mean_shards_normal(40)*15 = 63*15 (round(1.5*40+3)=63) (QUESTS §5 / DROPS §3)
+flavor: "The Clockwork Ruins keep their own trials for a reason -- Vex says it's the only place that tells the truth about what you've become."
+offer_text: "You've grown past the first lesson. Reach the Mainspring's trial chamber, pass its judgment, and come tell me which road you'll walk for good."
+complete_text: "Then it's decided -- for life, mind you. Wear it well."

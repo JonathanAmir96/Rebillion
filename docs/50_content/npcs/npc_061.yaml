@@ -1,0 +1,12 @@
+id: npc_061
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Loomwarden Thessaly
+region: gloomwood
+map: map_121
+role: quest_giver
+dialog:
+  greeting: "Past this gate the loom itself is awake, and Mother Gloam with it. Prove yourself against her brood before you go further."
+  farewell: "When you're ready, the archway south won't stop you. Nothing stops her but a steady hand."
+portrait: portrait_npc_061
+flavor: "Thessaly has turned back every hunting party that reached the last loom gate unready, and means to keep doing it."

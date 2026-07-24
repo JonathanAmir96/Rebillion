@@ -1,0 +1,41 @@
+id: map_162
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Drowned Approach, The Last Shallows
+region: sunken
+map_type: field
+level_band: { min: 35, max: 36 }
+biome: tidewatch_dark
+tileset: tileset_tidewatch_dark
+size_tiles: { w: 150, h: 30 }
+water_physics: true
+bgm: bgm_tidewatch_dark
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 22] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_161
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_163
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: sunken_field_162
+    rect_tiles: { x: 45, y: 18, w: 60, h: 8 }
+    mobs:
+      - { mob: mob_118, count: 4 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  A wide final shelf before the gatefront, broken by one causeway gap at the doubled 10-tile
+  water-physics limit (MAP_TRAVERSAL §7). No rope/ladder required.
+flavor: "The water shallows one final time before the true ruin gate -- the last easy breath before the deep halls."

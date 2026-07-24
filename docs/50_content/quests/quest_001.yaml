@@ -1,0 +1,24 @@
+id: quest_001
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: First Embers
+region: emberfoot
+quest_type: main
+giver_npc: npc_003                # Novice Guide Wick, Elder's Hall
+level_requirement: 1
+recommended_level: 1
+steps:
+  - type: talk
+    target: npc_001                # Old Perrin, the innkeeper -- learn to rest
+    count: 1
+  - type: kill
+    target: mob_001                # forward-ref: monster batch mints mob_001-012
+    count: 5
+rewards:
+  exp: 16                          # round(0.20 * 80); main band 15-30% (QUESTS §4), exp_to_next(1)=80
+  shards: 75                       # main = mean_shards_normal(1)*15 = 5*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0001, qty: 3 }   # forward-ref: Lesser Life Tonic
+flavor: "Every novice starts the same way: a warm bed, a friendly face, and a first taste of the fields."
+offer_text: "Go say hello to Perrin at the inn, then clear a few of the cinder-pests out past the gate. Simple enough."
+complete_text: "Five down already? Good instincts. The fields only get warmer from here."

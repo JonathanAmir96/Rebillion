@@ -1,0 +1,32 @@
+id: map_002
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Hearthglow Inn
+region: emberfoot
+map_type: interior
+level_band: { min: 1, max: 8 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 32, h: 18 }             # interior: <=1 screen (MAPS_SYSTEM §2)
+bgm: bgm_town_emberfoot                  # interior inherits its town's tag (MAPS_SYSTEM §5)
+ambience: [amb_crackle]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 12] }
+portals:
+  - id: to_village
+    kind: door
+    at: { tile: [4, 13] }
+    target_map: map_001
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: inn_bed
+    id: bed_hearthglow
+    at_tile: [24, 12]
+    params: {}
+npcs: [npc_001]
+platform_brief: |
+  Single flat common room, no verticality. Hearth at the back wall, beds along the
+  right, door to the square on the left -- a cozy one-band interior.
+flavor: "Woodsmoke and stew, and a fire that never quite goes out. The safest room on the island."

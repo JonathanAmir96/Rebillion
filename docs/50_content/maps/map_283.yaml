@@ -1,0 +1,42 @@
+id: map_283
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Landing Cache
+region: arcane_reach
+map_type: secret
+level_band: { min: 70, max: 70 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 40, h: 30 }
+bgm: bgm_arcane_reach
+ambience: [amb_arcane_hum, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [20, 24] }
+portals:
+  - id: to_upper_flight
+    kind: door
+    at: { tile: [20, 26] }
+    target_map: map_282
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: landing_cache_pocket
+    rect_tiles: { x: 10, y: 12, w: 20, h: 10 }
+    mobs:
+      - { mob: mob_205, count: 2 }              # elevated elite weight, bonus content (SPAWN §2)
+    max_concurrent: 4
+interactables:
+  - type: reactor
+    id: reactor_landing_cache
+    at_tile: [20, 14]
+    params:
+      drop_table_ref: pool_equip_r10
+      respawn_timer_s: 60
+      harvest_prompt: Search
+npcs: []
+platform_brief: |
+  A final alcove tucked off the stair's last landing, dense and self-contained. One flat
+  foothold floor, no verticality gimmick -- the Reach's last reward pocket before its arena
+  (MAPS_SYSTEM §2).
+flavor: "Someone cached their last gear here before the Anchor Vault's door, and never came back out to claim it."

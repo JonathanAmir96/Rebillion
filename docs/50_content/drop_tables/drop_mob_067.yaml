@@ -1,0 +1,19 @@
+id: drop_mob_067
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS, ENHANCEMENT, WORLD_PLAN]   # boss: emberstone + region-boss unique mapping
+owner: mob_067
+rows:
+  # shards guaranteed, boss x15. mean_shards_normal(22)=36; x15=540; range=[round(432),round(648)]=[432,648] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 432, qty_max: 648 }
+  # region materials guaranteed (DROPS §5.3 crafting/quest mats)
+  - { ref: item_etc_0064, chance: guaranteed, qty_min: 2, qty_max: 3 }
+  - { ref: item_etc_0061, chance: guaranteed, qty_min: 1, qty_max: 2 }
+  # emberstone: 1 guaranteed + 1 uncommon (DROPS §5.3). R4 gear = T3-T4 -> Emberstone II
+  - { ref: item_etc_0194, chance: guaranteed, qty_min: 1, qty_max: 1 }
+  - { ref: item_etc_0194, chance: uncommon, qty_min: 1, qty_max: 1 }
+  # one guaranteed pool roll, rarity_source: boss (DROPS §5.3/§5.5); pool_equip_r04 (parallel items batch)
+  - { ref: pool_equip_r04, chance: guaranteed, qty_min: 1, qty_max: 1, rarity_source: boss }
+  # boss uniques: Morva is region-order boss #4 -> owns item_equip_0207/0208 (ID_REGISTRY = 0199+2n).
+  # first-ever clear guarantees one of the two (DROPS §5.3 bad-luck protection).
+  - { ref: item_equip_0207, chance: epic, qty_min: 1, qty_max: 1, first_clear_guaranteed: true }
+  - { ref: item_equip_0208, chance: legendary, qty_min: 1, qty_max: 1 }

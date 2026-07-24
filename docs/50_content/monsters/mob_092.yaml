@@ -1,0 +1,26 @@
+id: mob_092
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Dustback Grazer
+tier: normal                     # ID slot 92 = R6 normal (ID_REGISTRY ashfall)
+element: neutral                      # R6 element mix is fire/neutral (WORLD_PLAN)
+weak_to: [frost]                  # thematic (ELEMENTS §2; lists mutually exclusive)
+resists: [fire]
+level: 28
+size_class: medium
+stats:                           # copied from COMBAT_FORMULA §13 normal budget, Lv 28
+  life: 3844                     # 4*(28+3)^2
+  power: 90                     # 6+3*28 (touch = round(0.5*power), neutral, §13.1)
+  armor: 168                     # 6*28  (armor+warding sum = 12*28)
+  warding: 168                   # 6*28
+  precision: 112                 # 4*28
+  evasion: 3.8                   # 3 + 0.03*28 (%)
+  exp: 304                       # exp_per_kill_normal(28)=round(4*28^1.3) (LEVELING §3)
+ai_profile: timid_grazer
+ai_params:                       # override only timid_grazer-declared tunables (AI_BEHAVIOR)
+  flee_radius: 5
+  flee_speed_mult: 1.5
+  corner_wait_s: 2
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_092
+flavor: "A hunched, plated browser that crops the few scorched lichens the barrens still grows, fleeing at the first crunch of gravel. Its hide is caked grey with the dust it wallows in against the heat."

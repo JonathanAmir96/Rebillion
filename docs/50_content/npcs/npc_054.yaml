@@ -1,0 +1,12 @@
+id: npc_054
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS]
+name: Shoal Watcher Yarrow
+region: tidewatch
+map: map_088
+role: quest_giver
+dialog:
+  greeting: "Hear that song on the wind past the strand? That's Morva, and she's been singing louder every tide."
+  farewell: "Go quiet past the shoal until you're ready. She hears more than you'd think."
+portrait: portrait_npc_054
+flavor: "Yarrow keeps the northern watch alone, close enough to hear Tidecaller Morva's song and far enough to still sleep at night."

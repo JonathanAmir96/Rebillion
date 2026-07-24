@@ -1,0 +1,44 @@
+id: mob_148
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Foreman Regulator
+tier: elite                      # ID_REGISTRY: mob_148 in R8 elites block 145-149
+element: arcane
+weak_to: [neutral]
+resists: [arcane]
+level: 41
+size_class: medium
+stats:                           # §13 normal Lv 41 x §13.2 elite multipliers
+  life: 46464                    # 7744 x6
+  power: 194                     # 129 x1.5
+  spellpower: 194                    # parity with power (arcane caster; §13)
+  armor: 320                     # 246 x1.3  (armor+warding sum ~= 12*41 x1.3)
+  warding: 320                   # 246 x1.3
+  precision: 180                 # 164 x1.1
+  evasion: 6.23                   # 4.23 + 2% (§13.2 elite)
+  exp: 2500                     # exp_per_kill_normal(41)=500 x5 (LEVELING §3 elite)
+ai_profile: support_caller
+ai_params:
+  support_radius: 7
+  cast_cooldown_s: 6
+  retreat_range: 6
+abilities:
+  - id: overclock_directive
+    name: Overclock Directive
+    targeting: self
+    cooldown: 12.0
+    telegraph_s: 1.1
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
+      - { op: apply_status, status: swiftness, chance: 1.0, dur: 8 }
+  - id: field_repair
+    name: Field Repair
+    targeting: self
+    cooldown: 14.0
+    telegraph_s: 1.3
+    effects:
+      - { op: heal, mult: 0.15 }
+      - { op: summon_entity, entity_ref: mob_140, count: 2, dur: 24 }
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6); +cast (caster)
+drop_table: drop_mob_148
+flavor: "The shift-foreman that never clocked out, a many-armed engine still barking work-orders at machines that outlived their city. It would rather rebuild its crew than raise a hand to you."

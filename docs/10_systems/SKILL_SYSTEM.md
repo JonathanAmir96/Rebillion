@@ -3,7 +3,7 @@
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/JOBS.md,
 10_systems/LEVELING.md, 10_systems/STATS.md, 10_systems/SKILL_EFFECTS.md,
 10_systems/STATUS_EFFECTS.md, 10_systems/ELEMENTS.md, 10_systems/COMBAT_FORMULA.md,
-10_systems/ECONOMY.md, 10_systems/social/PARTY.md, 10_systems/PERSISTENCE.md,
+10_systems/COMBO_SYSTEM.md, 10_systems/ECONOMY.md, 10_systems/social/PARTY.md, 10_systems/PERSISTENCE.md,
 10_systems/CONTROLS.md, 10_systems/HUD.md, 40_assets/ART_BIBLE.yaml, docs/ID_REGISTRY.md
 
 Owner doc for **how skills are learned, ranked, respec'd, slotted, cast, and targeted**, and for
@@ -17,31 +17,43 @@ pipeline or cadence bases (`10_systems/COMBAT_FORMULA.md`), or status behavior
 
 Level-up grants skill points; `10_systems/LEVELING.md` §5 delegates the **magnitude** here.
 
-- **+1 skill point per level gained**, levels 2→100 = **99 lifetime points**. None at Lv 1.
+- **+1 skill point per level gained** (levels 2→cap 300 = **299 lifetime points**; none at Lv 1).
+  The two authored arcs carry a character to Lv 80 (Lv 2→80 = **79 points** by arc-2's end; the
+  arc-1 milestone is Lv 42, 41 points); the full cap-300 total is flagged below.
 - Points are granted atomically with the level-up (server-authoritative,
   `10_systems/PERSISTENCE.md`; `10_systems/LEVELING.md` §5 owns the trigger).
-- A job **advancement** (`10_systems/JOBS.md` §1) grants **no** extra points — it unlocks the next
-  skill **tier** (§2). Keeping points on the flat +1/level curve makes total availability legible.
-- By Lv 7 (end of `novice`) a character has 6 points for the four novice skills; by Lv 100, 99
-  points against 21 line skills × `max_level` 10 = 210 possible ranks, so **you specialize** — no
-  character maxes everything (`00_vision/PILLARS.md` P4 depth). This is intended, not a shortfall.
+- A job **advancement** (`10_systems/JOBS.md` §1) grants **no** extra points — the 1st unlocks the
+  first-job skill **tier**, the 2nd unlocks the chosen **specialization**'s roster (§2). Keeping
+  points on the flat +1/level curve makes total availability legible.
+- By Lv 7 (end of `novice`) a character has 6 points for the four novice skills. Because the Lv 40
+  advancement **branches** (`10_systems/JOBS.md` §1), a character accesses only its **6 first-job +
+  one spec's 7 = 13 line skills** (+ 4 novice), i.e. 13 × `max_level` 10 = 130 line ranks — so **you
+  specialize** and no character maxes everything (`00_vision/PILLARS.md` P4 depth). This is intended,
+  not a shortfall; the exact cap-300 point budget vs the branched 13-skill kit is an Open Question.
 
 ## 2. Spending rules
 
 - **`max_level` per skill = 10.** Each rank costs **1 point**. A skill's per-rank effect is defined
   by its `level_data` (§5).
 - **Rank 1 = "learn."** Spending the first point learns the skill (must meet its gates below).
-- **Tier gate.** A skill's tier (`10_systems/JOBS.md`: 1st `001`–`006`, 2nd `007`–`013`, 3rd
-  `014`–`021`) is locked until the matching job advancement: 1st at Lv 8, 2nd at Lv 30, 3rd at
-  Lv 60. Novice skills (`skill_novice_*`) are learnable from Lv 1.
-- **Line gate.** You may only put points into your own line's skills (chosen at the Lv 8
-  advancement) plus the shared novice kit. Equip/weapon proficiency is `10_systems/ITEMS.md`'s.
-- **Prerequisite chains (policy).** A skill may declare a prerequisite: another skill in the same
-  line at a minimum rank. Chains are **short and shallow** (`00_vision/PILLARS.md` P2, no trap
-  builds) — typical patterns: a third-job ultimate requiring its first/second-job feeder at rank
-  ≥ 3–5, or a passive requiring the active it enhances at rank ≥ 1. The concrete prereq **edges**
-  live in each skill's Phase D YAML (`prerequisites: [{skill, min_rank}]`); this doc owns only the
-  rule that (a) prereqs reference same-line skills, (b) a skill is un-rankable until its prereqs are
+- **Tier gate.** A skill's tier (`10_systems/JOBS.md` §1): **first-job** `001`–`006` unlocks at the
+  1st advancement (**Lv 8**); a **specialization** roster (`007`–`013` spec #1 · `014`–`020` spec #2 ·
+  `021`–`027` spec #3) unlocks at the 2nd advancement (**Lv 40**) — but only the **chosen** spec's
+  block (see line/spec gate); the **3rd tier** (`028`–`045`) is reserved for a future arc (default
+  gate Lv 80, `10_systems/JOBS.md` Open Questions). Novice skills (`skill_novice_*`) are learnable
+  from Lv 1.
+- **Line & spec gate.** You may only put points into (a) your own line's **first-job** skills
+  (`001`–`006`, line chosen at the Lv 8 advancement), (b) your **chosen specialization**'s roster
+  (spec chosen at the Lv 40 advancement — the sibling specs' rosters stay permanently locked,
+  `10_systems/JOBS.md` §1), and (c) the shared novice kit. Equip/weapon proficiency is
+  `10_systems/ITEMS.md`'s.
+- **Prerequisite chains (policy).** A skill may declare a prerequisite: another **accessible** skill
+  (first-job or same-specialization) at a minimum rank. Chains are **short and shallow**
+  (`00_vision/PILLARS.md` P2, no trap builds) — typical patterns: a specialization capstone requiring
+  its first-job feeder at rank ≥ 3–5, or a passive requiring the active it enhances at rank ≥ 1. The
+  concrete prereq **edges** live in each skill's Phase D YAML (`prerequisites: [{skill, min_rank}]`);
+  this doc owns only the rule that (a) prereqs reference **first-job or same-spec** skills — never a
+  sibling spec (`10_systems/JOBS.md` §1 branch), (b) a skill is un-rankable until its prereqs are
   met, and (c) a respec that would break a prereq refunds the dependent ranks too (§4).
 
 ## 3. Respec — generous (`00_vision/PILLARS.md` P2)
@@ -92,9 +104,9 @@ the bracketing rows. This keeps skill files to four authored rows instead of ten
 
   | Tier | `essence_cost` band (rank 1 → 10) | `cooldown` band |
   |---|---|---|
-  | 1st (`001`–`006`) | 5 → 12 | 0–8 s (core attacks often 0–3 s, `essence`-gated) |
-  | 2nd (`007`–`013`) | 12 → 28 | 4–20 s |
-  | 3rd (`014`–`021`) | 25 → 55 | 8–120 s (ultimates high end) |
+  | first-job (`001`–`006`) | 5 → 12 | 0–8 s (core attacks often 0–3 s, `essence`-gated) |
+  | specialization (`007`–`027`, the chosen spec's block) | 12 → 28 | 4–20 s |
+  | 3rd tier (`028`–`045`, future arc) | 25 → 55 | 8–120 s (ultimates high end) |
   | novice | 4 → 10 | 2–10 s |
 
   Utility skills may hold `essence_cost` flat across ranks; damage skills typically rise with rank
@@ -106,6 +118,11 @@ the bracketing rows. This keeps skill files to four authored rows instead of ten
   during the skill (`10_systems/COMBAT_FORMULA.md` §10 owns the base cadence). Cast/recovery
   duration is per-skill (`level_data`-adjacent constant), short for spammables and longer for heavy
   hits; it exists so animations read honestly (hit-frame honesty, P1), not as a tax.
+- **Casting rhythm feeds the combo layer.** The no-GCD + per-skill cast/recovery model above is
+  the substrate the combo system chains across: alternating the basic attack with distinct
+  `deal_damage` actives builds `combo_momentum` and can trigger a `combo_burst`
+  (`10_systems/COMBO_SYSTEM.md` owns all chain rules, timing, and magnitudes; nothing about a
+  skill's own cost/cooldown/targeting changes when it participates in a chain).
 - **Cooldowns are per skill instance, real-time**, and pause with the game (solo) but run
   server-side authoritatively when live (`10_systems/PERSISTENCE.md`). Some passives/procs
   (`10_systems/SKILL_EFFECTS.md` `on_hit_proc`) carry an internal cooldown (`icd`) instead of a
@@ -116,9 +133,10 @@ the bracketing rows. This keeps skill files to four authored rows instead of ten
 A skill declares exactly one **targeting shape** (`00_vision/GLOSSARY.md`, owner = this doc). The
 shape selects the candidate set; each effect op then applies to the candidates of its class
 (offensive ops → hostiles, support ops → self/allies; `10_systems/SKILL_EFFECTS.md` composition).
-Ranges are in **tiles** — 1 tile = the `40_assets/ART_BIBLE.yaml` grid unit; the pixel value is
-pending the tile-scale lock (`10_systems/COMBAT_FORMULA.md` §10 Open Question), so all numbers here
-are scale-free. Angles are degrees in the vertical facing plane (2D side-scroller).
+Ranges are in **tiles** — 1 tile = the `40_assets/ART_BIBLE.yaml` grid unit, locked at **16 px**
+(`base_unit_px: 16`; `10_systems/COMBAT_FORMULA.md` §10), so every tile figure below converts
+exactly (e.g., the `party` default radius 8 tiles = 128 px); numbers stay tile-first, px derived.
+Angles are degrees in the vertical facing plane (2D side-scroller).
 
 | Shape | Geometry & parameters | Platformer notes |
 |---|---|---|
@@ -163,12 +181,15 @@ content file recomputes interpolation or cost — it declares rows and constants
 - **Skill-bar slot count** (first-pass 8) and input layout are owned by `10_systems/CONTROLS.md` /
   `10_systems/HUD.md`; if the platform button budget forces fewer, content that assumes 8 usable
   actives at once may need review. Flagged for the B/C gate.
-- **Skill-point total** (99 lifetime, +1/level) is first-pass; if playtesting shows characters feel
-  starved or over-flush against 21 skills, `10_systems/LEVELING.md` (owner of the trigger) and this
-  doc jointly retune (e.g., a small advancement lump). Default holds at flat +1/level.
-- **Tile → pixel scale** for all §6 ranges inherits `10_systems/COMBAT_FORMULA.md` §10's open scale
-  lock (`40_assets/ART_BIBLE.yaml`); numbers here are tile-relative and unaffected by the eventual
-  px value, but reticle/aim feel can't be tuned until it lands.
+- **Skill-point total** (+1/level, 299 at cap 300) is first-pass; the v3 Lv 40 **branch**
+  (`10_systems/JOBS.md` §1) means a character accesses 13 line skills (6 first-job + one spec's 7) +
+  4 novice, so the point-vs-rank ratio shifted from the v2 21-skill assumption. If playtesting shows
+  characters feel starved or over-flush against the branched 13-skill kit, `10_systems/LEVELING.md`
+  (owner of the trigger) and this doc jointly retune (e.g., a small advancement lump or a per-arc
+  point cap). Default holds at flat +1/level.
+- **Resolved (2026-07-24): tile → pixel scale for §6 ranges.** The `40_assets/ART_BIBLE.yaml` grid
+  is locked at 16 px (`10_systems/COMBAT_FORMULA.md` §10), so all §6 tile ranges convert exactly
+  (1 tile = 16 px); reticle/aim feel tuning is unblocked and moves to playtesting.
 - **Free skill respec with no `shards` cost** (§3) is the generous default; if `10_systems/ECONOMY.md`
   needs a nominal sink, a small fee may be added there without changing this doc's mechanics.
 - **Cast/recovery windows** per skill interact with `haste` attack-speed (`10_systems/STATS.md` §5);

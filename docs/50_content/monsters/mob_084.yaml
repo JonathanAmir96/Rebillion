@@ -1,0 +1,43 @@
+id: mob_084
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Broodmother Silkfang
+tier: elite                      # ID slot 084 = R5 Gloomwood elite (ID_REGISTRY Monsters)
+element: shadow
+weak_to: [fire]
+resists: [shadow]
+level: 26
+size_class: large
+stats:                           # §13 normal Lv 26 x §13.2 elite multipliers
+  life: 20184                    # 3364 x6
+  power: 126                     # 84 x1.5
+  armor: 203                     # 156 x1.3  (armor+warding sum = 406 ~= 12*26 x1.3)
+  warding: 203                   # 156 x1.3
+  precision: 114                 # 104 x1.1
+  evasion: 5.78                   # 3.78 + 2% (§13.2 elite)
+  exp: 1380                     # exp_per_kill_normal(26)=276 x5 (LEVELING §3 elite)
+ai_profile: pack_hunter
+ai_params:
+  aggro_radius: 6
+  pack_call_radius: 12
+  pack_max_size: 6
+abilities:
+  - id: silk_snare
+    name: Silk Snare
+    targeting: { shape: melee_arc, radius: 2.5 }
+    cooldown: 7.0
+    telegraph_s: 0.9
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.5 }
+      - { op: apply_status, status: root, chance: 0.7, dur: 3 }
+  - id: brood_call
+    name: Brood Call
+    targeting: self
+    cooldown: 16.0
+    telegraph_s: 1.2
+    effects:
+      - { op: summon_entity, entity_ref: mob_070, count: 3, dur: 25 }
+      - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
+animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+drop_table: drop_mob_084
+flavor: "A bloated matriarch the size of a cart, her egg-heavy abdomen dragging a wake of loose silk. She spends her brood freely, flooding the hollow with hatchlings while she hangs back and grows."

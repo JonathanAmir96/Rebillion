@@ -1,0 +1,22 @@
+id: quest_049
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Eaves Watch
+region: gloomwood
+quest_type: side
+giver_npc: npc_055
+level_requirement: 20
+recommended_level: 20
+steps:
+  - type: kill
+    target: mob_068
+    count: 8
+  - type: collect
+    target: item_etc_0065
+    count: 5
+rewards:
+  exp: 1576    # round(0.08 * 19,700); side band 5-10% of exp_to_next(20)=19,700 (LEVELING §1); pct=0.08
+  shards: 132   # side = mean_shards_normal(20)*4 = 33*4 (QUESTS §5 / DROPS §3)
+flavor: "Something has been testing the eaves at night, bolder each time it comes."
+offer_text: "The shadow-things at the eaves grow braver every night. Thin them out and bring me proof, and I'll rest easier."
+complete_text: "Good. That'll buy the eaves a quiet week, if nothing else."

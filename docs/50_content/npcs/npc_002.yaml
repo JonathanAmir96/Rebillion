@@ -1,0 +1,15 @@
+id: npc_002
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Tansy Sootmark
+region: emberfoot
+map: map_003
+role: merchant
+shop:
+  items: [item_equip_0041, item_equip_0141, item_use_0014]   # forward-refs: arc-1 armor/accessory/food batches
+dialog:
+  greeting: "Cinder-cured and cheap. Everything here will keep you standing a while longer."
+  idle: "Careful in the flats -- the ash hides more than it shows."
+  farewell: "Come back if it tears."
+portrait: portrait_npc_002
+flavor: "Tansy took over the outfitters from her mother and still cures every hide herself, over the same low kiln fire out back."

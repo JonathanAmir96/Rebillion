@@ -1,0 +1,25 @@
+id: mob_141
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Piston Charger
+tier: normal                     # ID_REGISTRY: mob_141 in R8 normals block 129-144
+element: neutral                   # WORLD_PLAN R8 split = neutral/arcane
+weak_to: [arcane]                 # ELEMENTS §2 (mutually exclusive lists)
+level: 39
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 39
+  life: 7056                     # 4*(39+3)^2
+  power: 123                      # 6+3*39 (touch = round(0.5*power), §13.1)
+  armor: 234                      # 6*39  (armor+warding sum = 468 = 12*39)
+  warding: 234                    # 6*39
+  precision: 156                  # 4*39
+  evasion: 4.17                   # 3 + 0.03*39 (%)
+  exp: 468                      # exp_per_kill_normal(39)=round(4*39^1.3) (LEVELING §3)
+ai_profile: aggressive_charger
+ai_params:
+  aggro_radius: 7
+  charge_speed_mult: 2.7
+  charge_recover_s: 2.5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_141
+flavor: "A hulking ram-frame driven by a single enormous piston that fires it forward like a bolt. The stroke is unstoppable and the recharge is long; step off the line and make it pay."

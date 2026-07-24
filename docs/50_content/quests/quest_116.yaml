@@ -1,0 +1,28 @@
+id: quest_116
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: The Watch at the Reach
+region: voidshore
+quest_type: main
+giver_npc: npc_117
+level_requirement: 76
+recommended_level: 76
+steps:
+  - type: kill
+    target: mob_221
+    count: 10
+  - type: collect
+    target: item_etc_0171
+    count: 5
+  - type: talk
+    target: npc_120
+    count: 1
+    requires_step: 1
+rewards:
+  exp: 288228  # round(0.22 * 1,310,125); main band 15-30% (QUESTS §4)
+  shards: 1755  # mean_shards_normal(76)*15 = 117*15 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 2 }
+flavor: "The spineturrets have every approach to the Umbral Reach zeroed, and the herald standing watch beyond it won't speak to anyone who hasn't cleared them."
+offer_text: "Break the turret line, bring me their barnacle clusters, then find the herald keeping watch past the Reach -- he'll want to know the way's clear."
+complete_text: "The Reach is open and the herald's been told. Whatever waits past his sealed door, it's yours to find out now."

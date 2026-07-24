@@ -1,0 +1,84 @@
+id: mob_234
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Nyxaris, the Tidesunder
+tier: boss                        # ID_REGISTRY: mob_234 = R11 boss (#11); raid_voidtide finale (RAID.md §2)
+element: shadow                   # WORLD_PLAN R11 boss: shadow
+weak_to: [arcane]                 # arcane is the void's only true counter (ELEMENTS §5)
+resists: [shadow]
+level: 80
+size_class: boss                  # knockback/CC-immune (COMBAT_FORMULA §11, STATUS_EFFECTS §3)
+stats:                            # COMBAT_FORMULA §13 normal budget x §13.2 boss mults, Lv 80
+                                  # raid-entry party life-scaling is runtime §13.3 (raid_life = normal_life x90 x N) — NOT stored here
+  life: 964460                    # 4*(80+3)^2 x35
+  power: 492                      # (6+3*80) x2.0
+  spellpower: 492                 # parity with power (boss casts; §13)
+  armor: 768                      # 6*80 x1.6  (armor+warding sum = 1536)
+  warding: 768                    # 6*80 x1.6
+  precision: 384                  # 4*80 x1.2
+  evasion: 5.4                    # 3 + 0.03*80, +0 (bosses don't dodge, §13.2)
+  exp: 29775                      # round(4*80^1.3) x25 (LEVELING §3 boss); raid-entry total = 150x base = 178,650, split by party (§3)
+ai_profile: boss_scripted
+abilities:
+  - id: tide_pull
+    name: Tide-Pull
+    targeting: { shape: aoe_circle, radius: 7, origin: self }
+    cooldown: 10.0
+    telegraph_s: 1.4
+    effects:
+      - { op: pull, distance: 5 }
+      - { op: deal_damage, element: shadow, mult: 1.6 }
+      - { op: apply_status, status: chill, chance: 0.6, dur: 4 }
+  - id: abyssal_barrage
+    name: Abyssal Barrage
+    targeting: { shape: projectile, speed: 14, range: 16, pierce: all, gravity: true, impact_radius: 2 }
+    cooldown: 5.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: shadow, mult: 1.5, scaling: spellpower }
+  - id: eclipse_veil
+    name: Eclipse Veil
+    targeting: { shape: aoe_circle, radius: 8, origin: self }
+    cooldown: 14.0
+    telegraph_s: 1.6
+    effects:
+      - { op: apply_status, status: blind, chance: 0.8, dur: 4 }
+      - { op: apply_status, status: weaken, chance: 0.8, dur: 6 }
+  - id: summon_voidspawn
+    name: Summon Voidspawn
+    targeting: self
+    cooldown: 22.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_216, count: 2, dur: until_death }   # add-wave via boss ability, not SPAWN zone (AI_BEHAVIOR §15)
+  - id: tidesunder_slam
+    name: Tidesunder Slam
+    targeting: { shape: aoe_circle, radius: 6, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.8
+    effects:
+      - { op: leap, distance: 5 }
+      - { op: deal_damage, element: shadow, mult: 2.4 }
+      - { op: apply_status, status: sunder, chance: 0.9, dur: 8 }
+      - { op: knockback, distance: 3, vertical: 2 }
+phases:                           # boss_scripted phase contract (AI_BEHAVIOR §15); 3 phases: tide-pull / eclipse / sunder
+  - phase_id: 1
+    life_threshold_pct: 100
+    base_profile: territorial_guard
+    param_overrides: { aggro_radius: 12 }
+    added_abilities: [tide_pull, abyssal_barrage]
+  - phase_id: 2
+    life_threshold_pct: 66
+    base_profile: ranged_skirmisher
+    param_overrides: { preferred_range_min: 6, preferred_range_max: 12, attack_cooldown_s: 1.5 }
+    added_abilities: [eclipse_veil, summon_voidspawn]
+    enter_telegraph: true
+  - phase_id: 3
+    life_threshold_pct: 33
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 3.2, charge_recover_s: 2.0 }
+    added_abilities: [tidesunder_slam]
+    enter_telegraph: true
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted adds phase_shift (enter_telegraph true)
+drop_table: drop_mob_234
+flavor: "A leviathan of congealed void that hauls the black shore up into the torn sky one wave at a time, drowning the world by inches. The last thing the known map remembers before the dark takes it."

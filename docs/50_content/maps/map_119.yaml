@@ -1,0 +1,41 @@
+id: map_119
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Silkbound Vault, Broodsilk Gallery
+region: gloomwood
+map_type: dungeon
+level_band: { min: 28, max: 28 }
+biome: gloomwood
+tileset: tileset_gloomwood
+size_tiles: { w: 70, h: 50 }
+bgm: bgm_gloomwood
+ambience: [amb_web_creak, amb_insect_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 42] }
+portals:
+  - id: to_prev
+    kind: edge
+    at: { edge: left }
+    target_map: map_118
+    target_spawn: main
+    dead_end: false
+  - id: to_next
+    kind: edge
+    at: { edge: right }
+    target_map: map_120
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: silkbound_vault_broodsilk_gallery
+    rect_tiles: { x: 20, y: 32, w: 32, h: 12 }
+    mobs:
+      - { mob: mob_084, count: 2 }
+      - { mob: mob_085, count: 1 }
+    max_concurrent: 8
+npcs: []
+platform_brief: |
+  A wide gallery packed with brood-silk sacs along the walls, ledges within the standard
+  jump budget (MAP_TRAVERSAL §1.1). Elevated elite presence per dungeon budget (SPAWN §2).
+  No rope/ladder required.
+flavor: "Clutch after clutch of silk-wrapped sacs line this gallery, each one faintly, wetly moving."

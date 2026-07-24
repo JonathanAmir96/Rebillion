@@ -1,0 +1,55 @@
+id: map_255
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, the Tilting Field
+region: arcane_reach
+map_type: field
+level_band: { min: 59, max: 60 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 190, h: 32 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_arcane_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 26] }
+portals:
+  - id: to_prism_hollow
+    kind: edge
+    at: { edge: left }
+    target_map: map_254
+    target_spawn: main
+    dead_end: false
+  - id: to_voidmist_reach
+    kind: edge
+    at: { edge: right }
+    target_map: map_256
+    target_spawn: main
+    dead_end: false
+moving_platforms:
+  - id: drift_shard_tilting_a
+    path: [[64, 24], [90, 10], [64, 24]]
+    speed: 4.0
+    pause_s: 0.5
+    loop_mode: ping_pong
+    one_way: false
+  - id: drift_shard_tilting_b
+    path: [[110, 24], [136, 10], [110, 24]]
+    speed: 4.0
+    pause_s: 0.5
+    loop_mode: ping_pong
+    one_way: false
+spawn_zones:
+  - id: tilting_field_stretch
+    rect_tiles: { x: 32, y: 22, w: 84, h: 9 }
+    mobs:
+      - { mob: mob_185, count: 2 }
+      - { mob: mob_186, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  This shard has come loose of its old mooring and lists visibly, the far half of the field
+  rising a full terrace above the near half. Two drifting rune-shard platforms
+  (MAP_TRAVERSAL §5) carry players up across the tilt where no standing jump reaches.
+flavor: "This shard slipped its mooring a generation back and never settled -- the whole field still leans, faintly, toward the mist."

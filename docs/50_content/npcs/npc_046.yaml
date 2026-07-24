@@ -1,0 +1,14 @@
+id: npc_046
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, QUESTS]
+name: Fishmonger Dell Marrow
+region: tidewatch
+map: map_074
+role: merchant
+shop:
+  items: [item_use_0001, item_use_0002, item_use_0006]
+dialog:
+  greeting: "Fresh off the boat an hour ago -- and a tonic or two to wash the salt down."
+  farewell: "Come back before the ice melts."
+portrait: portrait_npc_046
+flavor: "Dell's stall smells of brine and woodsmoke, and she'll talk your ear off about tide charts if you let her."

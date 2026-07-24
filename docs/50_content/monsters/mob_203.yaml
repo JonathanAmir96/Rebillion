@@ -1,0 +1,43 @@
+id: mob_203
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, SKILL_SYSTEM, SKILL_EFFECTS, LEVELING]
+name: Hexweaver Magus
+tier: elite                      # ID slot 203 = R10 elite (ID_REGISTRY Monsters)
+element: arcane
+weak_to: [shadow]
+resists: [arcane]                # ELEMENTS §2
+level: 68
+size_class: medium
+stats:                           # COMBAT_FORMULA §13.2 elite (normal Lv 68 x tier mults)
+  life: 120984                  # 20164 (§13 Lv68) * 6
+  power: 315                    # 210 * 1.5
+  spellpower: 315               # 210 * 1.5 (magic attacker)
+  armor: 530                   # 408 * 1.3  (armor+warding sum = 1060)
+  warding: 530                 # 408 * 1.3
+  precision: 299               # 272 * 1.1
+  evasion: 7.04                # 5.04 + 2 (§13.2 elite)
+  exp: 4825                    # exp_per_kill_normal(68)=965 * 5 (LEVELING §3 elite)
+ai_profile: ranged_skirmisher
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  preferred_range_min: 5
+  preferred_range_max: 9
+  attack_cooldown_s: 1.8
+abilities:                       # SKILL_EFFECTS op registry (§17); scales on power/spellpower (§1)
+  - id: hex_nova
+    name: Hex Nova
+    targeting: { shape: aoe_circle, radius: 4, origin: self }
+    cooldown: 7.0
+    telegraph_s: 1.2              # plays 'telegraph' state (VALIDATION §6)
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.7 }
+      - { op: apply_status, status: weaken, chance: 0.6, dur: 6 }
+  - id: ward_kin
+    name: Ward the Kin
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.0              # plays 'telegraph' state (VALIDATION §6)
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 10 }
+animation_states: [idle, walk, jump, fall, cast, telegraph, hit, die, spawn]
+drop_table: drop_mob_203
+flavor: "A surviving magus of the Reach who weaves curses outward in a widening nova and hardens its remaining kin with borrowed power between casts."

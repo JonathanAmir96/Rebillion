@@ -1,0 +1,42 @@
+id: map_041
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: The Forgotten Cold Cellar
+region: millbrook
+map_type: secret
+level_band: { min: 13, max: 14 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 45, h: 22 }
+bgm: bgm_old_town
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 16] }
+portals:
+  - id: to_sunken_row
+    kind: door
+    at: { tile: [4, 16] }
+    target_map: map_034
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: forgotten_cold_cellar_zone
+    rect_tiles: { x: 14, y: 12, w: 26, h: 8 }
+    mobs:
+      - { mob: mob_025, count: 1 }
+      - { mob: mob_026, count: 1 }
+    max_concurrent: 4
+interactables:
+  - type: lore_marker
+    id: marker_cold_cellar
+    at_tile: [26, 14]
+    params:
+      text: "Someone walled this cellar off generations ago -- whatever they were keeping out, or in, never got a name."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A single sealed root cellar off the Sunken Row, weighted toward its elite pair
+  (SPAWN §2 secret: elevated elite mob_pool weight). No verticality gimmick,
+  small and dense.
+flavor: "A cold cellar the Sunken Row's own residents forgot they had, its door long since plastered over and forgotten."

@@ -1,0 +1,67 @@
+id: map_001
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Emberfoot Village
+region: emberfoot
+map_type: town
+level_band: { min: 1, max: 8 }          # home hub used through the whole island arc (MAPS_SYSTEM §4)
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 110, h: 24 }            # town: ~2-4 screens wide, ~1 tall (MAPS_SYSTEM §2)
+bgm: bgm_town_emberfoot                  # town pattern bgm_town_<region_slug> (MAPS_SYSTEM §5)
+ambience: [amb_crowd, amb_ember_glow]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [55, 18] }
+  - { id: from_ferry, tile: [96, 18] }     # Harborwind Ferry arrival, beside the ferry door (WORLD_PLAN spawn convention; MAP_CONNECTIONS §2)
+portals:
+  - id: to_hearthglow_inn
+    kind: door
+    at: { tile: [20, 18] }
+    target_map: map_002
+    target_spawn: main
+    dead_end: false
+  - id: to_sootmark_outfitters
+    kind: door
+    at: { tile: [40, 18] }
+    target_map: map_003
+    target_spawn: main
+    dead_end: false
+  - id: to_elders_hall
+    kind: door
+    at: { tile: [70, 18] }
+    target_map: map_004
+    target_spawn: main
+    dead_end: false
+  - id: to_trailhead_fields
+    kind: edge
+    at: { edge: right }
+    target_map: map_005
+    target_spawn: main
+    dead_end: false
+  - id: to_harborwind_ferry
+    kind: door
+    at: { tile: [98, 18] }
+    target_map: map_015
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: sign
+    id: sign_village_gate
+    at_tile: [8, 19]
+    params:
+      text: "Emberfoot Village. Warm hearths, warmer fields. The Old Kiln smokes beyond the ridge."
+      interact_prompt: Read
+  - type: lore_marker
+    id: marker_old_kiln_pit
+    at_tile: [85, 19]
+    params:
+      text: "A capped stone pit vents faint heat here -- the mouth of the tunnels the elders call the Old Kiln."
+      interact_prompt: Read
+npcs: [npc_009]
+platform_brief: |
+  Flat cobble-and-cinder square on a single band, no verticality gimmick -- a safe
+  starting hub. Terrain is foothold segments dressed with painted terrain_chunks
+  (ART_BIBLE AB-001, MAP_TRAVERSAL). Doors line the square at even spacing; the field
+  edge sits right, the ferry door at the far right past the kiln-pit marker.
+flavor: "The last warm village before the wide world, built ring-fashion around a capped old kiln that still breathes heat. Everyone here has a cousin who left on the ferry."

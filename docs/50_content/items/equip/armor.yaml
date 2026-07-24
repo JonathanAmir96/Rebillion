@@ -1,0 +1,952 @@
+id: item_table_armor
+schema: 20_schemas/item.schema.md
+references: [ITEMS, ECONOMY, ENHANCEMENT]
+# This file holds both arc blocks (item.schema File conventions: one shared armor.yaml): arc-1
+# item_equip_0041-0070 (this batch: 5 slots x T1-T6, ITEMS §4/§8) and arc-2 item_equip_0255-0284
+# (5 slots x T7-T12, v3 re-block). Slot order matches item.schema's arc-1 convention: head, body,
+# legs, boots, gloves, each x its arc's tiers, contiguous (arc-1: head 0041-0046, body 0047-0052,
+# legs 0053-0058, boots 0059-0064, gloves 0065-0070; arc-2: head 0255-0260, body 0261-0266, legs
+# 0267-0272, boots 0273-0278, gloves 0279-0284). Arc-1's 0071-0140 stays reserved (growth,
+# ITEMS §4 OQ).
+#
+# Arc-1 rows: rarity uncommon (1 affix line, ITEMS §5), enhance_max 9 (ENHANCEMENT §2). base
+# armor/warding = ITEMS §8 formula armor_base(slot,L)=round(w[slot]*K(L)/3), warding_base=
+# round(0.70*armor_base), K(L)=50+20L (COMBAT_FORMULA §5); w[slot] body .28/legs .24/head .18/
+# boots .15/gloves .15. T1/T4/T6 (Lv1/22/36) match the ITEMS §8 checksum table exactly; T2/T3/T5
+# (Lv8/15/29, not tabulated there) are computed from the same formula. Price buy=round(
+# base_buy(tier)*2.5)/sell=round(0.25*buy) (ECONOMY §4/§4.2; base_buy T1-T6 = 30/120/300/600/
+# 1050/1800, the table's own tier column). Affix (1 line, uncommon) per the same slot convention
+# as the arc-2 block: head/body -> +life (11u); legs -> +armor (4u); boots -> +haste
+# (round(1+0.05L)); gloves -> +precision (3u). u(L) by tier: T1(1)=2, T2(8)=3, T3(15)=5,
+# T4(22)=6, T5(29)=8, T6(36)=9 (ITEMS §10, same formula as weapons.yaml). All affix pe totals
+# are well under the uncommon per-line cap at every tier (checked per row below).
+#
+# Arc-2 rows (landed earlier batch): rarity uncommon (1 affix line, ITEMS §5), enhance_max 9 (ENHANCEMENT §2). base
+# armor/warding = ITEMS §8 formula armor_base(slot,L)=round(w[slot]*K(L)/3), warding_base=
+# round(0.70*armor_base), K(L)=50+20L (COMBAT_FORMULA §5); w[slot] body .28/legs .24/head .18/
+# boots .15/gloves .15. T8/T10/T12 values match the ITEMS §8 checksum table exactly; T7/T9/T11
+# (Lv43/57/71, not tabulated there) are computed from the same formula. Price buy=round(
+# base_buy(tier)*2.5)/sell=round(0.25*buy) (ECONOMY §4/§4.2; T11/T12 base_buy 10500/13000 per
+# ECONOMY §4.2's tabulated T12 and interpolated T11).
+#
+# Affix (1 line, uncommon) assigned per slot by a fixed authoring convention (ITEMS §10
+# eligibility: armor rolls primary/life/armor/warding/haste; gloves also crit_rate/precision):
+# head/body -> +life (11u); legs -> +armor (4u); boots -> +haste (round(1+0.05L)); gloves ->
+# +precision (3u). u(L) values by tier: T7(43)=11, T8(50)=12, T9(57)=14, T10(64)=16, T11(71)=17,
+# T12(78)=19 (ITEMS §10, same formula/anchors as weapons.yaml). All affix pe totals are well
+# under the uncommon per-line cap at every tier (checked below per row).
+items:
+  # --- head, item_equip_0041-0046 ---
+  - id: item_equip_0041
+    name: Kilnward Cap
+    category: equip
+    slot: head
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { armor: 4, warding: 3 }   # ITEMS §8 head T1 (w=0.18, K(1)=70)
+      affixes:
+        - { stat: life, value: 22 }     # +life affix; pe 0.66 <= cap(1)=3
+    enhance_max: 9
+    price: { buy: 75, sell: 19 }
+    flavor: "Quilted village wool, barely enough to stop a spark."
+
+  - id: item_equip_0042
+    name: Harborwind Hood
+    category: equip
+    slot: head
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { armor: 13, warding: 9 }   # ITEMS §8 head T2 (w=0.18, K(8)=210)
+      affixes:
+        - { stat: life, value: 33 }     # +life affix; pe 0.99 <= cap(8)=4
+    enhance_max: 9
+    price: { buy: 300, sell: 75 }
+    flavor: "Oilcloth-lined, salted stiff from the ferry crossing."
+
+  - id: item_equip_0043
+    name: Mossmere Circlet
+    category: equip
+    slot: head
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { armor: 21, warding: 15 }   # ITEMS §8 head T3 (w=0.18, K(15)=350)
+      affixes:
+        - { stat: life, value: 55 }     # +life affix; pe 1.65 <= cap(15)=7
+    enhance_max: 9
+    price: { buy: 750, sell: 188 }
+    flavor: "Woven with hollow-moss for a hush against sound as much as steel."
+
+  - id: item_equip_0044
+    name: Brinewatch Helm
+    category: equip
+    slot: head
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { armor: 29, warding: 20 }   # ITEMS §8 head T4 (w=0.18, K(22)=490)
+      affixes:
+        - { stat: life, value: 66 }     # +life affix; pe 1.98 <= cap(22)=8
+    enhance_max: 9
+    price: { buy: 1500, sell: 375 }
+    flavor: "Cliffside leather, cured against the coast's endless spray."
+
+  - id: item_equip_0045
+    name: Cinderreach Coif
+    category: equip
+    slot: head
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { armor: 38, warding: 27 }   # ITEMS §8 head T5 (w=0.18, K(29)=630)
+      affixes:
+        - { stat: life, value: 88 }     # +life affix; pe 2.64 <= cap(29)=11
+    enhance_max: 9
+    price: { buy: 2625, sell: 656 }
+    flavor: "Ash-dusted and cinder-warm no matter the season."
+
+  - id: item_equip_0046
+    name: Ironspring Greathelm
+    category: equip
+    slot: head
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { armor: 46, warding: 32 }   # ITEMS §8 head T6 (w=0.18, K(36)=770)
+      affixes:
+        - { stat: life, value: 99 }     # +life affix; pe 2.97 <= cap(36)=13
+    enhance_max: 9
+    price: { buy: 4500, sell: 1125 }
+    flavor: "Ring-forged plate, ticking faintly near the Clockwork gears."
+
+
+  # --- body, item_equip_0047-0052 ---
+  - id: item_equip_0047
+    name: Kilnward Jerkin
+    category: equip
+    slot: body
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { armor: 7, warding: 5 }   # ITEMS §8 body T1 (w=0.28, K(1)=70)
+      affixes:
+        - { stat: life, value: 22 }     # +life affix; pe 0.66 <= cap(1)=3
+    enhance_max: 9
+    price: { buy: 75, sell: 19 }
+    flavor: "Patchwork jerkin off the village outfitter's lowest shelf."
+
+  - id: item_equip_0048
+    name: Harborwind Hauberk
+    category: equip
+    slot: body
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { armor: 20, warding: 14 }   # ITEMS §8 body T2 (w=0.28, K(8)=210)
+      affixes:
+        - { stat: life, value: 33 }     # +life affix; pe 0.99 <= cap(8)=4
+    enhance_max: 9
+    price: { buy: 300, sell: 75 }
+    flavor: "Harbor-tanned leather, stiff with old brine."
+
+  - id: item_equip_0049
+    name: Mossmere Vestment
+    category: equip
+    slot: body
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { armor: 33, warding: 23 }   # ITEMS §8 body T3 (w=0.28, K(15)=350)
+      affixes:
+        - { stat: life, value: 55 }     # +life affix; pe 1.65 <= cap(15)=7
+    enhance_max: 9
+    price: { buy: 750, sell: 188 }
+    flavor: "Root-fiber weave grown, not woven, in Mossmere's athenaeum."
+
+  - id: item_equip_0050
+    name: Brinewatch Cuirass
+    category: equip
+    slot: body
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { armor: 46, warding: 32 }   # ITEMS §8 body T4 (w=0.28, K(22)=490)
+      affixes:
+        - { stat: life, value: 66 }     # +life affix; pe 1.98 <= cap(22)=8
+    enhance_max: 9
+    price: { buy: 1500, sell: 375 }
+    flavor: "Cliff-forged plate, riveted against the undertow's chill."
+
+  - id: item_equip_0051
+    name: Cinderreach Plate
+    category: equip
+    slot: body
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { armor: 59, warding: 41 }   # ITEMS §8 body T5 (w=0.28, K(29)=630)
+      affixes:
+        - { stat: life, value: 88 }     # +life affix; pe 2.64 <= cap(29)=11
+    enhance_max: 9
+    price: { buy: 2625, sell: 656 }
+    flavor: "Barrens plate that holds the forge's heat long after the day ends."
+
+  - id: item_equip_0052
+    name: Ironspring Warplate
+    category: equip
+    slot: body
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { armor: 72, warding: 50 }   # ITEMS §8 body T6 (w=0.28, K(36)=770)
+      affixes:
+        - { stat: life, value: 99 }     # +life affix; pe 2.97 <= cap(36)=13
+    enhance_max: 9
+    price: { buy: 4500, sell: 1125 }
+    flavor: "Ring-tempered brass-shot mail, warm with the gearworks' hum."
+
+
+  # --- legs, item_equip_0053-0058 ---
+  - id: item_equip_0053
+    name: Kilnward Trousers
+    category: equip
+    slot: legs
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { armor: 6, warding: 4 }   # ITEMS §8 legs T1 (w=0.24, K(1)=70)
+      affixes:
+        - { stat: armor, value: 8 }     # +armor affix; pe 0.8 <= cap(1)=3
+    enhance_max: 9
+    price: { buy: 75, sell: 19 }
+    flavor: "Rough-spun trousers, patched twice over already."
+
+  - id: item_equip_0054
+    name: Harborwind Greaves
+    category: equip
+    slot: legs
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { armor: 17, warding: 12 }   # ITEMS §8 legs T2 (w=0.24, K(8)=210)
+      affixes:
+        - { stat: armor, value: 12 }     # +armor affix; pe 1.2 <= cap(8)=4
+    enhance_max: 9
+    price: { buy: 300, sell: 75 }
+    flavor: "Ferry-deck leathers, salt-stiff at the knee."
+
+  - id: item_equip_0055
+    name: Mossmere Legwraps
+    category: equip
+    slot: legs
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { armor: 28, warding: 20 }   # ITEMS §8 legs T3 (w=0.24, K(15)=350)
+      affixes:
+        - { stat: armor, value: 20 }     # +armor affix; pe 2.0 <= cap(15)=7
+    enhance_max: 9
+    price: { buy: 750, sell: 188 }
+    flavor: "Mossmere root-cord wraps, light enough for the hollow's climbs."
+
+  - id: item_equip_0056
+    name: Brinewatch Legguards
+    category: equip
+    slot: legs
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { armor: 39, warding: 27 }   # ITEMS §8 legs T4 (w=0.24, K(22)=490)
+      affixes:
+        - { stat: armor, value: 24 }     # +armor affix; pe 2.4 <= cap(22)=8
+    enhance_max: 9
+    price: { buy: 1500, sell: 375 }
+    flavor: "Cliffside greaves, hinged against the coast path's scree."
+
+  - id: item_equip_0057
+    name: Cinderreach Legplates
+    category: equip
+    slot: legs
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { armor: 50, warding: 35 }   # ITEMS §8 legs T5 (w=0.24, K(29)=630)
+      affixes:
+        - { stat: armor, value: 32 }     # +armor affix; pe 3.2 <= cap(29)=11
+    enhance_max: 9
+    price: { buy: 2625, sell: 656 }
+    flavor: "Cinder-proofed plates, scorched black and none the worse."
+
+  - id: item_equip_0058
+    name: Ironspring Warguards
+    category: equip
+    slot: legs
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { armor: 62, warding: 43 }   # ITEMS §8 legs T6 (w=0.24, K(36)=770)
+      affixes:
+        - { stat: armor, value: 36 }     # +armor affix; pe 3.6 <= cap(36)=13
+    enhance_max: 9
+    price: { buy: 4500, sell: 1125 }
+    flavor: "Ring-forged legguards, geared at the knee like the Clockwork's own joints."
+
+
+  # --- boots, item_equip_0059-0064 ---
+  - id: item_equip_0059
+    name: Kilnward Sandals
+    category: equip
+    slot: boots
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { armor: 4, warding: 3 }   # ITEMS §8 boots T1 (w=0.15, K(1)=70)
+      affixes:
+        - { stat: haste, value: 1 }     # +haste affix; pe 1.5 <= cap(1)=3
+    enhance_max: 9
+    price: { buy: 75, sell: 19 }
+    flavor: "Village sandals, more habit than protection."
+
+  - id: item_equip_0060
+    name: Harborwind Boots
+    category: equip
+    slot: boots
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { armor: 11, warding: 8 }   # ITEMS §8 boots T2 (w=0.15, K(8)=210)
+      affixes:
+        - { stat: haste, value: 1 }     # +haste affix; pe 1.5 <= cap(8)=4
+    enhance_max: 9
+    price: { buy: 300, sell: 75 }
+    flavor: "Harbor boots, soled thick against the ferry dock's damp planks."
+
+  - id: item_equip_0061
+    name: Mossmere Striders
+    category: equip
+    slot: boots
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { armor: 18, warding: 13 }   # ITEMS §8 boots T3 (w=0.15, K(15)=350)
+      affixes:
+        - { stat: haste, value: 2 }     # +haste affix; pe 3.0 <= cap(15)=7
+    enhance_max: 9
+    price: { buy: 750, sell: 188 }
+    flavor: "Mossmere striders, soft enough not to wake the hollow's watchers."
+
+  - id: item_equip_0062
+    name: Brinewatch Treads
+    category: equip
+    slot: boots
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { armor: 25, warding: 18 }   # ITEMS §8 boots T4 (w=0.15, K(22)=490)
+      affixes:
+        - { stat: haste, value: 2 }     # +haste affix; pe 3.0 <= cap(22)=8
+    enhance_max: 9
+    price: { buy: 1500, sell: 375 }
+    flavor: "Cliffside treads, gripping wet rock without a thought."
+
+  - id: item_equip_0063
+    name: Cinderreach Boots
+    category: equip
+    slot: boots
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { armor: 32, warding: 22 }   # ITEMS §8 boots T5 (w=0.15, K(29)=630)
+      affixes:
+        - { stat: haste, value: 2 }     # +haste affix; pe 3.0 <= cap(29)=11
+    enhance_max: 9
+    price: { buy: 2625, sell: 656 }
+    flavor: "Cinder-proofed boots, soled against the barrens' endless ember-fall."
+
+  - id: item_equip_0064
+    name: Ironspring Warboots
+    category: equip
+    slot: boots
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { armor: 39, warding: 27 }   # ITEMS §8 boots T6 (w=0.15, K(36)=770)
+      affixes:
+        - { stat: haste, value: 3 }     # +haste affix; pe 4.5 <= cap(36)=13
+    enhance_max: 9
+    price: { buy: 4500, sell: 1125 }
+    flavor: "Ring-forged warboots, ticking a half-step out of time with the gearworks."
+
+
+  # --- gloves, item_equip_0065-0070 ---
+  - id: item_equip_0065
+    name: Kilnward Mitts
+    category: equip
+    slot: gloves
+    tier: 1
+    req_level: 1
+    rarity: uncommon
+    stats:
+      base: { armor: 4, warding: 3 }   # ITEMS §8 gloves T1 (w=0.15, K(1)=70)
+      affixes:
+        - { stat: precision, value: 6 }     # +precision affix; pe 1.2 <= cap(1)=3
+    enhance_max: 9
+    price: { buy: 75, sell: 19 }
+    flavor: "Patched wool mitts, warm enough for the kiln-side chores."
+
+  - id: item_equip_0066
+    name: Harborwind Grips
+    category: equip
+    slot: gloves
+    tier: 2
+    req_level: 8
+    rarity: uncommon
+    stats:
+      base: { armor: 11, warding: 8 }   # ITEMS §8 gloves T2 (w=0.15, K(8)=210)
+      affixes:
+        - { stat: precision, value: 9 }     # +precision affix; pe 1.8 <= cap(8)=4
+    enhance_max: 9
+    price: { buy: 300, sell: 75 }
+    flavor: "Harbor grips, salt-stiff and sure on a wet rope."
+
+  - id: item_equip_0067
+    name: Mossmere Gloves
+    category: equip
+    slot: gloves
+    tier: 3
+    req_level: 15
+    rarity: uncommon
+    stats:
+      base: { armor: 18, warding: 13 }   # ITEMS §8 gloves T3 (w=0.15, K(15)=350)
+      affixes:
+        - { stat: precision, value: 15 }     # +precision affix; pe 3.0 <= cap(15)=7
+    enhance_max: 9
+    price: { buy: 750, sell: 188 }
+    flavor: "Mossmere gloves, soft-palmed for a quiet grip on bowstring or root."
+
+  - id: item_equip_0068
+    name: Brinewatch Gauntlets
+    category: equip
+    slot: gloves
+    tier: 4
+    req_level: 22
+    rarity: uncommon
+    stats:
+      base: { armor: 25, warding: 18 }   # ITEMS §8 gloves T4 (w=0.15, K(22)=490)
+      affixes:
+        - { stat: precision, value: 18 }     # +precision affix; pe 3.6 <= cap(22)=8
+    enhance_max: 9
+    price: { buy: 1500, sell: 375 }
+    flavor: "Cliffside gauntlets, plated against the coast path's sharp scree."
+
+  - id: item_equip_0069
+    name: Cinderreach Grips
+    category: equip
+    slot: gloves
+    tier: 5
+    req_level: 29
+    rarity: uncommon
+    stats:
+      base: { armor: 32, warding: 22 }   # ITEMS §8 gloves T5 (w=0.15, K(29)=630)
+      affixes:
+        - { stat: precision, value: 24 }     # +precision affix; pe 4.8 <= cap(29)=11
+    enhance_max: 9
+    price: { buy: 2625, sell: 656 }
+    flavor: "Cinder-proofed grips, scorched black and holding steady regardless."
+
+  - id: item_equip_0070
+    name: Ironspring Warfists
+    category: equip
+    slot: gloves
+    tier: 6
+    req_level: 36
+    rarity: uncommon
+    stats:
+      base: { armor: 39, warding: 27 }   # ITEMS §8 gloves T6 (w=0.15, K(36)=770)
+      affixes:
+        - { stat: precision, value: 27 }     # +precision affix; pe 5.4 <= cap(36)=13
+    enhance_max: 9
+    price: { buy: 4500, sell: 1125 }
+    flavor: "Ring-forged warfists, faintly warm from the Clockwork's endless gears."
+
+
+  # --- head, item_equip_0255-0260 ---
+  - id: item_equip_0255
+    name: Rimeguard Hood
+    category: equip
+    slot: head
+    tier: 7
+    req_level: 43
+    rarity: uncommon
+    stats:
+      base: { armor: 55, warding: 38 }   # ITEMS §8 head T7 (w=0.18, K(43)=910)
+      affixes:
+        - { stat: life, value: 121 }     # +life 11*u(43)=121 pe*0.03=3.63 <= cap 15
+    enhance_max: 9
+    price: { buy: 7000, sell: 1750 }
+    flavor: "Lined in cured hide against the summit wind, its brow-plate rimed permanently white."
+
+  - id: item_equip_0256
+    name: Frostcrown Helm
+    category: equip
+    slot: head
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { armor: 63, warding: 44 }   # ITEMS §8 head T8 (checksum table)
+      affixes:
+        - { stat: life, value: 132 }     # +life 11*u(50)=132; pe 3.96 <= cap 17
+    enhance_max: 9
+    price: { buy: 10000, sell: 2500 }
+    flavor: "Forged to the shape of the Wyrmcrag hold's own gate-crest. Sentries wear it before they earn it."
+
+  - id: item_equip_0257
+    name: Runeglass Circlet
+    category: equip
+    slot: head
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { armor: 71, warding: 50 }   # ITEMS §8 head T9 (w=0.18, K(57)=1190)
+      affixes:
+        - { stat: life, value: 154 }     # +life 11*u(57)=154; pe 4.62 <= cap 20
+    enhance_max: 9
+    price: { buy: 15000, sell: 3750 }
+    flavor: "A band of rune-glass grown, not forged, in the drifting archipelago's dead-magic haze."
+
+  - id: item_equip_0258
+    name: Skyshard Diadem
+    category: equip
+    slot: head
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { armor: 80, warding: 56 }   # ITEMS §8 head T10 (checksum table)
+      affixes:
+        - { stat: life, value: 176 }     # +life 11*u(64)=176; pe 5.28 <= cap 22
+    enhance_max: 9
+    price: { buy: 20000, sell: 5000 }
+    flavor: "Set with a moored shard-splinter that tugs faintly skyward whenever the wearer looks down."
+
+  - id: item_equip_0259
+    name: Voidshroud Hood
+    category: equip
+    slot: head
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { armor: 88, warding: 62 }   # ITEMS §8 head T11 (w=0.18, K(71)=1470)
+      affixes:
+        - { stat: life, value: 187 }     # +life 11*u(71)=187; pe 5.61 <= cap 24
+    enhance_max: 9
+    price: { buy: 26250, sell: 6563 }
+    flavor: "Cowl-deep and umbral; under the torn sky it's hard to tell where the hood ends and the dark begins."
+
+  - id: item_equip_0260
+    name: Tidesunder Crown
+    category: equip
+    slot: head
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { armor: 97, warding: 68 }   # ITEMS §8 head T12 (checksum table)
+      affixes:
+        - { stat: life, value: 209 }     # +life 11*u(78)=209; pe 6.27 <= cap 27
+    enhance_max: 9
+    price: { buy: 32500, sell: 8125 }
+    flavor: "Salvaged from the Tidesunder Maw's high-water line, still cold enough to fog the wearer's own breath."
+
+  # --- body, item_equip_0261-0266 ---
+  - id: item_equip_0261
+    name: Rimeguard Hauberk
+    category: equip
+    slot: body
+    tier: 7
+    req_level: 43
+    rarity: uncommon
+    stats:
+      base: { armor: 85, warding: 60 }   # ITEMS §8 body T7 (w=0.28, K(43)=910)
+      affixes:
+        - { stat: life, value: 121 }     # +life 11*u(43)=121; pe 3.63 <= cap 15
+    enhance_max: 9
+    price: { buy: 7000, sell: 1750 }
+    flavor: "Ring-mail quilted over hoarfrost wool; it keeps its own chill long after the wearer's left the ice."
+
+  - id: item_equip_0262
+    name: Frostcrown Plate
+    category: equip
+    slot: body
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { armor: 98, warding: 69 }   # ITEMS §8 body T8 (checksum table)
+      affixes:
+        - { stat: life, value: 132 }     # +life 11*u(50)=132; pe 3.96 <= cap 17
+    enhance_max: 9
+    price: { buy: 10000, sell: 2500 }
+    flavor: "Wyrmcrag Hold's own plate pattern, hammered thick enough to turn a crevasse-drake's claw."
+
+  - id: item_equip_0263
+    name: Runeglass Robe
+    category: equip
+    slot: body
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { armor: 111, warding: 78 }  # ITEMS §8 body T9 (w=0.28, K(57)=1190)
+      affixes:
+        - { stat: life, value: 154 }     # +life 11*u(57)=154; pe 4.62 <= cap 20
+    enhance_max: 9
+    price: { buy: 15000, sell: 3750 }
+    flavor: "Woven glass-thread over quilted lining; it catches the archipelago's haze like a held breath."
+
+  - id: item_equip_0264
+    name: Skyshard Cuirass
+    category: equip
+    slot: body
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { armor: 124, warding: 87 }  # ITEMS §8 body T10 (checksum table)
+      affixes:
+        - { stat: life, value: 176 }     # +life 11*u(64)=176; pe 5.28 <= cap 22
+    enhance_max: 9
+    price: { buy: 20000, sell: 5000 }
+    flavor: "Riveted from a shard too small to hold a garrison, now holding one soldier instead."
+
+  - id: item_equip_0265
+    name: Voidshroud Mail
+    category: equip
+    slot: body
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { armor: 137, warding: 96 }  # ITEMS §8 body T11 (w=0.28, K(71)=1470)
+      affixes:
+        - { stat: life, value: 187 }     # +life 11*u(71)=187; pe 5.61 <= cap 24
+    enhance_max: 9
+    price: { buy: 26250, sell: 6563 }
+    flavor: "Umbral rings sewn dark-on-dark; in torn-sky light it reads as a shape-shaped absence, not armor."
+
+  - id: item_equip_0266
+    name: Tidesunder Plate
+    category: equip
+    slot: body
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { armor: 150, warding: 105 } # ITEMS §8 body T12 (checksum table)
+      affixes:
+        - { stat: life, value: 209 }     # +life 11*u(78)=209; pe 6.27 <= cap 27
+    enhance_max: 9
+    price: { buy: 32500, sell: 8125 }
+    flavor: "Hull-plate off some drowned hull, refitted to a living wearer. It still smells of the deep."
+
+  # --- legs, item_equip_0267-0272 (affix: +armor, 4u) ---
+  - id: item_equip_0267
+    name: Rimeguard Greaves
+    category: equip
+    slot: legs
+    tier: 7
+    req_level: 43
+    rarity: uncommon
+    stats:
+      base: { armor: 73, warding: 51 }   # ITEMS §8 legs T7 (w=0.24, K(43)=910)
+      affixes:
+        - { stat: armor, value: 44 }     # +armor 4*u(43)=44; pe 4.4 <= cap 15
+    enhance_max: 9
+    price: { buy: 7000, sell: 1750 }
+    flavor: "Cut to shed drift-snow at the knee. Standard Frosthaven-pattern issue, reinforced twice over."
+
+  - id: item_equip_0268
+    name: Frostcrown Legguards
+    category: equip
+    slot: legs
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { armor: 84, warding: 59 }   # ITEMS §8 legs T8 (checksum table)
+      affixes:
+        - { stat: armor, value: 48 }     # +armor 4*u(50)=48; pe 4.8 <= cap 17
+    enhance_max: 9
+    price: { buy: 10000, sell: 2500 }
+    flavor: "Plated to the hip against a drake's low sweep; the hold's veteran guard swear by the fit."
+
+  - id: item_equip_0269
+    name: Runeglass Leggings
+    category: equip
+    slot: legs
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { armor: 95, warding: 66 }   # ITEMS §8 legs T9 (w=0.24, K(57)=1190)
+      affixes:
+        - { stat: armor, value: 56 }     # +armor 4*u(57)=56; pe 5.6 <= cap 20
+    enhance_max: 9
+    price: { buy: 15000, sell: 3750 }
+    flavor: "Rune-glass plates strung on cord, light enough to jump the gaps between drifting shards."
+
+  - id: item_equip_0270
+    name: Skyshard Legplates
+    category: equip
+    slot: legs
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { armor: 106, warding: 74 }  # ITEMS §8 legs T10 (checksum table)
+      affixes:
+        - { stat: armor, value: 64 }     # +armor 4*u(64)=64; pe 6.4 <= cap 22
+    enhance_max: 9
+    price: { buy: 20000, sell: 5000 }
+    flavor: "Hinged at the knee to a floating shard's own drift; walking in them feels faintly like falling."
+
+  - id: item_equip_0271
+    name: Voidshroud Legwraps
+    category: equip
+    slot: legs
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { armor: 118, warding: 83 }  # ITEMS §8 legs T11 (w=0.24, K(71)=1470)
+      affixes:
+        - { stat: armor, value: 68 }     # +armor 4*u(71)=68; pe 6.8 <= cap 24
+    enhance_max: 9
+    price: { buy: 26250, sell: 6563 }
+    flavor: "Bound in umbral wrap that swallows the wearer's own footfalls along with the light."
+
+  - id: item_equip_0272
+    name: Tidesunder Legguards
+    category: equip
+    slot: legs
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { armor: 129, warding: 90 }  # ITEMS §8 legs T12 (checksum table)
+      affixes:
+        - { stat: armor, value: 76 }     # +armor 4*u(78)=76; pe 7.6 <= cap 27
+    enhance_max: 9
+    price: { buy: 32500, sell: 8125 }
+    flavor: "Plated in hull-dark iron, salt-pitted in a pattern no smith in Duskwatch Landing can explain."
+
+  # --- boots, item_equip_0273-0278 (affix: +haste, round(1+0.05L)) ---
+  - id: item_equip_0273
+    name: Rimeguard Treads
+    category: equip
+    slot: boots
+    tier: 7
+    req_level: 43
+    rarity: uncommon
+    stats:
+      base: { armor: 46, warding: 32 }   # ITEMS §8 boots T7 (w=0.15, K(43)=910)
+      affixes:
+        - { stat: haste, value: 3 }      # round(1+0.05*43)=3; pe 4.5 <= cap 15
+    enhance_max: 9
+    price: { buy: 7000, sell: 1750 }
+    flavor: "Cramponed soles built for the summit climb; they bite the ice without a second thought."
+
+  - id: item_equip_0274
+    name: Frostcrown Boots
+    category: equip
+    slot: boots
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { armor: 52, warding: 36 }   # ITEMS §8 boots T8 (checksum table)
+      affixes:
+        - { stat: haste, value: 4 }      # round(1+0.05*50)=4; pe 6.0 <= cap 17
+    enhance_max: 9
+    price: { buy: 10000, sell: 2500 }
+    flavor: "Wyrmcrag-issue treads, soled thick against the crevasse floor's endless cold."
+
+  - id: item_equip_0275
+    name: Runeglass Striders
+    category: equip
+    slot: boots
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { armor: 60, warding: 42 }   # ITEMS §8 boots T9 (w=0.15, K(57)=1190)
+      affixes:
+        - { stat: haste, value: 4 }      # round(1+0.05*57)=4; pe 6.0 <= cap 20
+    enhance_max: 9
+    price: { buy: 15000, sell: 3750 }
+    flavor: "Soled in glass grown soft enough to grip stone that has no business staying aloft."
+
+  - id: item_equip_0276
+    name: Skyshard Boots
+    category: equip
+    slot: boots
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { armor: 66, warding: 46 }   # ITEMS §8 boots T10 (checksum table)
+      affixes:
+        - { stat: haste, value: 4 }      # round(1+0.05*64)=4; pe 6.0 <= cap 22
+    enhance_max: 9
+    price: { buy: 20000, sell: 5000 }
+    flavor: "Light enough to run a drifting shard's edge without a second thought about the drop."
+
+  - id: item_equip_0277
+    name: Voidshroud Treads
+    category: equip
+    slot: boots
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { armor: 74, warding: 52 }   # ITEMS §8 boots T11 (w=0.15, K(71)=1470)
+      affixes:
+        - { stat: haste, value: 5 }      # round(1+0.05*71)=5; pe 7.5 <= cap 24
+    enhance_max: 9
+    price: { buy: 26250, sell: 6563 }
+    flavor: "They leave no print on the umbral sand, which the Duskwatch garrison finds more useful than strange."
+
+  - id: item_equip_0278
+    name: Tidesunder Boots
+    category: equip
+    slot: boots
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { armor: 80, warding: 56 }   # ITEMS §8 boots T12 (checksum table)
+      affixes:
+        - { stat: haste, value: 5 }      # round(1+0.05*78)=5; pe 7.5 <= cap 27
+    enhance_max: 9
+    price: { buy: 32500, sell: 8125 }
+    flavor: "Salt-stiff leather that never quite dries, worn by the last watch before the void-tide line."
+
+  # --- gloves, item_equip_0279-0284 (affix: +precision, 3u) ---
+  - id: item_equip_0279
+    name: Rimeguard Grips
+    category: equip
+    slot: gloves
+    tier: 7
+    req_level: 43
+    rarity: uncommon
+    stats:
+      base: { armor: 46, warding: 32 }   # ITEMS §8 gloves T7 (w=0.15, K(43)=910)
+      affixes:
+        - { stat: precision, value: 33 } # +precision 3*u(43)=33; pe 6.6 <= cap 15
+    enhance_max: 9
+    price: { buy: 7000, sell: 1750 }
+    flavor: "Fingerless at the knuckle for the bowstring, lined against frostbite everywhere else."
+
+  - id: item_equip_0280
+    name: Frostcrown Gauntlets
+    category: equip
+    slot: gloves
+    tier: 8
+    req_level: 50
+    rarity: uncommon
+    stats:
+      base: { armor: 52, warding: 36 }   # ITEMS §8 gloves T8 (checksum table)
+      affixes:
+        - { stat: precision, value: 36 } # +precision 3*u(50)=36; pe 7.2 <= cap 17
+    enhance_max: 9
+    price: { buy: 10000, sell: 2500 }
+    flavor: "Wyrmcrag Hold's plate gauntlets, articulated to keep a grip through the coldest gale."
+
+  - id: item_equip_0281
+    name: Runeglass Gloves
+    category: equip
+    slot: gloves
+    tier: 9
+    req_level: 57
+    rarity: uncommon
+    stats:
+      base: { armor: 60, warding: 42 }   # ITEMS §8 gloves T9 (w=0.15, K(57)=1190)
+      affixes:
+        - { stat: precision, value: 42 } # +precision 3*u(57)=42; pe 8.4 <= cap 20
+    enhance_max: 9
+    price: { buy: 15000, sell: 3750 }
+    flavor: "Glass-threaded gloves that steady the hand for aim, whatever the archipelago's gravity is doing."
+
+  - id: item_equip_0282
+    name: Skyshard Gauntlets
+    category: equip
+    slot: gloves
+    tier: 10
+    req_level: 64
+    rarity: uncommon
+    stats:
+      base: { armor: 66, warding: 46 }   # ITEMS §8 gloves T10 (checksum table)
+      affixes:
+        - { stat: precision, value: 48 } # +precision 3*u(64)=48; pe 9.6 <= cap 22
+    enhance_max: 9
+    price: { buy: 20000, sell: 5000 }
+    flavor: "Set with a shard-splinter over each knuckle, each one faintly humming in time with a strike."
+
+  - id: item_equip_0283
+    name: Voidshroud Grips
+    category: equip
+    slot: gloves
+    tier: 11
+    req_level: 71
+    rarity: uncommon
+    stats:
+      base: { armor: 74, warding: 52 }   # ITEMS §8 gloves T11 (w=0.15, K(71)=1470)
+      affixes:
+        - { stat: precision, value: 51 } # +precision 3*u(71)=51; pe 10.2 <= cap 24
+    enhance_max: 9
+    price: { buy: 26250, sell: 6563 }
+    flavor: "Umbral-dyed leather that swallows torch-glare, useful for a hand steadying a nocked arrow."
+
+  - id: item_equip_0284
+    name: Tidesunder Gauntlets
+    category: equip
+    slot: gloves
+    tier: 12
+    req_level: 78
+    rarity: uncommon
+    stats:
+      base: { armor: 80, warding: 56 }   # ITEMS §8 gloves T12 (checksum table)
+      affixes:
+        - { stat: precision, value: 57 } # +precision 3*u(78)=57; pe 11.4 <= cap 27
+    enhance_max: 9
+    price: { buy: 32500, sell: 8125 }
+    flavor: "Salt-cured leather over drowned-iron knuckles, steady even at the last watch before the void."

@@ -1,0 +1,40 @@
+id: map_185
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Clockwork Ruins, Deepset Colonnade
+region: clockwork
+map_type: field
+level_band: { min: 38, max: 39 }
+biome: clockwork
+tileset: tileset_clockwork
+size_tiles: { w: 160, h: 30 }
+bgm: bgm_clockwork
+ambience: [amb_gears, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 24] }
+portals:
+  - id: to_grinding_span
+    kind: edge
+    at: { edge: left }
+    target_map: map_184
+    target_spawn: main
+    dead_end: false
+  - id: to_last_archive
+    kind: edge
+    at: { edge: right }
+    target_map: map_186
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: deepset_colonnade_zone
+    rect_tiles: { x: 30, y: 20, w: 66, h: 8 }
+    mobs:
+      - { mob: mob_137, count: 3 }
+      - { mob: mob_138, count: 2 }
+    max_concurrent: 6
+npcs: []
+platform_brief: |
+  A colonnade of load-bearing brass pillars, sunk one band below the outer terraces and
+  reached by a shallow ramp. No verticality gimmick beyond the single ramp descent.
+flavor: "The colonnade sinks deeper than the plaza above, pillars still holding a roof no one has seen in centuries."

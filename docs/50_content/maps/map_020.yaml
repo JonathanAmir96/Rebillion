@@ -1,0 +1,33 @@
+id: map_020
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: Rosen Harbor Office
+region: millbrook
+map_type: interior
+level_band: { min: 8, max: 8 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 24, h: 14 }
+bgm: bgm_town_millbrook
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [12, 10] }
+portals:
+  - id: to_rosen_harbor
+    kind: door
+    at: { tile: [12, 12] }
+    target_map: map_017
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: sign
+    id: sign_harbor_ledger
+    at_tile: [18, 9]
+    params:
+      text: "A ledger board lists every ship due at Rosen Harbor this tide -- and a standing bounty notice underneath."
+      interact_prompt: Read
+npcs: [npc_014]
+platform_brief: |
+  A cramped clerk's office stacked with ledgers and cargo manifests, single flat room,
+  no verticality (MAPS_SYSTEM §2/§6 interior, combat-free).
+flavor: "Every crate that crosses Rosen Harbor's docks is tallied here, twice, by a man who trusts no one's count but his own."

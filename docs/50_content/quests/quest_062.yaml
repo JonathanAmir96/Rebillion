@@ -1,0 +1,25 @@
+id: quest_062
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Wings Over the Flat
+region: ashfall
+quest_type: side
+giver_npc: npc_067
+level_requirement: 27
+recommended_level: 27
+prereqs: [quest_061]
+steps:                            # parallel (default): the wings drop from the moths you cull
+  - type: kill
+    target: mob_090
+    count: 6
+  - type: collect
+    target: item_etc_0083          # Emberdust Wing, sourced from drop_mob_090 (QUESTS §3.1, warn-check satisfied)
+    count: 5
+rewards:
+  exp: 3370                      # round(0.07 * 48,140); side band 5-10% of exp_to_next(27) (LEVELING §1 / QUESTS §4)
+  shards: 176                    # side = mean_shards_normal(27)*4 = 44*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0002, qty: 2 }   # a pair of Life Tonics for the smoking hollow
+flavor: "Embermoths swarm thick over Smoking Hollow, and their glowing wings fetch a fair price with any alchemist willing to handle one."
+offer_text: "Those moths past Cinderflat won't thin themselves. Bring me a handful of unburnt wings and I'll square you up."
+complete_text: "Still glowing -- good stock. You're getting quicker out there than I expected."

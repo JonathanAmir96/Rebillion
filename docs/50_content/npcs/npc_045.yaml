@@ -1,0 +1,13 @@
+id: npc_045
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE, DEATH_PENALTY]
+name: Innkeeper Rosa Wick
+region: tidewatch
+map: map_073
+role: innkeeper
+services: [inn_rest]
+dialog:
+  greeting: "Warm bed, warmer stew -- sit before the sea air finishes you off."
+  farewell: "Mind the damp on the stairs. Come back dry next time."
+portrait: portrait_npc_045
+flavor: "Rosa has kept the Salt-Worn Inn's hearth lit through every storm the coast has thrown at it."

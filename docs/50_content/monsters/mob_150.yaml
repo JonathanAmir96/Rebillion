@@ -1,0 +1,83 @@
+id: mob_150
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: The Custodian
+tier: boss                        # ID_REGISTRY: mob_150 = R8 boss (#8); raid_mainspring finale (RAID.md §2, WORLD_PLAN R8)
+element: arcane                   # WORLD_PLAN R8 boss: arcane
+weak_to: [neutral]                # physical force cracks its rune-bindings (ELEMENTS §2; cf. Aetheron)
+resists: [arcane]                 # a warden-engine woven of the ruin's own dead sorcery
+level: 40
+size_class: boss                  # knockback/CC-immune (COMBAT_FORMULA §11, STATUS_EFFECTS §3)
+stats:                            # COMBAT_FORMULA §13 normal budget x §13.2 boss mults, Lv 40
+                                  # raid-entry party life-scaling is runtime §13.3 (raid_life = normal_life(40) x90 x N = 7396*90*N) -- NOT stored here
+  life: 258860                   # 7396 x35
+  power: 252                      # (6+3*40) x2.0
+  spellpower: 252                 # parity with power (boss casts arcane; §13)
+  armor: 384                      # 6*40 x1.6  (armor+warding sum = 768)
+  warding: 384                    # 6*40 x1.6
+  precision: 192                  # 4*40 x1.2
+  evasion: 4.2                   # 3 + 0.03*40, +0 (bosses don't dodge, §13.2)
+  exp: 12100                    # round(4*40^1.3)=484 x25 (LEVELING §3 boss); raid-entry total = 150x base = 72600, split by party (§13.3/RAID §3)
+ai_profile: boss_scripted
+abilities:
+  - id: warden_sweep
+    name: Warden Sweep
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.6 }
+      - { op: apply_status, status: silence, chance: 0.5, dur: 3 }
+  - id: ward_lattice
+    name: Ward Lattice
+    targeting: { shape: projectile, speed: 12, range: 15, pierce: all, impact_radius: 2 }
+    cooldown: 5.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: arcane, mult: 1.5, scaling: spellpower, hits: 3 }
+  - id: roll_call
+    name: Roll Call
+    targeting: self
+    cooldown: 22.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_140, count: 2, dur: until_death }   # add-wave via boss ability (AI_BEHAVIOR §15)
+  - id: purge_protocol
+    name: Purge Protocol
+    targeting: { shape: aoe_circle, radius: 8, origin: self }
+    cooldown: 14.0
+    telegraph_s: 1.6
+    effects:
+      - { op: apply_status, status: blind, chance: 0.8, dur: 4 }
+      - { op: apply_status, status: weaken, chance: 0.8, dur: 6 }
+  - id: overload_slam
+    name: Overload Slam
+    targeting: { shape: aoe_circle, radius: 6, origin: self }
+    cooldown: 12.0
+    telegraph_s: 1.8
+    effects:
+      - { op: leap, distance: 5 }
+      - { op: deal_damage, element: arcane, mult: 2.4 }
+      - { op: apply_status, status: stun, chance: 0.6, dur: 2 }
+      - { op: knockback, distance: 3, vertical: 2 }
+phases:                           # boss_scripted contract (AI_BEHAVIOR §15); 3 phases: warden rote / haywire / overload
+  - phase_id: 1
+    life_threshold_pct: 100
+    base_profile: territorial_guard
+    param_overrides: { aggro_radius: 10, patrol_radius: 4 }
+    added_abilities: [warden_sweep, ward_lattice]
+  - phase_id: 2
+    life_threshold_pct: 66
+    base_profile: ranged_skirmisher
+    param_overrides: { preferred_range_min: 5, preferred_range_max: 11, attack_cooldown_s: 1.4 }
+    added_abilities: [roll_call, purge_protocol]
+    enter_telegraph: true
+  - phase_id: 3
+    life_threshold_pct: 33
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 3.0, charge_recover_s: 2.2 }
+    added_abilities: [overload_slam]
+    enter_telegraph: true
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted adds phase_shift (enter_telegraph true)
+drop_table: drop_mob_150
+flavor: "A haywire warden-engine the size of a gatehouse, still making its rounds to guard citizens who walked out of the ruin centuries ago. It asks you for papers you cannot show, and enforces the rule the only way it remembers how."

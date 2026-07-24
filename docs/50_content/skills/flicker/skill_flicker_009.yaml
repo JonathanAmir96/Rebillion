@@ -1,0 +1,38 @@
+id: skill_flicker_009
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Envenom                       # exact JOBS.md §5.2 Duskstep roster name
+line: flicker
+tier: second
+kind: active
+targeting: self                     # self buff that coats the caster's blades (SKILL_SYSTEM §6)
+cost: { essence: 12 }
+cooldown: 10.0
+max_level: 10
+level_data:
+  - level: 1
+    essence_cost: 12
+    cooldown: 10.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 8 }   # "apply_status (self)" per JOBS §5.2 — coated-blade buff (STATUS_EFFECTS §4.2 base)
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, effect: { op: apply_status, status: poison, element: nature, chance: 1.0, dur: 6 }, icd: 1.0 }   # hits proc poison while coated (JOBS "on_hit_proc(→poison)")
+  - level: 4
+    essence_cost: 15
+    cooldown: 9.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 9 }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, effect: { op: apply_status, status: poison, element: nature, chance: 1.0, dur: 7 }, icd: 1.0 }
+  - level: 7
+    essence_cost: 19
+    cooldown: 8.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 10 }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, effect: { op: apply_status, status: poison, element: nature, chance: 1.0, dur: 8 }, icd: 1.0 }
+  - level: 10
+    essence_cost: 22
+    cooldown: 7.0
+    effects:
+      - { op: apply_status, status: empower, chance: 1.0, dur: 12 }
+      - { op: on_hit_proc, trigger: on_deal, chance: 1.0, effect: { op: apply_status, status: poison, element: nature, chance: 1.0, dur: 9 }, icd: 1.0 }
+animation: skill_flicker_009_cast
+flavor: "A slick of toxin worked into the dirk's edge — every cut that follows keeps bleeding long after the Duskstep is gone."

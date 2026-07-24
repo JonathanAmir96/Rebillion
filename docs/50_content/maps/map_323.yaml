@@ -1,0 +1,32 @@
+id: map_323
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: "the Last Hoard"
+region: voidshore
+map_type: secret
+level_band: { min: 82, max: 82 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 46, h: 26 }
+bgm: bgm_voidshore
+ambience: [amb_drip]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [10, 13] }
+portals:
+  - id: to_stage_3
+    kind: door
+    at: { tile: [8, 13] }
+    target_map: map_322
+    target_spawn: main
+spawn_zones:
+  - id: last_hoard_pocket
+    rect_tiles: { x: 14, y: 8, w: 24, h: 12 }
+    mobs:
+      - { mob: mob_233, count: 1 }
+    max_concurrent: 2
+npcs: []
+platform_brief: |
+  A single hoard-chamber, one flat band -- the richest of the region's bonus
+  pockets, tucked off the raid stage chain's last hall per SPAWN §2.
+flavor: "A hoard some drowned captain never lived to spend, stacked against a wall that hums with the tide's own pulse."

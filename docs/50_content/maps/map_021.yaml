@@ -1,0 +1,31 @@
+id: map_021
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, INVENTORY]
+name: Rosen Harbor Bank
+region: millbrook
+map_type: interior
+level_band: { min: 8, max: 8 }
+biome: old_town
+tileset: tileset_old_town
+size_tiles: { w: 22, h: 14 }
+bgm: bgm_town_millbrook
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [11, 10] }
+portals:
+  - id: to_rosen_harbor
+    kind: door
+    at: { tile: [11, 12] }
+    target_map: map_017
+    target_spawn: main
+    dead_end: false
+interactables:
+  - type: storage_chest
+    id: storage_chest_021
+    at_tile: [16, 9]
+    params: { scope: character }
+npcs: [npc_015]
+platform_brief: |
+  A vaulted single room behind an iron grille, the character storage chest set into
+  the back wall -- no verticality, combat-free interior (MAPS_SYSTEM §2/§6).
+flavor: "Rosen Harbor's bank keeps its vault door open only as long as the teller's patience lasts."

@@ -1,0 +1,22 @@
+id: quest_088
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, RAID, ITEMS]
+name: The Cellar Reckoning
+region: millbrook
+quest_type: side
+giver_npc: npc_029
+level_requirement: 14
+recommended_level: 14
+prereqs: [quest_087]
+steps:
+  - type: kill  # the Cellar King -- via raid_undervault's finale instance or the arena's open solo entry (RAID.md §7)
+    target: mob_027
+    count: 1
+rewards:
+  exp: 585      # round(0.08*7,316); raid_undervault handler/clear wrapper (RAID.md §3; one-time per QUESTS §7 -- see Open Questions on repeatability)
+  shards: 96     # mean_shards_normal(14)*4 = 24*4
+  items:
+    - { id: item_use_0005, qty: 3 }
+flavor: "Dusk keeps a tally of every muster that's put the Cellar King down, and pays out of the herald's own cache for it."
+offer_text: "Bring the Cellar King down -- raid or open gate, I don't care which -- and I'll see the muster paid properly."
+complete_text: "The King's drowned for good this time. The Undervault Heist is yours to run again whenever the cooldown clears."

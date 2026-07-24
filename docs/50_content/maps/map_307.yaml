@@ -1,0 +1,31 @@
+id: map_307
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: "Redoubt Hall"
+region: voidshore
+map_type: interior
+level_band: { min: 80, max: 80 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 34, h: 18 }
+bgm: bgm_town_voidshore
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [17, 9] }
+portals:
+  - id: door_to_redoubt
+    kind: door
+    at: { tile: [17, 15] }
+    target_map: map_306
+    target_spawn: main
+interactables:
+  - type: storage_chest
+    id: chest_redoubt_hall
+    at_tile: [6, 9]
+    params:
+      scope: character
+npcs: [npc_115, npc_118]
+platform_brief: |
+  Single-room hall, one flat band -- a plain indoor box matching MAPS_SYSTEM §2's
+  interior guidance, doubling as the Redoubt's war-room and forge.
+flavor: "A long stone hall hung with charts of the Sunder Deeps, kept warm by a forge that never quite goes quiet."

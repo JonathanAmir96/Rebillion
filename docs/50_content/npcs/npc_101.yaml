@@ -1,0 +1,13 @@
+id: npc_101
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY, PERSISTENCE]
+name: Ledger-Warden Fenn
+region: arcane_reach
+map: map_245
+role: banker
+services: [storage]
+dialog:
+  greeting: "Your goods, held steady, even if the ground under us isn't."
+  farewell: "Come back for it whenever the shard lets you."
+portrait: portrait_npc_101
+flavor: "Fenn's strongbox is bolted through three layers of floating stone -- the one thing in Spirehaven that never drifts."

@@ -132,7 +132,7 @@ attack that could fling the player into more danger.
 
 ## 7. Swim: `water_physics` map flag
 
-Sunken Depths (`docs/WORLD_PLAN.md` R5) uses a **modified-jump flag**, not a separate stat or a new
+Sunken Depths (`docs/WORLD_PLAN.md` R7) uses a **modified-jump flag**, not a separate stat or a new
 movement mode: a boolean `water_physics: true` authored per map (Sunken Depths' field/dungeon
 maps; false/omitted everywhere else). It applies one scalar to the §1 jump/fall gravity and
 nothing else:
@@ -156,13 +156,9 @@ as floaty, not a new animation vocabulary.
 
 ## Open Questions
 
-- `run_speed` (8 tiles/s = 128 px/s) is this doc's own figure for level design; it does not
-  currently match `10_systems/COMBAT_FORMULA.md` §10's placeholder `base_move_speed` reference
-  (200 px/s), which that doc explicitly flags as pending the tile-scale lock. Once
-  `40_assets/ART_BIBLE.yaml` formally locks the 16 px grid, the two figures must be reconciled —
-  owner call sits with `10_systems/COMBAT_FORMULA.md` at the C gate; this doc's tiles/s figures
-  (and every authored gap in the tree) would need re-validation if the reconciled value changes
-  `run_speed`.
+- **`run_speed` — resolved at the C gate:** `10_systems/COMBAT_FORMULA.md` §10 adopted this
+  doc's 8 tiles/s (= 128 px/s at the AB-001 16 px grid) as `base_move_speed`, replacing its
+  200 px/s placeholder; every authored gap figure in this doc stands unchanged.
 - Derived gravity/`v0` (§1) are a mathematical reference, not an independently tuned feel; the
   coding pass (`30_engineering/ENGINEERING_STANDARDS.md`) may retune within the constraint that
   apex/distance/run-speed stay locked.

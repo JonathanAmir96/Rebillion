@@ -1,0 +1,21 @@
+id: quest_102
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN, ITEMS]
+name: Salvage Off the Second Shard
+region: arcane_reach
+quest_type: side
+giver_npc: npc_099                # merchant at Spirehaven
+level_requirement: 54
+recommended_level: 54
+steps:
+  - type: collect
+    target: item_etc_0146
+    count: 6
+rewards:
+  exp: 32336                      # round(0.075 * exp_to_next(54)=431,145); side band (QUESTS §4)
+  shards: 336                     # mean_shards_normal(54)*4 = 84*4 (QUESTS §5 / DROPS §3)
+  items:
+    - { id: item_use_0017, qty: 1 }
+flavor: "Tass buys glass-clean salvage sight unseen, and the second shard field always turns up the cleanest cuts."
+offer_text: "Bring me whatever the glass-wisps are guarding out past the second shard. I pay fair for fair goods."
+complete_text: "Not a chip out of place. You've got an eye for salvage -- rare, out here."

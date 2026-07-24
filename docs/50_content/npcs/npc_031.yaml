@@ -1,0 +1,12 @@
+id: npc_031
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES]
+name: Wick
+region: millbrook
+map: map_018
+role: flavor
+dialog:
+  greeting: "You here for the undervault gate too? Everyone's here for the undervault gate."
+  farewell: "Watch for Vex. She doesn't like being watched back."
+portrait: portrait_npc_031
+flavor: "Wick haunts the square around the undervault seal, half-hoping to catch a glimpse of a Flicker vanishing through it."

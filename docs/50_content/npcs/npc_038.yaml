@@ -1,0 +1,12 @@
+id: npc_038
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, QUESTS]
+name: Warden Petra Thorne
+region: verdant
+map: map_046
+role: quest_giver
+dialog:
+  greeting: "First taste of the hollow proper is right past this marker. Careful -- and useful, if you're willing."
+  farewell: "Watch the treeline. It watches back, out here."
+portrait: portrait_npc_038
+flavor: "Petra walks the outskirts every dawn, keeping half an eye on the path and half on whatever's crept closer to it overnight."

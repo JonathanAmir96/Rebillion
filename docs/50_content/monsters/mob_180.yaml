@@ -1,0 +1,25 @@
+id: mob_180
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Shardling
+tier: normal                     # ID slot 180 = R10 normal (ID_REGISTRY Monsters)
+element: neutral                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [arcane]                # ELEMENTS §2 (mutually exclusive lists)
+level: 53
+size_class: small
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 53
+  life: 12544                    # 4*(53+3)^2
+  power: 165                     # 6+3*53
+  armor: 318                    # 6*53  (armor+warding sum = 636 = 12*53)
+  warding: 318                  # 6*53
+  precision: 212                # 4*53
+  evasion: 4.59                 # 3+0.03*53 (%)
+  exp: 698                     # round(4*53^1.3) normal (LEVELING §3)
+ai_profile: pack_hunter
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  pack_call_radius: 8
+  pack_max_size: 5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_180
+flavor: "A knuckle of drifting masonry that woke up and forgot it was ever a wall. Alone it is a pebble; the swarm that answers its clatter is a landslide with a grudge."

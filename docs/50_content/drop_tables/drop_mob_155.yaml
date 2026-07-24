@@ -1,0 +1,11 @@
+id: drop_mob_155
+schema: 20_schemas/drop_table.schema.md
+references: [DROPS, ITEMS]        # normal table: no emberstone, no pool row
+owner: mob_155
+rows:
+  # shards guaranteed. mean_shards_normal(43)=round(1.5*43+3)=68; range=[round(0.8*68),round(1.2*68)] (DROPS §3)
+  - { ref: shards, chance: guaranteed, qty_min: 54, qty_max: 82 }
+  # region material(s), DROPS §5.1
+  - { ref: item_etc_0133, chance: common, qty_min: 1, qty_max: 2 }
+  # a use item (tonic) at rare (DROPS §5.1); Sovereign Life Tonic serves the Lv 40-band
+  - { ref: item_use_0017, chance: rare, qty_min: 1, qty_max: 1 }

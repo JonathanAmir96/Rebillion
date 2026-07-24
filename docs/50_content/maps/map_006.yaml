@@ -1,0 +1,48 @@
+id: map_006
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Emberfoot Fields, Lower Reach
+region: emberfoot
+map_type: field
+level_band: { min: 2, max: 3 }
+biome: emberfoot
+tileset: tileset_emberfoot
+size_tiles: { w: 135, h: 26 }
+bgm: bgm_emberfoot
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [14, 20] }
+portals:
+  - id: to_trailhead
+    kind: edge
+    at: { edge: left }
+    target_map: map_005
+    target_spawn: main
+    dead_end: false
+  - id: to_windbreak_ridge
+    kind: edge
+    at: { edge: right }
+    target_map: map_007
+    target_spawn: main
+    dead_end: false
+spawn_zones:
+  - id: lower_reach_stretch
+    rect_tiles: { x: 20, y: 18, w: 62, h: 6 }
+    mobs:
+      - { mob: mob_002, count: 3 }
+      - { mob: mob_003, count: 1 }
+    max_concurrent: 6
+npcs: []
+interactables:
+  - type: sign
+    id: sign_lower_reach_006
+    at_tile: [16, 19]
+    params:
+      text: "The ground dips here before it climbs -- watch for loose cinder underfoot."
+      interact_prompt: Read
+platform_brief: |
+  Two low terraces stepped by a 2-tile rise, crossable in a single running jump
+  (MAP_TRAVERSAL §1.1: <=5 tiles horizontal / <=3.5 tiles rise). Foothold segments
+  under painted terrain_chunks (ART_BIBLE AB-001). No rope/ladder needed here.
+flavor: "A shallow dip in the land where the ash pools deeper. The village's warmth still lingers, but the fields are starting to bite back."

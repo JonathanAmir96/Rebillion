@@ -1,0 +1,14 @@
+id: npc_111
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Chandler Tovin Reach
+region: voidshore
+map: map_285
+role: merchant
+shop:
+  items: [item_use_0017]
+dialog:
+  greeting: "Tonics, rope, lamp oil -- whatever keeps you alive past the Landing's lights."
+  farewell: "Stock up. The shore doesn't sell second chances."
+portrait: portrait_npc_111
+flavor: "Tovin's stall is the last stop for supplies before the Umbral Shore, and he prices accordingly."

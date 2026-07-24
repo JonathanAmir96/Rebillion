@@ -1,0 +1,26 @@
+id: mob_188
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Orbweight Golem
+tier: normal                     # ID slot 188 = R10 normal (ID_REGISTRY Monsters)
+element: neutral                   # R10 split arcane/shadow/neutral (WORLD_PLAN)
+weak_to: [arcane]
+resists: [neutral]                # ELEMENTS §2 (mutually exclusive lists)
+level: 60
+size_class: large
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 60
+  life: 15876                    # 4*(60+3)^2
+  power: 186                     # 6+3*60
+  armor: 360                    # 6*60  (armor+warding sum = 720 = 12*60)
+  warding: 360                  # 6*60
+  precision: 240                # 4*60
+  evasion: 4.80                 # 3+0.03*60 (%)
+  exp: 820                     # round(4*60^1.3) normal (LEVELING §3)
+ai_profile: territorial_guard
+ai_params:                       # override only profile-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 5
+  leash_radius: 4
+  patrol_radius: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+drop_table: drop_mob_188
+flavor: "A ballast-golem the old sorcerers built to weigh the shards down. It still holds its stone anchor, and will fold you into it if you crowd its post."

@@ -1,0 +1,91 @@
+id: mob_047
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING, SKILL_SYSTEM, SKILL_EFFECTS]
+name: Thornback Sovereign
+tier: boss                        # ID slot 047 = R3 boss (ID_REGISTRY Monsters)
+element: nature                   # R3 element (WORLD_PLAN)
+weak_to: [fire]                   # dry moss-armor and chitin; the hollow's one great vulnerability
+resists: [nature]
+level: 16
+size_class: large                 # authored `large` (WORLD_PLAN/task): NOT boss-size, so not knockback-immune
+stats:                            # §13 normal Lv 16 x §13.2 boss multipliers (region-boss row)
+  life: 50540                     # 1444 x35
+  power: 108                      # 54 x2.0 (touch = round(0.5*power), §13.1; contact-hot on the gore)
+  spellpower: 108                 # parity (§13); thorn/spore casts scale on magic
+  armor: 176                      # reallocated toward armor (moss-armored shell); sum 308 = 12*16 x1.6
+  warding: 132                    # 308 - 176 (§13 permits armor/warding reallocation)
+  precision: 77                   # 64 x1.2
+  evasion: 3.5                    # 3.5 + 0 (bosses don't dodge, §13.2)
+  exp: 3675                       # exp_per_kill_normal(16)=147 x25 (LEVELING §3 boss)
+ai_profile: boss_scripted         # authored 2-phase fight (AI_BEHAVIOR §14-§15)
+abilities:
+  - id: antler_gore
+    name: Antler Gore
+    targeting: { shape: melee_arc, radius: 3 }
+    cooldown: 6.0
+    telegraph_s: 1.0
+    effects:
+      - { op: deal_damage, element: neutral, mult: 1.6 }
+      - { op: knockback, distance: 2, vertical: 1 }
+  - id: thornquake
+    name: Thornquake
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 10.0
+    telegraph_s: 1.3
+    effects:
+      - { op: deal_damage, element: nature, mult: 1.3 }
+      - { op: apply_status, status: root, chance: 0.7, dur: 3 }
+  - id: spine_volley
+    name: Spine Volley
+    targeting: { shape: line, length: 8, width: 2 }
+    cooldown: 8.0
+    telegraph_s: 1.1
+    effects:
+      - { op: deal_damage, element: nature, mult: 1.4 }
+      - { op: apply_status, status: poison, chance: 0.7, dur: 10, stacks: 2 }
+  - id: moss_carapace
+    name: Moss Carapace
+    targeting: self
+    cooldown: 18.0
+    telegraph_s: 1.4
+    effects:                      # shell-intact defensive layer (phase 1)
+      - { op: grant_shield, scaling: max_life, mult: 0.10, dur: 12 }
+      - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
+  - id: goring_rampage
+    name: Goring Rampage
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 9.0
+    telegraph_s: 1.2
+    effects:                      # cracked-shell fury (phase 2)
+      - { op: deal_damage, element: neutral, mult: 1.9 }
+      - { op: knockback, distance: 3, vertical: 1 }
+  - id: spore_eruption
+    name: Spore Eruption
+    targeting: { shape: aoe_circle, radius: 5, origin: self }
+    cooldown: 11.0
+    telegraph_s: 1.4
+    effects:
+      - { op: deal_damage, element: nature, mult: 1.7 }
+      - { op: apply_status, status: poison, chance: 0.9, dur: 10, stacks: 3 }
+  - id: summon_brood
+    name: Summon Brood
+    targeting: self
+    cooldown: 24.0
+    telegraph_s: 1.5
+    effects:
+      - { op: summon_entity, entity_ref: mob_028, count: 2, dur: 30 }   # sporeling adds (cap 1-2, §12)
+phases:                           # boss_scripted phase contract (AI_BEHAVIOR §15)
+  - phase_id: 1                   # shell intact: holds the grove, shells up, thorns and toxin control
+    life_threshold_pct: 100
+    base_profile: territorial_guard
+    param_overrides: { aggro_radius: 6, leash_radius: 8, patrol_radius: 3 }
+    added_abilities: [antler_gore, thornquake, spine_volley, moss_carapace]
+  - phase_id: 2                   # shell cracked: mobile, goring rampage, spawns brood
+    life_threshold_pct: 50
+    base_profile: aggressive_charger
+    param_overrides: { charge_speed_mult: 3.0, charge_recover_s: 2.0, aggro_radius: 9 }
+    added_abilities: [goring_rampage, spore_eruption, summon_brood]
+    enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
+animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+drop_table: drop_mob_047
+flavor: "A moss-armored beetle-stag older than the hollow that took its name from him, his shell a slab of living green that has turned a hundred years of blades. He fights slow and unbothered behind that carapace until it finally splits, and then the patient king becomes a goring wreck that seeds the grove with his brood as he charges."

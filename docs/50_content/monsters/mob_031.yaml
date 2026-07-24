@@ -1,0 +1,25 @@
+id: mob_031
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Moss Prowler
+tier: normal                     # ID slot 031 = R3 normal (ID_REGISTRY Monsters)
+element: neutral                 # R3 element split is nature/neutral (WORLD_PLAN)
+weak_to: [fire]
+level: 9
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 9
+  life: 575                      # §13 table Lv 9
+  power: 33                      # 6+3*9 (touch = round(0.5*power), neutral, §13.1)
+  armor: 54                      # 6*9  (armor+warding sum = 108 = 12*9)
+  warding: 54                    # 6*9
+  precision: 36                  # 4*9
+  evasion: 3.3                   # 3 + 0.03*9 (%)
+  exp: 70                        # exp_per_kill_normal(9) (LEVELING §3)
+ai_profile: pack_hunter          # hunts the dappled understory in twos and threes (AI_BEHAVIOR §10)
+ai_params:                       # override only pack_hunter-declared tunables
+  aggro_radius: 6
+  pack_call_radius: 9
+  pack_max_size: 3
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+drop_table: drop_mob_031
+flavor: "A low, moss-coated cat that reads as one more fallen log until it moves, and it never moves alone. The first you notice is usually the second one already at your flank."

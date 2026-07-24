@@ -1,0 +1,20 @@
+id: quest_069
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Camp's First Line
+region: sunken
+quest_type: main
+giver_npc: npc_069
+level_requirement: 30
+recommended_level: 30
+prereqs: []
+steps:
+  - type: kill
+    target: mob_108
+    count: 8
+rewards:
+  exp: 13320  # side/main pct within 15-30% band (QUESTS §4); exp_to_next(30)=66,600 (LEVELING §1)
+  shards: 720
+flavor: "Something out of the drowned dark has been testing the salvage camp's perimeter every night since the crews arrived."
+offer_text: "The camp's not going anywhere if I lose another watch to the shallows. Clear the water past the line and I'll owe you."
+complete_text: "Quiet again, for now. That's the best anyone gets down here, and I'll take it."

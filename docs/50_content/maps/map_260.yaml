@@ -1,0 +1,49 @@
+id: map_260
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Shardline Reach, High Drift
+region: arcane_reach
+map_type: field
+level_band: { min: 63, max: 64 }
+biome: arcane_reach
+tileset: tileset_arcane_reach
+size_tiles: { w: 180, h: 34 }
+bgm: bgm_arcane_reach
+ambience: [amb_wind, amb_void_hum]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [16, 28] }
+portals:
+  - id: to_drowned_glyphs
+    kind: edge
+    at: { edge: left }
+    target_map: map_259
+    target_spawn: main
+    dead_end: false
+  - id: to_last_causeway
+    kind: edge
+    at: { edge: right }
+    target_map: map_261
+    target_spawn: main
+    dead_end: false
+moving_platforms:
+  - id: drift_shard_high_a
+    path: [[70, 26], [96, 8], [122, 26]]
+    speed: 4.5
+    pause_s: 0.75
+    loop_mode: ping_pong
+    one_way: false
+spawn_zones:
+  - id: high_drift_stretch
+    rect_tiles: { x: 32, y: 24, w: 80, h: 10 }
+    mobs:
+      - { mob: mob_190, count: 2 }
+      - { mob: mob_191, count: 3 }
+    max_concurrent: 6
+interactables: []
+npcs: []
+platform_brief: |
+  The tallest field on the chain, three sheer tiers rising well past the 3.5-tile jump cap
+  (MAP_TRAVERSAL §1.1) between the lower and upper reaches. A single drifting rune-shard
+  platform (MAP_TRAVERSAL §5) bridges the climb; no fall damage regardless (§2).
+flavor: "The drift climbs steeply here, tier over tier, until Spirehaven's pier is only a smudge of stone far below."

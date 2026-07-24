@@ -1,0 +1,26 @@
+id: mob_165
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Frostquill Sentinel
+tier: normal
+element: frost
+weak_to: [fire]                  # thematic frost creature (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 51
+size_class: medium
+stats:                           # COMBAT_FORMULA §13 normal budget, Lv 51
+  life: 11664                     # 4*(51+3)^2
+  power: 159                     # 6+3*51 (touch = round(0.5*power), §13.1)
+  armor: 306                     # 6*51  (armor+warding sum = 612 = 12*51)
+  warding: 306                   # 6*51
+  precision: 204                 # 4*51
+  evasion: 4.5                   # 3 + 0.03*51 (%)
+  exp: 664                     # exp_per_kill_normal(51)=round(4*51^1.3) (LEVELING §3)
+ai_profile: stationary_turret
+ai_params:                       # override only stationary_turret-declared tunables (AI_BEHAVIOR)
+  aggro_radius: 7
+  attack_cooldown_s: 2.5
+  windup_s: 0.6
+animation_states: [idle, attack, cast, hit, die]                # stationary_turret: no locomotion states
+drop_table: drop_mob_165
+flavor: "A rooted, spine-covered growth of blue ice that swivels to track and looses a volley of frozen quills. It never moves; it never has to."

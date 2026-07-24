@@ -1,0 +1,44 @@
+id: map_306
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN]
+name: "Lastlight Redoubt"
+region: voidshore
+map_type: town
+level_band: { min: 80, max: 80 }
+biome: voidshore
+tileset: tileset_voidshore
+size_tiles: { w: 120, h: 24 }
+bgm: bgm_town_voidshore
+ambience: [amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [24, 18] }
+portals:
+  - id: to_umbral_shore_end
+    kind: edge
+    at: { edge: left }
+    target_map: map_305
+    target_spawn: main
+  - id: door_to_hall
+    kind: door
+    at: { tile: [30, 18] }
+    target_map: map_307
+    target_spawn: main
+  - id: to_sunder_deeps
+    kind: edge
+    at: { edge: right }
+    target_map: map_308
+    target_spawn: main
+interactables:
+  - type: lore_marker
+    id: marker_lastlight
+    at_tile: [10, 17]
+    params:
+      text: "Torches on iron stakes ring the Redoubt's wall -- the last light before the deep dark takes over."
+      interact_prompt: Read
+npcs: [npc_116, npc_117]
+platform_brief: |
+  Flat torch-lit rampart on a single band, the final holdfast before the deep dungeons.
+  Terrain is foothold segments under painted terrain_chunks (ART_BIBLE AB-001); no
+  verticality gimmick, a plain safe hub between the shore and the Sunder Deeps.
+flavor: "The final holdfast before the void, its torches burning against a sky that never fully closes over. Past its wall, only the deep dark waits."

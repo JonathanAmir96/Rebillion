@@ -1,0 +1,26 @@
+id: mob_048
+schema: 20_schemas/monster.schema.md
+references: [COMBAT_FORMULA, STATUS_EFFECTS, AI_BEHAVIOR, DROPS, ELEMENTS, LEVELING]
+name: Shallows Nipper
+tier: normal                     # ID slot 048 = first R4 normal (ID_REGISTRY Monsters)
+element: frost                   # R4 element split is frost/neutral (WORLD_PLAN)
+weak_to: [fire]                  # rime-crusted brine crab (ELEMENTS §2; mutually exclusive lists)
+resists: [frost]
+level: 14                        # R4 gradient start; rises monotonically along mob IDs (WORLD_PLAN)
+size_class: small
+stats:                           # all copied from COMBAT_FORMULA §13 normal budget, Lv 14
+  life: 1156                     # 4*(14+3)^2
+  power: 48                      # 6+3*14 (touch = round(0.5*power), neutral, §13.1)
+  armor: 84                      # 6*14  (armor+warding sum = 168 = 12*14)
+  warding: 84                    # 6*14
+  precision: 56                  # 4*14
+  evasion: 3.42                  # 3 + 0.03*14 (%)
+  exp: 124                       # exp_per_kill_normal(14)=round(4*14^1.3) (LEVELING §3)
+ai_profile: pack_hunter          # weak alone, swarms the tideline in numbers (AI_BEHAVIOR §10)
+ai_params:                       # override only pack_hunter-declared tunables
+  aggro_radius: 5
+  pack_call_radius: 8
+  pack_max_size: 5
+animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+drop_table: drop_mob_048
+flavor: "A palm-sized shore crab whose shell wears a permanent skin of rime, cold to the touch even in the sun. One is a pinch; the skittering tide that answers its clatter is the coast's first lesson."

@@ -2,7 +2,7 @@
 
 References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 10_systems/STATS.md,
 10_systems/ELEMENTS.md, 10_systems/STATUS_EFFECTS.md, 10_systems/SKILL_EFFECTS.md,
-10_systems/COMBAT_FORMULA.md, 10_systems/SPAWN.md, 10_systems/PARTY.md,
+10_systems/COMBAT_FORMULA.md, 10_systems/SPAWN.md, 10_systems/social/PARTY.md,
 20_schemas/monster.schema.md, 40_assets/ANIMATION_STATES.md, 40_assets/ART_BIBLE.yaml,
 15_maps_system/MAPS_SYSTEM.md, docs/VALIDATION.md, docs/ID_REGISTRY.md
 
@@ -54,7 +54,7 @@ statuses (`10_systems/STATUS_EFFECTS.md` §1), regardless of which state the mon
 - **Telegraph requirement:** any `windup` on an elite- or boss-tier monster must use the
   `telegraph` animation state (`40_assets/ANIMATION_STATES.md`; required by `docs/VALIDATION.md`
   §6). Normal-tier monsters may use a short, untelegraphed windup unless a profile states
-  otherwise (`kamikaze_burster` is the one stated exception, §13).
+  otherwise (`kamikaze_burster` is the one stated exception, §12).
 - **Ground edge behavior (default):** ground profiles avoid walking off a platform edge or into a
   one-way-platform drop during `idle`/`patrol`/`chase`, unless their entry below explicitly says
   they drop-through or charge through edges.
@@ -248,8 +248,7 @@ falls under §2's telegraph requirement the same as `elite`, with no exceptions.
 `10_systems/STATUS_EFFECTS.md` §1 already defines `phase_shift`'s behavior (no new status
 applications; existing DoTs/CC suspended; invulnerable/untargetable by convention) — this doc only
 triggers entry into it, never redefines what happens inside it. Bosses are immune to hard CC
-(`10_systems/STATUS_EFFECTS.md` §3); Rift raid bosses are immune to all CC — neither is restated
-here.
+(`10_systems/STATUS_EFFECTS.md` §3) — not restated here.
 
 A boss monster file declares an ordered `phases[]` list (full field typing owned by
 `20_schemas/monster.schema.md`; this doc specifies the AI-relevant contents that schema must
@@ -283,10 +282,15 @@ combat resumes), `phase_transition_lock` true (life-threshold crossings always i
 above; set false only if a specific boss needs a softer transition — flag it in that boss's data).
 
 ## Open Questions
-- Boss/monster ability IDs (§15 `added_abilities`) have no reserved prefix in
-  `docs/ID_REGISTRY.md` today (only `skill_<line>_NNN` for player job-line skills). Needs an
-  ID_REGISTRY decision before Phase D authors boss kits — proposing a
-  `mob_ability_<mob_NNN>_NN` convention or similar; flagged, not decided here.
+- **Boss/monster ability ID prefix — resolved at the C gate:** the per-monster
+  `mob_ability_<mob_NNN>_01`–`_08` namespace was adopted
+  (`docs/phase_reports/PHASE_H_CONSISTENCY_REPORT.md`). Summon templates, by contrast, have
+  **no minted `mob_NNN` block** — `mob_151`–`mob_178` belongs to the Frostpeak roster
+  (`docs/ID_REGISTRY.md`, immutable) — so content references them via `summon_tmpl_*`
+  placeholders (`docs/phase_reports/PHASE_D_ARC2_REPORT.md`), real IDs pending (next item).
+- **Summon-template ID block — request to `docs/ID_REGISTRY.md`:** summon templates need a
+  dedicated ID block outside the regional `mob_NNN` rosters; once ID_REGISTRY mints one (in
+  its own commit — not minted here), the `summon_tmpl_*` placeholders re-point to real IDs.
 - An on-death-detonate variant of `kamikaze_burster` (explodes even if killed before its windup
   completes) is not defined; if a later design wants it, it should be a monster-authored
   `on_hit_proc`/death effect (`10_systems/SKILL_EFFECTS.md`), not a change to this profile's base
@@ -298,6 +302,6 @@ above; set false only if a specific boss needs a softer transition — flag it i
   non-boss monster.
 - Exact tile-to-pixel size for `aggro_radius`/`aggro_vertical_band` units is owned by
   `40_assets/ART_BIBLE.yaml`; not fixed here.
-- `phase_shift_duration_s` and whether it should scale by boss tier (regional vs Rift raid) is a
-  first-pass default; owner `10_systems/COMBAT_FORMULA.md`/`10_systems/PARTY.md` may retune for
-  raids.
+- `phase_shift_duration_s` and whether it should scale for raid finales
+  (`10_systems/social/RAID.md`) is a first-pass default; owner
+  `10_systems/COMBAT_FORMULA.md`/`10_systems/social/PARTY.md` may retune.

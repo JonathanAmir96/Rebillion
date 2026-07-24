@@ -1,0 +1,12 @@
+id: npc_112
+schema: 20_schemas/npc.schema.md
+references: [WORLD_PLAN, MAP_INTERACTABLES, ECONOMY]
+name: Quartermaster Ehren Voss
+region: voidshore
+map: map_285
+role: quest_giver
+dialog:
+  greeting: "The skitterers have been working the tideline right under our nose. Thin them before they reach the crates."
+  farewell: "Bring me their silk and I'll square you with the harbor books."
+portrait: portrait_npc_112
+flavor: "Ehren keeps the Landing's manifests and, lately, a running tally of everything the black surf has been stealing."

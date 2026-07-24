@@ -1,0 +1,25 @@
+id: skill_keeneye_012
+schema: 20_schemas/skill.schema.md
+references: [SKILL_SYSTEM, SKILL_EFFECTS, SKILL_ANIMATION, STATUS_EFFECTS, ELEMENTS]
+name: Keen Precision                # exact JOBS.md §3.2 Pathstalker roster name
+line: keeneye
+tier: second
+kind: passive
+targeting: self                     # passives are always-on self buffs unless an aura (SKILL_SYSTEM §7)
+cost: { essence: 0 }                # 0 for passives (skill.schema rule 5)
+cooldown: 0
+max_level: 10
+level_data:
+  - level: 1
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_power: 3, precision: 2 }, mode: flat }   # STATS.md stat tokens (SKILL_EFFECTS §13)
+  - level: 4
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_power: 6, precision: 4 }, mode: flat }
+  - level: 7
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_power: 9, precision: 6 }, mode: flat }
+  - level: 10
+    effects:
+      - { op: passive_stat_bonus, stats: { crit_power: 12, precision: 8 }, mode: flat }
+flavor: "Years of judging wind and range fold into instinct — a Pathstalker's shots simply land truer and hit harder when they crit."

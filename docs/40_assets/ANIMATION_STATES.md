@@ -19,9 +19,10 @@ numbers themselves (`40_assets/ART_BIBLE.yaml`, cited in §2, never re-derived);
 `ai_profile` enters `windup`/`chase`/`flee`/etc., or which profile does what
 (`10_systems/AI_BEHAVIOR.md`, cited throughout); jump/fall/climb kinematics and platforming physics
 (`15_maps_system/MAP_TRAVERSAL.md`, cited in §1/§3); exact per-frame hit-frame indices and
-clip-length timing (owned by `40_assets/ANIMATION_TIMING.md`, §4); and per-skill
+clip-length timing (owned by `40_assets/ANIMATION_TIMING.md`); and per-skill
 animation clip **IDs** (owned by `40_assets/SKILL_ANIMATION.md`, cited by
-`20_schemas/skill.schema.md` — a different namespace than the state tokens this doc owns).
+`20_schemas/skill.schema.md` — a different namespace than the state tokens
+this doc owns).
 
 ## 1. The 12-state registry
 
@@ -76,8 +77,8 @@ cites them and does not restate the reasoning behind any figure.
 `40_assets/ART_BIBLE.yaml` `animation.frame_budgets` predates 3 of this doc's 12 tokens. Since that
 file is locked and outside this doc's file ownership, the following is a **proposal**, not a
 ruling — flagged for Agent-3 to bless and land as an `40_assets/ART_BIBLE.yaml` `amendments[]`
-entry (the file already reserves that list, currently empty) before Phase D authors assets against
-them:
+entry (the file's `amendments[]` list already holds entry AB-001) before Phase D authors assets
+against them:
 
 | Token | Proposed budget | Rationale |
 |---|---|---|
@@ -104,7 +105,7 @@ playing:
    ≥8% of target max `life`; exact thresholds `10_systems/COMBAT_FORMULA.md` §11, not restated)
    interrupts a `normal`/`elite` monster mid-`cast` unless it is flagged super-armored, and
    interrupts a player mid-`cast` unless the player is in i-frames or under a stability effect
-   (`10_systems/COMBAT_FORMULA.md` §11–12). `boss`/raid entities carry super-armor outside
+   (`10_systems/COMBAT_FORMULA.md` §11–12). `boss` entities carry super-armor outside
    scripted-vulnerable windows, so `hit` typically layers as a flinch on a boss without canceling
    its `attack`/`cast`/`telegraph`. A **light** hit's shorter hitstun (0.12 s,
    `10_systems/COMBAT_FORMULA.md` §11) is not stated by that doc to force a full clip interrupt —
@@ -144,8 +145,8 @@ damage never on a duplicate timer." This doc does not assign a frame index, does
 from `haste` (attack-speed conversion is `10_systems/STATS.md` §5's, and it scales the whole clip's
 *playback rate*, not this doc's frame *count* — no reason found here to reopen
 `00_vision/GLOSSARY.md`'s closed haste-split question on that basis), and does not restate
-`10_systems/SKILL_EFFECTS.md`'s damage-scaling math. That contract now lives in
-`40_assets/ANIMATION_TIMING.md` §3.
+`10_systems/SKILL_EFFECTS.md`'s damage-scaling math. Exact per-frame timing lives in
+`40_assets/ANIMATION_TIMING.md` (now authored — see Open Questions).
 
 ## 5. Required-set matrix (per entity class)
 
@@ -228,10 +229,7 @@ owning content file's immutable `id`:
 
 - Monster (any tier, including summon templates): `mob_NNN` (`docs/ID_REGISTRY.md`).
 - NPC: `npc_NNN` (`docs/ID_REGISTRY.md`).
-- Player: **plural** — the player is a composed paper-doll with no single sheet; each appearance
-  layer's `pc_<layer>_NNN` id (`docs/ID_REGISTRY.md`; `40_assets/CHARACTER_COMPOSITION.md` §7)
-  serves as the `{entity_id}`, and every layer authors the player-class state set at the canonical
-  rig's fixed frame counts (that doc's §3).
+- Player: no `entity_id` token is registered anywhere in the tree today — see Open Questions.
 
 `NN` indexes `0` .. `count-1` for whichever frame count the asset actually authors inside its
 state's locked (§2.1) or proposed (§2.2) `[min, max]` budget — the budget is a range Phase D/asset
@@ -247,8 +245,9 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   [4,6], and `spawn` [3,5] frame budgets (§2.2) are this doc's first-pass proposal only —
   `40_assets/ART_BIBLE.yaml` is locked and outside this doc's file ownership, so these three cannot
   be treated as canon until Agent-3 blesses them and lands them in that file's own `amendments[]`
-  list (currently empty). Phase D should not author `telegraph`/`phase_shift`/`spawn` frame counts
-  against these numbers until that happens.
+  list (which already contains entry AB-001, for the terrain-model change — not these three). Phase
+  D should not author `telegraph`/`phase_shift`/`spawn` frame counts against these numbers until
+  that happens.
 - **`20_schemas/monster.schema.md` rule 8 needs reconciling with this doc on three points**, now
   that `40_assets/ANIMATION_STATES.md` has landed as the "authority on the full per-class set" that
   rule 8 itself deferred to: (a) it gates `phase_shift`'s presence on
@@ -263,12 +262,15 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   union of its tier row and the summon row (e.g., still needing `telegraph`), or whether
   `summon_owner` presence caps it at the summon row regardless of tier, is not resolved by that
   schema's single-axis `tier` field. Not decided here.
-- ~~Player has no registered `entity_id` or content schema.~~ **Resolved (C):**
-  `40_assets/CHARACTER_COMPOSITION.md` answers this — the player is a layered paper-doll and each
-  layer sheet's `pc_<layer>_NNN` id (`docs/ID_REGISTRY.md`) is the export `entity_id` (its §7);
-  job-line tokens are explicitly **not** used. The §5 player row binds to every `pc_*` sheet via
-  the canonical rig (its §3), checkable by `docs/VALIDATION.md` §6 once those sheets land; no
-  separate `player.schema.md` is needed.
+- **Player has no registered `entity_id` or content schema.** `40_assets/ART_BIBLE.yaml`
+  `export_contract.frame_naming` needs `{entity_id}_{state}_{NN}` for the player exactly as it does
+  for `mob_NNN`/`npc_NNN`, but no ID prefix exists for the player character anywhere in the tree
+  (`00_vision/GLOSSARY.md`'s ID-prefix list has none) and no `player.schema.md` exists.
+  Consequently the player row in §5 is a spec for the Phase E coding pass
+  (`30_engineering/ENGINEERING_STANDARDS.md`, `60_agents/`), not a Phase D `animation_states`-field
+  check the way `docs/VALIDATION.md` check 6 currently runs for monsters — flag whether the player
+  needs its own schema/ID block, or whether the job-line tokens
+  (`bulwark`/`keeneye`/`weaver`/`flicker`) double as the export `entity_id`.
 - **`20_schemas/npc.schema.md` has no `animation_states` field at all.** This doc's `idle`
   required/`walk` optional NPC row has nothing to attach to today — that schema defines no
   `animation_states`, `ai_profile`, or movement field, and (consistent with this doc's exemption) no
@@ -284,13 +286,12 @@ Examples: `mob_010_telegraph_00`, `mob_010_telegraph_01` (a 2-frame clip, within
   `10_systems/COMBAT_FORMULA.md` §11–12 states whether a landed hit forcibly dismounts a climbing
   player into `hit`/`fall`, or whether damage is simply absorbed without interrupting `climb`. Not
   assumed either way here.
-- ~~`ANIMATION_TIMING` does not exist in the tree yet.~~ **Resolved (C):** both forward
-  references have landed — `40_assets/ANIMATION_TIMING.md` (hit-frame + playback law) and
-  `40_assets/SKILL_ANIMATION.md` (skill clip-id namespace). This doc's §4 boundary is unchanged.
-- **Monster tier-count discrepancy (not this doc's to fix, but touches the boss/elite rows
-  above).** `docs/ID_REGISTRY.md` and `00_vision/SCOPE.md` both total the 150 monsters as 118
-  `normal`/24 `elite`/8 `boss`; `20_schemas/monster.schema.md`'s own Purpose section states
-  112/23/15 for the same 150. This doc's per-class rules apply uniformly regardless of the true
-  split, but the `boss` count specifically (8 vs. 15) changes how many
-  `phase_shift`/`telegraph`/`spawn` asset sets Phase D budgets for — flagged for those docs' owners
-  to reconcile.
+- **`ANIMATION_TIMING` does not exist in the tree yet.** This doc's hit-frame boundary (§4) defers
+  exact per-frame damage timing to `ANIMATION_TIMING`, per
+  `30_engineering/ENGINEERING_STANDARDS.md`'s existing citation of it — **resolved:** both
+  `40_assets/ANIMATION_TIMING.md` and `40_assets/SKILL_ANIMATION.md` now exist (Phase C
+  checkpoint + the consistency wave); hit-frame-accurate combat has its contracts.
+- **Monster tier-count discrepancy (112/23/15 vs 118/24/8) — resolved at the v2 straggler
+  wave, and the counts have since moved again with v3:** `20_schemas/monster.schema.md`'s
+  Purpose section matches `docs/ID_REGISTRY.md`; the current v3 split is **178/45/11**
+  (normal/elite/boss), and Phase D budgets **11** `boss` asset sets.

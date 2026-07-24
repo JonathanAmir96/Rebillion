@@ -1,0 +1,19 @@
+id: quest_041
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: Frost on the Bluffs
+region: tidewatch
+quest_type: side
+giver_npc: npc_050
+level_requirement: 17
+recommended_level: 17
+steps:
+  - type: kill
+    target: mob_054
+    count: 10
+rewards:
+  exp: 1116                  # round(0.09 * 12402); band per QUESTS §4 at Lv17
+  shards: 112                # mean_shards_normal(17)*4 = 28*4 (QUESTS §5 side / DROPS §3)
+flavor: "Innes has patrolled the Frostspray Bluffs long enough to know the sand-buried lurkers are spreading, not thinning."
+offer_text: "Ten of the lurkers bedded under the frozen strand -- I want to see if thinning them slows the frost's creep at all."
+complete_text: "Fewer eye-stalks poking up through the sand already. Small victories, but I'll take them."

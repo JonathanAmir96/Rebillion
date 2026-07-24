@@ -1,0 +1,20 @@
+id: quest_066
+schema: 20_schemas/quest.schema.md
+references: [QUESTS, LEVELING, ECONOMY, DROPS, WORLD_PLAN]
+name: The Revenant's Coal
+region: ashfall
+quest_type: side
+giver_npc: npc_068
+level_requirement: 32
+recommended_level: 32
+prereqs: [quest_065]
+steps:
+  - type: kill
+    target: mob_100
+    count: 8
+rewards:
+  exp: 5702                      # round(0.07 * 81,450); side band 5-10% of exp_to_next(32) (LEVELING §1 / QUESTS §4)
+  shards: 204                    # side = mean_shards_normal(32)*4 = 51*4 (QUESTS §5 / DROPS §3)
+flavor: "Ember revenants haunt the highlands with a coal for a heart, and Tolvic wants to know how many more are climbing toward his camp."
+offer_text: "Revenants past the ridge -- ones that shouldn't still be walking. Put them down properly and let me know how many you find."
+complete_text: "That's more of them than I'd like. Whatever's stirring them up, it's getting worse, not better."
