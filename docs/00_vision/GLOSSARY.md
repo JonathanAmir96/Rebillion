@@ -43,6 +43,10 @@ anywhere else in the tree is a validation failure.
 | `exp` | Experience points token |
 | `level` | Character/monster level |
 | `emberstone` | Enhancement material (10_systems/ENHANCEMENT.md); visual flavor may be reskinned by ART_BIBLE amendment |
+| `raid_token` | Raid-earned currency spent on raid-exclusive rewards (per-raid variants; 10_systems/social/RAID.md, 10_systems/DROPS.md) |
+| `party_drop_bonus` | Drop-chance multiplier from same-map party size (owner: 10_systems/DROPS.md; the loot analogue of PARTY.md §4's exp party bonus) |
+| `guild_contribution` | Points a guild accrues from members' raids and party hunts, driving guild level/unlocks (owner: 10_systems/social/GUILD.md) |
+| `party_finder` | The server-side listing board for forming parties/raids (owner: 10_systems/social/PARTY_FINDER.md) |
 
 ## Entity tiers (owner: 20_schemas/monster.schema.md)
 `normal` · `elite` · `boss`
@@ -109,7 +113,8 @@ this run authors the Lv 1–82 arcs; the game cap is 300 (initial design; see SC
 
 ## ID prefixes (ranges owned by docs/ID_REGISTRY.md)
 `map_NNN` · `mob_NNN` · `item_equip_NNNN` · `item_use_NNNN` · `item_etc_NNNN` ·
-`skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` · `pool_equip_rNN`
+`item_cosmetic_NNNN` · `skill_<line>_NNN` · `npc_NNN` · `quest_NNN` · `drop_mob_NNN` ·
+`pool_equip_rNN`
 
 ## Region slugs (owner: docs/WORLD_PLAN.md; five-island world)
 `emberfoot` · `millbrook` · `verdant` · `tidewatch` · `gloomwood` · `ashfall` · `sunken` ·

@@ -61,7 +61,7 @@ Exactly one per monster, number matching its `mob_NNN`. Region equip pools:
 | Shield (`shield` slot, equipment-v2 wave; re-homed at the v3 merge) | `0181`–`0190` | 6 planned |
 | Overall (`overall` slot, equipment-v2 wave; re-homed at the v3 merge) | `0191`–`0200` | 6 planned |
 | Boss uniques (2 per boss, boss order #1–#11) | `0201`–`0222` | 22 |
-| Reserved (uniques growth / future bosses) | `0223`–`0230` | — |
+| Raid-exclusive equipment (2 per raid, token-bought; undervault 0223–24 · mainspring 0225–26 · deepfrost 0227–28 · voidtide 0229–30) | `0223`–`0230` | 8 |
 | Weapons, arc 2 (4 lines × T7–T12: Lv 43/50/57/64/71/78) | `0231`–`0254` | 24 |
 | Armor, arc 2 (5 slots × T7–T12) | `0255`–`0284` | 30 |
 | Accessories, arc 2 | `0285`–`0300` | 16 |
@@ -118,10 +118,22 @@ appended past the former `0060` cap in a new commit; `0001`–`0060` are unmoved
 | 9 Frostpeak | `0129`–`0144` | 10 Arcane Reach | `0145`–`0160` |
 | 11 Voidshore | `0161`–`0176` | | |
 
-`0177`–`0192` reserved (raid tokens per 10_systems/DROPS.md §5.4 / future growth).
+**Raid tokens** (`10_systems/DROPS.md` §5.4, `10_systems/social/RAID.md`): `0177` Undervault
+Seal · `0178` Mainspring Cog · `0179` Deepfrost Shard · `0180` Voidtide Pearl — one per raid,
+guaranteed to each eligible member on a finale clear, spent at the Raid Quartermaster.
+`0181`–`0192` reserved (future raid tokens / growth).
 Enhancement materials: `item_etc_0193`–`0197` = Emberstone I–V (band mapping per
 10_systems/ENHANCEMENT.md); `0198`–`0200` reserved (`0198` proposed as Emberstone VI for the
 arc-2 bands — pending the ENHANCEMENT.md mapping decision, see Open Questions).
+
+## Cosmetics — `item_cosmetic_0001`–`0064` (reserved block)
+Cosmetic-only rewards (titles, dyes, crest flourishes, weapon/armor skins) per the
+cosmetic-only charter (`10_systems/MONETIZATION.md`); they carry no stats (`00_vision/PILLARS.md`
+anti-pay-to-win). **Raid-exclusive cosmetics** `0001`–`0008` (one per raid to start: a title +
+a cosmetic effect, Quartermaster-bought with `raid_token`s); `0009`–`0064` reserved (guild
+cosmetics, event/growth). Owner of the cosmetic system + earn/equip rules: to be assigned when
+cosmetic content is authored (`10_systems/MONETIZATION.md` holds the charter; not authored this
+run beyond these reservations).
 
 ## Skills — `skill_<line>_001`–`060` per job line (blocks for branched 2nd jobs)
 Line tokens (owner 10_systems/JOBS.md): `bulwark` (might), `keeneye` (finesse), `weaver`

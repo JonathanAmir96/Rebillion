@@ -2,6 +2,42 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-24 — social package: encourage party hunting + raids (owner-directed)
+
+Owner goal: **encourage grouping (party hunting + raids) to build in-game social play** —
+carrots, not solo penalties (the design keeps solo viable; grouping is the *better*, not the
+*only*, path — P2/P3). Builds on the existing 2× party exp bonus (`PARTY.md` §4). Spec (all
+first-pass, tunable; flagged in each doc's Open Questions):
+
+**A — Raids as the social centerpiece** (`social/RAID.md`, `LEVELING.md` §3.1, `ITEMS.md`,
+`DROPS.md`, `ID_REGISTRY.md`):
+- Raid tokens `item_etc_0177`–`0180` (undervault/mainspring/deepfrost/voidtide), guaranteed to
+  each eligible member on finale clear; spent at a **Raid Quartermaster** vendor.
+- Raid-exclusive gear `item_equip_0223`–`0230` (2 per raid, token-bought, aspirational
+  side-grades) + a raid-exclusive **cosmetic/title** per raid (reserved cosmetic note).
+- Clear exp ≈ doubled: stage/clear = undervault 3k/20k · mainspring 6k/40k · deepfrost
+  10k/60k · voidtide 16k/100k (a full clear ≈ 10–12% of a band-level).
+- **First-clear-of-the-day 2× bonus** (per character, per raid) + a bonus token — daily social
+  rhythm, no weekly lockout. Clear cooldown 30 → 15 min.
+
+**B — Party-hunting sweeteners** (`PARTY.md` §4, `DROPS.md`):
+- **`party_drop_bonus`** (same-map eligible members): 1/2/3/4/5/6 → 1.00/1.05/1.10/1.16/1.22/
+  1.30× on drop *chances* (owned by DROPS; stacks with `fortune`'s multiplier, both capped).
+- Widen full-credit exp-share band: 0–15 gap = 1.00 (was 0–10); 16–20 = 0.66; 21–25 = 0.33;
+  26+ = 0. Mixed-level friends hunt at full credit.
+
+**C — Party-finder / LFG + hubs** (new `social/PARTY_FINDER.md`): server-authoritative board;
+post/browse listings by activity (field_hunt/raid/quest), region, level band, open slots;
+request-join → leader accept; town hangout hubs (Millbrook plaza + port towns). Server-deferred
+like the other social systems.
+
+**D — Guild incentives** (`social/GUILD.md`): `guild_contribution` from raids/party hunts →
+guild level/unlocks; a small **guild grouping buff** (+exp/+drop) when 2+ guildmates same-map
+party; a rotating **weekly guild goal** → guild-wide reward.
+
+New GLOSSARY tokens: `party_drop_bonus`, `guild_contribution` (derived quantities); raid-token
+item names; `party_finder` mechanism. IDs use existing reserved blocks (no renumbering).
+
 ## 2026-07-24 — single-canon consolidation + pacing retune (owner-directed)
 
 `main` is the single source of truth: the **five-island / two-arc world** (11 regions,
