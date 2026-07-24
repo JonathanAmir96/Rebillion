@@ -19,7 +19,7 @@ portals:
     at: { tile: [54, 12] }
     target_map: map_200
     target_spawn: main
-    dead_end: true  # raid finale entry; one-way into the shared arena instance (RAID.md §4, SPAWN §7)
+    dead_end: true  # raid finale entry; one-way into the party's own finale instance (RAID.md §3-§4: private per party, SPAWN §7)
 spawn_zones:
   - id: escapement_antechamber_zone
     rect_tiles: { x: 16, y: 22, w: 32, h: 10 }
@@ -29,7 +29,8 @@ spawn_zones:
     max_concurrent: 8
 npcs: []
 platform_brief: |
-  Stage 3: the puzzle room before the finale (RAID.md §4 reach/quest_object pattern), a
-  short gauntlet of elites guarding the antechamber door. Party-instanced; no
-  verticality gimmick.
+  Stage 3 of 3 -- the KILL GATE (RAID.md §4): escapement wardens hold the antechamber
+  door until the pack is down. "The beat" is at its tightest here, the sweeping arms
+  dividing the floor on the same fixed cycle the party learned in stage 1. Party-
+  instanced per SPAWN §7; no verticality gimmick.
 flavor: "The last chamber before the Custodian's own gate, escapement arms sweeping in patient counterpoint to what waits beyond."

@@ -15,7 +15,7 @@ instances for raid content — and never restates it; this doc fixes *how many* 
 *which* maps, selected *how*, torn down *when*, and how party/chat/market state keeps working
 across them. It never restates a value owned elsewhere: respawn timers stay `10_systems/SPAWN.md`'s,
 exp-share math stays `10_systems/social/PARTY.md`'s, fares stay `10_systems/ECONOMY.md`'s. It
-consumes `docs/WORLD_PLAN.md`'s map allocation (v3: 324 maps across two authored arcs) and
+consumes `docs/WORLD_PLAN.md`'s map allocation (v3: two authored arcs; that doc owns the count) and
 `docs/ID_REGISTRY.md`'s ID blocks as given facts, not decisions of its own.
 
 ## 1. Channel-eligible maps
@@ -49,7 +49,11 @@ independent channel copies would fork that shared-reset design for no benefit th
 this doc adds no occupancy cap to arenas and spawns no second channel for one, full stop. `boss`-tier
 respawn is `10_systems/SPAWN.md` §3's, restated nowhere here.
 
-**Exemption 2 — raid stage/finale maps are true instances, not channels.** Covered in §2.
+**Exemption 2 — raid stage, finale *and bonus-room* maps are true instances, not channels.**
+Covered in §2. This explicitly includes the four bonus rooms `map_325`–`map_328`
+(`10_systems/social/RAID.md` §6.E), which carry `map_type: secret` and would otherwise be swept up
+by the `secret` entry in the eligible list above — a channelled bonus room would let any passing
+player harvest another party's one-shot nodes, which is the opposite of the design.
 
 **Channel identity is ops/routing metadata, not a game-content ID.** A channel is addressed as
 `map_NNN` + a small integer index (e.g. "map_017, channel 2") for gateway routing, telemetry, and
@@ -70,6 +74,10 @@ occupancy-capped the way §7's channels are:
 | `raid_deepfrost` | `map_240`–`map_242` | `map_244` | `mob_178` |
 | `raid_voidtide` | `map_320`–`map_322` | `map_324` | `mob_234` |
 
+Each raid's **bonus room** (`map_325` / `map_326` / `map_327` / `map_328`,
+`10_systems/social/RAID.md` §6.E) is part of the same instance and is covered by every rule in this
+section — it is never a channel of itself, despite being `map_type: secret`.
+
 (`docs/ID_REGISTRY.md` "Maps," `10_systems/social/RAID.md` §2 — cited, not restated.) Party
 size is owned split: the 3-member floor by `10_systems/social/RAID.md` §2/§3, the 6-cap by
 `10_systems/social/PARTY.md` §1; instance lifecycle (leaving, the 60 s
@@ -78,6 +86,36 @@ adds one fact neither states: **an active raid instance never counts against its
 channel occupancy**, because it isn't a channel of that map at all — `map_042` and `map_200` also
 serve as ordinary open-entry arenas (§1's Exemption 1) when not hosting a raid finale, and the two are
 different processes even when both are "the same `map_NNN`" from a content-authoring point of view.
+### 2.1 The channel claim (one party per raid, per channel)
+
+Instancing bounds *how* a raid runs; it does not bound *how many* run at once. This section adds
+that bound. Entering a raid takes a **claim** on `(channel, raid_token)`, and while that pair is
+claimed no other party on that channel may enter that raid.
+`10_systems/social/RAID.md` §3 owns the player-facing law; the server-side shape is this doc's:
+
+- **The key is `(channel, raid_token)`** — not `(channel, map_NNN)`. A claim on `raid_undervault`
+  leaves `raid_mainspring` free on the same channel, and one claim covers that raid's whole stage
+  chain, finale arena, and bonus room (`map_325`–`map_328`) as a single unit.
+- **Held by the world node, not the instance worker.** The claim is taken at instance-creation
+  request time — *before* a worker is allocated — and released when that worker is torn down. It is
+  node-local state, not a distributed lock: a channel lives on exactly one world node (§7), so a
+  claim never crosses nodes and needs no consensus.
+- **Released on** clear, any `10_systems/social/RAID.md` §5 wipe cause (including the §4.1 run
+  clock expiring), the instance emptying, and the 60 s disconnect grace elapsing for a dropped
+  party. Release is driven by **worker teardown**, so a claim can neither outlive the run it guards
+  nor be dropped while a live worker still holds the instance.
+- **No queue, no reservation.** A blocked party is refused at the herald and told to change
+  channels; this doc holds no waitlist state.
+
+This does **not** weaken Exemption 2. Raid maps remain true instances, never channels of
+themselves, and an active raid instance still counts against no map's channel occupancy. The claim
+rations *entry* only; nothing past the door changes.
+
+**Interaction with the headroom target below.** The claim puts a hard ceiling on concurrent
+instances of any one raid at that node's channel count. Where the 40-per-token figure below is a
+soft planning number, the claim is a real constraint, and it is the binding one unless a node runs
+40+ channels — which makes the figure conservative rather than wrong. Flagged in Open Questions.
+
 A raid instance is bounded for free by the party cap (≤6, `10_systems/social/PARTY.md` §1) — no
 occupancy math is needed for it, only headroom planning: this doc sets a soft per-world-node target
 of **40 concurrently active raid instances of each token** (160 total across the four tokens)

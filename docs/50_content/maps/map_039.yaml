@@ -29,7 +29,8 @@ spawn_zones:
     max_concurrent: 6
 npcs: []
 platform_brief: |
-  Stage 2: a collect-and-deposit room (RAID.md §4 pattern) around flooded ledger
-  vaults, elites guarding the stage items. Party-instanced per SPAWN §7; no
-  verticality gimmick.
+  Stage 2 of 3 -- COLLECT-AND-DEPOSIT (RAID.md §4), and the signature stage for "the
+  haul": a carried ledger slows its bearer and draws the vaults' wardens, so the party
+  must cover whoever is loaded while runners shuttle to the cart. Carry penalty and
+  required count are Phase D. Party-instanced per SPAWN §7; no verticality gimmick.
 flavor: "Waterlogged ledgers drift in the vault below, and whatever pulled them off their shelves is still nesting among them."

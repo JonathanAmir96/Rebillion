@@ -157,6 +157,26 @@ This resolves the monster-`life`-feedback gap flagged in
 `docs/phase_reports/GAMEPLAY_LOOP_REVIEW_2026-07-24.md` §4.1, per owner direction (bar beneath
 the animation, non-boss tiers only).
 
+## 6.2 Raid clocks — top-center, above `boss_bar`
+
+Contextual (§11), drawn only inside a raid instance (`10_systems/social/RAID.md`). A single compact
+`frame_system` readout in `ui_title`, sitting directly above the `boss_bar` slot so the two never
+overlap — during a finale fight both are visible, the clock above the boss's `life`.
+
+- **Run clock** (`10_systems/social/RAID.md` §4.1): counts **down** from 30:00 across the whole
+  run, every stage and the finale. Two warning states — at **5:00** and **1:00** remaining — each a
+  color shift plus one brief pulse, no audio sting of this doc's invention
+  (`40_assets/UI_ART_SPEC.md` owns the ramp; this doc owns only that the states exist and when).
+- **Bonus clock** (`10_systems/social/RAID.md` §6.E): replaces the run clock on entering a bonus
+  room, counting down from 0:90. It never runs alongside the run clock — the run clock has already
+  stopped on the boss kill — so the slot shows exactly one clock at any moment.
+- The boss's own 12-minute enrage timer (`10_systems/COMBAT_FORMULA.md` §13.3) is **not** drawn as
+  a third clock; it is telegraphed by the boss's own phase behavior, as every other boss mechanic
+  is. Drawing both would put two competing countdowns on one fight for no decision the player can
+  act on differently.
+- Both clocks are rendered from server ticks and are display-only
+  (`10_systems/social/RAID.md` §8) — the client never authors expiry.
+
 ## 7. Damage numbers
 
 `dmg_number` font, spawned at the hit location, floating up and fading over ≈0.8 s.

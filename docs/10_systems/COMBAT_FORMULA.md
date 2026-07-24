@@ -293,6 +293,12 @@ raid_damage      = normal_power(L) · 2.5           # FIXED — never scaled by 
 enrage_timer     = 12 min                           # boss wipes the party on expiry
 ```
 
+This 12-minute enrage is **not** the only clock on a raid-entry fight: it runs *inside*
+`10_systems/social/RAID.md` §4.1's 30-minute run clock, which started back at stage 1 and never
+paused. Whichever expires first ends the attempt, so a party that spent 25 minutes on the stage
+chain effectively fights this boss on a 5-minute enrage. This doc still owns the 12-minute value
+and the boss's own behavior on expiry; the run clock is RAID.md's and is not restated here.
+
 Because both `raid_life` and total party DPS scale linearly in `N`, time-to-kill is essentially
 `N`-independent and holds at the §14 midpoint across the whole legal `3–6` range (worked below).
 Raid boss `damage` is **not** `N`-scaled — more players means more bodies to cover mechanics, not a
@@ -311,7 +317,12 @@ highest authored raid boss):
 | 6 | 14.88 M | ≈ 31 200 | ≈ 7.9 min |
 
 `N` = 3 (the entry floor) clears in ≈ 7.9 min — inside the §14 6–10 min band with margin under the
-12-minute enrage — so the floor needs no retune. Because TTK is `N`-independent at the fixed 0.85
+12-minute enrage — so the floor needs no retune *against the enrage*. It does **not** clear the run
+clock: `10_systems/social/RAID.md` §4.1 sizes a full run at 30 min against an ≈25-minute modeled
+clear, so the modeled party reaches this boss with ≈5 minutes remaining — below the 7.9-minute TTK.
+Against the run clock this floor has no margin at all, and a party entering the arena under ≈8
+minutes cannot win at any `N`. Whether that is intended pressure or a retune is owned jointly with
+RAID.md §4.1's Open Questions. Because TTK is `N`-independent at the fixed 0.85
 coordination factor, larger parties do **not** clear faster; any real large-party coordination
 falloff (Open Questions) only pushes `N` = 6 toward the slow end of the band, never outside it.
 

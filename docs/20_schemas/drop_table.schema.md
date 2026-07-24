@@ -57,6 +57,24 @@ marks who owns the *runtime effect* the field drives (`10_systems/PERSISTENCE.md
 | `rows[].rarity_source` | enum | **only when `ref` is a pool id** | `10_systems/DROPS.md` §5.5/§6 | `elite`\|`boss`\|`raid` — selects which §5.5 rarity-weight row instantiates the pooled equip's `rarity`. Forbidden on non-pool rows (Validation). `server`. |
 | `rows[].first_clear_guaranteed` | bool | no — default `false` | `10_systems/DROPS.md` §5.3 | Marks this row as the one granted on a character's first-ever clear of this boss (the §5.3 bad-luck-protection guarantee). **Added by this schema** — DROPS.md describes the behavior but names no field for it (see Open Questions); the actual once-per-character bookkeeping is server-tracked state (`10_systems/PERSISTENCE.md`), not expressed here. Boss/raid unique rows only. `server`. |
 
+### `drop_raid_bonus_<raid>.yaml` — raid bonus-room table
+
+The third shape. One file per raid (`drop_raid_bonus_undervault` / `_mainspring` / `_deepfrost` /
+`_voidtide`, `docs/ID_REGISTRY.md`), rolled independently by **every `reactor`** in that raid's
+bonus room (`10_systems/social/RAID.md` §6.E, `map_325`–`map_328`) on harvest — not on any
+monster's death. Field shape is the `drop_mob_NNN` shape above with two differences:
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `id` | string `drop_raid_bonus_<raid>` | yes | Non-numeric; must equal the filename stem. Immutable. `server`. |
+| `owner` | string `raid_<name>` | yes | A **raid token**, not a `mob_NNN` — the owning entity is the raid, not a monster. This is the one place `owner` is not a mob. `server`. |
+| `rows` | list[row] | yes (≥1) | Same row shape and the same `10_systems/DROPS.md` §2 chance buckets as a monster table. Row *composition* is `10_systems/social/RAID.md` §6.E's, not this schema's. |
+
+Because the roll is per-node rather than per-kill, a bonus room's expected yield is
+`node_count × per-row chance` — the node count lives on the **map** (`map_325`–`map_328`
+`interactables`), not in this file, so neither file is balanceable alone. Both are flagged in
+`10_systems/social/RAID.md`'s Open Questions.
+
 ### `pools.yaml`
 
 | Field | Type | Required | References | Notes |

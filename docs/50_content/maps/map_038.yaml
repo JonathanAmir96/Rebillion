@@ -28,7 +28,8 @@ spawn_zones:
     max_concurrent: 6
 npcs: []
 platform_brief: |
-  Stage 1 of the Undervault Heist: a kill-gate room (RAID.md §4 pattern) among
-  the old grain larders, barring the way until the elite pack clears. Party-
-  instanced per SPAWN §7; no verticality gimmick.
+  Undervault Heist stage 1 of 3 -- the KILL GATE (RAID.md §4). The larder door stays
+  locked until the vermin guard is down. Signature "the haul" opens here: the swag the
+  party will carry in stage 2 is visible on the far shelves, out of reach until this
+  clears. Party-instanced per SPAWN §7; no verticality gimmick.
 flavor: "The sunken larders where the Cellar King's vermin still hoard whatever Millbrook's granaries once lost."

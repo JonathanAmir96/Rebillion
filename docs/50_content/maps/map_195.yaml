@@ -19,7 +19,7 @@ portals:
     at: { tile: [54, 12] }
     target_map: map_196
     target_spawn: main
-    dead_end: true  # stage chain is sequential and one-way forward (RAID.md §4); this exit unlocks once the stage's kill gate clears
+    dead_end: true  # stage chain is sequential and one-way forward (RAID.md §4); this exit unlocks once the stage's PUZZLE clears (beat-order plates -- RAID.md §4 signature table)
 spawn_zones:
   - id: sundered_cogworks_zone
     rect_tiles: { x: 16, y: 22, w: 32, h: 10 }
@@ -29,7 +29,8 @@ spawn_zones:
     max_concurrent: 8
 npcs: []
 platform_brief: |
-  Stage 1 of the Mainspring muster: a kill-gate room (RAID.md §4 pattern) barring the
-  sundered cogworks door until the trash count clears. Party-instanced per SPAWN §7; no
-  verticality gimmick.
+  Mainspring Trial stage 1 of 3 -- the PUZZLE (RAID.md §4 reach/quest_object), which
+  teaches the signature: "the beat", a fixed clockwork cycle identical on every run.
+  Pressure plates must be reached in the order the escapement strikes them; the stage
+  is learned, never out-statted. Cycle period is Phase D. Party-instanced per SPAWN §7.
 flavor: "The outer cogworks, sundered long before any muster reached the Custodian's own gate."

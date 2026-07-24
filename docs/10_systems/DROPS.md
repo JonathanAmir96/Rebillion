@@ -187,6 +187,10 @@ within these shapes; the guarantees are the contract.
   raid-exclusive gear (`item_equip_0223`–`0230`) and cosmetics (`item_cosmetic_0001`–`0008`) —
   catalog/prices owned by `10_systems/ITEMS.md`, exchange rules by `10_systems/social/RAID.md`.
 - **One guaranteed pool roll**, `rarity_source = raid` (§5.5) — `rare`+ emphasis.
+- **The bonus room is a separate table, not a row here.** A raid-entry kill also opens that raid's
+  bonus room (`10_systems/social/RAID.md` §6.E); its `reactor` nodes roll
+  `drop_raid_bonus_<raid>` (`50_content/drop_tables/`), which is **not** part of this boss table
+  and is not rolled on the boss's death. Its chance buckets are §2's, unchanged.
 - **Raid uniques** — the finale boss's two uniques come from the boss's **own** drop table
   (`10_systems/ITEMS.md` §11; no separate raid-only unique list, `10_systems/social/RAID.md` §6),
   `legendary`-weighted on a raid-entry kill.

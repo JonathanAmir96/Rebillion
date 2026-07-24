@@ -253,7 +253,7 @@ map, no new mechanism.
 
 ## Map-level edge table
 
-Authored by the Phase D world-graph reconciler after all 324 maps exist.
+Authored by the Phase D world-graph reconciler after every map in the set (`docs/WORLD_PLAN.md`) exists.
 
 ## Open Questions
 

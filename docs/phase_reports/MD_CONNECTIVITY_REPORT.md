@@ -63,6 +63,14 @@ restated (Law 2):
 directed-reachable** from `README.md`/`CLAUDE.md`/`memory.md`. The tree is fully connected
 *and* fully navigable top-down.
 
+## Re-run (2026-07-24, raid-stage wave)
+
+The raid-stage expansion added no new markdown docs (its new content is 4 map YAMLs + 4 drop
+tables), but the rule says re-run after any wave. `python3 tools/md_graph.py`: **119 files, 1,660
+undirected edges, 1 connected component, 0 orphans, 0 unreferenced, 0 dead-ends**; directed BFS
+over the `--json` adjacency gives **119/119 reachable from `README.md` alone**. The 117 → 119 delta
+predates this wave (the battle-pass docs). Nothing needed re-indexing.
+
 ## First audit (2026-07-24, markdown-connectivity-graph session) — historical
 
 The original audit at 97 files found the undirected graph already one component (~1,185 edges,

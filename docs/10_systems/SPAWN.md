@@ -130,7 +130,7 @@ untargetable for the duration of its `spawn` state**, so its entrance can't be p
 player has even seen it. Any accompanying screen or audio cue is `40_assets/UI_ART_SPEC.md`'s to
 define, not this doc's.
 
-## 7. Raid finale arena spawn rules
+## 7. Raid spawn rules — finale arena, stage maps, bonus room
 
 The four raid finale arenas (`map_042`/`map_200`/`map_244`/`map_324`, `10_systems/social/RAID.md`
 §2, `docs/WORLD_PLAN.md`) do not use the zone spawner (§1–§4) at all — they are single-boss scripted
@@ -146,6 +146,12 @@ effect op (`10_systems/SKILL_EFFECTS.md`), scoped to the same party instance.
 A raid's **stage maps** (`10_systems/social/RAID.md` §4) are ordinary combat dungeons and **do** run
 the zone spawner (§1–§4) — the spawner's rules are unchanged; only the map copy is party-scoped to
 the instance.
+
+A raid's **bonus room** (`10_systems/social/RAID.md` §6.E, `map_325`–`map_328`) runs **no spawner
+at all** — no zone, no mobs, no boss. Its only contents are `reactor` interactables
+(`15_maps_system/MAP_INTERACTABLES.md` §4), whose one-shot behavior is that doc's `respawn_timer_s`
+and not a `SPAWN.md` concept. It is named here only so the exemption is explicit alongside the
+other two above.
 
 A party's raid instance persists across individual member deaths/releases
 (`10_systems/DEATH_PENALTY.md` §5.3) — it resets only on a full-party wipe or the party leaving

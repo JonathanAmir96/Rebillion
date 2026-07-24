@@ -33,7 +33,8 @@ spawn_zones:
     max_concurrent: 4
 npcs: []
 platform_brief: |
-  The stage chain's threshold gallery -- SPAWN §7: an ordinary combat dungeon that
-  runs the normal zone spawner, only its instance copy is party-scoped when entered
-  through the herald (RAID.md §3-4). A locked exit ahead opens on stage-clear.
+  Voidtide stage 1 of 3 -- the PUZZLE (RAID.md §4 reach/quest_object), which introduces
+  the signature "the tide": the water level cycles on a timer, and the approach is only
+  crossable at low water. Members must reach the far trigger zones inside one low window
+  or wait out the next. Surge period is Phase D. Party-instanced per SPAWN §7.
 flavor: "The first hall of the Voidtide stage chain, its walls already weeping black water from the tide above."

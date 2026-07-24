@@ -33,7 +33,8 @@ spawn_zones:
     max_concurrent: 4
 npcs: []
 platform_brief: |
-  The stage chain's final gauntlet before the Tidesunder Maw, one-way forward
-  (RAID.md §4). Terrain is foothold segments under painted terrain_chunks
-  (ART_BIBLE AB-001); the arena's single entrance door sits at the far wall.
+  Stage 3 of 3 -- COLLECT-AND-DEPOSIT (RAID.md §4): tide-pearls gathered off the floor
+  and set into the Maw door, reachable only between surges, so "the tide" sets the whole
+  stage's rhythm. Terrain is foothold segments under painted terrain_chunks (ART_BIBLE
+  AB-001); the arena's single entrance door sits at the far wall.
 flavor: "The last stretch before the Maw, where the stone itself seems to lean away from the door at its end."

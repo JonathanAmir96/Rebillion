@@ -20,6 +20,12 @@ portals:
     target_map: map_194
     target_spawn: main
     dead_end: false  # ordinary open-entry pairing with map_194's to_the_mainspring door (MAPS_SYSTEM §8: arena's dedicated door entrance)
+  - id: to_mainspring_treasury
+    kind: door
+    at: { tile: [60, 18] }
+    target_map: map_326
+    target_spawn: main
+    dead_end: true       # The Mainspring Treasury, the raid bonus room (RAID.md §6.E). Authored like map_037's door to the stage chain: the world graph carries the edge, the RULES layer gates it -- this door opens only on a raid-entry finale kill and never for an open-arena (non-raid) kill (RAID.md §6.E/§7).
 npcs: []
 platform_brief: |
   A single flat brass floor ringed by the city's namesake coiled mainspring, one screen

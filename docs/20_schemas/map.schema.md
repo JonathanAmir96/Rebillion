@@ -8,7 +8,7 @@ docs/VALIDATION.md, 15_maps_system/MAPS_SYSTEM.md, 15_maps_system/MAP_CONNECTION
 
 ## Purpose
 
-The content schema for one map in the 324-map world (`docs/WORLD_PLAN.md`) — formalizing the exact
+The content schema for one map in the world (count owned by `docs/WORLD_PLAN.md`) — formalizing the exact
 YAML typing for the map anatomy `15_maps_system/MAPS_SYSTEM.md` §1 describes conceptually, plus the
 portal/spawn shapes `15_maps_system/MAP_CONNECTIONS.md` and `15_maps_system/MAP_INTERACTABLES.md`
 leave to "the future map schema." This doc never restates those docs' rules (size guidance, portal
@@ -21,7 +21,9 @@ map data into Godot scenes (`60_agents/`, not yet authored).
 ## File conventions
 
 One file per map at `50_content/maps/map_NNN.yaml` — `NNN` zero-padded to 3 digits, matching the
-map's reserved slot in `docs/ID_REGISTRY.md`'s 11 region blocks (`map_001`–`map_324`). No batch
+map's reserved slot in `docs/ID_REGISTRY.md`'s 11 region blocks, or in that doc's raid-bonus
+extension range (`map_325`–`map_328`, `10_systems/social/RAID.md` §6.E) — a region may own two
+disjoint map ranges. No batch
 tables (contrast `10_systems/ITEMS.md` §12's category tables) — every map is distinct enough to
 own its file. The file's `id` field and its filename's `NNN` must agree.
 
@@ -53,7 +55,7 @@ Front-matter obeys `docs/VALIDATION.md` check 3.
 | `ambience` | list of string, tag | no | `15_maps_system/MAPS_SYSTEM.md` §5 | 0+ independent looped-texture tags, same policy as `bgm`. `client`. |
 | `layers_preset` | enum | yes | `15_maps_system/MAP_LAYERS.md` §1–§2 | One legal value exists today (Enums). `client`. |
 | `spawn_points` | list of `{id, tile:[x,y]}`, ≥1 | yes | `15_maps_system/MAP_CONNECTIONS.md` §2 | Must include `main`; full naming law in Validation rules. `server` (world-graph fact; teleport-target correctness). |
-| `portals` | list of object | no | `15_maps_system/MAP_CONNECTIONS.md`; `15_maps_system/MAP_INTERACTABLES.md` §2 | World-graph edges; empty only for a fully isolated map (none expected in the 324-map set). See §"portals" below. `server` (a `coach`/`longship` portal's fare charge — and a `longship`'s scheduled transit state — are server-authoritative, `15_maps_system/MAP_CONNECTIONS.md` §3/§8). |
+| `portals` | list of object | no | `15_maps_system/MAP_CONNECTIONS.md`; `15_maps_system/MAP_INTERACTABLES.md` §2 | World-graph edges; empty only for a fully isolated map (none expected in the authored set). See §"portals" below. `server` (a `coach`/`longship` portal's fare charge — and a `longship`'s scheduled transit state — are server-authoritative, `15_maps_system/MAP_CONNECTIONS.md` §3/§8). |
 | `moving_platforms` | list of object | no | `15_maps_system/MAP_TRAVERSAL.md` §5 | See §"moving_platforms" below — that doc names this schema as pending owner of the param shape. `shared` (live position is client-predicted then server-reconciled, same shape as `10_systems/PERSISTENCE.md` §4's position/velocity case). |
 | `spawn_zones` | list of object | no | `10_systems/SPAWN.md` | Must be empty/absent for `town`/`interior`/`arena`. See §"spawn_zones" below. `server` (zone population/timers). |
 | `interactables` | list of object | no | `15_maps_system/MAP_INTERACTABLES.md` | Excludes `portal` (own field, above) and `loot_drop` (runtime-spawned only). See §"interactables" below. `server` (`sign`/`lore_marker` are presentation-only; the other 6 types drive a server-adjudicated mechanic — bind point, bank, coach transit, harvest/respawn, quest-flag gate). |
