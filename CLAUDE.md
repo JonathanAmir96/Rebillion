@@ -55,7 +55,7 @@ code, no generated art. Read `README.md` for the tree map and
   server-authoritative boundary (`docs/10_systems/PERSISTENCE.md`).
 - Live-ops (owner addition 2026-07-24): the **Wayfarer's Charter** battle pass
   (`docs/10_systems/BATTLE_PASS.md`) — 30-day seasons (`season_NNN`), free + gilt reward
-  lanes, gilt bought with **shards** (6,000, ECONOMY §4.3; real money never touches the
+  lanes, gilt bought with **shards** (6,000, ECONOMY §4.4; real money never touches the
   charter); **cosmetics are the gilt lane's headline offer**, minted from the
   `item_cosmetic` Event/charter sub-block via the COSMETICS.md appearance layer. Charter
   tokens provisional in GLOSSARY pending the next gate.

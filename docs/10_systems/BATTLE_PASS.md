@@ -12,7 +12,7 @@ ledger of tasks and rewards issued by the **Millbrook Charterhouse**. Two reward
 **Wayfarer's lane** (`charter_free`) and the **Gilded lane** (`charter_gilt`), unlocked for a
 `shards` fee — progress together through 30 charter levels earned by playing. This doc owns the
 season lifecycle, `charter_mark` progression math, task anatomy, reward-lane budget rules, and
-the no-power / no-faucet guardrails. The gilt price *number* is `10_systems/ECONOMY.md` §4.3;
+the no-power / no-faucet guardrails. The gilt price *number* is `10_systems/ECONOMY.md` §4.4;
 task steps reuse `10_systems/QUESTS.md` §3's step grammar (P4 — compose, don't enumerate);
 authority is `10_systems/PERSISTENCE.md`'s; season IDs are `docs/ID_REGISTRY.md`'s.
 
@@ -144,7 +144,7 @@ earned is ever forfeited (P2).
 
 - Purchased any time during a season from the **Charterhouse clerk** in Millbrook (an ordinary
   town NPC; ID minted in Phase D from the Millbrook or reserved `npc` block) for a flat `shards`
-  fee — the number is owned by `10_systems/ECONOMY.md` §4.3 (first-pass **6,000**).
+  fee — the number is owned by `10_systems/ECONOMY.md` §4.4 (first-pass **6,000**).
 - Purchase is retroactive: all gilt-lane rewards up to the character's current charter level
   become claimable immediately.
 - Per character, per season; it never carries into the next season. There is no gilt-lane
@@ -185,7 +185,7 @@ launch.
   `10_systems/LEVELING.md`; that doc should own it (suggested: the same window that grants full
   `exp`). Flagged there in spirit — resolve at the next gate.
 - All numbers (70 marks/level, 25/70 mark values, 3+3 task cadence, the 1,500-`shards` vendor
-  budget, the 6,000 gilt fee in ECONOMY §4.3) are first-pass; retune at the D gate alongside the
+  budget, the 6,000 gilt fee in ECONOMY §4.4) are first-pass; retune at the D gate alongside the
   economy pass.
 - Season-end overflow (§5.4): claim-queue default is unconfirmed; interacts with
   `10_systems/INVENTORY.md` slot caps.

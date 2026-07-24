@@ -251,7 +251,7 @@ with main's v3 world (arcs 1–2, raids, cosmetics system, MON-001) at this merg
 from tasks reusing QUESTS.md §3 step grammar: 3 daily stamps × 25 (expire daily) + 3 weekly
 trials × 70 (unlock days 1/8/15/22, never expire); max 3,090 ⇒ ≈68% participation completes,
 all-dailies-only finishes day 28. Two lanes: free, and gilt bought with **shards** (6,000 flat,
-ECONOMY §4.3 — a monthly sink; real money never touches the charter). **Cosmetics are the gilt
+ECONOMY §4.4 — a monthly sink; real money never touches the charter). **Cosmetics are the gilt
 lane's headline offer** (owner): up to 6 `item_cosmetic` IDs per season from the Event/charter
 sub-block (`0033`–`0048`), granted through COSMETICS.md's appearance layer. No purchasable
 levels/marks; no `shards` rewards; item-lane vendor value capped 1,500; unclaimed rewards
