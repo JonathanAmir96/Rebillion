@@ -14,9 +14,9 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Monsters | 150 | 118 normal + 24 elite + 8 boss |
 | Party quests | 2 | `pq_undervault` (Lv 15–22), `pq_mainspring` (Lv 32–40); social/PARTY_QUEST.md |
 | Drop tables | 150 + 8 pools | One per monster, plus one equip pool per region |
-| Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40); 3rd+ tiers deferred to future arcs |
-| Skills | 56 | 13 per job line (6 first / 7 second, passives included) + 4 novice |
-| Items — equip | ~86 | 24 weapons, 30 armor, 16 accessories, 16 boss uniques (batched tables) |
+| Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40) → 3rd (Lv 80, gate canonized; content ships with future arcs) |
+| Skills | 56 | 13 per job line (6 first / 7 second, passives included) + 4 novice; `skill_<line>_014`–`021` reserved (3rd tier) |
+| Items — equip | ~95 | 28 weapons, 35 armor (7 tiers: Lv 1/8/15/22/29/36/40), 16 accessories, 16 boss uniques (batched tables) |
 | Items — use | ~30 | Tonics, cleanses, scrolls, foods (batched table) |
 | Items — etc | ~133 | 16 materials per region + 5 emberstone tiers (batched tables) |
 | NPCs | 84 | Town-weighted; see ID_REGISTRY.md |
@@ -29,8 +29,11 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 
 The game's level cap is **300 (initial design, owner revision)**. This run authors the
 **first arc**: maps and monsters span Lv 1–42, and leveling past the arc is a slow grind on
-endgame maps and party quests until future arcs land. 10_systems/LEVELING.md designs the
-full curve to 300 (formula-first) with detail tables for the authored range.
+endgame maps and party quests until future arcs land. 10_systems/LEVELING.md owns the curve
+(formula-first) with detail tables for the authored range; the Lv 100–300 tail segment law
+is an explicit Open Question there. Owner-ratified pacing anchors (2026-07-24, Decision
+Contract C3 in `memory.md`): Lv 40 ≈ 18 h · Lv 42 (arc end) ≈ 21 h · Lv 80 (3rd job) ≈
+134 h — about one month at 4–5 h/day.
 
 ## In scope (this run)
 - All docs and content listed in GENERATE.md §2, including locked Appendices A–C verbatim.
@@ -67,5 +70,7 @@ full curve to 300 (formula-first) with detail tables for the authored range.
 
 ## Open Questions
 - Should secret maps count toward region completion metrics used by quests? Default: no.
-- v2 revision arrived after Phase B: system docs written for the Lv 100 world are patched by
-  the B-revision wave (tracked in docs/phase_reports/); flag any straggler references.
+- ~~v2 revision arrived after Phase B: system docs written for the Lv 100 world are patched
+  by the B-revision wave.~~ **Resolved 2026-07-24:** the reconciliation run driven by
+  `docs/phase_reports/DESIGN_ORG_REVIEW_2026-07-24.md` (report: PHASE_B2_REPORT.md) is that
+  wave; residual v1 references found later are validation failures, not pending work.

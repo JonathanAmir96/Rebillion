@@ -21,8 +21,9 @@ deletes an evening (DEATH_PENALTY.md). Idle moments in towns are part of the gam
 ## P3 — One world, hub-and-spoke
 Two islands, one world: a sheltered training isle, then a ferry to the great island where
 Millbrook is the social heart. Regions have strong biome identity (one palette ramp, one
-motif), maps connect like real geography, and travel is a low-friction loop: hunt outward,
-warp home. The world map should be drawable from memory.
+motif), maps connect like real geography, and travel is a legible loop: walk the ring, hunt
+outward, and pay your way home — coach fares in shards, or the long walk back. The world map
+should be drawable from memory.
 
 ## P4 — Compose, don't enumerate
 Skills are compositions of effect primitives. Monsters are stats plus a named behavior profile.
@@ -52,4 +53,6 @@ would read as another game's asset, term, or map is out — homage yes, clone ne
 - No silent invention: unknown token, rule, or number → Open Question, not a guess.
 
 ## Open Questions
-- None. (Pillars locked at Phase A; changes require an orchestrator amendment.)
+- None. (Pillars locked at Phase A; changes require an orchestrator amendment. Amendment
+  log: 2026-07-24 — P3 travel phrasing updated from free "warp home" to the paid-coach
+  loop per owner Decision Contract C5, recorded in `memory.md`.)
