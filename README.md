@@ -36,11 +36,19 @@ Start here:
   `tools/md_graph.py` — the doc connectivity graph; `tools/wiki_gen.py` — static reference
   wiki built from `docs/50_content/` (gitignored `wiki/` output); `tools/regen_quest_exp.py`
   — the quest-`exp` regen vs `docs/10_systems/LEVELING.md` §1
-- `docs/mockups/` — non-binding HTML wireframe mock-ups, referenced from
-  `docs/40_assets/UI_ART_SPEC.md` (UA-003): `gameplay_scene_mockup.html`,
-  `entry_roster_creation_mockup.html`, `town_hub_millbrook_mockup.html`,
-  `inventory_character_windows_mockup.html`, `world_travel_mockup.html`,
-  `raid_boss_hud_mockup.html`
+- `docs/mockups/` — non-binding HTML wireframe mock-ups; **start at `index.html`**, which links
+  all ten. The original six are referenced from `docs/40_assets/UI_ART_SPEC.md` (UA-003):
+  `gameplay_scene_mockup.html`, `entry_roster_creation_mockup.html`,
+  `town_hub_millbrook_mockup.html`, `inventory_character_windows_mockup.html`,
+  `world_travel_mockup.html`, `raid_boss_hud_mockup.html`. Added 2026-07-25 (animated, honoring
+  `prefers-reduced-motion`): `combat_combo_mockup.html` (combo layer + damage pipeline),
+  `monster_ai_bestiary_mockup.html` (tier readouts, AI state machine, aggro/leash, telegraph
+  floors, all 12 profiles), `core_mechanics_mockup.html` (traversal, elements, status row,
+  i-frames), `monetization_mockup.html` (charter, Cogwork Capsule, cosmetic loadout,
+  billboards). The `gameplay_scene_mockup.html` field scene also gained a motion pass.
+  UI_ART_SPEC's UA-003 amendment still enumerates only the original six — extending that
+  enumeration is an owner-directed edit to a change-controlled file (CLAUDE.md Law 5), flagged
+  not made.
 - `memory.md` — generation state & decisions log (newest-first) · `memory/` — Memory Bank
   (`projectbrief` → `systemPatterns` → `techContext` → `activeContext` → `progress`),
   distilled current-state context for future sessions

@@ -1,0 +1,432 @@
+<!-- Non-binding wireframe mock-up (added 2026-07-24). Binding specs: docs/15_maps_system/MAP_TRAVERSAL.md,
+     docs/10_systems/ELEMENTS.md, docs/10_systems/STATUS_EFFECTS.md, docs/10_systems/COMBAT_FORMULA.md §11–§12,
+     docs/10_systems/HUD.md §8, docs/40_assets/ART_BIBLE.yaml + cited docs. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Core Mechanics Mock-up (Traversal · Elements · Status · I-Frames)</title>
+<style>
+  :root{
+    --ink:#241726; --paper:#fbf7ef; --link:#54b0c6; --emph:#f6c34b;
+    --warn:#c8461f; --good:#3f9a45; --bg:#241726; --panel:#3a2b40; --line:#6b6270;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#e8e2d8;font:14px/1.55 ui-sans-serif,system-ui,sans-serif;padding:24px}
+  .wrap{max-width:1320px;margin:0 auto}
+  h1{font-size:20px;color:var(--emph);margin:0 0 4px}
+  h2{font-size:15px;color:var(--link);margin:28px 0 8px}
+  p.sub{margin:0 0 18px;color:#9a92a0;font-size:13px}
+  .frame{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:10px;overflow-x:auto}
+  svg{display:block;margin:0 auto;image-rendering:pixelated}
+  .px{shape-rendering:crispEdges}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 18px;margin-top:12px;font-size:12.5px}
+  .legend b{color:var(--emph);font-weight:700;margin-right:4px}
+  .legend .doc{color:#9a92a0}
+  .note{font-size:12px;color:#9a92a0;margin-top:10px;border-left:3px solid var(--warn);padding-left:10px}
+  .motion{font-size:12px;color:#9a92a0;margin:0 0 14px;border-left:3px solid var(--link);padding-left:10px}
+  code{font-family:ui-monospace,monospace;color:var(--link);font-size:0.92em}
+  table{border-collapse:collapse;font-size:12.5px;margin-top:6px;width:100%}
+  th,td{border:1px solid var(--line);padding:4px 9px;text-align:left;vertical-align:top}
+  th{background:#3a2b40;color:var(--emph);font-weight:700}
+  td.f{font-family:ui-monospace,monospace;color:var(--emph);white-space:nowrap}
+  td.n{color:#9a92a0}
+
+  .anim{animation-iteration-count:infinite;animation-timing-function:linear}
+
+  /* ============ 16 s TRAVERSAL RUN ============
+     run → slope → 5-tile jump → drop-through a one-way → rope climb → hazard touch → moving platform → portal */
+  @keyframes runner{
+    0%{transform:translate(0,0)}
+    9%{transform:translate(84px,0)}          /* run along flat ground, 8 tiles/s */
+    16%{transform:translate(150px,-30px)}    /* walk up the angled foothold */
+    20%{transform:translate(176px,-30px)}
+    23%{transform:translate(206px,-52px)}    /* jump apex: 3.5 tiles of rise */
+    26%{transform:translate(240px,-30px)}    /* land on the far ledge, 5 tiles across */
+    32%{transform:translate(276px,-30px)}    /* stand on the one-way platform */
+    36%{transform:translate(276px,0)}        /* drop-through: collision suspended 0.3 s */
+    43%{transform:translate(330px,0)}
+    54%{transform:translate(330px,-86px)}    /* climb the rope at 4 tiles/s — half run speed */
+    58%{transform:translate(354px,-86px)}    /* 1.5-tile hop off */
+    64%{transform:translate(404px,-86px)}
+    68%{transform:translate(404px,-52px)}    /* drop onto the hazard */
+    72%{transform:translate(428px,-52px)}    /* hazard touch — i-frames start */
+    78%{transform:translate(470px,-52px)}
+    86%{transform:translate(536px,-52px)}    /* carried by the moving platform */
+    94%,100%{transform:translate(580px,-52px)}}  /* into the portal */
+  .runner{animation-name:runner;animation-duration:16s;animation-timing-function:ease-in-out}
+  /* the platform that carries them */
+  @keyframes plat{0%,74%{transform:translateX(0)}86%{transform:translateX(66px)}96%{transform:translateX(66px)}100%{transform:translateX(0)}}
+  .plat{animation-name:plat;animation-duration:16s;animation-timing-function:ease-in-out}
+  /* hazard damage tick + the 0.40 s i-frame flash it opens */
+  @keyframes hazDmg{0%,71%{opacity:0;transform:translateY(0)}73%{opacity:1}79%{opacity:0;transform:translateY(-20px)}100%{opacity:0}}
+  .haz-dmg{animation-name:hazDmg;animation-duration:16s;animation-timing-function:ease-out}
+  @keyframes iframe{0%,71.5%{opacity:1}72%{opacity:.25}73%{opacity:1}74%{opacity:.25}75%{opacity:1}76%{opacity:.25}77%,100%{opacity:1}}
+  .iframe{animation-name:iframe;animation-duration:16s;animation-timing-function:steps(1,end)}
+  /* drop-through: the platform's collision is suspended, drawn as a flicker on the platform */
+  @keyframes passthru{0%,32%{opacity:1}33%,37%{opacity:.3}38%,100%{opacity:1}}
+  .passthru{animation-name:passthru;animation-duration:16s;animation-timing-function:steps(1,end)}
+  /* portal shimmer */
+  @keyframes shimmer{0%,100%{opacity:.85}50%{opacity:.45}}
+  .shimmer{animation-name:shimmer;animation-duration:2.2s;animation-timing-function:ease-in-out}
+
+  /* ============ ELEMENTS: four damage instances against one monster ============ */
+  @keyframes el{0%{opacity:0;transform:translateY(6px)}6%{opacity:1;transform:translateY(0)}22%{opacity:1}30%{opacity:0;transform:translateY(-16px)}100%{opacity:0}}
+  .el{animation-name:el;animation-duration:8s;animation-timing-function:ease-out}
+  .e1{animation-delay:0s}.e2{animation-delay:2s}.e3{animation-delay:4s}.e4{animation-delay:6s}
+  @keyframes hitflash{0%,1%{opacity:0}2%{opacity:.55}6%{opacity:0}25%{opacity:0}26%{opacity:.55}30%{opacity:0}
+                      50%{opacity:0}51%{opacity:.55}55%{opacity:0}75%{opacity:0}76%{opacity:.25}80%,100%{opacity:0}}
+  .hitflash{animation-name:hitflash;animation-duration:8s}
+
+  /* ============ STATUS ROW: radial duration wipes at different rates ============ */
+  @keyframes wipe{0%{stroke-dashoffset:0}100%{stroke-dashoffset:75.4}}
+  .wipe{animation-name:wipe;stroke-dasharray:75.4}
+  .w6{animation-duration:6s}.w9{animation-duration:9s}.w4{animation-duration:4s}.w12{animation-duration:12s}.w7{animation-duration:7s}
+
+  /* ============ CC DIMINISHING RETURNS timeline ============ */
+  @keyframes drhead{0%{transform:translateX(0)}100%{transform:translateX(520px)}}
+  .drhead{animation-name:drhead;animation-duration:12s}
+
+  @media (prefers-reduced-motion: reduce){
+    .anim{animation:none!important}
+    .haz-dmg{opacity:0}.el{opacity:1}.hitflash{opacity:0}
+    .wipe{stroke-dashoffset:38}
+    .runner{transform:translate(580px,-52px)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — Core Mechanics Mock-up</h1>
+<p class="sub">The four systems a player feels every minute, drawn with their real numbers: <b>traversal</b> (<code>MAP_TRAVERSAL.md</code>),
+<b>elements</b> (<code>ELEMENTS.md</code>), <b>status effects</b> (<code>STATUS_EFFECTS.md</code>, <code>HUD §8</code>), and the
+<b>i-frame / hitstun contract</b> (<code>COMBAT_FORMULA §11–§12</code>). One tile = 16 px; the tile grid is the measurement and validation lens,
+not the terrain — walkable ground is a chain of <code>foothold</code> segments with painted <code>terrain_chunk</code> art snapped to them (AB-001).
+Sprites/hex values are illustrative placeholders — art identity is owned by <code>ART_BIBLE.yaml</code>. Gold numbered pins are design annotations, not game UI.</p>
+<p class="motion">▶ The traversal run below loops on a 16-second clock and touches every movement mechanic in the design, in order. Motion is honored per
+<code>prefers-reduced-motion</code>.</p>
+
+<h2>1 · One run through every traversal mechanic (<code>MAP_TRAVERSAL.md</code>)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 300" width="1280" height="600" role="img" aria-label="Animated run through slopes, jumps, one-way platforms, ropes, hazards and moving platforms">
+  <rect x="0" y="0" width="640" height="300" fill="#241726" class="px"/>
+  <!-- tile lens -->
+  <g stroke="#3a2b40" stroke-width="0.5" opacity="0.55">
+    <path d="M0,16 h640 M0,32 h640 M0,48 h640 M0,64 h640 M0,80 h640 M0,96 h640 M0,112 h640 M0,128 h640 M0,144 h640 M0,160 h640 M0,176 h640 M0,192 h640 M0,208 h640 M0,224 h640 M0,240 h640 M0,256 h640"/>
+    <path d="M16,0 v300 M48,0 v300 M80,0 v300 M112,0 v300 M144,0 v300 M176,0 v300 M208,0 v300 M240,0 v300 M272,0 v300 M304,0 v300 M336,0 v300 M368,0 v300 M400,0 v300 M432,0 v300 M464,0 v300 M496,0 v300 M528,0 v300 M560,0 v300 M592,0 v300 M624,0 v300"/>
+  </g>
+
+  <!-- ============ TERRAIN ============ -->
+  <g class="px">
+    <!-- flat start -->
+    <rect x="0" y="256" width="120" height="44" fill="#3a2b1e"/><rect x="0" y="256" width="120" height="5" fill="#eb7a2c"/>
+    <!-- angled foothold (slope) -->
+    <path d="M120,256 L200,226 L200,300 L120,300 Z" fill="#3a2b1e"/>
+    <path d="M120,256 L200,226 L200,231 L120,261 Z" fill="#eb7a2c"/>
+    <!-- landing ledge across a 5-tile gap -->
+    <rect x="280" y="226" width="80" height="74" fill="#3a2b1e"/><rect x="280" y="226" width="80" height="5" fill="#eb7a2c"/>
+    <!-- the 5-tile gap ruler -->
+    <g stroke="#54b0c6" stroke-width="1" fill="none"><path d="M200,214 h80"/><path d="M200,210 v8"/><path d="M280,210 v8"/></g>
+    <text x="240" y="206" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" text-anchor="middle">5 tiles — the max jumpable gap</text>
+    <g stroke="#54b0c6" stroke-width="1" fill="none"><path d="M206,226 v-56"/><path d="M202,226 h8"/><path d="M202,170 h8"/></g>
+    <text x="214" y="176" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6">3.5 tiles rise</text>
+
+    <!-- one-way platform, dropped through mid-run -->
+    <g class="passthru anim">
+      <rect x="264" y="226" width="96" height="6" fill="#9a6f3f"/>
+      <rect x="264" y="226" width="96" height="2" fill="#c09a54"/>
+      <line x1="266" y1="236" x2="358" y2="236" stroke="#c09a54" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+    </g>
+    <!-- lower ground under it -->
+    <rect x="240" y="256" width="140" height="44" fill="#3a2b1e"/><rect x="240" y="256" width="140" height="5" fill="#eb7a2c"/>
+
+    <!-- rope: ground → upper ledge -->
+    <rect x="392" y="170" width="120" height="8" fill="#3a2b1e"/><rect x="392" y="170" width="120" height="3" fill="#eb7a2c"/>
+    <line x1="404" y1="178" x2="404" y2="256" stroke="#c09a54" stroke-width="2"/>
+    <g stroke="#9a6f3f" stroke-width="1">
+      <line x1="400" y1="190" x2="408" y2="190"/><line x1="400" y1="206" x2="408" y2="206"/>
+      <line x1="400" y1="222" x2="408" y2="222"/><line x1="400" y1="238" x2="408" y2="238"/>
+    </g>
+    <rect x="380" y="256" width="60" height="44" fill="#3a2b1e"/><rect x="380" y="256" width="60" height="5" fill="#eb7a2c"/>
+
+    <!-- hazard: pit spikes on the upper ledge run -->
+    <rect x="470" y="192" width="52" height="10" fill="#3a2b1e"/>
+    <g fill="#6b4a2d"><path d="M474,192 l5,-9 5,9 Z"/><path d="M485,192 l5,-9 5,9 Z"/><path d="M496,192 l5,-9 5,9 Z"/><path d="M507,192 l5,-9 5,9 Z"/></g>
+    <rect x="470" y="190" width="52" height="2" fill="#c8461f" opacity="0.6"/>
+
+    <!-- moving platform -->
+    <g class="plat anim">
+      <rect x="528" y="196" width="56" height="8" fill="#6b4a2d"/><rect x="528" y="196" width="56" height="3" fill="#c09a54"/>
+    </g>
+    <g stroke="#54b0c6" stroke-width="1" stroke-dasharray="4 3" fill="none"><path d="M556,208 h66"/></g>
+    <text x="590" y="220" font-family="ui-monospace,monospace" font-size="6" fill="#54b0c6" text-anchor="middle">ping_pong</text>
+
+    <!-- portal out -->
+    <rect x="596" y="150" width="44" height="50" fill="#3a2b1e"/>
+    <path d="M604,196 L604,158 Q616,146 628,158 L628,196 Z" fill="#2a1a4a"/>
+    <path d="M608,196 L608,161 Q616,152 624,161 L624,196 Z" fill="#7a3f9a"/>
+    <path class="shimmer anim" d="M611,196 L611,164 Q616,157 621,164 L621,196 Z" fill="#b064c6"/>
+  </g>
+
+  <!-- ============ THE RUNNER ============ -->
+  <g class="runner anim">
+    <g class="iframe anim">
+      <g class="px">
+        <rect x="20" y="232" width="12" height="14" fill="#3f9a45"/>
+        <rect x="20" y="226" width="12" height="8" fill="#f0b58a"/>
+        <rect x="19" y="223" width="14" height="5" fill="#6b4a2d"/>
+        <rect x="28" y="229" width="2" height="2" fill="#241726"/>
+        <rect x="16" y="234" width="5" height="10" fill="#2f7aa0"/>
+        <rect x="20" y="246" width="5" height="10" fill="#3a2b1e"/><rect x="27" y="246" width="5" height="10" fill="#3a2b1e"/>
+      </g>
+    </g>
+  </g>
+  <!-- hazard damage number: % of max life, unmitigated -->
+  <g class="haz-dmg anim">
+    <text x="470" y="176" font-family="ui-monospace,monospace" font-size="11" font-weight="700" fill="#c8461f"
+          stroke="#241726" stroke-width="0.7" paint-order="stroke" text-anchor="middle">−10%</text>
+    <text x="470" y="166" font-family="ui-monospace,monospace" font-size="6" fill="#9a92a0" text-anchor="middle">max life · not mitigated</text>
+  </g>
+
+  <!-- annotations -->
+  <g font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">
+    <text x="6" y="288">run_speed 8 tiles/s</text>
+    <text x="126" y="248">angled foothold</text>
+    <text x="292" y="248">one-way (layer 2)</text>
+    <text x="290" y="278">drop-through: 0.3 s</text>
+    <text x="414" y="216">climb_speed 4 tiles/s</text>
+    <text x="414" y="226">no attacking while climbing</text>
+    <text x="470" y="216" text-anchor="middle">hazard: standard tier</text>
+    <text x="600" y="142" text-anchor="middle">portal → next map</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="8" font-weight="700">
+    <g><circle cx="160" cy="240" r="7" fill="#f6c34b"/><text x="160" y="243" fill="#241726" text-anchor="middle">1</text></g>
+    <g><circle cx="240" cy="192" r="7" fill="#f6c34b"/><text x="240" y="195" fill="#241726" text-anchor="middle">2</text></g>
+    <g><circle cx="368" cy="229" r="7" fill="#f6c34b"/><text x="368" y="232" fill="#241726" text-anchor="middle">3</text></g>
+    <g><circle cx="390" cy="212" r="7" fill="#f6c34b"/><text x="390" y="215" fill="#241726" text-anchor="middle">4</text></g>
+    <g><circle cx="496" cy="176" r="7" fill="#f6c34b"/><text x="496" y="179" fill="#241726" text-anchor="middle">5</text></g>
+    <g><circle cx="556" cy="184" r="7" fill="#f6c34b"/><text x="556" y="187" fill="#241726" text-anchor="middle">6</text></g>
+    <g><circle cx="40" cy="270" r="7" fill="#f6c34b"/><text x="40" y="273" fill="#241726" text-anchor="middle">7</text></g>
+  </g>
+</svg>
+<div class="legend">
+  <div><b>1</b> Walkable ground is a chain of <code>foothold</code> segments of arbitrary angle — organic ground is <b>not</b> built from axis-aligned tiles <span class="doc">MAP_TRAVERSAL §1, AB-001</span></div>
+  <div><b>2</b> Jump budget: ≤5 tiles horizontal, ≤3.5 tiles rise — <b>each a single-axis maximum, never an additive corner</b>. Author ≤70% of either when the other is non-trivial <span class="doc">MAP_TRAVERSAL §1.1</span></div>
+  <div><b>3</b> One-way (layer 2): solid from above, passable from below and the sides. Drop-through suspends collision for 0.3 s — long enough to fall clear, too short to hold as a stealth mode <span class="doc">MAP_TRAVERSAL §3</span></div>
+  <div><b>4</b> Ropes and ladders are the <b>same</b> mechanic with different dressing — one <code>climb</code> state, implemented once. Jump off = a fixed 1.5-tile hop <span class="doc">MAP_TRAVERSAL §4</span></div>
+  <div><b>5</b> Hazards deal a flat % of max <code>life</code> — not mitigated by <code>armor</code>/<code>warding</code>, not element-multiplied, never knockback. A player who dies to spikes always knows why <span class="doc">MAP_TRAVERSAL §6</span></div>
+  <div><b>6</b> A moving platform is ordinary terrain plus a motion behavior — motion is orthogonal to the collision layer, not a new one <span class="doc">MAP_TRAVERSAL §5</span></div>
+  <div><b>7</b> <b>Falling never damages the player</b>, from any height. Height is a level-design tool, not a threat <span class="doc">MAP_TRAVERSAL §2</span></div>
+</div>
+<p class="note">Hazard tiers: minor 5% (shallow spikes, thorns) · standard 10% (pit spikes, hot coals) · severe 20% (lava, active chasms). Reapplication is
+gated by the player's 0.40 s i-frames, so continuous contact cannot deal damage faster than ≈ once per 0.40 s — the same throttle that prevents
+monster-touch stun-lock.</p>
+</div>
+
+<h2>2 · Elements — per-monster affinity lists, deliberately <i>not</i> a wheel (<code>ELEMENTS.md</code>)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 250" width="1280" height="500" role="img" aria-label="Four damage instances of different elements against one monster">
+  <rect x="0" y="0" width="640" height="250" fill="#241726" class="px"/>
+  <!-- the monster and its declared lists -->
+  <g class="px">
+    <rect x="0" y="204" width="640" height="46" fill="#3a2b1e"/><rect x="0" y="204" width="640" height="4" fill="#6b4a2d"/>
+    <rect x="120" y="164" width="52" height="30" fill="#256b34"/>
+    <rect x="108" y="172" width="14" height="16" fill="#256b34"/>
+    <rect x="172" y="156" width="16" height="20" fill="#3f9a45"/>
+    <rect x="176" y="161" width="4" height="4" fill="#f6c34b"/>
+    <rect x="128" y="194" width="9" height="10" fill="#173a24"/><rect x="154" y="194" width="9" height="10" fill="#173a24"/>
+  </g>
+  <rect class="hitflash anim" x="106" y="154" width="84" height="52" fill="#fbf7ef"/>
+  <rect x="88" y="136" width="120" height="12" rx="2" fill="#241726" opacity="0.9"/>
+  <text x="148" y="145" font-family="ui-monospace,monospace" font-size="7.5" fill="#e8e2d8" text-anchor="middle">a nature-tuned beetle</text>
+  <!-- its three declared lists -->
+  <g font-family="ui-monospace,monospace" font-size="7.5">
+    <g><rect x="16" y="30" width="150" height="22" rx="2" fill="#241726" stroke="#c8461f" stroke-width="1"/>
+       <text x="24" y="45" fill="#c8461f">weak_to:</text><text x="158" y="45" fill="#e8e2d8" text-anchor="end">[fire]</text></g>
+    <g><rect x="16" y="56" width="150" height="22" rx="2" fill="#241726" stroke="#2f7aa0" stroke-width="1"/>
+       <text x="24" y="71" fill="#54b0c6">resists:</text><text x="158" y="71" fill="#e8e2d8" text-anchor="end">[frost]</text></g>
+    <g><rect x="16" y="82" width="150" height="22" rx="2" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+       <text x="24" y="97" fill="#9a92a0">immune_to:</text><text x="158" y="97" fill="#e8e2d8" text-anchor="end">[nature]</text></g>
+    <text x="16" y="120" font-size="6.5" fill="#6b6270">mutually exclusive lists — an element appears in at most one (enforced by VALIDATION)</text>
+  </g>
+  <!-- the four instances -->
+  <g font-family="ui-monospace,monospace" text-anchor="middle">
+    <g class="el e1 anim">
+      <text x="290" y="120" font-size="20" font-weight="700" fill="#eb7a2c" stroke="#241726" stroke-width="0.9" paint-order="stroke">183</text>
+      <text x="290" y="134" font-size="7" fill="#eb7a2c">fire — weak_to · ×1.5</text>
+    </g>
+    <g class="el e2 anim">
+      <text x="290" y="120" font-size="16" font-weight="700" fill="#e8e2d8" stroke="#241726" stroke-width="0.8" paint-order="stroke">122</text>
+      <text x="290" y="134" font-size="7" fill="#9a92a0">neutral — unlisted · ×1.0</text>
+    </g>
+    <g class="el e3 anim">
+      <text x="290" y="120" font-size="13" font-weight="700" fill="#54b0c6" stroke="#241726" stroke-width="0.8" paint-order="stroke">61</text>
+      <text x="290" y="134" font-size="7" fill="#54b0c6">frost — resists · ×0.5</text>
+    </g>
+    <g class="el e4 anim">
+      <text x="290" y="120" font-size="13" font-weight="700" fill="#6b6270" stroke="#241726" stroke-width="0.8" paint-order="stroke">Immune</text>
+      <text x="290" y="134" font-size="7" fill="#6b6270">nature — immune_to · ×0, resolved at pipeline step 2</text>
+    </g>
+  </g>
+  <path d="M200,180 h70" stroke="#6b6270" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+  <path d="M264,176 l8,4 -8,4 Z" fill="#6b6270"/>
+
+  <!-- player-side: one knob per split, and that's the whole story -->
+  <g font-family="ui-monospace,monospace" font-size="7.5">
+    <text x="352" y="42" font-size="8" font-weight="700" fill="#54b0c6">player-side defense is deliberately two knobs, not a six-element grid</text>
+    <g><rect x="352" y="52" width="272" height="26" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1"/>
+       <text x="362" y="69" fill="#e8e2d8">incoming <tspan fill="#f6c34b">neutral</tspan> (physical)</text>
+       <text x="614" y="69" fill="#f6c34b" text-anchor="end">mitigated by armor</text></g>
+    <g><rect x="352" y="82" width="272" height="26" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1"/>
+       <text x="362" y="99" fill="#e8e2d8">incoming <tspan fill="#f6c34b">fire · frost · nature · arcane · shadow</tspan></text>
+       <text x="614" y="99" fill="#f6c34b" text-anchor="end">warding</text></g>
+    <text x="352" y="126" font-size="6.5" fill="#9a92a0">No per-element gear resistances. No attunement loadouts. Beyond these two stats, the only</text>
+    <text x="352" y="137" font-size="6.5" fill="#9a92a0">way to further blunt elemental damage is a status effect (<tspan fill="#54b0c6">fortify</tspan> raising warding, <tspan fill="#54b0c6">veil</tspan> while stealthed).</text>
+    <text x="352" y="152" font-size="6.5" fill="#c8461f">The routing follows the <b>skill's declared element</b>, even when a physical weapon carries an elemental skill.</text>
+  </g>
+  <!-- design intent -->
+  <g font-family="ui-monospace,monospace" font-size="6.5">
+    <rect x="352" y="168" width="272" height="60" rx="2" fill="#241726" stroke="#f6c34b" stroke-width="1"/>
+    <text x="362" y="182" font-size="7.5" font-weight="700" fill="#f6c34b">why no wheel</text>
+    <text x="362" y="195" fill="#9a92a0">Affinities are per-monster so a player learns "<tspan fill="#e8e2d8">this beetle hates fire</tspan>"</text>
+    <text x="362" y="206" fill="#9a92a0">from play and telegraph, not from memorizing a global table.</text>
+    <text x="362" y="220" fill="#9a92a0">Authoring guide: 0–2 <tspan fill="#c8461f">weak_to</tspan>, 0–2 <tspan fill="#54b0c6">resists</tspan>, rarely an <tspan fill="#6b6270">immune_to</tspan>. A monster with no lists is plain ×1.0.</text>
+  </g>
+</svg>
+</div>
+
+<h2>3 · Status effects — the 12-slot row and its hard rules (<code>STATUS_EFFECTS §1</code>, <code>HUD §8</code>)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 210" width="1280" height="420" role="img" aria-label="Animated status icon row with radial duration wipes">
+  <rect x="0" y="0" width="640" height="210" fill="#241726" class="px"/>
+  <!-- the row as the player sees it: centered, directly above the bottom bar -->
+  <text x="320" y="24" font-family="ui-monospace,monospace" font-size="8" fill="#9a92a0" text-anchor="middle">centered, directly above the bottom bar — hidden entirely when nothing is active</text>
+  <g>
+    <!-- 5 active statuses of 12 possible slots -->
+    <g><rect x="182" y="40" width="30" height="30" rx="3" fill="#241726" stroke="#3f9a45" stroke-width="2"/>
+       <path d="M190,60 l5,-9 l3,5 l4,-6" stroke="#3f9a45" stroke-width="2" fill="none"/>
+       <circle class="wipe w9 anim" cx="197" cy="55" r="12" fill="none" stroke="#3f9a45" stroke-width="2" opacity="0.55" transform="rotate(-90 197 55)"/>
+       <text x="197" y="82" font-family="ui-monospace,monospace" font-size="6.5" fill="#3f9a45" text-anchor="middle">empower</text></g>
+    <g><rect x="222" y="40" width="30" height="30" rx="3" fill="#241726" stroke="#3f9a45" stroke-width="2"/>
+       <path d="M237,48 q7,7 0,14 q-7,-7 0,-14" fill="#3f9a45"/>
+       <circle class="wipe w12 anim" cx="237" cy="55" r="12" fill="none" stroke="#3f9a45" stroke-width="2" opacity="0.55" transform="rotate(-90 237 55)"/>
+       <text x="237" y="82" font-family="ui-monospace,monospace" font-size="6.5" fill="#3f9a45" text-anchor="middle">regen</text></g>
+    <g><rect x="262" y="40" width="30" height="30" rx="3" fill="#241726" stroke="#c8461f" stroke-width="2"/>
+       <path d="M277,47 q6,8 0,16 q-6,-8 0,-16" fill="#eb7a2c"/>
+       <circle class="wipe w4 anim" cx="277" cy="55" r="12" fill="none" stroke="#c8461f" stroke-width="2" opacity="0.55" transform="rotate(-90 277 55)"/>
+       <text x="277" y="82" font-family="ui-monospace,monospace" font-size="6.5" fill="#c8461f" text-anchor="middle">burn</text></g>
+    <g><rect x="302" y="40" width="30" height="30" rx="3" fill="#241726" stroke="#c8461f" stroke-width="2"/>
+       <g stroke="#54b0c6" stroke-width="2"><path d="M311,55 h12"/><path d="M317,49 v12"/><path d="M312.5,50.5 l9,9"/><path d="M321.5,50.5 l-9,9"/></g>
+       <circle class="wipe w6 anim" cx="317" cy="55" r="12" fill="none" stroke="#c8461f" stroke-width="2" opacity="0.55" transform="rotate(-90 317 55)"/>
+       <text x="317" y="82" font-family="ui-monospace,monospace" font-size="6.5" fill="#c8461f" text-anchor="middle">chill</text></g>
+    <g><rect x="342" y="40" width="30" height="30" rx="3" fill="#241726" stroke="#c8461f" stroke-width="2"/>
+       <path d="M350,63 q7,-14 14,0" stroke="#9a92a0" stroke-width="2" fill="none"/><circle cx="357" cy="50" r="3" fill="#9a92a0"/>
+       <circle class="wipe w7 anim" cx="357" cy="55" r="12" fill="none" stroke="#c8461f" stroke-width="2" opacity="0.55" transform="rotate(-90 357 55)"/>
+       <text x="357" y="82" font-family="ui-monospace,monospace" font-size="6.5" fill="#c8461f" text-anchor="middle">blind</text></g>
+    <!-- the remaining empty slots, drawn only as the design instrument -->
+    <g stroke="#6b6270" stroke-width="1" stroke-dasharray="3 2" fill="none" opacity="0.45">
+      <rect x="382" y="40" width="30" height="30" rx="3"/><rect x="422" y="40" width="30" height="30" rx="3"/>
+      <rect x="102" y="40" width="30" height="30" rx="3"/><rect x="142" y="40" width="30" height="30" rx="3"/>
+    </g>
+    <text x="466" y="60" font-family="ui-monospace,monospace" font-size="6.5" fill="#6b6270">…12 slots total</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">
+    <text x="14" y="106">Edge color is the whole taxonomy: <tspan fill="#3f9a45">verdant = buff</tspan>, <tspan fill="#c8461f">red = debuff</tspan>. The radial ring reuses the same wipe language as the skill-bar cooldown.</text>
+    <text x="14" y="118">Row capacity is exactly <tspan fill="#e8e2d8">12</tspan> — and that is not a UI limit, it is the <b>hard per-entity status cap</b>, so no overflow or scroll handling exists anywhere.</text>
+    <text x="14" y="130">If a 13th would apply, the active status with the <tspan fill="#e8e2d8">least remaining duration</tspan> is dropped to admit it (ties: oldest applied). Scripted boss statuses may be flagged non-displaceable.</text>
+    <text x="14" y="142"><tspan fill="#c8461f">combo_momentum never appears here</tspan> — it is combat-rhythm state, not a status: no icon, no slot, uncleansable.</text>
+  </g>
+  <!-- DR timeline -->
+  <g>
+    <text x="14" y="166" font-family="ui-monospace,monospace" font-size="7.5" font-weight="700" fill="#54b0c6">hard-CC diminishing returns on a single target — the anti-chain-stun rule</text>
+    <line x1="60" y1="192" x2="600" y2="192" stroke="#6b6270" stroke-width="1"/>
+    <g font-family="ui-monospace,monospace" font-size="6.5" text-anchor="middle">
+      <g><rect x="60" y="176" width="120" height="14" fill="#7a3f9a"/><text x="120" y="186" fill="#fbf7ef">1st stun — full duration</text></g>
+      <g><rect x="200" y="176" width="60" height="14" fill="#7a3f9a" opacity="0.55"/><text x="230" y="186" fill="#e0a7e3">2nd — 50%</text></g>
+      <g><rect x="280" y="176" width="180" height="14" fill="#241726" stroke="#c8461f" stroke-width="1"/><text x="370" y="186" fill="#c8461f">3rd within 10 s → CC-immune for 8 s</text></g>
+      <text x="530" y="186" fill="#9a92a0">soft CC (chill/root/silence/blind) has no immunity DR</text>
+    </g>
+    <g class="drhead anim"><line x1="60" y1="170" x2="60" y2="196" stroke="#f6c34b" stroke-width="1.5"/><path d="M55,166 h10 l-5,6 Z" fill="#f6c34b"/></g>
+  </g>
+</svg>
+<p class="note">Damage-over-time is <b>snapshot, not dynamic</b>: a DoT captures the applier's <code>source_power</code> and <code>crit_power</code> at application
+and every tick uses that snapshot — including the <code>combo_momentum</code> that was active at the moment of application. Refreshing re-snapshots; each
+independent stack carries its own. <code>regen</code> is the exception: it reads the <i>receiver's</i> current max <code>life</code> live, because it is a heal, not a snapshotted hit.</p>
+</div>
+
+<h2>4 · The hit contract — hitstun, knockback, and the 0.40 s i-frame window</h2>
+<div class="frame">
+<svg viewBox="0 0 640 200" width="1280" height="400" role="img" aria-label="Hitstun classes and the player i-frame window">
+  <rect x="0" y="0" width="640" height="200" fill="#241726" class="px"/>
+  <g font-family="ui-monospace,monospace" font-size="7.5">
+    <!-- light vs heavy -->
+    <text x="14" y="22" font-size="8" font-weight="700" fill="#54b0c6">every landed hit applies hitstun; hits are classed light or heavy</text>
+    <g><rect x="14" y="30" width="290" height="34" rx="2" fill="#3a2b40" stroke="#9a92a0" stroke-width="1"/>
+       <text x="24" y="44" fill="#e8e2d8">light — the default</text>
+       <text x="294" y="44" fill="#f6c34b" text-anchor="end">0.12 s hitstun · no knockback</text>
+       <text x="24" y="57" font-size="6.5" fill="#6b6270">the ordinary case: most instances of most rotations</text></g>
+    <g><rect x="14" y="70" width="290" height="46" rx="2" fill="#3a2b40" stroke="#c8461f" stroke-width="1.5"/>
+       <text x="24" y="84" fill="#eb7a2c">heavy — crit, a <tspan fill="#e8e2d8">knockback</tspan> op, or ≥8% of max life</text>
+       <text x="294" y="84" fill="#f6c34b" text-anchor="end">0.35 s · impulse</text>
+       <text x="24" y="97" font-size="6.5" fill="#9a92a0">base impulse 140 px horizontal / 60 px vertical, along the attack vector,</text>
+       <text x="24" y="108" font-size="6.5" fill="#9a92a0">scaled by size: tiny ×1.5 · small ×1.2 · medium ×1.0 · large ×0.5 · <tspan fill="#c8461f">boss ×0 (immune)</tspan></text></g>
+    <text x="14" y="132" font-size="6.5" fill="#9a92a0">A heavy hit interrupts a normal/elite monster mid-cast unless super-armored; bosses have super-armor except in scripted-vulnerable windows.</text>
+    <text x="14" y="144" font-size="6.5" fill="#9a92a0">Player casts are interrupted by heavy hits unless the player is in i-frames or a stability effect applies.</text>
+  </g>
+  <!-- i-frame window -->
+  <g font-family="ui-monospace,monospace" font-size="7.5">
+    <text x="330" y="22" font-size="8" font-weight="700" fill="#54b0c6">0.40 s of player i-frames on any monster damage instance</text>
+    <rect x="330" y="30" width="296" height="86" rx="2" fill="#241726" stroke="#f6c34b" stroke-width="1"/>
+    <!-- window bar -->
+    <rect x="342" y="44" width="120" height="14" fill="#f6c34b" opacity="0.3"/>
+    <rect x="342" y="44" width="120" height="14" fill="none" stroke="#f6c34b" stroke-width="1"/>
+    <text x="402" y="54" font-size="6.5" fill="#f6c34b" text-anchor="middle">0.40 s — everything deals 0</text>
+    <rect x="462" y="44" width="152" height="14" fill="#241726" stroke="#6b6270" stroke-width="1"/>
+    <text x="538" y="54" font-size="6.5" fill="#9a92a0" text-anchor="middle">vulnerable again</text>
+    <g fill="#9a92a0" font-size="6.5">
+      <text x="342" y="74">✓ blocks contact damage, attacks, <b>and status applications</b></text>
+      <text x="342" y="85">✓ also attaches to dash/leap skills that opt in (<tspan fill="#54b0c6">iframes: true</tspan>, default false)</text>
+      <text x="342" y="96" fill="#c8461f">✗ does <b>not</b> cleanse DoTs already on the player — burn and poison keep ticking</text>
+      <text x="342" y="107" fill="#c8461f">✗ does <b>not</b> apply between ticks of one multi-hit player skill</text>
+    </g>
+    <text x="330" y="132" font-size="6.5" fill="#f6c34b">Monsters get no i-frames. That asymmetry is deliberate — it is what lets player combos land in full.</text>
+    <text x="330" y="144" font-size="6.5" fill="#9a92a0">The window also bounds monster touch stacking at ≈ one instance per 0.8 s of overlap: no stun-lock deaths.</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="7" fill="#9a92a0">
+    <text x="14" y="172">Death stings, it never deletes an evening (P2). The i-frame window, the no-fall-damage rule, the hazard throttle, and the CC immunity cap are four</text>
+    <text x="14" y="184">separate expressions of that same pillar — each one caps how fast a bad situation can compound while you are trying to recover from it.</text>
+  </g>
+</svg>
+</div>
+
+<h2>5 · The numbers on this page, in one place</h2>
+<div class="frame">
+<table>
+  <tr><th>Constant</th><th>Value</th><th>Owner</th></tr>
+  <tr><td class="f">run_speed</td><td class="n">8 tiles/s (128 px/s)</td><td class="n">MAP_TRAVERSAL §1</td></tr>
+  <tr><td class="f">climb_speed</td><td class="n">4 tiles/s — half run speed, vertical only</td><td class="n">MAP_TRAVERSAL §4</td></tr>
+  <tr><td class="f">jump_apex_height</td><td class="n">3.5 tiles</td><td class="n">MAP_TRAVERSAL §1</td></tr>
+  <tr><td class="f">jump_distance</td><td class="n">5 tiles at full run speed, equal launch/landing height</td><td class="n">MAP_TRAVERSAL §1</td></tr>
+  <tr><td class="f">air time / gravity</td><td class="n">0.625 s total · ≈71.7 tiles/s² · v₀ ≈22.4 tiles/s (derived reference, tunable in-engine)</td><td class="n">MAP_TRAVERSAL §1</td></tr>
+  <tr><td class="f">drop-through window</td><td class="n">0.3 s of suspended layer-2 collision</td><td class="n">MAP_TRAVERSAL §3</td></tr>
+  <tr><td class="f">climb dismount hop</td><td class="n">1.5 tiles horizontal, facing direction</td><td class="n">MAP_TRAVERSAL §4</td></tr>
+  <tr><td class="f">hazard touch damage</td><td class="n">5% / 10% / 20% of max <code>life</code> by tier — unmitigated, no element multiplier</td><td class="n">MAP_TRAVERSAL §6</td></tr>
+  <tr><td class="f">fall damage</td><td class="n">none, at any height</td><td class="n">MAP_TRAVERSAL §2</td></tr>
+  <tr><td class="f">element multipliers</td><td class="n">×0 immune · ×0.5 resists · ×1.0 default · ×1.5 weak_to</td><td class="n">ELEMENTS §2</td></tr>
+  <tr><td class="f">status cap</td><td class="n">12 per entity, buffs + debuffs combined</td><td class="n">STATUS_EFFECTS §1</td></tr>
+  <tr><td class="f">hard-CC DR</td><td class="n">100% → 50% → CC-immune 8 s (3rd within 10 s)</td><td class="n">STATUS_EFFECTS §1</td></tr>
+  <tr><td class="f">hitstun</td><td class="n">light 0.12 s · heavy 0.35 s</td><td class="n">COMBAT_FORMULA §11</td></tr>
+  <tr><td class="f">knockback impulse</td><td class="n">140 px × 60 px, size-scaled ×1.5 → ×0</td><td class="n">COMBAT_FORMULA §11</td></tr>
+  <tr><td class="f">player i-frames</td><td class="n">0.40 s on any monster damage instance</td><td class="n">COMBAT_FORMULA §12</td></tr>
+</table>
+</div>
+
+<p class="note" style="border-color:var(--link);margin-top:22px">Non-binding visual aid. Where this page and
+<code>docs/40_assets/UI_ART_SPEC.md</code> / <code>docs/40_assets/ART_BIBLE.yaml</code> differ, <b>the spec wins</b>. Exact foothold geometry per map is
+deferred to the Phase E engine pass; the tile figures above are the hand-checkable authoring budget, not pixel-perfect jump-arc validation.</p>
+
+</div>
+</body>
+</html>

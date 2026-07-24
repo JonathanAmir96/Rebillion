@@ -1,0 +1,497 @@
+<!-- Non-binding wireframe mock-up (added 2026-07-24). Binding specs: docs/10_systems/AI_BEHAVIOR.md,
+     docs/40_assets/ANIMATION_STATES.md, docs/40_assets/ANIMATION_TIMING.md, docs/10_systems/HUD.md §6/§6.1,
+     docs/10_systems/SPAWN.md, docs/40_assets/ART_BIBLE.yaml + cited docs. Monster values quoted from docs/50_content/monsters/. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Monsters, AI Profiles &amp; Telegraphs Mock-up</title>
+<style>
+  :root{
+    --ink:#241726; --paper:#fbf7ef; --link:#54b0c6; --emph:#f6c34b;
+    --warn:#c8461f; --good:#3f9a45; --bg:#241726; --panel:#3a2b40; --line:#6b6270;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#e8e2d8;font:14px/1.55 ui-sans-serif,system-ui,sans-serif;padding:24px}
+  .wrap{max-width:1320px;margin:0 auto}
+  h1{font-size:20px;color:var(--emph);margin:0 0 4px}
+  h2{font-size:15px;color:var(--link);margin:28px 0 8px}
+  p.sub{margin:0 0 18px;color:#9a92a0;font-size:13px}
+  .frame{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:10px;overflow-x:auto}
+  svg{display:block;margin:0 auto;image-rendering:pixelated}
+  .px{shape-rendering:crispEdges}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 18px;margin-top:12px;font-size:12.5px}
+  .legend b{color:var(--emph);font-weight:700;margin-right:4px}
+  .legend .doc{color:#9a92a0}
+  .note{font-size:12px;color:#9a92a0;margin-top:10px;border-left:3px solid var(--warn);padding-left:10px}
+  .motion{font-size:12px;color:#9a92a0;margin:0 0 14px;border-left:3px solid var(--link);padding-left:10px}
+  code{font-family:ui-monospace,monospace;color:var(--link);font-size:0.92em}
+  table{border-collapse:collapse;font-size:12.5px;margin-top:6px;width:100%}
+  th,td{border:1px solid var(--line);padding:4px 9px;text-align:left;vertical-align:top}
+  th{background:#3a2b40;color:var(--emph);font-weight:700}
+  td.f{font-family:ui-monospace,monospace;color:var(--emph);white-space:nowrap}
+  td.n{color:#9a92a0}
+
+  .anim{animation-iteration-count:infinite;animation-timing-function:linear}
+
+  /* --- idle breath loops, 5 fps feel: two-frame bob (ANIMATION_TIMING §1) --- */
+  @keyframes bob{0%,49%{transform:translateY(0)}50%,100%{transform:translateY(-1.5px)}}
+  .bob{animation-name:bob;animation-duration:.8s;animation-timing-function:steps(1,end)}
+  .bob-slow{animation-name:bob;animation-duration:1.2s;animation-timing-function:steps(1,end)}
+
+  /* --- §2 state-machine token travelling idle→patrol→chase→windup→attack→recover→return --- */
+  @keyframes tok{
+    0%,8%{transform:translate(0,0)}          /* idle */
+    12%,20%{transform:translate(84px,0)}     /* patrol */
+    24%,32%{transform:translate(168px,0)}    /* chase */
+    36%,44%{transform:translate(252px,0)}    /* windup */
+    48%,56%{transform:translate(336px,0)}    /* attack */
+    60%,68%{transform:translate(420px,0)}    /* recover */
+    70%,78%{transform:translate(336px,0)}    /* attack again — the combat sub-loop */
+    80%,88%{transform:translate(420px,0)}
+    92%,100%{transform:translate(504px,0)}}  /* return */
+  .tok{animation-name:tok;animation-duration:11s}
+
+  /* --- §5 aggressive_charger: patrol → sight aggro → 2.5× dash → leash break → return home --- */
+  @keyframes charger{
+    0%,10%{transform:translateX(0)}
+    18%{transform:translateX(-26px)}
+    26%{transform:translateX(0)}              /* patrolling its home lane */
+    30%{transform:translateX(0)}              /* sight aggro fires */
+    34%{transform:translateX(0)}              /* windup: telegraph holds, it does not move */
+    46%{transform:translateX(150px)}          /* charge_speed_mult 2.5 */
+    58%{transform:translateX(210px)}          /* still committed — leash check is suspended mid-dash */
+    62%{transform:translateX(210px)}          /* leash exceeded → return */
+    88%,100%{transform:translateX(0)}}
+  .charger{animation-name:charger;animation-duration:9s;animation-timing-function:ease-in-out}
+  /* the telegraph the charge is legally required to show first (≥0.4 s at elite tier) */
+  @keyframes tell{0%,30%{opacity:0}31%,38%{opacity:1}40%,100%{opacity:0}}
+  .tell{animation-name:tell;animation-duration:9s}
+  @keyframes tellRing{0%,30%{opacity:0;transform:scale(0.5)}31%{opacity:.9;transform:scale(0.5)}39%{opacity:0;transform:scale(1.5)}100%{opacity:0}}
+  .tell-ring{animation-name:tellRing;animation-duration:9s;transform-box:fill-box;transform-origin:center}
+  /* aggro ring pulses only while the player is inside it */
+  @keyframes aggro{0%,28%{opacity:.25}30%,60%{opacity:.75}62%,100%{opacity:.25}}
+  .aggro{animation-name:aggro;animation-duration:9s}
+  /* leash ring flashes red at the break */
+  @keyframes leash{0%,58%{opacity:.3}60%,66%{opacity:1}70%,100%{opacity:.3}}
+  .leash{animation-name:leash;animation-duration:9s}
+  @keyframes leashLabel{0%,58%{opacity:0}60%,74%{opacity:1}78%,100%{opacity:0}}
+  .leash-label{animation-name:leashLabel;animation-duration:9s}
+  /* life fully restores on reaching home (§2) */
+  @keyframes heal{0%,86%{transform:scaleX(0.45)}94%,100%{transform:scaleX(1)}}
+  .heal{animation-name:heal;animation-duration:9s;transform-box:fill-box;transform-origin:left center}
+
+  /* --- telegraph floor bars: clip plays, then holds to the tier minimum --- */
+  @keyframes clipbar{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+  .tb{animation-name:clipbar;animation-duration:3s;transform-box:fill-box;transform-origin:left center}
+
+  /* --- profile vignettes --- */
+  @keyframes swoop{0%,20%{transform:translate(0,0)}45%{transform:translate(56px,26px)}55%{transform:translate(70px,26px)}80%,100%{transform:translate(0,0)}}
+  .swoop{animation-name:swoop;animation-duration:4s;animation-timing-function:ease-in-out}
+  @keyframes rush{0%,15%{transform:translateX(0)}70%{transform:translateX(46px)}72%,100%{transform:translateX(46px)}}
+  .rush{animation-name:rush;animation-duration:4s}
+  @keyframes boom{0%,70%{opacity:0;transform:scale(0.2)}78%{opacity:1;transform:scale(1)}90%,100%{opacity:0;transform:scale(1.4)}}
+  .boom{animation-name:boom;animation-duration:4s;transform-box:fill-box;transform-origin:center}
+  @keyframes fuse{0%,20%{opacity:0}22%,68%{opacity:1}70%,100%{opacity:0}}
+  .fuse{animation-name:fuse;animation-duration:4s;animation-timing-function:steps(2,end)}
+  @keyframes call{0%,25%{opacity:0;transform:scale(0.2)}40%{opacity:.8;transform:scale(1)}60%,100%{opacity:0;transform:scale(1.6)}}
+  .call{animation-name:call;animation-duration:4s;transform-box:fill-box;transform-origin:center}
+  @keyframes wake{0%,30%{opacity:0}45%,100%{opacity:1}}
+  .wake{animation-name:wake;animation-duration:4s}
+  @keyframes bolt{0%,25%{opacity:0;transform:translateX(0)}30%{opacity:1}70%{opacity:1;transform:translateX(58px)}75%,100%{opacity:0;transform:translateX(58px)}}
+  .bolt{animation-name:bolt;animation-duration:4s}
+  @keyframes hide{0%,35%{opacity:.25}45%,100%{opacity:1}}
+  .hide{animation-name:hide;animation-duration:4s}
+  @keyframes flee{0%,30%{transform:translateX(0)}75%,100%{transform:translateX(-40px)}}
+  .flee{animation-name:flee;animation-duration:4s;animation-timing-function:ease-out}
+
+  /* --- boss phase bar draining across its phase pip into phase_shift --- */
+  @keyframes bossbar{0%{transform:scaleX(1)}45%{transform:scaleX(0.5)}55%{transform:scaleX(0.5)}95%,100%{transform:scaleX(0.08)}}
+  .bossbar{animation-name:bossbar;animation-duration:10s;transform-box:fill-box;transform-origin:left center}
+  @keyframes phaseshift{0%,45%{opacity:0}48%,55%{opacity:1}58%,100%{opacity:0}}
+  .phaseshift{animation-name:phaseshift;animation-duration:10s}
+
+  @media (prefers-reduced-motion: reduce){
+    .anim{animation:none!important}
+    .tell,.tell-ring,.leash-label,.boom,.call,.bolt,.phaseshift{opacity:0}
+    .tb{transform:scaleX(1)}.heal,.bossbar{transform:scaleX(1)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — Monsters, AI Profiles &amp; Telegraphs Mock-up</h1>
+<p class="sub">What a monster <i>is</i> from the player's side of the screen: the tier readouts (<code>HUD §6/§6.1</code>), the shared 8-state machine
+every profile walks (<code>AI_BEHAVIOR §1</code>), aggro/leash geometry (<code>§2</code>), the telegraph fairness floors
+(<code>ANIMATION_TIMING §4</code>), and the 12 behavior profiles as animated vignettes. Monsters quoted are real Phase D content —
+<code>mob_001</code> Tuftmoth Grub, <code>mob_011</code> Embermane Alpha, <code>mob_027</code> The Cellar King.
+Sprites/hex values are illustrative placeholders — art identity is owned by <code>ART_BIBLE.yaml</code>. Gold numbered pins are design annotations, not game UI.</p>
+<p class="motion">▶ Every vignette on this page loops. Cyan dashed shapes are <b>design instruments</b> (radii, bands, timers) the player never sees;
+the only things a player actually sees are the sprite, its animation, and the HUD readouts. Motion is honored per <code>prefers-reduced-motion</code>.</p>
+
+<h2>1 · Three tiers, three readouts (what the player is told, and when)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 240" width="1280" height="480" role="img" aria-label="Normal, elite and boss monster HUD readouts side by side">
+  <rect x="0" y="0" width="640" height="240" fill="#241726" class="px"/>
+  <g class="px"><rect x="0" y="196" width="640" height="44" fill="#3a2b1e"/><rect x="0" y="196" width="640" height="4" fill="#6b4a2d"/></g>
+
+  <!-- ============ NORMAL: mob_001 Tuftmoth Grub ============ -->
+  <g>
+    <text x="14" y="20" font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="#9a92a0">normal</text>
+    <text x="14" y="32" font-family="ui-monospace,monospace" font-size="7" fill="#6b6270">mob_001 · Lv 1 · passive_wanderer · neutral</text>
+    <!-- sprite: a fat grub, idle bob -->
+    <g class="px bob anim">
+      <rect x="52" y="176" width="34" height="16" rx="0" fill="#9a6f3f"/>
+      <rect x="56" y="172" width="26" height="6" fill="#c09a54"/>
+      <rect x="84" y="180" width="8" height="9" fill="#c09a54"/>
+      <rect x="87" y="182" width="2" height="2" fill="#241726"/>
+      <rect x="56" y="192" width="4" height="4" fill="#6b4a2d"/><rect x="66" y="192" width="4" height="4" fill="#6b4a2d"/><rect x="76" y="192" width="4" height="4" fill="#6b4a2d"/>
+    </g>
+    <!-- name tag + show-on-damage life bar beneath the sprite -->
+    <rect x="38" y="152" width="70" height="10" rx="2" fill="#241726" opacity="0.85"/>
+    <text x="73" y="159.5" font-family="ui-monospace,monospace" font-size="7" fill="#9a92a0" text-anchor="middle">Tuftmoth Grub</text>
+    <rect x="50" y="198" width="38" height="3" fill="#241726"/><rect x="51" y="199" width="22" height="1.5" fill="#c8461f"/>
+    <text x="69" y="214" font-family="ui-monospace,monospace" font-size="6.5" fill="#6b6270" text-anchor="middle">bar shows on damage, fades 4 s</text>
+    <text x="69" y="224" font-family="ui-monospace,monospace" font-size="6.5" fill="#6b6270" text-anchor="middle">untouched normals show none</text>
+  </g>
+  <line x1="176" y1="10" x2="176" y2="230" stroke="#6b6270" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+
+  <!-- ============ ELITE: mob_011 Embermane Alpha ============ -->
+  <g>
+    <text x="192" y="20" font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="#f6c34b">elite</text>
+    <text x="192" y="32" font-family="ui-monospace,monospace" font-size="7" fill="#9a92a0">mob_011 · Lv 8 · aggressive_charger · fire</text>
+    <g class="px bob-slow anim">
+      <rect x="242" y="164" width="42" height="24" fill="#8f2d1b"/>
+      <rect x="232" y="170" width="12" height="14" fill="#8f2d1b"/>
+      <rect x="284" y="156" width="14" height="18" fill="#c8461f"/>
+      <rect x="288" y="161" width="3" height="3" fill="#f6c34b"/>
+      <rect x="246" y="188" width="7" height="8" fill="#5a1e14"/><rect x="272" y="188" width="7" height="8" fill="#5a1e14"/>
+      <g fill="#eb7a2c"><rect x="250" y="158" width="4" height="7"/><rect x="260" y="156" width="4" height="9"/><rect x="270" y="159" width="4" height="6"/></g>
+    </g>
+    <!-- elite name tag in ember.light + framed life bar beneath the sprite -->
+    <rect x="222" y="138" width="88" height="11" rx="2" fill="#241726" opacity="0.9"/>
+    <text x="266" y="146.5" font-family="ui-monospace,monospace" font-size="7" fill="#f6c34b" text-anchor="middle">Embermane Alpha</text>
+    <rect x="234" y="198" width="64" height="6" fill="#241726" stroke="#6b6270" stroke-width="0.7"/>
+    <rect x="235" y="199" width="40" height="4" fill="#c8461f"/><rect x="235" y="199" width="40" height="2" fill="#eb7a2c"/>
+    <text x="266" y="216" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="middle">same show-on-damage rule,</text>
+    <text x="266" y="226" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="middle">plus framed trim + <tspan fill="#f6c34b">telegraph required</tspan></text>
+  </g>
+  <line x1="356" y1="10" x2="356" y2="230" stroke="#6b6270" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+
+  <!-- ============ BOSS: mob_027 The Cellar King ============ -->
+  <g>
+    <text x="372" y="20" font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="#c8461f">boss</text>
+    <text x="372" y="32" font-family="ui-monospace,monospace" font-size="7" fill="#9a92a0">mob_027 · Lv 14 · boss_scripted · shadow</text>
+    <!-- boss_bar: top-center of the screen, phase pips, no numeric readout -->
+    <g>
+      <rect x="372" y="42" width="252" height="28" rx="2" fill="#241726" opacity="0.95" stroke="#6b6270" stroke-width="1"/>
+      <text x="498" y="54" font-family="ui-monospace,monospace" font-size="9" font-weight="700" fill="#fbf7ef" text-anchor="middle">The Cellar King</text>
+      <rect x="380" y="57" width="236" height="9" fill="#241726" stroke="#6b6270" stroke-width="0.5"/>
+      <g class="bossbar anim"><rect x="381" y="58" width="234" height="7" fill="#c8461f"/><rect x="381" y="58" width="234" height="3" fill="#eb7a2c"/></g>
+      <rect x="498" y="56" width="2" height="11" fill="#f6c34b"/>
+      <text x="498" y="80" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="middle">phase pip at <tspan fill="#f6c34b">life_threshold_pct</tspan> — 2-phase fight (AI_BEHAVIOR §15)</text>
+    </g>
+    <g class="px bob-slow anim">
+      <rect x="452" y="150" width="76" height="42" fill="#4b2a78"/>
+      <rect x="438" y="162" width="18" height="26" fill="#4b2a78"/>
+      <rect x="528" y="140" width="20" height="24" fill="#7a3f9a"/>
+      <rect x="533" y="147" width="4" height="4" fill="#f6c34b"/>
+      <rect x="460" y="192" width="12" height="6" fill="#2a1a4a"/><rect x="504" y="192" width="12" height="6" fill="#2a1a4a"/>
+      <g fill="#b064c6"><rect x="466" y="144" width="5" height="8"/><rect x="484" y="140" width="5" height="12"/><rect x="502" y="145" width="5" height="7"/></g>
+    </g>
+    <!-- phase_shift: invulnerable / untargetable, statuses suspended -->
+    <g class="phaseshift anim">
+      <rect x="430" y="132" width="128" height="68" fill="#7a3f9a" opacity="0.35"/>
+      <text x="494" y="120" font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="#b064c6" text-anchor="middle">phase_shift</text>
+      <text x="494" y="130" font-family="ui-monospace,monospace" font-size="6.5" fill="#e0a7e3" text-anchor="middle">invulnerable · no new statuses · DoT/CC suspended</text>
+    </g>
+    <text x="494" y="216" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="middle">no floating bar under the sprite — the boss owns the</text>
+    <text x="494" y="226" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="middle">top-center <tspan fill="#f6c34b">boss_bar</tspan> instead; camera locks to the arena</text>
+  </g>
+
+  <g font-family="ui-monospace,monospace" font-size="8" font-weight="700">
+    <g><circle cx="118" cy="200" r="7" fill="#f6c34b"/><text x="118" y="203" fill="#241726" text-anchor="middle">1</text></g>
+    <g><circle cx="318" cy="200" r="7" fill="#f6c34b"/><text x="318" y="203" fill="#241726" text-anchor="middle">2</text></g>
+    <g><circle cx="636" cy="61" r="7" fill="#f6c34b"/><text x="636" y="64" fill="#241726" text-anchor="middle">3</text></g>
+  </g>
+</svg>
+<div class="legend">
+  <div><b>1</b> Normal: <code>life</code> bar <b>beneath</b> the sprite, show-on-damage, 4 s fade; a mob you have not hit shows nothing <span class="doc">HUD §6.1</span></div>
+  <div><b>2</b> Elite: the same bar with framed trim, name tag in ember.light, and a mandatory <code>telegraph</code> on every <code>windup</code> <span class="doc">HUD §6.1, AI_BEHAVIOR §2</span></div>
+  <div><b>3</b> Boss: top-center <code>boss_bar</code> with phase pips and <b>no numeric readout</b> — you read the fight, not the number <span class="doc">HUD §6</span></div>
+</div>
+<p class="note">Entering <code>die</code> exits the state machine from <b>any</b> state and clears every status immediately — no post-mortem DoT ticks,
+no kill-then-tick (<code>STATUS_EFFECTS §1</code>, <code>ANIMATION_STATES</code>).</p>
+</div>
+
+<h2>2 · The shared 8-state machine every profile walks (<code>AI_BEHAVIOR §1</code>)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 150" width="1280" height="300" role="img" aria-label="Animated eight-state monster AI machine">
+  <rect x="0" y="0" width="640" height="150" fill="#241726" class="px"/>
+  <g font-family="ui-monospace,monospace" font-size="7.5" text-anchor="middle">
+    <g><rect x="14" y="52" width="70" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="49" y="66" fill="#e8e2d8">idle</text><text x="49" y="76" font-size="6" fill="#6b6270">idle</text></g>
+    <g><rect x="98" y="52" width="70" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="133" y="66" fill="#e8e2d8">patrol</text><text x="133" y="76" font-size="6" fill="#6b6270">walk</text></g>
+    <g><rect x="182" y="52" width="70" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="217" y="66" fill="#e8e2d8">chase</text><text x="217" y="76" font-size="6" fill="#6b6270">walk/jump/fall</text></g>
+    <g><rect x="266" y="52" width="70" height="30" rx="2" fill="#3a2b40" stroke="#f6c34b" stroke-width="1.5"/><text x="301" y="66" fill="#f6c34b">windup</text><text x="301" y="76" font-size="6" fill="#c09a54">telegraph</text></g>
+    <g><rect x="350" y="52" width="70" height="30" rx="2" fill="#3a2b40" stroke="#c8461f" stroke-width="1.5"/><text x="385" y="66" fill="#eb7a2c">attack</text><text x="385" y="76" font-size="6" fill="#9a6f3f">attack/cast</text></g>
+    <g><rect x="434" y="52" width="70" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="469" y="66" fill="#e8e2d8">recover</text><text x="469" y="76" font-size="6" fill="#6b6270">vulnerable</text></g>
+    <g><rect x="518" y="52" width="70" height="30" rx="2" fill="#3a2b40" stroke="#6b6270" stroke-width="1"/><text x="553" y="66" fill="#e8e2d8">return</text><text x="553" y="76" font-size="6" fill="#6b6270">walk → home</text></g>
+    <g><rect x="266" y="106" width="70" height="24" rx="2" fill="#241726" stroke="#6b6270" stroke-width="1" stroke-dasharray="3 2"/><text x="301" y="121" fill="#9a92a0">flee</text></g>
+  </g>
+  <g stroke="#6b6270" stroke-width="1" fill="none">
+    <path d="M84,67 h14"/><path d="M168,67 h14"/><path d="M252,67 h14"/><path d="M336,67 h14"/><path d="M420,67 h14"/><path d="M504,67 h14"/>
+    <path d="M469,82 v14 h-84 v-14" stroke-dasharray="3 2"/>
+    <path d="M588,67 q12,0 12,-22 v-20 h-551 v22" stroke-dasharray="4 3"/>
+    <path d="M217,82 v24 h49" stroke-dasharray="3 2"/>
+  </g>
+  <text x="320" y="20" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="middle">return reaches home → life fully restores → idle/patrol</text>
+  <text x="469" y="100" font-family="ui-monospace,monospace" font-size="6" fill="#9a92a0" text-anchor="middle">combat sub-loop</text>
+  <text x="360" y="121" font-family="ui-monospace,monospace" font-size="6" fill="#6b6270">one state, two motivations: fear (timid_grazer) and tactical kiting (ranged_skirmisher / support_caller)</text>
+  <!-- travelling token -->
+  <g class="tok anim"><circle cx="49" cy="41" r="5.5" fill="#f6c34b"/><path d="M49,47 l-4,5 h8 Z" fill="#f6c34b"/></g>
+</svg>
+<p class="note">Not every profile uses all eight — each profile's entry names its own subset. <code>stationary_turret</code> never leaves
+<code>idle</code>/<code>windup</code>/<code>attack</code>/<code>recover</code>; <code>passive_wanderer</code> only ever reaches <code>flee</code>, and only after being struck.</p>
+</div>
+
+<h2>3 · Aggro, the vertical band, and the leash — the platformer geometry</h2>
+<div class="frame">
+<svg viewBox="0 0 640 260" width="1280" height="520" role="img" aria-label="Animated aggro radius, vertical band and leash break">
+  <rect x="0" y="0" width="640" height="260" fill="#241726" class="px"/>
+  <!-- tile grid: 1 tile = 16 px, the measurement lens -->
+  <g stroke="#3a2b40" stroke-width="0.5" opacity="0.6">
+    <path d="M0,16 h640 M0,32 h640 M0,48 h640 M0,64 h640 M0,80 h640 M0,96 h640 M0,112 h640 M0,128 h640 M0,144 h640 M0,160 h640 M0,176 h640 M0,192 h640"/>
+    <path d="M16,0 v208 M48,0 v208 M80,0 v208 M112,0 v208 M144,0 v208 M176,0 v208 M208,0 v208 M240,0 v208 M272,0 v208 M304,0 v208 M336,0 v208 M368,0 v208 M400,0 v208 M432,0 v208 M464,0 v208 M496,0 v208 M528,0 v208 M560,0 v208 M592,0 v208 M624,0 v208"/>
+  </g>
+  <g class="px">
+    <rect x="0" y="208" width="640" height="52" fill="#3a2b1e"/><rect x="0" y="208" width="640" height="4" fill="#6b4a2d"/>
+    <!-- an upper ledge, deliberately outside the vertical band -->
+    <rect x="316" y="128" width="150" height="8" fill="#3a2b1e"/><rect x="316" y="128" width="150" height="3" fill="#6b4a2d"/>
+  </g>
+
+  <!-- home point + leash radius (9 tiles for aggressive_charger) -->
+  <g>
+    <line x1="120" y1="200" x2="120" y2="216" stroke="#54b0c6" stroke-width="1.5"/>
+    <text x="120" y="230" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" text-anchor="middle">home (spawn point)</text>
+    <ellipse class="leash anim" cx="120" cy="208" rx="144" ry="60" fill="none" stroke="#c8461f" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="258" y="176" font-family="ui-monospace,monospace" font-size="6.5" fill="#c8461f" text-anchor="end">leash_radius 9 tiles</text>
+  </g>
+  <!-- aggro radius 7 tiles + the 3-tile vertical band gate -->
+  <g class="aggro anim">
+    <circle cx="120" cy="192" r="112" fill="#f6c34b" opacity="0.06"/>
+    <circle cx="120" cy="192" r="112" fill="none" stroke="#f6c34b" stroke-width="1" stroke-dasharray="4 3"/>
+  </g>
+  <text x="120" y="72" font-family="ui-monospace,monospace" font-size="6.5" fill="#f6c34b" text-anchor="middle">aggro_radius 7 tiles (sight)</text>
+  <g>
+    <rect x="8" y="144" width="620" height="64" fill="#54b0c6" opacity="0.07"/>
+    <line x1="8" y1="144" x2="628" y2="144" stroke="#54b0c6" stroke-width="1" stroke-dasharray="5 4"/>
+    <text x="620" y="156" font-family="ui-monospace,monospace" font-size="6.5" fill="#54b0c6" text-anchor="end">aggro_vertical_band ±3 tiles — the platformer verticality gate</text>
+  </g>
+
+  <!-- the target inside the band -->
+  <g class="px">
+    <rect x="292" y="184" width="12" height="14" fill="#3f9a45"/><rect x="292" y="178" width="12" height="8" fill="#f0b58a"/>
+    <rect x="291" y="175" width="14" height="5" fill="#6b4a2d"/>
+    <rect x="292" y="198" width="5" height="10" fill="#3a2b1e"/><rect x="299" y="198" width="5" height="10" fill="#3a2b1e"/>
+  </g>
+  <text x="298" y="168" font-family="ui-monospace,monospace" font-size="6.5" fill="#3f9a45" text-anchor="middle">in radius AND in band → aggro</text>
+  <!-- a second player figure on the ledge: in radius, out of band → no aggro -->
+  <g class="px" opacity="0.55">
+    <rect x="366" y="106" width="12" height="14" fill="#3f9a45"/><rect x="366" y="100" width="12" height="8" fill="#f0b58a"/>
+    <rect x="366" y="120" width="5" height="8" fill="#3a2b1e"/><rect x="373" y="120" width="5" height="8" fill="#3a2b1e"/>
+  </g>
+  <text x="372" y="94" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="middle">in radius, <tspan fill="#c8461f">outside the band</tspan> → ignored</text>
+
+  <!-- the charger itself -->
+  <g class="charger anim">
+    <g class="px">
+      <rect x="100" y="180" width="34" height="20" fill="#8f2d1b"/>
+      <rect x="92" y="185" width="10" height="11" fill="#8f2d1b"/>
+      <rect x="134" y="173" width="12" height="15" fill="#c8461f"/>
+      <rect x="137" y="177" width="3" height="3" fill="#f6c34b"/>
+      <rect x="104" y="200" width="6" height="8" fill="#5a1e14"/><rect x="124" y="200" width="6" height="8" fill="#5a1e14"/>
+      <rect x="98" y="210" width="40" height="5" fill="#241726" stroke="#6b6270" stroke-width="0.5"/>
+      <g class="heal anim"><rect x="99" y="211" width="38" height="3" fill="#c8461f"/><rect x="99" y="211" width="38" height="1.5" fill="#eb7a2c"/></g>
+    </g>
+    <!-- the required elite telegraph before the dash -->
+    <g class="tell anim">
+      <text x="118" y="164" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="#f6c34b" text-anchor="middle">telegraph</text>
+    </g>
+    <circle class="tell-ring anim" cx="118" cy="190" r="30" fill="none" stroke="#f6c34b" stroke-width="2"/>
+  </g>
+  <!-- leash-break callout -->
+  <g class="leash-label anim">
+    <rect x="286" y="30" width="240" height="30" rx="2" fill="#241726" stroke="#c8461f" stroke-width="1"/>
+    <text x="406" y="42" font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="#c8461f" text-anchor="middle">leash exceeded → forced return</text>
+    <text x="406" y="53" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0" text-anchor="middle">reaching home fully restores life and re-enters idle/patrol</text>
+  </g>
+  <text x="8" y="252" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">The leash check is <tspan fill="#f6c34b">suspended for an already-committed windup/attack</tspan> — a charger mid-dash never snaps home mid-swing (AI_BEHAVIOR §2).</text>
+</svg>
+<p class="note">A <code>pack_hunter</code>'s call pulls allies within <code>pack_call_radius</code>, but <b>each called member still leashes from its own home point</b>,
+never the caller's — a pack can only be pulled as far as its individual members' leashes allow. That single rule is what stops train-pulling.</p>
+</div>
+
+<h2>4 · The telegraph contract — why a hard hit is always fair (<code>ANIMATION_TIMING §4</code>)</h2>
+<div class="frame">
+<svg viewBox="0 0 640 172" width="1280" height="344" role="img" aria-label="Telegraph minimum on-screen time by tier">
+  <rect x="0" y="0" width="640" height="172" fill="#241726" class="px"/>
+  <g font-family="ui-monospace,monospace" font-size="7" fill="#9a92a0">
+    <text x="10" y="18">A <tspan fill="#f6c34b">telegraph</tspan> clip plays at 4 fps, then <b>holds</b> until its tier floor is met. Haste never compresses it — a hasted monster</text>
+    <text x="10" y="30">must never get to shrink its own tell below the floor, which is the entire reason the floor exists (P1 fairness).</text>
+  </g>
+  <!-- ruler 0..1.0 s over x 90..570 -->
+  <g font-family="ui-monospace,monospace" font-size="6.5" fill="#6b6270">
+    <line x1="90" y1="150" x2="570" y2="150" stroke="#6b6270" stroke-width="1"/>
+    <g stroke="#6b6270"><line x1="90" y1="150" x2="90" y2="155"/><line x1="186" y1="150" x2="186" y2="155"/><line x1="282" y1="150" x2="282" y2="155"/><line x1="378" y1="150" x2="378" y2="155"/><line x1="474" y1="150" x2="474" y2="155"/><line x1="570" y1="150" x2="570" y2="155"/></g>
+    <text x="90" y="166" text-anchor="middle">0</text><text x="186" y="166" text-anchor="middle">0.2</text><text x="282" y="166" text-anchor="middle">0.4</text>
+    <text x="378" y="166" text-anchor="middle">0.6</text><text x="474" y="166" text-anchor="middle">0.8</text><text x="570" y="166" text-anchor="middle">1.0 s</text>
+  </g>
+  <!-- floors -->
+  <g stroke-dasharray="4 3" stroke-width="1">
+    <line x1="282" y1="44" x2="282" y2="150" stroke="#f6c34b"/>
+    <line x1="378" y1="44" x2="378" y2="150" stroke="#c8461f"/>
+  </g>
+  <text x="286" y="52" font-family="ui-monospace,monospace" font-size="6.5" fill="#f6c34b">elite floor 0.4 s</text>
+  <text x="382" y="52" font-family="ui-monospace,monospace" font-size="6.5" fill="#c8461f">boss floor 0.6 s</text>
+  <!-- rows -->
+  <g font-family="ui-monospace,monospace" font-size="6.5">
+    <text x="10" y="72" fill="#e8e2d8">2 frames · elite</text>
+    <rect x="90" y="64" width="240" height="12" fill="#241726" stroke="#6b6270" stroke-width="0.5"/>
+    <rect class="tb anim" x="90" y="64" width="240" height="12" fill="#7a3f9a" opacity="0.6"/>
+    <text x="338" y="73" fill="#3f9a45">0.5 s clip — clears the floor, no hold</text>
+
+    <text x="10" y="96" fill="#e8e2d8">2 frames · boss</text>
+    <rect x="90" y="88" width="240" height="12" fill="#241726" stroke="#6b6270" stroke-width="0.5"/>
+    <rect class="tb anim" x="90" y="88" width="240" height="12" fill="#7a3f9a" opacity="0.6"/>
+    <rect x="330" y="88" width="48" height="12" fill="#c8461f" opacity="0.5"/>
+    <text x="386" y="97" fill="#c8461f">short by 0.1 s → <tspan fill="#e8e2d8">holds the last frame to 0.6 s</tspan></text>
+
+    <text x="10" y="120" fill="#e8e2d8">3 frames · either</text>
+    <rect x="90" y="112" width="360" height="12" fill="#241726" stroke="#6b6270" stroke-width="0.5"/>
+    <rect class="tb anim" x="90" y="112" width="360" height="12" fill="#7a3f9a" opacity="0.6"/>
+    <text x="458" y="121" fill="#3f9a45">0.75 s clip — clears both floors</text>
+  </g>
+  <text x="10" y="140" font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">total_on_screen_s = max(clip_duration_s, tier_minimum_s)  ·  hold_s = max(0, tier_minimum_s − clip_duration_s)</text>
+</svg>
+<p class="note">Normal-tier monsters may use a short untelegraphed windup — with exactly <b>one</b> stated exception: <code>kamikaze_burster</code> always plays
+<code>telegraph</code> even at normal tier, because an untelegraphed self-destruct is precisely the fairness problem the rule exists to prevent
+(<code>AI_BEHAVIOR §12</code>, <code>ANIMATION_STATES §5.2</code>). <code>ANIMATION_TIMING §4</code> extends the 0.4 s elite floor to it by
+identical reasoning and flags that the extension is not independently confirmed elsewhere.</p>
+</div>
+
+<h2>5 · The twelve profiles, as vignettes</h2>
+<div class="frame">
+<svg viewBox="0 0 640 420" width="1280" height="840" role="img" aria-label="Animated vignettes of the twelve AI behavior profiles">
+  <rect x="0" y="0" width="640" height="420" fill="#241726" class="px"/>
+  <g stroke="#3a2b40" stroke-width="1" fill="none">
+    <path d="M160,0 v420 M320,0 v420 M480,0 v420 M0,105 h640 M0,210 h640 M0,315 h640"/>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="7" font-weight="700" fill="#f6c34b">
+    <text x="8" y="14">passive_wanderer</text><text x="168" y="14">timid_grazer</text><text x="328" y="14">aggressive_charger</text><text x="488" y="14">territorial_guard</text>
+    <text x="8" y="119">ambush_lurker</text><text x="168" y="119">ranged_skirmisher</text><text x="328" y="119">aerial_swooper</text><text x="488" y="119">pack_hunter</text>
+    <text x="8" y="224">support_caller</text><text x="168" y="224">kamikaze_burster</text><text x="328" y="224">stationary_turret</text><text x="488" y="224">boss_scripted</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="6" fill="#9a92a0">
+    <text x="8" y="26">on_hit only · aggro_radius 0</text><text x="168" y="26">proximity 5 → flee, never chase</text><text x="328" y="26">sight 7 · charge ×2.5 · recover 2.5 s</text><text x="488" y="26">proximity 5 · leash 4 (tightest)</text>
+    <text x="8" y="131">hidden until proximity 2 · band 1</text><text x="168" y="131">sight 9 (longest) · kites, never touches</text><text x="328" y="131">sight 8 · dives a line, ignores ground</text><text x="488" y="131">sight 5 · calls allies within 8</text>
+    <text x="8" y="236">sight 6 · buffs and raises allies</text><text x="168" y="236">sight 6 · telegraphs even at normal tier</text><text x="328" y="236">sight 7 · never relocates, no leash</text><text x="488" y="236">arena-bounded · authored phases</text>
+  </g>
+  <g class="px"><g fill="#3a2b1e">
+    <rect x="0" y="92" width="640" height="13"/><rect x="0" y="197" width="640" height="13"/><rect x="0" y="302" width="640" height="13"/><rect x="0" y="407" width="640" height="13"/>
+  </g></g>
+
+  <!-- 1 passive_wanderer: ambles, ignores everything -->
+  <g class="px bob anim"><rect x="40" y="78" width="22" height="12" fill="#9a6f3f"/><rect x="60" y="74" width="8" height="9" fill="#c09a54"/><rect x="62" y="76" width="2" height="2" fill="#241726"/></g>
+  <text x="80" y="60" font-family="ui-monospace,monospace" font-size="6" fill="#6b6270">struck → flees, never chases</text>
+  <!-- 2 timid_grazer: flees on proximity, drops through platforms while fleeing -->
+  <g class="px flee anim"><rect x="248" y="78" width="20" height="12" fill="#7ac04b"/><rect x="244" y="74" width="8" height="9" fill="#c6e37a"/><rect x="246" y="76" width="2" height="2" fill="#241726"/></g>
+  <g class="px"><rect x="292" y="76" width="10" height="12" fill="#3f9a45"/><rect x="292" y="70" width="10" height="7" fill="#f0b58a"/></g>
+  <path d="M286,64 h-40" stroke="#c8461f" stroke-width="1" stroke-dasharray="3 2" fill="none"/>
+  <!-- 3 aggressive_charger: telegraph, then dash -->
+  <g class="px rush anim"><rect x="332" y="76" width="30" height="14" fill="#8f2d1b"/><rect x="362" y="70" width="10" height="12" fill="#c8461f"/><rect x="365" y="73" width="3" height="3" fill="#f6c34b"/></g>
+  <circle class="call anim" cx="348" cy="82" r="18" fill="none" stroke="#f6c34b" stroke-width="1.5"/>
+  <g class="px"><rect x="452" y="76" width="10" height="12" fill="#3f9a45"/><rect x="452" y="70" width="10" height="7" fill="#f0b58a"/></g>
+  <!-- 4 territorial_guard: paces a 3-tile patch, gives up instantly -->
+  <g class="px bob-slow anim"><rect x="540" y="72" width="30" height="18" fill="#6b6270"/><rect x="534" y="78" width="8" height="9" fill="#6b6270"/><rect x="566" y="76" width="3" height="3" fill="#f6c34b"/></g>
+  <g stroke="#54b0c6" stroke-width="1" stroke-dasharray="3 2" fill="none"><path d="M512,90 v-14 M600,90 v-14 M512,80 h88"/></g>
+  <text x="556" y="70" font-family="ui-monospace,monospace" font-size="6" fill="#54b0c6" text-anchor="middle">patrol_radius 3</text>
+
+  <!-- 5 ambush_lurker: hidden, then revealed -->
+  <g class="px hide anim"><rect x="60" y="182" width="26" height="14" fill="#4b2a78"/><rect x="82" y="176" width="8" height="10" fill="#7a3f9a"/><rect x="84" y="179" width="2" height="2" fill="#f6c34b"/></g>
+  <text x="40" y="176" font-family="ui-monospace,monospace" font-size="6" fill="#9a92a0">concealment <i>is</i> the telegraph substitute — first strike is instant</text>
+  <!-- 6 ranged_skirmisher: fires and backs off -->
+  <g class="px"><rect x="176" y="182" width="20" height="14" fill="#256b34"/><rect x="196" y="177" width="8" height="10" fill="#3f9a45"/></g>
+  <g class="bolt anim"><rect x="206" y="184" width="8" height="2" fill="#c6e37a"/></g>
+  <g class="px"><rect x="284" y="182" width="10" height="14" fill="#3f9a45"/><rect x="284" y="176" width="10" height="7" fill="#f0b58a"/></g>
+  <!-- 7 aerial_swooper: dives a line, then climbs back to its lane -->
+  <g class="px swoop anim"><rect x="336" y="146" width="22" height="8" fill="#2f7aa0"/><rect x="330" y="144" width="10" height="5" fill="#54b0c6"/><rect x="354" y="144" width="10" height="5" fill="#54b0c6"/></g>
+  <path d="M348,156 L404,182" stroke="#54b0c6" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+  <g class="px"><rect x="440" y="182" width="10" height="14" fill="#3f9a45"/><rect x="440" y="176" width="10" height="7" fill="#f0b58a"/></g>
+  <!-- 8 pack_hunter: broadcasts a call -->
+  <g class="px"><rect x="500" y="182" width="20" height="13" fill="#9a6f3f"/><rect x="518" y="177" width="8" height="9" fill="#c09a54"/></g>
+  <circle class="call anim" cx="512" cy="186" r="26" fill="none" stroke="#f6c34b" stroke-width="1.5"/>
+  <g class="px" opacity="0.85">
+    <g class="wake anim"><rect x="556" y="184" width="18" height="11" fill="#9a6f3f"/><rect x="572" y="180" width="7" height="8" fill="#c09a54"/></g>
+    <g class="wake anim"><rect x="592" y="186" width="16" height="9" fill="#9a6f3f"/><rect x="606" y="182" width="6" height="7" fill="#c09a54"/></g>
+  </g>
+  <text x="556" y="207" font-family="ui-monospace,monospace" font-size="6" fill="#9a92a0" text-anchor="middle">on_ally_call · each member leashes from <b>its own</b> home</text>
+
+  <!-- 9 support_caller: buffs an ally, retreats -->
+  <g class="px"><rect x="46" y="288" width="18" height="13" fill="#1e4c78"/><rect x="62" y="283" width="8" height="9" fill="#2f7aa0"/></g>
+  <g class="call anim"><circle cx="106" cy="290" r="18" fill="none" stroke="#a7e0e3" stroke-width="1.5"/></g>
+  <g class="px"><rect x="96" y="288" width="20" height="13" fill="#9a6f3f"/><rect x="114" y="284" width="7" height="8" fill="#c09a54"/></g>
+  <text x="8" y="282" font-family="ui-monospace,monospace" font-size="6" fill="#c8461f">kill order problem: dangerous left alive</text>
+  <!-- 10 kamikaze_burster: fuse, rush, detonate -->
+  <g class="rush anim">
+    <g class="px"><rect x="186" y="288" width="18" height="13" fill="#c8461f"/><rect x="204" y="284" width="7" height="8" fill="#eb7a2c"/></g>
+    <g class="fuse anim"><circle cx="195" cy="280" r="3.5" fill="#f6c34b"/></g>
+  </g>
+  <circle class="boom anim" cx="248" cy="292" r="24" fill="none" stroke="#eb7a2c" stroke-width="2.5"/>
+  <g class="px"><rect x="286" y="288" width="10" height="13" fill="#3f9a45"/><rect x="286" y="282" width="10" height="7" fill="#f0b58a"/></g>
+  <!-- 11 stationary_turret: fixed, fires on cooldown -->
+  <g class="px"><rect x="336" y="286" width="24" height="16" fill="#6b6270"/><rect x="344" y="278" width="10" height="10" fill="#9a92a0"/><rect x="360" y="288" width="10" height="5" fill="#6b6270"/></g>
+  <g class="bolt anim"><rect x="372" y="289" width="9" height="3" fill="#b064c6"/></g>
+  <g class="px"><rect x="446" y="288" width="10" height="13" fill="#3f9a45"/><rect x="446" y="282" width="10" height="7" fill="#f0b58a"/></g>
+  <text x="328" y="312" font-family="ui-monospace,monospace" font-size="6" fill="#9a92a0">no home point → no leash · attack_cooldown_s 2.5 · windup_s 0.6</text>
+  <!-- 12 boss_scripted -->
+  <g class="px bob-slow anim"><rect x="520" y="278" width="44" height="24" fill="#4b2a78"/><rect x="564" y="272" width="14" height="16" fill="#7a3f9a"/><rect x="568" y="277" width="3" height="3" fill="#f6c34b"/></g>
+  <g><rect x="496" y="256" width="120" height="8" rx="1.5" fill="#241726" stroke="#6b6270" stroke-width="0.7"/>
+     <g class="bossbar anim"><rect x="497" y="257" width="118" height="6" fill="#c8461f"/></g>
+     <rect x="556" y="255" width="1.5" height="10" fill="#f6c34b"/></g>
+  <text x="488" y="312" font-family="ui-monospace,monospace" font-size="6" fill="#9a92a0">arena-bounded instead of leashed · phase pips at life_threshold_pct</text>
+
+  <!-- footer band -->
+  <g font-family="ui-monospace,monospace" font-size="6.5" fill="#9a92a0">
+    <text x="8" y="336">Every tunable shown is a <tspan fill="#f6c34b">snake_case</tspan> field a monster's YAML may override; the values are AI_BEHAVIOR's first-pass defaults.</text>
+    <text x="8" y="348">Radii and distances are in <b>tiles</b>; durations and cooldowns in seconds; speed multipliers are against the monster's baseline move-speed.</text>
+    <text x="8" y="360">Ground profiles avoid walking off an edge by default during idle/patrol/chase — <tspan fill="#f6c34b">timid_grazer</tspan> is the stated drop-through exception, while fleeing.</text>
+    <text x="8" y="372">Elemental and status behavior is authored per monster via SKILL_EFFECTS ops and ELEMENTS affinities — AI_BEHAVIOR defines only movement, targeting, and timing.</text>
+    <text x="8" y="384">234 monsters ship across the two arcs: <tspan fill="#e8e2d8">178 normal · 45 elite · 11 boss</tspan> (docs/WORLD_PLAN.md).</text>
+  </g>
+</svg>
+</div>
+
+<h2>6 · Reading a bestiary entry (real content, <code>docs/50_content/monsters/</code>)</h2>
+<div class="frame">
+<table>
+  <tr><th>Field</th><th><code>mob_001</code> Tuftmoth Grub</th><th><code>mob_011</code> Embermane Alpha</th><th><code>mob_027</code> The Cellar King</th></tr>
+  <tr><td class="f">tier / level</td><td class="n">normal · Lv 1</td><td class="n">elite · Lv 8</td><td class="n">boss · Lv 14</td></tr>
+  <tr><td class="f">element</td><td class="n">neutral</td><td class="n">fire</td><td class="n">shadow</td></tr>
+  <tr><td class="f">ai_profile</td><td class="n">passive_wanderer</td><td class="n">aggressive_charger</td><td class="n">boss_scripted (2 phases)</td></tr>
+  <tr><td class="f">animation_states</td><td class="n">idle, walk, jump, fall, attack, hit, die — the normal set, <b>no</b> telegraph/spawn</td><td class="n">+ <code>telegraph</code> (mandatory at elite tier)</td><td class="n">+ <code>telegraph</code>, <code>phase_shift</code>, <code>spawn</code></td></tr>
+  <tr><td class="f">life / power</td><td class="n">65 / 9</td><td class="n">elite budget, COMBAT_FORMULA §13</td><td class="n">boss budget, COMBAT_FORMULA §13</td></tr>
+  <tr><td class="f">HUD readout</td><td class="n">bar under sprite, on damage</td><td class="n">bar under sprite + framed trim</td><td class="n">top-center <code>boss_bar</code>, phase pips, no number</td></tr>
+  <tr><td class="f">stat source</td><td class="n" colspan="3">Every stat block is copied from <code>COMBAT_FORMULA §13</code>'s tier budget at that level — content files hold <b>values and references only</b>, never their own math (P4).</td></tr>
+  <tr><td class="f">animation_notes</td><td class="n" colspan="3">Each monster carries a per-state visual brief in prose (<code>monster.schema</code> rule 11) — e.g. the Grub's <i>idle</i>: "Sits plump and low, sides swelling and settling as it chews." That prose is what the art pass turns into frames.</td></tr>
+</table>
+</div>
+
+<p class="note" style="border-color:var(--link);margin-top:22px">Non-binding visual aid. Where this page and
+<code>docs/40_assets/UI_ART_SPEC.md</code> / <code>docs/40_assets/ART_BIBLE.yaml</code> differ, <b>the spec wins</b>. Radii, bands, durations, and
+tier floors are <code>AI_BEHAVIOR.md</code>'s and <code>ANIMATION_TIMING.md</code>'s first-pass defaults, overridable per monster in YAML.</p>
+
+</div>
+</body>
+</html>

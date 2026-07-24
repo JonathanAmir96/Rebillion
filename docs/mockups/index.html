@@ -1,0 +1,106 @@
+<!-- Index of the non-binding HTML wireframe mock-ups (added 2026-07-25).
+     Binding specs are always docs/40_assets/UI_ART_SPEC.md and docs/40_assets/ART_BIBLE.yaml. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebillion — Mock-up Index</title>
+<style>
+  :root{--ink:#241726;--link:#54b0c6;--emph:#f6c34b;--warn:#c8461f;--good:#3f9a45;--panel:#3a2b40;--line:#6b6270}
+  *{box-sizing:border-box}
+  body{margin:0;background:#241726;color:#e8e2d8;font:14px/1.55 ui-sans-serif,system-ui,sans-serif;padding:28px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:22px;color:var(--emph);margin:0 0 4px}
+  h2{font-size:14px;color:var(--link);margin:26px 0 10px;letter-spacing:.04em;text-transform:uppercase}
+  p.sub{margin:0 0 20px;color:#9a92a0;font-size:13px}
+  code{font-family:ui-monospace,monospace;color:var(--link);font-size:.92em}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);
+         border-left:4px solid var(--line);border-radius:2px;padding:12px 14px;transition:border-color .12s,background .12s}
+  a.card:hover{border-color:var(--emph);border-left-color:var(--emph);background:#4b2a78}
+  a.card b{display:block;color:var(--emph);font-size:14.5px;margin-bottom:3px}
+  a.card span{display:block;color:#e8e2d8;font-size:12.5px}
+  a.card .file{display:block;margin-top:7px;color:#9a92a0;font-family:ui-monospace,monospace;font-size:11px}
+  .tag{display:inline-block;background:#241726;border:1px solid var(--good);color:var(--good);
+       border-radius:2px;padding:0 5px;font-size:10px;font-family:ui-monospace,monospace;margin-left:6px;vertical-align:2px}
+  .note{font-size:12px;color:#9a92a0;margin-top:22px;border-left:3px solid var(--warn);padding-left:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Rebillion — Mock-up Index</h1>
+<p class="sub">Non-binding HTML wireframes: a visual read on what the design tree describes in prose. Every page renders at the native
+<code>640×360</code> base on a 16 px grid, shown at the locked integer 2× scale, using only <code>ART_BIBLE.yaml</code> palette values.
+Pages marked <span class="tag">motion</span> animate on a loop to show timing-dependent behavior, and honor <code>prefers-reduced-motion</code>.</p>
+
+<h2>In-game perspective</h2>
+<div class="grid">
+  <a class="card" href="gameplay_scene_mockup.html">
+    <b>Main gameplay scene<span class="tag">motion</span></b>
+    <span>The always-on HUD over a field-hunting scene: gauges, skill bar, minimap, quest tracker, damage numbers, combo counter, boss-arena variant, the scene depth stack, and the toggle windows.</span>
+    <span class="file">gameplay_scene_mockup.html — HUD.md, MAP_LAYERS.md, UI_WINDOWS.md</span>
+  </a>
+  <a class="card" href="combat_combo_mockup.html">
+    <b>Combat &amp; combo layer<span class="tag">motion</span></b>
+    <span>One 8-second rotation, live: links growing on source changes, the 3.0 s chain window, momentum tiers gated by advancement, a <code>combo_burst</code> finisher, and where the multiplier folds into the damage pipeline.</span>
+    <span class="file">combat_combo_mockup.html — COMBO_SYSTEM.md, COMBAT_FORMULA.md §2</span>
+  </a>
+  <a class="card" href="monster_ai_bestiary_mockup.html">
+    <b>Monsters, AI profiles &amp; telegraphs<span class="tag">motion</span></b>
+    <span>Normal / elite / boss readouts side by side, the shared 8-state machine, aggro-radius and vertical-band geometry with a leash break, telegraph fairness floors, and all twelve behavior profiles as vignettes.</span>
+    <span class="file">monster_ai_bestiary_mockup.html — AI_BEHAVIOR.md, ANIMATION_TIMING.md</span>
+  </a>
+  <a class="card" href="core_mechanics_mockup.html">
+    <b>Core mechanics<span class="tag">motion</span></b>
+    <span>One run through every traversal mechanic with its tile budgets, per-monster element affinities, the 12-slot status row with duration wipes and CC diminishing returns, and the hitstun / i-frame contract.</span>
+    <span class="file">core_mechanics_mockup.html — MAP_TRAVERSAL.md, ELEMENTS.md, STATUS_EFFECTS.md</span>
+  </a>
+  <a class="card" href="raid_boss_hud_mockup.html">
+    <b>Raid boss HUD</b>
+    <span>The raid encounter shell: boss bar, phase pips, party frames, and the mechanics overlay for the instanced co-op runs.</span>
+    <span class="file">raid_boss_hud_mockup.html — social/RAID.md, HUD.md §6</span>
+  </a>
+</div>
+
+<h2>Shell, windows &amp; world</h2>
+<div class="grid">
+  <a class="card" href="entry_roster_creation_mockup.html">
+    <b>Entry flow</b>
+    <span>Title screen, the 4-slot character roster, and the three linear steps of character creation.</span>
+    <span class="file">entry_roster_creation_mockup.html — ACCOUNT.md, ACCOUNTS_AUTH.md</span>
+  </a>
+  <a class="card" href="inventory_character_windows_mockup.html">
+    <b>Inventory &amp; character windows</b>
+    <span>The framed-window family up close: tabs, the slot grid with rarity rings, the paper-doll equipment layout, and the derived-stat panel.</span>
+    <span class="file">inventory_character_windows_mockup.html — INVENTORY.md, UI_WINDOWS.md, ITEMS.md</span>
+  </a>
+  <a class="card" href="town_hub_millbrook_mockup.html">
+    <b>Millbrook central hub</b>
+    <span>The ring's south hub as a playable town map: NPC placements, interactables, the coach stop, and the social heart of the world.</span>
+    <span class="file">town_hub_millbrook_mockup.html — WORLD_PLAN.md, MAP_INTERACTABLES.md</span>
+  </a>
+  <a class="card" href="world_travel_mockup.html">
+    <b>World map &amp; travel</b>
+    <span>The five islands, the Harthmoor ring, the Deepway, and the paid travel network — ferry, coach, and the scheduled longships.</span>
+    <span class="file">world_travel_mockup.html — WORLD_PLAN.md, MAP_CONNECTIONS.md</span>
+  </a>
+</div>
+
+<h2>Live-ops</h2>
+<div class="grid">
+  <a class="card" href="monetization_mockup.html">
+    <b>Live-ops &amp; monetization surfaces<span class="tag">motion</span></b>
+    <span>The Wayfarer's Charter panel, the Cogwork Capsule with its published odds and pity counter, the cosmetic appearance loadout, and in-world sponsor billboards — with each surface's guardrails drawn beside it.</span>
+    <span class="file">monetization_mockup.html — BATTLE_PASS.md, GACHAPON.md, COSMETICS.md, MONETIZATION.md</span>
+  </a>
+</div>
+
+<p class="note">These pages are <b>visual aids, never law</b>. Where a mock-up and <code>docs/40_assets/UI_ART_SPEC.md</code> or
+<code>docs/40_assets/ART_BIBLE.yaml</code> differ, the spec wins — those two files, plus the owning system doc for each mechanic, are the only
+binding sources. Numbers shown are the owning docs' first-pass values and move with the balance pass.</p>
+
+</div>
+</body>
+</html>
