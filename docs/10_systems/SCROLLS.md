@@ -192,7 +192,7 @@ client-side "reroll until the outcome is good" (`00_vision/PILLARS.md` P6, same 
 
 ## 7. Worked example — `temper` on a `rare` Lv 50 body piece
 
-Start: a `rare` (2 affix lines) T6 `body` armor, `req_level` 50. Base 98 `armor` / 69 `warding`
+Start: a `rare` (2 affix lines) T8 `body` armor, `req_level` 50 (`10_systems/ITEMS.md` §4: T8 = Lv 50). Base 98 `armor` / 69 `warding`
 (`10_systems/ITEMS.md` §8) = 16.7 pe. Affixes: **+12 `might`** (12 pe) + **+132 `life`**
 (132 × 0.03 = 3.96 pe) = 15.96 pe of affix budget, against the `rare` @ Lv 50 budget of **34 pe**;
 per-line cap **17 pe** (`10_systems/ITEMS.md` §10). All arithmetic uses §6 pe weights.

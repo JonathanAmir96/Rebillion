@@ -296,8 +296,71 @@ So the next sweep doesn't re-plow it, these were explicitly cross-checked and ho
 4. **Balance-ceiling call** (C-10) and **stale-lock sweep** (C-12, C-15).
 5. Low-severity drift (C-16…C-27) batched per owning doc.
 
+## 5. Resolution log (applied 2026-07-24, owner-directed)
+
+The owner directed a fix pass the same day. **25 of 27 findings are resolved** on this branch;
+the two locked-file findings are deferred to the Agent-3 amendment channel. Resolutions chosen:
+
+- **C-01 fixed** — §7.1's fares won (newer, anchored to the §5 income model); ECONOMY §4.3 is
+  now a pointer, the §2 sink index points at §7, and the §7 OQ records the supersession.
+- **C-02 fixed** — ECONOMY §4.1's 1,200/1,500 won (its "deliberately flatter" rationale + the §5
+  spend model); `consumables.yaml` `item_use_0017`–`0020` re-minted to 1,200/300 and 1,500/375.
+- **C-03 fixed** — ECONOMY §4.2's 10,500/13,000 bases won; all 18 T11/T12 rows in
+  `weapons.yaml`/`armor.yaml` re-priced (uncommon 26,250/6,563 and 32,500/8,125), headers
+  updated.
+- **C-04 fixed** — registry won; AI_BEHAVIOR now describes the `summon_tmpl_*` placeholder
+  scheme and carries an OQ requesting a real ID block (none minted).
+- **C-05 fixed** — the round-to-nearest-5 rule is stated beside the formula (verified against
+  all 29 table rows); table values canonical for content; the two ≈ products made exact.
+- **C-06 fixed** — skill.schema's `scaling` enum expanded to SKILL_EFFECTS' legal set with
+  per-effect constraints by pointer.
+- **C-07/C-08 fixed** — all schema worked examples now mirror minted content: monster.schema →
+  `mob_011` (Embermane Alpha), drop_table.schema → `drop_mob_011`/`drop_mob_012`, item.schema →
+  minted `item_equip_0002` (Harborwind Cutlass) and `item_etc_0011`.
+- **C-09 fixed** — quest.schema example recomputed on the frozen curve (exp_to_next(10) = 8,480,
+  `exp: 1696`) and re-slotted to a Millbrook quest ID (band 8–14).
+- **C-10 fixed** — GUILD's weekly +10 %/+10 % lift kept; DROPS §4.1 restates `guild_drop_buff`
+  1.05 baseline / 1.10 lift week, ceiling ×2.73 / ×2.86, clamp + aggregate arithmetic
+  recomputed.
+- **C-11 fixed** — guild hall → `map_024` (both references).
+- **C-12 fixed** — RAID §6.D and GUILD §11 consume PERSISTENCE §2.1 (00:00 UTC daily / Monday
+  weekly); the stale blocker OQs are marked resolved.
+- **C-13 fixed** — ITEMS §4 rewritten to the minted contiguous layout (bow 0007–0012, staff
+  0013–0018, dirk 0019–0024; reserve = 0025–0040).
+- **C-14 fixed** — `map_015` ferry doors target `from_ferry` (spawn added to `map_001` beside
+  its ferry door); `map_027`→`map_043` and `map_028`→`map_076` target `from_millbrook`.
+- **C-15 fixed** — CAMERA/INVENTORY/SKILL_SYSTEM consume the 16 px lock (px equivalents given,
+  tile-first convention kept); the genuinely-open default-zoom question stays open.
+- **C-16 fixed** — standardized phrasing "two arcs to Lv 80 (Voidshore elites overshoot to 82)"
+  in GLOSSARY and JOBS.
+- **C-17 DEFERRED** — locked-vs-locked (UI_ART_SPEC 16/24/32 icons vs ART_BIBLE 16/24): needs an
+  Agent-3 amendment on one side; not editable here (law 5).
+- **C-18/C-19 fixed** — Party window added to HUD §1/§11; CONTROLS renamed the `P` window and
+  corrected five→six; party-plate fields now match PARTY §3's contract; UI_WINDOWS states its
+  actual roster field set.
+- **C-20 fixed** — skill.schema exemplars corrected (summons → `skill_keeneye_010` +
+  `skill_bulwark_022`; party_aura → `skill_bulwark_020`; hybrid → `skill_flicker_019`;
+  `condition` OQ resolved as frozen per SKILL_EFFECTS §16).
+- **C-21 fixed** — i-frame opt-in wording; `sunder` → `armor` only; 7.5 s/kill split into 4.5 s
+  TTK + ≈3 s repositioning; `clarity` note matches its table.
+- **C-22 fixed** — SCOPE: arcane = Clockwork + Arcane Reach; equip row +8 raid exclusives
+  (~170), etc row +4 raid tokens (~185).
+- **C-23 fixed** — Millbrook band 8–14 in MAPS_SYSTEM §4; dangling WORLD_PLAN citations cleared
+  in MAPS_SYSTEM §6 / SPAWN; npc.schema cites R10's real interiors.
+- **C-24 fixed** — GUILD cosmetic citation → 0009–0032; RAID token grant → runtime entry-context
+  wording per schema rule 4; DROPS token OQ resolved; "15 boss pairs" → 11.
+- **C-25 fixed** — SCROLLS example relabeled T8 *(see note below)*; job.schema 9 → 15 jobs.
+- **C-26 fixed** — MONETIZATION rule 1 splits rendering (client) vs entitlements (server);
+  `exp_into_level` defined in LEVELING §1; PERSISTENCE social row de-stubbed with TRADING/MAIL
+  owners + a COLLECTIONS progress row added; COLLECTIONS §7 title paragraph unstaled.
+- **C-27 (a,b,d) fixed** — AUDIO toast cite §9; mockup crit uses the element tint; stale
+  weapons/enhancement YAML header claims dropped. **C-27c DEFERRED** — ENGINEERING_STANDARDS
+  "Health" component naming is locked; amendment-channel item.
+
+Post-fix gates: `tools/validate.py` 0 failures / 0 warnings; `tools/md_graph.py` 1 component,
+0 orphans, 0 unreferenced, 0 dead-ends.
+
 ## Open Questions
 
-- None owned here — this is a review report. Every finding above is addressed to its owning
-  doc(s); resolutions are owner-directed per CLAUDE.md law 4 and land via those docs' Open
-  Questions / amendment channels.
+- None owned here — this is a review report. The two deferred findings (C-17, C-27c) live with
+  the Agent-3 amendment channel; everything else above is resolved per §5's log.

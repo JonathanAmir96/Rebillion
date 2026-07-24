@@ -18,6 +18,19 @@ landing order (registry facts → schema exemplars → ECONOMY → ceiling call 
 Also confirmed consistent: all 2026-07-24 social-balance numbers, cosmetics blocks, world
 arithmetic, LEVELING curves, banned-term sweep, UI/animation numbers (report §3).
 
+**Fix pass (same day, owner-directed "fix"):** 25/27 resolved on the branch — resolution log in
+the report's §5. Sides chosen: ECONOMY §7.1 fares win (§4.3 → pointer); ECONOMY prices win over
+minted content (tonics 1,200/1,500; T11/T12 bases 10,500/13,000 — 26 content rows re-minted);
+registry/minted IDs win over prose and schema exemplars everywhere (all four schemas' worked
+examples now mirror minted rows); GUILD's weekly +10% lift kept, DROPS ceiling restated ×2.73
+baseline / ×2.86 lift week; `life` checksum table's round-to-5 rule stated; 16 px tile-scale lock
+consumed by CAMERA/INVENTORY/SKILL_SYSTEM; arc phrasing standardized ("two arcs to Lv 80,
+Voidshore elites overshoot to 82"); ferry/Millbrook spawn targets re-minted per MAP_CONNECTIONS
+§2 (`from_ferry` spawn added to map_001). **Deferred (locked, Agent-3 amendment channel):**
+UI_ART_SPEC 16/24/32 vs ART_BIBLE 16/24 icon grids (C-17); ENGINEERING_STANDARDS "Health"
+component naming vs `life` (C-27c). Post-fix gates clean (`validate.py` 0/0; `md_graph.py`
+1 component / 0 orphans).
+
 ## 2026-07-24 — social-package balance pass + cosmetics system (owner-directed follow-ups)
 
 The two follow-ups left open by the social package (below) are done; all first-pass magnitudes are
