@@ -218,3 +218,12 @@ owns that separately). Concretely:
 - Whether `evt_drop_roll` should log **every** rolled row (including misses) or only hits is
   unresolved; misses give a truer hit-rate denominator but roughly triple event volume at
   `elite`/`boss` tables (§3.4) — default **log both**, revisit if volume is a cost concern.
+- **Operational/perf telemetry (APM) is unowned.** This doc is deliberately balance-only; no doc
+  in the `70_integrations/` suite owns runtime performance monitoring — P95/P99 tick-processing
+  time per map process, database query/transaction latency percentiles, WebSocket throughput and
+  payload-size distributions, per-node memory/process counts, connection/CCU gauges, and
+  alerting on budget breaches (the owner's backend performance checklist, 2026-07-24, requires
+  them: `docs/phase_reports/BACKEND_CHECKLIST_AUDIT_2026-07-24.md`). Proposed owner: the backend
+  coding pass, as an ops runbook beside `70_integrations/BACKEND_ARCHITECTURE.md` — flagged, not
+  designed here (this doc's event taxonomy and privacy stance are unaffected; process metrics
+  observe servers, not players).

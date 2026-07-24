@@ -467,6 +467,17 @@ table's stances (fail-loud in dev, fail-safe in prod; refuse rather than fabrica
   shared. The mitigation is per-role connection-pool limits at the pooling layer (e.g. per-role
   PgBouncer pools); which pooler and what caps is an ops/owner-priced item alongside the
   `70_integrations/BACKEND_ARCHITECTURE.md` hosting decision.
+- **Concurrency-control discipline inside §4 transactions.** §4 fixes *what* commits atomically;
+  the *how* of concurrent access — explicit row locks (`SELECT … FOR UPDATE` on the touched
+  `inventory_slot`/`item_instance`/`wallet` rows before validate-then-write), a deterministic
+  cross-transaction lock order to prevent deadlock, and/or a serializable isolation level with
+  retry — is not yet fixed. The slot-uniqueness PK and the append-only ledger already make the
+  worst races fail closed, but the two-party swap and market-buy paths touch multiple rows across
+  schemas and need one declared discipline before implementation (owner's backend security
+  checklist, 2026-07-24 — anti-duplication requirement;
+  `docs/phase_reports/BACKEND_CHECKLIST_AUDIT_2026-07-24.md`). Same home should state the
+  (assumed, currently unwritten) rule that all SQL is parameterized/prepared — never
+  string-concatenated. Owner: this doc at its next revision, with the coding pass.
 - **Account/credential store placement.** The password hash and account root
   (`70_integrations/ACCOUNTS_AUTH.md` §8) are grouped under the character DB by
   `70_integrations/BACKEND_ARCHITECTURE.md` §5; whether they sit in the `char` schema or a dedicated

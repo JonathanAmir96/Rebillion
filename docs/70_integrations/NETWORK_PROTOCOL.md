@@ -612,7 +612,11 @@ that cannot prove a `server` truth refuses the action, never fabricates it.
   §1.1; the envelope (§3) and the reliable-ordered transport (§1) support either encoding. §9.5's
   `entity_snapshot` (`op_0400`) is authored as whole-visible-state per broadcast; revisit that row (not
   its opcode — minted opcodes are immutable) if delta-encoding or area-of-interest filtering is adopted
-  at those docs' next revision.
+  at those docs' next revision. The owner's backend security checklist (2026-07-24,
+  `docs/phase_reports/BACKEND_CHECKLIST_AUDIT_2026-07-24.md`) adds an **anti-cheat rationale** to this
+  item beyond capacity: whole-visible-state broadcast means a modified client can render entities the
+  player has not scouted (map-radar tooling); per-client interest filtering is the structural fix, so
+  the capacity revisit should weigh that, not bandwidth alone.
 - **Max-message-size and compression tuning.** The max payload cap (§10), the ~512-byte compression
   threshold, and the DEFLATE level (§5) are ops-tunable numbers with a fixed shape; exact values want a
   coding-pass bandwidth/CPU measurement against real Godot 4.3 client packing, not a design guess.

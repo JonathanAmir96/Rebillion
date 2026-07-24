@@ -21,7 +21,8 @@ Start here:
   `PHASE_B_REPORT.md`, `PHASE_D_ARC2_REPORT.md`, `ARC2_PLAN_REPORT.md`,
   `PHASE_F_INTEGRATIONS_REPORT.md`, `PHASE_G_EQUIPMENT_REPORT.md`,
   `PHASE_H_CONSISTENCY_REPORT.md`, `PHASE_I_BACKEND_REPORT.md`,
-  `SYNC_AUDIT_v3_2026-07-23.md`, `MD_CONNECTIVITY_REPORT.md`) · `tools/validate.py` — the
+  `SYNC_AUDIT_v3_2026-07-23.md`, `MD_CONNECTIVITY_REPORT.md`,
+  `BACKEND_CHECKLIST_AUDIT_2026-07-24.md`) · `tools/validate.py` — the
   batch validator, usage in `tools/README.md` (VALIDATION checks 1–6);
   `tools/md_graph.py` — the doc connectivity graph
 
