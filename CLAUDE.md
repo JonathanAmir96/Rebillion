@@ -119,7 +119,7 @@ sub-agents, exemplar-first, validator-gated.
 following links — README's "Start here" section is the tree's index (there is no `docs/` index
 file; README is the root). Run `python3 tools/md_graph.py` to rebuild the link graph and
 BFS-check it (report: `docs/phase_reports/MD_CONNECTIVITY_REPORT.md`); the tree is currently
-one connected component, 119/119 README-reachable (re-verified 2026-07-24, raid-stage wave). After any wave that adds docs — especially a
+one connected component, 120/120 README-reachable (re-verified 2026-07-24, raid-stage wave). After any wave that adds docs — especially a
 parallel-session merge — re-run it and link any new "unreferenced" file from its natural index
 (that is exactly how the F/G/H reports and the role files first slipped in undiscoverable).
 

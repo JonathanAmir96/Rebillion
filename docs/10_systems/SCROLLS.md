@@ -155,7 +155,13 @@ been checked against §4.4's sink-dominant requirement — per clear, per member
 `10_systems/social/PARTY.md` §5 holds, a 6-member party multiplies that by 6. A repeatable run
 paying ≈1.4 `bold` and ≈0.3 `perilous` per clear would contradict §4.2's "drop-/quest-only chase
 item" stance. Flagged in RAID.md's Open Questions and owed to §4.4 before bonus-room content is
-final.
+final — and that check must now be run against **both** new sources together, not the bonus room
+alone: `10_systems/GACHAPON.md`'s Cogwork Capsule also draws these SKUs (10% of pulls, `scroll_tier`
+weighted `steady` 60 / `bold` 30 / `perilous` 10). Two repeatable `perilous` faucets landed in the
+same period against a §4.2 stance that calls `bold`/`perilous` drop-/quest-only chase items. Note
+the bonus room *helps* `10_systems/MONETIZATION.md`'s PA-001 cap rather than straining it — it is
+free-play evidence that the gacha's scroll prizes are not exclusives — but the combined faucet is
+what §4.4's sink-dominant requirement has to clear.
 
 ### 4.2 Vendor / shard shop
 Only `steady`-tier scrolls are vendor-purchasable — a pure recurring `shards` sink. `bold` and

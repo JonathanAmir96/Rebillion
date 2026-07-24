@@ -592,7 +592,11 @@ never across a save.
   `10_systems/SCROLLS.md` §4.2's "drop-/quest-only chase item" intent and §4.4's sink-dominant
   requirement. That check is now owed, not blocked. Owner: `10_systems/SCROLLS.md` and
   `10_systems/ECONOMY.md` jointly, and it should run before any bonus-room content is considered
-  final.
+  final. **It must include `10_systems/GACHAPON.md`.** That doc (PA-001, added to `main` while this
+  branch was open) draws the same `item_use_0061`–`0078` SKUs on 10% of Cogwork Capsule pulls,
+  `scroll_tier` weighted `steady` 60 / `bold` 30 / `perilous` 10 — so the tree gained two repeatable
+  `perilous` sources in one period, against `10_systems/SCROLLS.md` §4.2's "drop-/quest-only chase
+  item" stance. Checking either source alone will clear a bar the pair does not.
 - **Does the bonus room want a floor?** As authored, a party that clears the boss with a bad set of
   rolls leaves with `shards` only. That is honest variance and §6.A–D already guarantee the clear's
   real value — but it is also the most likely source of "the bonus room felt bad" feedback. A
