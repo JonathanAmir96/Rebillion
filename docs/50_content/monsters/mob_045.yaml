@@ -28,6 +28,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 12.0
     telegraph_s: 1.3
+    animation_note: "Plants both root-arms into the earth and bows low, then a ring of vigor washes outward over its kin."
     effects:                      # buff ops affect allies in the shape (SKILL_EFFECTS §2 class filter)
       - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
       - { op: apply_status, status: regen, chance: 1.0, dur: 10 }
@@ -36,9 +37,21 @@ abilities:
     targeting: { shape: aoe_circle, radius: 3, origin: self }
     cooldown: 8.0
     telegraph_s: 1.1
+    animation_note: "Draws its moss-beard in tight and hunches low before blooming outward in a spore-cloud burst."
     effects:                      # self-defense when a player closes inside support_radius
       - { op: deal_damage, element: nature, mult: 1.2 }
       - { op: apply_status, status: poison, chance: 0.8, dur: 10, stacks: 2 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # caster elite: +cast +telegraph +spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched and rooted-looking, moss-beard swaying without any wind to stir it."
+  walk: "Shuffles slowly on root-thick legs, leaning as if under an unseen weight."
+  jump: "A stiff, effortful hop that barely clears the ground."
+  fall: "Settles down heavily onto braced, root-like legs."
+  attack: "Swipes a single slow root-arm in a defensive backhand."
+  cast: "Raises both root-arms and draws them together above its bowed head."
+  hit: "Sways and hunches further, root-arms drawing in close."
+  die: "Folds down into itself, root-arms settling last against the ground."
+  telegraph: "Draws itself up straight and spreads both root-arms wide before the cast releases."
+  spawn: "Rises up out of the mire, moss-beard streaming with runoff."
 drop_table: drop_mob_045
 flavor: "A moss-bearded elder of the mire, more root than limb, who would rather nurse its brood than notice you at all. Cross into its grove and it wreathes its kin in green vigor, then blooms a cloud of spores in your face and shuffles out of reach."

@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3
+    animation_note: "Raises both fists overhead and holds, crust glowing bright at the knuckles, before slamming down across the ring."
     effects:
       - { op: deal_damage, element: fire, mult: 1.7 }
       - { op: apply_status, status: burn, chance: 0.7, dur: 6 }
@@ -36,9 +37,20 @@ abilities:
     targeting: self
     cooldown: 18.0
     telegraph_s: 1.5
+    animation_note: "Plants itself and draws inward as its crust seals shut behind a shimmering heat-haze."
     effects:
       - { op: grant_shield, scaling: max_life, mult: 0.1, dur: 10 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands immense and still, its cracked crust glowing faintly along the seams."
+  walk: "Advances in a slow, ground-shaking plod."
+  jump: "Heaves into a short, jarring hop that barely clears the ground."
+  fall: "Comes down with a heavy, cracking thud, dust rising from the seams."
+  attack: "Swings a massive plated fist through in a slow, crushing arc."
+  telegraph: "Plants its feet wide and raises both fists high, crust flaring hotter."
+  hit: "Barely rocks, its crust chipping and flaring at the point of impact."
+  die: "Collapses inward as the furnace light behind its cracked crust dims out."
+  spawn: "Rises up out of a bed of loose slag, its crust flaring alight as it settles."
 drop_table: drop_mob_105
 flavor: "An old slagshell grown vast and immovable, its fused crust cracked open to show the furnace beneath. It plants itself over the hottest ground and makes you fight the heat as much as the beast."

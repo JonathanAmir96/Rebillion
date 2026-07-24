@@ -20,6 +20,14 @@ ai_params:                       # override only timid_grazer-declared tunables 
   flee_speed_mult: 1.5
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hunkers low over the flagstones, claws working at the algae."
+  walk: "Skitters sideways in short scrabbling bursts."
+  jump: "A quick startled hop that barely clears the ground."
+  fall: "Drops flat and skids, legs splaying for grip."
+  attack: "Snaps one claw forward in a single defensive pinch."
+  hit: "Flinches and pulls its legs in tight."
+  die: "Curls its legs under its shell and goes still."
 drop_table: drop_mob_111
 # bottom-grazer that flees; fights only when cornered (AI_BEHAVIOR §4) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A flat grey crab the size of a dinner plate, grazing the algae off sunken flagstones and skittering into the nearest crack at the first tremor of a footfall. It fights only when there is nowhere left to run."

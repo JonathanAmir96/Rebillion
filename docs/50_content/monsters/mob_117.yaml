@@ -22,6 +22,14 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 10
   pack_max_size: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Coils loosely in place, body rippling in a slow S-curve."
+  walk: "Undulates forward in a fast, rippling swim."
+  jump: "Whips upward in one sharp S-curve snap."
+  fall: "Goes limp and lets the current carry it down."
+  attack: "Strikes forward in a fast, coiling lunge."
+  hit: "Recoils into a tight defensive coil."
+  die: "Uncoils and drifts, body slack from end to end."
 drop_table: drop_mob_117
 # hunts the corridors in braided knots (AI_BEHAVIOR §10) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A ribbon of blue-white muscle that hunts the drowned corridors in braided knots, each eel harmless alone and lethal in the tangle. They answer one another's thrash from clear across a hall."

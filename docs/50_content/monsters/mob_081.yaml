@@ -22,5 +22,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits sealed beneath its trapdoor, legs coiled tight and ready."
+  walk: "Creeps low along its tripline strands, testing each thread as it moves."
+  jump: "A short, coiled spring that barely breaks its silhouette from the ground."
+  fall: "Drops through its own trapdoor in a fast, controlled plunge."
+  attack: "Bursts the trapdoor open and hauls its target down in one violent yank."
+  hit: "Flinches back into its silk-lined pit, legs snapping tight."
+  die: "Collapses into its own pit, silk settling over its stilled legs."
 drop_table: drop_mob_081
 flavor: "A trapdoor spinner grown fat on the deep-hollow harvest, its pit strung with black tripline silk. It hauls prey under before the scream finishes."

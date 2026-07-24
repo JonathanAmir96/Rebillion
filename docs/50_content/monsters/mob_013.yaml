@@ -20,5 +20,13 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 8
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Crouches low with whiskers and tail twitching, testing the air for a pack-mate's call."
+  walk: "Scurries in short low-bellied dashes, pausing to sniff between bursts."
+  jump: "A quick scrabbling hop over debris, tail flicking for balance."
+  fall: "Tumbles loosely and rights itself the instant it lands."
+  attack: "Darts in with a snapping bite, its whole body lunging behind the jaw."
+  hit: "Recoils in a tight full-body flinch, tail snapping back."
+  die: "Crumples sideways, legs kicking once before going still."
 drop_table: drop_mob_013
 flavor: "A grey wharf-rat grown bold on Millbrook's spilled grain, no bigger than a boot and never found alone. One is a squeak in the dark; the dozen that answer it are the undervault's welcome."

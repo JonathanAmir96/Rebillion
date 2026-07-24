@@ -21,5 +21,13 @@ ai_params:                       # override only timid_grazer-declared tunables 
   flee_radius: 5
   flee_speed_mult: 1.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Grazes with its humped back swaying, nosing slowly through the fen-moss."
+  walk: "Shuffles along at a placid, unhurried browse, its fungal crown bobbing."
+  jump: "A stiff, startled hop over the nearest obstacle in its flight path."
+  fall: "Drops in a loose scramble, legs paddling for purchase before it lands."
+  attack: "A single desperate headbutt thrown out only when its retreat is cut off."
+  hit: "Flinches back with a shudder that shakes loose a drift of spores."
+  die: "Buckles at the knees and settles, its fungal cap collapsing in a slow puff."
 drop_table: drop_mob_069
 flavor: "A slow, snuffling browser whose humped back is a garden of pale fen-fungus. It bolts at the first shadow and leaves a drifting cloud of spores behind it."

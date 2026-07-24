@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies utterly still beneath the sand, only a faint shadow-outline betraying it."
+  walk: "Slides forward through the loose sand in a slow submerged glide."
+  jump: "Bursts upward out of the sand in one explosive lunge."
+  fall: "Settles back down and sinks flush into the sand once more."
+  attack: "Erupts from concealment and drags a foe down in a sudden grasping strike."
+  hit: "Recoils half-exposed, sand sloughing from its shoulders."
+  die: "Sinks and stills, the sand closing back over where it lay."
 drop_table: drop_mob_213
 flavor: "It lies buried in the black sand as a shadow among shadows until something steps within reach. The first strike is the only free one it gives."

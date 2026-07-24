@@ -22,5 +22,14 @@ ai_params:                       # override only profile-declared tunables (AI_B
   preferred_range_max: 9
   attack_cooldown_s: 1.6
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Looms tall and still, torn-sky fire guttering faintly along its edges."
+  walk: "Drifts backward smoothly, keeping a wide gap from any approach."
+  jump: "A slow, floating bound to reposition across broken ground."
+  fall: "Descends without hurry, robes and fire trailing upward against the drop."
+  attack: "Lashes out with a single warding strike when cornered at close range."
+  cast: "Raises both arms and rains a volley of torn-sky fire down on its target."
+  hit: "Recoils and flares brighter for a moment, edges guttering."
+  die: "Unravels into streamers of dying fire that drift apart and wink out."
 drop_table: drop_mob_226
 flavor: "The last herald before the arena's maw, a towering shade that rains torn-sky fire and drifts back beyond the reach of any blade."

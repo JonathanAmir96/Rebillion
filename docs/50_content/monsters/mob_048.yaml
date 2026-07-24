@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables
   pack_call_radius: 8
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats low on the wet stone, claw raised and twitching, sizing up the ground around it."
+  walk: "Skitters sideways in short scuttling bursts, claw held high and ready."
+  jump: "A quick sideways hop over a rock or gap, legs splayed wide."
+  fall: "Drops and immediately rights itself, legs already scrabbling for purchase."
+  attack: "Snaps its raised claw shut in one sharp, rime-crusted pinch."
+  hit: "Flinches back a half-step, claw drawing tight against its shell."
+  die: "Legs fold inward one by one and the claw falls slack open."
 drop_table: drop_mob_048
 flavor: "A palm-sized shore crab whose shell wears a permanent skin of rime, cold to the touch even in the sun. One is a pinch; the skittering tide that answers its clatter is the coast's first lesson."

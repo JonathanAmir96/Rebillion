@@ -22,5 +22,14 @@ ai_params:                       # override only profile-declared tunables (AI_B
   cast_cooldown_s: 6
   retreat_range: 7
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stoops low, murmuring, hands weaving slow circles of borrowed dark."
+  walk: "Shuffles backward toward its kin, robes trailing through the sand."
+  jump: "A short, awkward hop to clear a low obstacle while retreating."
+  fall: "Lands stooped and off-balance, catching itself on one knee."
+  attack: "Throws one weak, defensive swipe when cornered with no ally near."
+  cast: "Raises both hands and wraps a nearby ally in a wreath of borrowed dark."
+  hit: "Flinches and stumbles a step, murmuring falters mid-word."
+  die: "Folds forward at the waist and dissolves into drifting motes."
 drop_table: drop_mob_215
 flavor: "A stooped, murmuring caster that hangs behind the pack and wraps its kin in borrowed dark rather than fight the intruder itself."

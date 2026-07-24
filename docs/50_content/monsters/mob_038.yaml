@@ -20,5 +20,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 9
   attack_cooldown_s: 1.6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; basic sling is the attack
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands high on stilted legs, throat working a stone into place."
+  walk: "Backpedals in quick, stiff-legged steps, keeping its distance even."
+  jump: "Kicks up into a short retreating hop on its stilted legs."
+  fall: "Lands high-stepped and steady, throat already loading the next stone."
+  attack: "Rears back and whips an overhand throw from its sling-hand."
+  hit: "Staggers on its stilts, throat spasming and losing its stone."
+  die: "Its legs buckle in sequence and it folds down into the mud."
 drop_table: drop_mob_038
 flavor: "A stilt-legged marsh-dweller with a gullet full of swallowed river-stones and a wicked overhand throw. It backpedals across the mud as it pelts you, spitting a fresh stone into its sling-hand between each cast."

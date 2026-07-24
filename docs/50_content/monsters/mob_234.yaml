@@ -25,6 +25,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 7, origin: self }
     cooldown: 10.0
     telegraph_s: 1.4
+    animation_note: "The void draws inward around it in a slow inhale before the tide rips outward and hauls everything toward its maw."
     effects:
       - { op: pull, distance: 5 }
       - { op: deal_damage, element: shadow, mult: 1.6 }
@@ -34,6 +35,7 @@ abilities:
     targeting: { shape: projectile, speed: 14, range: 16, pierce: all, gravity: true, impact_radius: 2 }
     cooldown: 5.0
     telegraph_s: 1.0
+    animation_note: "A cluster of void-motes gather overhead for a beat before raining down in a piercing barrage."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.5, scaling: spellpower }
   - id: eclipse_veil
@@ -41,6 +43,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 8, origin: self }
     cooldown: 14.0
     telegraph_s: 1.6
+    animation_note: "It spreads wide and the torn sky darkens overhead before the veil of eclipse rolls out across the arena."
     effects:
       - { op: apply_status, status: blind, chance: 0.8, dur: 4 }
       - { op: apply_status, status: weaken, chance: 0.8, dur: 6 }
@@ -49,6 +52,7 @@ abilities:
     targeting: self
     cooldown: 22.0
     telegraph_s: 1.5
+    animation_note: "It plunges a limb into the tide and drags a churn of surf that breaks apart into fresh voidspawn."
     effects:
       - { op: summon_entity, entity_ref: mob_216, count: 2, dur: until_death }   # add-wave via boss ability, not SPAWN zone (AI_BEHAVIOR §15)
   - id: tidesunder_slam
@@ -56,6 +60,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 6, origin: self }
     cooldown: 12.0
     telegraph_s: 1.8
+    animation_note: "It rears its full height against the torn sky before leaping down in a world-shaking slam."
     effects:
       - { op: leap, distance: 5 }
       - { op: deal_damage, element: shadow, mult: 2.4 }
@@ -80,5 +85,17 @@ phases:                           # boss_scripted phase contract (AI_BEHAVIOR §
     added_abilities: [tidesunder_slam]
     enter_telegraph: true
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted adds phase_shift (enter_telegraph true)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Looms vast and still over the arena, congealed void churning slow along its hide."
+  walk: "Drags its immense bulk forward, the tide rising and dragging in its wake."
+  jump: "Heaves its whole leviathan mass upward in a single arena-shaking breach."
+  fall: "Crashes back down, driving a wall of void-tide out across the arena floor."
+  attack: "Sweeps a colossal limb through the arena in a slow, devastating arc."
+  cast: "Raises its bulk and gathers the void into a churning mass before releasing it."
+  telegraph: "Goes rigid and the void around it draws inward, marking exactly where the blow will land."
+  hit: "Shudders along its entire length, void-hide rippling outward from the impact."
+  die: "Collapses in stages, its congealed void unraveling into the dark it hauled up."
+  spawn: "Breaches up out of the torn sky itself, void-tide sheeting off its hide."
+  phase_shift: "Goes briefly still and untouchable as the void around it churns and reforms into its next shape."
 drop_table: drop_mob_234
 flavor: "A leviathan of congealed void that hauls the black shore up into the torn sky one wave at a time, drowning the world by inches. The last thing the known map remembers before the dark takes it."

@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 4
   patrol_radius: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands rigid at its post, its head-stump turning slowly to track motion."
+  walk: "Paces a short, mechanical patrol loop, footfalls landing in the same worn grooves."
+  jump: "Rocks back and vaults stiffly over a low gap."
+  fall: "Drops straight down like dead weight, stone joints locked."
+  attack: "Swings one massive stone arm through in a slow, heavy arc."
+  hit: "Rocks on its base and settles, chips of stone falling from the impact."
+  die: "Topples backward and shatters where it lands."
 drop_table: drop_mob_183
 flavor: "A headless statue still standing its post at a mooring whose shard broke away centuries ago. It guards the empty air where a bridge used to be."

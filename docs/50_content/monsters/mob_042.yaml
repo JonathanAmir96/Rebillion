@@ -22,5 +22,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.7
   charge_recover_s: 2.8
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; short untelegraphed windup
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands heavy and still, bristled hide rising and falling with slow breaths."
+  walk: "Rolls forward on a heavy, ground-shaking gait."
+  jump: "A short, weighty hop that barely lifts its bulk off the ground."
+  fall: "Lands with its full weight, bristled hide shuddering on impact."
+  attack: "Lowers its scarred head and drives forward in a heavy, straight-line gore."
+  hit: "Rocks back on its haunches, bristles shivering with the impact."
+  die: "Sinks down leg by leg until its full weight settles on the ground."
 drop_table: drop_mob_042
 flavor: "A heavy fen-tusker gone half to bramble, its hide grown through with iron-hard thorn-bristles that turn a glancing blow. It picks a line, lowers its scarred head, and covers the ground faster than a thing that size has any right to."

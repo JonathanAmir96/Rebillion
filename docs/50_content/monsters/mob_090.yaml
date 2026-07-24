@@ -22,5 +22,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.0
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers in place, broad wings beating a slow, steady rhythm."
+  walk: "Wheels along a steady patrolling glide, wingbeats shedding loose sparks."
+  jump: "Flits upward in a sudden, sharp wingbeat surge."
+  fall: "Dips and stalls, wings cupping to catch itself before dropping further."
+  attack: "Folds its wings and drops into a fast diving stoop, sparks trailing behind."
+  hit: "Recoils in midair, wings scattering a burst of loose embers."
+  die: "Its wings crumple and it spirals down trailing a thin line of smoke."
 drop_table: drop_mob_090
 flavor: "A broad-winged moth whose dust glows like blown embers, wheeling over the vents on the rising heat. Its wingbeats scatter sparks that catch in dry cloth."

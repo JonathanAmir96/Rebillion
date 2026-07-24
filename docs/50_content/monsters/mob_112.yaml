@@ -22,6 +22,14 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies flat and motionless, only its spined ridge breaking the surface of the silt."
+  walk: "Hauls itself forward low across the floor, spines dragging a furrow through the silt."
+  jump: "Erupts upward out of the silt in one violent burst."
+  fall: "Drops back down and flattens itself into the sediment again."
+  attack: "Rears and drives its spined ridge forward in a stabbing thrust."
+  hit: "Recoils and hunches its spines tighter."
+  die: "Sags flat and sinks back into the silt for good."
 drop_table: drop_mob_112
 # beds in the silt; one instant surprise strike (AI_BEHAVIOR §7) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A spined bottom-dweller that beds down in the silt with only its frost-blue dorsal ridge showing, indistinguishable from the ruin's scattered ice until it erupts. Step over it and it teaches the lesson only once."

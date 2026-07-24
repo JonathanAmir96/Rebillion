@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands planted and heavy, its stone anchor swaying faintly at its side."
+  walk: "Trudges a slow, ground-shaking loop within its post."
+  jump: "Heaves itself up and over a low obstacle in one lumbering motion."
+  fall: "Drops straight down, landing with a flat-footed thud."
+  attack: "Swings its stone anchor through in a wide, crushing sweep."
+  hit: "Absorbs the blow with barely a stagger, its anchor rocking on its chain."
+  die: "Sinks to its knees and folds forward, the anchor coming to rest atop it."
 drop_table: drop_mob_188
 flavor: "A ballast-golem the old sorcerers built to weigh the shards down. It still holds its stone anchor, and will fold you into it if you crowd its post."

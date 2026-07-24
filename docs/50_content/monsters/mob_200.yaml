@@ -27,9 +27,20 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: line
     cooldown: 6.0
     telegraph_s: 1.0              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "It tears a line of torn dark open along the charge lane, then rides it forward in a single lunging rush that saps whatever it clips."
     effects:
       - { op: deal_damage, element: shadow, mult: 2.0 }
       - { op: apply_status, status: weaken, chance: 0.5, dur: 6 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs bloated and heavy in the mist, its form rippling slowly."
+  walk: "Oozes forward in a low, silent glide before breaking into a sudden rush."
+  jump: "Surges across a gap without breaking its line of pursuit."
+  fall: "Drops in a loose, boneless tumble still bent toward its target."
+  attack: "Lunges the full length of its rush in a grasping, torn-dark tear."
+  hit: "Recoils in a ragged shudder, its edges fraying."
+  die: "Comes apart into thinning tendrils that sink away into the mist."
+  telegraph: "Tears open a rift of torn dark along its charge line."
+  spawn: "Tears open out of the mist and coalesces into its bloated shape."
 drop_table: drop_mob_200
 flavor: "A shade grown fat on the void between shards, lunging through the mist along a line of torn dark that saps the strength of whatever it clips."

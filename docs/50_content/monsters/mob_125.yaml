@@ -27,6 +27,7 @@ abilities:
     targeting: self
     cooldown: 14.0
     telegraph_s: 1.2
+    animation_note: "Lifts both arms overhead and holds as a cold light gathers before it washes outward over its flock."
     effects:
       - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 8 }
@@ -35,8 +36,20 @@ abilities:
     targeting: self
     cooldown: 24.0
     telegraph_s: 1.5
+    animation_note: "Plants its staff and bows its head into a long chant before the silt below breaks open."
     effects:
       - { op: summon_entity, entity_ref: mob_109, count: 2, dur: 25 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands with arms raised, robe swaying, chanting under its breath."
+  walk: "Glides backward toward its flock, robe trailing."
+  jump: "Rises in a short, weightless bob mid-chant."
+  fall: "Settles back down without breaking the rhythm of its chant."
+  attack: "Thrusts one hand forward in a weak warding gesture."
+  cast: "Raises both arms and throws its head back, voice rising."
+  telegraph: "Lifts its staff overhead, a cold light gathering at its tip."
+  hit: "Flinches and curls inward, its chant faltering for a beat."
+  die: "Collapses mid-chant, arms falling still at last."
+  spawn: "Rises up out of the flooded dark, robe unfurling around it."
 drop_table: drop_mob_125
 flavor: "The high priest of the drowned rite, who never lifts a hand in his own defense yet turns a hall of shambling husks into a disciplined, glowing host. Cut down his flock and he will simply chant more up out of the silt."

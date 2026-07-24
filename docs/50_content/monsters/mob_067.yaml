@@ -24,6 +24,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 6, origin: self }
     cooldown: 11.0
     telegraph_s: 1.4
+    animation_note: "She spreads both arms wide and holds a long, drawing note that pulls the sea itself inward before it crests."
     effects:
       - { op: pull }
       - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
@@ -33,6 +34,7 @@ abilities:
     targeting: { shape: line, length: 8, width: 2 }
     cooldown: 7.0
     telegraph_s: 1.1
+    animation_note: "A low, sweeping gesture traces the dirge's path straight down the lane before her voice cracks along it."
     effects:
       - { op: deal_damage, element: frost, mult: 1.5 }
       - { op: apply_status, status: chill, chance: 0.6, dur: 3 }
@@ -41,6 +43,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 9.0
     telegraph_s: 1.2
+    animation_note: "She plants her feet and both arms punch downward as the surrounding water heaves and breaks outward."
     effects:
       - { op: deal_damage, element: frost, mult: 1.4 }
       - { op: knockback }
@@ -49,6 +52,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 8.0
     telegraph_s: 1.3
+    animation_note: "She raises both arms high and holds the pose as a wall of water gathers before crashing down around her."
     effects:
       - { op: deal_damage, element: frost, mult: 1.8 }
       - { op: knockback }
@@ -57,6 +61,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 13.0
     telegraph_s: 1.5
+    animation_note: "Her voice climbs to a piercing note, arms crossed before her, before the gale bursts outward in a freezing ring."
     effects:
       - { op: deal_damage, element: frost, mult: 1.5 }
       - { op: apply_status, status: freeze, chance: 0.5, dur: 2 }
@@ -65,6 +70,7 @@ abilities:
     targeting: self
     cooldown: 24.0
     telegraph_s: 1.5
+    animation_note: "She throws her head back for one long, unbroken note as pale shapes rise dripping from the surf around her."
     effects:
       - { op: summon_entity, entity_ref: mob_060, count: 2, dur: 30 }
 phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
@@ -79,5 +85,17 @@ phases:                          # boss_scripted phase contract (AI_BEHAVIOR §1
     added_abilities: [crashing_wave, frozen_gale, call_drowned]
     enter_telegraph: true        # plays phase_shift on entry (needs phase_shift state)
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Perches on the black shoal rocks, hair and robes stirring in the sea wind."
+  walk: "Glides across the rocks in a slow, deliberate processional step."
+  jump: "A sudden bounding leap between rock outcrops, robes snapping behind her."
+  fall: "Descends in a controlled drop, robes billowing wide."
+  attack: "Sweeps a hand through the air in a slow, contact-range chilling gesture."
+  cast: "Throws her head back and opens her arms as her voice rolls out over the shoal."
+  hit: "Staggers a half-step on the rocks, song catching before she steadies."
+  die: "Sinks to the rocks, voice fading into the surf as she goes still."
+  telegraph: "Draws a long breath, arms rising, as the coming verse gathers in her throat."
+  phase_shift: "Throws both arms skyward and the sky itself darkens as her song turns to storm."
+  spawn: "Rises from the black rocks with the tide, voice already rising over the shoal."
 drop_table: drop_mob_067
 flavor: "A siren-priestess perched on the Siren Shoal's black rocks, her song sweet enough to steer whole crews onto the reef and cold enough to still their hearts before they drown. When her voice fails, she calls the storm and the drowned answer it."

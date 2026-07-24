@@ -23,5 +23,10 @@ ai_params:                       # override only profile-declared tunables (AI_B
   attack_cooldown_s: 2.2
   windup_s: 0.7
 animation_states: [idle, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers fixed in place, its ward-glyph pulsing on a slow, patient rhythm."
+  cast: "Winds its glyph tight into a bright pinpoint before loosing a bolt down its fixed line."
+  hit: "Shudders in place, the glyph flickering out of rhythm for a beat."
+  die: "The glyph cracks and the pillar drifts apart into inert rubble."
 drop_table: drop_mob_184
 flavor: "A ward-glyph fused into a floating pillar, firing on trespassers with the patience of a thing that has forgotten how to do anything else."

@@ -23,5 +23,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   preferred_range_max: 9
   attack_cooldown_s: 1.4
 animation_states: [idle, walk, jump, fall, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs and spins slowly, its half-finished glyph guttering in place."
+  walk: "Darts backward and sideways in short twitchy hops, always keeping its distance."
+  jump: "Flicks upward in a sharp stutter-step to clear an obstacle."
+  fall: "Drops in an uneven zigzag, glyph-light trailing behind it."
+  cast: "Spins in place and spits a stuttering line of broken syllables at its target."
+  hit: "Flinches into a scattering spiral of half-formed glyphs."
+  die: "Unravels into loose sigils that fade out one by one."
 drop_table: drop_mob_181
 flavor: "A palm-sized glyph that never finished its spell and now spits the leftover syllables at anything nearer than it likes."

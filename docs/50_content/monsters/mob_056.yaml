@@ -22,5 +22,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Bobs in the shallows, its bloated body rising and settling with the swell."
+  walk: "Backs and sidles through the shallows, keeping its distance."
+  jump: "A buoyant upward bob over a swell or obstacle."
+  fall: "Settles back down into the water with a loose, sloshing drop."
+  attack: "Swells and vents a wide fan of spray from its whole body."
+  hit: "Shudders and deflates slightly, sloshing back a step."
+  die: "Collapses in on itself and goes still on the surface."
 drop_table: drop_mob_056
 flavor: "A bloated, buoyant thing that skims the surf and vents a fan of supercooled brine at anything that closes in. It hates being cornered and backs away spitting cold the whole time."

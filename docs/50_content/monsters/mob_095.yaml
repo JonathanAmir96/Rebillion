@@ -22,5 +22,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits low and still, its fused shell ticking faintly as it cools."
+  walk: "Plods forward in a slow, deliberate, heavy-shelled gait."
+  jump: "Heaves off its forelegs in a short, effortful hop."
+  fall: "Comes down flat-footed with a grinding thud."
+  attack: "Lunges its neck out in a slow, heavy head-butt."
+  hit: "Withdraws its neck sharply back into the shell."
+  die: "Settles flat as the glow along its shell seams fades."
 drop_table: drop_mob_095
 flavor: "A ponderous reptile whose shell has fused with cooled slag into a crust that glows dull red at the seams. It holds its patch of scalding rock and dares you to come take it."

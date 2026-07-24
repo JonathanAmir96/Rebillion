@@ -22,6 +22,14 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats braced across the doorway, one claw raised and ready."
+  walk: "Shifts in a short sideways scuttle, never straying from its threshold."
+  jump: "A heavy braced hop, claws still raised on landing."
+  fall: "Drops and plants its legs wide the instant it touches down."
+  attack: "Snaps its heavy claw forward in a crushing pinch."
+  hit: "Rocks back on its legs but holds its ground."
+  die: "Buckles sideways, claw still raised toward the doorway."
 drop_table: drop_mob_114
 # holds one flooded doorway; will not be pulled (AI_BEHAVIOR §6) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A heavy-clawed crab the size of a shield that has claimed one flooded doorway as its own and will not be moved from it. Its shell is crusted in blue rime it grows back over any wound within a tide."

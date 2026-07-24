@@ -22,5 +22,14 @@ ai_params:
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; +cast (caster); no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Crouches low on folded spider-legs, welding-arm twitching idly."
+  walk: "Scuttles sideways along the backline, keeping its allies between it and danger."
+  jump: "Skitters up and over debris on a quick multi-legged hop."
+  fall: "Drops and catches itself neatly on all its legs."
+  attack: "Jabs its welding-arm forward in one sharp defensive stab."
+  cast: "Extends its welding-arm toward an ally and traces a mending arc of sparks."
+  hit: "Flinches back, legs scrabbling for footing before it steadies."
+  die: "Folds its legs under itself one at a time and goes still."
 drop_table: drop_mob_136
 flavor: "A spider-legged repair-frame that scuttles the backline welding its fellows whole. It never wanted the fight; it only ever wanted the machines kept running."

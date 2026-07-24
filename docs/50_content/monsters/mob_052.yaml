@@ -22,5 +22,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Drifts almost still in place, trailing veils swaying faintly with the current."
+  walk: "Pulses forward in a slow, boneless drift, veils streaming behind."
+  jump: "A brief upward pulse-bob, veils lifting with it."
+  fall: "Sinks in a loose, weightless drift, veils trailing upward."
+  attack: "Snaps its trailing veils forward in a sudden numbing lash."
+  hit: "Contracts into a tighter, quivering knot before loosening again."
+  die: "Goes limp and unravels, veils sinking and dissolving into the current."
 drop_table: drop_mob_052
 flavor: "A near-invisible drift of frozen brine, its trailing veils numbing as glass-frost where they touch. You never see the first sting coming; the chill that follows makes sure you feel the rest."

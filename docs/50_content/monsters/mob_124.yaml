@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 9.0
     telegraph_s: 1.1
+    animation_note: "Heaves fully upright out of the silt and holds, spines fanning wide, before the ground erupts around her."
     effects:
       - { op: deal_damage, element: frost, mult: 1.6 }
       - { op: apply_status, status: chill, chance: 0.7, dur: 4 }
@@ -35,9 +36,21 @@ abilities:
     targeting: { shape: line, length: 6, width: 2 }
     cooldown: 7.0
     telegraph_s: 1.0
+    animation_note: "Levels her spined bulk down the lane and holds a beat before driving forward in one impaling thrust."
     effects:
       - { op: deal_damage, element: frost, mult: 1.5 }
       - { op: knockback }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies buried and motionless, only a ridge of spines breaking the silt."
+  walk: "Drags her immense bulk forward, carving a wide furrow through the sediment."
+  jump: "Heaves fully upright out of the silt in one massive surge."
+  fall: "Crashes back down, sediment billowing outward."
+  attack: "Drives her whole spined bulk forward in a crushing ram."
+  cast: "Hunches and draws inward, spines bristling as pressure builds."
+  telegraph: "Rises half out of the silt, spines fanning wide in warning."
+  hit: "Recoils a step, spines rattling."
+  die: "Settles and sinks slowly back beneath the silt."
+  spawn: "Erupts up from the ruin floor, throwing a wave of silt aside."
 drop_table: drop_mob_124
 flavor: "A monstrous elder of the chillspine lurkers, broad as a longboat and buried so deep in the silt she is mistaken for the ruin floor itself. When she rises the whole hall erupts in a cloud of freezing needles."

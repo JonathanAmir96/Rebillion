@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 2.5 }
     cooldown: 7.0
     telegraph_s: 0.9
+    animation_note: "Her forelegs snap wide and she pulls taut a beat before the strand-wrapped swipe lashes out."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.5 }
       - { op: apply_status, status: root, chance: 0.7, dur: 3 }
@@ -35,9 +36,20 @@ abilities:
     targeting: self
     cooldown: 16.0
     telegraph_s: 1.2
+    animation_note: "She throws her head back and shrieks into the dark, then a flood of hatchlings pours out from the hollow behind her."
     effects:
       - { op: summon_entity, entity_ref: mob_070, count: 3, dur: 25 }
       - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs low and bloated, egg-heavy abdomen swaying with each slow breath."
+  walk: "Drags her heavy abdomen forward in a slow, silk-trailing crawl."
+  jump: "A ponderous, straining hop that barely clears her own dragging bulk."
+  fall: "Lands hard on splayed legs, loose silk billowing out around her."
+  attack: "Lunges forward in a fast, fang-first strike far quicker than her bulk suggests."
+  hit: "Recoils with a heave, silk sheeting loose from her abdomen."
+  die: "Sags and settles, her abdomen deflating as silk pools beneath her."
+  telegraph: "Rears her forelegs high and bares her fangs, abdomen bunching for the strike."
+  spawn: "Descends into the hollow on a thick strand, abdomen already trailing silk."
 drop_table: drop_mob_084
 flavor: "A bloated matriarch the size of a cart, her egg-heavy abdomen dragging a wake of loose silk. She spends her brood freely, flooding the hollow with hatchlings while she hangs back and grows."

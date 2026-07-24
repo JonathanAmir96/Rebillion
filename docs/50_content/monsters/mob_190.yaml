@@ -23,5 +23,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   preferred_range_max: 8
   attack_cooldown_s: 1.6
 animation_states: [idle, walk, jump, fall, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs suspended, its chained glyphs drifting and clinking in slow orbit."
+  walk: "Reels backward on its chains, always widening the gap from its target."
+  jump: "Yanks itself upward on a taut chain to clear an obstacle."
+  fall: "Sinks in loose coils, its chains trailing slack."
+  cast: "Draws its chains taut and hurls a fraying curse down the line."
+  hit: "Jolts and rattles, chains snapping loose for a moment."
+  die: "The chains go slack and the cage falls open, its glyphs scattering."
 drop_table: drop_mob_190
 flavor: "A drifting cage of chained glyphs that hurls a fraying curse from afar, then reels away on its chains before the curse's owner can answer it."

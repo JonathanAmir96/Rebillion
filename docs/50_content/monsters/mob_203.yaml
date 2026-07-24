@@ -28,6 +28,7 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 7.0
     telegraph_s: 1.2              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "It draws its curse-glyphs inward into one churning knot before flinging them outward in a widening curse-wave."
     effects:
       - { op: deal_damage, element: arcane, mult: 1.7 }
       - { op: apply_status, status: weaken, chance: 0.6, dur: 6 }
@@ -36,8 +37,19 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 12.0
     telegraph_s: 1.0              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "It plants both hands in the air and threads a slow ward outward, hardening every ally caught inside its widening glow."
     effects:
       - { op: apply_status, status: empower, chance: 1.0, dur: 10 }
 animation_states: [idle, walk, jump, fall, cast, telegraph, hit, die, spawn]
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers wrapped in tattered robes, curse-glyphs circling slow at its fingertips."
+  walk: "Retreats in short gliding steps, always keeping its range from the fight."
+  jump: "Hops back over a gap without losing its casting stance."
+  fall: "Sinks in a loose drift, robes trailing."
+  cast: "Sweeps both arms wide and unleashes a spreading wave of curses."
+  hit: "Flinches and scatters its half-formed glyphs."
+  die: "Unravels into fading curse-light, robes settling empty."
+  telegraph: "Draws its curse-glyphs inward to a single churning knot before release."
+  spawn: "Gathers out of the haze, curse-glyphs kindling one by one."
 drop_table: drop_mob_203
 flavor: "A surviving magus of the Reach who weaves curses outward in a widening nova and hardens its remaining kin with borrowed power between casts."

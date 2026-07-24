@@ -22,5 +22,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 9
   attack_cooldown_s: 1.4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands tall on thin stalk-legs, its cap trembling with each stored breath."
+  walk: "Drifts backward on stiff stalk-legs, cap tilted to keep its range."
+  jump: "A brief, wobbling hop that unsettles its whole stalk frame."
+  fall: "Settles down unevenly, stalk-legs splaying to catch its balance."
+  attack: "Its cap convulses and coughs out a burst of blighted spores."
+  hit: "Sways hard on its stalk-legs, cap shedding a puff of spores."
+  die: "Its stalk buckles and the whole fungal frame collapses in a slow settle."
 drop_table: drop_mob_082
 flavor: "A tall, stalk-legged fungus that ambles the fen and coughs bursts of blighted spores across the trail. It drifts backward as it fires, never letting a target close."

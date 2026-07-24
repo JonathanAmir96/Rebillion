@@ -22,5 +22,14 @@ ai_params:
   detonate_range: 1
   rush_speed_mult: 1.9
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; +cast (caster); no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers and bobs gently in place, a small mote of light pulsing."
+  walk: "Drifts forward in an unsteady, weightless glide, trailing faint sparks."
+  jump: "Bumps upward in a sudden weightless flicker."
+  fall: "Sinks in a slow drifting spiral, its light guttering."
+  attack: "Rushes the last stretch and bursts in a single flashing overload."
+  cast: "Gathers a bright coiling charge at its core before it lurches forward."
+  hit: "Flinches into a jagged flicker, light stuttering before it settles."
+  die: "Dims and drops from the air, its charge fizzling out unspent."
 drop_table: drop_mob_130
 flavor: "A stray bead of the city's old arcane charge, drifting where a lamp-glyph once burned. It drifts toward warmth and bursts, discharging centuries of stored current at once."

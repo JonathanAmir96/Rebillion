@@ -20,5 +20,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies coiled and motionless inside the split sack, only the faintest ripple betraying it."
+  walk: "Drags itself forward in slow blind hunches once it has lost its cover."
+  jump: "Heaves half its length off the ground in a clumsy lurch."
+  fall: "Flops back down in a boneless heap."
+  attack: "Erupts from the grain in one fast whipping strike before the sack finishes tearing."
+  hit: "Recoils in a rippling full-body flinch, curling back toward its burrow."
+  die: "Goes slack and pools flat, spilling grain from around it."
 drop_table: drop_mob_015
 flavor: "A fat pale grub the length of a forearm, burrowed into a split grain-sack until a footstep passes. Its first strike is out before you see the sack move; after that it is only a slow, blind thing."

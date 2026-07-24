@@ -22,5 +22,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.4
   charge_recover_s: 2.6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; short untelegraphed windup
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sways unsteadily in place, the fungus on its spine pulsing to its own rhythm."
+  walk: "Shambles forward in a lurching, off-balance stumble."
+  jump: "Lurches into a stiff-legged hop, arms swinging wide for balance."
+  fall: "Comes down heavy and off-kilter, catching itself a beat too late."
+  attack: "Pitches its full weight forward in an uncontrolled shoving lurch."
+  hit: "Staggers sideways, the spine-fungus flaring with the impact."
+  die: "Crumples in stages, the fungus going slack last of all."
 drop_table: drop_mob_041
 flavor: "Once some patient browser of the deep hollow, now a lurching wreck with a black gloomcap sunk into its spine and steering it. The fungus wants meat for its spores, so the shambler charges anything warm and does not stop when it should."

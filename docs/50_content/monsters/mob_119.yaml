@@ -22,6 +22,14 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies half-buried and motionless, its lure hanging still."
+  walk: "Hauls its bulk forward in a slow, heavy drag across the floor."
+  jump: "Heaves itself up and out of its ice shelf in one lunging burst."
+  fall: "Crashes back down, ice and silt scattering around it."
+  attack: "Snaps its jaws shut around the lure in a single crushing bite."
+  hit: "Recoils its huge head, lure swinging wildly."
+  die: "Sinks back under its shelf, jaws slack."
 drop_table: drop_mob_119
 # buried angler; its cold lure is the telegraph (AI_BEHAVIOR §7) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A hulking anglerlike thing that lies half-buried under a shelf of ruin-ice, its lure a single cold star hung before a mouth of glass teeth. The bioluminescent bait is the last thing many divers ever admire."

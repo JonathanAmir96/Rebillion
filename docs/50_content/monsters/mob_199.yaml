@@ -28,9 +28,20 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: projectile
     cooldown: 2.0
     telegraph_s: 0.9              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "Its glyph-halo contracts to a single blazing point before loosing three burning runes in a rapid stream down the line."
     effects:
       - { op: deal_damage, element: arcane, mult: 1.8, hits: 3 }
       - { op: apply_status, status: blind, chance: 0.4, dur: 4 }
 animation_states: [idle, walk, jump, fall, cast, telegraph, hit, die, spawn]
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers within its broken tower-frame, glyph-halo circling in a slow, patient orbit."
+  walk: "Drifts backward in short measured bursts, keeping itself at range."
+  jump: "Kicks upward on a burst of glyph-light to clear a gap."
+  fall: "Sinks in an uneven drift, its halo trailing loosely behind."
+  cast: "Locks its halo into alignment and streams a rapid burst of burning runes."
+  hit: "Its halo scatters and re-forms, glyphs briefly out of order."
+  die: "The halo unravels and the broken frame drifts apart."
+  telegraph: "The halo contracts into a single blazing point before it fires."
+  spawn: "Rises up out of the haze, its halo igniting rune by rune."
 drop_table: drop_mob_199
 flavor: "A watchtower-glyph that broke its moorings and now storms the field with barrages of searing runes, blinding its prey between volleys."

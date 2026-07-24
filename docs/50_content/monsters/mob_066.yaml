@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 6.0
     telegraph_s: 1.1
+    animation_note: "One maul draws back low before sweeping through in a wide, splitting arc."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.6 }
       - { op: apply_status, status: sunder, chance: 0.8, dur: 8 }
@@ -35,9 +36,20 @@ abilities:
     targeting: self
     cooldown: 18.0
     telegraph_s: 1.3
+    animation_note: "It hunkers down behind both mauls, carapace visibly tightening into a braced knot before the guard locks in."
     effects:
       - { op: grant_shield, scaling: max_life, mult: 0.08 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats heavily at the cave mouth, both wrecking-maul claws braced before it."
+  walk: "Shifts forward in a slow, ground-shaking sideways lumber."
+  jump: "A short bracing hop, mauls never lowering their guard."
+  fall: "Lands with a heavy jolt, mauls slamming back into a braced stance."
+  attack: "Swings one massive maul through in a wide, crushing arc."
+  hit: "Rocks back on its legs without lowering its braced mauls."
+  die: "Settles flat, both mauls finally sagging open to the ground."
+  telegraph: "Draws one maul back wide and low, weight shifting into the coming swing."
+  spawn: "Heaves up out of the cave mouth, mauls unfolding to full span as it lands."
 drop_table: drop_mob_066
 flavor: "A black-shelled bull crab the size of a fishing skiff, both claws grown into wrecking mauls that split shields as easily as clams. When it hunkers behind its own carapace, only patience gets through."

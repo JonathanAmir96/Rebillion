@@ -22,6 +22,14 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.8
   charge_recover_s: 2.2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs suspended, its drowned face turning slowly toward any movement."
+  walk: "Flickers forward in short, silent surges rather than a true stride."
+  jump: "Surges upward in one sudden displacing burst."
+  fall: "Streams downward, its form trailing like smoke in water."
+  attack: "Closes the whole distance in a single blurring lunge."
+  hit: "Shudders and momentarily loses its shape."
+  die: "Unravels into drifting threads that fade."
 drop_table: drop_mob_121
 # crosses a hall in a heartbeat (AI_BEHAVIOR §5) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A streak of drowned shadow with a drowned face, it crosses a flooded hall in a heartbeat and is on you before the water it displaced has settled. The dark kingdom's grief given just enough form to hate the living."

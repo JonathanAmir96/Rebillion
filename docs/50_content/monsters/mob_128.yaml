@@ -24,6 +24,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 8.0
     telegraph_s: 1.0
+    animation_note: "Plants its feet and lifts the halberd high before sweeping it through a wide, armored arc."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.5 }
       - { op: knockback }
@@ -32,6 +33,7 @@ abilities:
     targeting: { shape: line, length: 8, width: 2 }
     cooldown: 7.0
     telegraph_s: 1.2
+    animation_note: "Raises its lantern down the lane and holds as the light sharpens to a point before the beam sweeps forward."
     effects:
       - { op: deal_damage, element: frost, mult: 1.6 }
       - { op: apply_status, status: chill, chance: 0.8, dur: 4 }
@@ -40,6 +42,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 12.0
     telegraph_s: 1.5
+    animation_note: "Slams its halberd into the floor and holds as the water around it churns before the grasp closes in a ring."
     effects:
       - { op: deal_damage, element: frost, mult: 1.4 }
       - { op: apply_status, status: root, chance: 0.6, dur: 3 }
@@ -48,6 +51,7 @@ abilities:
     targeting: self
     cooldown: 20.0
     telegraph_s: 1.5
+    animation_note: "Plants halberd and lantern and holds still as frost climbs its plate into a locked shell."
     effects:
       - { op: grant_shield, scaling: max_life, mult: 0.10 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 12 }
@@ -56,6 +60,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3
+    animation_note: "Raises the lantern overhead and holds as the water rises around it before crashing down in a freezing ring."
     effects:
       - { op: deal_damage, element: frost, mult: 1.9 }
       - { op: apply_status, status: freeze, chance: 0.5, dur: 2 }
@@ -65,6 +70,7 @@ abilities:
     targeting: self
     cooldown: 25.0
     telegraph_s: 1.5
+    animation_note: "Lifts its lantern high and holds as the light pulses outward before the silt below breaks open."
     effects:
       - { op: summon_entity, entity_ref: mob_109, count: 3, dur: 30 }
 phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
@@ -79,5 +85,17 @@ phases:                          # boss_scripted phase contract (AI_BEHAVIOR §1
     added_abilities: [tidal_crash, drowned_muster]
     enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Looms at the vault-mouth, its lantern swaying faintly on the halberd."
+  walk: "Pivots on its post in a slow guard-shift, holding its ground."
+  jump: "A massive braced leap that shakes the flooded floor on landing."
+  fall: "Crashes down with its full weight, sending a wave through the water."
+  attack: "Swings its halberd through a wide, armored arc."
+  cast: "Raises its lantern and holds, cold light gathering along the blade."
+  telegraph: "Plants its feet and lifts halberd and lantern high, warning of the strike to come."
+  hit: "Rocks under the blow but never loses its footing."
+  die: "Sinks to one knee, its lantern guttering out as it topples at last."
+  spawn: "Rises up before the vault door, lantern flaring to life in the dark."
+  phase_shift: "Casts its guard aside and breaks from its post, plate cracking away as it surges into a mobile, relentless stance."
 drop_table: drop_mob_128
 flavor: "An armored husk the size of a war-cog, still keeping the dead kingdom's last door with a lantern of cold blue fire and a halberd no rust could dull. It has stood the vault-mouth so long it has half-forgotten there is anyone left to keep the door from -- but it remembers, always, how to keep it."

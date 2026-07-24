@@ -27,6 +27,7 @@ abilities:
     targeting: projectile
     cooldown: 4.0
     telegraph_s: 1.0
+    animation_note: "A single eye narrows and flares before it fires a bolt of gloom in a straight, silent line."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.6 }
       - { op: apply_status, status: blind, chance: 0.6, dur: 4 }
@@ -35,9 +36,20 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 13.0
     telegraph_s: 1.3
+    animation_note: "It draws its shroud in tight around itself before unfurling it outward in a smothering wave of dark."
     effects:
       - { op: apply_status, status: silence, chance: 0.7, dur: 3 }
       - { op: apply_status, status: veil, chance: 1.0, dur: 6 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands tall and unmoving at the vault's edge, its many eyes tracking without a blink."
+  walk: "Glides backward along the web-strands, keeping to the vault's deepest shadow."
+  jump: "A brief, silent bound that barely disturbs the strands beneath it."
+  fall: "Settles without a sound, its shrouded form re-melting into the dark."
+  attack: "One eye flares and a bolt of gloom lances out from its shrouded frame."
+  hit: "Recoils in a ripple, its shroud flickering to reveal a flash of its many eyes."
+  die: "Its many eyes dim one by one as the shroud collapses into loose web."
+  telegraph: "All its eyes fix on one point and its shroud draws tight before the strike."
+  spawn: "Unfolds out of the web-vault's dark, shroud settling around its many eyes."
 drop_table: drop_mob_086
 flavor: "A tall, many-eyed sentinel of the web-vaults that never blinks and never quite lets itself be seen. It wraps itself in the wood's dark and picks at trespassers from the edge of sight."

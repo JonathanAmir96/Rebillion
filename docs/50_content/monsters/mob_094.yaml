@@ -21,5 +21,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.5
   charge_recover_s: 2.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands low and coiled, shoulders bunched, watching for movement."
+  walk: "Prowls forward in a rangy, ground-eating stride."
+  jump: "Launches into a low, flat leap mid-charge."
+  fall: "Lands hard and stumbling, catching itself before it can wheel."
+  attack: "Explodes into a full-speed rush ending in a slashing claw."
+  hit: "Staggers sideways out of its stride, snarling."
+  die: "Skids to a stop and collapses mid-stride, claws still extended."
 drop_table: drop_mob_094
 flavor: "A rangy predator built for one hard rush across open ash, all shoulder and claw. Sidestep the charge and it stumbles a long, gasping moment before it can wheel again."

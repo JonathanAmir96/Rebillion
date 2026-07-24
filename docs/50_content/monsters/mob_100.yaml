@@ -22,5 +22,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 9
   attack_cooldown_s: 1.4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched and swaying, an inner glow flickering faint between its ribs."
+  walk: "Shuffles backward in a stiff, dragging retreat."
+  jump: "Hops stiffly and awkwardly to clear the ground behind it."
+  fall: "Drops back into its slouched stance, arms hanging loose."
+  attack: "Hurls a gout of its own inner fire from a cupped, skeletal hand."
+  hit: "Staggers, sparks scattering loose from its ribs."
+  die: "Collapses in a heap as its inner glow gutters to ash."
 drop_table: drop_mob_100
 flavor: "The smouldering husk of some traveler the barrens took, still walking, still hot at the ribs. It hurls gouts of its own inner fire and shuffles back to keep its distance."

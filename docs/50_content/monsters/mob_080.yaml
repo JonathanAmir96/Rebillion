@@ -22,5 +22,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched and inert, a knot of timber and moss barely distinguishable from deadfall."
+  walk: "Shifts its bulk in a slow, grinding patrol of its small mossy patch."
+  jump: "A heavy, groaning hop that barely clears its own root-tangled feet."
+  fall: "Comes down with a ground-shaking thud, moss shaking loose from its bulk."
+  attack: "Swings one timber limb through a slow, crushing arc."
+  hit: "Absorbs the blow with a groan, bark and moss flaking loose."
+  die: "Topples in one long groaning fall, breaking apart into inert deadfall."
 drop_table: drop_mob_080
 flavor: "A hunched knot of fallen timber and fen-moss that stirs only when its patch of rot is trespassed. It guards a few square yards of dark with slow, crushing patience."

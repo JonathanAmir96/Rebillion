@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   swoop_speed_mult: 2.0
   aggro_radius: 8
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers in place, guttering and brightening with each slow pulse of light."
+  walk: "Drifts along the shard-lanes in a lazy, weightless bob, never quite touching ground."
+  jump: "Jolts upward in a sudden bright flicker before angling into its dive."
+  fall: "Plunges in a straight streak, trailing loose sparks behind it."
+  attack: "Rams down into its target in one blinding downward spark."
+  hit: "Scatters into a burst of loose light, wobbling before it steadies."
+  die: "Dims and unravels into drifting cinders that wink out one by one."
 drop_table: drop_mob_179
 flavor: "A mote of stray rune-light that drifts the shard-lanes until something warm passes beneath it, then falls like a spark down a well."

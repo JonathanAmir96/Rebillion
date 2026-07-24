@@ -22,5 +22,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.0
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs folded and still from its rafter, wings wrapped tight against the lantern light."
+  walk: "Beats a steady looping patrol along the vault's dark ceiling lane."
+  jump: "Kicks off the rafter into an open-winged drop."
+  fall: "Tucks its wings and plummets in a tight, controlled stoop."
+  attack: "Peels out of its dive with claws splayed and a shrill screeching lunge."
+  hit: "Jerks in the air, wings flaring wide to catch itself."
+  die: "Folds mid-air and drops, wings crumpling as it falls."
 drop_table: drop_mob_016
 flavor: "A leather-winged rafter-bat that roosts in the lantern-lit vaults and hates the light it circles. It hangs high in the dark until it drops, all claws and shrill, then labors back up to its beam."

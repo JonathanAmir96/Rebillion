@@ -22,5 +22,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands rigid at its post, only its head turning to track movement."
+  walk: "Marches a short, measured loop, boots crunching in the same worn track."
+  jump: "A stiff vertical hop, more brace than leap."
+  fall: "Lands flat-footed, frost cracking off its shoulders."
+  attack: "Swings its whole frozen weapon-arm through in one committed arc."
+  hit: "Rocks back on its heels, ice flaking from the impact point."
+  die: "Topples straight backward like a felled statue."
 drop_table: drop_mob_154
 flavor: "A rime-crusted humanoid sentry frozen at its post for so long it has become the post. It guards a stretch of trail and will not be lured a step past it."

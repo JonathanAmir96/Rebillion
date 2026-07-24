@@ -22,5 +22,14 @@ ai_params:
   preferred_range_max: 9
   attack_cooldown_s: 1.4
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; +cast (caster); no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands tall on thin legs, twin prongs crackling faintly at rest."
+  walk: "Backs away in smooth, measured steps, keeping its prongs aimed forward."
+  jump: "Skips backward in a quick retreating hop."
+  fall: "Drops and plants its thin legs to catch its balance."
+  attack: "Snaps its prongs together and fires a lance of current forward."
+  cast: "Draws current between its prongs, arcs of light building and crawling."
+  hit: "Buckles at the knees, current sputtering before it stabilizes."
+  die: "Prongs go dark and its thin legs fold under it."
 drop_table: drop_mob_138
 flavor: "A tall rune-frame that gathers loose current between its prongs and hurls it in a snapping lance. It gives ground to hold its distance, trailing sparks the whole retreat."

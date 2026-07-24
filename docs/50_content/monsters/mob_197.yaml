@@ -23,5 +23,10 @@ ai_params:                       # override only profile-declared tunables (AI_B
   attack_cooldown_s: 2.0
   windup_s: 0.6
 animation_states: [idle, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers fixed in place, a single beam of light sweeping its patient arc."
+  cast: "Narrows its beam to a hard point and fires it down the sweep line."
+  hit: "Flickers and its beam stutters off its arc for a beat."
+  die: "The beam collapses inward and the eye goes dark."
 drop_table: drop_mob_197
 flavor: "A watcher-eye of fused starlight anchored to a high shard, sweeping the void with a beam that has kept the same patient arc for a thousand years."

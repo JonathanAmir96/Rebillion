@@ -20,5 +20,13 @@ ai_params:                       # override only passive_wanderer-declared tunab
   flee_duration_s: 4
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits plump and low, sides swelling and settling as it chews."
+  walk: "Inches along in slow caterpillar scrunches, rear catching up to front."
+  jump: "A single startled flex that barely clears the grass."
+  fall: "Curls into a loose ball and drops without grace."
+  attack: "Rears its front third and flops forward in a blunt headbutt."
+  hit: "Squashes flat, then quivers back into shape."
+  die: "Rolls over, legs curling inward one pair at a time."
 drop_table: drop_mob_001
 flavor: "A fat, downy grub that chews the warm meadow grass and pays a passing adventurer no mind at all. The first thing every Emberfoot novice ever swings at."

@@ -21,5 +21,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   pack_call_radius: 9
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits closed and still, shell clicking faintly with each shallow breath."
+  walk: "Scuttles in short clattering bursts, shell rocking side to side."
+  jump: "Hops in a stiff shell-first bound to clear a gap in the sand."
+  fall: "Drops and lands with a hard clack, already skittering onward."
+  attack: "Snaps its shell shut on the target in one sharp pincer bite."
+  hit: "Rattles violently and draws back into its shell for a beat."
+  die: "Shell gapes open and goes still, legs curling inward."
 drop_table: drop_mob_214
 flavor: "Detached from their reef, these snapping shells hunt in converging clusters, each answering the others' clicking call."

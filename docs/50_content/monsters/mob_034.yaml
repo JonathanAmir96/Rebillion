@@ -22,5 +22,14 @@ ai_params:                       # override only kamikaze_burster-declared tunab
   detonate_range: 1
   rush_speed_mult: 1.8
 animation_states: [idle, walk, jump, fall, telegraph, attack, hit, die]   # kamikaze always plays telegraph (AI_BEHAVIOR §12)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sways gently on its root-legs, cap swelling and easing with each breath."
+  walk: "Totters forward on stiff root-legs, cap wobbling with every step."
+  jump: "A stiff single-legged hop, cap swaying wide overhead."
+  fall: "Drops straight down, root-legs bracing stiffly on landing."
+  attack: "Bursts outward in a single violent release, cap flying apart."
+  hit: "Flinches and shrinks in on itself, cap wrinkling tight."
+  die: "Deflates slowly, root-legs folding under the collapsing cap."
+  telegraph: "Swells to full size and splits its cap wide open, straining at the seams."
 drop_table: drop_mob_034
 flavor: "A swollen, gas-taut mushroom that has learned to walk on a knot of root-legs, hunting for something to pop against. It swells, splits its cap wide in warning, and bursts in a cloud of spores that were never meant to be breathed."

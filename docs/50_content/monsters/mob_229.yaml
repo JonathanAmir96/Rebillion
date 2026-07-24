@@ -28,6 +28,7 @@ abilities:
     targeting: { shape: projectile, speed: 16, range: 14, pierce: 2, gravity: false }
     cooldown: 6.0
     telegraph_s: 0.8
+    animation_note: "A single sigil burns bright at its fingertip before the lance streaks out and punches through anything in its path."
     effects:
       - { op: deal_damage, element: shadow, mult: 1.8, scaling: spellpower }
   - id: gloom_hex
@@ -35,9 +36,21 @@ abilities:
     targeting: { shape: aoe_circle, radius: 3, origin: reticle, reticle_range: 10 }
     cooldown: 11.0
     telegraph_s: 1.2
+    animation_note: "It traces a slow circle over the reticle zone, marking the ground with a dark sigil before the hex settles over it."
     effects:
       - { op: apply_status, status: weaken, chance: 0.8, dur: 6 }
       - { op: apply_status, status: blind, chance: 0.5, dur: 4 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers in place, gaunt hands tracing slow sigils in the dark air."
+  walk: "Drifts backward at a measured pace, robes unraveling like smoke."
+  jump: "A short floating hop to clear ground while holding its range."
+  fall: "Settles down without hurry, sigils still trailing from its fingers."
+  attack: "Lashes out with a single sigil-slash when something closes the distance."
+  cast: "Scribes a jagged sigil in the air that resolves into a lance of dark."
+  telegraph: "Both hands rise and a sigil hangs burning in the air before it fires."
+  hit: "Flickers and reels, its half-formed sigils scattering."
+  die: "Unravels into scraps of torn sigil-light that fade into the dark."
+  spawn: "Coalesces out of drifting shadow, sigils sparking to life around it."
 drop_table: drop_mob_229
 flavor: "A gaunt sorcerer-shade that scribes the torn sky into lances of dark and unravels the sight of any who close the gap."

@@ -22,5 +22,11 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, attack, hit, die]   # concealed idle then reveal; normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits sunk to its cap in leaf-litter, only a fang-tip showing."
+  walk: "Drags its cap low through the litter in a slow, half-buried creep."
+  attack: "Erupts upward out of the litter in a single fanged strike."
+  hit: "Recoils and sinks back partway into the litter, fang still bared."
+  die: "Sags flat and settles into the leaf-litter, fang folding shut."
 drop_table: drop_mob_039
 flavor: "A blue-black toadstool that hunts, sunk to its cap in wet leaf-litter with one hollow fang cocked. It strikes upward as you cross it, driving a bead of venom under the skin before you have even seen it move."

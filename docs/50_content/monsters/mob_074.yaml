@@ -22,5 +22,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Clings motionless above the trail, limbs folded flush against the bark."
+  walk: "Creeps along a branch in a slow, reach-heavy prowl, never quite breaking cover."
+  jump: "A single long-limbed spring that closes the gap between perches."
+  fall: "Drops in total silence, limbs unfolding only in the last instant."
+  attack: "Unfolds its full reach in one silent drop-strike, fangs leading."
+  hit: "Recoils with a hiss, limbs snapping back toward its body."
+  die: "Its limbs fold inward one by one until it hangs still."
 drop_table: drop_mob_074
 flavor: "A long-limbed shade that clings above the trail where the canopy swallows the light, watching without sound. It drops the instant you look away, all reach and cold fangs."

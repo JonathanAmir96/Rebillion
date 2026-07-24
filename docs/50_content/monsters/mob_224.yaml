@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   charge_speed_mult: 2.8
   charge_recover_s: 2.6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Wallows in the shallows, flanks heaving with restless energy."
+  walk: "Surges forward in a splashing, gathering trudge toward its target."
+  jump: "Breaches fully out of the shallows in a heavy leaping arc."
+  fall: "Crashes back down in a wide sheet of displaced water."
+  attack: "Drives its full bulk forward in a battering shoulder-charge."
+  hit: "Reels back with a splash, momentum broken for a beat."
+  die: "Rolls onto its side and sinks half-submerged, stilling in the shallows."
 drop_table: drop_mob_224
 flavor: "Not yet grown to its mother's dread size, but the calf of the deep already breaches the shallows and rushes anything that lingers."

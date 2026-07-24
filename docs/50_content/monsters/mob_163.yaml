@@ -20,5 +20,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.0
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Circles high on locked wings, head tilting to track motion below."
+  walk: "Wheels in slow looping glides along its patrol lane."
+  jump: "A single hard wingbeat to climb before angling in."
+  fall: "Tucks and drops into a steep stooping dive."
+  attack: "Stoops in talons-first, wings swept tight to the body."
+  hit: "Wings snap open awkwardly to arrest the impact."
+  die: "Wings go slack and it spirals down out of the air."
 drop_table: drop_mob_163
 flavor: "A bald, wind-worn scavenger that wheels over the high passes waiting for the cold to do its work. Impatient ones stoop early, talons first."

@@ -22,6 +22,14 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.5
   charge_recover_s: 2.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sways loosely at the waist, arms drifting as if still caught in a current."
+  walk: "Drags itself forward in an uneven, lurching shuffle."
+  jump: "A stiff-legged hop that barely lifts it off the floor."
+  fall: "Drops limp and boneless, arms trailing above it."
+  attack: "Lunges its whole ruined weight forward in a grasping tackle."
+  hit: "Reels back a beat, then keeps closing."
+  die: "Folds at the knees and crumples into a heap."
 drop_table: drop_mob_109
 # lunges hard, punishable on the long recover (AI_BEHAVIOR §5) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A bloated husk of some long-drowned townsfolk, hollow-eyed and trailing ribbons of rot, that lunges the moment your lamp finds it. Whatever it was, the dark kingdom's cold kept it walking long after it should have stopped."

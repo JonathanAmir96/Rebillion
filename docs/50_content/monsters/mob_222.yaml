@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   pack_call_radius: 9
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Paces in place, ears back, half-transparent form flickering."
+  walk: "Lopes forward in a loose, ghostly stride, baying at intervals."
+  jump: "Springs across a gap in a smooth, weightless leap."
+  fall: "Drifts down lighter than its size suggests, landing without a stumble."
+  attack: "Snaps in with a quick, biting lunge alongside its packmates."
+  hit: "Yelps and flinches sideways, form rippling like disturbed water."
+  die: "Thins to a wisp and scatters into the dark on a final bay."
 drop_table: drop_mob_222
 flavor: "A spectral courser that runs down prey in a baying pack, each hound leashed only to its own patch of the black strand."

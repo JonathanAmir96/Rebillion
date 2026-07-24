@@ -22,5 +22,14 @@ ai_params:                       # override only profile-declared tunables (AI_B
   detonate_range: 1
   rush_speed_mult: 1.9
 animation_states: [idle, walk, jump, fall, telegraph, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hums and shivers in place, light leaking from its seams."
+  walk: "Rushes forward in a straight, single-minded beeline the instant it notices its target."
+  jump: "Leaps a gap without breaking stride, undeterred by the drop below."
+  fall: "Tumbles through the air still surging toward its target."
+  attack: "Bursts apart in a single blinding flare at point-blank range."
+  hit: "Flickers and dims for a beat, its charge briefly disrupted."
+  die: "Gutters out without detonating, its light collapsing to nothing."
+  telegraph: "Swells and locks rigid, its glow climbing toward a point it can no longer hold."
 drop_table: drop_mob_186
 flavor: "An over-wound rune-mote that cannot hold its own charge. It rushes you gladly, because touching you is the only way it knows to finally let go."

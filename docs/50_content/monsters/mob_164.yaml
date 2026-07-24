@@ -22,5 +22,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits hunched at its den-mouth, head swaying slowly side to side."
+  walk: "Paces a short loop before its den on all fours, heavy and unhurried."
+  jump: "Rears up briefly onto its hind legs."
+  fall: "Drops back to all fours with a heavy, bracing thud."
+  attack: "Rises onto its hind legs and comes down in a crushing double-swipe."
+  hit: "Rocks back on its haunches, shaking off the blow."
+  die: "Sways, then collapses forward across the threshold it guarded."
 drop_table: drop_mob_164
 flavor: "A hulking bear plated in frozen fur, master of one den-mouth and nothing beyond it. Cross the threshold and it becomes a wall of muscle and ice."

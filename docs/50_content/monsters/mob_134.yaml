@@ -22,5 +22,13 @@ ai_params:
   swoop_speed_mult: 2.1
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers in place, rune-wings beating a slow, steady idle rhythm."
+  walk: "Wings beat in a level cruising rhythm as it holds its patrol line overhead."
+  jump: "Wings snap into a tighter, faster beat to gain sudden altitude."
+  fall: "Wings fold briefly and it drops in a short, controlled stall."
+  attack: "Folds its wings and stoops into a single ruled diving strike."
+  hit: "Wings stutter and it tumbles off its line before righting itself."
+  die: "Wings lock open and it spirals down in a slow, unpowered glide."
 drop_table: drop_mob_134
 flavor: "A brass bird on rune-driven wings, still flying the survey routes of a mapmaker long dust. It winds up in a tight circle overhead, then folds and dives along a single ruled line."

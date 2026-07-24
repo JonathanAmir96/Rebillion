@@ -20,5 +20,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 1.8
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs in the air on slow, deep wingbeats, drifting on the spot."
+  walk: "Its flight loop -- long gliding beats down the air lane."
+  jump: "A sharp climbing flap back out of reach."
+  fall: "Folds both wings flat and plummets into the dive."
+  attack: "Buffets downward with both wings in a raking pass."
+  hit: "Crumples one wing and staggers sideways through the air."
+  die: "Spirals down in a loose, wing-torn spin."
 drop_table: drop_mob_005
 flavor: "A grey moth broad as a spread hand, drifting on the thermals off the cinder fields. It dips to buffet anything that wanders under its lane, then climbs out of reach."

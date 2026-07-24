@@ -22,5 +22,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies flat and buried, only its eye-stalks breaking the surface of the sand."
+  walk: "Drags itself forward low and flat, barely breaking the surface."
+  jump: "A short flattening lunge that barely clears the ground."
+  fall: "Settles back down flush against the sand as it lands."
+  attack: "Erupts upward out of the sand and clamps its jaws shut."
+  hit: "Flinches half out of its buried crouch, jaws snapping shut."
+  die: "Sinks flat and still, eye-stalks drooping into the sand."
 drop_table: drop_mob_054
 flavor: "A flat, pallid crawler that beds down under the frozen strand with only its eye-stalks showing. The first you know of it is the cold clamp of its jaws around your ankle."

@@ -27,6 +27,7 @@ abilities:
     targeting: self
     cooldown: 14.0
     telegraph_s: 1.2
+    animation_note: "The dragged-back throw of her head signals the howl before the whole flats answer."
     effects:
       - { op: apply_status, status: empower, chance: 1.0, dur: 8 }
       - { op: summon_entity, entity_ref: mob_160, count: 2, dur: 20 }
@@ -35,9 +36,20 @@ abilities:
     targeting: melee_arc
     cooldown: 6.0
     telegraph_s: 0.9
+    animation_note: "Ducks her head and coils her hindquarters before snapping forward in a full-weight bite."
     effects:
       - { op: deal_damage, element: frost, mult: 1.4 }
       - { op: apply_status, status: chill, chance: 0.6, dur: 4 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits upright and watchful, head raised above the rest of any nearby pack."
+  walk: "Prowls forward in a heavy, unhurried gait, half again the size of an ordinary hunter."
+  jump: "A powerful low bound, clearing ground the pack would take two steps to cross."
+  fall: "Lands solidly on all four paws, weight settling forward."
+  attack: "Drives in with a heavy, snapping bite that carries her full weight."
+  hit: "Plants her stance and shakes off the blow with a low snarl."
+  die: "Legs fold under her and she sinks down, head raised until the last."
+  telegraph: "Throws her head back, chest swelling for the coming howl."
+  spawn: "Bounds into view ahead of her pack and plants herself, surveying the field."
 drop_table: drop_mob_171
 flavor: "The scarred matriarch of a Rimefang line, half again the size of her hunters and twice as patient. Her howl brings the flats' skittering cold down on you all at once."

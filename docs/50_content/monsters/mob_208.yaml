@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   flee_speed_mult: 1.6
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Grazes with its blind head lowered, swaying gently over the kelp."
+  walk: "Ambles in a slow, unhurried browse, pausing to graze between steps."
+  jump: "Startles into a stiff-legged bound away from whatever spooked it."
+  fall: "Lands off-balance and scrambles immediately upright."
+  attack: "A single panicked headbutt thrown while cornered, then it recoils."
+  hit: "Flinches and staggers sideways, head jerking up from the kelp."
+  die: "Buckles at the knees and settles into the sand without a struggle."
 drop_table: drop_mob_208
 flavor: "A blanched, eyeless browser that crops the bioluminescent kelp of the black beaches and bolts at the first footfall."

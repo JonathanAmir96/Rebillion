@@ -22,5 +22,13 @@ ai_params:                       # override only stationary_turret-declared tuna
   attack_cooldown_s: 2.5
   windup_s: 0.6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits rooted and fungal-still, its cap flexing faintly with each slow breath."
+  walk: "Sways in place on its stalk, never actually leaving its rooted spot."
+  jump: "Bulges upward briefly along its stalk without lifting free of the floor."
+  fall: "Settles back down into its rooted crouch."
+  attack: "Flexes its cap wide and coughs out a bursting cloud of spore."
+  hit: "Shudders along its stalk, the cap contracting from the blow."
+  die: "Crumples flat, its cap collapsing into rot."
 drop_table: drop_mob_023
 flavor: "A shelf of pale deathcap fungus rooted in a cellar corpse, indistinguishable from rot until it flexes. It cannot move, but it coughs a burst of grave-spore at anything that lingers in its lane."

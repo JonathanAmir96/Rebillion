@@ -24,6 +24,7 @@ abilities:                       # SKILL_EFFECTS §17; referenced by phases[].ad
     targeting: projectile
     cooldown: 4.0
     telegraph_s: 1.0
+    animation_note: "Its central rune flares in sequence before firing a rapid volley of shard-shrapnel down the line."
     effects:
       - { op: deal_damage, element: arcane, mult: 1.6, hits: 4 }
   - id: gravity_well
@@ -31,6 +32,7 @@ abilities:                       # SKILL_EFFECTS §17; referenced by phases[].ad
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 12.0
     telegraph_s: 1.5
+    animation_note: "A dark well opens at its core, visibly dragging loose debris inward before it collapses in a pulse that hauls everything nearby toward the center."
     effects:
       - { op: pull, distance: 4 }
       - { op: deal_damage, element: arcane, mult: 1.4 }
@@ -39,6 +41,7 @@ abilities:                       # SKILL_EFFECTS §17; referenced by phases[].ad
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 10.0
     telegraph_s: 1.2
+    animation_note: "Every rune across its body ignites at once before the burst outward in a blinding ring."
     effects:
       - { op: deal_damage, element: arcane, mult: 1.8 }
       - { op: apply_status, status: blind, chance: 0.5, dur: 4 }
@@ -47,6 +50,7 @@ abilities:                       # SKILL_EFFECTS §17; referenced by phases[].ad
     targeting: self
     cooldown: 20.0
     telegraph_s: 1.5
+    animation_note: "It flings both arms wide and scatters loose fragments of itself outward, which knit together into drifting shardlings."
     effects:
       - { op: summon_entity, entity_ref: mob_180, count: 2, dur: 30 }
   - id: unmoor_slam
@@ -54,6 +58,7 @@ abilities:                       # SKILL_EFFECTS §17; referenced by phases[].ad
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3
+    animation_note: "It coils and launches its full mass into the air before crashing down in a shockwave that staggers and hurls back everything caught beneath it."
     effects:
       - { op: leap, distance: 6, height: 5 }
       - { op: deal_damage, element: neutral, mult: 2.0 }
@@ -64,6 +69,7 @@ abilities:                       # SKILL_EFFECTS §17; referenced by phases[].ad
     targeting: line
     cooldown: 14.0
     telegraph_s: 2.0
+    animation_note: "It draws every remaining rune-line into its chest for a long, building charge before releasing a sustained beam down the lane."
     effects:
       - { op: deal_damage, element: arcane, mult: 2.6 }
       - { op: apply_status, status: weaken, chance: 0.7, dur: 6 }
@@ -85,5 +91,17 @@ phases:                          # boss_scripted phase contract (AI_BEHAVIOR §1
     added_abilities: [unmoor_slam, collapse_beam]
     enter_telegraph: true
 animation_states: [idle, walk, jump, fall, cast, attack, telegraph, hit, die, spawn, phase_shift]
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs motionless at its central mooring, vast rune-plating pulsing in slow unified rhythm."
+  walk: "Drifts forward in a slow, gravity-defying glide once torn loose from its mooring."
+  jump: "Hauls its bulk over a gap in one heavy, deliberate bound."
+  fall: "Comes down with a ground-shaking impact that ripples outward through the arena floor."
+  attack: "Slams forward in a full-body collision that scatters loose rune-plating on impact."
+  cast: "Raises both arms and channels a barrage of arcane force down its target line."
+  hit: "Absorbs the blow with a heavy shudder, rune-plating flaring bright at the point of impact."
+  die: "Goes rigid plate by plate and comes apart in a final, slow unraveling into drifting rubble."
+  telegraph: "Locks rigid and floods every rune-line with light before its committed attack fires."
+  phase_shift: "Its rune-plating cracks loose and reforms into a wilder configuration as another anchor tears free, marking its shift into a more volatile phase."
+  spawn: "Rises up at the center of the arena, rune-plating igniting line by line as it settles into its bound stance."
 drop_table: drop_mob_206
 flavor: "A vast rune-golem raised to hold the whole archipelago in its orbit, now spinning free of the anchor it was built to be. As it comes apart it flings the shards -- and everything on them -- loose into the void."

@@ -27,9 +27,20 @@ abilities:
     targeting: { shape: line, length: 7, width: 1.5 }
     cooldown: 8.0
     telegraph_s: 1.0
+    animation_note: "The tight, silent fold at the cloud's edge is the last warning before it drops in a raking dive."
     effects:
       - { op: deal_damage, element: shadow, mult: 2.0 }
       - { op: apply_status, status: sunder, chance: 0.6, dur: 8 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs folded within a drifting cloud bank, wings barely stirring."
+  walk: "Wheels in wide, patient circles above the field on outstretched wings."
+  jump: "Kicks into a sharp climbing beat, gaining altitude in a single burst."
+  fall: "Drops into a controlled glide, angling toward the ground below."
+  attack: "Rakes through with both talons in a shredding pass before climbing away."
+  telegraph: "Folds tight and hangs motionless at the cloud's edge, talons flexing open."
+  hit: "Tumbles off its line with a shriek before catching the air again."
+  die: "Folds its wings for the last time and drops in a long, tumbling fall."
+  spawn: "Tears free of the cloud bank overhead, wings snapping wide."
 drop_table: drop_mob_230
 flavor: "A vast winged predator of the umbral surf that folds out of the black cloud and rends armor to ribbons before climbing away."

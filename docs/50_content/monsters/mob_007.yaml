@@ -22,5 +22,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits capped and still, passing for a mushroom but for a slow ember pulse."
+  walk: "Waddles on stubby root-toes, cap wobbling."
+  jump: "A stubby hop that lands cap-heavy."
+  fall: "The cap flares wide like a parachute as it drops."
+  attack: "The cap splits and a mouth of coals lunges up hip-high."
+  hit: "Slams its cap shut and recoils into the ash."
+  die: "Deflates fold by fold until only the empty cap remains."
 drop_table: drop_mob_007
 flavor: "A capped ember-fungus that squats in the ash passing for a harmless mushroom until a boot lands too close. Then the cap splits and a mouth of coals lunges up."

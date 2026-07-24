@@ -22,5 +22,11 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 3
   patrol_radius: 2
 animation_states: [idle, walk, attack, hit, die]   # rooted lasher: no jump/fall; normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Coils loosely around its stump, vine-tips swaying without any wind to stir them."
+  walk: "Uncoils and resettles within its short reach, never leaving the stump behind."
+  attack: "Whips one long vine out in a snapping lash before recoiling to the stump."
+  hit: "Recoils into a tight flinching coil, vine-tips curling inward."
+  die: "Uncoils fully and goes slack, draping flat across the stump."
 drop_table: drop_mob_030
 flavor: "A snarl of animate thorn-vine anchored to one waterlogged stump, patient as the rot it feeds on. It cannot chase, but its lash reaches a body-length further than you think, and it aims to tangle before it tears."

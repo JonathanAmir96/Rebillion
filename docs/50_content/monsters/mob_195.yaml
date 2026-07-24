@@ -23,5 +23,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   cast_cooldown_s: 6
   retreat_range: 7
 animation_states: [idle, walk, jump, fall, cast, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands wrapped in drifting dark, hood bowed in constant murmur."
+  walk: "Retreats toward its kin in quick, gliding steps, robes trailing loose mist."
+  jump: "Hops a gap in a short burst of dark vapor."
+  fall: "Sinks in a loose drift, mist pooling beneath it."
+  cast: "Spreads its arms and draws a shroud of dark up around a nearby ally."
+  hit: "Flinches and scatters a burst of loose mist."
+  die: "Dissolves into the dark it called, leaving only drifting motes."
 drop_table: drop_mob_195
 flavor: "A hooded devotee of the torn sky who calls the void up around its kin to shield them, and would rather flee toward the dark than face you in it."

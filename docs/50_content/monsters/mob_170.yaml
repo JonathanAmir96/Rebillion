@@ -22,5 +22,14 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.4
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set + cast (ranged/caster)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands swaying slightly, head bowed as if still climbing."
+  walk: "Retreats in a stiff, halting shuffle, never fully turning away."
+  jump: "A stiff, jerking hop, limbs slow to respond."
+  fall: "Drops awkwardly, catching itself on one frozen limb."
+  attack: "Wrenches a shard free of itself and flings it in a jerking throw."
+  cast: "Raises a cracked limb, drawing frost up before the throw."
+  hit: "Judders and sheds a spray of loose frost."
+  die: "Crumbles in place, frost husk collapsing into powder."
 drop_table: drop_mob_170
 flavor: "The frost-bound husk of some long-dead climber, still walking, still cold, hurling shards of its own frozen marrow. The last thing the field throws before the peak."

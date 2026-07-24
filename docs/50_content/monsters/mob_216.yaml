@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   detonate_range: 1
   rush_speed_mult: 1.9
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Drifts and bobs in place, its surface rippling with contained pressure."
+  walk: "Drifts forward in an accelerating, unsteady beeline toward warmth."
+  jump: "Bucks upward in an erratic lurch, riding its own instability."
+  fall: "Sinks and wobbles, correcting itself back onto its rushing line."
+  attack: "Rushes the last stretch and detonates in a sudden inward-out rupture."
+  hit: "Shudders and swells, its surface straining visibly at the impact."
+  die: "Deflates and winks out without ever completing its rupture."
 drop_table: drop_mob_216
 flavor: "A drifting bead of unstable void that rushes any warmth it senses and unmakes itself in a rupture of cold dark. Its long telegraph is your window."

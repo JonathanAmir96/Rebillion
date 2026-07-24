@@ -22,6 +22,14 @@ ai_params:                       # override only support_caller-declared tunable
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched in its robe, hands folded, murmuring."
+  walk: "Shuffles backward, keeping its fellows between itself and any threat."
+  jump: "Flinches upward in a startled half-step."
+  fall: "Settles back down, robe billowing around it."
+  attack: "Throws out one warding hand in a weak defensive push."
+  hit: "Recoils and pulls its robe tighter, shrinking from the blow."
+  die: "Collapses into its own robe, folding to the floor."
 drop_table: drop_mob_118
 # buffs its shambling fellows; shrinks from you (AI_BEHAVIOR §11) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A drowned robe-figure that still keeps the dead kingdom's rites, chanting cold blessings over its shambling fellows and shrinking from any who come for it directly. Kill the choir and its congregation falters."

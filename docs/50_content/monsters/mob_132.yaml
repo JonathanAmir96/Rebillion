@@ -22,5 +22,14 @@ ai_params:
   preferred_range_max: 9
   attack_cooldown_s: 1.5
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; +cast (caster); no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers steady, its floating glyph-ring turning slowly in place."
+  walk: "Glides backward and sideways on a low hum, keeping its distance."
+  jump: "Lifts abruptly higher on a burst of glyph-thrust."
+  fall: "Settles downward in a controlled, drifting descent."
+  attack: "Flings a spinning glyph forward with a snapping flick of its frame."
+  cast: "Draws its ring of glyphs inward, gathering light before the throw."
+  hit: "Jolts and tilts off-axis, glyph-ring scattering before it steadies."
+  die: "Goes rigid as its glyph-ring stops turning, then drops out of the air."
 drop_table: drop_mob_132
 flavor: "A hovering caster-frame that flings the ruin's etched rote-glyphs like thrown knives. It backs away as precisely as it fires, keeping the gap it was built to hold."

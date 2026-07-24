@@ -22,5 +22,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies flush and motionless beneath the snow's surface, only a faint outline showing."
+  walk: "Slides low and flat across the ground when it moves at all."
+  jump: "A short flattened hop, barely breaking its low profile."
+  fall: "Settles back down flush against the ground."
+  attack: "Erupts upward out of the snow in a single striking lunge."
+  hit: "Flattens and skitters back a step, exposed."
+  die: "Sinks flat and still, indistinguishable again from drifted snow."
 drop_table: drop_mob_157
 flavor: "A flat, pale ambusher that lies under a skin of fresh snow until something steps within reach. The first strike is the only warning you get."

@@ -20,5 +20,13 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 9
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hunches low with matted fur bristling, black gums bared at the air."
+  walk: "Scrabbles forward in a ragged, uneven scurry, keeping close to its pack."
+  jump: "Lurches over debris in a sickly, off-balance hop."
+  fall: "Drops in a loose tumble and scrambles straight back up."
+  attack: "Lunges in with a snapping, foam-flecked bite."
+  hit: "Jerks back in a shuddering flinch, fur standing on end."
+  die: "Keels over twitching, legs kicking weakly before it stills."
 drop_table: drop_mob_020
 flavor: "A rat gone sick and mean, fur matted and gums black, that runs with a larger and hungrier pack than its cellar cousins. Where these gather, the grain stores are already lost."

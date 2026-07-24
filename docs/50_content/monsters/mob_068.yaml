@@ -22,5 +22,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies flush and flat inside its silk-lined pit, motionless but for a slow bristling of hidden legs."
+  walk: "Creeps low and splay-legged across the leaf-mold, hugging every contour of the ground."
+  jump: "A short, springing hop just enough to clear a root or stone in its path."
+  fall: "Drops loosely with legs already tucking back beneath its flattened body."
+  attack: "Bursts upward out of concealment in a single fang-first lunge with no warning at all."
+  hit: "Flinches into a tighter crouch, legs snapping in against the jolt."
+  die: "Curls its legs inward and sinks flat, folding back into the litter it hid in."
 drop_table: drop_mob_068
 flavor: "A flat, leaf-colored spider that folds itself into a silk-lined pit and waits for a footfall overhead. The first you know of it is the ground giving way to fangs."

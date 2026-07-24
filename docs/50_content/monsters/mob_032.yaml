@@ -22,5 +22,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.8
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; basic spit is the attack, no telegraph
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats low and wide on its hummock, throat pulsing in a slow steady beat."
+  walk: "Hops in short waddling bounds, settling heavily between each one."
+  jump: "Kicks off in one wide backward hop, throat still swollen."
+  fall: "Splays its legs wide and lands with a heavy settling squat."
+  attack: "Throat balloons and snaps forward, flinging its head to arc a gob of venom."
+  hit: "Deflates with a flinch and rocks back onto its haunches."
+  die: "Sags flat, throat emptying slowly as it stops moving."
 drop_table: drop_mob_032
 flavor: "A bloated bog-toad the color of old bruises, squatting on a mire-hummock and eyeing you sidelong. It arcs a gob of stinging venom the moment you step within range, then hops a length back to do it again."

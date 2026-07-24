@@ -20,5 +20,13 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.2
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # airborne; jump/fall carry the stoop/climb
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Perches on an unseen updraft, wings held stiff and barely flexing."
+  walk: "Cuts a steady patrolling circle high above, wingbeats broad and even."
+  jump: "Tucks its wings and tips into a sharp, near-vertical stoop."
+  fall: "Drops talons-first through the last stretch of its dive."
+  attack: "Rakes through with both talons extended in a single raking pass."
+  hit: "Breaks stride mid-air, wings flaring wide to catch itself."
+  die: "Its wings crumple and it spirals down without any lift left."
 drop_table: drop_mob_040
 flavor: "A grey-barred hunting bird that nests in the bramble-choked crowns and owns the air above the trail. It falls out of the canopy in a talon-first stoop, rakes once, and beats back up before you can bring a weapon round."

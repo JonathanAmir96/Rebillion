@@ -20,5 +20,13 @@ ai_params:                       # override only passive_wanderer-declared tunab
   flee_duration_s: 4
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched over the snow, head dipping to nose at buried growth."
+  walk: "Plods forward at an unhurried, rolling gait, head swaying low."
+  jump: "A stiff-legged hop, more startle than leap."
+  fall: "Drops heavily, legs splaying to catch the landing."
+  attack: "A clumsy shove of its shoulder, thrown without real commitment."
+  hit: "Flinches upright and scrambles a step back."
+  die: "Sags at the knees and folds down into the snow."
 drop_table: drop_mob_152
 flavor: "A shaggy, plodding browser of the low snowfields that wants nothing to do with anyone. Struck, it bolts in a spray of powder rather than fight."

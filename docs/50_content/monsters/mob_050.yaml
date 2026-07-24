@@ -22,5 +22,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.8
   charge_recover_s: 2.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs nearly motionless in the shallows, body coiled in a shallow S-curve."
+  walk: "A slow, sinuous glide, body rippling side to side."
+  jump: "Launches into a short arcing leap, body still coiled."
+  fall: "Comes down in a twisting dive, head leading."
+  attack: "Uncoils in one sudden snapping lunge, jaws driving forward."
+  hit: "Recoils in a sharp full-body ripple, jaws snapping shut."
+  die: "Goes rigid mid-curve, then rolls slack onto its side."
 drop_table: drop_mob_050
 flavor: "A long, cold-blooded gar that hangs motionless in the shallows until something warm passes, then strikes in one snapping surge. Its wake carries a chill that lingers on the skin."

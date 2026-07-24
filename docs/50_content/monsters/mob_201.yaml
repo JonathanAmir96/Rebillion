@@ -27,10 +27,21 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: { shape: aoe_circle, radius: 3, origin: self }
     cooldown: 8.0
     telegraph_s: 1.1              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "It raises its stone anchor high overhead on a taut chain, then brings it down in a wide ring that staggers and throws clear everything within reach."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.9 }
       - { op: apply_status, status: stun, chance: 0.5, dur: 1.5 }
       - { op: knockback, distance: 2, vertical: 1 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands rooted at its mooring, stone anchor swaying faintly on its chain."
+  walk: "Paces a tight, ground-shaking loop around its post."
+  jump: "Heaves itself over a low obstacle in one deliberate lurch."
+  fall: "Drops flat-footed, the impact rocking its anchor on its chain."
+  attack: "Swings its stone anchor through in a wide crushing sweep."
+  hit: "Absorbs the hit with a dull shudder, barely rocking on its base."
+  die: "Sinks and folds forward, the anchor settling still atop it."
+  telegraph: "Raises the anchor high overhead, chain drawn taut."
+  spawn: "Rises up out of the haze, hauling its anchor upright."
 drop_table: drop_mob_201
 flavor: "A colossal sentinel that never abandoned its mooring. It brings its stone anchor down in a ring that staggers everything within reach and throws it clear."

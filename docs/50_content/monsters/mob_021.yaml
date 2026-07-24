@@ -21,5 +21,13 @@ ai_params:                       # override only kamikaze_burster-declared tunab
   detonate_range: 1
   rush_speed_mult: 1.8
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits swollen and quivering, too many legs shifting restlessly beneath it."
+  walk: "Skitters forward in a fast, scuttling rush on its overcrowded legs."
+  jump: "Hops in an ungainly bounce, its distended body wobbling with the motion."
+  fall: "Drops and rocks unsteadily on landing, barely catching its balance."
+  attack: "Swells taut for a beat, then bursts open in a violent full-body detonation."
+  hit: "Flinches and swells further, straining visibly at the impact."
+  die: "Deflates and collapses in a sudden, boneless heap."
 drop_table: drop_mob_021
 flavor: "A distended corpse-fly grub swollen tight with marsh gas, skittering straight for warmth on too many legs. It swells and stills for a heartbeat, then bursts in a reeking cloud that takes itself with it."

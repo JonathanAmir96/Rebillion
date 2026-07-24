@@ -22,6 +22,14 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 5
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands at rigid attention, frozen mid-oath."
+  walk: "Paces a slow, disciplined patrol within its post."
+  jump: "A controlled brace, weight resettling on landing."
+  fall: "Lands square and immediately reforms its stance."
+  attack: "Executes a trained, unhurried weapon strike."
+  hit: "Absorbs the blow without breaking its stance."
+  die: "Kneels first, then falls forward at last."
 drop_table: drop_mob_123
 # the Warden's honor-thrall; the last test before the vault (AI_BEHAVIOR §6) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "The Warden's own honor-thrall, a champion of the drowned garrison frozen mid-oath before the last door and set to hold it forever. It fights with a captain's craft and a corpse's patience, the final test before the vault below."

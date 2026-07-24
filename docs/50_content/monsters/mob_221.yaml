@@ -22,5 +22,11 @@ ai_params:                       # override only profile-declared tunables (AI_B
   attack_cooldown_s: 2.5
   windup_s: 0.7
 animation_states: [idle, attack, cast, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits rooted and coiled, spines twitching as it tracks toward motion."
+  attack: "Pivots on its base and rakes a spread of barbed spines through its firing line."
+  cast: "Draws inward, gathering dark, before loosing a charged bolt of spines."
+  hit: "Shudders on its rooted base, spines rattling loose."
+  die: "Sags and collapses inward, spines curling flat against its dead husk."
 drop_table: drop_mob_221
 flavor: "A rooted coral battery that pivots on its base and rakes its line of fire with barbed spines. Break its cadence and cross the gap."

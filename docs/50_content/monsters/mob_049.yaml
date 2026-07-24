@@ -19,5 +19,13 @@ ai_params:                       # override only passive_wanderer-declared tunab
   wander_radius: 7
   flee_duration_s: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Noses low along the wrack line, many legs shuffling in a slow grazing rhythm."
+  walk: "Ambles forward in an unhurried multi-legged shuffle, head down."
+  jump: "A small startled hop, barely lifting off the sand."
+  fall: "Drops in a loose tumble and scrambles upright at once."
+  attack: "A panicked, weak forward lunge with its blunt head."
+  hit: "Flinches and bunches its many legs tight beneath it."
+  die: "Legs stop mid-shuffle and it settles flat against the sand."
 drop_table: drop_mob_049
 flavor: "A drab, many-legged grazer that combs the wrack line for rot and rarely lifts its eyes. Corner one and it panics; leave it be and it never knows you passed."

@@ -22,5 +22,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sways in place, ice-stiffened fronds rustling over its rooted patch."
+  walk: "Drags its rooted mass a short distance, fronds trailing stiffly."
+  jump: "A stiff, bracing hop that barely lifts its knotted mass."
+  fall: "Settles heavily back onto its patch, fronds clattering into place."
+  attack: "Lashes a rigid, ice-crusted frond forward in a sweeping strike."
+  hit: "Recoils in a stiff shudder, fronds rattling against each other."
+  die: "Fronds go slack and the whole knotted mass sags flat."
 drop_table: drop_mob_057
 flavor: "A knot of animate, ice-stiffened kelp that has grown eyes and a grudge, rooted over its patch of frozen shallows. It lashes cold, ropey fronds at anything that steps into its bed."

@@ -27,9 +27,20 @@ abilities:                       # SKILL_EFFECTS op registry (§17); scales on p
     targeting: line
     cooldown: 5.0
     telegraph_s: 1.0              # plays 'telegraph' state (VALIDATION §6)
+    animation_note: "It gathers light along both wings until they blaze into a single lance, then dives that lance straight down the line, piercing anything in its path."
     effects:
       - { op: deal_damage, element: arcane, mult: 2.1 }
       - { op: apply_status, status: blind, chance: 0.5, dur: 4 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers motionless, faceted wings throwing scattered light in every direction."
+  walk: "Glides a steady patrol lane, wings catching and bending the haze."
+  jump: "Tips forward off its glide into a sudden rising arc."
+  fall: "Drops into a brief controlled stall before leveling out."
+  attack: "Folds its wings and dives in a piercing lance of refracted light."
+  hit: "Scatters into a burst of broken light before reassembling."
+  die: "Shatters mid-air and its facets rain down, going dark."
+  telegraph: "Gathers light along both wings until they blaze into a single point."
+  spawn: "Refracts into being out of the haze, wings flaring bright."
 drop_table: drop_mob_202
 flavor: "A crystalline harrier that dives in a lance of refracted light; the arcane glare that trails it pierces any veil and sears the eyes of the veiled."

@@ -22,5 +22,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands planted and armored, coral plates shifting with each slow breath."
+  walk: "Plods a short, deliberate loop, plates grinding with every step."
+  jump: "Heaves itself upward in a slow, plate-rattling hop."
+  fall: "Lands solidly, coral plates settling back into place."
+  attack: "Swings a plated limb in a wide, deliberate crushing arc."
+  hit: "Rocks in place, coral cracking faintly at the impact."
+  die: "Sinks to its knees and settles, plates locking still."
 drop_table: drop_mob_220
 flavor: "A slow, plated sentinel grown thick with sable coral; it holds its stretch of shore against all comers and yields it to none."

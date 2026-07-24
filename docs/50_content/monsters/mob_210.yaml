@@ -22,5 +22,14 @@ ai_params:                       # override only profile-declared tunables (AI_B
   preferred_range_max: 9
   attack_cooldown_s: 1.6
 animation_states: [idle, walk, jump, fall, attack, cast, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits bloated and swaying, throat-sac pulsing with trapped dark."
+  walk: "Waddles backward in short scuttling bursts to hold its distance."
+  jump: "Hops stiffly, sac sloshing, to clear a low obstacle in retreat."
+  fall: "Drops flat-footed, sac wobbling, and resumes its backward scuttle."
+  attack: "Lunges forward to snap at anything that closes the gap."
+  cast: "Rears back and hurls a glob of clotted dark from its distended throat."
+  hit: "Deflates with a wet flinch, sac shuddering at the impact."
+  die: "Bursts inward on itself, sac collapsing into a spreading stain."
 drop_table: drop_mob_210
 flavor: "A bloated tidal thing that lobs globs of clotted dark from a safe distance and scuttles back whenever a foe closes."

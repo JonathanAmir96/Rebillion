@@ -20,5 +20,11 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, attack, hit, die]   # concealed idle then reveal; normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies flat and inert, indistinguishable from a fallen plank."
+  walk: "Drags itself forward in a slow, uneven timbered shuffle once revealed."
+  attack: "Snaps upright and folds shut around whatever stepped onto it."
+  hit: "Splinters with a jolt, sagging back toward the ground."
+  die: "Collapses flat again, this time for good, settling like dead timber."
 drop_table: drop_mob_036
 flavor: "A slab of grey deadwood lying exactly where a bridge-plank ought to be, until you set a foot on it and it folds up around the leg. Once it has missed its ambush it fights like anything else, slow and mean, but that first snap is the whole of its cunning."

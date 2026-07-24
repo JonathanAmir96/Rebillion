@@ -22,6 +22,14 @@ ai_params:                       # override only aerial_swooper-declared tunable
   swoop_speed_mult: 2.2
   climb_recover_s: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs vast and still, wingtips barely stirring."
+  walk: "Sweeps in slow, wide patrol banks across the vault."
+  jump: "Tilts up sharply, wings cupping into a steep climb."
+  fall: "Folds inward and glides downward in a broad, unhurried arc."
+  attack: "Tucks its wings tight and plunges straight down on its target."
+  hit: "Lists to one side, its wingbeat broken for a moment."
+  die: "Goes still mid-glide and settles slowly to the floor."
 drop_table: drop_mob_122
 # rules the deepest vault on cold wingbeats (AI_BEHAVIOR §9) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A great pale ray broad as a fishing sail, ruling the deepest flooded vault on slow, cold wingbeats and diving on anything that dares its water. The glow along its wings is the only light in that drowned dark."

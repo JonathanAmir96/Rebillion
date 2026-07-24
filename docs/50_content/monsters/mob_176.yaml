@@ -28,6 +28,7 @@ abilities:
     targeting: party
     cooldown: 11.0
     telegraph_s: 1.3
+    animation_note: "Raises both arms wide toward her brood as sheets of hoarfrost visibly rise to shield them."
     effects:
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
       - { op: grant_shield, scaling: max_life, mult: 0.10 }
@@ -36,9 +37,21 @@ abilities:
     targeting: { shape: aoe_circle, radius: 3, origin: self }
     cooldown: 7.0
     telegraph_s: 1.1
+    animation_note: "Snaps both arms inward, drawing the cold tight before the rebuke pulses outward from her."
     effects:
       - { op: deal_damage, element: frost, mult: 1.0 }
       - { op: apply_status, status: chill, chance: 0.7, dur: 4 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands stooped and hooded, hands weaving a slow, constant working."
+  walk: "Retreats toward her brood in small, hurried, hunched steps."
+  jump: "A brief, awkward hop, robes tangling."
+  fall: "Lands unsteadily, catching her balance on a staff of ice."
+  attack: "A weak, reluctant swipe thrown only when no ally is near."
+  cast: "Sweeps both arms wide, sheets of hoarfrost rising to answer."
+  hit: "Stumbles and clutches her robes, wards flickering."
+  die: "Sinks slowly to her knees, hood falling forward as the frost around her fades."
+  telegraph: "Draws her hood back and raises both arms, frost gathering along her sleeves."
+  spawn: "Steps out from behind a curtain of hoarfrost, already reaching toward her brood."
 drop_table: drop_mob_176
 flavor: "A stooped crone of the ice-cult who wards her brood behind sheets of hoarfrost faster than you can break them down. Kill her first, or kill nothing."

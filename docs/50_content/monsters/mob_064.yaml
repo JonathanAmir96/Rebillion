@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: line, length: 6, width: 2 }
     cooldown: 7.0
     telegraph_s: 1.0
+    animation_note: "The tight coil and gaping jaw hold for a beat before it rockets down the lunge line."
     effects:
       - { op: deal_damage, element: frost, mult: 1.6 }
       - { op: apply_status, status: chill, chance: 0.7, dur: 4 }
@@ -35,9 +36,20 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 9.0
     telegraph_s: 1.1
+    animation_note: "It plants its head and winds its tail back before whipping it through the surrounding water."
     effects:
       - { op: deal_damage, element: neutral, mult: 1.5 }
       - { op: knockback }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs suspended at the shoal's edge, its long body coiled in a slow, watchful drift."
+  walk: "Cuts through the shoal in a long, silent glide, tail sculling steadily."
+  jump: "A sudden thrusting leap that carries its full length clear of the water."
+  fall: "Angles down in a sharp, controlled plunge, jaws leading."
+  attack: "Surges forward in a blistering straight run and drives its jaws home."
+  hit: "Snaps sideways in a sharp, rippling flinch along its whole length."
+  die: "Goes rigid, then rolls onto its side and drifts, jaws slack."
+  telegraph: "Coils its whole body tight, jaw dropping open as it lines up the charge lane."
+  spawn: "Surges up out of the reef in a burst of scattering shoal-fish."
 drop_table: drop_mob_064
 flavor: "A barracuda grown to the length of a longboat's oar, scarred silver and cased in reef-rime. Its charge is a blue blur; its thrashing tail clears the shoal of anything left standing."

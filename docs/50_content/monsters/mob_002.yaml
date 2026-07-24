@@ -20,5 +20,13 @@ ai_params:                       # override only timid_grazer-declared tunables
   flee_speed_mult: 1.5
   corner_wait_s: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits tall with ears swiveling, dropping to nibble between glances."
+  walk: "Quick low hops that stretch into a flat-out bolt, ears pinned."
+  jump: "A long springing arc, hind legs kicked out behind."
+  fall: "Legs splayed wide, ears streaming upward."
+  attack: "Wheels and lashes out a panicked double-kick with both hind feet."
+  hit: "Tumbles ears-over-tail and scrambles upright."
+  die: "Folds mid-stride and skids to a stop, one ear still raised."
 drop_table: drop_mob_002
 flavor: "A long-eared hare the color of dry hay, forever bolting for the nearest hedge. Cornering one is a novice's first lesson in cutting off an escape."

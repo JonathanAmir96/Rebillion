@@ -21,5 +21,13 @@ ai_params:                       # override only profile-declared tunables (AI_B
   pack_call_radius: 8
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set (ANIMATION_STATES; no spawn/telegraph flourish)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs motionless in the haze, its stone chips shivering faintly against each other."
+  walk: "Clatters forward in an eager tumbling scuttle, always drifting toward its packmates' call."
+  jump: "Hops in a stiff stone-on-stone lurch to clear a gap."
+  fall: "Tumbles end over end, loose fragments knocking together as it drops."
+  attack: "Butts forward in a blunt jabbing knock, chips grinding on impact."
+  hit: "Shudders and sheds a loose chip of stone with each impact."
+  die: "Crumbles apart mid-motion, its fragments scattering and settling still."
 drop_table: drop_mob_180
 flavor: "A knuckle of drifting masonry that woke up and forgot it was ever a wall. Alone it is a pebble; the swarm that answers its clatter is a landslide with a grudge."

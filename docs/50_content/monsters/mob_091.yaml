@@ -22,5 +22,13 @@ ai_params:                       # override only ambush_lurker-declared tunables
   leash_radius: 3
   aggro_vertical_band: 1
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Lies coiled and motionless, barely a ripple across the loose ash."
+  walk: "Slides forward in a low, silent S-curve through the ash."
+  jump: "Coils and springs into a short, sudden lunge."
+  fall: "Lands in a loose coil, tongue flicking to test the air."
+  attack: "Strikes out in a single fast, low lunging bite."
+  hit: "Recoils into a tighter coil, hissing."
+  die: "Uncoils and goes limp, stretched flat across the ash."
 drop_table: drop_mob_091
 flavor: "A coal-black serpent that lies half-buried in warm ash until a boot comes near. Its bite leaves a welt that keeps on burning long after the fang is gone."

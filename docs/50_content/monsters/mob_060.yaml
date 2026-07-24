@@ -22,5 +22,13 @@ ai_params:                       # override only support_caller-declared tunable
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands hunched in her salt-crusted hood, hands folded in quiet murmur."
+  walk: "Backs away in a hurried shuffle, hood down, eyes on her wounded kin."
+  jump: "A quick startled hop clear of danger, robes flaring."
+  fall: "Drops and gathers her robes close as she lands."
+  attack: "Flings out a single hasty tap, more shove than strike."
+  hit: "Flinches and clutches her robes tighter without breaking her murmur."
+  die: "Sinks to her knees, the hymn trailing off into silence."
 drop_table: drop_mob_060
 flavor: "One of Morva's shore-cult faithful, hood salt-crusted, murmuring the Tidecaller's cold hymn over her wounded kin. She backs toward her coven and mends them; kill her first or fight forever."

@@ -20,5 +20,14 @@ ai_params:                       # override only kamikaze_burster-declared tunab
   detonate_range: 1
   rush_speed_mult: 1.8
 animation_states: [idle, walk, jump, fall, telegraph, attack, hit, die]   # kamikaze_burster telegraphs even at normal tier (AI_BEHAVIOR §12)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Sits half-buried, quills lying flat against its rounded shell."
+  walk: "Rolls forward in a slow, deliberate tumble, quills grazing the ground."
+  jump: "Bounces up and over an obstacle mid-roll, quills flaring outward."
+  fall: "Comes down still rolling, landing square on its curved shell."
+  attack: "Cracks open in a sudden burst, quills driving outward in every direction."
+  hit: "Jolts mid-roll, quills bristling tighter for an instant."
+  die: "Stops rolling and settles, quills drooping loose against the shell."
+  telegraph: "Bristles its quills wider and wider as it picks up rolling speed."
 drop_table: drop_mob_059
 flavor: "A spiny tide-urchin that unmoors itself and rolls at a threat, quills bristling wider with every turn. It cracks itself open in a ring of barbs — one furious spend of a life."

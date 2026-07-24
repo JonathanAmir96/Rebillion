@@ -27,6 +27,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 8.0
     telegraph_s: 1.3
+    animation_note: "Its hollow trunk swells and glows before the whole canopy of spore bursts outward at once."
     effects:
       - { op: deal_damage, element: nature, mult: 1.4 }
       - { op: apply_status, status: poison, chance: 0.8, dur: 10 }
@@ -35,9 +36,20 @@ abilities:
     targeting: { shape: melee_arc, radius: 2.5 }
     cooldown: 6.0
     telegraph_s: 1.0
+    animation_note: "One limb coils back like a drawn bow before it whips forward trailing thorned bramble."
     effects:
       - { op: deal_damage, element: nature, mult: 1.6 }
       - { op: apply_status, status: root, chance: 0.6, dur: 3 }
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # elite: +telegraph +spawn (VALIDATION §6, SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands rooted and still, its hollow trunk seeping a faint haze of spore."
+  walk: "Grinds forward one slow root-step at a time, bark cracking with the effort."
+  jump: "A heavy, splitting hop that barely lifts its ancient bulk off the ground."
+  fall: "Comes down with a splintering thud, spore haze scattering outward."
+  attack: "Swings a massive limb through a slow, splintering arc."
+  hit: "Absorbs the blow with a groan, bark peeling loose in long strips."
+  die: "Splits down its hollow trunk and folds into a heap of rotten timber."
+  telegraph: "Draws both limbs back as its hollow trunk flares bright with gathering spore."
+  spawn: "Cracks upright out of the deadfall, spore haze billowing from its hollow heart."
 drop_table: drop_mob_085
 flavor: "An ancient knot of dead timber grown vast on the fen's slow rot, hollow-hearted and seething with spore. It moves once a century and crushes anything foolish enough to make it move now."

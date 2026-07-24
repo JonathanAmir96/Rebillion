@@ -21,5 +21,13 @@ ai_params:
   leash_radius: 4
   patrol_radius: 3
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands planted before the door, arms crossed over slab-plated armor."
+  walk: "Paces a short, heavy patrol between its threshold and the wall."
+  jump: "Rises onto its toes in a short, plated hop."
+  fall: "Lands flat-footed with a deep, armored thud."
+  attack: "Swings one great slab-arm through a wide blocking arc."
+  hit: "Absorbs the impact with barely a rock backward before resetting its stance."
+  die: "Sinks slowly to one knee and settles against the door it guarded."
 drop_table: drop_mob_143
 flavor: "A great slab-armored gate-keeper planted before a door whose city emptied lifetimes ago. It holds the threshold with the patience of brass, asking nothing and yielding nothing."

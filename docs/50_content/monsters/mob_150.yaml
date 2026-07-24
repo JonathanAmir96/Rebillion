@@ -25,6 +25,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3
+    animation_note: "Squares its whole body and its warden-lens flares before sweeping one arm through the chamber."
     effects:
       - { op: deal_damage, element: arcane, mult: 1.6 }
       - { op: apply_status, status: silence, chance: 0.5, dur: 3 }
@@ -33,6 +34,7 @@ abilities:
     targeting: { shape: projectile, speed: 12, range: 15, pierce: all, impact_radius: 2 }
     cooldown: 5.0
     telegraph_s: 1.0
+    animation_note: "Lens narrows to a point and holds before loosing a piercing lattice of light clean through the line."
     effects:
       - { op: deal_damage, element: arcane, mult: 1.5, scaling: spellpower, hits: 3 }
   - id: roll_call
@@ -40,6 +42,7 @@ abilities:
     targeting: self
     cooldown: 22.0
     telegraph_s: 1.5
+    animation_note: "Raises both arms and its horn-vents sound, calling scuttlers up from the vault floor."
     effects:
       - { op: summon_entity, entity_ref: mob_140, count: 2, dur: until_death }   # add-wave via boss ability (AI_BEHAVIOR §15)
   - id: purge_protocol
@@ -47,6 +50,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 8, origin: self }
     cooldown: 14.0
     telegraph_s: 1.6
+    animation_note: "Warden-lens floods with light and holds, a wide dimming pulse rolling outward from its core."
     effects:
       - { op: apply_status, status: blind, chance: 0.8, dur: 4 }
       - { op: apply_status, status: weaken, chance: 0.8, dur: 6 }
@@ -55,6 +59,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 6, origin: self }
     cooldown: 12.0
     telegraph_s: 1.8
+    animation_note: "Crouches and its whole frame lights up before it leaps and comes down in a single overloading slam."
     effects:
       - { op: leap, distance: 5 }
       - { op: deal_damage, element: arcane, mult: 2.4 }
@@ -79,5 +84,17 @@ phases:                           # boss_scripted contract (AI_BEHAVIOR §15); 3
     added_abilities: [overload_slam]
     enter_telegraph: true
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted adds phase_shift (enter_telegraph true)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands massive and upright, its warden-lens sweeping a slow patient arc."
+  walk: "Strides forward at a measured, patrolling pace that shakes the gatehouse floor."
+  jump: "Hauls its full bulk over debris in one huge, deliberate step-vault."
+  fall: "Lands with a floor-shaking impact, its joints settling under its own weight."
+  attack: "Sweeps one massive arm through the full width of the chamber."
+  cast: "Gathers light along its warden-lens as stored current builds toward release."
+  telegraph: "Locks fully upright and squares its warden-lens toward its target."
+  hit: "Barely staggers, its huge frame absorbing the blow with a deep groan."
+  die: "Locks rigid at full height, then folds down in a slow, final collapse."
+  spawn: "Rises up out of the gatehouse floor, warden-lens igniting as it stands to full height."
+  phase_shift: "Its warden-lens flares and stutters as its stately rounds glitch into a faster, more erratic haywire cadence."
 drop_table: drop_mob_150
 flavor: "A haywire warden-engine the size of a gatehouse, still making its rounds to guard citizens who walked out of the ruin centuries ago. It asks you for papers you cannot show, and enforces the rule the only way it remembers how."

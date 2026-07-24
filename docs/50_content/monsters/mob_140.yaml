@@ -22,5 +22,13 @@ ai_params:
   pack_call_radius: 10
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Clings low with glyph-etched legs twitching in a tight ready crouch."
+  walk: "Scurries fast and low across the walls and floor alike."
+  jump: "Springs off a wall in a sharp, glyph-lit hop."
+  fall: "Drops and lands light, legs already scrabbling forward."
+  attack: "Darts in and bites down with a quick glyph-edged snap."
+  hit: "Curls tight for an instant, glyph-lines flickering before it uncurls."
+  die: "Curls into a small dead knot, its glyph-lines fading out."
 drop_table: drop_mob_140
 flavor: "A palm-sized glyph-etched crawler that swarms from the wall-conduits when one of its kin cries out. Each is trivial; the lattice of them moving as one is not."

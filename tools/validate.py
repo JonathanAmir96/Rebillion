@@ -182,7 +182,7 @@ MONSTER_STATS_REQ = ["life", "power", "armor", "warding", "precision", "evasion"
 ALLOWED = {
     "monster": set(REQUIRED["monster"]) | {
         "weak_to", "resists", "immune_to", "ai_params", "abilities", "phases",
-        "respawn_override", "summon_owner"},
+        "respawn_override", "summon_owner", "animation_notes"},
     "map": set(REQUIRED["map"]) | {
         "water_physics", "ambience", "portals", "moving_platforms", "spawn_zones",
         "interactables", "npcs", "arena_config"},
@@ -599,6 +599,16 @@ def validate_monster(rep, path, ln, data):
                 rep.fail(6, path, ln, "animation_states: '%s' not an ANIMATION_STATES token" % st)
         if tier in ("elite", "boss") and "telegraph" not in states:
             rep.fail(6, path, ln, "elite/boss must declare 'telegraph' animation state")
+    # §6 animation_notes keys ⊆ animation_states (monster.schema rule 11)
+    notes = data.get("animation_notes")
+    if notes is not None and not isinstance(notes, dict):
+        rep.fail(6, path, ln, "animation_notes must be a map of state -> description")
+    for k, v in (notes or {}).items():
+        if k not in (states or []):
+            rep.fail(6, path, ln,
+                     "animation_notes key '%s' not in this file's animation_states" % k)
+        if not isinstance(v, str) or not v.strip():
+            rep.fail(6, path, ln, "animation_notes['%s'] must be a non-empty string" % k)
 
 
 def validate_map(rep, path, ln, data):

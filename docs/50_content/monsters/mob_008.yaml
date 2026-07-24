@@ -20,5 +20,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.8
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Rocks heel to heel, juggling a hot pebble from hand to hand."
+  walk: "A crouched backpedal that always keeps its throwing arm free."
+  jump: "A gangly spring, all elbows and knees."
+  fall: "Windmills both arms the whole way down."
+  attack: "A full windup and overhand pebble throw, tongue out in concentration."
+  hit: "Drops its pebble and clutches its head with both hands."
+  die: "Sits down hard, wobbles once, and keels over sideways."
 drop_table: drop_mob_008
 flavor: "A wiry, knuckle-cracking imp that never wants you within arm's reach, backpedaling and lobbing hot pebbles. The first foe that punishes a novice for standing still."

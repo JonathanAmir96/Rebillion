@@ -22,5 +22,13 @@ ai_params:                       # override only ranged_skirmisher-declared tuna
   preferred_range_max: 8
   attack_cooldown_s: 1.5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hangs low on splayed legs, its swollen gland pulsing with each slow breath."
+  walk: "Backpedals in a careful sidelong scuttle, keeping its distance steady."
+  jump: "A short hop to clear ground while never breaking its retreating rhythm."
+  fall: "Drops with legs already braced to resume its wary backward creep."
+  attack: "Rears its abdomen up and hurls a gobbet of clinging silk in a low arc."
+  hit: "Recoils in a startled scuttle, gland twitching."
+  die: "Sags flat, its swollen gland deflating slowly into the leaf-mold."
 drop_table: drop_mob_073
 flavor: "A bloated spinner that hangs back and lobs gobbets of clinging silk from a swollen gland. It would rather glue you in place and let the pack close than face you itself."

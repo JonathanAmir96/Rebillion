@@ -22,6 +22,14 @@ ai_params:                       # override only pack_hunter-declared tunables (
   pack_call_radius: 8
   pack_max_size: 5
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set; no telegraph/spawn (elite/boss only)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Hovers in place, fins trembling to hold its position against the current."
+  walk: "Darts forward in short shivering bursts, tail flicking to cut through the water."
+  jump: "Flicks upward in one quick startled dart, then levels off."
+  fall: "Sinks in an unhurried drift, fins barely stirring."
+  attack: "Snaps forward in a single quick nipping lunge."
+  hit: "Jolts sideways and scatters, body curling from the strike."
+  die: "Goes rigid, then rolls belly-up and drifts."
 drop_table: drop_mob_108
 # schooling shoal; harmless alone, lethal massed (AI_BEHAVIOR §10) ; Sunken Depths water_physics field (WORLD_PLAN R7) -- movement-appropriate profile for the flooded ruin
 flavor: "A palm-sized fish lit from within by a cold blue lantern-organ, schooling through the flooded galleries in silver clouds. One is nothing; the cloud that turns on you at once can strip a careless diver to the bone."

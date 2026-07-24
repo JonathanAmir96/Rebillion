@@ -28,6 +28,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 6, origin: self }
     cooldown: 8.0
     telegraph_s: 1.2
+    animation_note: "The tide swells and gathers close around it before spreading outward as a mending wave over its kin."
     effects:
       - { op: apply_status, status: regen, dur: 10 }
       - { op: apply_status, status: fortify, dur: 10 }
@@ -36,8 +37,20 @@ abilities:
     targeting: { shape: aoe_circle, radius: 6, origin: self }
     cooldown: 12.0
     telegraph_s: 1.2
+    animation_note: "It draws its arms inward, folding the tide into a dark shell, before flinging the ward out over its allies."
     effects:
       - { op: grant_shield, scaling: spellpower, dur: 8 }
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn]   # elite adds telegraph (VALIDATION §6) + spawn (SPAWN §6)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Floats with eyes closed, tide-wrapped robes coiling slowly around it."
+  walk: "Drifts backward toward its kin, tide-robes trailing across the sand."
+  jump: "A slow floating hop, robes billowing as it repositions."
+  fall: "Settles down without impact, tide-robes pooling around its feet."
+  attack: "Throws one weak warding pulse when caught without an ally to shield."
+  cast: "Spreads both arms and pulls the living tide into a mending wave over its kin."
+  telegraph: "Both arms rise and the tide around it swells before the cast breaks free."
+  hit: "Recoils and the coiling tide around it scatters for a beat."
+  die: "Unravels into loose tide-water that spreads flat and stills."
+  spawn: "Rises from the surf already wrapped in its coiling tide."
 drop_table: drop_mob_232
 flavor: "A blind seer wrapped in living tide that mends and wards the horrors around it, giving ground toward the deep whenever a blade seeks it out."

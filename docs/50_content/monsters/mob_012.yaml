@@ -23,6 +23,7 @@ abilities:                       # boss requires >=1 ability; all with generous 
     targeting: { shape: line, length: 8, width: 3 }   # a long, slow gout of flame down the arena
     cooldown: 9.0
     telegraph_s: 2.2             # very generous wind-up (first boss, teach-the-tell, WORLD_PLAN)
+    animation_note: "The long inhale drops its chest low and lights up the throat before the gout sweeps the lane."
     effects:
       - { op: deal_damage, element: fire, mult: 1.6 }
       - { op: apply_status, status: burn, chance: 0.5, dur: 6 }
@@ -31,6 +32,7 @@ abilities:                       # boss requires >=1 ability; all with generous 
     targeting: { shape: aoe_circle, radius: 4, origin: self }
     cooldown: 8.0
     telegraph_s: 1.8             # rears up before slamming; wide, dodgeable ring
+    animation_note: "Rears up on its hindquarters to full height before slamming down."
     effects:
       - { op: deal_damage, element: fire, mult: 1.3 }
       - { op: knockback, distance: 3 }
@@ -39,6 +41,7 @@ abilities:                       # boss requires >=1 ability; all with generous 
     targeting: projectile        # a single arcing coal the player can side-step
     cooldown: 4.0
     telegraph_s: 1.0
+    animation_note: "Tosses its head back, then flicks a single coal in a high arc."
     effects:
       - { op: deal_damage, element: fire, mult: 1.1 }
 phases:                          # single phase (WORLD_PLAN R1: single phase)
@@ -49,5 +52,15 @@ phases:                          # single phase (WORLD_PLAN R1: single phase)
       charge_speed_mult: 2.0
       charge_recover_s: 3.2      # long recovery windows keep the graduation fight fair
 animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]   # boss adds telegraph + spawn
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands low and wide, flanks glowing brighter with each bellows-breath."
+  walk: "A dragging, heavy-shouldered prowl, jaw skimming the coals."
+  jump: "A short bounding hop that shakes the arena floor."
+  fall: "Lands on all fours with a slam that scatters loose cinders."
+  attack: "A grinding sideways jaw-swipe, molten drool trailing."
+  hit: "Recoils with a snap, embers shaking loose from its hide."
+  die: "Sways, buckles leg by leg, and comes down in a long exhale of sparks."
+  telegraph: "Plants all four feet and inhales hugely, chest and throat lighting up."
+  spawn: "Heaves up out of the kiln bed, shaking off a crust of dead coals."
 drop_table: drop_mob_012
 flavor: "The furnace-hound that slumbered in the village kiln until the coals grew a heart and teeth, now filling the Kiln Heart with its heat. Every Emberfoot graduate meets it once, at the door to the wider world."

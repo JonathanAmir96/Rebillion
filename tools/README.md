@@ -1,9 +1,24 @@
-# tools/ — content validator
+# tools/ — content validator, doc graph, wiki generator
 
 `validate.py` implements the `docs/VALIDATION.md` pass/fail contract (§1–§6) for
 Phase D content batches. **Python 3 standard library only** — it uses PyYAML if it
 is importable and otherwise falls back to a small tolerant YAML reader built into
 the file, so it runs on a bare `python3` with no `pip install`.
+
+`wiki_gen.py` builds a hiddenstreet-style static HTML reference wiki from the
+minted content (`docs/50_content/`): one cross-linked page per monster (stats,
+dodge %, abilities, boss phases, animation notes, drops, spawn maps), map
+(portals, spawn zones, NPCs, layout brief), NPC, and quest, plus item/skill
+catalogs and region indexes. Same dependency policy as the validator (stdlib;
+PyYAML optional — it reuses `validate.load_yaml`). The output directory is
+disposable build output and is gitignored — regenerate at will:
+
+```
+python3 tools/wiki_gen.py [--out DIR]     # default DIR = wiki/
+```
+
+The wiki asserts nothing of its own (CLAUDE.md law 2): every number is read from
+the content files, so a wrong wiki value means a wrong YAML value — fix it there.
 
 ## Usage
 

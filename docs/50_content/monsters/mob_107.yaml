@@ -24,6 +24,7 @@ abilities:
     targeting: { shape: melee_arc, radius: 3 }
     cooldown: 7.0
     telegraph_s: 1.0
+    animation_note: "Draws one huge arm back low before sweeping it through in a wide, crushing arc."
     effects:
       - { op: deal_damage, element: fire, mult: 1.5 }
       - { op: apply_status, status: burn, chance: 0.8, dur: 6 }
@@ -32,6 +33,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 5, origin: self }
     cooldown: 10.0
     telegraph_s: 1.4
+    animation_note: "Plants both feet and raises its arms overhead before slamming down and sending a shockwave out in a ring."
     effects:
       - { op: deal_damage, element: fire, mult: 1.6 }
       - { op: knockback, distance: 3 }
@@ -40,6 +42,7 @@ abilities:
     targeting: self
     cooldown: 20.0
     telegraph_s: 1.5
+    animation_note: "Curls inward and draws its coals close as its shell seals over behind a shimmering heat-shield."
     effects:
       - { op: grant_shield, scaling: max_life, mult: 0.1, dur: 10 }
       - { op: apply_status, status: fortify, chance: 1.0, dur: 10 }
@@ -48,6 +51,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 6, origin: self }
     cooldown: 9.0
     telegraph_s: 1.3
+    animation_note: "Rears back and splits its coal-crust wide open before erupting outward in a bursting wave of molten fire."
     effects:
       - { op: deal_damage, element: fire, mult: 1.9 }
       - { op: apply_status, status: burn, chance: 0.9, dur: 6, stacks: 3 }
@@ -56,6 +60,7 @@ abilities:
     targeting: self
     cooldown: 25.0
     telegraph_s: 1.5
+    animation_note: "Throws its head back in a booming call as cinders peel off its body and kindle into a fresh swarm."
     effects:
       - { op: summon_entity, entity_ref: mob_088, count: 2, dur: 30 }
 phases:                          # boss_scripted phase contract (AI_BEHAVIOR §15)
@@ -70,5 +75,17 @@ phases:                          # boss_scripted phase contract (AI_BEHAVIOR §1
     added_abilities: [molten_eruption, stoke_the_swarm]
     enter_telegraph: true         # plays phase_shift on entry (needs phase_shift state)
 animation_states: [idle, walk, jump, fall, attack, cast, telegraph, hit, die, spawn, phase_shift]   # boss_scripted: +phase_shift (§8/§15)
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Looms motionless, banked coals across its body pulsing with slow, contained heat."
+  walk: "Trudges forward in a slow, ground-shaking gait, coal-plates grinding."
+  jump: "Heaves into a short, colossal bound that cracks the ground on landing."
+  fall: "Comes down with a massive, smoking impact."
+  attack: "Swings one huge arm through in a slow, crushing arc."
+  cast: "Draws both arms in and channels a building glow across its whole chest."
+  hit: "Barely staggers, coal-plates flaring hotter at the point of impact."
+  die: "Sinks to its knees as its banked coals dim and go dark across its whole frame."
+  telegraph: "Plants its full weight and raises both fists, coals flaring bright at the joints."
+  phase_shift: "Its banked shell cracks wide open as the fire beneath roars up its whole body, from a shelled crouch into a towering, blazing stance."
+  spawn: "Rises up out of the kiln bed, shedding a crust of ash as its coals ignite."
 drop_table: drop_mob_107
 flavor: "A charred colossus that has fed the barrens' eternal cinders since the first fire was lit, its body a walking kiln of banked and glowing coals. Bank it down and it only stokes hotter; the fight is a war of endurance against a thing that was made to never burn out."
