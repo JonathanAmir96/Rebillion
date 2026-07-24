@@ -41,7 +41,9 @@ full curve to 300 (formula-first) with detail tables for the authored range.
 
 ## Out of scope (this run)
 - GDScript/scenes/engine work of any kind; art or audio asset generation (PixelLab briefs are
-  templates only); networking/backend; balancing beyond first-pass budget tables; localization
+  templates only); networking/backend **implementation** (backend security/performance *design*
+  docs were added by owner instruction 2026-07-24: `30_engineering/BACKEND_SECURITY.md`,
+  `30_engineering/BACKEND_PERFORMANCE.md`); balancing beyond first-pass budget tables; localization
   (US English only); monetization (none planned); character cosmetics beyond equipment.
 
 ## Deliberate scope limits

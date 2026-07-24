@@ -12,7 +12,8 @@ Start here:
   allocation
 - `docs/10_systems/` + `docs/15_maps_system/` — game rules (prose)
 - `docs/20_schemas/` — entity shapes · `docs/50_content/` — values only, referencing the above
-- `docs/30_engineering/` + `docs/40_assets/` — engineering standards and art/UI bible (locked)
+- `docs/30_engineering/` + `docs/40_assets/` — engineering standards (locked), backend
+  security/performance specs, and art/UI bible (locked)
 - `docs/60_agents/` — coding-pass phase briefs · `docs/VALIDATION.md` — pass/fail rules
 - `docs/phase_reports/` — per-phase generation reports
 

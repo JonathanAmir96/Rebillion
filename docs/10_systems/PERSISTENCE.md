@@ -6,7 +6,8 @@ References: 00_vision/GLOSSARY.md, 00_vision/PILLARS.md, 00_vision/SCOPE.md, 10_
 10_systems/STATUS_EFFECTS.md, 10_systems/COMBAT_FORMULA.md, 10_systems/QUESTS.md,
 10_systems/DEATH_PENALTY.md, 10_systems/CONTROLS.md, 10_systems/CAMERA.md, 10_systems/HUD.md,
 10_systems/social/PARTY.md, 10_systems/social/GUILD.md, 10_systems/social/MARKET.md,
-30_engineering/ENGINEERING_STANDARDS.md, docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
+30_engineering/ENGINEERING_STANDARDS.md, 30_engineering/BACKEND_SECURITY.md,
+docs/WORLD_PLAN.md, docs/ID_REGISTRY.md
 
 Owner doc for **what is saved, who owns the truth, and how the interim solo build stores it**.
 Every other system doc in this tree already assumes a three-way `authority` tag
@@ -68,9 +69,9 @@ server periodically reconciles, accepting the client's position if it is plausib
 own simulation and correcting it otherwise. The interim solo build has no server to reconcile
 against, so position/velocity are effectively client-simulated only for now; they are still
 tagged `shared` because that is their permanent shape once networked. The concrete reconciliation
-algorithm (tolerance window, correction/rollback method) is **out of scope for this doc and this
-run** (`00_vision/SCOPE.md` excludes networking/backend) — flagged, not designed, in Open
-Questions.
+algorithm (tolerance window, correction/snap method, velocity capping) is owned by
+`30_engineering/BACKEND_SECURITY.md` §1 (backend design pass opened by owner instruction
+2026-07-24); this doc keeps owning only the `shared` tag's meaning.
 
 ## 5. The solo build: a `GameState` facade over a local save
 
@@ -142,8 +143,10 @@ is assumed safe by default.
   `docs/ID_REGISTRY.md` and `10_systems/ITEMS.md`/`10_systems/ENHANCEMENT.md` legal bounds, or (c)
   restrict import to a subset (e.g., cosmetic/account state only, character re-leveled live)?
   Not decided — owner: this doc, jointly with whatever future server-onboarding doc exists.
-- Position/velocity reconciliation algorithm (§4) is explicitly deferred — out of this run's scope
-  per `00_vision/SCOPE.md`; do not design it prematurely here.
+- ~~Position/velocity reconciliation algorithm (§4) is explicitly deferred — out of this run's
+  scope per `00_vision/SCOPE.md`; do not design it prematurely here.~~ **Resolved 2026-07-24:**
+  owned by `30_engineering/BACKEND_SECURITY.md` §1 (server simulation + tolerance/snap + velocity
+  cap); concrete numbers remain that doc's open item.
 - Whether the `shards` wallet and bank are per-character (assumed, matching
   `10_systems/INVENTORY.md` §3/§7's default) or ever account-shared is confirmed here as
   **per-character** for the solo build and the interim server; an account-shared purse/vault is a
