@@ -70,6 +70,14 @@ Central, Mossmere, Tidewatch Port, Cindershelf (WORLD_PLAN v2.3). The Lv-40 gear
 minted inside existing `item_equip` sub-block slack (28 weapons / 35 armor authored) —
 see ID_REGISTRY.md tier-7 note.
 
+## Run outcome (2026-07-24, end of reconciliation run)
+
+All waves complete; QA verdict PASS-WITH-FLAGS and every flag resolved in-run except the
+locked-file item (ART_BIBLE reserved-biome annotation — routed to the art director's
+amendments channel). Full record: `docs/phase_reports/PHASE_B2_REPORT.md` (§4 has the
+open-questions rollup). Travel economy now published in ECONOMY §7 (coach 300/1,000/1,800
+by ring hop · ferry 150 · Return Scroll 2,500 as a paid recall).
+
 ## Decisions log
 
 - 2026-07-21 (owner) — v2 world revision: cap 300, two islands, 8 regions/bosses, paid
@@ -80,6 +88,12 @@ see ID_REGISTRY.md tier-7 note.
 - 2026-07-24 (org) — `docs/15_maps_system/` ownership assigned to ROLE_SYSTEMS_ARCHITECT;
   ROLE_MONSTER_DESIGNER added before Phase D; ART_GENERATION_RUNBOOK ownership resolved
   (integration engineer owns, art director holds QA veto).
+- 2026-07-24 (owner, mid-run) — **C3′ pacing amendment** (section above): Lv 40 ≈ 30 h,
+  Lv 100 ≈ 300 h; curve `20 + 6.6·L + 0.2·L²`; Lv 80 lands ≈ 166 h (supersedes the
+  "1 month to 3rd job" target).
+- 2026-07-24 (producer) — Millbrook Return Scroll kept as `item_use_0013` but ruled a
+  shard-priced vendor consumable (2,500) — no free warps of any kind (C5); coach/ferry
+  fares published in ECONOMY §7.
 
 ## Open questions rollup (live copies live in each doc's own section)
 
