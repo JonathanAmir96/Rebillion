@@ -1,0 +1,75 @@
+id: map_333
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Ashfall Dune Crossroads
+region: ashfall
+map_type: field
+level_band: { min: 30, max: 32 }
+biome: ashfall
+tileset: tileset_ashfall
+size_tiles: { w: 300, h: 34 }      # wide-junction sub-case (MAPS_SYSTEM §2): ~7.5 screens
+bgm: bgm_ashfall
+ambience: [amb_wind, amb_embers]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [150, 28] }
+  - { id: from_smoking_hollow, tile: [14, 28] }    # arrival from the smoking hollow road
+  - { id: from_east_dunes, tile: [286, 28] }       # arrival from the east dunes road
+  - { id: from_vent_mouth, tile: [154, 12] }       # arrival from the upper vent-mouth terrace
+portals:
+  - id: to_smoking_hollow
+    kind: door
+    at: { tile: [8, 28] }
+    target_map: map_130
+    target_spawn: main
+  - id: to_east_dunes
+    kind: door
+    at: { tile: [292, 28] }
+    target_map: map_140
+    target_spawn: main
+  - id: to_vent_mouth
+    kind: door
+    at: { tile: [150, 12] }
+    target_map: map_136
+    target_spawn: main
+spawn_zones:
+  - id: crossroads_ash_yard
+    rect_tiles: { x: 40, y: 24, w: 100, h: 6 }
+    mobs:
+      - { mob: mob_096, count: 3 }        # shares one species with the vent mouth flats
+      - { mob: mob_100, count: 2 }        # shares one species with the east dunes
+    max_concurrent: 6
+  - id: crossroads_cinder_terrace
+    rect_tiles: { x: 160, y: 16, w: 90, h: 5 }
+    mobs:
+      - { mob: mob_100, count: 2 }
+      - { mob: mob_096, count: 2 }
+    max_concurrent: 5
+interactables:
+  - type: climbable
+    id: climb_central_rope
+    at_tile: [148, 28]
+    params:
+      rect_tiles: { x: 148, y: 12, w: 2, h: 16 }
+      orientation: vertical
+      visual: rope
+  - type: climbable
+    id: climb_east_rope
+    at_tile: [206, 28]
+    params:
+      rect_tiles: { x: 206, y: 20, w: 2, h: 8 }
+      orientation: vertical
+      visual: rope
+  - type: sign
+    id: sign_dune_crossroads
+    at_tile: [150, 27]
+    params:
+      text: "Three ash roads cross here: the smoking hollow west, the east dunes toward the coast, and the terrace up to the vent mouths."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A broad three-way ash crossing on a lower dune yard with a cinder terrace stepped above it,
+  two ropes climbing to the upper vent-mouth door (MAP_TRAVERSAL §1.1, gaps within the
+  5-tile/3.5-tile caps). Foothold segments under painted ash terrain_chunks (ART_BIBLE AB-001);
+  footing holds despite the heat-shimmer. Width is the MAPS_SYSTEM §2 wide-junction sub-case.
+flavor: "Where the barrens' roads all cross at once, ash-smoke drifting between them with no wind to pick a direction."

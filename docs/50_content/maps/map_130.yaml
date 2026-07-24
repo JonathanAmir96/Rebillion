@@ -24,6 +24,11 @@ portals:
     at: { edge: right }
     target_map: map_131
     target_spawn: main
+  - id: to_dune_crossroads                 # additive branch to the wide crossroads (map_333)
+    kind: door
+    at: { tile: [120, 19] }
+    target_map: map_333
+    target_spawn: from_smoking_hollow
 spawn_zones:
   - id: map_130_zone
     rect_tiles: { x: 30, y: 16, w: 60, h: 8 }

@@ -1,0 +1,74 @@
+id: map_332
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Tidewatch Coast-Road Crossing
+region: tidewatch
+map_type: field
+level_band: { min: 18, max: 20 }
+biome: tidewatch
+tileset: tileset_tidewatch
+size_tiles: { w: 310, h: 36 }      # wide-junction sub-case (MAPS_SYSTEM §2): ~7.75 screens
+bgm: bgm_tidewatch
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [155, 30] }
+  - { id: from_brinewash, tile: [14, 30] }        # arrival from the brinewash flats
+  - { id: from_barnacle, tile: [296, 30] }        # arrival from barnacle ridge
+  - { id: from_north_strand, tile: [155, 10] }    # arrival from the north strand cliff path
+portals:
+  - id: to_brinewash
+    kind: door
+    at: { tile: [8, 30] }
+    target_map: map_078
+    target_spawn: main
+  - id: to_barnacle
+    kind: door
+    at: { tile: [302, 30] }
+    target_map: map_083
+    target_spawn: main
+  - id: to_north_strand
+    kind: door
+    at: { tile: [155, 10] }
+    target_map: map_088
+    target_spawn: main
+spawn_zones:
+  - id: crossing_flats
+    rect_tiles: { x: 40, y: 26, w: 110, h: 6 }
+    mobs:
+      - { mob: mob_055, count: 3 }        # shares one species with barnacle ridge
+      - { mob: mob_062, count: 2 }        # shares one species with the north strand
+    max_concurrent: 6
+  - id: crossing_cliff_ledge
+    rect_tiles: { x: 170, y: 18, w: 90, h: 5 }
+    mobs:
+      - { mob: mob_062, count: 2 }
+      - { mob: mob_055, count: 2 }
+    max_concurrent: 5
+interactables:
+  - type: climbable
+    id: climb_central_ladder
+    at_tile: [153, 30]
+    params:
+      rect_tiles: { x: 153, y: 10, w: 2, h: 20 }
+      orientation: vertical
+      visual: ladder
+  - type: climbable
+    id: climb_east_rope
+    at_tile: [220, 30]
+    params:
+      rect_tiles: { x: 220, y: 22, w: 2, h: 8 }
+      orientation: vertical
+      visual: rope
+  - type: sign
+    id: sign_coast_road_crossing
+    at_tile: [155, 29]
+    params:
+      text: "The coast road forks three ways: the brinewash flats west, barnacle ridge east, and the cliff stair up to the north strand."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A wide coastal three-way on a tide-washed lower flat, with a cliff ledge stepped above it and
+  a ladder climbing to the north-strand door at the top (MAP_TRAVERSAL §1.1, gaps within the
+  5-tile/3.5-tile caps). Foothold segments under coastal terrain_chunks (ART_BIBLE AB-001).
+  Width is the MAPS_SYSTEM §2 wide-junction sub-case.
+flavor: "Three coast roads meet on the tide-flats here, and at high water the lowest of them is briefly no road at all."

@@ -1,0 +1,82 @@
+id: map_331
+schema: 20_schemas/map.schema.md
+references: [MAPS_SYSTEM, MAP_CONNECTIONS, MAP_INTERACTABLES, MAP_LAYERS, MAP_TRAVERSAL, WORLD_PLAN, SPAWN]
+name: Verdant Hollow Crossways
+region: verdant
+map_type: field
+level_band: { min: 12, max: 14 }
+biome: verdant_hollow
+tileset: tileset_verdant_hollow
+size_tiles: { w: 290, h: 44 }      # wide-junction sub-case (MAPS_SYSTEM §2): ~7.25 screens, canopy tiers
+bgm: bgm_verdant_hollow
+ambience: [amb_leaves, amb_wind]
+layers_preset: standard
+spawn_points:
+  - { id: main, tile: [145, 38] }
+  - { id: from_fernbrake, tile: [14, 38] }        # arrival from the fernbrake trail
+  - { id: from_tanglevine, tile: [276, 38] }      # arrival from the tanglevine draw
+  - { id: from_elderbark, tile: [149, 8] }        # arrival from the elderbark canopy way
+portals:
+  - id: to_fernbrake
+    kind: door
+    at: { tile: [8, 38] }
+    target_map: map_048
+    target_spawn: main
+  - id: to_tanglevine
+    kind: door
+    at: { tile: [282, 38] }
+    target_map: map_053
+    target_spawn: main
+  - id: to_elderbark
+    kind: door
+    at: { tile: [145, 8] }
+    target_map: map_058
+    target_spawn: main
+spawn_zones:
+  - id: crossways_understory
+    rect_tiles: { x: 40, y: 34, w: 100, h: 6 }
+    mobs:
+      - { mob: mob_035, count: 3 }        # shares one species with the tanglevine draw
+      - { mob: mob_040, count: 2 }        # shares one species with the elderbark reach
+    max_concurrent: 6
+  - id: crossways_canopy
+    rect_tiles: { x: 150, y: 22, w: 90, h: 6 }
+    mobs:
+      - { mob: mob_040, count: 2 }
+      - { mob: mob_035, count: 2 }
+    max_concurrent: 5
+interactables:
+  - type: climbable
+    id: climb_central_vine
+    at_tile: [144, 38]
+    params:
+      rect_tiles: { x: 144, y: 8, w: 2, h: 30 }
+      orientation: vertical
+      visual: rope
+  - type: climbable
+    id: climb_west_vine
+    at_tile: [100, 38]
+    params:
+      rect_tiles: { x: 100, y: 18, w: 2, h: 20 }
+      orientation: vertical
+      visual: rope
+  - type: climbable
+    id: climb_east_vine
+    at_tile: [210, 38]
+    params:
+      rect_tiles: { x: 210, y: 24, w: 2, h: 14 }
+      orientation: vertical
+      visual: rope
+  - type: sign
+    id: sign_hollow_crossways
+    at_tile: [145, 37]
+    params:
+      text: "Three trails knot together here -- fernbrake below, the tanglevine draw east, and the elderbark way climbing north."
+      interact_prompt: Read
+npcs: []
+platform_brief: |
+  A tall three-way hollow crossing: a shaded understory floor with two stacked canopy terraces
+  reached by hanging vine-ropes, the northern elderbark door sitting highest (MAP_TRAVERSAL §1.1,
+  gaps within the 5-tile/3.5-tile caps). Foothold segments under vine/moss terrain_chunks
+  (ART_BIBLE AB-001). Width is the MAPS_SYSTEM §2 wide-junction sub-case; the climb is the gimmick.
+flavor: "The hollow's trails all tangle together under the elderbark, and the light falls in green ladders you can very nearly climb."
