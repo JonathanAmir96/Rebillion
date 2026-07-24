@@ -26,8 +26,8 @@ references: [ITEMS, ECONOMY, ENHANCEMENT]
 # round(0.70*armor_base), K(L)=50+20L (COMBAT_FORMULA §5); w[slot] body .28/legs .24/head .18/
 # boots .15/gloves .15. T8/T10/T12 values match the ITEMS §8 checksum table exactly; T7/T9/T11
 # (Lv43/57/71, not tabulated there) are computed from the same formula. Price buy=round(
-# base_buy(tier)*2.5)/sell=round(0.25*buy) (ECONOMY §4/§4.2; T11/T12 base_buy extrapolated same
-# as weapons.yaml's header note -- 10000/12000, first-pass, flagged for ECONOMY.md).
+# base_buy(tier)*2.5)/sell=round(0.25*buy) (ECONOMY §4/§4.2; T11/T12 base_buy 10500/13000 per
+# ECONOMY §4.2's tabulated T12 and interpolated T11).
 #
 # Affix (1 line, uncommon) assigned per slot by a fixed authoring convention (ITEMS §10
 # eligibility: armor rolls primary/life/armor/warding/haste; gloves also crit_rate/precision):
@@ -569,7 +569,7 @@ items:
       affixes:
         - { stat: life, value: 187 }     # +life 11*u(71)=187; pe 5.61 <= cap 24
     enhance_max: 9
-    price: { buy: 25000, sell: 6250 }
+    price: { buy: 26250, sell: 6563 }
     flavor: "Cowl-deep and umbral; under the torn sky it's hard to tell where the hood ends and the dark begins."
 
   - id: item_equip_0260
@@ -584,7 +584,7 @@ items:
       affixes:
         - { stat: life, value: 209 }     # +life 11*u(78)=209; pe 6.27 <= cap 27
     enhance_max: 9
-    price: { buy: 30000, sell: 7500 }
+    price: { buy: 32500, sell: 8125 }
     flavor: "Salvaged from the Tidesunder Maw's high-water line, still cold enough to fog the wearer's own breath."
 
   # --- body, item_equip_0261-0266 ---
@@ -660,7 +660,7 @@ items:
       affixes:
         - { stat: life, value: 187 }     # +life 11*u(71)=187; pe 5.61 <= cap 24
     enhance_max: 9
-    price: { buy: 25000, sell: 6250 }
+    price: { buy: 26250, sell: 6563 }
     flavor: "Umbral rings sewn dark-on-dark; in torn-sky light it reads as a shape-shaped absence, not armor."
 
   - id: item_equip_0266
@@ -675,7 +675,7 @@ items:
       affixes:
         - { stat: life, value: 209 }     # +life 11*u(78)=209; pe 6.27 <= cap 27
     enhance_max: 9
-    price: { buy: 30000, sell: 7500 }
+    price: { buy: 32500, sell: 8125 }
     flavor: "Hull-plate off some drowned hull, refitted to a living wearer. It still smells of the deep."
 
   # --- legs, item_equip_0267-0272 (affix: +armor, 4u) ---
@@ -751,7 +751,7 @@ items:
       affixes:
         - { stat: armor, value: 68 }     # +armor 4*u(71)=68; pe 6.8 <= cap 24
     enhance_max: 9
-    price: { buy: 25000, sell: 6250 }
+    price: { buy: 26250, sell: 6563 }
     flavor: "Bound in umbral wrap that swallows the wearer's own footfalls along with the light."
 
   - id: item_equip_0272
@@ -766,7 +766,7 @@ items:
       affixes:
         - { stat: armor, value: 76 }     # +armor 4*u(78)=76; pe 7.6 <= cap 27
     enhance_max: 9
-    price: { buy: 30000, sell: 7500 }
+    price: { buy: 32500, sell: 8125 }
     flavor: "Plated in hull-dark iron, salt-pitted in a pattern no smith in Duskwatch Landing can explain."
 
   # --- boots, item_equip_0273-0278 (affix: +haste, round(1+0.05L)) ---
@@ -842,7 +842,7 @@ items:
       affixes:
         - { stat: haste, value: 5 }      # round(1+0.05*71)=5; pe 7.5 <= cap 24
     enhance_max: 9
-    price: { buy: 25000, sell: 6250 }
+    price: { buy: 26250, sell: 6563 }
     flavor: "They leave no print on the umbral sand, which the Duskwatch garrison finds more useful than strange."
 
   - id: item_equip_0278
@@ -857,7 +857,7 @@ items:
       affixes:
         - { stat: haste, value: 5 }      # round(1+0.05*78)=5; pe 7.5 <= cap 27
     enhance_max: 9
-    price: { buy: 30000, sell: 7500 }
+    price: { buy: 32500, sell: 8125 }
     flavor: "Salt-stiff leather that never quite dries, worn by the last watch before the void-tide line."
 
   # --- gloves, item_equip_0279-0284 (affix: +precision, 3u) ---
@@ -933,7 +933,7 @@ items:
       affixes:
         - { stat: precision, value: 51 } # +precision 3*u(71)=51; pe 10.2 <= cap 24
     enhance_max: 9
-    price: { buy: 25000, sell: 6250 }
+    price: { buy: 26250, sell: 6563 }
     flavor: "Umbral-dyed leather that swallows torch-glare, useful for a hand steadying a nocked arrow."
 
   - id: item_equip_0284
@@ -948,5 +948,5 @@ items:
       affixes:
         - { stat: precision, value: 57 } # +precision 3*u(78)=57; pe 11.4 <= cap 27
     enhance_max: 9
-    price: { buy: 30000, sell: 7500 }
+    price: { buy: 32500, sell: 8125 }
     flavor: "Salt-cured leather over drowned-iron knuckles, steady even at the last watch before the void."
