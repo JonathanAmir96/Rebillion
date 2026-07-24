@@ -60,15 +60,16 @@ plus_mult(n) = 1 + 0.5·(n - 1)                        # +1 → ×1.0 … +9 →
 | Tier (`req_level`) | `base_fee` | fee @ +1 | @ +5 | @ +9 |
 |---|---|---|---|---|
 | T1 (1) | 15 | 15 | 45 | 75 |
-| T3 (20) | 99 | 99 | 297 | 495 |
-| T5 (40) | 189 | 189 | 567 | 945 |
-| T6 (50) | 234 | 234 | 702 | 1,170 |
-| T8 (70) | 324 | 324 | 972 | 1,620 |
-| T10 (90) | 414 | 414 | 1,242 | 2,070 |
+| T2 (8) | 45 | 45 | 135 | 225 |
+| T3 (15) | 78 | 78 | 234 | 390 |
+| T4 (22) | 108 | 108 | 324 | 540 |
+| T5 (29) | 141 | 141 | 423 | 705 |
+| T6 (36) | 171 | 171 | 513 | 855 |
+| T7 (40) | 189 | 189 | 567 | 945 |
 
-Worked: taking one T6 item 0→+9 (guaranteed +1..+5, then the §3-pity risky band, expected ≈ 8
-attempts total) costs ≈ **10.5 K `shards`** ≈ 17 min of at-level income (§5) — a real but cozy
-sink, repeated per key item. Pity (`10_systems/ENHANCEMENT.md` §3) bounds the worst case; luck
+Worked: taking one T7 item 0→+9 (guaranteed +1..+5, then the §3-pity risky band, expected ≈ 8
+attempts total) costs ≈ **5.1 K `shards`** ≈ 10 min of at-level (Lv 42) income (§5) — a real but
+cozy sink, repeated per key item. Pity (`10_systems/ENHANCEMENT.md` §3) bounds the worst case; luck
 never inflates the *fee* past the 5-attempt cap per level.
 
 ### 3.1 Stat free-point reallocation fee
@@ -80,9 +81,9 @@ fee; this doc owns the number:
 reallocation_fee(L) = round( 50 · L )       # full respec of the free pool
 ```
 
-Lv 30 → 1,500; Lv 50 → 2,500; Lv 100 → 5,000. Scales with `level` so it stays a meaningful choice
-without ever locking a build (P2 — no trap builds; the pool is always reallocatable). First-pass;
-`10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
+Lv 30 → 1,500; Lv 42 (arc end) → 2,100; reference Lv 80 → 4,000. Scales with `level` so it stays a
+meaningful choice without ever locking a build (P2 — no trap builds; the pool is always
+reallocatable). First-pass; `10_systems/STATS.md`/`10_systems/LEVELING.md` may tune.
 
 ## 4. Vendor price bands
 
@@ -92,13 +93,16 @@ buy)`.
 
 ### 4.1 Consumables (`item_use`, `docs/ID_REGISTRY.md` §use)
 
+The five tonic tiers span the authored Lv 1–42 arc (`docs/ID_REGISTRY.md`; band mapping here,
+magnitudes are Phase D `10_systems/ITEMS.md` data):
+
 | Item (life / essence pair) | Serves band | Buy | Sell |
 |---|---|---|---|
-| Lesser Life / Essence Tonic (`0001`/`0006`) | Lv 1–9 | 15 | 4 |
-| Life / Essence Tonic (`0002`/`0007`) | Lv 10–29 | 60 | 15 |
-| Greater … (`0003`/`0008`) | Lv 30–49 | 200 | 50 |
-| Superior … (`0004`/`0009`) | Lv 50–69 | 500 | 125 |
-| Prime … (`0005`/`0010`) | Lv 70–100 | 1,000 | 250 |
+| Lesser Life / Essence Tonic (`0001`/`0006`) | Lv 1–8 | 15 | 4 |
+| Life / Essence Tonic (`0002`/`0007`) | Lv 9–17 | 50 | 13 |
+| Greater … (`0003`/`0008`) | Lv 18–25 | 130 | 33 |
+| Superior … (`0004`/`0009`) | Lv 26–33 | 280 | 70 |
+| Prime … (`0005`/`0010`) | Lv 34–42 | 500 | 125 |
 | Antidote (`0011`) / Thaw Salve (`0012`) | any | 50 | 12 |
 | Millbrook Return Scroll (`0013`) | any | 100 | 25 |
 | Hearth Bread (`0014`, food buff) | any | 80 | 20 |
@@ -116,17 +120,16 @@ buy anything at 25%. Buy value = `base_buy(tier) · rarity_mult`:
 | Tier (`req_level`) | `base_buy` (`common`) |  | `rarity_mult` |  |
 |---|---|---|---|---|
 | T1 (1) | 30 |  | `common` | ×1 |
-| T2 (10) | 120 |  | `uncommon` | ×2.5 |
-| T4 (30) | 600 |  | `rare` | ×8 |
-| T6 (50) | 1,800 |  | `epic` | ×30 |
-| T8 (70) | 4,000 |  | `legendary` | ×30 (suppressed) |
-| T10 (90) | 8,000 |  | | |
+| T2 (8) | 100 |  | `uncommon` | ×2.5 |
+| T4 (22) | 360 |  | `rare` | ×8 |
+| T6 (36) | 870 |  | `epic` | ×30 |
+| T7 (40) | 1,050 |  | `legendary` | ×30 (suppressed) |
 
-`base_buy` for intermediate tiers interpolates (T3 300, T5 1,050, T7 2,800, T9 6,000).
+`base_buy` for intermediate tiers interpolates (T3 210, T5 570).
 **`legendary` and boss-unique vendor value is suppressed to the `epic` multiplier** so the best
 gear is used or traded on the future market (`10_systems/social/MARKET.md`), never vendored for a
 `shards` windfall (an inflation guard, §6). Example vendoring faucet: a `rare` T6 drop sells for
-`round(0.25 · 1800 · 8)` = **3,600** `shards` (≈ 5 min of income) — a satisfying but non-dominant
+`round(0.25 · 870 · 8)` = **1,740** `shards` (≈ 3 min of income) — a satisfying but non-dominant
 faucet.
 
 ## 5. Potion economics vs hunting income
@@ -139,16 +142,17 @@ potion spend assumes ≈ **18 tonics/hour** of the band tonic (≈ 1 per 27 kill
 
 | Player Lv | Band tonic (buy) | Income/hr | Potion spend/hr | Bite | Net/hr |
 |---|---|---|---|---|---|
-| 10 | Life Tonic (60) | 8,640 | 1,080 | 12.5% | +7,560 |
-| 30 | Greater (200) | 23,040 | 3,600 | 15.6% | +19,440 |
-| 50 | Superior (500) | 37,440 | 9,000 | 24.0% | +28,440 |
-| 70 | Prime (1,000) | 51,840 | 18,000 | 34.7% | +33,840 |
-| 90 | Prime (1,000) | 66,240 | 18,000 | 27.2% | +48,240 |
+| 8 | Lesser (15) | 7,200 | 270 | 3.8% | +6,930 |
+| 17 | Life (50) | 13,920 | 900 | 6.5% | +13,020 |
+| 25 | Greater (130) | 19,680 | 2,340 | 11.9% | +17,340 |
+| 33 | Superior (280) | 25,440 | 5,040 | 19.8% | +20,400 |
+| 42 | Prime (500) | 31,680 | 9,000 | 28.4% | +22,680 |
 
-The bite deliberately **rises into the 50–70 band** (the combat-heavy dungeon years) then eases at
-90 as income outpaces the capped Prime tonic price. Early levels (10–30) sit under 20% — intended
-tutorial gentleness (P2). Net is positive at every level, funding the enhancement (§3) and gear
-(§4) sinks that turn surplus `shards` into power. Exact restore amounts (Phase D use-item data)
+The bite deliberately **rises into the Lv 30–42 arc endgame** (the combat-heavy dungeon and
+Clockwork years), peaking near the 28% target at the Lv 42 arc end. Early levels (8–25) sit under
+20% — intended tutorial gentleness (P2). Net is positive at every level, funding the enhancement
+(§3) and gear (§4) sinks that turn surplus `shards` into power. Exact restore amounts (Phase D
+use-item data)
 set the real drink rate; if tonics restore more/less than the ~40%-of-band-`life` assumption here,
 drinks/hour shifts and the bite with it — retune tonic **price** (§4.1), not the faucet.
 
@@ -181,8 +185,8 @@ Designed now so the eventual live economy does not inflate (`00_vision/PILLARS.m
   dominant, quests supplementary). Confirm with `10_systems/QUESTS.md` at the D gate.
 - Market transaction-fee rate and guild-creation fee are stubs owned by the `social/` docs; if
   those systems change the sink budget materially, revisit §6. Flagged, server-dependent.
-- A "mastery `exp` → `shards`" post-cap soft sink is floated by `10_systems/LEVELING.md` §6 OQ but
-  **not** adopted here (default: cap `exp` discarded). If wanted it is a faucet and belongs in §1,
-  balanced against §2.
+- No cap-`exp` "mastery → `shards`" sink is needed this arc — under cap 300 all `exp` in the Lv 1–42
+  arc goes to levels (`10_systems/LEVELING.md` §6, no post-cap discard). If a future arc's tail ever
+  wants an `exp`-overflow sink it belongs in §1, balanced against §2.
 - Whether stat reallocation should be cheaper/free below some level (to lower the early
   experimentation barrier) is open; default is the flat `50·L` curve (§3.1).

@@ -23,7 +23,7 @@ when the monster dies (one monster can drop several rows, or none but its guaran
 
 | Field | Meaning |
 |---|---|
-| `ref` | a concrete item ID (`item_equip_*`/`item_use_*`/`item_etc_*`), the literal `shards`, or a named pool `pool_equip_r01`–`r12` (§6) |
+| `ref` | a concrete item ID (`item_equip_*`/`item_use_*`/`item_etc_*`), the literal `shards`, or a named pool `pool_equip_r01`–`r08` (§6) |
 | `chance` | probability in `[0,1]`, expressed as a §2 named bucket or a raw float |
 | `qty_min`–`qty_max` | integer quantity rolled uniformly if the row hits (unstacked equips are always 1) |
 | `rarity_source` | *(pool rows only)* which §5 rarity-weight row instantiates the equip's `rarity` |
@@ -45,7 +45,7 @@ naturally sits on a `legendary`-chance row. Tune per monster within these anchor
 | `uncommon` | 0.15 | a second material, `elite` emberstone, use items |
 | `rare` | 0.04 | `elite` pool roll, use items from `normal` |
 | `epic` | 0.008 | boss uniques (region), high-end pool rolls |
-| `legendary` | 0.0015 | rarest pool rolls, raid uniques |
+| `legendary` | 0.0015 | rarest pool rolls, boss uniques |
 
 ## 3. Shard faucet — `shards` per kill by monster level
 
@@ -56,8 +56,10 @@ authoritative; the table is the checksum. Tier multiplies the mean.
 ```
 mean_shards_normal(L) = round( 1.5·L + 3 )
 range                 = [ round(0.8·mean), round(1.2·mean) ]
-tier multiplier: normal ×1 · elite ×4 · boss ×15 · raid boss = §5.4
+tier multiplier: normal ×1 · elite ×4 · boss ×15    (no raid tier — Decision Contract C9)
 ```
+
+Arc rows are Lv 1–42; rows below the rule are reference anchors beyond the authored arc.
 
 | Mob Lv | `normal` mean (range) | `elite` ×4 | `boss` ×15 |
 |---|---|---|---|
@@ -65,15 +67,17 @@ tier multiplier: normal ×1 · elite ×4 · boss ×15 · raid boss = §5.4
 | 10 | 18 (14–22) | 72 | 270 |
 | 20 | 33 (26–40) | 132 | 495 |
 | 30 | 48 (38–58) | 192 | 720 |
-| 50 | 78 (62–94) | 312 | 1,170 |
-| 70 | 108 (86–130) | 432 | 1,620 |
-| 90 | 138 (110–166) | 552 | 2,070 |
+| 40 | 63 (50–76) | 252 | 945 |
+| 42 (arc end) | 66 (53–79) | 264 | 990 |
+| — reference — | | | |
+| 60 | 93 (74–112) | 372 | 1,395 |
+| 80 | 123 (98–148) | 492 | 1,845 |
 | 100 | 153 (122–184) | 612 | 2,295 |
-| 105 | 160 (128–192) | 640 | 2,400 |
 
 At the `10_systems/LEVELING.md` §1 pace (≈ 480 at-level kills/hour), pure-`normal` hunting income
-is ≈ `480 · mean_shards_normal(L)` (≈ 8.6 K/h at Lv 10, ≈ 37 K/h at Lv 50, ≈ 73 K/h at Lv 100);
-`10_systems/ECONOMY.md` §5 balances this against sinks. `shards` are **not** affected by `fortune`
+is ≈ `480 · mean_shards_normal(L)` (≈ 8.6 K/h at Lv 10, ≈ 23 K/h at Lv 30, ≈ 32 K/h at the Lv 42
+arc end); `10_systems/ECONOMY.md` §5 balances this against sinks. `shards` are **not** affected by
+`fortune`
 (§4) — income stays steady and legible (P2); only item luck varies.
 
 ## 4. `fortune` loot bias (applying the STATS hook)
@@ -90,9 +94,9 @@ m = 1 + min(fortune_drop_bonus, 100) / 100          # DROPS caps the bonus at +1
 and (b) the **weight of `uncommon`-and-rarer outcomes** in a §5 pool rarity roll (weights
 renormalized after). It does **not** touch `guaranteed` rows, `shards` (§3), or `qty`. An adjusted
 `chance` is clamped to ≤ 0.95 so luck never silently makes a drop certain. The cap rarely binds: a
-dedicated `fortune` build near Lv 100 reads a `fortune_drop_bonus ≈ 30` from STATS §3, giving
-`m ≈ 1.30` (+30% rare-loot rate) — the assassin-fantasy payoff of the `flicker`/`dirk` double-dip
-(`10_systems/STATS.md` §2.1) without warping the economy.
+dedicated `fortune` build at the Lv 42 arc end reads a `fortune_drop_bonus ≈ 10` from STATS §3,
+giving `m ≈ 1.10` (+10% rare-loot rate) — the assassin-fantasy payoff of the `flicker`/`dirk`
+double-dip (`10_systems/STATS.md` §2.1) without warping the economy.
 
 ## 5. Per-tier table shapes
 
@@ -124,16 +128,13 @@ within these shapes; the guarantees are the contract.
   (or `legendary` for the more prized one). **First-ever clear guarantees one** of the two
   (bad-luck protection, P2); later kills roll the chance.
 
-### 5.4 raid boss (Rift, `docs/WORLD_PLAN.md` R12)
-- Party-shared loot; **who receives which roll is `10_systems/social/PARTY.md`'s distribution
-  rule**, not this doc. This doc owns the table shape:
-- `shards` — `guaranteed`, large (raid `shards` = §3 `boss` mean × the raid `life` factor is
-  overkill; use `boss` ×15 as the floor, tuned per raid).
-- **Raid tokens** — a raid etc-currency/material (Rift `item_etc` block `0177`–`0192`) —
-  `guaranteed`, one per participating member (the raid-gear exchange loop is deferred, Open
-  Questions).
-- **One guaranteed pool roll**, `rarity_source = raid` (§5.5) — `rare`+ emphasis.
-- **Raid uniques** — the raid boss's two uniques (`10_systems/ITEMS.md` §11), `legendary`-weighted.
+### 5.4 Party-quest finale bosses
+The two party quests (`10_systems/social/PARTY_QUEST.md`) end at existing region bosses (the Cellar
+King, `map_042`; the Custodian, `map_200`) fought party-instanced. They drop the **`boss` table
+shape** (§5.3) — including the boss's own uniques — with party loot distribution owned by
+`10_systems/social/PARTY.md`, not this doc. There is no separate raid tier or raid-token block
+(Decision Contract C9); the `item_etc_0129`–`0192` range stays **reserved for future regions**
+(`docs/ID_REGISTRY.md`) and is not repurposed as a token currency this arc.
 
 ### 5.5 Pool rarity-roll weights (`rarity_source`)
 
@@ -145,11 +146,10 @@ renormalization.
 |---|---|---|---|---|---|
 | `elite` | 55 | 35 | 9 | 1 | 0.2 |
 | `boss` | 0 | 30 | 50 | 18 | 2 |
-| `raid` | 0 | 0 | 40 | 45 | 15 |
 
-## 6. Region equip pools (`pool_equip_r01`–`r12`)
+## 6. Region equip pools (`pool_equip_r01`–`r08`)
 
-A named pool per region (`docs/ID_REGISTRY.md`; contents authored in
+A named pool per region (`docs/ID_REGISTRY.md`, 8 regions; contents authored in
 `50_content/drop_tables/pools.yaml`). A pool lists the **base equip IDs** (`item_equip_*` weapons/
 armor/accessories) whose `tier` matches that region's level band (`10_systems/ITEMS.md` §4,
 `docs/WORLD_PLAN.md`). A **pool roll**:
@@ -161,7 +161,7 @@ armor/accessories) whose `tier` matches that region's level band (`10_systems/IT
 
 Pools are region-scoped so a monster drops **level-appropriate** gear (P2 legible progression). A
 pool `ref` in a `drop_mob` row means "roll this pool," not a specific item. Boss uniques are **not**
-in pools — they are direct `ref` rows (§5.3/§5.4).
+in pools — they are direct `ref` rows (§5.3; PQ finales reuse the boss shape, §5.4).
 
 ## 7. World drop, tagging & ownership
 
@@ -204,9 +204,10 @@ client may re-roll a table or self-assign a rarity.
 - The `fortune` cap (+100%, §4) and whether it should also nudge `shards` slightly are open;
   default keeps `shards` `fortune`-free for steady income. Owner: this doc with
   `10_systems/ECONOMY.md`.
-- Raid-token → raid-gear exchange (§5.4) and the token IDs within Rift `item_etc` `0177`–`0192` are
-  a Phase D / endgame design; this doc fixes only that a `guaranteed` token row exists. Flagged for
-  `10_systems/social/PARTY.md` + the R12 content batch.
+- Party-quest finale loot distribution (which member receives the `boss`-shape rolls and the boss
+  uniques, §5.4) is owned by `10_systems/social/PARTY.md` / `10_systems/social/PARTY_QUEST.md`, not
+  yet authored; this doc fixes only that PQ finales use the §5.3 `boss` table shape. Flagged for
+  Agent C.
 - Ownership-timer values (60 s / 120 s) and whether dungeons/arenas shorten them are first-pass;
   confirm against `10_systems/social/PARTY.md` loot rules and `15_maps_system/MAPS_SYSTEM.md` zone
   behavior.

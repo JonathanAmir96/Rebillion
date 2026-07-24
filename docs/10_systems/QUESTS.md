@@ -37,9 +37,11 @@ doc owns the anatomy and the numbers Phase D content copies.
 A quest chain is nothing but one quest's `prereqs` naming an earlier `quest_NNN`; there is **no**
 separate "chain" step type or field. `level_requirement` and `prereqs` both gate *accepting* the
 quest (both must hold). Job-advancement trainer quests (`10_systems/JOBS.md` §1) are ordinary
-`main` quests: the 2nd/3rd-tier trainer quest's `prereqs` names the previous tier's trainer quest,
-which is what actually enforces "already that line, already that tier" — no separate job-gate
-field is needed. The four 1st-advancement trainer quests (one per line) are **mutually
+`main` quests: the 2nd-tier (Lv 40) trainer quest's `prereqs` names the line's 1st-advancement
+trainer quest, which is what actually enforces "already that line, already that tier" — no separate
+job-gate field is needed. (The 3rd-advancement trainer quest gates at Lv 80 and is reserved for a
+future arc, `10_systems/JOBS.md` §1/§8 — not authored this run.) The four 1st-advancement trainer
+quests (one per line) are **mutually
 exclusive by authoring convention**: completing one sets the character's line
 (`10_systems/JOBS.md` §1) and the other three must stop being offered to that character from then
 on; this doc fixes the exclusivity, Phase D wires it through each trainer NPC's quest list.
@@ -91,24 +93,27 @@ quest_exp = round( pct · exp_to_next(quest_level) )     # exp_to_next per 10_sy
 | `main` (incl. job-trainer) | 15%–30% |
 | `side` | 5%–10% |
 
+Arc rows are Lv 1–42; rows below the rule are reference anchors beyond the authored arc.
+
 | `quest_level` | `exp_to_next` (`10_systems/LEVELING.md` §1) | `main` reward (15–30%) | `side` reward (5–10%) |
 |---|---|---|---|
 | 1 | 80 | 12–24 | 4–8 |
-| 10 | 3,200 | 480–960 | 160–320 |
-| 20 | 19,700 | 2,955–5,910 | 985–1,970 |
-| 30 | 66,600 | 9,990–19,980 | 3,330–6,660 |
-| 50 | 336,440 | 50,466–100,932 | 16,822–33,644 |
-| 70 | 1,002,000 | 150,300–300,600 | 50,100–100,200 |
-| 90 | 2,277,960 | 341,694–683,388 | 113,898–227,796 |
-| 99 | 3,112,560 | 466,884–933,768 | 155,628–311,256 |
+| 10 | 3,680 | 552–1,104 | 184–368 |
+| 20 | 24,428 | 3,664–7,328 | 1,221–2,443 |
+| 30 | 84,582 | 12,687–25,375 | 4,229–8,458 |
+| 40 | 211,024 | 31,654–63,307 | 10,551–21,102 |
+| 42 (arc end) | 247,164 | 37,075–74,149 | 12,358–24,716 |
+| — reference — | | | |
+| 60 | 783,920 | 117,588–235,176 | 39,196–78,392 |
+| 80 | 2,005,644 | 300,847–601,693 | 100,282–200,564 |
 
 A region's total quest `exp` should land near **≈25%** of the `exp` needed to clear that region's
 level band (`10_systems/LEVELING.md` §4 — cited, not restated); Phase D sums each region's
 authored quests against that target and tunes individual `pct` within the bands above, per
-`10_systems/LEVELING.md`'s own Open Question on this reconciliation. **Rift-band quests
-(`quest_085`–`090`, region 12, Lv 100+) pay no `exp`** — they inherit the post-cap policy
-(`10_systems/LEVELING.md` §6) exactly as monster kills do at cap; their reward is `shards`/items
-only (§5).
+`10_systems/LEVELING.md`'s own Open Question on this reconciliation. There is no Rift band
+(Decision Contract C9): the Clockwork PQ/handler quests **`quest_085`–`090`** are ordinary arc
+quests (region 8, Lv 34–42) and **pay `exp` on the normal `main`/`side` bands above** — they are
+not exempt.
 
 ## 5. Reward budget — `shards`
 
@@ -127,10 +132,8 @@ a `side` quest pays the **elite-kill** `shards` mean at the quest's level, a `ma
 | 10 | 72 | 270 |
 | 20 | 132 | 495 |
 | 30 | 192 | 720 |
-| 50 | 312 | 1,170 |
-| 70 | 432 | 1,620 |
-| 90 | 552 | 2,070 |
-| 99 | 608 | 2,280 |
+| 40 | 252 | 945 |
+| 42 (arc end) | 264 | 990 |
 
 `10_systems/ECONOMY.md` treats this as a supplementary faucet, not the main one (its §1); it may
 retune the multipliers above at the D gate if the total faucet drifts. **Item rewards** (an

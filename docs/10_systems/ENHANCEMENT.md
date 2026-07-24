@@ -15,17 +15,17 @@ downgraded**, and worst-case cost is bounded by pity.
 
 ## 1. Emberstone tiers → gear-band mapping
 
-Five emberstone tiers (`item_etc_0193`–`0197`, `docs/ID_REGISTRY.md`), each covering two gear
+Five emberstone tiers (`item_etc_0193`–`0197`, `docs/ID_REGISTRY.md`) spanning the seven v2 gear
 tiers (`10_systems/ITEMS.md` §4). The stone tier must match the item's tier band — you cannot
-enhance a T10 item with Emberstone I.
+enhance a T7 item with Emberstone I.
 
 | Emberstone | ID | Enhances gear tiers | Item `req_level` range |
 |---|---|---|---|
-| Emberstone I | `item_etc_0193` | T1–T2 | 1–19 |
-| Emberstone II | `item_etc_0194` | T3–T4 | 20–39 |
-| Emberstone III | `item_etc_0195` | T5–T6 | 40–59 |
-| Emberstone IV | `item_etc_0196` | T7–T8 | 60–79 |
-| Emberstone V | `item_etc_0197` | T9–T10 | 80–100 |
+| Emberstone I | `item_etc_0193` | T1–T2 | 1–14 |
+| Emberstone II | `item_etc_0194` | T3–T4 | 15–28 |
+| Emberstone III | `item_etc_0195` | T5 | 29–35 |
+| Emberstone IV | `item_etc_0196` | T6 | 36–39 |
+| Emberstone V | `item_etc_0197` | T7 | 40–42 |
 
 One emberstone of the matching tier is consumed **per attempt** (success or fail). The visual
 flavor of `emberstone` may be reskinned by an ART_BIBLE amendment (GLOSSARY note); the mechanic is
@@ -95,9 +95,10 @@ gamble):
 | `ring` | primary and `crit_rate` |
 | `amulet` | primary and `crit_power` |
 
-Worked: a T6 `blade` (base `W` 246, `10_systems/ITEMS.md` §7) at +9 adds +62% = +153 `power`
-(total 399), exceeding a +0 T7 `blade` (327) — the enhancement chase leapfrogs one tier at the
-top end, which is the intended endgame at Lv 100 (T10 +9 + uniques, `10_systems/LEVELING.md` §6).
+Worked: a T6 `blade` (base `W` 152, `10_systems/ITEMS.md` §7) at +9 adds +62% = +94 `power`
+(total 246), matching a +0 T7 `blade` (176) with room to spare — the enhancement chase leapfrogs
+one tier at the top end, which is the intended arc endgame at Lv 40–42 (T7 +9 + uniques,
+`10_systems/ITEMS.md` §11).
 The added value enters `power`/`armor`/… as `Σ*_gear` per `10_systems/STATS.md` §2 and is subject
 to that doc's soft caps (§6) for the percentage lines. This enhancement headroom is part of the
 at-level `power_ref` assumption in `10_systems/COMBAT_FORMULA.md` §15.
@@ -109,12 +110,12 @@ Every attempt costs `shards`, paid to the enhancement NPC (a town smith interior
 both the gear tier and the target `+` (so the risky high-`+` band at high tiers is the economy's
 main `shards` sink). This doc does not restate the numbers; it asserts only that: one fee is paid
 per attempt (success or fail), the fee is a pure `shards` sink (no material refund on fail), and
-the fee scales up-tier/up-`+` so enhancement remains a meaningful sink at cap without ever gating
-progression behind luck (pity, §3, bounds the material and fee cost).
+the fee scales up-tier/up-`+` so enhancement remains a meaningful sink at the arc endgame (T7,
+Lv 40–42) without ever gating progression behind luck (pity, §3, bounds the material and fee cost).
 
 ## 6. Emberstone acquisition & authority
 
-- **Drops.** Emberstones drop from `elite` and `boss` monsters (and raid bosses); the drop rates
+- **Drops.** Emberstones drop from `elite` and `boss` monsters; the drop rates
   and which tier drops in which region are owned by `10_systems/DROPS.md` (§5 elite/boss table
   shapes) and keyed to the region's level band (`docs/WORLD_PLAN.md`). Emberstones are **not**
   vendor-purchasable at launch (they are a hunt reward, keeping the enhancement loop tied to play
@@ -136,9 +137,9 @@ progression behind luck (pity, §3, bounds the material and fee cost).
 - Emberstone vendor purchase / crafting from region materials (`item_etc` per region) is deferred;
   if added it belongs to `10_systems/ECONOMY.md` (a `shards`/material sink) referencing this doc's
   tier mapping (§1), not a new drop rule.
-- Whether raid bosses drop a distinct high-tier emberstone or reuse Emberstone V is a
-  `10_systems/DROPS.md` R12 call; default reuses V (§1 covers T9–T10 and the Rift is out-gear, not
-  out-tier, per `10_systems/LEVELING.md` §6).
+- Future arcs adding gear tiers beyond T7 will need emberstone coverage past T7 (a new stone tier or
+  extending Emberstone V's band); out of scope this arc, which caps at T7 (Lv 40). Owner: this doc,
+  future arc, referencing `10_systems/ITEMS.md` §4.
 - Enhancement above +9 (e.g., a +10..+12 "starforce" extension) is explicitly **not** in scope this
   pass; if ever added it must not break the `10_systems/COMBAT_FORMULA.md` §13/§15 balance surface
   (the anti-power-creep concern of `00_vision/PILLARS.md`).
