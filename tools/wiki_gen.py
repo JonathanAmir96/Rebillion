@@ -18,6 +18,8 @@ regenerate at will.
 """
 import argparse
 import os
+import shutil
+import struct
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -25,6 +27,10 @@ from validate import load_yaml  # PyYAML if present, tolerant fallback otherwise
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(REPO, "docs", "50_content")
+# Sprite frames exported per the ART_BIBLE export_contract frame naming —
+# "{entity_id}_{state}_{NN}.png" — dropped anywhere under assets/sprites/ are
+# auto-embedded (monster portrait = idle frame 00; one preview frame per state).
+SPRITES = os.path.join(REPO, "assets", "sprites")
 
 # Region display order + names come from the minted map files themselves (each
 # map carries `region`); this list only fixes presentation order per WORLD_PLAN.
@@ -87,9 +93,42 @@ def load_all():
 # ---------------------------------------------------------------------------
 # Cross-link indexes
 # ---------------------------------------------------------------------------
+def find_sprites():
+    """Index every exported sprite frame: '{entity_id}_{state}_{NN}' -> path."""
+    idx = {}
+    for root, _, files in os.walk(SPRITES):
+        for f in sorted(files):
+            if f.endswith(".png"):
+                idx[f[:-4]] = os.path.join(root, f)
+    return idx
+
+
+def png_width(path):
+    with open(path, "rb") as f:
+        head = f.read(24)
+    if head[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    return struct.unpack(">I", head[16:20])[0]
+
+
+def sprite_img(ix, out, key, cls="", scale=3):
+    """Copy a sprite frame into the wiki and return an <img> tag ('' if absent)."""
+    path = ix["sprites"].get(key)
+    if not path:
+        return ""
+    dst_dir = os.path.join(out, "sprites")
+    os.makedirs(dst_dir, exist_ok=True)
+    shutil.copyfile(path, os.path.join(dst_dir, os.path.basename(path)))
+    w = png_width(path)
+    wattr = ' width="%d"' % (w * scale) if w else ""
+    return '<img class="sprite %s" src="../sprites/%s" alt="%s"%s>' % (
+        cls, os.path.basename(path), esc(key), wattr)
+
+
 def build_indexes(w):
     ix = {"mob_maps": {}, "npc_maps": {}, "mob_quests": {}, "npc_quests": {},
-          "item_sources": {}, "map_region": {}, "mob_region": {}}
+          "item_sources": {}, "map_region": {}, "mob_region": {},
+          "sprites": find_sprites()}
     for mid, mp in w["maps"].items():
         ix["map_region"][mid] = mp.get("region", "")
         for zone in mp.get("spawn_zones") or []:
@@ -153,6 +192,8 @@ a { color:var(--accent); }
 .flavor { font-style:italic; color:var(--dim); border-left:3px solid
           var(--accent); padding-left:.8em; margin:1em 0; }
 .wrap { overflow-x:auto; }
+img.sprite { image-rendering:pixelated; height:auto; }
+img.portrait { float:right; margin:0 0 .5em 1em; }
 footer { color:var(--dim); font-size:.8em; text-align:center; padding:1em; }
 """
 
@@ -226,6 +267,9 @@ def monster_page(w, ix, mob, out):
             ("Dodge (evasion %)", s.get("evasion")),
             ("AI profile", m.get("ai_profile"))]
     body = ["<h1>%s <small>%s</small></h1>" % (esc(m.get("name", mob)), mob)]
+    portrait = sprite_img(ix, out, "%s_idle_00" % mob, cls="portrait", scale=3)
+    if portrait:
+        body.append(portrait)
     if m.get("flavor"):
         body.append('<div class="flavor">%s</div>' % esc(m["flavor"]))
     body.append("<h2>Stats</h2><div class='wrap'><table>")
@@ -267,10 +311,15 @@ def monster_page(w, ix, mob, out):
 
     body.append("<h2>Animations</h2>")
     notes = m.get("animation_notes") or {}
-    body.append("<div class='wrap'><table><tr><th>State</th><th>Description</th></tr>")
+    has_frames = any(ix["sprites"].get("%s_%s_00" % (mob, st))
+                     for st in m.get("animation_states") or [])
+    body.append("<div class='wrap'><table><tr><th>State</th>%s<th>Description</th></tr>"
+                % ("<th>Frame</th>" if has_frames else ""))
     for st in m.get("animation_states") or []:
-        body.append("<tr><td><code>%s</code></td><td>%s</td></tr>"
-                    % (esc(st), esc(notes.get(st, "—"))))
+        frame = ("<td>%s</td>" % (sprite_img(ix, out, "%s_%s_00" % (mob, st), scale=2)
+                                  or "—")) if has_frames else ""
+        body.append("<tr><td><code>%s</code></td>%s<td>%s</td></tr>"
+                    % (esc(st), frame, esc(notes.get(st, "—"))))
     body.append("</table></div>")
 
     tab = w["drop_tables"].get(m.get("drop_table", ""), {})
