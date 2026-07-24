@@ -20,5 +20,13 @@ ai_params:                       # override only territorial_guard-declared tuna
   leash_radius: 4
   patrol_radius: 2
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Basks with its head half-out, blinking once in a long while."
+  walk: "A ponderous four-count plod, shell swaying side to side."
+  jump: "One great heave that lifts the shell barely a hand's width."
+  fall: "Drops shell-first with a flat, heavy slam."
+  attack: "Shoots its neck out full length in a surprisingly quick snap."
+  hit: "Yanks head and legs into the shell and rocks in place."
+  die: "Settles flat on the shell rim, head sliding out slack."
 drop_table: drop_mob_004
 flavor: "A slab-shelled tortoise that suns itself on the kiln-warmed rocks and will not be budged. Its shell shrugs off a beginner's blows until they learn to wait for the head."

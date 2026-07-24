@@ -142,6 +142,7 @@ abilities:
     targeting: { shape: line, length: 6, width: 2 }
     cooldown: 7.0
     telegraph_s: 1.2
+    animation_note: "The dragged-paw ember line points straight down the charge lane before it commits."
     effects:
       - { op: deal_damage, element: fire, mult: 1.5 }
       - { op: apply_status, status: burn, chance: 0.4, dur: 5 }
@@ -150,6 +151,7 @@ abilities:
     targeting: { shape: aoe_circle, radius: 3, origin: self }
     cooldown: 10.0
     telegraph_s: 1.4
+    animation_note: "Sits back on its haunches and shakes its whole mane once before the burst."
     effects:
       - { op: deal_damage, element: fire, mult: 1.2 }
       - { op: knockback, distance: 2 }
@@ -157,9 +159,13 @@ animation_states: [idle, walk, jump, fall, attack, telegraph, hit, die, spawn]
 animation_notes:                   # per-state visual brief (rule 11; keys ⊆ animation_states)
   idle: "Paces a tight circle, smoldering mane flaring with each slow breath."
   walk: "A heavy wolfish lope, head low, loose cinders trailing off the mane."
+  jump: "Bunches onto its haunches and springs long and flat, ears pinned."
+  fall: "Drops with legs braced wide, mane streaming upward."
   attack: "A snapping lunge-bite that rakes one body length forward."
-  telegraph: "Rears back and drags a forepaw, scoring an ember line along the ground."
+  hit: "Flinches sideways with a snarl, shaking sparks from its mane."
   die: "Buckles at the shoulders and collapses; the mane gutters out to smoke."
+  telegraph: "Rears back and drags a forepaw, scoring an ember line along the ground."
+  spawn: "Bounds in and lands stiff-legged, mane igniting as it snarls."
 drop_table: drop_mob_011
 respawn_override: 120
 flavor: "A scarred pack-leader whose mane smolders when its blood is up, herding the field's

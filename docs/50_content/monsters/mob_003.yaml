@@ -22,5 +22,13 @@ ai_params:                       # override only pack_hunter-declared tunables
   pack_call_radius: 7
   pack_max_size: 4
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Squats on splayed legs, abdomen pulsing with a slow inner glow."
+  walk: "A skittering zigzag scuttle, legs blurring."
+  jump: "Pings off the ground like a spark struck from flint."
+  fall: "Tucks every leg in and drops as a glowing dot."
+  attack: "Latches on in a quick full-body bite, abdomen flaring bright."
+  hit: "Bounces away onto its back, legs cycling in the air."
+  die: "Bursts in a small puff of ash, legs scattering pin-straight."
 drop_table: drop_mob_003
 flavor: "A skittering coal-red tick that glows brighter when its swarm-kin are near. One is nothing; a boil of them chases the warmth of the living."

@@ -20,5 +20,13 @@ ai_params:                       # override only support_caller-declared tunable
   cast_cooldown_s: 6
   retreat_range: 6
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Stands planted, carved seams brightening and dimming with its slow hum."
+  walk: "Rocks forward on alternating corners of its base, grinding as it goes."
+  jump: "A grinding heave that barely clears the ground."
+  fall: "Drops like the stone it is, landing with a squat thud."
+  attack: "Shoves forward with its whole mass in one slow headlong butt."
+  hit: "Chips visibly, the hum stuttering as it rocks back."
+  die: "Splits along its seams and slumps into a pile of warm rubble."
 drop_table: drop_mob_009
 flavor: "A squat stone-idol given a slow half-life by the isle's warmth, humming a rote that heartens the beasts around it. Novices learn to break it first, or fight everything else twice."

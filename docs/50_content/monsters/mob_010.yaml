@@ -22,5 +22,13 @@ ai_params:                       # override only aggressive_charger-declared tun
   charge_speed_mult: 2.0
   charge_recover_s: 3.0
 animation_states: [idle, walk, jump, fall, attack, hit, die]   # normal set
+animation_notes:               # per-state visual brief (monster.schema rule 11)
+  idle: "Knuckles planted, shoulders heaving with slow bellows-breaths."
+  walk: "A rolling knuckle-gallop that builds into the charge."
+  jump: "Launches off both fists in a low, heavy arc."
+  fall: "Comes down fists-first, mantled forward."
+  attack: "Rears upright and hammers down with both fists together."
+  hit: "Staggers a half-step, shaking its crusted back."
+  die: "Drops to its knuckles, then folds chest-first into the ash."
 drop_table: drop_mob_010
 flavor: "A broad-shouldered ape-thing with a back crusted in cooling coals that flare when it charges. The last real test of the fields before a novice dares the old kiln."
