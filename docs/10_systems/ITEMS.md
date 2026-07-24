@@ -127,9 +127,11 @@ Exact per-region level bands are owned by `docs/WORLD_PLAN.md`; the arc-2 island
 are the v3 owner revision (2026-07-23).
 
 **ID-block layout** within `item_equip` (`docs/ID_REGISTRY.md` owns the ranges; this is the
-intra-block convention). **Arc 1 (`0001`–`0180`):** weapons `0001`–`0040` = 4 lines × 6 tiers in
-line order (`blade 0001`–`0006`, `bow 0011`–`0016`, `staff 0021`–`0026`, `dirk 0031`–`0036`; the
-`0007`–`0010`/`0017`–`0020`/… tails are reserved intra-line growth); armor `0041`–`0140` = 5 slots
+intra-block convention). **Arc 1 (`0001`–`0180`):** weapons `0001`–`0040` = 4 lines × 6 tiers,
+contiguous by line as minted in `50_content/items/equip/weapons.yaml` (`blade 0001`–`0006`,
+`bow 0007`–`0012`, `staff 0013`–`0018`, `dirk 0019`–`0024`, each T1→T6; the block's reserve is
+the single unminted tail `0025`–`0040` — intra-line growth, nothing minted there per
+`docs/ID_REGISTRY.md`); armor `0041`–`0140` = 5 slots
 × 6 tiers (`head`, `body`, `legs`, `boots`, `gloves`, then reserved growth for intermediate/
 region-variant pieces); accessories `0141`–`0180` = `cape`/`ring`/`amulet` × tiers. **Arc 2
 (`0231`–`0300`, re-blocked from the old `0231`–`0300` growth reserve — no content was ever minted

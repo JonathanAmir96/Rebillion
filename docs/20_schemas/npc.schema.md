@@ -169,8 +169,9 @@ flavor: "{≤2 sentences}"
   Emberfoot's and Tidewatch's interior lists name neither. Whether every bind town needs an
   enhance-service NPC, and which role carries it where no smithy/enchanter interior is named, is
   unresolved; flagged for `docs/WORLD_PLAN.md`/`10_systems/ENHANCEMENT.md`'s owners.
-- Millbrook's guild hall/tavern/mayor's-house and Arcane Reach's athenaeum/observatory interiors
-  (`docs/WORLD_PLAN.md`) don't map cleanly onto one obvious `role` from the enum above. Phase D may
+- Millbrook's guild hall/tavern/mayor's-house and Arcane Reach's interiors — the Spirehaven inn
+  (`map_246`), the *Runewake* deck (`map_247`), and the Highrune sanctum hall (`map_267`)
+  (`docs/WORLD_PLAN.md` R10) — don't map cleanly onto one obvious `role` from the enum above. Phase D may
   reuse `quest_giver`/`flavor`/`guide` for these, or a future revision may add 1–2 roles within the
   ≤12 cap. Not resolved here.
 - `quest_giver`'s "should appear on ≥1 quest file" expectation is a soft, cross-file-only check —

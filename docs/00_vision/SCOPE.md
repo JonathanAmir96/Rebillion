@@ -16,12 +16,12 @@ machine-loadable YAML content. No game code, no generated art, no backend. A lat
 | Drop tables | 234 + 11 pools | One per monster, plus one equip pool per region |
 | Job lines | 4 | One per primary stat; novice → 1st (Lv 8) → 2nd (Lv 40, **branching: choose 1 of 2–3 specializations**, 10 specs total); 3rd tier deferred to future arcs |
 | Skills | 98 | Per line: 6 first-job + 7 per specialization (bulwark/weaver ×3, keeneye/flicker ×2) + 4 novice |
-| Items — equip | ~162 | 48 weapons, 60 armor, 32 accessories (T1–T12, Lv 1–78), 22 boss uniques (batched tables) |
+| Items — equip | ~170 | 48 weapons, 60 armor, 32 accessories (T1–T12, Lv 1–78), 22 boss uniques, 8 raid exclusives (batched tables) |
 | Items — use | ~34 | Tonics (7 tiers), cleanses, scrolls, foods (batched table) |
-| Items — etc | ~181 | 16 materials per region (×11) + emberstone tiers (batched tables) |
+| Items — etc | ~185 | 16 materials per region (×11) + 4 raid tokens + emberstone tiers (batched tables) |
 | NPCs | 120 | Town-weighted; see ID_REGISTRY.md |
 | Quests | 120 | Region-banded kill/collect/talk/reach chains, incl. 8 raid handler quests |
-| Elements | 6 | Owner: 10_systems/ELEMENTS.md (`arcane` mobs appear only in Clockwork) |
+| Elements | 6 | Owner: 10_systems/ELEMENTS.md (`arcane` mobs appear in Clockwork Ruins and Arcane Reach only) |
 | Status effects | 16 | Owner: 10_systems/STATUS_EFFECTS.md |
 | AI profiles | 12 | Owner: 10_systems/AI_BEHAVIOR.md |
 | Skill effect ops | 14 | Owner: 10_systems/SKILL_EFFECTS.md |

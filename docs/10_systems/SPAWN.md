@@ -63,7 +63,7 @@ A map's total zone population, summed across its `target_count`s, should land ne
 | `field` | 3 | Rare — 1 elite per 60–80 walkable tiles, own small zone | Open exploration; the player chooses engagements (P1) |
 | `dungeon` | 4 | Common — 1 elite zone per 40 walkable tiles | Corridor gauntlet; more committed combat |
 | `secret` | 2 | Elevated `mob_pool` weight toward elite entries | Bonus content — sparser overall, but richer per encounter |
-| `town` / `interior` | 0 | 0 | Combat-free (`docs/WORLD_PLAN.md` open item; assumed pending `15_maps_system/MAPS_SYSTEM.md` confirmation) |
+| `town` / `interior` | 0 | 0 | Combat-free — confirmed rule, owned by `15_maps_system/MAPS_SYSTEM.md` §6 |
 | `arena` | n/a — exempt | n/a | Boss/wave-scripted, not zone-density-budgeted (`15_maps_system/MAPS_SYSTEM.md`) |
 
 Because the budget is linear in walkable extent, a 3-screen map and a 10-screen map need no
@@ -165,8 +165,9 @@ the instance, per the boss respawn decision in §3 and the re-entry model in
   `20_schemas/map.schema.md`, authored at Phase C.
 - `target_count`/`max_concurrent` defaults (§2, §4) are first-pass and tunable per region once
   Phase D populates real zones.
-- The town/interior combat-free assumption (§2) inherits `docs/WORLD_PLAN.md`'s open item; if
-  `15_maps_system/MAPS_SYSTEM.md` later allows interior combat, this table needs a row.
+- **Resolved:** the town/interior combat-free rule (§2) is confirmed and owned by
+  `15_maps_system/MAPS_SYSTEM.md` §6; if that doc ever allows interior combat, §2's table needs
+  a row.
 - Whether the regional-boss "arena-entry instanced" mechanism (§3) is a true per-player instance
   or a shared arena that resets on empty is left to `15_maps_system/MAPS_SYSTEM.md`; both satisfy
   this doc's "no long timer" intent.

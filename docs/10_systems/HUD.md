@@ -19,7 +19,7 @@ which locked token (frame/color/font) each element uses.
 
 | Frame | Used for |
 |---|---|
-| `frame_window` | Toggle windows: Inventory, Skills/Character, full Map, Guild |
+| `frame_window` | Toggle windows: Inventory, Skills/Character, full Map, Party (Party + Board tabs, `10_systems/UI_WINDOWS.md` §4), Guild |
 | `frame_dialog` | Modal confirmations: quest turn-in confirm, vendor confirm, NPC dialogue |
 | `frame_quest` | The Quest Log window specifically (`10_systems/QUESTS.md` §8) |
 | `frame_system` | Always-on ambient HUD chrome: player plate, minimap, quest tracker, `boss_bar`, toasts |
@@ -85,9 +85,9 @@ duplication here — `life`/`essence` live only in the bottom bar (§3).
 
 The region `10_systems/social/PARTY.md` §3 forward-references: while in a party, up to **5**
 compact member plates (everyone but self) stack vertically beneath the player plate, top-left,
-in `frame_system`. Each plate shows what PARTY §3 specifies — member name (`name_tag`),
-`level`, `life` and `essence` as **percentage bars** (ember/tide ramps, no numerics — exact pools
-are the member's own business), a same-map indicator dot, and alive/**fallen** state
+in `frame_system`. Each plate shows what PARTY §3 specifies — member name (`name_tag`), `level`,
+the job-line icon, `life` and `essence` as **percentage bars** (ember/tide ramps, no numerics —
+exact pools are the member's own business), a same-map indicator dot, and alive/**fallen** state
 (`10_systems/DEATH_PENALTY.md` §5.3; a fallen member's plate desaturates with a fallen glyph —
 fallen members remain rendered, resolving that doc's party-frame Open Question on the HUD side).
 Plate order = PARTY.md's roster order (leader first). Hidden entirely when not in a party;
@@ -190,7 +190,7 @@ position and the always-on-collapsed default (§11).
 | Status icon row | Always-on while ≥1 status is active; auto-hidden otherwise |
 | Toasts | Always-on (not disable-able — some carry important state, e.g. inventory-full) |
 | Chat dock | Always-on, collapsed; cannot be fully hidden at launch (Open Questions) |
-| Inventory / Skills / Quest Log / Map / Guild | Toggle-only, via `10_systems/CONTROLS.md` |
+| Inventory / Skills / Quest Log / Map / Party / Guild | Toggle-only, via `10_systems/CONTROLS.md` |
 
 ## Open Questions
 

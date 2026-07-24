@@ -76,7 +76,8 @@ Patterns below are authoring law for the *shape* of a name; the specific name fo
 overall band in `docs/WORLD_PLAN.md`'s Region overview table. A region's maps commonly narrow the
 band along a chain (e.g., an ascending field sequence starts near the region floor and ends near
 its ceiling) rather than every map spanning the full region range. Millbrook's hub maps (region
-band "~15") use a tight band centered on that midpoint rather than a wide range. `level_band`
+band 8–14, `docs/WORLD_PLAN.md`) use a tight band near the region floor (8–9 in authored
+content) rather than a wide range. `level_band`
 feeds `10_systems/SPAWN.md`'s `mob_pool` tuning and a future recommended-level display
 (`10_systems/HUD.md`, not specified here).
 
@@ -101,9 +102,9 @@ per-region table shared with tileset binding.
 ## 6. Combat-free confirmation — resolves an open item
 
 **Decision: `town` and `interior` maps are combat-free** — no `spawn_zones`, no hostile
-`monster_body` presence, no arena boss. This confirms `docs/WORLD_PLAN.md`'s open item ("interiors
-combat-free by default — confirm in MAPS_SYSTEM.md") and `10_systems/SPAWN.md` §2's pending
-assumption: **yes**, for both map types.
+`monster_body` presence, no arena boss. This section owns the rule as **confirmed**: it settles
+the interiors question `docs/WORLD_PLAN.md` formerly carried as an open item (since cleared
+there) and answers `10_systems/SPAWN.md` §2's pending assumption: **yes**, for both map types.
 
 ## 7. Zone state on player death — resolves DEATH_PENALTY.md §5.1
 
