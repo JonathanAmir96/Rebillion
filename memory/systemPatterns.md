@@ -42,17 +42,31 @@ GDScript (GUT) and Elixir (ExUnit).
 process owns every live mob's AI (8 states + 12 profiles + scripted boss phases), spawn
 upkeep, respawn timers, and the off-screen spawn rule. The client only animates mobs.
 
-**Database strategy** (`docs/70_integrations/DATABASE_PERSISTENCE.md`): **one PostgreSQL
-database**, three schemas — `char` / `wallet` / `social` — each with a least-privilege
-role. Chosen over separate databases precisely so value transfers (trades, market buys,
-mail COD, enhance fees) commit as ordinary single-DB multi-schema **ACID transactions —
-no 2PC**. Append-only `wallet_ledger` (balance = same-transaction sum of deltas);
-append-only off-Postgres RNG audit log, written *before* the applying transaction.
-Redis/ETS are cache tiers, **never truth**. Explicit row-lock/isolation discipline for
-multi-row swap paths is a filed Open Question (checklist S6) — resolve before writing
-trade/market code. Note: the owner checklist named Supabase/Colyseus as references;
-**owner-confirmed 2026-07-24 that the Elixir/OTP + Phoenix + PostgreSQL decision
-stands** — those names were illustrative only.
+**Database strategy** (`docs/70_integrations/DATABASE_PERSISTENCE.md`): **one
+Supabase-managed PostgreSQL database** (datastore vendor owner-ratified 2026-07-24),
+three schemas — `char` / `wallet` / `social` — each with a least-privilege role. Chosen
+over separate databases precisely so value transfers (trades, market buys, mail COD,
+enhance fees) commit as ordinary single-DB multi-schema **ACID transactions — no 2PC**.
+Append-only `wallet_ledger` (balance = same-transaction sum of deltas); append-only
+off-Postgres RNG audit log, written *before* the applying transaction. Redis/ETS are
+cache tiers, **never truth**. The Elixir/OTP + Phoenix game-server decision stands
+unchanged — Supabase supplies the database tier only; clients never reach it.
+
+**Transaction semantics — two-sided swaps (owner law 2026-07-24; resolves flag S6):**
+every multi-row value transfer (trade swap, market escrow purchase, mail COD
+payment-vs-claim, wallet mutation) runs as one ACID transaction that takes explicit
+row-level locks up front: `SELECT … FOR UPDATE` on *all* participating rows — both
+wallets, the moving `item_instance`/`inventory_slot` rows, and the `market_listing` /
+`mail` / trade rows — acquired in one deterministic global lock order (ascending table,
+then primary key; lower character id first) so concurrent swaps can never deadlock.
+Preconditions re-validate *under lock* (listing still active, item still owned, wallet
+within cap); deltas + `wallet_ledger` rows apply; then commit — or the whole
+transaction is refused. Two buyers racing one listing: first locker wins, second fails
+closed on re-validation; duplication is impossible because the item row itself is
+locked and moved in the same transaction. Default isolation READ COMMITTED + explicit
+locks; paths that cannot pre-enumerate their rows (offline-import merge) escalate to
+SERIALIZABLE with bounded retry. Full spec lands in `DATABASE_PERSISTENCE.md`'s next
+revision (queued — `activeContext.md`).
 
 ## Non-negotiable laws
 
@@ -74,14 +88,21 @@ repair (`ACCOUNTS_AUTH.md` §2.4).
 Memory-bank workflow tiers, mapped onto the repo's routing law
 (`docs/60_agents/roles/ORG.md` — route by **blast radius**, not volume):
 
-- **Fable — Specs.** Owns specifications, architecture rulings, phase gates, and
-  cross-system reconciliation (the Producer/Lead-Architect seat). Never bulk-generates.
-- **Opus — Logic/Audit.** Hard problems that define rules others consume: formulas,
-  curves, boss/arena design, backend architecture, coding-pass briefs, adversarial
+- **Fable — MANUAL OVERRIDE ONLY** (owner-ratified 2026-07-24; supersedes the earlier
+  "Fable = specs seat" mapping). Fable is never assigned automated pipeline roles — it
+  is invoked exclusively on manual developer trigger for high-level producer decisions,
+  phase-gate rulings, and manual overrides.
+- **Opus — Architecture/Logic/Audit.** The primary automated reasoning engine:
+  cross-system architecture, complex game logic, database schemas, network protocols,
+  math formulas and curves, boss/arena design, coding-pass briefs, adversarial deep
   audits and QA gates.
-- **Sonnet — Execution.** Medium judgment inside a fixed contract: map/quest/NPC
-  batches, schema docs, doc reviews, feature implementation against a spec.
+- **Sonnet — Execution.** Task-bounded implementation inside a fixed contract:
+  map/quest/NPC batches, schema docs, doc reviews, file generation, and diff
+  application within pre-computed manifests.
 - **Haiku — mechanical fill** (template YAML, token scans, stubs), per ORG.md.
+
+`docs/60_agents/roles/ORG.md` amendment queued: the producer seat's *automated* duties
+route to Opus; manual gates and overrides are the developer-triggered Fable seat.
 
 Escalation: unresolved ambiguity → file in the owning doc's `## Open Questions` and
 escalate one tier via the producer — **never guess** (repo Law 4). Leads pre-compute
@@ -94,6 +115,9 @@ manifests so the tier below executes mechanically. Only the producer commits/pus
 - **Diff-only output.** Agents editing existing files emit targeted diffs/edits, never
   full-file rewrites; one concern per commit; content commits separate from doc/rule
   commits.
+- **Cached static reference data** (owner-ratified 2026-07-24 — formalizes the ORG.md
+  demotion rule): leads bake GLOSSARY tokens, ID blocks, enum lists, and exemplar
+  shapes into the batch manifest; executors never re-read owner docs mid-batch.
 - Exemplar-first batching: one real file per schema, then region-scoped parallel
   agents, each batch validator-gated (`python3 tools/validate.py`) before landing.
 

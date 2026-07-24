@@ -2,6 +2,28 @@
 
 Read after `README.md` → `GLOSSARY.md` → `WORLD_PLAN.md`. Newest entries first.
 
+## 2026-07-24 — owner rulings D1–D5 (Memory Bank ratification session)
+
+Ratified alongside the memory-bank reconciliation (`memory/*.md` is the distilled
+record; patch queue + open rulings indexed in `memory/activeContext.md`):
+
+- **D1 — world level cap is a hard Lv 80.** The Lv-300 reserve is retired; LEVELING §6
+  softcap sketch and the ACCOUNTS_AUTH §2.4 82/300 import clamp are queued for patch.
+  Open ruling: Lv 81–82 elite overshoot (clamp vs keep).
+- **D2 — 2nd-job advancement at Lv 30** (supersedes Lv 40; 3rd tier unchanged —
+  reserved, gate Lv 80, future arcs). JOBS/LEVELING/GLOSSARY/job.schema patch queued.
+- **D3 — Supabase-managed PostgreSQL is the mandatory datastore.** Strict ACID with
+  explicit row-level locks (`SELECT … FOR UPDATE`) on every two-sided swap (trades,
+  market escrow, mail COD, wallet moves) — resolves checklist flag S6 as law;
+  DATABASE_PERSISTENCE revision owed. Elixir/OTP + Phoenix server stack unchanged.
+- **D4 — server-authoritative control restated:** physics/combat/damage/minting
+  server-side; movement reconciliation envelope per GAMEPLAY_SIMULATION §2; client
+  input buffering advisory only; offline saves sanitized fail-closed before import.
+- **D5 — token-efficiency laws:** <250 lines/file, diff-only agent outputs,
+  manifest-cached static reference data. Governance: **Fable = manual override only**;
+  Opus = architecture/complex logic/audit; Sonnet = manifest-bounded execution;
+  Haiku = mechanical fill. ORG.md amendment queued.
+
 ## 2026-07-24 — social package: encourage party hunting + raids (owner-directed)
 
 Owner goal: **encourage grouping (party hunting + raids) to build in-game social play** —

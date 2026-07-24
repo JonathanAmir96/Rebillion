@@ -11,7 +11,7 @@
 | Client engine | Godot 4.3+, statically-typed GDScript, 60 Hz physics, `WebSocketPeer` + TLS | ENGINEERING_STANDARDS, BACKEND_ARCHITECTURE §2 |
 | Server | **Elixir/OTP on the BEAM**, engine-independent (no headless Godot); Phoenix for sockets/presence/channels | BACKEND_ARCHITECTURE §2 |
 | Hot paths | Rust NIF/port escape hatch (coding-pass optimization only) | BACKEND_ARCHITECTURE §2 |
-| Transactional DB | **PostgreSQL** — one database, schemas `char`/`wallet`/`social`, least-privilege role each | DATABASE_PERSISTENCE §2 |
+| Transactional DB | **PostgreSQL via Supabase (managed)** — one database, schemas `char`/`wallet`/`social`, least-privilege role each; vendor owner-ratified 2026-07-24 | DATABASE_PERSISTENCE §2 |
 | Audit store | Append-only log store, **off Postgres** (RNG/drop/combat records) | DATABASE_PERSISTENCE §3.4 |
 | Cache | Redis (cross-node) + ETS/Phoenix.Presence (in-node); never source of truth | BACKEND_ARCHITECTURE §3 |
 | Transport | Single persistent **WSS** (port 443), fail-closed TLS, no plaintext | NETWORK_PROTOCOL §1 |
@@ -22,10 +22,11 @@
 
 Rejected (do not relitigate without owner amendment): headless-Godot server, Go,
 Node/Colyseus-style room layer, separate databases + 2PC, Mongo/Dynamo, CockroachDB,
-raw TCP/UDP, QUIC (reserved), Protobuf/CBOR, JWTs. Supabase/Colyseus in the owner
-checklist were illustrative; **the Elixir decision is owner-confirmed (2026-07-24)** —
-rationale includes the autonomous-maintenance end-state (OTP crash reports as agent
-triggers, `docs/60_agents/AUTONOMOUS_MAINTENANCE.md`).
+raw TCP/UDP, QUIC (reserved), Protobuf/CBOR, JWTs. **Owner-ratified 2026-07-24:
+Supabase is the managed-Postgres vendor** (database tier only; Colyseus remains
+illustrative). The Elixir/OTP + Phoenix decision stands — rationale includes the
+autonomous-maintenance end-state (OTP crash reports as agent triggers,
+`docs/60_agents/AUTONOMOUS_MAINTENANCE.md`).
 
 ## Networking protocol (`NETWORK_PROTOCOL.md`)
 
@@ -61,7 +62,9 @@ triggers, `docs/60_agents/AUTONOMOUS_MAINTENANCE.md`).
   `wallet_ledger` (signed delta, balance_after, reason enum); over-cap credit rejected
   pre-commit.
 - `social`: `guild`, `guild_member`, `market_listing`, `mail`, append-only `trade_log`.
-- Transaction rules (§4): every mutating op = one ACID transaction or refused whole;
+- Transaction rules (§4 + owner law 2026-07-24): every mutating op = one ACID
+  transaction or refused whole; explicit `SELECT … FOR UPDATE` row locks in
+  deterministic lock order on every multi-row swap (pattern: `systemPatterns.md`);
   audit-before-commit ordering; two-party trade commits across all three schemas or not
   at all; enhancement consumes stone+fee on success *and* failure.
 - Runtime keys vs authored IDs: authored content (`item_*`, `mob_*`, `map_*`, …) ships
@@ -95,8 +98,9 @@ triggers, `docs/60_agents/AUTONOMOUS_MAINTENANCE.md`).
 - Capacity (launch targets, sized pre-v3 — re-check at balance pass): channel caps 5
   per map, 150 town / 60 field occupancy, ~2,000 players/node.
 - Daily reset 00:00 UTC, weekly Monday 00:00 UTC. Character slots: 3.
-- Authored-content ceiling: import/validation caps re-derived level at **Lv 82
-  authored / 300 game** (`ACCOUNTS_AUTH.md` §2.4).
+- Authored-content ceiling: import/validation clamps re-derived level at the **hard
+  Lv 80 world cap** (owner-ratified 2026-07-24; `ACCOUNTS_AUTH.md` §2.4 patch queued —
+  doc still reads 82/300; the Lv 81–82 elite-overshoot fate is an open ruling).
 - Telemetry: pseudonymous player_id, no PII, fire-and-forget, 90-day proposed
   retention; **no APM/operational telemetry owner yet — filed gap P9.**
 

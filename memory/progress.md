@@ -10,7 +10,7 @@
 |---|---|---|
 | Stats / Combat formula | ✅ | Monster budget load-bearing; move/attack cadence placeholders await tile-scale lock |
 | Leveling / pacing | ✅ | Curve frozen ≤ Lv 100; quest `exp` values in content are stale (regen owed) |
-| Jobs (novice→1st→2nd branching) | ✅ | 3rd tier named-and-reserved only (future arcs) |
+| Jobs (novice→1st→2nd branching) | 🟡 | 2nd-job gate **Lv 30** (owner 2026-07-24, was 40 — doc/content patch owed); 3rd tier reserved (future arcs) |
 | Skill system + effects | ✅ | Heal/shield scaling + summon-cap details flagged |
 | Death penalty / Enhancement / Scrolls | ✅ / ✅ / 🟡 | Scrolls designed; content not minted (blocks reserved) |
 | Drops / Economy / Items / Inventory | 🟡 | Complete rules; all numbers first-pass, retune at balance pass |
@@ -24,10 +24,10 @@
 
 | Doc | Status | Notes |
 |---|---|---|
-| BACKEND_ARCHITECTURE | ✅ | Stack owner-confirmed; hosting/vendor owner-priced |
+| BACKEND_ARCHITECTURE | ✅ | Stack owner-confirmed; datastore = Supabase-managed Postgres (2026-07-24); region/failover owner-priced |
 | GAMEPLAY_SIMULATION | ✅ | Tick/reconciliation/combat pipeline; tolerances want playtest |
 | NETWORK_PROTOCOL | ✅ | 103 opcodes minted; interest-filtering/delta OQ (flag S4/P2) |
-| DATABASE_PERSISTENCE | ✅ | Row-lock + SQL discipline OQ (flag S6/S9); moderation table pending |
+| DATABASE_PERSISTENCE | ✅ | Supabase vendor ratified; S6 resolved as law (`FOR UPDATE`, `systemPatterns.md`); revision owed for full spec + S9; moderation table pending |
 | ACCOUNTS_AUTH | ✅ | Import pipeline fully specified; vendor OQs |
 | WORLD_CHANNELS | ✅ | Capacity targets sized pre-v3 — re-check at balance pass |
 | CHAT_SOCIAL_BACKEND | ✅ | Rate ladders first-pass |
@@ -58,6 +58,8 @@ Not minted (reserved blocks): shields/overalls `item_equip_0181`–`0200`, scrol
 | I — Backend design suite | 70_integrations + opcode registry | ✅ 2026-07-23, audited 07-24 |
 | Sync audits | v3.1 full-tree sync; MD connectivity (98/98 reachable); backend checklist | ✅ |
 | **Memory Bank** | `memory/` persistent context (this directory) | ✅ this commit |
+| **Owner rulings D1–D5** | Hard Lv-80 cap · 2nd job Lv 30 · Supabase + `FOR UPDATE` law · token laws · Fable manual-only | ✅ 2026-07-24 ratified |
+| **Owner-ruling patch wave** | Apply D1/D2/D3 to owning docs + content; re-validate 0/0 | ⬜ next, before E |
 | **Quest-exp regen** | Mechanical regen vs retuned curve | ⬜ next (blocks nothing else) |
 | **E — Coding-pass briefs** | Implementation briefs + OQ rollup index | ⬜ |
 | **Balance pass** | Economy/tonics/drops/capacity retune | ⬜ after E |
@@ -68,6 +70,9 @@ Not minted (reserved blocks): shields/overalls `item_equip_0181`–`0200`, scrol
 
 ## What "done" means for the next milestones
 
+- **Owner-ruling patch wave:** every doc/content reference to the Lv-300 reserve, the
+  82/300 import clamp, and the Lv-40 2nd-job gate is updated per D1/D2; ORG.md records
+  the D5 governance mapping; validator 0/0.
 - **Quest-exp regen:** every quest `exp` = pct × exp_to_next on the frozen curve;
   validator 0/0; one mechanical commit.
 - **Phase E:** per-feature briefs referencing (never restating) owning docs; VALIDATION
