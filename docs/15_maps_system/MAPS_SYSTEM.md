@@ -54,9 +54,17 @@ Size guidance is authoring guidance for Phase D, not a `docs/VALIDATION.md` hard
 | `arena` | Gated boss encounter | 1–2 screens (~40–80 tiles) | 1 screen (~23 tiles), up to 2 for a vertical fight | Yes — boss-scripted only, no zone spawner (§7) |
 | `secret` | Bonus/reward pocket off the main path | ≤2 screens any dimension (~≤80 tiles) | ≤2 screens (~≤45 tiles) | Optional, sparse — `10_systems/SPAWN.md` §2 |
 
-Counts per type are fixed by `docs/WORLD_PLAN.md`/`00_vision/SCOPE.md` (153 field · 95 dungeon ·
-12 town · 30 interior · 11 arena · 28 secret = 329, the 5 added secrets being the raid bonus
-rooms `map_325`-`map_329`, `10_systems/social/RAID.md` §6.E); this doc governs shape, not allocation.
+**Junction sub-case (owner ruling 2026-07-25).** Wide **crossroads/junction** field maps may run
+**7–8 screens wide (~280–320 tiles)**, beyond the ordinary field width band above, when the map's
+purpose is to converge three or more roads. Four such maps exist — the ring junctions
+`map_330`–`map_333` (`docs/ID_REGISTRY.md` junction extension range), each hung additively off
+three existing region roads. Height and combat still follow the `field` row; the exception is
+width only, and it stays authoring guidance, not a `docs/VALIDATION.md` hard check.
+
+Counts per type are fixed by `docs/WORLD_PLAN.md`/`00_vision/SCOPE.md` (157 field · 95 dungeon ·
+12 town · 30 interior · 11 arena · 28 secret = 333, the 5 added secrets being the raid bonus
+rooms `map_325`-`map_329` and the 4 added fields the wide junction crossroads `map_330`-`map_333`,
+`10_systems/social/RAID.md` §6.E and this section's junction sub-case above); this doc governs shape, not allocation.
 
 ## 3. Naming conventions (`display_name`)
 

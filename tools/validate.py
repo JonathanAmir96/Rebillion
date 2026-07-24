@@ -124,6 +124,10 @@ MAP_EXT_BLOCKS = [
     ("millbrook", 325, 325), ("clockwork", 326, 326),
     ("frostpeak", 327, 327), ("voidshore", 328, 328),
     ("arcane_reach", 329, 329),
+    # Junction-field extension range (owner directive 2026-07-25) — wide crossroads fields, one
+    # per host ring region; same two-disjoint-ranges rationale as the raid rooms above.
+    ("millbrook", 330, 330), ("verdant", 331, 331),
+    ("tidewatch", 332, 332), ("ashfall", 333, 333),
 ]
 # Mob region blocks: (slug, normal_lo, normal_hi, elite_lo, elite_hi, boss)
 MOB_BLOCKS = [
@@ -136,7 +140,7 @@ MOB_BLOCKS = [
 ]
 # Category overall numeric ranges (prefix -> (lo, hi, digit_width))
 ID_RANGES = {
-    "map": (1, 329, 3), "mob": (1, 234, 3), "drop_mob": (1, 234, 3),
+    "map": (1, 333, 3), "mob": (1, 234, 3), "drop_mob": (1, 234, 3),
     "npc": (1, 120, 3), "quest": (1, 120, 3),
     "item_equip": (1, 300, 4), "item_use": (1, 60, 4), "item_etc": (1, 200, 4),
     "skill": (1, 60, 3),  # per line; novice caps at 10 but 1-60 is the block

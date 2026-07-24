@@ -7,7 +7,7 @@ five-island / two-arc world (Lv 1–80, 11 bosses, regions R1–R11): all ID ran
 **before any content IDs were minted** (Phase D authored them afterward), which is the only
 permitted kind of re-blocking — never renumber minted IDs.
 
-## Maps — `map_001`–`map_329` (11 region blocks + the raid-bonus extension)
+## Maps — `map_001`–`map_333` (11 region blocks + two extension ranges: raid-bonus + junction fields)
 
 | Region (slug) | Block |
 |---|---|
@@ -45,10 +45,29 @@ disjoint map ranges; `tools/validate.py`'s `MAP_EXT_BLOCKS` carries the same fac
 | `map_328` The Voidtide Trove | `voidshore` | `raid_voidtide` | `map_324` on a raid-entry kill |
 | `map_329` The Orrery Reliquary | `arcane_reach` | `raid_orrery` | `map_284` on a raid-entry kill |
 
-All five are `map_type: secret`. This is the **only** extension range in the map category; new
-regions still take new contiguous blocks. `map_329` was appended 2026-07-24 with `raid_orrery` —
+All five are `map_type: secret`. This is one of **two** extension ranges in the map category (the
+other is the junction-field range below); new regions still take new contiguous blocks. `map_329` was appended 2026-07-24 with `raid_orrery` —
 the fifth raid's one new map ID (`10_systems/social/RAID.md` §2); `map_325`–`map_328` are
 untouched (Law 3).
+
+### Junction-field extension range — `map_330`–`map_333`
+
+Four **wide crossroads fields** (owner directive 2026-07-25) — additive convergence maps that hang
+off three existing ring roads apiece without rerouting any existing edge. Each belongs to its host
+ring region (biome, tileset, and level band all follow that region) but its ID sits in this second
+appended extension range, because every region block above is full and Law 3 forbids renumbering.
+`tools/validate.py`'s `MAP_EXT_BLOCKS` carries the same fact.
+
+| Map | Region | Name | Hangs off |
+|---|---|---|---|
+| `map_330` | `millbrook` | Millbrook Cart-Road Junction | `map_027` · `map_028` · `map_035` |
+| `map_331` | `verdant` | Verdant Hollow Crossways | `map_048` · `map_053` · `map_058` |
+| `map_332` | `tidewatch` | Tidewatch Coast-Road Crossing | `map_078` · `map_083` · `map_088` |
+| `map_333` | `ashfall` | Ashfall Dune Crossroads | `map_130` · `map_136` · `map_140` |
+
+All four are `map_type: field`; their 7–8-screen width is the recognized wide-junction sub-case
+(`15_maps_system/MAPS_SYSTEM.md` §2, owner ruling 2026-07-25). The four host regions each now own
+two disjoint map ranges (their contiguous block plus one ID here).
 
 ### Raid bonus drop tables — `drop_raid_bonus_<raid>`
 

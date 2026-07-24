@@ -34,7 +34,7 @@ code, no generated art. Read `README.md` for the tree map and
   **Arc 2 (Lv 40–80):** the Deepway — a 3-map underground passage from Cindershelf,
   level-gated Lv 40 — surfaces on Frostpeak Isle (40–55); Arcane Reach (53–68) and
   Voidshore (66–80) complete the far isles, linked by the paid, scheduled **longship**
-  network from Tidewatch Port (2–3 min real-time sails). Totals: 329 maps, 234 monsters
+  network from Tidewatch Port (2–3 min real-time sails). Totals: 333 maps, 234 monsters
   (178/45/11), 11 bosses, 5 **raids** (`raid_undervault`/`raid_mainspring`/`raid_deepfrost`/
   `raid_orrery`/`raid_voidtide` — the instanced co-op runs; owner doc
   `docs/10_systems/social/RAID.md`; bands 15–22 · 32–40 · 45–55 · 56–69 · 70–80, the arc-2
@@ -45,6 +45,10 @@ code, no generated art. Read `README.md` for the tree map and
   Weaver→Mossmere, Flicker→Millbrook); maps follow the WORLD_PLAN monster-gradient law.
   Terrain is Maple-style footholds + painted terrain chunks (ART_BIBLE amendment AB-001;
   movement rules in MAP_TRAVERSAL.md).
+- Wide **junction fields** (owner directive 2026-07-25): four extra-wide crossroads `field` maps
+  (`map_330`–`map_333`, ~7–8 screens), one hung additively off the Millbrook / Verdant / Tidewatch /
+  Ashfall ring roads (three existing maps each); no existing edge moved. Width is the recorded
+  MAPS_SYSTEM §2 junction sub-case; IDs sit in a second ID_REGISTRY map extension range.
 - Combat carries a skill-chaining combo layer (owner-directed 2026-07-24,
   `docs/10_systems/COMBO_SYSTEM.md`): `combo_momentum`/`combo_burst`, tier-gated by job tier,
   consumed at COMBAT_FORMULA §2 step 8 inside §15's damage envelope; HUD §7.1 draws the counter.

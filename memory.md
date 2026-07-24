@@ -5,6 +5,35 @@ Companion Memory Bank (distilled current state, coding-pass context):
 `memory/projectbrief.md` → `memory/systemPatterns.md` → `memory/techContext.md` →
 `memory/activeContext.md` → `memory/progress.md`.
 
+## 2026-07-25 — four wide junction fields on the Harthmoor ring (owner-directed)
+
+Branch `claude/wide-junction-maps-2026-07-24`. Owner asked for a few very wide "intersection"
+maps (7–8 screens) with heavy platforming. Delivered four new `field` maps, `map_330`–`map_333`,
+one per ring region, each an additive three-way crossroads hung off three existing region roads
+without rerouting any existing edge:
+
+- **`map_330` Millbrook Cart-Road Junction** — Lv 9–11, 300×34, off `map_027`/`map_028`/`map_035`.
+- **`map_331` Verdant Hollow Crossways** — Lv 12–14, 290×44 (canopy climbs), off `map_048`/`map_053`/`map_058`.
+- **`map_332` Tidewatch Coast-Road Crossing** — Lv 18–20, 310×36, off `map_078`/`map_083`/`map_088`.
+- **`map_333` Ashfall Dune Crossroads** — Lv 30–32, 300×34, off `map_130`/`map_136`/`map_140`.
+
+Each has a lower yard + a mid terrace + an upper door reached by rope/ladder climbables, and 2
+spawn zones reusing exactly one neighbor species per road (gradient law, ≤1 shared). Connectivity
+is additive: the 12 neighbor maps each gained one `door` portal to the junction's matching arrival
+spawn; no existing edge moved.
+
+Bookkeeping: a **second map extension range** `map_330`–`map_333` (`ID_REGISTRY.md`; `validate.py`
+`MAP_EXT_BLOCKS` + `ID_RANGES` map cap 329→333). World total **329 → 333 maps** (157 fields; the
+four host regions each now own two disjoint map ranges). Recorded the **wide-junction width
+sub-case** as an owner ruling in `MAPS_SYSTEM.md` §2 (junction fields may run 7–8 screens;
+width-only exception, still authoring guidance, not a hard check). `validate.py` clean (0/0);
+`md_graph` one component, no new docs.
+
+**Rebased onto `main` @ `9686cb0`.** Caught mid-run: the raid-orrery wave (`0c773cb`) had taken
+`map_329` for the fifth raid's bonus room, shifting these junctions off the original 329-plan to
+`330`–`333`; the mock-up-expansion wave (`9686cb0`) followed. Neither wave touched a neighbor map,
+so the additive connectivity held.
+
 ## 2026-07-25 — mock-up expansion: four new animated pages + a motion pass (owner-directed)
 
 Branch `worktree-mockup-expansion`. Owner asked for "better perspective in game" from the
